@@ -7,7 +7,7 @@ module.exports = class CheckVersion extends Command {
     constructor(client) {
         super(client, {
             name: "check-version",
-            group: "developer",
+            group: "dev",
             memberName: "check-version",
             description: "Checks what version <@388191157869477888> is.",
             aliases: ["version-check", "version"],
