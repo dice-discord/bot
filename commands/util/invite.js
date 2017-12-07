@@ -14,9 +14,6 @@ module.exports = class InviteDice extends Command {
     }
 
     run(msg) {
-        client.generateInvite(['SEND_MESSAGES', 'READ_MESSAGES'])
-            .then(link => {
-                msg.reply(link);
-            });
+        msg.reply("👋 https://discord.now.sh/388191157869477888?p3072");
     }
 };
