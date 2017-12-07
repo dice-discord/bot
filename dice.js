@@ -5,6 +5,7 @@ const {
     CommandoClient
 } = require("discord.js-commando");
 const path = require("path");
+const sqlite3 = require('sqlite3').verbose();
 
 // Set up bot metadata
 const client = new CommandoClient({
