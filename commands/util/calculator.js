@@ -23,10 +23,10 @@ module.exports = class WinCalculator extends Command {
 
     run(msg, { multiplier }) {
         if (multiplier < rules["minMultiplier"]) {
-            return msg.reply(`Your target multiplier must be at least ${rules["minMultiplier"]}.`);
+            return msg.reply(`Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
         }
 
-        var winPercentage = Math.round((100 / multiplier) - rules["houseEdge"]);
+        var winPercentage = Math.round((100 / multiplier) - rules["houseEdgePercentage"]);
         
         return msg.reply(`Win Percentage: \`${winPercentage}%\`.`)
     }
