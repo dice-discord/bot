@@ -1,0 +1,1 @@
+worker: node --harmony dice.js
