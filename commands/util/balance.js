@@ -1,7 +1,7 @@
 const {
     Command
 } = require("discord.js-commando");
-const sqlite3 = require('sqlite3').verbose();
+const sqlite = require("sqlite").verbose();
 
 module.exports = class BalanceCheck extends Command {
     constructor(client) {
@@ -21,12 +21,27 @@ module.exports = class BalanceCheck extends Command {
         });
     }
 
-    run(msg, { user }) {
-        let balancesDB = new sqlite3.Database("../../balances.db")
+    run(msg, {
+        user
+    }) {
+        // Open database
+        sqlite.open("../../balances.sqlite3");
 
-        if (user !== "msg author") {
-            // Check who's balance we are checking
-            return msg.reply(`WIP command`);
+        let targetUser = user;
+
+        if (user == "msg author") {
+            // Message author's balance
+            targetUser = msg.author;
         }
-    };
-}
+
+        // Select any value (there should just be one) where the ID is the same as the author of the message
+        sqlite.get(`SELECT * FROM balances WHERE id ="${targetUser.id}"`).then(row => {
+            // If they don't have a balance, tell them it's 0
+            if (!row) return message.reply("🏦 You have a balance of `0`.");
+            // Get the row's value and tell them
+            return message.reply(`🏦 You have a balance of \`${row.balance}\``);
+        });
+
+        return msg.reply("");
+    }
+};
