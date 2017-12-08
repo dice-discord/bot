@@ -2,14 +2,21 @@
     "name": "dice",
     "description": "Simple dice.",
     "version": "1.0.0-alpha",
-    "keywords": ["discord", "discord bot", "dice", "bustadice", "gambling", "wager"],
+    "keywords": [
+        "discord",
+        "discord bot",
+        "dice",
+        "bustadice",
+        "gambling",
+        "wager"
+    ],
     "license": "Apache-2.0",
-    "repository" :
-    { "type" : "git"
-    , "url" : "https://github.com/PizzaFox/dice.git"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/PizzaFox/dice.git"
     },
-    "url" : "https://github.com/owner/project/issues",
-    "email" : "me@jonahsnider.ninja",
+    "url": "https://github.com/owner/project/issues",
+    "email": "me@jonahsnider.ninja",
     "homepage": "http://jonahsnider.ninja/dice/",
     "main": "dice.js",
     "scripts": {
