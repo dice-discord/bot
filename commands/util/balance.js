@@ -41,7 +41,5 @@ module.exports = class BalanceCheck extends Command {
             // Get the row's value and tell them
             return message.reply(`🏦 You have a balance of \`${row.balance}\``);
         });
-
-        return msg.reply("");
     }
 };
