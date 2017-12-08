@@ -45,7 +45,5 @@ client.on("ready", () => {
     });
 });
 
-
-
 // Log in the bot
 client.login(process.env.BOT_TOKEN);
