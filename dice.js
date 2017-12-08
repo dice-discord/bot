@@ -27,6 +27,12 @@ client.registry
     // Registers all of your commands in the ./commands/ directory
     .registerCommandsIn(path.join(__dirname, "commands"));
 
+// Save settings in SQLite3 database
+client.setProvider(
+    sqlite.open(path.join(__dirname, 'settings.sqlite3'))
+        .then(db => new Commando.SQLiteProvider(db))
+);
+
 client.on("ready", () => {
     console.log("Logged in!");
 
