@@ -10,4 +10,4 @@ For each bet the outcome is randomly chosen between 1x and 1,000,000x. It's up t
 
 If the bet's outcome falls short of your guess, you lose your wager. But if you guessed correctly, your wager is multiplied by your guess!
 
-Why don't you see for yourself?
+[Why don't you see for yourself?](https://discord.now.sh/388191157869477888?p3072)
