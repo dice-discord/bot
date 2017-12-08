@@ -9,7 +9,8 @@
     , "url" : "https://github.com/PizzaFox/dice.git"
     },
     "url" : "https://github.com/owner/project/issues",
-    "email" : "project@hostname.com",
+    "email" : "me@jonahsnider.ninja",
+    "homepage": "http://jonahsnider.ninja/dice/",
     "main": "dice.js",
     "scripts": {
         "start": "node -harmony dice.js"
