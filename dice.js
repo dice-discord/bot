@@ -5,7 +5,7 @@ const {
     CommandoClient
 } = require("discord.js-commando");
 const path = require("path");
-const sqlite = require('sqlite').verbose();
+const sqlite = require("sqlite");
 
 // Set up bot metadata
 const client = new CommandoClient({
@@ -29,7 +29,7 @@ client.registry
 
 // Save settings in SQLite database
 client.setProvider(
-    sqlite.open(path.join(__dirname, 'settings.sqlite3'))
+    sqlite.open(path.join(__dirname, "settings.sqlite3"))
         .then(db => new Commando.SQLiteProvider(db))
 );
 

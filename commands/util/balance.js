@@ -1,7 +1,7 @@
 const {
     Command
 } = require("discord.js-commando");
-const sqlite = require("sqlite").verbose();
+const sqlite = require("sqlite");
 
 module.exports = class BalanceCheck extends Command {
     constructor(client) {
