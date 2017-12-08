@@ -29,7 +29,7 @@ client.registry
 
 // Save settings in SQLite3 database
 client.setProvider(
-    sqlite.open(path.join(__dirname, 'settings.sqlite3'))
+    sqlite3.open(path.join(__dirname, 'settings.sqlite3'))
         .then(db => new Commando.SQLiteProvider(db))
 );
 
