@@ -1,7 +1,15 @@
 {
     "name": "dice",
     "description": "Simple dice.",
-    "version": "1.1.4-alpha",
+    "version": "1.0.0-alpha",
+    "keywords": ["discord", "discord bot", "dice", "bustadice", "gambling", "wager"],
+    "license": "Apache-2.0",
+    "repository" :
+    { "type" : "git"
+    , "url" : "https://github.com/PizzaFox/dice.git"
+    },
+    "url" : "https://github.com/owner/project/issues",
+    "email" : "project@hostname.com",
     "main": "dice.js",
     "scripts": {
         "start": "node -harmony dice.js"
@@ -10,8 +18,7 @@
         "async": "^2.5.0",
         "discord.js": "^11.2.1",
         "discord.js-commando": "github:Gawdl3y/discord.js-commando#11.2",
-        "path": "^0.12.7",
-        "sqlite3": "^3.1.13"
+        "path": "^0.12.7"
     },
     "engines": {
         "node": "8.4.0"
