@@ -19,7 +19,8 @@
         "async": "^2.5.0",
         "discord.js": "^11.2.1",
         "discord.js-commando": "github:Gawdl3y/discord.js-commando#11.2",
-        "path": "^0.12.7"
+        "path": "^0.12.7",
+        "sqlite3": "^3.1.13"
     },
     "engines": {
         "node": "8.4.0"
