@@ -3,7 +3,7 @@ const fs = require("fs");
 
 function updateBalance(id, newBalance) {
     // Load our target user file
-    const pathToJSON = `../../balances/${id}`;
+    const pathToJSON = `./balances/${id}`;
 
     // Convert our data into JSON readable format
     const balanceJSON = {
@@ -17,7 +17,7 @@ function updateBalance(id, newBalance) {
 
 function getBalance(id) {
     // Load our target user file
-    const pathToJSON = `../../balances/${id}`;
+    const pathToJSON = `./balances/${id}`;
 
     if (!fs.existsSync(pathToJSON)) {
         // File doesn't exist, so make one
