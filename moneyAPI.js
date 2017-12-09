@@ -12,7 +12,7 @@ function updateBalance(id, newBalance) {
 
     // Write the balance to a file
     fs.writeFile(pathToJSON, profile);
-};
+}
 
 function getBalance(id) {
     // Load our target user file
@@ -25,7 +25,7 @@ function getBalance(id) {
 
     balanceJSON = require(pathToJSON);
     return balanceJSON["balance"];
-};
+}
 
 module.exports.updatetBalance = updateBalance;
 module.exports.getBalance = getBalance;
