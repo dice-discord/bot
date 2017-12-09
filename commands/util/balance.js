@@ -25,20 +25,19 @@ module.exports = class BalanceCheck extends Command {
     run(msg, {
         user
     }) {
-        // Figure out who's balance we are looking up
-        let targetUserID = user.id;
         if (user == ":msg author:") {
             // We are looking up the message author's balance
-            if (moneyAPI.getBalance(rules["houseID"]) < moneyAPI.getBalance(targetUserID)) {
-                return msg.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots. That's more than the bank!`);
+            if (moneyAPI.getBalance(rules["houseID"]) < moneyAPI.getBalance(msg.author.id) && user.id !== rules["houseID"]) {
+                return msg.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(msg.author.id)}\` dots. That's more than the bank!`);
             } else {
-                return msg.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots.`);
+                return msg.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(msg.author.id)}\` dots.`);
             }
         } else {
-            if (moneyAPI.getBalance(rules["houseID"]) < moneyAPI.getBalance(targetUserID) && user.id !== rules["houseID"]) {
-                return msg.reply(`🏦 That account has a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots. That's more than the bank!`);
+            // Someone else's balance
+            if (moneyAPI.getBalance(rules["houseID"]) < moneyAPI.getBalance(user.id) && user.id !== rules["houseID"]) {
+                return msg.reply(`🏦 That account has a balance of \`${moneyAPI.getBalance(user.id)}\` dots. That's more than the bank!`);
             } else {
-                return msg.reply(`🏦 That account has a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots.`);
+                return msg.reply(`🏦 That account has a balance of \`${moneyAPI.getBalance(user.id)}\` dots.`);
             }
         }
 
