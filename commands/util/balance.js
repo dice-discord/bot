@@ -1,7 +1,8 @@
 const {
     Command
 } = require("discord.js-commando");
-const sqlite = require("sqlite");
+const rules = require("../../rules");
+const moneyAPI = require("../../moneyAPI");
 
 module.exports = class BalanceCheck extends Command {
     constructor(client) {
@@ -11,12 +12,12 @@ module.exports = class BalanceCheck extends Command {
             memberName: "balance",
             description: "Check a user's balance",
             aliases: ["bal", "balance-check", "bal-check"],
-            examples: ["balance", "balance PizzaFox#0075"],
+            examples: ["balance", "balance @PizzaFox#0075"],
             args: [{
                 key: "user",
                 prompt: "Who's balance do you want to check?",
                 type: "user",
-                default: "msg author"
+                default: ":msg author:"
             }]
         });
     }
@@ -24,23 +25,17 @@ module.exports = class BalanceCheck extends Command {
     run(msg, {
         user
     }) {
-        // Open database
-        let balancesDB = new sqlite.Database("../../balances.sqlite3");
-
+        // Figure out who's balance we are looking up
         let targetUserID = user.id;
-
-        if (user == "msg author") {
-            // Message author's balance
+        if (user == ":msg author:") {
+            // We are looking up the message author's balance
             targetUserID = msg.author.id;
         }
 
-        // Select any value (there should just be one) where the ID is the same as the author of the message
-        balancesDB.all(`SELECT * FROM balances WHERE id ="${targetUserID}"`, [])
-            .then(row => {
-                // If they don't have a balance, tell them it's 0
-                if (!row) return message.reply("🏦 You have a balance of `0`.");
-                // Get the row's value and tell them
-                return message.reply(`🏦 You have a balance of \`${row.balance}\``);
-            });
+        if (moneyAPI.getBalance(rules["bankID"]) < moneyAPI.getBalance(targetUserID)) {
+            return message.reply(`🏦 You have a balance of \`${moneyAPI.getBalance}\` dots. That's more than the bank!`);
+        } else {
+            return message.reply(`🏦 You have a balance of \`${moneyAPI.getBalance}\` dots.`);
+        }
     }
 };
