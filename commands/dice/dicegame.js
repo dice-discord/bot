@@ -46,19 +46,16 @@ module.exports = class DiceGame extends Command {
         }
 
         let success;
-
-        let winPercentage = (100 - rules["houseEdgePercentage"]) / multiplier;
-        
         let randomNumber = Math.random() * 100;
 
-        success = (randomNumber < winPercentage);
+        success = (randomNumber < diceAPI.winPercentage(multiplier));
+        
+        // Take away the player's wager no matter what
+        diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) - wager);
+        // Give the wager to the house
+        diceAPI.updateBalance(rules["houseID"], diceAPI.getBalance(rules["houseID"]) + wager);
         
         if (success === false) {
-            // Take away the player's wager
-            diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) - wager);
-            // Give the wager to the house
-            diceAPI.updateBalance(rules["houseID"], diceAPI.getBalance(rules["houseID"]) + wager);
-
             return msg.reply(`❌ You lost \`${wager}\` dots. Your balance is now \`${diceAPI.getBalance(msg.author.id)}\`.`);
         } else {
             // Give the player their winnings
