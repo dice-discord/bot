@@ -27,15 +27,15 @@ module.exports = class BalanceCheck extends Command {
         // Open database
         sqlite.open("../../balances.sqlite3");
 
-        let targetUser = user;
+        let targetUserID = user.id;
 
         if (user == "msg author") {
             // Message author's balance
-            targetUser = msg.author;
+            targetUserID = msg.author.id;
         }
 
         // Select any value (there should just be one) where the ID is the same as the author of the message
-        sqlite.get(`SELECT * FROM balances WHERE id ="${targetUser.id}"`).then(row => {
+        sqlite.get(`SELECT * FROM balances WHERE id ="${targetUserID}"`).then(row => {
             // If they don't have a balance, tell them it's 0
             if (!row) return message.reply("🏦 You have a balance of `0`.");
             // Get the row's value and tell them
