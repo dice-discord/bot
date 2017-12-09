@@ -5,9 +5,9 @@ function updateBalance(id, newBalance) {
     // Load our target user file
     const pathToJSON = `./balances/${id}.json`;
 
-    // Convert our data into JSON readable format
+    // Convert our data into JSON readable format and round it
     let balanceJSON = {
-        balance: newBalance
+        balance: Math.round(newBalance)
     };
     balanceJSON = JSON.stringify(balanceJSON);
 
@@ -25,7 +25,8 @@ function getBalance(id) {
     }
 
     const balanceJSON = JSON.parse(fs.readFileSync(pathToJSON));
-    return balanceJSON["balance"];
+    // Round number
+    return Math.round(balanceJSON["balance"]);
 }
 
 function winPercentage(multiplier) {
