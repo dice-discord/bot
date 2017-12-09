@@ -16,9 +16,9 @@
         "type": "git",
         "url": "https://github.com/PizzaFox/dice.git"
     },
-    "url": "https://github.com/owner/project/issues",
+    "url": "https://github.com/PizzaFox/dice/issues",
     "email": "me@jonahsnider.ninja",
-    "homepage": "http://jonahsnider.ninja/dice/",
+    "homepage": "https://github.com/PizzaFox/dice/blob/master/README.md",
     "main": "dice.js",
     "scripts": {
         "start": "node -harmony dice.js"
