@@ -2,6 +2,7 @@
     "name": "dice",
     "description": "Simple dice.",
     "version": "1.4.15-alpha",
+    "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
     "keywords": [
         "discord",
         "discord bot",
