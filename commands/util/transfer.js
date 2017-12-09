@@ -43,7 +43,7 @@ module.exports = class TransferDots extends Command {
 
         // Remove dots from sender
         moneyAPI.updateBalance(user.id, moneyAPI.getBalance(msg.author.id) - amount);
-        
+
         // Add dots to receiver
         moneyAPI.updateBalance(user.id, amount + moneyAPI.getBalance(user.id));
 
