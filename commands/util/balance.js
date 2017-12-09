@@ -11,7 +11,7 @@ module.exports = class BalanceCheck extends Command {
             group: "util",
             memberName: "balance",
             description: "Check a user's balance",
-            aliases: ["bal", "balance-check", "bal-check"],
+            aliases: ["bal", "balance-check", "bal-check", "credits"],
             examples: ["balance", "balance @PizzaFox#0075"],
             args: [{
                 key: "user",
