@@ -33,9 +33,9 @@ module.exports = class BalanceCheck extends Command {
         }
 
         if (moneyAPI.getBalance(rules["houseID"]) < moneyAPI.getBalance(targetUserID)) {
-            return message.reply(`🏦 You have a balance of \`${moneyAPI.getBalance}\` dots. That's more than the bank!`);
+            return message.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots. That's more than the bank!`);
         } else {
-            return message.reply(`🏦 You have a balance of \`${moneyAPI.getBalance}\` dots.`);
+            return message.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots.`);
         }
     }
 };
