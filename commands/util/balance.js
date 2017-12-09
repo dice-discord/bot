@@ -29,13 +29,19 @@ module.exports = class BalanceCheck extends Command {
         let targetUserID = user.id;
         if (user == ":msg author:") {
             // We are looking up the message author's balance
-            targetUserID = msg.author.id;
+            if (moneyAPI.getBalance(rules["houseID"]) < moneyAPI.getBalance(targetUserID)) {
+                return msg.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots. That's more than the bank!`);
+            } else {
+                return msg.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots.`);
+            }
+        } else {
+            if (moneyAPI.getBalance(rules["houseID"]) < moneyAPI.getBalance(targetUserID) && user.id !== rules["houseID"]) {
+                return msg.reply(`🏦 That account has a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots. That's more than the bank!`);
+            } else {
+                return msg.reply(`🏦 That account has a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots.`);
+            }
         }
 
-        if (moneyAPI.getBalance(rules["houseID"]) < moneyAPI.getBalance(targetUserID)) {
-            return msg.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots. That's more than the bank!`);
-        } else {
-            return msg.reply(`🏦 You have a balance of \`${moneyAPI.getBalance(targetUserID)}\` dots.`);
-        }
+        
     }
 };
