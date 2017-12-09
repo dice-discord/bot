@@ -2,7 +2,7 @@ const {
     Command
 } = require("discord.js-commando");
 const rules = require("../../rules");
-const moneyAPI = require("../../moneyAPI");
+const diceAPI = require("../../diceAPI");
 
 module.exports = class TransferDots extends Command {
     constructor(client) {
@@ -32,8 +32,8 @@ module.exports = class TransferDots extends Command {
         // Amount checking
         if (amount < rules["minWager"]) {
             return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` dots.`);
-        } else if (amount > moneyAPI.getBalance(msg.author.id)) {
-            return msg.reply(`❌ You need to have at least \`${amount}\`. Your balance is \`${moneyAPI.getBalance(msg.author.id)}\`.`);
+        } else if (amount > diceAPI.getBalance(msg.author.id)) {
+            return msg.reply(`❌ You need to have at least \`${amount}\`. Your balance is \`${diceAPI.getBalance(msg.author.id)}\`.`);
         }
 
         // No sending money to yourself
@@ -50,18 +50,18 @@ module.exports = class TransferDots extends Command {
         amount = Math.round(amount);
 
         // Remove dots from sender
-        moneyAPI.updateBalance(msg.author.id, moneyAPI.getBalance(msg.author.id) - amount);
+        diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) - amount);
 
         // Add dots to receiver
-        moneyAPI.updateBalance(user.id, parseInt(amount) + parseInt(moneyAPI.getBalance(user.id)));
+        diceAPI.updateBalance(user.id, parseInt(amount) + parseInt(diceAPI.getBalance(user.id)));
 
         // Tell the receiver
         
         user.createDM().then(dmChannel => {
-            dmChannel.send(`📥 <@${msg.author.id}> transferred  \`${amount}\` dots to you. You now have a balance of \`${moneyAPI.getBalance(user.id)}\` dots.`);
+            dmChannel.send(`📥 <@${msg.author.id}> transferred  \`${amount}\` dots to you. You now have a balance of \`${diceAPI.getBalance(user.id)}\` dots.`);
         });
 
         // Tell the sender
-        return msg.reply(`📤 Transferred \`${amount}\` dots to <@${user.id}>. You now have a balance of \`${moneyAPI.getBalance(msg.author.id)}\` dots.`);
+        return msg.reply(`📤 Transferred \`${amount}\` dots to <@${user.id}>. You now have a balance of \`${diceAPI.getBalance(msg.author.id)}\` dots.`);
     }
 };

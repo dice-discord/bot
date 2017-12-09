@@ -28,5 +28,10 @@ function getBalance(id) {
     return balanceJSON["balance"];
 }
 
+function winPercentage(multiplier) {
+    return (100 - rules["houseEdgePercentage"]) / multiplier;
+}
+
 module.exports.updateBalance = updateBalance;
 module.exports.getBalance = getBalance;
+module.exports.winPercentage = winPercentage;
