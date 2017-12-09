@@ -54,10 +54,18 @@ module.exports = class DiceGame extends Command {
         success = (randomNumber < winPercentage);
         
         if (success === false) {
+            // Take away the player's wager
             diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) - wager);
+            // Give the wager to the house
+            diceAPI.updateBalance(rules["houseID"], diceAPI.getBalance(rules["houseID"]) + wager);
+
             return msg.reply(`❌ You lost \`${wager}\` dots. Your balance is now \`${diceAPI.getBalance(msg.author.id)}\`.`);
         } else {
-            diceAPI.updateBalance(msg.author.id, (wager * multiplier) + diceAPI.getBalance(msg.author.id));
+            // Give the player their winnings
+            diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) + (wager * multiplier));
+            // Take the winnings from the house
+            diceAPI.updateBalance(rules["houseID"], diceAPI.getBalance(rules["houseID"]) - (wager * multiplier));
+
             return msg.reply(`💰 You won \`${wager * multiplier}\` dots! Your balance is now \`${diceAPI.getBalance(msg.author.id)}\`.`);
         }
 
