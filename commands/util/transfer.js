@@ -33,7 +33,7 @@ module.exports = class TransferDots extends Command {
         if (amount < rules["minWager"]) {
             return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` dots.`);
         } else if (amount > moneyAPI.getBalance(msg.author.id)) {
-            return msg.reply(`❌ You need to have at least \`${wager}\`. Your balance is \`${moneyAPI.getBalance(msg.author.id)}\`.`);
+            return msg.reply(`❌ You need to have at least \`${amount}\`. Your balance is \`${moneyAPI.getBalance(msg.author.id)}\`.`);
         }
 
         // No sending money to yourself
