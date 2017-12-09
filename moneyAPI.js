@@ -6,25 +6,25 @@ function updateBalance(id, newBalance) {
     const pathToJSON = `./balances/${id}.json`;
 
     // Convert our data into JSON readable format
-    const balanceJSON = {
+    let balanceJSON = {
         balance: newBalance
     };
-    const profile = JSON.stringify(balanceJSON);
+    balanceJSON = JSON.stringify(balanceJSON);
 
     // Write the balance to a file
-    fs.writeFile(pathToJSON, profile);
+    fs.writeFileSync(pathToJSON, balanceJSON);
 }
 
 function getBalance(id) {
     // Load our target user file
     const pathToJSON = `./balances/${id}.json`;
 
-    if (!fs.existsSync(pathToJSON)) {
+    if (fs.existsSync(pathToJSON) === false) {
         // File doesn't exist, so make one
         updateBalance(id, rules["newUserBalance"]);
     }
 
-    const balanceJSON = require(pathToJSON);
+    const balanceJSON = JSON.parse(fs.readFileSync(pathToJSON));
     return balanceJSON["balance"];
 }
 
