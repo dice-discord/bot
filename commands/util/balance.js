@@ -32,7 +32,7 @@ module.exports = class BalanceCheck extends Command {
             targetUserID = msg.author.id;
         }
 
-        if (moneyAPI.getBalance(rules["bankID"]) < moneyAPI.getBalance(targetUserID)) {
+        if (moneyAPI.getBalance(rules["houseID"]) < moneyAPI.getBalance(targetUserID)) {
             return message.reply(`🏦 You have a balance of \`${moneyAPI.getBalance}\` dots. That's more than the bank!`);
         } else {
             return message.reply(`🏦 You have a balance of \`${moneyAPI.getBalance}\` dots.`);
