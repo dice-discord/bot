@@ -1,4 +1,4 @@
-const rules = require("../../rules");
+const rules = require("./rules");
 const pathToJSON = `../../balances/${id}`;
 
 module.exports = function updateBalance(id, newBalance) {
