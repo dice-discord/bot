@@ -1,4 +1,5 @@
 const rules = require("./rules");
+var fs = require("fs");
 
 function updateBalance(id, newBalance) {
     // Load our target user file
