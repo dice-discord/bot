@@ -56,7 +56,6 @@ module.exports = class TransferDots extends Command {
         diceAPI.updateBalance(user.id, parseInt(amount) + parseInt(diceAPI.getBalance(user.id)));
 
         // Tell the receiver
-        
         user.createDM().then(dmChannel => {
             dmChannel.send(`📥 <@${msg.author.id}> transferred  \`${amount}\` dots to you. You now have a balance of \`${diceAPI.getBalance(user.id)}\` dots.`);
         });
