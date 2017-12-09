@@ -1,6 +1,6 @@
 # Dice
 
-Dice is a simple game. You have a wager and a multiplier. Higher risk, higher rewards.
+A simple game. You have a wager and a multiplier. Higher risk, higher rewards.
 
 ### [Invite to Your Server](https://discord.now.sh/388191157869477888?p3072)
 
