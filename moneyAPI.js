@@ -1,9 +1,9 @@
 const rules = require("./rules");
-const pathToJSON = `../../balances/${id}`;
+
 
 module.exports = function updateBalance(id, newBalance) {
     // Load our target user file
-    
+    const pathToJSON = `../../balances/${id}`;
 
     // Convert our data into JSON readable format
     var balanceJSON = {
@@ -17,6 +17,8 @@ module.exports = function updateBalance(id, newBalance) {
 
 module.exports = function getBalance(id) {
     // Load our target user file
+    const pathToJSON = `../../balances/${id}`;
+    
     if (!fs.existsSync(`../../balances/${id}`)) {
         // File doesn't exist, so make one
         updateBalance(id, rules["newUserBalance"]);
