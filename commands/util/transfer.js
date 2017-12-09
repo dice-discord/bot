@@ -41,15 +41,24 @@ module.exports = class TransferDots extends Command {
             return msg.reply("❌ You can't send money to yourself.");
         }
 
+        // No sending money to bots
+        if (user.bot === true) {
+            return msg.reply("❌ You can't send dots to bots.");
+        }
+
+        // Round to whole number
+        amount = Math.round(amount);
+
         // Remove dots from sender
-        moneyAPI.updateBalance(user.id, moneyAPI.getBalance(msg.author.id) - amount);
+        moneyAPI.updateBalance(msg.author.id, moneyAPI.getBalance(msg.author.id) - amount);
 
         // Add dots to receiver
-        moneyAPI.updateBalance(user.id, amount + moneyAPI.getBalance(user.id));
+        moneyAPI.updateBalance(user.id, parseInt(amount) + parseInt(moneyAPI.getBalance(user.id)));
 
         // Tell the receiver
+        
         user.createDM().then(dmChannel => {
-            dmChannel.send(`📥 <@${msg.author.id}> transferred  \`${amount}\` dots to you. You now have a balance of \`${moneyAPI.getBalance}\` dots.`);
+            dmChannel.send(`📥 <@${msg.author.id}> transferred  \`${amount}\` dots to you. You now have a balance of \`${moneyAPI.getBalance(user.id)}\` dots.`);
         });
 
         // Tell the sender
