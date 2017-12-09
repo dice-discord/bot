@@ -47,7 +47,7 @@ module.exports = class DiceGame extends Command {
 
         // Round numbers to second decimal place
         let randomNumber = (Math.random() * 100).toFixed(2);
-        multiplier = multiplier.toFixed(2);
+        multiplier = (multiplier).toFixed(2);
 
         // Round wager to whole number
         wager = Math.round(wager);
