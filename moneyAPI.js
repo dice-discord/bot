@@ -27,5 +27,5 @@ function getBalance(id) {
     return balanceJSON["balance"];
 }
 
-module.exports.updatetBalance = updateBalance;
+module.exports.updateBalance = updateBalance;
 module.exports.getBalance = getBalance;
