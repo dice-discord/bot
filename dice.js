@@ -18,7 +18,8 @@ client.registry
     .registerGroups([
         ["dice", "Dice"],
         ["util", "Utility"],
-        ["dev", "Developer"]
+        ["dev", "Developer"],
+        ["economy", "Economy"]
     ])
 
     // Registers all built-in groups, commands, and argument types

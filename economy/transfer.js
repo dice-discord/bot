@@ -8,7 +8,7 @@ module.exports = class TransferDots extends Command {
     constructor(client) {
         super(client, {
             name: "transfer",
-            group: "util",
+            group: "economy",
             memberName: "transfer",
             description: "Tranfser dots to another user",
             aliases: ["send", "pay"],
@@ -33,7 +33,7 @@ module.exports = class TransferDots extends Command {
         if (amount < rules["minWager"]) {
             return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` dots.`);
         } else if (amount > diceAPI.getBalance(msg.author.id)) {
-            return msg.reply(`❌ You need to have at least \`${amount}\`. Your balance is \`${diceAPI.getBalance(msg.author.id)}\`.`);
+            return msg.reply(`❌ You need to have at least \`${amount}\` dots. Your balance is \`${diceAPI.getBalance(msg.author.id)}\`.`);
         }
 
         // No sending money to yourself
@@ -42,18 +42,18 @@ module.exports = class TransferDots extends Command {
         }
 
         // No sending money to bots
-        if (user.bot === true) {
+        if (user.bot === true && user.id !== "388191157869477888") {
             return msg.reply("❌ You can't send dots to bots.");
         }
 
         // Round to whole number
-        amount = Math.round(amount);
+        amount = Math.round(parseInt(amount));
 
         // Remove dots from sender
-        diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) - amount);
+        diceAPI.decreaseBalance(msg.author.id, amount);
 
         // Add dots to receiver
-        diceAPI.updateBalance(user.id, parseInt(amount) + diceAPI.getBalance(user.id));
+        diceAPI.increaseBalance(user.id, amount);
 
         // Tell the receiver
         user.createDM().then(dmChannel => {

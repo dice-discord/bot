@@ -8,7 +8,7 @@ module.exports = class BalanceCheck extends Command {
     constructor(client) {
         super(client, {
             name: "balance",
-            group: "util",
+            group: "economy",
             memberName: "balance",
             description: "Check a user's balance",
             aliases: ["bal", "balance-check", "bal-check", "credits"],
