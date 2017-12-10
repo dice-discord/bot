@@ -5,6 +5,7 @@ const {
     CommandoClient
 } = require("discord.js-commando");
 const path = require("path");
+const winston = require("winston");
 const sqlite = require("sqlite");
 
 // Set up bot metadata
@@ -35,7 +36,7 @@ client.setProvider(
 );
 
 client.on("ready", () => {
-    console.log("Logged in!");
+    winston.info("Logged in!");
 
     // Set game presence to the help command once loaded
     client.user.setPresence({
