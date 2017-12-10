@@ -17,9 +17,9 @@ module.exports = class AddBalance extends Command {
                 key: "amount",
                 prompt: "How many dots do you want to add?",
                 type: "string",
-                validate: amount => {
+                validate: (amount, msg) => {
                     if (amount < rules["minWager"]) {
-                        return `❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`;
+                        return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
                     }
                     return true;
                 },
