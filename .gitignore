@@ -60,5 +60,5 @@ typings/
 # VSCode
 .vscode/launch.json
 
-# User data
-balances/*.json
+# Local user data from debugging
+balances/*
