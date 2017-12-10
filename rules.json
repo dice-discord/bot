@@ -1,6 +1,6 @@
 {
     "minMultiplier": 1.01,
-    "maxMultiplier": 1000000,
+    "maxMultiplier": 100,
     "minWager": 1,
     "currencyPlural": "dots",
     "newUserBalance": 100,

@@ -1,5 +1,5 @@
 const rules = require("../../rules");
-const diceAPI = require("../../");
+const diceAPI = require("../../diceAPI");
 const {
     Command
 } = require("discord.js-commando");
