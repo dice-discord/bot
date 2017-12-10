@@ -21,7 +21,11 @@ module.exports = class AddBalance extends Command {
                 key: "user",
                 prompt: "Who do you want to add dots to?",
                 type: "user"
-            }]
+            }],
+            throttling: {
+                usages: 2,
+                duration: 30
+            }
         });
     }
 

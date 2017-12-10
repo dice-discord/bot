@@ -18,7 +18,11 @@ module.exports = class CheckBalance extends Command {
                 prompt: "Who's balance do you want to check?",
                 type: "user",
                 default: ":msg author:"
-            }]
+            }],
+            throttling: {
+                usages: 2,
+                duration: 10
+            }
         });
     }
 

@@ -21,7 +21,11 @@ module.exports = class RemoveBalance extends Command {
                 key: "user",
                 prompt: "Who do you want to remove dots from?",
                 type: "user"
-            }]
+            }],
+            throttling: {
+                usages: 2,
+                duration: 30
+            }
         });
     }
 

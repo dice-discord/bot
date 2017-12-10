@@ -21,7 +21,11 @@ module.exports = class DiceGameCommand extends Command {
                 key: "multiplier",
                 prompt: "How much do you want to multiply your wager by?",
                 type: "string"
-            }]
+            }],
+            throttling: {
+                usages: 1,
+                duration: 1
+            }
         });
     }
 

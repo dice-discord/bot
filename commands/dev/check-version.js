@@ -11,8 +11,11 @@ module.exports = class CheckVersionCommand extends Command {
             memberName: "check-version",
             description: "Checks what version <@388191157869477888> is.",
             aliases: ["version-check", "version"],
-            autoAliases: true,
             examples: ["check-version"],
+            throttling: {
+                usages: 1,
+                duration: 30
+            }
         });
     }
 

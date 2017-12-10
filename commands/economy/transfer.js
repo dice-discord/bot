@@ -21,7 +21,11 @@ module.exports = class TransferDots extends Command {
                 key: "user",
                 prompt: "Who do you want to transfer dots to?",
                 type: "user"
-            }]
+            }],
+            throttling: {
+                usages: 1,
+                duration: 30
+            }
         });
     }
 
