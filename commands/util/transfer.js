@@ -53,7 +53,7 @@ module.exports = class TransferDots extends Command {
         diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) - amount);
 
         // Add dots to receiver
-        diceAPI.updateBalance(user.id, parseInt(amount) + parseInt(diceAPI.getBalance(user.id)));
+        diceAPI.updateBalance(user.id, parseInt(amount) + diceAPI.getBalance(user.id));
 
         // Tell the receiver
         user.createDM().then(dmChannel => {
