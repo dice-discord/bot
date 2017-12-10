@@ -3,7 +3,7 @@ var mongodb = require("mongodb");
 
 // Set up database variables
 let uri = process.env.MONGODB_URI;
-mongodb.MongoClient.connect(uri, function (err, db) {
+mongodb.MongoClient.connect(uri, function(err, db) {
     if (err) throw err;
 
     let balances = db.collection("balances");
@@ -15,12 +15,14 @@ mongodb.MongoClient.connect(uri, function (err, db) {
     }
     
     function updateBalance(requestedID, newBalance) {
-        // Find result with the requested ID
-        balances.findOneAndUpdate({
-            id: requestedID
-        }, {$set: {balance: Math.round(newBalance)}}, {upsert: true}, function() {
-            return;
-        });
+        balances.updateOne(
+            {id: requestedID},
+            {$set: {balance: Math.round(newBalance)}},
+            {upsert: true},
+            function() {
+                return;
+            }
+        );
     }
 
     function decreaseBalance(id, amount) {
@@ -30,11 +32,11 @@ mongodb.MongoClient.connect(uri, function (err, db) {
     function increaseBalance(id, amount) {
         updateBalance(id, getBalance(id) + Math.round(amount));
     }
+
     module.exports.updateBalance = updateBalance;
     module.exports.getBalance = getBalance;
     module.exports.decreaseBalance = decreaseBalance;
     module.exports.increaseBalance = increaseBalance;
-    
 });
 
 function winPercentage(multiplier) {
