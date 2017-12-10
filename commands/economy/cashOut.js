@@ -17,12 +17,6 @@ module.exports = class RemoveBalance extends Command {
                 key: "amount",
                 prompt: "How many dots do you want to remove?",
                 type: "string",
-                validate: amount => {
-                    if (amount < rules["minWager"]) {
-                        return `❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`;
-                    }
-                    return true;
-                },
                 // Convert string to number and round it
                 parse: amountString => Math.round(parseInt(amountString))
             }],
@@ -39,6 +33,11 @@ module.exports = class RemoveBalance extends Command {
         // Permission checking
         if (msg.author.isOwner === false) {
             return msg.reply("❌ You must be an owner to use this command.");
+        }
+
+        // Wager checking
+        if (amount < rules["minWager"]) {
+            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
         }
 
         // Round to whole number
