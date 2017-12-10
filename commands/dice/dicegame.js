@@ -45,10 +45,10 @@ module.exports = class DiceGame extends Command {
         // Wager checking
         if (wager < rules["minWager"]) {
             return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` dots.`);
-        } else if (wager > diceAPI.getBalance(rules["houseID"])) {
-            return msg.reply(`❌ Your wager must be less than \`${diceAPI.getBalance(rules["houseID"])}\` dots.`);
         } else if (wager > diceAPI.getBalance(msg.author.id)) {
             return msg.reply(`❌ You are missing \`${wager - diceAPI.getBalance(msg.author.id)}\` dots. Your balance is \`${diceAPI.getBalance(msg.author.id)}\` dots.`);
+        } else if ((wager * multiplier) > diceAPI.getBalance(rules["houseID"])) {
+            return msg.reply("❌ I couldn't pay your winnings if you won.");
         }
 
         // Round numbers to second decimal place
@@ -58,9 +58,9 @@ module.exports = class DiceGame extends Command {
         let success = (randomNumber < diceAPI.winPercentage(multiplier));
 
         // Take away the player's wager no matter what
-        diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) - wager);
+        diceAPI.decreaseBalance(msg.author.id, wager);
         // Give the wager to the house
-        diceAPI.updateBalance(rules["houseID"], diceAPI.getBalance(rules["houseID"]) + wager);
+        diceAPI.increaseBalance(rules["houseID"], wager);
 
         // Variables for later use in embed
         let color;
@@ -69,16 +69,16 @@ module.exports = class DiceGame extends Command {
         if (success === false) {
             // Red color and loss message
             color = 0xf44334;
-            result = `❌ You lost \`${wager * multiplier}\` dots.`;
+            result = `❌ You lost \`${wager}\` dots.`;
         } else {
             // Give the player their winnings
-            diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) + (wager * multiplier));
+            diceAPI.increaseBalance(msg.author.id, (wager * multiplier));
             // Take the winnings from the house
-            diceAPI.updateBalance(rules["houseID"], diceAPI.getBalance(rules["houseID"]) - (wager * multiplier));
+            diceAPI.removeBalance(rules["houseID"], (wager * multiplier));
 
             // Green color and win message
             color = 0x4caf50;
-            result = `💰 You won \`${wager * multiplier}\` dots!`;
+            result = `💰 You made \`${(wager * multiplier) - wager}\` dots of profit!`;
         }
 
         msg.channel.send({
