@@ -15,7 +15,7 @@ function updateBalance(id, newBalance) {
     fs.writeFileSync(pathToJSON, balanceJSON);
 }
 
-function removeBalance(id, amount) {
+function decreaseBalance(id, amount) {
     // Load our target user file
     const pathToJSON = `./balances/${id}.json`;
 
@@ -63,6 +63,6 @@ function winPercentage(multiplier) {
 
 module.exports.updateBalance = updateBalance;
 module.exports.getBalance = getBalance;
-module.exports.removeBalance = removeBalance;
+module.exports.decreaseBalance = decreaseBalance;
 module.exports.increaseBalance = increaseBalance;
 module.exports.winPercentage = winPercentage;

@@ -91,7 +91,7 @@ module.exports = class DiceGameCommand extends Command {
             // Give the player their winnings
             diceAPI.increaseBalance(msg.author.id, (wager * multiplier));
             // Take the winnings from the house
-            diceAPI.removeBalance(rules["houseID"], (wager * multiplier));
+            diceAPI.decreaseBalance(rules["houseID"], (wager * multiplier));
 
             // Green color and win message
             color = 0x4caf50;
