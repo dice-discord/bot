@@ -38,18 +38,17 @@ module.exports = class RemoveBalance extends Command {
         // Permission checking
         if (msg.author.isOwner === false) {
             return msg.reply("❌ You must be an owner to use this command.");
-        } else if (user.bot === true && user.id !== 388191157869477888) {
+        } else if (user.bot === true && user.id !== "388191157869477888") {
             return msg.reply("❌ You can't remove dots from bots.");
         }
-        return true;
 
         // Wager checking
         if (amount < rules["minWager"]) {
-            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`;
+            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
         }
 
-        // Round to whole number
-        amount = Math.round(amount);
+        /*// Round to whole number
+        amount = Math.round(amount);*/
 
         // Remove dots from user
         diceAPI.decreaseBalance(user.id, amount);
