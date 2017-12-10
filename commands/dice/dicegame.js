@@ -30,15 +30,15 @@ module.exports = class DiceGame extends Command {
         multiplier
     }) {
         // Round multiplier to second decimal place
-        multiplier = parseInt(multiplier).toFixed(2);
+        multiplier = parseInt(multiplier.toFixed(2));
 
         // Round wager to whole number
         wager = Math.round(parseInt(wager));
 
         // Multiplier checking
-        if (multiplier < rules["minMultiplier"].toFixed(2)) {
+        if (multiplier < parseInt(rules["minMultiplier"].toFixed(2))) {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
-        } else if (multiplier > rules["maxMultiplier"].toFixed(2)) {
+        } else if (multiplier > parseInt(rules["maxMultiplier"].toFixed(2))) {
             return msg.reply(`❌ Your target multiplier must be less than \`${rules["maxMultiplier"]}\`.`);
         }
 
@@ -52,7 +52,7 @@ module.exports = class DiceGame extends Command {
         }
 
         // Round numbers to second decimal place
-        let randomNumber = (Math.random() * 100).toFixed(2);
+        let randomNumber = parseInt((Math.random() * 100).toFixed(2));
 
         // Get boolean if the random number is less than the multiplier
         let success = (randomNumber < diceAPI.winPercentage(multiplier));
