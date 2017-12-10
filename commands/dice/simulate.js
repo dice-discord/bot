@@ -15,11 +15,11 @@ module.exports = class SimulateGameCommand extends Command {
             examples: ["simulate 250 4"],
             args: [{
                 key: "wager",
-                prompt: "How much do you want to pretend to wager?",
+                prompt: "How much do you want to wager?",
                 type: "string"
             }, {
                 key: "multiplier",
-                prompt: "How much do you want to pretend to multiply your wager by?",
+                prompt: "How much do you want to multiply your wager by?",
                 type: "string"
             }]
         });
