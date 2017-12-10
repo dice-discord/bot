@@ -6,7 +6,7 @@ let uri = process.env.MONGODB_URI;
 mongodb.MongoClient.connect(uri, function(err, db) {
     if (err) throw err;
 
-    let balances = db.collection("balances");
+    var balances = db.collection("balances");
 
     function getBalance(requestedID) {
         // Set variable to the balance of user balance
