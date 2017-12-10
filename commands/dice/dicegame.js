@@ -43,9 +43,9 @@ module.exports = class DiceGameCommand extends Command {
         winston.level = "info";
 
         // Multiplier checking
-        if (multiplier < parseInt(rules["minMultiplier"].toFixed(2))) {
+        if (multiplier < parseFloat(rules["minMultiplier"].toFixed(2))) {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
-        } else if (multiplier > parseInt(rules["maxMultiplier"].toFixed(2))) {
+        } else if (multiplier > parseFloat(rules["maxMultiplier"].toFixed(2))) {
             return msg.reply(`❌ Your target multiplier must be less than \`${rules["maxMultiplier"]}\`.`);
         }
 
@@ -59,7 +59,7 @@ module.exports = class DiceGameCommand extends Command {
         }
 
         // Round numbers to second decimal place
-        let randomNumber = parseInt((Math.random() * 100).toFixed(2));
+        let randomNumber = parseFloat((Math.random() * 100).toFixed(2));
 
         // Get boolean if the random number is less than the multiplier
         let success = (randomNumber < diceAPI.winPercentage(multiplier));
@@ -72,6 +72,7 @@ module.exports = class DiceGameCommand extends Command {
         // Variables for later use in embed
         let color;
         let result;
+        let profit = Math.round((wager * multiplier) - wager);
 
         if (success === false) {
             // Red color and loss message
@@ -85,7 +86,7 @@ module.exports = class DiceGameCommand extends Command {
 
             // Green color and win message
             color = 0x4caf50;
-            result = `You made \`${(wager * multiplier) - wager}\` ${rules["currencyPlural"]} of profit!`;
+            result = `You made \`${profit}\` ${rules["currencyPlural"]} of profit!`;
         }
 
         msg.channel.send({
