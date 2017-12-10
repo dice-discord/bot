@@ -2,6 +2,7 @@ const {
     Command
 } = require("discord.js-commando");
 const rules = require("../../rules");
+const winston = require("winston");
 const diceAPI = require("../../diceAPI");
 
 module.exports = class DiceGameCommand extends Command {
@@ -16,17 +17,11 @@ module.exports = class DiceGameCommand extends Command {
             args: [{
                 key: "wager",
                 prompt: "How much do you want to wager?",
-                type: "string",
-                // Convert string to number and round it
-                
-                parse: wagerString => Math.round(parseInt(wagerString))
+                type: "string"
             }, {
                 key: "multiplier",
                 prompt: "How much do you want to multiply your wager by?",
-                type: "string",
-                /* Round multiplier to second decimal place
-                Convert multiplier string to int, and convert toFixed string into int */
-                parse: multiplierString =>parseInt(parseInt(multiplierString).toFixed(2))
+                type: "string"
             }],
             throttling: {
                 usages: 1,
@@ -39,6 +34,18 @@ module.exports = class DiceGameCommand extends Command {
         wager,
         multiplier
     }) {
+        winston.level = debug;
+        // Round multiplier to second decimal place
+        // Convert multiplier string to float, and convert toFixed string into float
+        winston.debug(`Value of multiplier before anything: ${multiplier}`);
+        multiplier = parseFloat(multiplier);
+        winston.debug(`Value of multiplier after parseFloat: ${multiplier}`);
+        multiplier = parseFloat(multiplier.toFixed(2));
+        winston.debug(`Value of multiplier after toFixed and parseFloat (final): ${multiplier}`);
+        
+        // Round wager to whole number
+        wager = Math.round(parseInt(wager));
+
         // Multiplier checking
         if (multiplier < parseInt(rules["minMultiplier"].toFixed(2))) {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
@@ -55,11 +62,11 @@ module.exports = class DiceGameCommand extends Command {
             return msg.reply("❌ I couldn't pay your winnings if you won.");
         }
 
-        /*// Round numbers to second decimal place
+        // Round numbers to second decimal place
         let randomNumber = parseInt((Math.random() * 100).toFixed(2));
 
         // Get boolean if the random number is less than the multiplier
-        let success = (randomNumber < diceAPI.winPercentage(multiplier));*/
+        let success = (randomNumber < diceAPI.winPercentage(multiplier));
 
         // Take away the player's wager no matter what
         diceAPI.decreaseBalance(msg.author.id, wager);
