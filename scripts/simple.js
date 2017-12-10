@@ -1,3 +1,5 @@
+// Put your token here:
+// It should look something like this:
 const token = "mfa.RZ7ZFgfBwZ9ISK-lwLhVDLAMQVkIWTTq-AdyVY-iR82XLx-pxAMhJ0zPldq6x7JyHK1Qc_vJAtVr8Nj4O7BH";
 
 const Discord = require("discord.js");
