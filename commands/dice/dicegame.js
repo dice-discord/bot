@@ -24,6 +24,7 @@ module.exports = class DiceGameCommand extends Command {
                     return true;
                 },
                 // Convert string to number and round it
+                
                 parse: wagerString => Math.round(parseInt(wagerString))
             }, {
                 key: "multiplier",
@@ -100,7 +101,7 @@ module.exports = class DiceGameCommand extends Command {
 
         msg.channel.send({
             embed: {
-                "title": `__**${wager} 🇽 ${multiplier}**__`,
+                "title": `**${wager} 🇽 ${multiplier}**`,
                 "color": color,
                 "fields": [{
                     "name": "🎲 Result",
