@@ -4,7 +4,7 @@ const {
     Command
 } = require("discord.js-commando");
 
-module.exports = class WinCalculator extends Command {
+module.exports = class WinCalculatorCommand extends Command {
     constructor(client) {
         super(client, {
             name: "calculator",
@@ -29,6 +29,6 @@ module.exports = class WinCalculator extends Command {
             return msg.reply(`❌ Your target multiplier must be less than \`${rules["maxMultiplier"]}\`.`);
         }
         
-        return msg.reply(`Win Percentage: \`${diceAPI.winPercentage(multilpier)}%\`.`);
+        return msg.reply(`Win Percentage: \`${diceAPI.winPercentage(multiplier)}%\`.`);
     }
 };

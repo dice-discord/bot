@@ -3,7 +3,7 @@ const {
     Command
 } = require("discord.js-commando");
 
-module.exports = class CheckVersion extends Command {
+module.exports = class CheckVersionCommand extends Command {
     constructor(client) {
         super(client, {
             name: "check-version",

@@ -4,13 +4,13 @@ const {
 const rules = require("../../rules");
 const diceAPI = require("../../diceAPI");
 
-module.exports = class DiceGame extends Command {
+module.exports = class DiceGameCommand extends Command {
     constructor(client) {
         super(client, {
             name: "dicegame",
             group: "dice",
             memberName: "dicegame",
-            description: "For each bet the outcome is randomly chosen between 1x and 100x. It's up to you to guess a target that you think the outcome will exceed.",
+            description: "For each bet the outcome is randomly chosen between 1 and 100. It's up to you to guess a target that you think the outcome will exceed.",
             aliases: ["game", "play", "play-game", "dice", "play-dice", "dice-game"],
             examples: ["dice 250 4"],
             args: [{

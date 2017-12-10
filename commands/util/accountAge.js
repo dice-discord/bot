@@ -2,7 +2,7 @@ const {
     Command
 } = require("discord.js-commando");
 
-module.exports = class AccountAge extends Command {
+module.exports = class AccountAgeCommand extends Command {
     constructor(client) {
         super(client, {
             name: "account-age",
