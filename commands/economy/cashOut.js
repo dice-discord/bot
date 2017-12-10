@@ -25,16 +25,6 @@ module.exports = class RemoveBalance extends Command {
                 },
                 // Convert string to number and round it
                 parse: amountString => Math.round(parseInt(amountString))
-            }, {
-                key: "user",
-                prompt: "Who do you want to remove dots from?",
-                type: "user",
-                validate: user => {
-                    if (user.bot === true && user.id !== 388191157869477888) {
-                        return "❌ You can't remove dots from bots.";
-                    }
-                    return true;
-                },
             }],
             throttling: {
                 usages: 2,
@@ -44,7 +34,6 @@ module.exports = class RemoveBalance extends Command {
     }
 
     run(msg, {
-        user,
         amount
     }) {
         // Permission checking
@@ -62,6 +51,6 @@ module.exports = class RemoveBalance extends Command {
         diceAPI.increaseBalance(msg.author.id, amount);
 
         // Tell the sender
-        return msg.reply(`📤 Cash out \`${amount}\` dots to <@${user.id}>'s account.`);
+        return msg.reply(`📤 Cashed out \`${amount}\` dots to your account.`);
     }
 };
