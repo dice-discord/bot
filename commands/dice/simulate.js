@@ -24,6 +24,8 @@ module.exports = class SimulateGameCommand extends Command {
                 key: "multiplier",
                 prompt: "How much do you want to multiply your wager by?",
                 type: "string",
+                // Round multiplier to second decimal place
+                // Convert multiplier string to float, and convert toFixed string into float
                 parse: multiplierString => parseFloat(parseFloat(multiplierString).toFixed(2))
             }],
             throttling: {
@@ -39,16 +41,6 @@ module.exports = class SimulateGameCommand extends Command {
         multiplier
     }) {
         winston.level = "info";
-        // Round multiplier to second decimal place
-        // Convert multiplier string to float, and convert toFixed string into float
-        /*winston.debug(`Value of multiplier before anything: ${multiplier}`);
-        multiplier = parseFloat(multiplier);
-        winston.debug(`Value of multiplier after parseFloat: ${multiplier}`);
-        multiplier = parseFloat(multiplier.toFixed(2));
-        winston.debug(`Value of multiplier after toFixed and parseFloat (final): ${multiplier}`);
-
-        // Round wager to whole number
-        wager = Math.round(parseInt(wager));*/
 
         // Multiplier checking
         if (multiplier < parseInt(rules["minMultiplier"].toFixed(2))) {

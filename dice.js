@@ -38,7 +38,7 @@ client.setProvider(
 client.on("ready", () => {
     winston.level = "debug";
     winston.info("Logged in!");
-    winston.verbose("Version: " + process.version);
+    winston.verbose("Node.js version: " + process.version);
     // Set game presence to the help command once loaded
     client.user.setPresence({
         game: {
