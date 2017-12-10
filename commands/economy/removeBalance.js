@@ -52,23 +52,12 @@ module.exports = class RemoveBalance extends Command {
             return msg.reply("❌ You must be an owner to use this command.");
         }
 
-        /*// Amount checking
-        if (amount < rules["minWager"]) {
-            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` dots.`);
-        }*/
-
-        // No removing money from bots
-        /*if (user.bot === true) {
-            return msg.reply("❌ You can't remove dots from bots.");
-        }*/
-
         // Round to whole number
         amount = Math.round(amount);
 
-        // Add dots to receiver
-        diceAPI.decreaseBalance(user.id, parseInt(amount));
+        // Remove dots from user
+        diceAPI.decreaseBalance(user.id, amount);
 
-        // Tell the sender
         return msg.reply(`📤 Removed \`${amount}\` dots from <@${user.id}>'s account.`);
     }
 };

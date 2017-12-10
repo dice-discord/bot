@@ -52,21 +52,11 @@ module.exports = class AddBalance extends Command {
             return msg.reply("❌ You must be an owner to use this command.");
         }
 
-        /*// Amount checking
-        if (amount < rules["minWager"]) {
-            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` dots.`);
-        }*/
-
-        // No sending money to bots
-        /*if (user.bot === true) {
-            return msg.reply("❌ You can't send dots to bots.");
-        }*/
-
         // Round to whole number
         amount = Math.round(amount);
 
-        // Add dots to receiver
-        diceAPI.increaseBalance(user.id, parseInt(amount));
+        // Add dots to user
+        diceAPI.increaseBalance(user.id, amount);
 
         // Tell the sender
         return msg.reply(`📥 Added \`${amount}\` dots to <@${user.id}>'s account.`);
