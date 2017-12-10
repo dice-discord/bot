@@ -16,16 +16,36 @@ module.exports = class SimulateGameCommand extends Command {
             args: [{
                 key: "wager",
                 prompt: "How much do you want to wager?",
-                type: "string"
+                type: "string",
+                validate: wager => {
+                    if (wager < rules["minWager"]) {
+                        return `❌ Your wager must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`;
+                    }
+                    return true;
+                },
+                // Convert string to number and round it
+                parse: wagerString => Math.round(parseInt(wagerString))
             }, {
                 key: "multiplier",
                 prompt: "How much do you want to multiply your wager by?",
-                type: "string"
+                type: "string",
+                validate: multiplier => {
+                    if (multiplier < parseInt(rules["minMultiplier"].toFixed(2))) {
+                        return `❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`;
+                    } else if (multiplier > parseInt(rules["maxMultiplier"].toFixed(2))) {
+                        return `❌ Your target multiplier must be less than \`${rules["maxMultiplier"]}\`.`;
+                    }
+                    return true;
+                },
+                /* Round multiplier to second decimal place
+                Convert multiplier string to int, and convert toFixed string into int */
+                parse: multiplierString => parseInt(parseInt(multiplierString).toFixed(2))
             }],
             throttling: {
                 usages: 1,
                 duration: 1
-            }
+            },
+
         });
     }
 
@@ -40,7 +60,7 @@ module.exports = class SimulateGameCommand extends Command {
         // Round wager to whole number
         wager = Math.round(parseInt(wager));
 
-        // Multiplier checking
+        /*// Multiplier checking
         if (multiplier < parseInt(rules["minMultiplier"].toFixed(2))) {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
         } else if (multiplier > parseInt(rules["maxMultiplier"].toFixed(2))) {
@@ -50,7 +70,7 @@ module.exports = class SimulateGameCommand extends Command {
         // Wager checking
         if (wager < rules["minWager"]) {
             return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` dots.`);
-        }
+        }*/
 
         // Round numbers to second decimal place
         let randomNumber = parseInt((Math.random() * 100).toFixed(2));
