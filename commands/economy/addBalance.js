@@ -16,11 +16,25 @@ module.exports = class AddBalance extends Command {
             args: [{
                 key: "amount",
                 prompt: "How many dots do you want to add?",
-                type: "string"
+                type: "string",
+                validate: amount => {
+                    if (amount < rules["minWager"]) {
+                        return `❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`;
+                    }
+                    return true;
+                },
+                // Convert string to number and round it
+                parse: amountString => Math.round(parseInt(amountString))
             }, {
                 key: "user",
                 prompt: "Who do you want to add dots to?",
-                type: "user"
+                type: "user",
+                validate: user => {
+                    if (user.bot === true && user.id !== 388191157869477888) {
+                        return "❌ You can't send dots to bots.";
+                    }
+                    return true;
+                },
             }],
             throttling: {
                 usages: 2,
@@ -34,19 +48,19 @@ module.exports = class AddBalance extends Command {
         amount
     }) {
         // Permission checking
-        if (!msg.author.isOwner) {
+        if (msg.author.isOwner === false) {
             return msg.reply("❌ You must be an owner to use this command.");
         }
 
-        // Amount checking
+        /*// Amount checking
         if (amount < rules["minWager"]) {
             return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` dots.`);
-        }
+        }*/
 
         // No sending money to bots
-        if (user.bot === true) {
+        /*if (user.bot === true) {
             return msg.reply("❌ You can't send dots to bots.");
-        }
+        }*/
 
         // Round to whole number
         amount = Math.round(amount);
