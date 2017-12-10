@@ -15,6 +15,34 @@ function updateBalance(id, newBalance) {
     fs.writeFileSync(pathToJSON, balanceJSON);
 }
 
+function removeBalance(id, amount) {
+    // Load our target user file
+    const pathToJSON = `./balances/${id}.json`;
+
+    // Convert our data into JSON readable format and round it
+    let balanceJSON = {
+        balance: getBalance(id) - Math.round(amount)
+    };
+    balanceJSON = JSON.stringify(balanceJSON);
+
+    // Write the balance to a file
+    fs.writeFileSync(pathToJSON, balanceJSON);
+}
+
+function increaseBalance(id, amount) {
+    // Load our target user file
+    const pathToJSON = `./balances/${id}.json`;
+
+    // Convert our data into JSON readable format and round it
+    let balanceJSON = {
+        balance: getBalance(id) + Math.round(amount)
+    };
+    balanceJSON = JSON.stringify(balanceJSON);
+
+    // Write the balance to a file
+    fs.writeFileSync(pathToJSON, balanceJSON);
+}
+
 function getBalance(id) {
     // Load our target user file
     const pathToJSON = `./balances/${id}.json`;
@@ -35,4 +63,6 @@ function winPercentage(multiplier) {
 
 module.exports.updateBalance = updateBalance;
 module.exports.getBalance = getBalance;
+module.exports.removeBalance = removeBalance;
+module.exports.increaseBalance = increaseBalance;
 module.exports.winPercentage = winPercentage;
