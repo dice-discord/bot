@@ -17,7 +17,7 @@ module.exports = class CheckBalance extends Command {
                 key: "user",
                 prompt: "Who's balance do you want to check?",
                 type: "user",
-                default: ":msg author:"
+                default: ""
             }],
             throttling: {
                 usages: 2,
@@ -29,7 +29,8 @@ module.exports = class CheckBalance extends Command {
     run(msg, {
         user
     }) {
-        if (user == ":msg author:") {
+        user = user || msg.user;
+        if (user == msg.user) {
             // We are looking up the message author's balance
             if (diceAPI.getBalance(rules["houseID"]) < diceAPI.getBalance(msg.author.id) && user.id !== rules["houseID"]) {
                 return msg.reply(`🏦 You have a balance of \`${diceAPI.getBalance(msg.author.id)}\` dots. That's more than the bank!`);
