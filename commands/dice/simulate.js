@@ -30,7 +30,8 @@ module.exports = class DiceGame extends Command {
         multiplier
     }) {
         // Round multiplier to second decimal place
-        multiplier = parseInt(multiplier.toFixed(2));
+        // Convert multiplier string to int, and convert toFixed string into int
+        multiplier = parseInt(parseInt(multiplier).toFixed(2));
 
         // Round wager to whole number
         wager = Math.round(parseInt(wager));
