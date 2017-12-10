@@ -1,68 +1,44 @@
 const rules = require("./rules");
-const fs = require("fs");
+var mongodb = require("mongodb");
 
-function updateBalance(id, newBalance) {
-    // Load our target user file
-    const pathToJSON = `./balances/${id}.json`;
+// Set up database variables
+let uri = process.env.MONGODB_URI;
+mongodb.MongoClient.connect(uri, function (err, db) {
+    if (err) throw err;
 
-    // Convert our data into JSON readable format and round it
-    let balanceJSON = {
-        balance: Math.round(newBalance)
-    };
-    balanceJSON = JSON.stringify(balanceJSON);
+    let balances = db.collection("balances");
 
-    // Write the balance to a file
-    fs.writeFileSync(pathToJSON, balanceJSON);
-}
-
-function decreaseBalance(id, amount) {
-    // Load our target user file
-    const pathToJSON = `./balances/${id}.json`;
-
-    // Convert our data into JSON readable format and round it
-    let balanceJSON = {
-        balance: getBalance(id) - Math.round(amount)
-    };
-    balanceJSON = JSON.stringify(balanceJSON);
-
-    // Write the balance to a file
-    fs.writeFileSync(pathToJSON, balanceJSON);
-}
-
-function increaseBalance(id, amount) {
-    // Load our target user file
-    const pathToJSON = `./balances/${id}.json`;
-
-    // Convert our data into JSON readable format and round it
-    let balanceJSON = {
-        balance: getBalance(id) + Math.round(amount)
-    };
-    balanceJSON = JSON.stringify(balanceJSON);
-
-    // Write the balance to a file
-    fs.writeFileSync(pathToJSON, balanceJSON);
-}
-
-function getBalance(id) {
-    // Load our target user file
-    const pathToJSON = `./balances/${id}.json`;
-
-    if (fs.existsSync(pathToJSON) === false) {
-        // File doesn't exist, so make one
-        updateBalance(id, rules["newUserBalance"]);
+    function getBalance(requestedID) {
+        // Set variable to the balance of user balance
+        let balance = balances.findOne({id: requestedID})["balance"];
+        return Math.round(balance);
+    }
+    
+    function updateBalance(requestedID, newBalance) {
+        // Find result with the requested ID
+        balances.findOneAndUpdate({
+            id: requestedID
+        }, {$set: {balance: Math.round(newBalance)}}, {upsert: true}, function() {
+            return;
+        });
     }
 
-    const balanceJSON = JSON.parse(fs.readFileSync(pathToJSON));
-    // Round number
-    return Math.round(balanceJSON["balance"]);
-}
+    function decreaseBalance(id, amount) {
+        updateBalance(id, getBalance(id) - Math.round(amount));
+    }
+
+    function increaseBalance(id, amount) {
+        updateBalance(id, getBalance(id) + Math.round(amount));
+    }
+    module.exports.updateBalance = updateBalance;
+    module.exports.getBalance = getBalance;
+    module.exports.decreaseBalance = decreaseBalance;
+    module.exports.increaseBalance = increaseBalance;
+    
+});
 
 function winPercentage(multiplier) {
     return (100 - rules["houseEdgePercentage"]) / multiplier;
 }
 
-module.exports.updateBalance = updateBalance;
-module.exports.getBalance = getBalance;
-module.exports.decreaseBalance = decreaseBalance;
-module.exports.increaseBalance = increaseBalance;
 module.exports.winPercentage = winPercentage;
