@@ -1,5 +1,3 @@
-import { debug } from "util";
-
 const {
     Command
 } = require("discord.js-commando");
