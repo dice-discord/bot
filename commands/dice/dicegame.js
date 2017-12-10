@@ -20,8 +20,6 @@ module.exports = class DiceGameCommand extends Command {
                 validate: wager => {
                     if (wager < rules["minWager"]) {
                         return `❌ Your wager must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`;
-                    } else if ((wager * multiplier) > diceAPI.getBalance(rules["houseID"])) {
-                        return "❌ I couldn't pay your winnings if you won.";
                     }
                     return true;
                 },
@@ -66,9 +64,9 @@ module.exports = class DiceGameCommand extends Command {
             return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
         } else */if (wager > diceAPI.getBalance(msg.author.id)) {
             return msg.reply(`❌ You are missing \`${wager - diceAPI.getBalance(msg.author.id)}\` ${rules[currencyPlural]}. Your balance is \`${diceAPI.getBalance(msg.author.id)}\` ${rules[currencyPlural]}.`);
-        }/* else if ((wager * multiplier) > diceAPI.getBalance(rules["houseID"])) {
+        } else if ((wager * multiplier) > diceAPI.getBalance(rules["houseID"])) {
             return msg.reply("❌ I couldn't pay your winnings if you won.");
-        }*/
+        }
 
         // Round numbers to second decimal place
         let randomNumber = parseInt((Math.random() * 100).toFixed(2));
