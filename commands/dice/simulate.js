@@ -93,29 +93,29 @@ module.exports = class SimulateGameCommand extends Command {
 
         msg.channel.send({
             embed: {
-                "title": `\`${wager}\` 🇽 \`${multiplier}\``,
+                "title": `__**${wager} 🇽 ${multiplier}**__`,
                 "color": color,
                 "fields": [{
                     "name": "🎲 Result",
                     "value": result
                 }, {
                     "name": "🔢 Random Number Result",
-                    "value": `\`${randomNumber}\``,
+                    "value": `${randomNumber}`,
                     "inline": true
                 },
                 {
                     "name": "📊 Win Chance",
-                    "value": `\`${diceAPI.winPercentage(multiplier)}\`%`,
+                    "value": `${diceAPI.winPercentage(multiplier)}%`,
                     "inline": true
                 },
                 {
                     "name": "💵 Wager",
-                    "value": `\`${wager}\``,
+                    "value": `${wager}`,
                     "inline": true
                 },
                 {
                     "name": "🇽 Multiplier",
-                    "value": `\`${multiplier}\``,
+                    "value": `${multiplier}`,
                     "inline": true
                 }
                 ]

@@ -39,7 +39,7 @@ module.exports = class DiceGameCommand extends Command {
                 },
                 /* Round multiplier to second decimal place
                 Convert multiplier string to int, and convert toFixed string into int */
-                parse: multiplierString => parseInt(parseInt(multiplierString).toFixed(2))
+                parse: multiplierString =>parseInt(parseInt(multiplierString).toFixed(2))
             }],
             throttling: {
                 usages: 1,
@@ -100,29 +100,29 @@ module.exports = class DiceGameCommand extends Command {
 
         msg.channel.send({
             embed: {
-                "title": `\`${wager}\` 🇽 \`${multiplier}\``,
+                "title": `__**${wager} 🇽 ${multiplier}**__`,
                 "color": color,
                 "fields": [{
                     "name": "🎲 Result",
                     "value": result
                 }, {
                     "name": "🔢 Random Number Result",
-                    "value": `\`${randomNumber}\``,
+                    "value": `${randomNumber}`,
                     "inline": true
                 },
                 {
                     "name": "🏦 Updated Balance",
-                    "value": `\`${diceAPI.getBalance(msg.author.id)}\` ${rules["currencyPlural"]}`,
+                    "value": `${diceAPI.getBalance(msg.author.id)} ${rules["currencyPlural"]}`,
                     "inline": true
                 },
                 {
                     "name": "💵 Wager",
-                    "value": `\`${wager}\``,
+                    "value": `${wager}`,
                     "inline": true
                 },
                 {
                     "name": "🇽 Multiplier",
-                    "value": `\`${multiplier}\``,
+                    "value": `${multiplier}`,
                     "inline": true
                 }
                 ]
