@@ -35,7 +35,7 @@ module.exports = class SimulateGameCommand extends Command {
         wager,
         multiplier
     }) {
-        winston.level = debug;
+        winston.level = "debug";
         // Round multiplier to second decimal place
         // Convert multiplier string to int, and convert toFixed string into int
         winston.debug(`Value of multiplier before anything: ${multiplier}`);

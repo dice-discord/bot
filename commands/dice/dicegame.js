@@ -34,7 +34,7 @@ module.exports = class DiceGameCommand extends Command {
         wager,
         multiplier
     }) {
-        winston.level = debug;
+        winston.level = "debug";
         // Round multiplier to second decimal place
         // Convert multiplier string to float, and convert toFixed string into float
         winston.debug(`Value of multiplier before anything: ${multiplier}`);
