@@ -19,9 +19,7 @@ module.exports = class DiceGameCommand extends Command {
                 type: "string",
                 validate: wager => {
                     if (wager < rules["minWager"]) {
-                        return `❌ Your wager must be at least \`${rules["minWager"]}\` dots.`;
-                    } else if (wager > diceAPI.getBalance(msg.author.id)) {
-                        return `❌ You are missing \`${wager - diceAPI.getBalance(msg.author.id)}\` dots. Your balance is \`${diceAPI.getBalance(msg.author.id)}\` dots.`;
+                        return `❌ Your wager must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`;
                     } else if ((wager * multiplier) > diceAPI.getBalance(rules["houseID"])) {
                         return "❌ I couldn't pay your winnings if you won.";
                     }
@@ -65,10 +63,10 @@ module.exports = class DiceGameCommand extends Command {
 
         /*// Wager checking
         if (wager < rules["minWager"]) {
-            return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` dots.`);
-        } else if (wager > diceAPI.getBalance(msg.author.id)) {
-            return msg.reply(`❌ You are missing \`${wager - diceAPI.getBalance(msg.author.id)}\` dots. Your balance is \`${diceAPI.getBalance(msg.author.id)}\` dots.`);
-        } else if ((wager * multiplier) > diceAPI.getBalance(rules["houseID"])) {
+            return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
+        } else */if (wager > diceAPI.getBalance(msg.author.id)) {
+            return msg.reply(`❌ You are missing \`${wager - diceAPI.getBalance(msg.author.id)}\` ${rules[currencyPlural]}. Your balance is \`${diceAPI.getBalance(msg.author.id)}\` ${rules[currencyPlural]}.`);
+        }/* else if ((wager * multiplier) > diceAPI.getBalance(rules["houseID"])) {
             return msg.reply("❌ I couldn't pay your winnings if you won.");
         }*/
 
@@ -90,7 +88,7 @@ module.exports = class DiceGameCommand extends Command {
         if (success === false) {
             // Red color and loss message
             color = 0xf44334;
-            result = `You lost \`${wager}\` dots.`;
+            result = `You lost \`${wager}\` ${rules[currencyPlural]}.`;
         } else {
             // Give the player their winnings
             diceAPI.increaseBalance(msg.author.id, (wager * multiplier));
@@ -99,7 +97,7 @@ module.exports = class DiceGameCommand extends Command {
 
             // Green color and win message
             color = 0x4caf50;
-            result = `You made \`${(wager * multiplier) - wager}\` dots of profit!`;
+            result = `You made \`${(wager * multiplier) - wager}\` ${rules[currencyPlural]} of profit!`;
         }
 
         msg.channel.send({
@@ -116,7 +114,7 @@ module.exports = class DiceGameCommand extends Command {
                 },
                 {
                     "name": "🏦 Updated Balance",
-                    "value": `\`${diceAPI.getBalance(msg.author.id)}\` dots`,
+                    "value": `\`${diceAPI.getBalance(msg.author.id)}\` ${rules[currencyPlural]}`,
                     "inline": true
                 },
                 {
