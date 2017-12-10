@@ -66,7 +66,7 @@ module.exports = class RemoveBalance extends Command {
         amount = Math.round(amount);
 
         // Add dots to receiver
-        diceAPI.increaseBalance(user.id, parseInt(amount));
+        diceAPI.decreaseBalance(user.id, parseInt(amount));
 
         // Tell the sender
         return msg.reply(`📤 Removed \`${amount}\` dots from <@${user.id}>'s account.`);
