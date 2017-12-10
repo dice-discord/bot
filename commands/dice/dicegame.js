@@ -30,15 +30,15 @@ module.exports = class DiceGame extends Command {
         multiplier
     }) {
         // Round multiplier to second decimal place
-        multiplier = parseInt(multiplier).toFixed(2);
+        multiplier = (parseInt(multiplier)).toFixed(2);
 
         // Round wager to whole number
         wager = Math.round(parseInt(wager));
 
         // Multiplier checking
-        if (multiplier < rules["minMultiplier"]) {
+        if (multiplier < rules["minMultiplier"].toFixed(2)) {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
-        } else if (multiplier > rules["maxMultiplier"]) {
+        } else if (multiplier > rules["maxMultiplier"].toFixed(2)) {
             return msg.reply(`❌ Your target multiplier must be less than \`${rules["maxMultiplier"]}\`.`);
         }
 
