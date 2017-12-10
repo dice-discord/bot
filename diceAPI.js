@@ -2,17 +2,19 @@ const rules = require("./rules");
 var MongoClient = require("mongodb").MongoClient;
 const winston = require("winston");
 
-winston.level = "debug";
+winston.level = "verbose";
 
 // Set up database variables
 let uri = process.env.MONGODB_URI;
 if (process.env.MONGODB_URI == null) {
     winston.error("mongoDB URI is undefined!");
 }
-MongoClient.connect(uri, function(err, db) {
+MongoClient.connect(uri, function(err, database) {
     if (err) winston.error(err);
     winston.debug("Connected to database server");
-    var balances = db.collection("balances");
+    winston.debug(`Database name: ${database}`)
+    const balancesdb = database.db("balances");
+    var balances = balancesdb.collection("balances");
 
     function getBalance(requestedID) {
         // Set variable to the balance of user balance
