@@ -61,9 +61,9 @@ module.exports = class DiceGameCommand extends Command {
 
         /*// Wager checking
         if (wager < rules["minWager"]) {
-            return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
+            return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` ${rules["currencyPlural"]}.`);
         } else */if (wager > diceAPI.getBalance(msg.author.id)) {
-            return msg.reply(`❌ You are missing \`${wager - diceAPI.getBalance(msg.author.id)}\` ${rules[currencyPlural]}. Your balance is \`${diceAPI.getBalance(msg.author.id)}\` ${rules[currencyPlural]}.`);
+            return msg.reply(`❌ You are missing \`${wager - diceAPI.getBalance(msg.author.id)}\` ${rules["currencyPlural"]}. Your balance is \`${diceAPI.getBalance(msg.author.id)}\` ${rules["currencyPlural"]}.`);
         } else if ((wager * multiplier) > diceAPI.getBalance(rules["houseID"])) {
             return msg.reply("❌ I couldn't pay your winnings if you won.");
         }
@@ -86,7 +86,7 @@ module.exports = class DiceGameCommand extends Command {
         if (success === false) {
             // Red color and loss message
             color = 0xf44334;
-            result = `You lost \`${wager}\` ${rules[currencyPlural]}.`;
+            result = `You lost \`${wager}\` ${rules["currencyPlural"]}.`;
         } else {
             // Give the player their winnings
             diceAPI.increaseBalance(msg.author.id, (wager * multiplier));
@@ -95,7 +95,7 @@ module.exports = class DiceGameCommand extends Command {
 
             // Green color and win message
             color = 0x4caf50;
-            result = `You made \`${(wager * multiplier) - wager}\` ${rules[currencyPlural]} of profit!`;
+            result = `You made \`${(wager * multiplier) - wager}\` ${rules["currencyPlural"]} of profit!`;
         }
 
         msg.channel.send({
@@ -112,7 +112,7 @@ module.exports = class DiceGameCommand extends Command {
                 },
                 {
                     "name": "🏦 Updated Balance",
-                    "value": `\`${diceAPI.getBalance(msg.author.id)}\` ${rules[currencyPlural]}`,
+                    "value": `\`${diceAPI.getBalance(msg.author.id)}\` ${rules["currencyPlural"]}`,
                     "inline": true
                 },
                 {
