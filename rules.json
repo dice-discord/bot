@@ -3,7 +3,7 @@
     "maxMultiplier": 100,
     "minWager": 1,
     "currencyPlural": "dots",
-    "newUserBalance": 100,
+    "newUserBalance": 500,
     "houseEdgePercentage": 1,
     "houseID": "388191157869477888"
 }
