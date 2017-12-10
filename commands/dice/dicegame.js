@@ -7,11 +7,11 @@ const diceAPI = require("../../diceAPI");
 module.exports = class DiceGame extends Command {
     constructor(client) {
         super(client, {
-            name: "dice-game",
-            group: "util",
-            memberName: "dice-game",
+            name: "dicegame",
+            group: "dice",
+            memberName: "dicegame",
             description: "For each bet the outcome is randomly chosen between 1x and 100x. It's up to you to guess a target that you think the outcome will exceed.",
-            aliases: ["game", "play", "play-game", "dice"],
+            aliases: ["game", "play", "play-game", "dice", "play-dice", "dice-game"],
             examples: ["dice 250 4"],
             args: [{
                 key: "wager",
@@ -29,6 +29,12 @@ module.exports = class DiceGame extends Command {
         wager,
         multiplier
     }) {
+        // Round multiplier to second decimal place
+        multiplier = parseInt(multiplier).toFixed(2);
+
+        // Round wager to whole number
+        wager = Math.round(parseInt(wager));
+
         // Multiplier checking
         if (multiplier < rules["minMultiplier"]) {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
@@ -47,39 +53,42 @@ module.exports = class DiceGame extends Command {
 
         // Round numbers to second decimal place
         let randomNumber = (Math.random() * 100).toFixed(2);
-        multiplier = (multiplier).toFixed(2);
 
-        // Round wager to whole number
-        wager = Math.round(wager);
-
-        success = (randomNumber < diceAPI.winPercentage(multiplier));
+        // Get boolean if the random number is less than the multiplier
+        let success = (randomNumber < diceAPI.winPercentage(multiplier));
 
         // Take away the player's wager no matter what
         diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) - wager);
         // Give the wager to the house
         diceAPI.updateBalance(rules["houseID"], diceAPI.getBalance(rules["houseID"]) + wager);
 
+        // Variables for later use in embed
+        let color;
+        let result;
+
         if (success === false) {
-            responseEmbed
-                .addField("Result", `❌ You lost \`${wager * multiplier}\` dots.`)
-                .setColor("#f44334");
+            // Red color and loss message
+            color = 0xf44334;
+            result = `❌ You lost \`${wager * multiplier}\` dots.`;
         } else {
             // Give the player their winnings
             diceAPI.updateBalance(msg.author.id, diceAPI.getBalance(msg.author.id) + (wager * multiplier));
             // Take the winnings from the house
             diceAPI.updateBalance(rules["houseID"], diceAPI.getBalance(rules["houseID"]) - (wager * multiplier));
 
-            responseEmbed
-                .addField("Result", `💰 You won \`${wager * multiplier}\` dots!`)
-                .setColor("#4caf50");
+            // Green color and win message
+            color = 0x4caf50;
+            result = `💰 You won \`${wager * multiplier}\` dots!`;
         }
 
-
-
-        const responseEmbed = {
-            "title": `\`${wager}\` 🇽 \`${multiplier}\``,
-            "fields": [
-                {
+        msg.channel.send({
+            embed: {
+                "title": `\`${wager}\` 🇽 \`${multiplier}\``,
+                "color": color,
+                "fields": [{
+                    "name": "Result",
+                    "value": result
+                }, {
                     "name": "Random Number Result",
                     "value": `\`${randomNumber}\``,
                     "inline": true
@@ -91,19 +100,16 @@ module.exports = class DiceGame extends Command {
                 },
                 {
                     "name": "Wager",
-                    "value": "500",
+                    "value": `\`${wager}\``,
                     "inline": true
                 },
                 {
                     "name": "Multiplier",
-                    "value": "2.00x",
+                    "value": `\`${multiplier}\``,
                     "inline": true
                 }
-            ]
-        };
-        return msg.channel.send({
-            responseEmbed
+                ]
+            }
         });
-
     }
 };
