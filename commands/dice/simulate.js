@@ -60,11 +60,11 @@ module.exports = class DiceGame extends Command {
         if (success === false) {
             // Red color and loss message
             color = 0xf44334;
-            result = `❌ You would have lost \`${wager}\` dots.`;
+            result = `You would have lost \`${wager}\` dots.`;
         } else {
             // Green color and win message
             color = 0x4caf50;
-            result = `💰 Your profit would have been \`${(wager * multiplier) - wager}\` dots!`;
+            result = `Your profit would have been \`${(wager * multiplier) - wager}\` dots!`;
         }
 
         msg.channel.send({
@@ -72,25 +72,25 @@ module.exports = class DiceGame extends Command {
                 "title": `\`${wager}\` 🇽 \`${multiplier}\``,
                 "color": color,
                 "fields": [{
-                    "name": "Result",
+                    "name": "🎲 Result",
                     "value": result
                 }, {
-                    "name": "Random Number Result",
+                    "name": "🔢 Random Number Result",
                     "value": `\`${randomNumber}\``,
                     "inline": true
                 },
                 {
-                    "name": "Win Chance",
+                    "name": "📊 Win Chance",
                     "value": `\`${diceAPI.winPercentage(multiplier)}\`%`,
                     "inline": true
                 },
                 {
-                    "name": "Wager",
+                    "name": "💵 Wager",
                     "value": `\`${wager}\``,
                     "inline": true
                 },
                 {
-                    "name": "Multiplier",
+                    "name": "🇽 Multiplier",
                     "value": `\`${multiplier}\``,
                     "inline": true
                 }
