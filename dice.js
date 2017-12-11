@@ -7,6 +7,7 @@ const {
 const path = require("path");
 const winston = require("winston");
 const sqlite = require("sqlite");
+const packageData = require("./package");
 
 // Set up bot metadata
 const client = new CommandoClient({
@@ -39,6 +40,7 @@ client.on("ready", () => {
     winston.level = "debug";
     winston.info("Logged in!");
     winston.verbose("Node.js version: " + process.version);
+    winston.verbose(`Dice version v${packageData["version"]}`);
     // Set game presence to the help command once loaded
     client.user.setPresence({
         game: {
