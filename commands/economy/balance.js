@@ -29,7 +29,7 @@ module.exports = class CheckBalance extends Command {
     async run(msg, {
         user
     }) {
-        let houseBalance = await diceAPI.getBalance(rules["houseID"]);
+        const houseBalance = await diceAPI.getBalance(rules["houseID"]);
         let userBalance;
 
         if (user) {

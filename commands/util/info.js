@@ -33,8 +33,8 @@ module.exports = class InfoCommand extends Command {
     }) {
         winston.level = "debug";
         user = user || msg.author;
-        let userBalance = await diceAPI.getBalance(msg.author.id);
-        let userProfilePicture = user.displayAvatarURL(128);
+        const userBalance = await diceAPI.getBalance(msg.author.id);
+        const userProfilePicture = user.displayAvatarURL(128);
         
         winston.verbose(`Target user display URL: ${userProfilePicture}`);
 
