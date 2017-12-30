@@ -25,8 +25,7 @@ module.exports = class DiceGameCommand extends Command {
                 prompt: "How much do you want to multiply your wager by?",
                 type: "string",
                 // Round multiplier to second decimal place
-                // Convert multiplier string to float, and convert toFixed string into float
-                parse: multiplierString => parseFloat(parseFloat(multiplierString).toFixed(2))
+                parse: multiplierString => diceAPI.simpleStringFormat(multiplierString)
             }],
             throttling: {
                 usages: 1,
@@ -36,43 +35,48 @@ module.exports = class DiceGameCommand extends Command {
         });
     }
 
-    run(msg, {
+    async run(msg, {
         wager,
         multiplier
     }) {
+        let authorBalance = await diceAPI.getBalance(msg.author.id)
         winston.level = "info";
 
         // Multiplier checking
-        if (multiplier < parseFloat(rules["minMultiplier"].toFixed(2))) {
+        if (multiplier < await diceAPI.simpleFormat(rules["minMultiplier"])) {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
-        } else if (multiplier > parseFloat(rules["maxMultiplier"].toFixed(2))) {
+        } else if (multiplier > await diceAPI.simpleFormat(rules["maxMultiplier"])) {
             return msg.reply(`❌ Your target multiplier must be less than \`${rules["maxMultiplier"]}\`.`);
+        } else if (isNaN(multiplier)) {
+            return msg.reply(`❌ \`${multiplier}\` is not a valid number.`);
         }
 
         // Wager checking
         if (wager < rules["minWager"]) {
             return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` ${rules["currencyPlural"]}.`);
-        } else if (wager > diceAPI.getBalance(msg.author.id)) {
-            return msg.reply(`❌ You are missing \`${wager - diceAPI.getBalance(msg.author.id)}\` ${rules["currencyPlural"]}. Your balance is \`${diceAPI.getBalance(msg.author.id)}\` ${rules["currencyPlural"]}.`);
-        } else if ((wager * multiplier) > diceAPI.getBalance(rules["houseID"])) {
+        } else if (wager > authorBalance) {
+            return msg.reply(`❌ You are missing \`${wager - authorBalance}\` ${rules["currencyPlural"]}. Your balance is \`${authorBalance}\` ${rules["currencyPlural"]}.`);
+        } else if ((wager * multiplier) - wager > await diceAPI.getBalance(rules["houseID"])) {
             return msg.reply("❌ I couldn't pay your winnings if you won.");
+        } else if (isNaN(wager)) {
+            return msg.reply(`❌ \`${wager}\` is not a valid number.`);
         }
 
         // Round numbers to second decimal place
-        let randomNumber = parseFloat((Math.random() * 100).toFixed(2));
+        let randomNumber = diceAPI.simpleFormat((Math.random() * rules["maxMultiplier"]));
 
-        // Get boolean if the random number is less than the multiplier
-        let success = (randomNumber < diceAPI.winPercentage(multiplier));
+        // Get boolean if the random number is bigger than the multiplier
+        let success = (randomNumber > diceAPI.winPercentage(multiplier));
 
         // Take away the player's wager no matter what
-        diceAPI.decreaseBalance(msg.author.id, wager);
+        await diceAPI.decreaseBalance(msg.author.id, wager);
         // Give the wager to the house
-        diceAPI.increaseBalance(rules["houseID"], wager);
+        await diceAPI.increaseBalance(rules["houseID"], wager);
 
         // Variables for later use in embed
         let color;
         let result;
-        let profit = Math.round((wager * multiplier) - wager);
+        let profit = diceAPI.simpleFormat((wager * multiplier) - wager);
 
         if (success === false) {
             // Red color and loss message
@@ -103,7 +107,7 @@ module.exports = class DiceGameCommand extends Command {
                 },
                 {
                     "name": "🏦 Updated Balance",
-                    "value": `${diceAPI.getBalance(msg.author.id)} ${rules["currencyPlural"]}`,
+                    "value": `${await diceAPI.getBalance(msg.author.id)} ${rules["currencyPlural"]}`,
                     "inline": true
                 },
                 {

@@ -25,8 +25,7 @@ module.exports = class SimulateGameCommand extends Command {
                 prompt: "How much do you want to multiply your wager by?",
                 type: "string",
                 // Round multiplier to second decimal place
-                // Convert multiplier string to float, and convert toFixed string into float
-                parse: multiplierString => parseFloat(parseFloat(multiplierString).toFixed(2))
+                parse: multiplierString => diceAPI.simpleStringFormat(multiplierString)
             }],
             throttling: {
                 usages: 1,
@@ -43,26 +42,30 @@ module.exports = class SimulateGameCommand extends Command {
         winston.level = "info";
 
         // Multiplier checking
-        if (multiplier < parseFloat(rules["minMultiplier"].toFixed(2))) {
+        if (multiplier < diceAPI.simpleFormat(rules["minMultiplier"])) {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
-        } else if (multiplier > parseFloat(rules["maxMultiplier"].toFixed(2))) {
+        } else if (multiplier > diceAPI.simpleFormat(rules["maxMultiplier"])) {
             return msg.reply(`❌ Your target multiplier must be less than \`${rules["maxMultiplier"]}\`.`);
+        } else if (isNaN(multiplier)) {
+            return msg.reply(`❌ \`${multiplier}\` is not a valid number.`);
         }
 
         // Wager checking
         if (wager < rules["minWager"]) {
             return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` dots.`);
+        } else if (isNaN(wager)) {
+            return msg.reply(`❌ \`${wager}\` is not a valid number.`);
         }
 
         // Round numbers to second decimal place
-        let randomNumber = parseFloat((Math.random() * 100).toFixed(2));
+        let randomNumber = diceAPI.simpleFormat((Math.random() * rules["maxMultiplier"]));
         // Get boolean if the random number is less than the multiplier
-        let success = (randomNumber < diceAPI.winPercentage(multiplier));
+        let success = (randomNumber > diceAPI.winPercentage(multiplier));
 
         // Variables for later use in embed
         let color;
         let result;
-        let profit = Math.round((wager * multiplier) - wager);
+        let profit = diceAPI.simpleFormat((wager * multiplier) - wager);
 
         if (success === false) {
             // Red color and loss message

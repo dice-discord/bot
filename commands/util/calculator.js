@@ -27,6 +27,8 @@ module.exports = class WinCalculatorCommand extends Command {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
         } else if (multiplier > rules["maxMultiplier"]) {
             return msg.reply(`❌ Your target multiplier must be less than \`${rules["maxMultiplier"]}\`.`);
+        } else if (isNaN(multiplier)) {
+            return msg.reply(`❌ \`${multiplier}\` is not a valid number.`);
         }
         
         return msg.reply(`Win Percentage: \`${diceAPI.winPercentage(multiplier)}%\`.`);

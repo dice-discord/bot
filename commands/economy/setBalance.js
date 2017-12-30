@@ -4,26 +4,26 @@ const {
 const rules = require("../../rules");
 const diceAPI = require("../../diceAPI");
 
-module.exports = class AddBalance extends Command {
+module.exports = class SetBalance extends Command {
     constructor(client) {
         super(client, {
-            name: "addbalance",
+            name: "setbalance",
             group: "economy",
-            memberName: "addbalance",
-            description: "Add dots to another user's account",
-            aliases: ["add", "add-bal", "increase-balance", "increase-bal"],
-            examples: ["add-balance 500 @Dice"],
+            memberName: "setbalance",
+            description: "Set a user's balance",
+            aliases: ["set", "set-bal", "set-balance"],
+            examples: ["set-balance 500 @Dice"],
             args: [{
                 key: "amount",
-                prompt: "How many dots do you want to add?",
+                prompt: "What do you want the new balance to be?",
                 type: "string"
             }, {
                 key: "user",
-                prompt: "Who do you want to add dots to?",
+                prompt: "Who's balance do you want to set?",
                 type: "user",
                 validate: user => {
                     if (user.bot === true && user.id !== "388191157869477888") {
-                        return "❌ You can't add dots to bots.";
+                        return "❌ You can't set dots for bots.";
                     }
                     return true;
                 }
@@ -46,15 +46,18 @@ module.exports = class AddBalance extends Command {
 
         // Amount checking
         if (amount < rules["minWager"]) {
-            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules["currencySingular"]}.`);
+            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules["currencyPlural"]}.`);
         } else if (isNaN(amount)) {
             return msg.reply(`❌ \`${amount}\` is not a valid number.`);
         }
 
+        // Convert string float to float (number)
+        amount = diceAPI.simpleStringFormat(amount);
+
         // Add dots to user
-        diceAPI.increaseBalance(user.id, amount);
+        diceAPI.updateBalance(user.id, amount);
 
         // Tell the author
-        return msg.reply(`📥 Added \`${amount}\` ${rules["currencyPlural"]} to <@${user.id}>'s account.`);
+        return msg.reply(`📥 Set <@${user.id}>'s account balance to \`${amount}\` ${rules["currencyPlural"]}.`);
     }
 };

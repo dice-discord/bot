@@ -38,6 +38,8 @@ module.exports = class RemoveBalance extends Command {
         // Wager checking
         if (amount < rules["minWager"]) {
             return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
+        } else if (isNaN(amount)) {
+            return msg.reply(`❌ \`${amount}\` is not a valid number.`);
         }
 
         // Round to whole number

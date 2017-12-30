@@ -26,23 +26,29 @@ module.exports = class CheckBalance extends Command {
         });
     }
 
-    run(msg, {
+    async run(msg, {
         user
     }) {
-        user = user || msg.user;
-        if (user == msg.user) {
-            // We are looking up the message author's balance
-            if (diceAPI.getBalance(rules["houseID"]) < diceAPI.getBalance(msg.author.id) && user.id !== rules["houseID"]) {
-                return msg.reply(`🏦 You have a balance of \`${diceAPI.getBalance(msg.author.id)}\` dots. That's more than the bank!`);
+        let houseBalance = await diceAPI.getBalance(rules["houseID"]);
+        let userBalance;
+
+        if (user) {
+            userBalance = await diceAPI.getBalance(user.id);
+
+            // Someone else's balance
+            if (houseBalance < userBalance && user.id !== rules["houseID"]) {
+                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` dots. That's more than the bank!`);
             } else {
-                return msg.reply(`🏦 You have a balance of \`${diceAPI.getBalance(msg.author.id)}\` dots.`);
+                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` dots.`);
             }
         } else {
-            // Someone else's balance
-            if (diceAPI.getBalance(rules["houseID"]) < diceAPI.getBalance(user.id) && user.id !== rules["houseID"]) {
-                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${diceAPI.getBalance(user.id)}\` dots. That's more than the bank!`);
+            userBalance = await diceAPI.getBalance(msg.author.id);
+
+            // We are looking up the message author's balance
+            if (houseBalance < userBalance && user.id !== rules["houseID"]) {
+                return msg.reply(`🏦 You have a balance of \`${userBalance}\` dots. That's more than the bank!`);
             } else {
-                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${diceAPI.getBalance(user.id)}\` dots.`);
+                return msg.reply(`🏦 You have a balance of \`${userBalance}\` dots.`);
             }
         }
 

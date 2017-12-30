@@ -5,12 +5,12 @@ const {
 module.exports = class AccountAgeCommand extends Command {
     constructor(client) {
         super(client, {
-            name: "account-age",
+            name: "accountage",
             group: "util",
-            memberName: "account-age",
+            memberName: "accountage",
             description: "Check when your account was created",
             aliases: ["age", "account-created"],
-            examples: ["account-age"]
+            examples: ["accountage"]
         });
     }
 

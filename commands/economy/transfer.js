@@ -29,15 +29,17 @@ module.exports = class TransferDots extends Command {
         });
     }
 
-    run(msg, {
+    async run(msg, {
         user,
         amount
     }) {
         // Amount checking
         if (amount < rules["minWager"]) {
-            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` dots.`);
-        } else if (amount > diceAPI.getBalance(msg.author.id)) {
-            return msg.reply(`❌ You need to have at least \`${amount}\` dots. Your balance is \`${diceAPI.getBalance(msg.author.id)}\`.`);
+            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules["currencyPlural"]}.`);
+        } else if (amount > await diceAPI.getBalance(msg.author.id)) {
+            return msg.reply(`❌ You need to have at least \`${amount}\` ${rules["currencyPlural"]}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
+        } else if (isNaN(amount)) {
+            return msg.reply(`❌ \`${amount}\` is not a valid number.`);
         }
 
         // No sending money to yourself
@@ -50,21 +52,16 @@ module.exports = class TransferDots extends Command {
             return msg.reply("❌ You can't send dots to bots.");
         }
 
-        // Round to whole number
-        amount = Math.round(parseInt(amount));
+        // Format
+        amount = diceAPI.simpleStringFormat(amount);
 
         // Remove dots from sender
-        diceAPI.decreaseBalance(msg.author.id, amount);
+        await diceAPI.decreaseBalance(msg.author.id, amount);
 
         // Add dots to receiver
-        diceAPI.increaseBalance(user.id, amount);
-
-        // Tell the receiver
-        user.createDM().then(dmChannel => {
-            dmChannel.send(`📥 <@${msg.author.id}> transferred  \`${amount}\` dots to you. You now have a balance of \`${diceAPI.getBalance(user.id)}\` dots.`);
-        });
+        await diceAPI.increaseBalance(user.id, amount);
 
         // Tell the sender
-        return msg.reply(`📤 Transferred \`${amount}\` dots to <@${user.id}>. You now have a balance of \`${diceAPI.getBalance(msg.author.id)}\` dots.`);
+        return msg.reply(`📤 Transferred \`${amount}\` dots to <@${user.id}>. You now have a balance of \`${await diceAPI.getBalance(msg.author.id)}\` dots.`);
     }
 };
