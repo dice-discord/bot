@@ -52,6 +52,6 @@ module.exports = class CashOutCommand extends Command {
         diceAPI.increaseBalance(msg.author.id, amount);
 
         // Tell the sender
-        return msg.reply(`📤 Cashed out \`${amount}\` dots to your account.`);
+        return msg.reply(`📤 Cashed out \`${amount}\` ${rules["currencyPlural"]} to your account.`);
     }
 };

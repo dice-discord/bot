@@ -51,6 +51,6 @@ module.exports = class RemoveBalanceCommand extends Command {
         diceAPI.decreaseBalance(user.id, amount);
 
         // Tell the author
-        return msg.reply(`📤 Removed \`${amount}\` dots from <@${user.id}>'s account.`);
+        return msg.reply(`📤 Removed \`${amount}\` ${rules["currencyPlural"]} from <@${user.id}>'s account.`);
     }
 };

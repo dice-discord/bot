@@ -62,6 +62,6 @@ module.exports = class TransferCommand extends Command {
         await diceAPI.increaseBalance(user.id, amount);
 
         // Tell the sender
-        return msg.reply(`📤 Transferred \`${amount}\` dots to <@${user.id}>. You now have a balance of \`${await diceAPI.getBalance(msg.author.id)}\` dots.`);
+        return msg.reply(`📤 Transferred \`${amount}\` ${rules["currencyPlural"]} to <@${user.id}>. You now have a balance of \`${await diceAPI.getBalance(msg.author.id)}\` ${rules["currencyPlural"]}.`);
     }
 };

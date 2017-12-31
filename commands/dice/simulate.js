@@ -52,7 +52,7 @@ module.exports = class SimulateGameCommand extends Command {
 
         // Wager checking
         if (wager < rules["minWager"]) {
-            return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` dots.`);
+            return msg.reply(`❌ Your wager must be at least \`${rules["minWager"]}\` ${rules["currencyPlural"]}.`);
         } else if (isNaN(wager)) {
             return msg.reply(`❌ \`${wager}\` is not a valid number.`);
         }
@@ -71,11 +71,11 @@ module.exports = class SimulateGameCommand extends Command {
         if (success === false) {
             // Red color and loss message
             color = 0xf44334;
-            result = `You would have lost \`${wager}\` dots.`;
+            result = `You would have lost \`${wager}\` ${rules["currencyPlural"]}.`;
         } else {
             // Green color and win message
             color = 0x4caf50;
-            result = `Your profit would have been \`${profit}\` dots!`;
+            result = `Your profit would have been \`${profit}\` ${rules["currencyPlural"]}!`;
         }
 
         msg.channel.send({

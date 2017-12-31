@@ -42,18 +42,18 @@ module.exports = class BalanceCommand extends Command {
 
             // Someone else's balance
             if (houseBalance < userBalance && user.id !== rules["houseID"]) {
-                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` dots. That's more than <@${rules["houseID"]}>!`);
+                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules["currencyPlural"]}. That's more than <@${rules["houseID"]}>!`);
             } else {
-                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` dots.`);
+                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules["currencyPlural"]}.`);
             }
         } else {
             userBalance = await diceAPI.getBalance(msg.author.id);
 
             // We are looking up the message author's balance
             if (houseBalance < userBalance && user.id !== rules["houseID"]) {
-                return msg.reply(`🏦 You have a balance of \`${userBalance}\` dots. That's more than <@${rules["houseID"]}>!`);
+                return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules["currencyPlural"]}. That's more than <@${rules["houseID"]}>!`);
             } else {
-                return msg.reply(`🏦 You have a balance of \`${userBalance}\` dots.`);
+                return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules["currencyPlural"]}.`);
             }
         }
 
