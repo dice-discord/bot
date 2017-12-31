@@ -23,7 +23,8 @@ module.exports = class CashOutCommand extends Command {
             throttling: {
                 usages: 2,
                 duration: 30
-            }
+            },
+            ownerOnly: true
         });
     }
 
@@ -31,10 +32,6 @@ module.exports = class CashOutCommand extends Command {
         amount
     }) {
         beforeTransferHouseBalance = await diceAPI.getBalance(rules["houseID"])
-        // Permission checking
-        if (msg.author.isOwner === false) {
-            return msg.reply("❌ You must be an owner to use this command.");
-        }
 
         // Amount checking
         if (amount < rules["minWager"]) {

@@ -26,7 +26,8 @@ module.exports = class SetBalanceCommand extends Command {
             throttling: {
                 usages: 2,
                 duration: 30
-            }
+            },
+            ownerOnly: true
         });
     }
 
@@ -35,9 +36,7 @@ module.exports = class SetBalanceCommand extends Command {
         amount
     }) {
         // Permission checking
-        if (msg.author.isOwner === false) {
-            return msg.reply("❌ You must be an owner to use this command.");
-        } else if (user.bot === true && user.id !== rules["houseID"]) {
+        if (user.bot === true && user.id !== rules["houseID"]) {
             return msg.reply("❌ You can't add dots to bots.");
         }
 

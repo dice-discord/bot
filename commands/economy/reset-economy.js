@@ -16,16 +16,12 @@ module.exports = class ResetEconomyCommand extends Command {
             throttling: {
                 usages: 2,
                 duration: 30
-            }
+            },
+            ownerOnly: true
         });
     }
 
     run(msg) {
-        // Permission checking
-        if (msg.author.isOwner === false) {
-            return msg.reply("❌ You must be an owner to use this command.");
-        }
-
         // Start resetting the economy
         msg.reply("💣 Resetting the economy.");
         diceAPI.resetEconomy().then(() => {
