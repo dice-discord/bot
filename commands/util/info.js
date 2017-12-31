@@ -54,7 +54,7 @@ module.exports = class UserInfoCommand extends Command {
                 "thumbnail": {url: userProfilePicture},
                 "fields": [{
                     "name": "💰 Total Profit",
-                    "value": `${userBalance - rules["newUserBalance"]} ${rules["currencyPlural"]}`,
+                    "value": `${userBalance - startingBalance} ${rules["currencyPlural"]}`,
                     "inline": true
                 },
                 {
