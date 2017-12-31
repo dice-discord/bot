@@ -92,7 +92,7 @@ module.exports = class SimulateGameCommand extends Command {
                 },
                 {
                     "name": "📊 Win Chance",
-                    "value": `${diceAPI.winPercentage(multiplier)}%`,
+                    "value": `${diceAPI.simpleFormat(diceAPI.winPercentage(multiplier))}%`,
                     "inline": true
                 },
                 {

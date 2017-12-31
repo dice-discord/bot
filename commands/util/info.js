@@ -55,7 +55,7 @@ module.exports = class UserInfoCommand extends Command {
                 },
                 "fields": [{
                         "name": "💰 Total Profit",
-                        "value": `${userBalance - startingBalance} ${rules["currencyPlural"]}`,
+                        "value": `${diceAPI.simpleFormat(userBalance - startingBalance)} ${rules["currencyPlural"]}`,
                         "inline": true
                     },
                     {
