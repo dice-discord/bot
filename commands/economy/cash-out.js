@@ -18,7 +18,7 @@ module.exports = class CashOutCommand extends Command {
                 prompt: "How many dots do you want to remove?",
                 type: "string",
                 // Convert string to number and round it
-                parse: amountString => Math.round(parseInt(amountString))
+                parse: amountString => diceAPI.simpleStringFormat(amountString)
             }],
             throttling: {
                 usages: 2,
@@ -27,17 +27,20 @@ module.exports = class CashOutCommand extends Command {
         });
     }
 
-    run(msg, {
+    async run(msg, {
         amount
     }) {
+        beforeTransferHouseBalance = await diceAPI.getBalance(rules["houseID"])
         // Permission checking
         if (msg.author.isOwner === false) {
             return msg.reply("❌ You must be an owner to use this command.");
         }
 
-        // Wager checking
+        // Amount checking
         if (amount < rules["minWager"]) {
             return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
+        } else if (amount > beforeTransferHouseBalance) {
+            return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. <@${rules["houseID"]}> doesn't have that much.>`);
         } else if (isNaN(amount)) {
             return msg.reply(`❌ \`${amount}\` is not a valid number.`);
         }
@@ -45,7 +48,7 @@ module.exports = class CashOutCommand extends Command {
         // Round to whole number
         amount = Math.round(amount);
 
-        // Remove dots from bank
+        // Remove dots from the house
         diceAPI.decreaseBalance(rules["houseID"], amount);
 
         // Add dots to author
