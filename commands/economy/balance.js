@@ -37,7 +37,7 @@ module.exports = class BalanceCommand extends Command {
 
             // Someone else's balance
             if (houseBalance < userBalance && user.id !== rules["houseID"]) {
-                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` dots. That's more than the bank!`);
+                return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` dots. That's more than <@${rules["houseID"]}>!`);
             } else {
                 return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` dots.`);
             }
@@ -46,7 +46,7 @@ module.exports = class BalanceCommand extends Command {
 
             // We are looking up the message author's balance
             if (houseBalance < userBalance && user.id !== rules["houseID"]) {
-                return msg.reply(`🏦 You have a balance of \`${userBalance}\` dots. That's more than the bank!`);
+                return msg.reply(`🏦 You have a balance of \`${userBalance}\` dots. That's more than <@${rules["houseID"]}>!`);
             } else {
                 return msg.reply(`🏦 You have a balance of \`${userBalance}\` dots.`);
             }
