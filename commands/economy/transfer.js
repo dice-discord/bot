@@ -48,7 +48,7 @@ module.exports = class TransferDots extends Command {
         }
 
         // No sending money to bots
-        if (user.bot === true && user.id !== "388191157869477888") {
+        if (user.bot === true && user.id !== rules["houseID"]) {
             return msg.reply("❌ You can't send dots to bots.");
         }
 

@@ -20,13 +20,7 @@ module.exports = class SetBalance extends Command {
             }, {
                 key: "user",
                 prompt: "Who's balance do you want to set?",
-                type: "user",
-                validate: user => {
-                    if (user.bot === true && user.id !== "388191157869477888") {
-                        return "❌ You can't set dots for bots.";
-                    }
-                    return true;
-                }
+                type: "user"
             }],
             throttling: {
                 usages: 2,
@@ -42,6 +36,8 @@ module.exports = class SetBalance extends Command {
         // Permission checking
         if (msg.author.isOwner === false) {
             return msg.reply("❌ You must be an owner to use this command.");
+        } else if (user.bot === true && user.id !== rules["houseID"]) {
+            return msg.reply("❌ You can't add dots to bots.");
         }
 
         // Amount checking
@@ -58,6 +54,6 @@ module.exports = class SetBalance extends Command {
         diceAPI.updateBalance(user.id, amount);
 
         // Tell the author
-        return msg.reply(`📥 Set <@${user.id}>'s account balance to \`${amount}\` ${rules["currencyPlural"]}.`);
+        return msg.reply(`💰 Set <@${user.id}>'s account balance to \`${amount}\` ${rules["currencyPlural"]}.`);
     }
 };

@@ -1,6 +1,7 @@
 const {
     Command
 } = require("discord.js-commando");
+const rules = require("../../rules");
 
 module.exports = class InviteDiceCommand extends Command {
     constructor(client) {
@@ -8,12 +9,12 @@ module.exports = class InviteDiceCommand extends Command {
             name: "invite",
             group: "util",
             memberName: "invite",
-            description: "Generates an invite link for <@388191157869477888>",
+            description: `Generates an invite link for <@${rules["houseID"]}>`,
             examples: ["invite"],
         });
     }
 
     run(msg) {
-        msg.reply("👋 https://discord.now.sh/388191157869477888?p3072");
+        msg.reply(`👋 https://discord.now.sh/${rules["houseID"]}?p3072`);
     }
 };

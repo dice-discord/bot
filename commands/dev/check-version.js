@@ -1,4 +1,5 @@
 const packageData = require("../../package");
+const rules = require("../../rules");
 const {
     Command
 } = require("discord.js-commando");
@@ -9,7 +10,7 @@ module.exports = class CheckVersionCommand extends Command {
             name: "check-version",
             group: "dev",
             memberName: "check-version",
-            description: "Checks what version <@388191157869477888> is.",
+            description: `Checks what version <@${rules["houseID"]}> is.`,
             aliases: ["version-check", "version"],
             examples: ["check-version"],
             throttling: {
@@ -20,6 +21,6 @@ module.exports = class CheckVersionCommand extends Command {
     }
 
     run(msg) {
-        return msg.reply(`<@388191157869477888> version ${packageData["version"]}.`);
+        return msg.reply(`<@rules["houseID"]> version ${packageData["version"]}.`);
     }
 };

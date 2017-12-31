@@ -15,6 +15,6 @@ module.exports = class AccountAgeCommand extends Command {
     }
 
     run(msg) {
-        return msg.reply(`\`${msg.author.createdAt}\``);
+        return msg.reply(`⏰ \`${msg.author.createdAt}\``);
     }
 };

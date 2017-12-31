@@ -16,17 +16,12 @@ module.exports = class AddBalance extends Command {
             args: [{
                 key: "amount",
                 prompt: "How many dots do you want to add?",
-                type: "string"
+                type: "string",
+                parse: amountString => diceAPI.simpleStringFormat(amountString)
             }, {
                 key: "user",
                 prompt: "Who do you want to add dots to?",
-                type: "user",
-                validate: user => {
-                    if (user.bot === true && user.id !== "388191157869477888") {
-                        return "❌ You can't add dots to bots.";
-                    }
-                    return true;
-                }
+                type: "user"
             }],
             throttling: {
                 usages: 2,
@@ -42,6 +37,8 @@ module.exports = class AddBalance extends Command {
         // Permission checking
         if (msg.author.isOwner === false) {
             return msg.reply("❌ You must be an owner to use this command.");
+        } else if (user.bot === true && user.id !== rules["houseID"]) {
+            return msg.reply("❌ You can't add dots to bots.");
         }
 
         // Amount checking

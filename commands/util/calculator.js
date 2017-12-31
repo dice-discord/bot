@@ -31,6 +31,6 @@ module.exports = class WinCalculatorCommand extends Command {
             return msg.reply(`❌ \`${multiplier}\` is not a valid number.`);
         }
         
-        return msg.reply(`Win Percentage: \`${diceAPI.winPercentage(multiplier)}%\`.`);
+        return msg.reply(`🔢 Win Percentage: \`${diceAPI.winPercentage(multiplier)}%\`.`);
     }
 };

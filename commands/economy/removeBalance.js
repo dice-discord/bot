@@ -20,13 +20,7 @@ module.exports = class RemoveBalance extends Command {
             }, {
                 key: "user",
                 prompt: "Who do you want to remove dots from?",
-                type: "user",
-                validate: user => {
-                    if (user.bot === true && user.id !== "388191157869477888") {
-                        return "❌ You can't remove dots from bots.";
-                    }
-                    return true;
-                }
+                type: "user"
             }],
             throttling: {
                 usages: 2,
@@ -42,6 +36,8 @@ module.exports = class RemoveBalance extends Command {
         // Permission checking
         if (msg.author.isOwner === false) {
             return msg.reply("❌ You must be an owner to use this command.");
+        } else if (user.bot === true && user.id !== rules["houseID"]) {
+            return msg.reply("❌ You can't add dots to bots.");
         }
 
         // Wager checking
