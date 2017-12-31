@@ -35,6 +35,16 @@ module.exports = class UserInfoCommand extends Command {
         user = user || msg.author;
         const userBalance = await diceAPI.getBalance(msg.author.id);
         const userProfilePicture = user.displayAvatarURL(128);
+        let startingBalance;
+
+        // Determine what the starting balance is for the requested user
+        if (user.id === rules["houseID"]) {
+            startingBalance = rules["houseStartingBalance"];
+        } else if (user.bot && user.id !== rules["houseID"]) {
+            return msg.reply("❌ Bots can't play.");
+        } else {
+            startingBalance = rules["newUserBalance"];
+        }
         
         winston.verbose(`Target user display URL: ${userProfilePicture}`);
 
