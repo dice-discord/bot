@@ -6,7 +6,6 @@ const {
 } = require("discord.js-commando");
 const path = require("path");
 const winston = require("winston");
-const sqlite = require("sqlite");
 const packageData = require("./package");
 
 // Set up bot metadata
@@ -30,12 +29,6 @@ client.registry
     // Registers all of your commands in the ./commands/ directory
     .registerCommandsIn(path.join(__dirname, "commands"));
 
-// Save settings in SQLite database
-client.setProvider(
-    sqlite.open(path.join(__dirname, "settings.sqlite3"))
-        .then(db => new Commando.SQLiteProvider(db))
-);
-
 client.on("ready", () => {
     winston.level = "debug";
     winston.info("Logged in!");
@@ -48,6 +41,17 @@ client.on("ready", () => {
             type: 0
         }
     });
+});
+
+client.on("message", (msg) => {
+    winston.verbose("New message. Checking if author is a beta tester already");
+    if (msg.member.roles.has("396945953497808896") === false && packageData["version"].includes("beta")) {
+        winston.verbose("Author isn't a beta tester. Adding role.");
+        msg.member.addRole("396945953497808896", "Participated in the beta testing of Dice")
+            .then(() => {
+                winston.verbose(`Added beta tester role to ${msg.author.tag}`);
+            });
+    }
 });
 
 // Log in the bot
