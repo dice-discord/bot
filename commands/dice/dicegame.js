@@ -43,9 +43,9 @@ module.exports = class DiceGameCommand extends Command {
         winston.level = "info";
 
         // Multiplier checking
-        if (multiplier < await diceAPI.simpleFormat(rules["minMultiplier"])) {
+        if (multiplier < diceAPI.simpleFormat(rules["minMultiplier"])) {
             return msg.reply(`❌ Your target multiplier must be at least \`${rules["minMultiplier"]}\`.`);
-        } else if (multiplier > await diceAPI.simpleFormat(rules["maxMultiplier"])) {
+        } else if (multiplier > diceAPI.simpleFormat(rules["maxMultiplier"])) {
             return msg.reply(`❌ Your target multiplier must be less than \`${rules["maxMultiplier"]}\`.`);
         } else if (isNaN(multiplier)) {
             return msg.reply(`❌ \`${multiplier}\` is not a valid number.`);
@@ -84,9 +84,9 @@ module.exports = class DiceGameCommand extends Command {
             result = `You lost \`${wager}\` ${rules["currencyPlural"]}.`;
         } else {
             // Give the player their winnings
-            diceAPI.increaseBalance(msg.author.id, (wager * multiplier));
+            await diceAPI.increaseBalance(msg.author.id, (wager * multiplier));
             // Take the winnings from the house
-            diceAPI.decreaseBalance(rules["houseID"], (wager * multiplier));
+            await diceAPI.decreaseBalance(rules["houseID"], (wager * multiplier));
 
             // Green color and win message
             color = 0x4caf50;
