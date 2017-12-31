@@ -21,6 +21,6 @@ module.exports = class CheckVersionCommand extends Command {
     }
 
     run(msg) {
-        return msg.reply(`<@rules["houseID"]> version ${packageData["version"]}.`);
+        return msg.reply(`<@${rules["houseID"]}> version ${packageData["version"]}.`);
     }
 };
