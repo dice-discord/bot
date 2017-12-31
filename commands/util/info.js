@@ -40,7 +40,7 @@ module.exports = class UserInfoCommand extends Command {
 
         msg.channel.send({
             embed: {
-                "title": user.username,
+                "title": user.tag,
                 "thumbnail": {url: userProfilePicture},
                 "fields": [{
                     "name": "💰 Total Profit",
