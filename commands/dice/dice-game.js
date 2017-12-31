@@ -65,8 +65,8 @@ module.exports = class DiceGameCommand extends Command {
         // Round numbers to second decimal place
         let randomNumber = diceAPI.simpleFormat((Math.random() * rules["maxMultiplier"]));
 
-        // Get boolean if the random number is bigger than the multiplier
-        let success = (randomNumber > diceAPI.winPercentage(multiplier));
+        // Get boolean if the random number is greater than the multiplier
+        let gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
         // Take away the player's wager no matter what
         await diceAPI.decreaseBalance(msg.author.id, wager);
@@ -78,7 +78,7 @@ module.exports = class DiceGameCommand extends Command {
         let result;
         let profit = diceAPI.simpleFormat((wager * multiplier) - wager);
 
-        if (success === false) {
+        if (gameResult === true) {
             // Red color and loss message
             color = 0xf44334;
             result = `You lost \`${wager}\` ${rules["currencyPlural"]}.`;

@@ -59,8 +59,9 @@ module.exports = class SimulateGameCommand extends Command {
 
         // Round numbers to second decimal place
         let randomNumber = diceAPI.simpleFormat((Math.random() * rules["maxMultiplier"]));
-        // Get boolean if the random number is less than the multiplier
-        let success = (randomNumber > diceAPI.winPercentage(multiplier));
+
+        // Get boolean if the random number is greater than the multiplier
+        let success = randomNumber > diceAPI.winPercentage(multiplier);
 
         // Variables for later use in embed
         let color;
