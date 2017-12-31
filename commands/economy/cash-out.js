@@ -31,7 +31,7 @@ module.exports = class CashOutCommand extends Command {
     async run(msg, {
         amount
     }) {
-        beforeTransferHouseBalance = await diceAPI.getBalance(rules["houseID"])
+        const beforeTransferHouseBalance = await diceAPI.getBalance(rules["houseID"]);
 
         // Amount checking
         if (amount < rules["minWager"]) {
