@@ -24,7 +24,6 @@ module.exports = class UserInfoCommand extends Command {
                 usages: 2,
                 duration: 20
             },
-
         });
     }
 
@@ -45,23 +44,25 @@ module.exports = class UserInfoCommand extends Command {
         } else {
             startingBalance = rules["newUserBalance"];
         }
-        
+
         winston.verbose(`Target user display URL: ${userProfilePicture}`);
 
         return msg.channel.send({
             embed: {
                 "title": user.tag,
-                "thumbnail": {url: userProfilePicture},
-                "fields": [{
-                    "name": "💰 Total Profit",
-                    "value": `${userBalance - startingBalance} ${rules["currencyPlural"]}`,
-                    "inline": true
+                "thumbnail": {
+                    url: userProfilePicture
                 },
-                {
-                    "name": "🏦 Balance",
-                    "value": `${userBalance} ${rules["currencyPlural"]}`,
-                    "inline": true
-                }
+                "fields": [{
+                        "name": "💰 Total Profit",
+                        "value": `${userBalance - startingBalance} ${rules["currencyPlural"]}`,
+                        "inline": true
+                    },
+                    {
+                        "name": "🏦 Balance",
+                        "value": `${userBalance} ${rules["currencyPlural"]}`,
+                        "inline": true
+                    }
                 ]
             }
         });
