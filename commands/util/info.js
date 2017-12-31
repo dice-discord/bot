@@ -5,7 +5,7 @@ const winston = require("winston");
 const rules = require("../../rules");
 const diceAPI = require("../../diceAPI");
 
-module.exports = class InfoCommand extends Command {
+module.exports = class UserInfoCommand extends Command {
     constructor(client) {
         super(client, {
             name: "info",

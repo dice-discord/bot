@@ -4,7 +4,7 @@ const {
 const rules = require("../../rules");
 const diceAPI = require("../../diceAPI");
 
-module.exports = class CheckBalance extends Command {
+module.exports = class BalanceCommand extends Command {
     constructor(client) {
         super(client, {
             name: "balance",

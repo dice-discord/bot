@@ -4,7 +4,7 @@ const {
     Command
 } = require("discord.js-commando");
 
-module.exports = class WinCalculatorCommand extends Command {
+module.exports = class CalculatorCommand extends Command {
     constructor(client) {
         super(client, {
             name: "calculator",

@@ -4,15 +4,15 @@ const {
 const rules = require("../../rules");
 const diceAPI = require("../../diceAPI");
 
-module.exports = class RemoveBalance extends Command {
+module.exports = class CashOutCommand extends Command {
     constructor(client) {
         super(client, {
-            name: "cashout",
+            name: "cash-out",
             group: "economy",
-            memberName: "cashout",
+            memberName: "cash-out",
             description: "Cash out money from the house.",
-            aliases: ["cash-out"],
-            examples: ["cash-out 500 @Pizza Fox#0075"],
+            details: "Only the bot owner(s) may use this command.",
+            examples: ["cash-out 500"],
             args: [{
                 key: "amount",
                 prompt: "How many dots do you want to remove?",

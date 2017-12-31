@@ -3,7 +3,7 @@ const {
 } = require("discord.js-commando");
 const rules = require("../../rules");
 
-module.exports = class InviteDiceCommand extends Command {
+module.exports = class InviteCommand extends Command {
     constructor(client) {
         super(client, {
             name: "invite",

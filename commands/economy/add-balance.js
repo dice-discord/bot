@@ -4,22 +4,24 @@ const {
 const rules = require("../../rules");
 const diceAPI = require("../../diceAPI");
 
-module.exports = class RemoveBalance extends Command {
+module.exports = class AddBalanceCommand extends Command {
     constructor(client) {
         super(client, {
-            name: "removebalance",
+            name: "add-balance",
             group: "economy",
-            memberName: "removebalance",
-            description: "Remove dots from another user's account",
-            aliases: ["remove", "remove-bal", "decrease-balance", "decrease-bal", "lower", "lower-bal", "reduce", "reduce-bal"],
-            examples: ["remove-balance 500 @Dice"],
+            memberName: "add-balance",
+            description: "Add dots to another user's account",
+            details: "Only the bot owner(s) may use this command.",
+            aliases: ["add", "add-bal", "increase-balance", "increase-bal"],
+            examples: ["add-balance 500 @Dice"],
             args: [{
                 key: "amount",
-                prompt: "How many dots do you want to remove?",
-                type: "string"
+                prompt: "How many dots do you want to add?",
+                type: "string",
+                parse: amountString => diceAPI.simpleStringFormat(amountString)
             }, {
                 key: "user",
-                prompt: "Who do you want to remove dots from?",
+                prompt: "Who do you want to add dots to?",
                 type: "user"
             }],
             throttling: {
@@ -40,17 +42,17 @@ module.exports = class RemoveBalance extends Command {
             return msg.reply("❌ You can't add dots to bots.");
         }
 
-        // Wager checking
+        // Amount checking
         if (amount < rules["minWager"]) {
-            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules["currencyPlural"]}.`);
+            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules["currencySingular"]}.`);
         } else if (isNaN(amount)) {
             return msg.reply(`❌ \`${amount}\` is not a valid number.`);
         }
 
-        // Remove dots from user
-        diceAPI.decreaseBalance(user.id, amount);
+        // Add dots to user
+        diceAPI.increaseBalance(user.id, amount);
 
         // Tell the author
-        return msg.reply(`📤 Removed \`${amount}\` dots from <@${user.id}>'s account.`);
+        return msg.reply(`📥 Added \`${amount}\` ${rules["currencyPlural"]} to <@${user.id}>'s account.`);
     }
 };

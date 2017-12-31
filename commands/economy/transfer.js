@@ -4,7 +4,7 @@ const {
 const rules = require("../../rules");
 const diceAPI = require("../../diceAPI");
 
-module.exports = class TransferDots extends Command {
+module.exports = class TransferCommand extends Command {
     constructor(client) {
         super(client, {
             name: "transfer",
