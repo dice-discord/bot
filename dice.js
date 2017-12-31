@@ -7,6 +7,7 @@ const {
 const path = require("path");
 const winston = require("winston");
 const packageData = require("./package");
+const rules = require("./rules");
 
 // Set up bot metadata
 const client = new CommandoClient({
@@ -45,7 +46,7 @@ client.on("ready", () => {
 
 client.on("message", (msg) => {
     winston.verbose("New message. Checking if author is a beta tester already");
-    if (msg.member.roles.has("396945953497808896") === false && packageData["version"].includes("beta")) {
+    if (!msg.member.roles.has("396945953497808896") && packageData["version"].includes("beta") && !msg.author.bot) {
         winston.verbose("Author isn't a beta tester. Adding role.");
         msg.member.addRole("396945953497808896", "Participated in the beta testing of Dice")
             .then(() => {
