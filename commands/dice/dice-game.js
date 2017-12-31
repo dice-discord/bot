@@ -19,7 +19,7 @@ module.exports = class DiceGameCommand extends Command {
                 prompt: "How much do you want to wager?",
                 type: "string",
                 // Round wager to whole number by converting to int
-                parse: wagerString => parseInt(wagerString)
+                parse: wagerString => diceAPI.simpleStringFormat(wagerString)
             }, {
                 key: "multiplier",
                 prompt: "How much do you want to multiply your wager by?",
