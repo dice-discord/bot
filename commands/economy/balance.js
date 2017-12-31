@@ -32,6 +32,11 @@ module.exports = class BalanceCommand extends Command {
         const houseBalance = await diceAPI.getBalance(rules["houseID"]);
         let userBalance;
 
+        // Bot checking
+        if (user.bot && user.id !== rules["houseID"]) {
+            return msg.reply("❌ Bots can't play.");
+        }
+
         if (user) {
             userBalance = await diceAPI.getBalance(user.id);
 
