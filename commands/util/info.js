@@ -33,7 +33,7 @@ module.exports = class UserInfoCommand extends Command {
         winston.level = "debug";
         user = user || msg.author;
         const userBalance = await diceAPI.getBalance(user.id);
-        const userProfilePicture = user.displayAvatarURL(256);
+        const userProfilePicture = user.displayAvatarURL(512);
         let startingBalance;
 
         // Determine what the starting balance is for the requested user
