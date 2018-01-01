@@ -1,4 +1,4 @@
-//Copyright 2017 Jonah Snider
+//Copyright 2018 Jonah Snider
 
 // Set up dependencies
 const {
