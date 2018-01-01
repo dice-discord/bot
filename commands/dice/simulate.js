@@ -18,8 +18,8 @@ module.exports = class SimulateGameCommand extends Command {
                 key: "wager",
                 prompt: "How much do you want to wager?",
                 type: "string",
-                // Round wager to whole number by converting to int
-                parse: wagerString => parseInt(wagerString)
+                // Round wager by converting to simple string and then round
+                parse: wagerString => Math.round(diceAPI.simpleStringFormat(wagerString))
             }, {
                 key: "multiplier",
                 prompt: "How much do you want to multiply your wager by?",
