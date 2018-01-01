@@ -51,7 +51,7 @@ module.exports = class UserInfoCommand extends Command {
             embed: {
                 "title": user.tag,
                 "thumbnail": {
-                    url: userProfilePicture
+                    "url": userProfilePicture
                 },
                 "fields": [{
                         "name": "💰 Total Profit",

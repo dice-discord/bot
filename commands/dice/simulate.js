@@ -79,7 +79,7 @@ module.exports = class SimulateGameCommand extends Command {
         }
 
         msg.channel.send({
-            embed: {
+            "embed": {
                 "title": `**${wager} 🇽 ${multiplier}**`,
                 "color": color,
                 "fields": [{
