@@ -61,14 +61,14 @@ module.exports = class SimulateGameCommand extends Command {
         let randomNumber = diceAPI.simpleFormat((Math.random() * rules["maxMultiplier"]));
 
         // Get boolean if the random number is greater than the multiplier
-        let success = randomNumber > diceAPI.winPercentage(multiplier);
+        let gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
         // Variables for later use in embed
         let color;
         let result;
         let profit = diceAPI.simpleFormat((wager * multiplier) - wager);
 
-        if (success === false) {
+        if (gameResult === false) {
             // Red color and loss message
             color = 0xf44334;
             result = `You would have lost \`${wager}\` ${rules["currencyPlural"]}.`;
