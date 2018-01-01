@@ -1,5 +1,5 @@
 const rules = require("./rules");
-var MongoClient = require("mongodb").MongoClient;
+const mongodb = require("mongodb");
 const winston = require("winston");
 
 winston.level = "debug";
@@ -13,17 +13,18 @@ if (process.env.MONGODB_URI == null) {
     winston.verbose(`mongoDB URI: ${uri}`);
 }
 
-MongoClient.connect(uri, function (err, database) {
+mongodb.MongoClient.connect(uri, function (err, database) {
     if (err) winston.error(err);
     winston.debug("Connected to database server");
     winston.debug(`Database name: ${database}`);
 
     var balances = database.db("balances").collection("balances");
 
+    // Get balance
     async function getBalance(requestedID) {
         return await balances.findOne({
-            id: requestedID
-        })
+                id: requestedID
+            })
             .then((result) => {
                 if (!result) {
                     winston.verbose("Result is empty. Checking if requested ID is the house.");
@@ -35,7 +36,7 @@ MongoClient.connect(uri, function (err, database) {
                         winston.verbose("Requested ID isn't the house ID.");
                         updateBalance(requestedID, rules["newUserBalance"]);
                         return rules["newUserBalance"];
-                    }                
+                    }
                 } else {
                     let balanceResult = simpleFormat(result["balance"]);
                     winston.verbose(`Result for findOne: ${result}`);
@@ -47,6 +48,7 @@ MongoClient.connect(uri, function (err, database) {
             });
     }
     module.exports.getBalance = getBalance;
+    // Get balance
 
     // Update balance
     async function updateBalance(requestedID, newBalance) {
@@ -63,7 +65,7 @@ MongoClient.connect(uri, function (err, database) {
     }
     module.exports.updateBalance = updateBalance;
     // Update balance
-    
+
     // Increase and decrease
     async function decreaseBalance(id, amount) {
         updateBalance(id, await getBalance(id) - amount);
@@ -86,6 +88,38 @@ MongoClient.connect(uri, function (err, database) {
     }
     module.exports.resetEconomy = resetEconomy;
     // Reset economy
+
+    // Leaderboard search
+    /*async function leaderboard() {
+        return await balances.find()
+            .sort({
+                balance: -1
+            })
+            .limit(10)
+            .toArray(
+                function (err, data) {
+                    if (err) winston.error(err);
+                    winston.verbose(`Top 10 result array: ${data}`);
+                    return data;
+                }
+            );
+    }*/
+
+    async function leaderboard() {
+        let allBalances = await balances.find();
+        let formattedBalances = await allBalances
+            .sort({
+                balance: -1
+            })
+            .limit(10)
+            .toArray();
+
+        winston.verbose(`Top ten data: ${allBalances}`);
+        winston.verbose(`Top ten data formatted: ${formattedBalances}`);
+        return formattedBalances;
+    }
+    module.exports.leaderboard = leaderboard;
+    // Leaderboard search
 });
 
 function winPercentage(multiplier) {
