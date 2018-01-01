@@ -17,7 +17,9 @@ module.exports = class CalculatorCommand extends Command {
                 key: "multiplier",
                 label: "multiplier",
                 prompt: "How much do you want to multiply your wager by?",
-                type: "string"
+                type: "string",
+                // Round multiplier to second decimal place
+                parse: multiplierString => diceAPI.simpleStringFormat(multiplierString)
             }]
         });
     }
@@ -31,6 +33,6 @@ module.exports = class CalculatorCommand extends Command {
             return msg.reply(`❌ \`${multiplier}\` is not a valid number.`);
         }
         
-        return msg.reply(`🔢 Win Percentage: \`${diceAPI.winPercentage(multiplier)}%\`.`);
+        return msg.reply(`🔢 Win Percentage: \`${diceAPI.simpleFormat(diceAPI.winPercentage(multiplier))}%\`.`);
     }
 };
