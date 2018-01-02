@@ -47,43 +47,43 @@ module.exports = class LeaderboardCommand extends Command {
             embed: {
                 "title": "Top 10 Leaderboard",
                 "fields": [{
-                        "name": `${this.client.users.get(leaderboardArray[0]["id"]).tag}`,
+                        "name": this.client.users.get(leaderboardArray[0]["id"]).tag,
                         "value": `${leaderboardArray[0]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `${this.client.users.get(leaderboardArray[1]["id"]).tag}>`,
+                        "name": this.client.users.get(leaderboardArray[1]["id"]).tag,
                         "value": `${leaderboardArray[1]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `${this.client.users.get(leaderboardArray[2]["id"]).tag}`,
+                        "name": this.client.users.get(leaderboardArray[2]["id"]).tag,
                         "value": `${leaderboardArray[2]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `${this.client.users.get(leaderboardArray[3]["id"]).tag}`,
+                        "name": this.client.users.get(leaderboardArray[3]["id"]).tag,
                         "value": `${leaderboardArray[3]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `${this.client.users.get(leaderboardArray[4]["id"]).tag}`,
+                        "name": this.client.users.get(leaderboardArray[4]["id"]).tag,
                         "value": `${leaderboardArray[4]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `${this.client.users.get(leaderboardArray[5]["id"]).tag}`,
+                        "name": this.client.users.get(leaderboardArray[5]["id"]).tag,
                         "value": `${leaderboardArray[5]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `${this.client.users.get(leaderboardArray[6]["id"]).tag}`,
+                        "name": this.client.users.get(leaderboardArray[6]["id"]).tag,
                         "value": `${leaderboardArray[6]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `${this.client.users.get(leaderboardArray[7]["id"]).tag}`,
+                        "name": this.client.users.get(leaderboardArray[7]["id"]).tag,
                         "value": `${leaderboardArray[7]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `${this.client.users.get(leaderboardArray[8]["id"]).tag}`,
+                        "name": this.client.users.get(leaderboardArray[8]["id"]).tag,
                         "value": `${leaderboardArray[8]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `${this.client.users.get(leaderboardArray[9]["id"]).tag}`,
+                        "name": this.client.users.get(leaderboardArray[9]["id"]).tag,
                         "value": `${leaderboardArray[9]["balance"]} ${rules["currencyPlural"]}`
                     }
                 ]
