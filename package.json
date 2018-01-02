@@ -1,7 +1,7 @@
 {
     "name": "dice",
     "description": "Simple dice.",
-    "version": "1.4.1-beta",
+    "version": "1.5.0-beta",
     "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
     "keywords": [
         "discord",
@@ -29,6 +29,7 @@
         "discord.js": "github:hydrabolt/discord.js",
         "discord.js-commando": "^0.9.0",
         "eslint-plugin-async-await": "0.0.0",
+        "moment": "^2.20.1",
         "mongodb": "^3.0.0-rc0",
         "path": "^0.12.7",
         "uws": "^0.14.5",

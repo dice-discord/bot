@@ -61,7 +61,7 @@ mongodb.MongoClient.connect(uri, function (err, database) {
         }, {
             upsert: true
         });
-        winston.verbose(`Set balance for ${requestedID} to ${newBalance}`);
+        winston.verbose(`Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
     }
     module.exports.updateBalance = updateBalance;
     // Update balance
@@ -90,21 +90,6 @@ mongodb.MongoClient.connect(uri, function (err, database) {
     // Reset economy
 
     // Leaderboard search
-    /*async function leaderboard() {
-        return await balances.find()
-            .sort({
-                balance: -1
-            })
-            .limit(10)
-            .toArray(
-                function (err, data) {
-                    if (err) winston.error(err);
-                    winston.verbose(`Top 10 result array: ${data}`);
-                    return data;
-                }
-            );
-    }*/
-
     async function leaderboard() {
         let allBalances = await balances.find();
         let formattedBalances = await allBalances
@@ -129,6 +114,43 @@ mongodb.MongoClient.connect(uri, function (err, database) {
     }
     module.exports.totalUsers = totalUsers;
     // Total users
+
+    // Daily reward
+    async function setDailyUsed(requestedID, timestamp) {
+        balances.updateOne({
+            id: requestedID
+        }, {
+            $set: {
+                daily: timestamp
+            }
+        }, {
+            upsert: true
+        });
+        winston.verbose(`Set daily timestamp for ${requestedID} to ${timestamp}`);
+    }
+    module.exports.setDailyUsed = setDailyUsed;
+    // Daily reward
+
+    // Daily reward searching
+    async function getDailyUsed(requestedID) {
+        winston.verbose(`Looking up daily timestamp for ${requestedID}`);
+        return await balances.findOne({
+                id: requestedID
+            })
+            .then((result) => {
+                winston.verbose(`Find one result for daily timestamp: ${result["daily"]}`);
+                if (!result || result == undefined || isNaN(result["daily"])) {
+                    winston.verbose("Daily last used timestamp result is empty.");
+                    return 0;
+                } else {
+                    let timestampResult = result["daily"];
+                    winston.verbose(`Daily timestamp: ${timestampResult}`);
+                    return timestampResult;
+                }
+            });
+    }
+    module.exports.getDailyUsed = getDailyUsed;
+    // Daily reward searching
 });
 
 function winPercentage(multiplier) {
