@@ -55,19 +55,19 @@ module.exports = class ReferralCheckCommand extends Command {
                     msg.reply("You have been given the Affiliate role");
                 });
         } else if (uses >= recruiter["requirement"]) {
-            msg.member.addRole(recruiter["id"], "Invited 25+ users")
+            msg.member.addRole(recruiter["id"], "Invited 10+ users")
                 .then(() => {
                     winston.verbose(`Added recruiter role to ${msg.author.tag}`);
                     msg.reply("You have been given the Recruiter role");
                 });
         } else if (uses >= backer["requirement"]) {
-            msg.member.addRole(backer["id"], "Invited 25+ users")
+            msg.member.addRole(backer["id"], "Invited 5+ users")
                 .then(() => {
                     winston.verbose(`Added backer role to ${msg.author.tag}`);
                     msg.reply("You have been given the Backer role");
                 });
         } else if (uses >= inviter["requirement"]) {
-            msg.member.addRole(inviter["id"], "Invited 25+ users")
+            msg.member.addRole(inviter["id"], "Invited 1+ users")
                 .then(() => {
                     winston.verbose(`Added inviter role to ${msg.author.tag}`);
                     msg.reply("You have been given the Inviter role");
