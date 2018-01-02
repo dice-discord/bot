@@ -1,4 +1,6 @@
 # Dice
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FPizzaFox%2Fdice.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FPizzaFox%2Fdice?ref=badge_shield)
+
 
 A simple game. You have a wager and a multiplier. Higher risk, higher rewards.
 
@@ -11,3 +13,7 @@ For each bet the outcome is randomly chosen between 1 and 100. It's up to you to
 If the bet's outcome falls short of your guess, you lose your wager. But if you guessed correctly, your wager is multiplied by your guess!
 
 [Why don't you see for yourself?](https://discord.now.sh/388191157869477888?p3072)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FPizzaFox%2Fdice.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FPizzaFox%2Fdice?ref=badge_large)
