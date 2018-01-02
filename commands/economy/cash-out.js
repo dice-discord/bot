@@ -37,7 +37,7 @@ module.exports = class CashOutCommand extends Command {
         if (amount < rules["minWager"]) {
             return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
         } else if (amount > beforeTransferHouseBalance) {
-            return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. <@${rules["houseID"]}> doesn't have that much.>`);
+            return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. ${this.client.user} doesn't have that much.>`);
         } else if (isNaN(amount)) {
             return msg.reply(`❌ \`${amount}\` is not a valid number.`);
         }

@@ -51,7 +51,7 @@ client.on("message", (msg) => {
         msg.member.addRole("396945953497808896", "Participated in the beta testing of Dice")
             .then(() => {
                 winston.verbose(`Added beta tester role to ${msg.author.tag}`);
-                msg.reply(`Thanks for testing out <@${rules["houseID"]}> during the beta. I've automatically given you the beta tester role as a thank you.`);
+                msg.reply(`Thanks for testing out ${client.user} during the beta. I've automatically given you the beta tester role as a thank you.`);
             });
     }
 });

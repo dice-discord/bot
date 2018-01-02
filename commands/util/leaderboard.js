@@ -14,7 +14,7 @@ module.exports = class LeaderboardCommand extends Command {
             name: "leaderboard",
             group: "util",
             memberName: "leaderboard",
-            description: `Generates an invite link for <@${rules["houseID"]}>`,
+            description: `Shows a top ten leaderboard of who has the most ${rules["currencyPlural"]}`,
             aliases: ["top-10", "top-ten", "chart", "top"],
             examples: ["leaderboard"],
         });
