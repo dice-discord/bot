@@ -58,7 +58,8 @@ module.exports = class DailyCommand extends Command {
         winston.verbose(`Old timestamp: ${oldTime}`);
         winston.verbose(`Current timestamp: ${currentTime}`);
 
-        if (fullDay - currentTime > oldTime) {
+        if (fullDay - currentTime > oldTime || oldTime === false) {
+            if (oldTime === false) winston.verbose("Old timestamp was returned as false, meaning empty in the database.");
             await diceAPI.increaseBalance(msg.author.id, payout);
             await diceAPI.setDailyUsed(msg.author.id, currentTime);
             // Daily not collected in one day

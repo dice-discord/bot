@@ -141,7 +141,7 @@ mongodb.MongoClient.connect(uri, function (err, database) {
                 winston.verbose(`Find one result for daily timestamp: ${result["daily"]}`);
                 if (!result || result == undefined || isNaN(result["daily"])) {
                     winston.verbose("Daily last used timestamp result is empty.");
-                    return 0;
+                    return false;
                 } else {
                     let timestampResult = result["daily"];
                     winston.verbose(`Daily timestamp: ${timestampResult}`);
