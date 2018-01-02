@@ -26,7 +26,8 @@ module.exports = class DailyCommand extends Command {
         // Initialize variables
         const oldTime = await diceAPI.getDailyUsed(msg.author.id);
         const currentTime = msg.createdTimestamp;
-        const fullDay = 86400000;
+        // 23 hours because it's easier for users to have some wiggle room
+        const fullDay = 82800000;
         const millisecondsUntil = (oldTime - currentTime) + fullDay;
         let waitDuration = moment.duration(millisecondsUntil);
 
