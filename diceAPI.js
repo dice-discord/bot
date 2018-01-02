@@ -120,6 +120,15 @@ mongodb.MongoClient.connect(uri, function (err, database) {
     }
     module.exports.leaderboard = leaderboard;
     // Leaderboard search
+
+    // Total users
+    async function totalUsers() {
+        let totalUsers = await balances.count({});
+        winston.verbose(`Number of all users: ${totalUsers}`);
+        return totalUsers;
+    }
+    module.exports.totalUsers = totalUsers;
+    // Total users
 });
 
 function winPercentage(multiplier) {
