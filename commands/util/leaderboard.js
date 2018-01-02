@@ -26,21 +26,19 @@ module.exports = class LeaderboardCommand extends Command {
         const leaderboardArray = await diceAPI.leaderboard();
 
         winston.verbose(`Contents of leaderboard array: ${leaderboardArray}`);
+        winston.verbose(`Leaderboard array length: ${leaderboardArray.length}`);
 
-        /*let embed = new RichEmbed();
-            .setTitle(`Top ${leaderboardArray.length} Leaderboard`);
-
-        winston.verbose("Initialized RichEmbed");
-        for (let index = 0; index < leaderboardArray.length; index++) {
-            embed
-                .addField(`
-                    <@${leaderboardArray[index]["id"]}>`,
-                    `${leaderboardArray[index]["balance"]} ${rules["currencyPlural"]}`
-                );
-        }*/
-
+        // Check if there are enough users to populate the embed
         if (leaderboardArray.length < 10) {
             return msg.reply("❌ There are less than 10 users total.");
+        }
+
+        let index = 0;
+
+        for (let index = 0; index < leaderboardArray.length; index++) {
+            winston.debug(`#${index + 1} ---------------------`);
+            winston.debug(`Name #${index + 1}: ${this.client.users.get(leaderboardArray[index]["id"]).tag}`);
+            winston.debug(`Balance #${index + 1}: ${leaderboardArray[index]["balance"]} ${rules["currencyPlural"]}`);
         }
 
         return msg.reply({
