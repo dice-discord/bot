@@ -4,9 +4,9 @@
 
 A simple game. You have a wager and a multiplier. Higher risk, higher rewards.
 
-### [Invite to Your Server](https://discord.now.sh/388191157869477888?p3072)
+## [Invite to Your Server](https://discord.now.sh/388191157869477888?p3072)
 
-### How the game works
+## How the game works
 
 For each bet the outcome is randomly chosen between 1 and 100. It's up to you to guess a target that you think the outcome will exceed.
 
