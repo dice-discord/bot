@@ -39,7 +39,7 @@ module.exports = class LeaderboardCommand extends Command {
                 );
         }*/
 
-        if (leaderboardArray.length <= 10) {
+        if (leaderboardArray.length < 10) {
             return msg.reply("❌ There are less than 10 users total.");
         }
 
