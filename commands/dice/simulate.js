@@ -68,7 +68,7 @@ module.exports = class SimulateGameCommand extends Command {
         let result;
         let profit = diceAPI.simpleFormat((wager * multiplier) - wager);
 
-        if (gameResult === false) {
+        if (gameResult === true) {
             // Red color and loss message
             color = 0xf44334;
             result = `You would have lost \`${wager}\` ${rules["currencyPlural"]}.`;
