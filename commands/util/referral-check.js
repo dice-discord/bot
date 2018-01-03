@@ -82,7 +82,7 @@ module.exports = class ReferralCheckCommand extends Command {
         } else if (msg.member.roles.has(backer["id"]) && msg.guild.id === "388366947689168897") {
             message = "You are currently a backer.";
         } else if (msg.member.roles.has(inviter["id"]) && msg.guild.id === "388366947689168897") {
-            message = "You are currently an inviter";
+            message = "You are currently an inviter.";
         }
 
         winston.verbose(`${msg.author.tag} has invited ${uses} people to this server.`);
