@@ -16,7 +16,7 @@ module.exports = class ReferralCheckCommand extends Command {
             throttling: {
                 usages: 2,
                 duration: 20
-            },
+            }
         });
     }
 
