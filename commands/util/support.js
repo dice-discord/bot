@@ -9,7 +9,7 @@ module.exports = class SupportCommand extends Command {
             name: "support",
             group: "util",
             memberName: "support",
-            description: `An invite to the <@${rules[houseID]}> server`,
+            description: `An invite to the <@${rules["houseID"]}> server`,
             aliases: ["home", "report", "bug"],
             examples: ["support"],
         });
