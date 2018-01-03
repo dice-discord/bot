@@ -15,7 +15,7 @@ module.exports = class ReferralCheckCommand extends Command {
             examples: ["referral-check"],
             throttling: {
                 usages: 2,
-                duration: 60
+                duration: 20
             },
         });
     }
@@ -52,37 +52,37 @@ module.exports = class ReferralCheckCommand extends Command {
             msg.member.addRole(affiliate["id"], "Invited 25+ users")
                 .then(() => {
                     winston.verbose(`Added affiliate role to ${msg.author.tag}`);
-                    msg.reply("You have been given the Affiliate role");
+                    msg.reply("You have been given the **affiliate** role");
                 });
         } else if (uses >= recruiter["requirement"] && !msg.member.roles.has(recruiter["id"])) {
             msg.member.addRole(recruiter["id"], "Invited 10+ users")
                 .then(() => {
                     winston.verbose(`Added recruiter role to ${msg.author.tag}`);
-                    msg.reply("You have been given the Recruiter role");
+                    msg.reply("You have been given the **recruiter** role");
                 });
         } else if (uses >= backer["requirement"] && !msg.member.roles.has(backer["id"])) {
             msg.member.addRole(backer["id"], "Invited 5+ users")
                 .then(() => {
                     winston.verbose(`Added backer role to ${msg.author.tag}`);
-                    msg.reply("You have been given the Backer role");
+                    msg.reply("You have been given the **backer** role");
                 });
         } else if (uses >= inviter["requirement"] && !msg.member.roles.has(inviter["id"])) {
             msg.member.addRole(inviter["id"], "Invited 1+ users")
                 .then(() => {
                     winston.verbose(`Added inviter role to ${msg.author.tag}`);
-                    msg.reply("You have been given the Inviter role");
+                    msg.reply("You have been given the **inviter** role");
                 });
         }
 
         // Set custom message based on pre-existing roles
         if (msg.member.roles.has(affiliate["id"]) && msg.guild.id === "388366947689168897") {
-            message = "You are currently an affiliate. You've reached the maximum.";
+            message = "You are currently an **affiliate**. You've reached the maximum.";
         } else if (msg.member.roles.has(recruiter["id"]) && msg.guild.id === "388366947689168897") {
-            message = "You are currently a recruiter.";
+            message = "You are currently a **recruiter**.";
         } else if (msg.member.roles.has(backer["id"]) && msg.guild.id === "388366947689168897") {
-            message = "You are currently a backer.";
+            message = "You are currently a **backer**.";
         } else if (msg.member.roles.has(inviter["id"]) && msg.guild.id === "388366947689168897") {
-            message = "You are currently an inviter.";
+            message = "You are currently an **inviter**.";
         }
 
         winston.verbose(`${msg.author.tag} has invited ${uses} people to this server.`);

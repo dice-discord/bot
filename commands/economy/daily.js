@@ -42,16 +42,16 @@ module.exports = class DailyCommand extends Command {
         // Bonuses for referring users
         if (msg.member.roles.has(affiliate["id"]) && msg.guild.id === "388366947689168897") {
             payout = payout * affiliate["multiplier"];
-            message = "You got double the regular amount for being an affiliate from inviting 25 users";
+            message = "You got double the regular amount for being an **affiliate** from inviting 25 users";
         } else if (msg.member.roles.has(recruiter["id"]) && msg.guild.id === "388366947689168897") {
             payout = payout * recruiter["multiplier"];
-            message = "You got a 75% bonus for being a recruiter from inviting ten users";
+            message = "You got a 75% bonus for being a **recruiter** from inviting ten users";
         } else if (msg.member.roles.has(backer["id"]) && msg.guild.id === "388366947689168897") {
             payout = payout * backer["multiplier"];
-            message = "You got a 25% bonus for being a backer from inviting five users";
+            message = "You got a 25% bonus for being a **backer** from inviting five users";
         } else if (msg.member.roles.has(inviter["id"]) && msg.guild.id === "388366947689168897") {
             payout = payout * inviter["multiplier"];
-            message = "You got a 10% bonus for being a inviter from inviting one user";
+            message = "You got a 10% bonus for being a **inviter** from inviting one user";
         }
 
         winston.verbose(`You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${rules["currencyPlural"]}.`);
