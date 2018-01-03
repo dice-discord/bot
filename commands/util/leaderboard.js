@@ -33,55 +33,58 @@ module.exports = class LeaderboardCommand extends Command {
             return msg.reply("❌ There are less than 10 users total.");
         }
 
-        let index = 0;
+        let botClient = this.client;
 
-        for (let index = 0; index < leaderboardArray.length; index++) {
-            winston.debug(`#${index + 1} ---------------------`);
-            winston.debug(`Name #${index + 1}: ${this.client.users.get(leaderboardArray[index]["id"]).tag}`);
-            winston.debug(`Balance #${index + 1}: ${leaderboardArray[index]["balance"]} ${rules["currencyPlural"]}`);
+        function userTagFromID(arrayPlace) {
+            winston.debug(`Checking user tag from array index ${arrayPlace}`);
+            if (botClient.users.get(leaderboardArray[arrayPlace]["id"])) {
+                return botClient.users.get(leaderboardArray[arrayPlace]["id"]).tag;
+            } else {
+                return "User left server";
+            }
         }
 
         return msg.reply({
             embed: {
                 "title": "Top 10 Leaderboard",
                 "fields": [{
-                        "name": `#1 ${this.client.users.get(leaderboardArray[0]["id"]).tag}`,
+                        "name": `#1 ${userTagFromID(0)}`,
                         "value": `${leaderboardArray[0]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#2 ${this.client.users.get(leaderboardArray[1]["id"]).tag}`,
+                        "name": `#2 ${userTagFromID(1)}`,
                         "value": `${leaderboardArray[1]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#3 ${this.client.users.get(leaderboardArray[2]["id"]).tag}`,
+                        "name": `#3 ${userTagFromID(2)}`,
                         "value": `${leaderboardArray[2]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#4 ${this.client.users.get(leaderboardArray[3]["id"]).tag}`,
+                        "name": `#4 ${userTagFromID(3)}`,
                         "value": `${leaderboardArray[3]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#5 ${this.client.users.get(leaderboardArray[4]["id"]).tag}`,
+                        "name": `#5 ${userTagFromID(4)}`,
                         "value": `${leaderboardArray[4]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#6 ${this.client.users.get(leaderboardArray[5]["id"]).tag}`,
+                        "name": `#6 ${userTagFromID(5)}`,
                         "value": `${leaderboardArray[5]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#7 ${this.client.users.get(leaderboardArray[6]["id"]).tag}`,
+                        "name": `#7 ${userTagFromID(6)}`,
                         "value": `${leaderboardArray[6]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#8 ${this.client.users.get(leaderboardArray[7]["id"]).tag}`,
+                        "name": `#8 ${userTagFromID(7)}`,
                         "value": `${leaderboardArray[7]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#9 ${this.client.users.get(leaderboardArray[8]["id"]).tag}`,
+                        "name": `#9 ${userTagFromID(8)}`,
                         "value": `${leaderboardArray[8]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#10 ${this.client.users.get(leaderboardArray[9]["id"]).tag}`,
+                        "name": `#10 ${userTagFromID(9)}`,
                         "value": `${leaderboardArray[9]["balance"]} ${rules["currencyPlural"]}`
                     }
                 ]
