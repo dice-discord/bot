@@ -36,7 +36,7 @@ module.exports = class DailyCommand extends Command {
         let recruiter = rules["rewardRoles"][2];
         let affiliate = rules["rewardRoles"][3];
 
-        let payout = 500;
+        let payout = 1000;
         let message;
 
         // Bonuses for referring users
