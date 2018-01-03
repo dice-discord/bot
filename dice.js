@@ -1,4 +1,4 @@
-//Copyright 2018 Jonah Snider
+// Copyright 2018 Jonah Snider
 
 // Set up dependencies
 const {
@@ -7,7 +7,6 @@ const {
 const path = require("path");
 const winston = require("winston");
 const packageData = require("./package");
-const rules = require("./rules");
 
 // Set up bot metadata
 const client = new CommandoClient({
