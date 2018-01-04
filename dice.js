@@ -45,7 +45,7 @@ client.on("ready", () => {
 
 client.on("message", (msg) => {
     winston.verbose("New message. Checking if author is a beta tester already");
-    if (!msg.member.roles.has("396945953497808896") && packageData["version"].includes("beta") && !msg.author.bot && msg.content.startsWith("$") && msg.guild.id === "388366947689168897") {
+    if (!msg.member.roles.has("396945953497808896") && packageData["version"].includes("beta") && !msg.author.bot && msg.content.startsWith("$") && msg.guild.id === "388366947689168897" && !msg.channel.type === "dm") {
         winston.verbose("Author isn't a beta tester. Adding role.");
         msg.member.addRole("396945953497808896", "Participated in the beta testing of Dice")
             .then(() => {
