@@ -113,7 +113,9 @@ client.on("ready", () => {
     winston.verbose("Node.js version: " + process.version);
     winston.verbose(`Dice version v${packageData["version"]}`);
     // Set game presence to the help command once loaded
-    client.user.setActivity("@Dice help", "WATCHING");
+    client.user.setActivity("for @Dice help", {
+        "type": "WATCHING"
+    });
 
     updateServerCount();
 });
