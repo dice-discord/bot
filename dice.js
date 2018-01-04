@@ -6,7 +6,9 @@ const {
 } = require("discord.js-commando");
 const path = require("path");
 const winston = require("winston");
+winston.level = "debug";
 const packageData = require("./package");
+const request = require("request");
 
 // Set up bot metadata
 const client = new CommandoClient({
@@ -29,8 +31,70 @@ client.registry
     // Registers all of your commands in the ./commands/ directory
     .registerCommandsIn(path.join(__dirname, "commands"));
 
+// Update server counter on bot listings
+
+// Generic options for requests
+const options = {
+    "url": "https://bots.discord.pw/api/bots/388191157869477888/stats",
+    "method": "POST",
+    "headers": {
+        "Authorization": process.env.BOTSDISCORDPW_TOKEN
+    },
+    "body": {
+        "server_count": client.guilds.size || 0
+    },
+    "json": true
+};
+
+// discordbots.org
+function sendDiscordBotsORGServerCount() {
+    // Override global options
+    options.url = "https://discordbots.org/api/bots/388191157869477888/stats";
+    options.headers["Authorization"] = process.env.DISCORDBOTSORG_TOKEN;
+
+    winston.debug(`discordbots.org token: ${process.env.DISCORDBOTSORG_TOKEN}`);
+    request(options, function requestCallback(err, httpResponse, body) {
+        winston.debug("DiscordBots.org results:");
+        if (err) return winston.error(err);
+        winston.debug(body);
+    });
+}
+
+// bots.discord.pw
+function sendBotsDiscordPWServerCount() {
+    winston.debug(`bots.discord.pw token: ${process.env.BOTSDISCORDPW_TOKEN}`);
+    request(options, function requestCallback(err, httpResponse, body) {
+        winston.debug("Bots.Discord.pw results:");
+        if (err) return winston.error(err);
+        winston.debug(body);
+    });
+}
+
+// bots.discordlist.net
+function sendDiscordlistServerCount() {
+    winston.debug(`bots.discordlist.net token: ${process.env.DISCORDLIST_TOKEN}`);
+    request({
+        "url": "https://bots.discordlist.net/api",
+        "method": "POST",
+        "token": process.env.DISCORDLIST_TOKEN,
+        "servers": client.guilds.size
+    }, function requestCallback(err, httpResponse, body) {
+        winston.debug("Discordlist results:");
+        if (err) return winston.error(err);
+        winston.debug(body);
+    });
+}
+
+// Run all three at once
+function updateServerCount() {
+    winston.verbose("Sending POST requests to bot listings.");
+    /* No token for this yet
+    sendDiscordBotsORGServerCount();*/
+    sendBotsDiscordPWServerCount();
+    sendDiscordlistServerCount();
+}
+
 client.on("ready", () => {
-    winston.level = "debug";
     winston.info("Logged in!");
     winston.verbose("Node.js version: " + process.version);
     winston.verbose(`Dice version v${packageData["version"]}`);
@@ -41,18 +105,12 @@ client.on("ready", () => {
             type: 0
         }
     });
+
+    updateServerCount();
 });
 
-client.on("message", (msg) => {
-    winston.verbose("New message. Checking if author is a beta tester already");
-    if (!msg.member.roles.has("396945953497808896") && packageData["version"].includes("beta") && !msg.author.bot && msg.content.startsWith("$") && msg.guild.id === "388366947689168897" && !msg.channel.type === "dm") {
-        winston.verbose("Author isn't a beta tester. Adding role.");
-        msg.member.addRole("396945953497808896", "Participated in the beta testing of Dice")
-            .then(() => {
-                winston.verbose(`Added beta tester role to ${msg.author.tag}`);
-                msg.reply(`Thanks for testing out ${client.user} during the beta. I've automatically given you the beta tester role as a thank you.`);
-            });
-    }
+client.on("guildCreate", () => {
+    updateServerCount();
 });
 
 // Log in the bot
