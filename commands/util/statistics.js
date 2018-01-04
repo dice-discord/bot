@@ -25,10 +25,14 @@ module.exports = class StatisticsCommand extends Command {
             embed: {
                 "title": "Dice Statistics",
                 "fields": [{
-                        "name": "👥 Total Number of Users",
+                        "name": "👤 Total Number of Users",
                         // Subtract one because of the Dice bot
-                        "value": `${await diceAPI.totalUsers() - 1} users`,
-                        "inline": true
+                        "value": `${await diceAPI.totalUsers() - 1} users`
+                    },
+                    {
+                        "name": "👥 Total Number of Servers",
+                        // Subtract one because of the Dice bot
+                        "value": `${this.client.guilds.size} servers`
                     }
                 ]
             }
