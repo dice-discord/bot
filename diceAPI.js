@@ -3,7 +3,7 @@ const mongodb = require("mongodb");
 const winston = require("winston");
 
 winston.level = "debug";
-winston.verbose("diceAPI loaded");
+winston.verbose("diceAPI loading");
 
 // Set up database variables
 let uri = process.env.MONGODB_URI;
@@ -16,9 +16,8 @@ if (process.env.MONGODB_URI == null) {
 mongodb.MongoClient.connect(uri, function (err, database) {
     if (err) winston.error(err);
     winston.debug("Connected to database server");
-    winston.debug(`Database name: ${database}`);
 
-    var balances = database.db("balances").collection("balances");
+    let balances = database.db("balances").collection("balances");
 
     // Get balance
     async function getBalance(requestedID) {
