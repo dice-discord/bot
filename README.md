@@ -1,5 +1,5 @@
 # Dice
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FPizzaFox%2Fdice.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FPizzaFox%2Fdice?ref=badge_shield) [![Maintainability](https://api.codeclimate.com/v1/badges/9878732c3d7b784ddaa1/maintainability)](https://codeclimate.com/github/PizzaFox/dice/maintainability)
+[![Status](https://discordbots.org/api/widget/status/388191157869477888.png)] [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FPizzaFox%2Fdice.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FPizzaFox%2Fdice?ref=badge_shield) [![Maintainability](https://api.codeclimate.com/v1/badges/9878732c3d7b784ddaa1/maintainability)](https://codeclimate.com/github/PizzaFox/dice/maintainability)
 
 
 A simple game. You have a wager and a multiplier. Higher risk, higher rewards.
