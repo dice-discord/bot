@@ -40,6 +40,6 @@ module.exports = class UserListCommand extends Command {
             msg.channel.send(`${userTagFromID(index)} (${userIDs[index]["id"]})`);
         }
 
-        return msg.reply(`👤 ${await diceAPI.totalUsers() - 1} users in total.`);
+        return msg.reply(`👤 ${await diceAPI.totalUsers()} users in total.`);
     }
 };
