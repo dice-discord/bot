@@ -34,17 +34,19 @@ client.registry
 // Update server counter on bot listings
 
 // Generic options for requests
-const options = {
+const globalOptions = {
     "url": "https://bots.discord.pw/api/bots/388191157869477888/stats",
     "method": "POST",
     "headers": {
         "Authorization": process.env.BOTSDISCORDPW_TOKEN
     },
     "body": {
-        "server_count": client.guilds.size || 0
+        "server_count": client.guilds.size
     },
     "json": true
 };
+
+
 
 // discordbots.org
 function sendDiscordBotsORGServerCount() {
@@ -53,7 +55,7 @@ function sendDiscordBotsORGServerCount() {
     options.headers["Authorization"] = process.env.DISCORDBOTSORG_TOKEN;
 
     winston.debug(`discordbots.org token: ${process.env.DISCORDBOTSORG_TOKEN}`);
-    request(options, function requestCallback(err, httpResponse, body) {
+    request(globalOptions, function requestCallback(err, httpResponse, body) {
         winston.debug("DiscordBots.org results:");
         if (err) return winston.error(err);
         winston.debug(body);
@@ -62,6 +64,18 @@ function sendDiscordBotsORGServerCount() {
 
 // bots.discord.pw
 function sendBotsDiscordPWServerCount() {
+    let options = {
+        "method": "POST",
+        "url": "https://bots.discord.pw/api/bots/388191157869477888/stats",
+        "headers": {
+            "cache-control": "no-cache",
+            "authorization": process.env.BOTSDISCORDPW_TOKEN
+        },
+        "formData": {
+            "server_count": client.guilds.size
+        }
+    };
+
     winston.debug(`bots.discord.pw token: ${process.env.BOTSDISCORDPW_TOKEN}`);
     request(options, function requestCallback(err, httpResponse, body) {
         winston.debug("Bots.Discord.pw results:");
@@ -99,12 +113,7 @@ client.on("ready", () => {
     winston.verbose("Node.js version: " + process.version);
     winston.verbose(`Dice version v${packageData["version"]}`);
     // Set game presence to the help command once loaded
-    client.user.setPresence({
-        game: {
-            name: "@Dice help",
-            type: 0
-        }
-    });
+    client.user.setActivity("@Dice help", "WATCHING");
 
     updateServerCount();
 });
