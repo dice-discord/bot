@@ -90,15 +90,15 @@ mongodb.MongoClient.connect(uri, function (err, database) {
 
     // Leaderboard search
     async function leaderboard() {
-        let allBalances = await balances.find();
-        let formattedBalances = await allBalances
+        let allProfiles = await balances.find();
+        let formattedBalances = await allProfiles
             .sort({
                 balance: -1
             })
             .limit(10)
             .toArray();
 
-        winston.verbose(`Top ten data: ${allBalances}`);
+        winston.verbose(`Top ten data: ${allProfiles}`);
         winston.verbose(`Top ten data formatted: ${formattedBalances}`);
         return formattedBalances;
     }
@@ -150,6 +150,15 @@ mongodb.MongoClient.connect(uri, function (err, database) {
     }
     module.exports.getDailyUsed = getDailyUsed;
     // Daily reward searching
+
+    // All users
+    async function allUsers() {
+        let allProfiles = await balances.find();
+        winston.verbose("All users were requested.");
+        return await allProfiles.toArray();
+    }
+    module.exports.allUsers = allUsers;
+    // All users
 });
 
 function winPercentage(multiplier) {
