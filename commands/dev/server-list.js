@@ -28,8 +28,8 @@ module.exports = class ServerListCommand extends Command {
             guildList.push(`${value.name} (${value.id})`);
         }
 
-        for (let index = 0; index < guildList.length; index++) {
-            msg.channel.send(guildList[index]);
+        for (const item of guildList) {
+            msg.say(item);
         }
 
         return msg.reply(`👥 Finished! ${guilds.size} servers in total.`);

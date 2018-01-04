@@ -21,7 +21,7 @@ module.exports = class StatisticsCommand extends Command {
     }
 
     async run(msg) {
-        return msg.channel.send({
+        return msg.say({
             embed: {
                 "title": "Dice Statistics",
                 "fields": [{

@@ -47,7 +47,7 @@ module.exports = class InfoCommand extends Command {
 
         winston.verbose(`Target user display URL: ${userProfilePicture}`);
 
-        return msg.channel.send({
+        return msg.say({
             embed: {
                 "title": user.tag,
                 "thumbnail": {

@@ -37,7 +37,7 @@ module.exports = class UserListCommand extends Command {
         }
 
         for (let index = 0; index < userIDs.length; index++) {
-            msg.channel.send(`${userTagFromID(index)} (${userIDs[index]["id"]})`);
+            msg.say(`${userTagFromID(index)} (${userIDs[index]["id"]})`);
         }
 
         return msg.reply(`👤 ${await diceAPI.totalUsers()} users in total.`);

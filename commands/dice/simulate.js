@@ -78,7 +78,7 @@ module.exports = class SimulateGameCommand extends Command {
             result = `Your profit would have been \`${profit}\` ${rules["currencyPlural"]}!`;
         }
 
-        msg.channel.send({
+        msg.say({
             "embed": {
                 "title": `**${wager} 🇽 ${multiplier}**`,
                 "color": color,

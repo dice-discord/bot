@@ -93,7 +93,7 @@ module.exports = class DiceGameCommand extends Command {
             result = `You made \`${profit}\` ${rules["currencyPlural"]} of profit!`;
         }
 
-        msg.channel.send({
+        msg.say({
             "embed": {
                 "title": `**${wager} 🇽 ${multiplier}**`,
                 "color": color,
