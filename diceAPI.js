@@ -10,7 +10,7 @@ let uri = process.env.MONGODB_URI;
 if (process.env.MONGODB_URI == null) {
     winston.error("mongoDB URI is undefined!");
 } else {
-    winston.verbose(`mongoDB URI: ${uri}`);
+    winston.debug(`mongoDB URI: ${uri}`);
 }
 
 mongodb.MongoClient.connect(uri, function (err, database) {
@@ -26,22 +26,22 @@ mongodb.MongoClient.connect(uri, function (err, database) {
             })
             .then((result) => {
                 if (!result) {
-                    winston.verbose("Result is empty. Checking if requested ID is the house.");
+                    winston.debug("Result is empty. Checking if requested ID is the house.");
                     if (requestedID === rules["houseID"]) {
-                        winston.verbose("Requested ID is the house ID.");
+                        winston.debug("Requested ID is the house ID.");
                         updateBalance(requestedID, rules["houseStartingBalance"]);
                         return rules["houseStartingBalance"];
                     } else {
-                        winston.verbose("Requested ID isn't the house ID.");
+                        winston.debug("Requested ID isn't the house ID.");
                         updateBalance(requestedID, rules["newUserBalance"]);
                         return rules["newUserBalance"];
                     }
                 } else {
                     let balanceResult = simpleFormat(result["balance"]);
-                    winston.verbose(`Result for findOne: ${result}`);
-                    winston.verbose(`Value of balance: ${result["balance"]}`);
-                    winston.verbose(`Formatted value of balance: ${balanceResult}`);
-                    winston.verbose(`Requested user ID: ${requestedID}`);
+                    winston.debug(`Result for findOne: ${result}`);
+                    winston.debug(`Value of balance: ${result["balance"]}`);
+                    winston.debug(`Formatted value of balance: ${balanceResult}`);
+                    winston.debug(`Requested user ID: ${requestedID}`);
                     return balanceResult;
                 }
             });
@@ -60,7 +60,7 @@ mongodb.MongoClient.connect(uri, function (err, database) {
         }, {
             upsert: true
         });
-        winston.verbose(`Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
+        winston.debug(`Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
     }
     module.exports.updateBalance = updateBalance;
     // Update balance
@@ -98,8 +98,8 @@ mongodb.MongoClient.connect(uri, function (err, database) {
             .limit(10)
             .toArray();
 
-        winston.verbose(`Top ten data: ${allProfiles}`);
-        winston.verbose(`Top ten data formatted: ${formattedBalances}`);
+        winston.debug(`Top ten data: ${allProfiles}`);
+        winston.debug(`Top ten data formatted: ${formattedBalances}`);
         return formattedBalances;
     }
     module.exports.leaderboard = leaderboard;
@@ -108,7 +108,7 @@ mongodb.MongoClient.connect(uri, function (err, database) {
     // Total users
     async function totalUsers() {
         let totalUsers = await balances.count({});
-        winston.verbose(`Number of all users: ${totalUsers}`);
+        winston.debug(`Number of all users: ${totalUsers}`);
         return totalUsers;
     }
     module.exports.totalUsers = totalUsers;
@@ -125,25 +125,25 @@ mongodb.MongoClient.connect(uri, function (err, database) {
         }, {
             upsert: true
         });
-        winston.verbose(`Set daily timestamp for ${requestedID} to ${timestamp}`);
+        winston.debug(`Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
     }
     module.exports.setDailyUsed = setDailyUsed;
     // Daily reward
 
     // Daily reward searching
     async function getDailyUsed(requestedID) {
-        winston.verbose(`Looking up daily timestamp for ${requestedID}`);
+        winston.debug(`Looking up daily timestamp for ${requestedID}`);
         return await balances.findOne({
                 id: requestedID
             })
             .then((result) => {
-                if (result) winston.verbose(`Find one result for daily timestamp: ${result["daily"]}`);
+                if (result) winston.debug(`Find one result for daily timestamp: ${result["daily"]}`);
                 if (!result || isNaN(result["daily"])) {
-                    winston.verbose("Daily last used timestamp result is empty.");
+                    winston.debug("Daily last used timestamp result is empty.");
                     return false;
                 } else {
                     let timestampResult = result["daily"];
-                    winston.verbose(`Daily timestamp: ${timestampResult}`);
+                    winston.debug(`Daily timestamp: ${new Date(timestampResult)} (${timestampResult})`);
                     return timestampResult;
                 }
             });
@@ -154,7 +154,7 @@ mongodb.MongoClient.connect(uri, function (err, database) {
     // All users
     async function allUsers() {
         let allProfiles = await balances.find();
-        winston.verbose("All users were requested.");
+        winston.debug("All users were requested.");
         return await allProfiles.toArray();
     }
     module.exports.allUsers = allUsers;
