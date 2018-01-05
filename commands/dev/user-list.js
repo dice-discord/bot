@@ -24,20 +24,21 @@ module.exports = class UserListCommand extends Command {
     }
 
     async run(msg) {
-        const userIDs = await diceAPI.allUsers();
-        const client = this.client;
+        const database = await diceAPI.allUsers();
+        const botClient = this.client;
 
-        function userTagFromID(arrayPlace) {
+        async function userTagFromID(arrayPlace) {
+            const targetID = database[arrayPlace]["id"];
             winston.debug(`Checking user tag from array index ${arrayPlace}`);
-            if (client.users.get(userIDs[arrayPlace]["id"])) {
-                return client.users.get(userIDs[arrayPlace]["id"]).tag;
+            if (botClient.users.get(targetID)) {
+                return await botClient.users.get(targetID).tag;
             } else {
-                return "User left server";
+                return await botClient.users.fetch(targetID).tag;
             }
         }
 
-        for (let index = 0; index < userIDs.length; index++) {
-            msg.say(`${userTagFromID(index)} (${userIDs[index]["id"]})`);
+        for (let index = 0; index < database.length; index++) {
+            msg.say(`${await userTagFromID(index)} (${database[index]["id"]})`);
         }
 
         return msg.reply(`👤 ${await diceAPI.totalUsers()} users in total.`);
