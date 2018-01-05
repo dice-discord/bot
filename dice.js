@@ -108,10 +108,10 @@ client.on("ready", () => {
         request({
             "url": "https://bots.discordlist.net/api",
             "method": "POST",
-            "token": process.env.DISCORDLIST_TOKEN,
             "json": true,
             "body": {
-                "servers": client.guilds.size
+                "servers": client.guilds.size,
+                "token": process.env.DISCORDLIST_TOKEN
             }
         }, function requestCallback(err, httpResponse, body) {
             if (err) return winston.error(err);
