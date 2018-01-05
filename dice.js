@@ -13,6 +13,7 @@ const request = require("request");
 // Set up bot metadata
 const client = new CommandoClient({
     commandPrefix: "$",
+    unknownCommandResponse: false,
     owner: ["210024244766179329"]
 });
 
