@@ -33,14 +33,17 @@ module.exports = class LeaderboardCommand extends Command {
             return msg.reply("❌ There are less than 10 users total.");
         }
 
-        let botClient = this.client;
+        const botClient = this.client;
+        winston.debug("About to fetchUser PizzaFox.");
+        winston.debug(`PizzaFox user: ${await this.client.users.fetch("210024244766179329")}`);
 
-        function userTagFromID(arrayPlace) {
+        async function userTagFromID(arrayPlace) {
+            const targetID = leaderboardArray[arrayPlace]["id"];
             winston.debug(`Checking user tag from array index ${arrayPlace}`);
-            if (botClient.users.get(leaderboardArray[arrayPlace]["id"])) {
-                return botClient.users.get(leaderboardArray[arrayPlace]["id"]).tag;
+            if (botClient.users.get(targetID)) {
+                return await botClient.users.get(targetID).tag;
             } else {
-                return "User left server";
+                return await botClient.users.fetch(targetID).tag;
             }
         }
 
@@ -48,43 +51,43 @@ module.exports = class LeaderboardCommand extends Command {
             embed: {
                 "title": "Top 10 Leaderboard",
                 "fields": [{
-                        "name": `#1 ${userTagFromID(0)}`,
+                        "name": `#1 ${await userTagFromID(0)}`,
                         "value": `${leaderboardArray[0]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#2 ${userTagFromID(1)}`,
+                        "name": `#2 ${await userTagFromID(1)}`,
                         "value": `${leaderboardArray[1]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#3 ${userTagFromID(2)}`,
+                        "name": `#3 ${await userTagFromID(2)}`,
                         "value": `${leaderboardArray[2]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#4 ${userTagFromID(3)}`,
+                        "name": `#4 ${await userTagFromID(3)}`,
                         "value": `${leaderboardArray[3]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#5 ${userTagFromID(4)}`,
+                        "name": `#5 ${await userTagFromID(4)}`,
                         "value": `${leaderboardArray[4]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#6 ${userTagFromID(5)}`,
+                        "name": `#6 ${await userTagFromID(5)}`,
                         "value": `${leaderboardArray[5]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#7 ${userTagFromID(6)}`,
+                        "name": `#7 ${await userTagFromID(6)}`,
                         "value": `${leaderboardArray[6]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#8 ${userTagFromID(7)}`,
+                        "name": `#8 ${await userTagFromID(7)}`,
                         "value": `${leaderboardArray[7]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#9 ${userTagFromID(8)}`,
+                        "name": `#9 ${await userTagFromID(8)}`,
                         "value": `${leaderboardArray[8]["balance"]} ${rules["currencyPlural"]}`
                     },
                     {
-                        "name": `#10 ${userTagFromID(9)}`,
+                        "name": `#10 ${await userTagFromID(9)}`,
                         "value": `${leaderboardArray[9]["balance"]} ${rules["currencyPlural"]}`
                     }
                 ]
