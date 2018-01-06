@@ -1,7 +1,7 @@
 {
     "name": "dice",
     "description": "Simple dice.",
-    "version": "1.1.11",
+    "version": "1.1.12",
     "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
     "keywords": [
         "discord",
@@ -40,6 +40,7 @@
     },
     "devDependencies": {
         "eslint": "^4.13.1",
+        "eslint-config-aqua": "^2.0.1",
         "eslint-config-standard": "^10.2.1",
         "eslint-plugin-async": "^0.1.1",
         "eslint-plugin-async-await": "0.0.0",
