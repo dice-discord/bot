@@ -1,45 +1,48 @@
-const rules = require("./rules");
-const mongodb = require("mongodb");
-const winston = require("winston");
+const rules = require('./rules');
+const mongodb = require('mongodb');
+const winston = require('winston');
 
-winston.level = "debug";
-winston.verbose("diceAPI loading");
+winston.level = 'debug';
+winston.verbose('diceAPI loading');
 
 // Set up database variables
-let uri = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI;
 if (process.env.MONGODB_URI == null) {
-    winston.error("mongoDB URI is undefined!");
-} else {
+    winston.error('mongoDB URI is undefined!');
+}
+else {
     winston.debug(`mongoDB URI: ${uri}`);
 }
 
-mongodb.MongoClient.connect(uri, function (err, database) {
+mongodb.MongoClient.connect(uri, function(err, database) {
     if (err) winston.error(err);
-    winston.debug("Connected to database server");
+    winston.debug('Connected to database server');
 
-    let balances = database.db("balances").collection("balances");
+    const balances = database.db('balances').collection('balances');
 
     // Get balance
     async function getBalance(requestedID) {
-        return await balances.findOne({
-                id: requestedID
-            })
+        return balances.findOne({
+            id: requestedID,
+        })
             .then((result) => {
                 if (!result) {
-                    winston.debug("Result is empty. Checking if requested ID is the house.");
-                    if (requestedID === rules["houseID"]) {
-                        winston.debug("Requested ID is the house ID.");
-                        updateBalance(requestedID, rules["houseStartingBalance"]);
-                        return rules["houseStartingBalance"];
-                    } else {
-                        winston.debug("Requested ID isn't the house ID.");
-                        updateBalance(requestedID, rules["newUserBalance"]);
-                        return rules["newUserBalance"];
+                    winston.debug('Result is empty. Checking if requested ID is the house.');
+                    if (requestedID === rules['houseID']) {
+                        winston.debug('Requested ID is the house ID.');
+                        updateBalance(requestedID, rules['houseStartingBalance']);
+                        return rules['houseStartingBalance'];
                     }
-                } else {
-                    let balanceResult = simpleFormat(result["balance"]);
+                    else {
+                        winston.debug('Requested ID isn\'t the house ID.');
+                        updateBalance(requestedID, rules['newUserBalance']);
+                        return rules['newUserBalance'];
+                    }
+                }
+                else {
+                    const balanceResult = simpleFormat(result['balance']);
                     winston.debug(`Result for findOne: ${result}`);
-                    winston.debug(`Value of balance: ${result["balance"]}`);
+                    winston.debug(`Value of balance: ${result['balance']}`);
                     winston.debug(`Formatted value of balance: ${balanceResult}`);
                     winston.debug(`Requested user ID: ${requestedID}`);
                     return balanceResult;
@@ -52,13 +55,13 @@ mongodb.MongoClient.connect(uri, function (err, database) {
     // Update balance
     async function updateBalance(requestedID, newBalance) {
         balances.updateOne({
-            id: requestedID
+            id: requestedID,
         }, {
             $set: {
-                balance: simpleFormat(newBalance)
-            }
+                balance: simpleFormat(newBalance),
+            },
         }, {
-            upsert: true
+            upsert: true,
         });
         winston.debug(`Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
     }
@@ -83,17 +86,17 @@ mongodb.MongoClient.connect(uri, function (err, database) {
         An empty search parameter will delete all items */
         await balances.remove({});
         // Wait for everything to get deleted before adding more information
-        updateBalance(rules["houseID"], rules["houseStartingBalance"]);
+        updateBalance(rules['houseID'], rules['houseStartingBalance']);
     }
     module.exports.resetEconomy = resetEconomy;
     // Reset economy
 
     // Leaderboard search
     async function leaderboard() {
-        let allProfiles = await balances.find();
-        let formattedBalances = await allProfiles
+        const allProfiles = await balances.find();
+        const formattedBalances = await allProfiles
             .sort({
-                balance: -1
+                balance: -1,
             })
             .limit(10)
             .toArray();
@@ -107,9 +110,9 @@ mongodb.MongoClient.connect(uri, function (err, database) {
 
     // Total users
     async function totalUsers() {
-        let totalUsers = await balances.count({});
-        winston.debug(`Number of all users: ${totalUsers}`);
-        return totalUsers;
+        const userCount = await balances.count({});
+        winston.debug(`Number of all users: ${userCount}`);
+        return userCount;
     }
     module.exports.totalUsers = totalUsers;
     // Total users
@@ -117,13 +120,13 @@ mongodb.MongoClient.connect(uri, function (err, database) {
     // Daily reward
     async function setDailyUsed(requestedID, timestamp) {
         balances.updateOne({
-            id: requestedID
+            id: requestedID,
         }, {
             $set: {
-                daily: timestamp
-            }
+                daily: timestamp,
+            },
         }, {
-            upsert: true
+            upsert: true,
         });
         winston.debug(`Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
     }
@@ -133,16 +136,17 @@ mongodb.MongoClient.connect(uri, function (err, database) {
     // Daily reward searching
     async function getDailyUsed(requestedID) {
         winston.debug(`Looking up daily timestamp for ${requestedID}`);
-        return await balances.findOne({
-                id: requestedID
-            })
+        return balances.findOne({
+            id: requestedID,
+        })
             .then((result) => {
-                if (result) winston.debug(`Find one result for daily timestamp: ${result["daily"]}`);
-                if (!result || isNaN(result["daily"])) {
-                    winston.debug("Daily last used timestamp result is empty.");
+                if (result) winston.debug(`Find one result for daily timestamp: ${result['daily']}`);
+                if (!result || isNaN(result['daily'])) {
+                    winston.debug('Daily last used timestamp result is empty.');
                     return false;
-                } else {
-                    let timestampResult = result["daily"];
+                }
+                else {
+                    const timestampResult = result['daily'];
                     winston.debug(`Daily timestamp: ${new Date(timestampResult)} (${timestampResult})`);
                     return timestampResult;
                 }
@@ -153,16 +157,16 @@ mongodb.MongoClient.connect(uri, function (err, database) {
 
     // All users
     async function allUsers() {
-        let allProfiles = await balances.find();
-        winston.debug("All users were requested.");
-        return await allProfiles.toArray();
+        const allProfiles = await balances.find();
+        winston.debug('All users were requested.');
+        return allProfiles.toArray();
     }
     module.exports.allUsers = allUsers;
     // All users
 });
 
 function winPercentage(multiplier) {
-    return (100 - rules["houseEdgePercentage"]) / multiplier;
+    return (100 - rules['houseEdgePercentage']) / multiplier;
 }
 module.exports.winPercentage = winPercentage;
 
