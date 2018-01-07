@@ -27,11 +27,11 @@ module.exports = class CalculatorCommand extends Command {
     run(msg, {
         multiplier,
     }) {
-        if (multiplier < rules['minMultiplier']) {
-            return msg.reply(`❌ Your target multiplier must be at least \`${rules['minMultiplier']}\`.`);
+        if (multiplier < rules.minMultiplier) {
+            return msg.reply(`❌ Your target multiplier must be at least \`${rules.minMultiplier}\`.`);
         }
-        else if (multiplier > rules['maxMultiplier']) {
-            return msg.reply(`❌ Your target multiplier must be less than \`${rules['maxMultiplier']}\`.`);
+        else if (multiplier > rules.maxMultiplier) {
+            return msg.reply(`❌ Your target multiplier must be less than \`${rules.maxMultiplier}\`.`);
         }
         else if (isNaN(multiplier)) {
             return msg.reply(`❌ \`${multiplier}\` is not a valid number.`);

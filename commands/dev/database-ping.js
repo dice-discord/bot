@@ -1,7 +1,7 @@
 const {
-    Command
-} = require("discord.js-commando");
-const diceAPI = require("../../diceAPI");
+    Command,
+} = require('discord.js-commando');
+const diceAPI = require('../../diceAPI');
 
 module.exports = class DatabasePingCommand extends Command {
     constructor(client) {
@@ -10,12 +10,12 @@ module.exports = class DatabasePingCommand extends Command {
             group: 'dev',
             memberName: 'database-ping',
             description: 'Checks the bot\'s ping to the Discord server and does a database request.',
-            aliases: ["db-ping"],
-            examples: ["database-ping"],
+            aliases: ['db-ping'],
+            examples: ['database-ping'],
             throttling: {
                 usages: 2,
-                duration: 20
-            }
+                duration: 20,
+            },
         });
     }
 
@@ -26,7 +26,8 @@ module.exports = class DatabasePingCommand extends Command {
             return pingMsg.edit(`
 				${msg.channel.type !== 'dm' ? `${msg.author},` : ''} Pong! The message round-trip took ${pingMsg.createdTimestamp - msg.createdTimestamp}ms. ${this.client.ping ? `The heartbeat ping is ${Math.round(this.client.ping)}ms.` : ''}
 			`);
-        } else {
+        }
+        else {
             await diceAPI.getBalance(msg.author.id);
             await msg.edit('Pinging...');
             return msg.edit(

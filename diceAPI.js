@@ -28,21 +28,21 @@ mongodb.MongoClient.connect(uri, function(err, database) {
             .then((result) => {
                 if (!result) {
                     winston.debug('Result is empty. Checking if requested ID is the house.');
-                    if (requestedID === rules['houseID']) {
+                    if (requestedID === rules.houseID) {
                         winston.debug('Requested ID is the house ID.');
-                        updateBalance(requestedID, rules['houseStartingBalance']);
-                        return rules['houseStartingBalance'];
+                        updateBalance(requestedID, rules.houseStartingBalance);
+                        return rules.houseStartingBalance;
                     }
                     else {
                         winston.debug('Requested ID isn\'t the house ID.');
-                        updateBalance(requestedID, rules['newUserBalance']);
-                        return rules['newUserBalance'];
+                        updateBalance(requestedID, rules.newUserBalance);
+                        return rules.newUserBalance;
                     }
                 }
                 else {
-                    const balanceResult = simpleFormat(result['balance']);
+                    const balanceResult = simpleFormat(result.balance);
                     winston.debug(`Result for findOne: ${result}`);
-                    winston.debug(`Value of balance: ${result['balance']}`);
+                    winston.debug(`Value of balance: ${result.balance}`);
                     winston.debug(`Formatted value of balance: ${balanceResult}`);
                     winston.debug(`Requested user ID: ${requestedID}`);
                     return balanceResult;
@@ -86,7 +86,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
         An empty search parameter will delete all items */
         await balances.remove({});
         // Wait for everything to get deleted before adding more information
-        updateBalance(rules['houseID'], rules['houseStartingBalance']);
+        updateBalance(rules.houseID, rules.houseStartingBalance);
     }
     module.exports.resetEconomy = resetEconomy;
     // Reset economy
@@ -140,13 +140,13 @@ mongodb.MongoClient.connect(uri, function(err, database) {
             id: requestedID,
         })
             .then((result) => {
-                if (result) winston.debug(`Find one result for daily timestamp: ${result['daily']}`);
-                if (!result || isNaN(result['daily'])) {
+                if (result) winston.debug(`Find one result for daily timestamp: ${result.daily}`);
+                if (!result || isNaN(result.daily)) {
                     winston.debug('Daily last used timestamp result is empty.');
                     return false;
                 }
                 else {
-                    const timestampResult = result['daily'];
+                    const timestampResult = result.daily;
                     winston.debug(`Daily timestamp: ${new Date(timestampResult)} (${timestampResult})`);
                     return timestampResult;
                 }
@@ -166,7 +166,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 });
 
 function winPercentage(multiplier) {
-    return (100 - rules['houseEdgePercentage']) / multiplier;
+    return (100 - rules.houseEdgePercentage) / multiplier;
 }
 module.exports.winPercentage = winPercentage;
 

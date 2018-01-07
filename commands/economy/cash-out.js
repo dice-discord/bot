@@ -1,44 +1,46 @@
 const {
-    Command
-} = require("discord.js-commando");
-const rules = require("../../rules");
-const diceAPI = require("../../diceAPI");
+    Command,
+} = require('discord.js-commando');
+const rules = require('../../rules');
+const diceAPI = require('../../diceAPI');
 
 module.exports = class CashOutCommand extends Command {
     constructor(client) {
         super(client, {
-            name: "cash-out",
-            group: "economy",
-            memberName: "cash-out",
-            description: "Cash out money from the house.",
-            details: "Only the bot owner(s) may use this command.",
-            examples: ["cash-out 500"],
+            name: 'cash-out',
+            group: 'economy',
+            memberName: 'cash-out',
+            description: 'Cash out money from the house.',
+            details: 'Only the bot owner(s) may use this command.',
+            examples: ['cash-out 500'],
             args: [{
-                key: "amount",
-                prompt: "How many dots do you want to remove?",
-                type: "string",
+                key: 'amount',
+                prompt: 'How many dots do you want to remove?',
+                type: 'string',
                 // Convert string to number and round it
-                parse: amountString => diceAPI.simpleStringFormat(amountString)
+                parse: amountString => diceAPI.simpleStringFormat(amountString),
             }],
             throttling: {
                 usages: 2,
-                duration: 30
+                duration: 30,
             },
-            ownerOnly: true
+            ownerOnly: true,
         });
     }
 
     async run(msg, {
-        amount
+        amount,
     }) {
-        const beforeTransferHouseBalance = await diceAPI.getBalance(rules["houseID"]);
+        const beforeTransferHouseBalance = await diceAPI.getBalance(rules.houseID);
 
         // Amount checking
-        if (amount < rules["minWager"]) {
-            return msg.reply(`❌ Your amount must be at least \`${rules["minWager"]}\` ${rules[currencyPlural]}.`);
-        } else if (amount > beforeTransferHouseBalance) {
+        if (amount < rules.minWager) {
+            return msg.reply(`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`);
+        }
+        else if (amount > beforeTransferHouseBalance) {
             return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. ${this.client.user} doesn't have that much.>`);
-        } else if (isNaN(amount)) {
+        }
+        else if (isNaN(amount)) {
             return msg.reply(`❌ \`${amount}\` is not a valid number.`);
         }
 
@@ -46,12 +48,12 @@ module.exports = class CashOutCommand extends Command {
         amount = Math.round(amount);
 
         // Remove dots from the house
-        diceAPI.decreaseBalance(rules["houseID"], amount);
+        diceAPI.decreaseBalance(rules.houseID, amount);
 
         // Add dots to author
         diceAPI.increaseBalance(msg.author.id, amount);
 
         // Tell the sender
-        return msg.reply(`📤 Cashed out \`${amount}\` ${rules["currencyPlural"]} to your account.`);
+        return msg.reply(`📤 Cashed out \`${amount}\` ${rules.currencyPlural} to your account.`);
     }
 };
