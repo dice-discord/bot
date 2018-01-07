@@ -17,6 +17,7 @@ module.exports = class ReferralCheckCommand extends Command {
                 usages: 2,
                 duration: 20,
             },
+            guildOnly: true,
         });
     }
 
