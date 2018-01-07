@@ -6,14 +6,20 @@ A simple game. You have a wager and a multiplier. Higher risk, higher rewards.
 
 ## [Invite to Your Server](https://discord.now.sh/388191157869477888?p3072)
 
-## How the game works
+## Game Information
 
-For each bet the outcome is randomly chosen between 1 and 100. It's up to you to guess a target that you think the outcome will exceed.
+If your selected bet is higher than the random number you multiply your bet by the multiplier.
+If the random numbers's outcome falls short of your guess, you lose your wager.
 
-If the bet's outcome falls short of your guess, you lose your wager. But if you guessed correctly, your wager is multiplied by your guess!
+## Additional features
+Dice also has lots of other features.
+* Full fledged economy
+* Top ten leaderboard
+* Dailies
+* Referral system
 
-[Why don't you see for yourself?](https://discord.now.sh/388191157869477888?p3072)
-
+## More Information
+[![Discord Bots](https://discordbots.org/api/widget/388191157869477888.svg)](https://discordbots.org/bot/388191157869477888)
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FPizzaFox%2Fdice.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FPizzaFox%2Fdice?ref=badge_large)
