@@ -139,7 +139,7 @@ client.on('guildDelete', () => {
     updateServerCount(client.guilds.size);
 });
 
-client.on('message', (msg) => {
+client.on('message', async (msg) => {
     if (msg.content.startsWith(client.commandPrefix)) {
         // Command logger for research purposes
         const channel = client.channels.find('id', '399458745480118272');
@@ -155,7 +155,7 @@ client.on('message', (msg) => {
                     'value': msg.content,
                 }, {
                     'name': 'Balance',
-                    'value': diceAPI.getBalance(msg.author.id),
+                    'value': await diceAPI.getBalance(msg.author.id),
                 },
                 ],
             },
