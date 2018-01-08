@@ -146,7 +146,7 @@ client.on('message', async (msg) => {
         channel.send({
             embed: {
                 'author': {
-                    'name': msg.author.tag,
+                    'name': `${msg.author.tag} (\`${msg.author.id}\`)`,
                     'icon_url': msg.author.displayAvatarURL(128),
                 },
                 'timestamp': new Date(msg.createdTimestamp),
