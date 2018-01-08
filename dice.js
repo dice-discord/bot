@@ -33,6 +33,13 @@ client.registry
     // Registers all of your commands in the ./commands/ directory
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
+// Blacklist users from commands
+/*  new CommandoClient.CommandDispatcher(client.registry);
+
+client.dispatcher.addInhibitor(async (msg) => {a
+    if (await diceAPI.getBlackListLevel(msg.author.id) !== false) return ['blacklisted', msg.reply('You have been blacklisted from Dice.')];
+});*/
+
 // Update server counter on bot listings
 
 // Discordbots.org
@@ -146,7 +153,7 @@ client.on('message', async (msg) => {
         channel.send({
             embed: {
                 'author': {
-                    'name': `${msg.author.tag} (\`${msg.author.id}\`)`,
+                    'name': `${msg.author.tag} (${msg.author.id})`,
                     'icon_url': msg.author.displayAvatarURL(128),
                 },
                 'timestamp': new Date(msg.createdTimestamp),
