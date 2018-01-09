@@ -1,7 +1,6 @@
 const {
     Command,
 } = require('discord.js-commando');
-const rules = require('../../rules');
 const diceAPI = require('../../diceAPI');
 
 module.exports = class ResetDailyCommand extends Command {
