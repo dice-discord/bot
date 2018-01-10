@@ -136,14 +136,48 @@ client.on('ready', () => {
     updateServerCount(client.guilds.size);
 });
 
+// Everytime a server adds or removes Dice, announce it
+async function announceServerCount(serverCount, newServer) {
+    let changeTypeColor;
+    if (newServer === true) {
+        changeTypeColor = 0x4caf50;
+    }
+    else if (newServer === false) {
+        changeTypeColor = 0xf44336;
+    }
+    else {
+        changeTypeColor = 0xff9800;
+    }
+
+    // #stats
+    const channel = client.channels.find('id', '399451781261950977');
+    channel.send({
+        embed: {
+            'timestamp': new Date(),
+            'color': changeTypeColor,
+            'fields': [{
+                'name': 'Server Count',
+                'value': `\`${serverCount}\` servers`,
+            },
+            {
+                'name': 'User Count',
+                'value': `\`${await diceAPI.totalUsers() - 1}\` users`,
+            },
+            ],
+        },
+    });
+}
+
 client.on('guildCreate', () => {
     // Bot joins a new server
     updateServerCount(client.guilds.size);
+    announceServerCount(client.guilds.size, true);
 });
 
 client.on('guildDelete', () => {
     // Bot leaves a server
     updateServerCount(client.guilds.size);
+    announceServerCount(client.guilds.size, false);
 });
 
 client.on('message', async (msg) => {
@@ -163,8 +197,7 @@ client.on('message', async (msg) => {
                 }, {
                     'name': 'Balance',
                     'value': await diceAPI.getBalance(msg.author.id),
-                },
-                ],
+                } ],
             },
         });
     }
