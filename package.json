@@ -21,7 +21,7 @@
     "homepage": "https://github.com/PizzaFox/dice/blob/master/README.md",
     "main": "dice.js",
     "scripts": {
-        "start": "node -harmony dice.js"
+        "start": "node dice.js"
     },
     "dependencies": {
         "async": "^2.5.0",

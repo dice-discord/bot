@@ -1,1 +1,1 @@
-worker: node --harmony dice.js
+worker: node dice.js
