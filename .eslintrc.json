@@ -7,21 +7,23 @@
     "parserOptions": {
         "ecmaVersion": 2017
     },
+    "plugins": ["prettier"],
     "rules": {
-        "brace-style": ["error", "stroustrup", {
+        "prettier/prettier": "warn",
+        "brace-style": ["warn", "1tbs", {
             "allowSingleLine": true
         }],
         "no-return-await": "error",
-        "comma-dangle": ["error", "always-multiline"],
-        "comma-spacing": "error",
-        "comma-style": "error",
-        "curly": ["error", "multi-line", "consistent"],
-        "dot-location": ["error", "property"],
-        "dot-notation": "error",
+        "comma-dangle": ["warn", "always-multiline"],
+        "comma-spacing": "warn",
+        "comma-style": "warn",
+        "curly": ["warn", "multi-line", "consistent"],
+        "dot-location": ["warn", "property"],
+        "dot-notation": "warn",
         "handle-callback-err": "off",
         "indent": [
             "warn",
-            4
+            "tab"
         ],
         "max-nested-callbacks": ["error", {
             "max": 4
@@ -30,35 +32,35 @@
             "max": 2
         }],
         "no-console": "off",
-        "no-empty-function": "error",
-        "no-floating-decimal": "error",
-        "no-inline-comments": "error",
+        "no-empty-function": "warn",
+        "no-floating-decimal": "warn",
+        "no-inline-comments": "warn",
         "no-lonely-if": "error",
-        "no-multi-spaces": "error",
-        "no-multiple-empty-lines": ["error", {
+        "no-multi-spaces": "warn",
+        "no-multiple-empty-lines": ["warn", {
             "max": 2,
             "maxEOF": 1,
             "maxBOF": 0
         }],
-        "no-shadow": ["error", {
+        "no-shadow": ["warn", {
             "allow": ["err", "resolve", "reject"]
         }],
-        "no-trailing-spaces": ["error"],
+        "no-trailing-spaces": ["warn"],
         "no-var": "error",
-        "object-curly-spacing": ["error", "always"],
+        "object-curly-spacing": ["warn", "always"],
         "prefer-const": "error",
         "quotes": ["warn", "single"],
         "semi": ["warn", "always"],
-        "space-before-blocks": "error",
-        "space-before-function-paren": ["error", {
+        "space-before-blocks": "warn",
+        "space-before-function-paren": ["warn", {
             "anonymous": "never",
             "named": "never",
             "asyncArrow": "always"
         }],
-        "space-in-parens": "error",
-        "space-infix-ops": "error",
-        "space-unary-ops": "error",
-        "spaced-comment": "error",
+        "space-in-parens": "warn",
+        "space-infix-ops": "warn",
+        "space-unary-ops": "warn",
+        "spaced-comment": "warn",
         "yoda": "error"
     }
 }
