@@ -180,7 +180,7 @@ async function announceMemberJoin(member) {
 			color: 0xff9800,
 			author: {
 				name: member.tag,
-				icon: member.displayAvatarURL(128),
+				icon: member.user.displayAvatarURL(128),
 			},
 			fields: [
 				{
