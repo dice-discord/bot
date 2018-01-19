@@ -163,6 +163,44 @@ mongodb.MongoClient.connect(uri, function(err, database) {
     }
     module.exports.allUsers = allUsers;
     // All users
+
+    // User blacklist checking
+    async function getBlackListLevel(requestedID) {
+        winston.debug(`Looking up blacklist level for ${requestedID}`);
+        return balances.findOne({
+            id: requestedID,
+        })
+            .then((result) => {
+                if (result) winston.debug(`Find one result for blacklist level: ${result.blacklist}`);
+                if (!result || isNaN(result.blacklist)) {
+                    winston.debug('Blacklist level result is empty, or not blacklisted.');
+                    return false;
+                }
+                else {
+                    const blacklistResult = result.blacklist;
+                    winston.debug(`Blacklist level: ${blacklistResult}`);
+                    return blacklistResult;
+                }
+            });
+    }
+    module.exports.getBlackListLevel = getBlackListLevel;
+    // User blacklist checking
+
+    // User blacklist setting
+    async function setBlacklistLevel(requestedID, level) {
+        balances.updateOne({
+            id: requestedID,
+        }, {
+            $set: {
+                blacklist: level,
+            },
+        }, {
+            upsert: true,
+        });
+        winston.debug(`Set blacklist level for ${requestedID} to ${level}.`);
+    }
+    module.exports.setBlacklistLevel = setBlacklistLevel;
+    // User blacklist setting
 });
 
 function winPercentage(multiplier) {
