@@ -1,7 +1,7 @@
 {
     "name": "dice",
     "description": "Simple dice.",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
     "keywords": [
         "discord",

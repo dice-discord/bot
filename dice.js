@@ -15,6 +15,7 @@ const client = new CommandoClient({
 	commandPrefix: '$',
 	unknownCommandResponse: false,
 	owner: ['210024244766179329'],
+	disableEveryone: true,
 });
 
 client.registry
