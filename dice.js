@@ -8,6 +8,7 @@ winston.level = 'debug';
 const packageData = require('./package');
 const diceAPI = require('./diceAPI');
 const request = require('request');
+const rules = require('./rules');
 
 // Set up bot metadata
 const client = new CommandoClient({
@@ -34,7 +35,7 @@ client.registry
 // Blacklist users from commands
 /*  new CommandoClient.CommandDispatcher(client.registry);
 
-client.dispatcher.addInhibitor(async (msg) => {a
+client.dispatcher.addInhibitor(async (msg) => {
     if (await diceAPI.getBlackListLevel(msg.author.id) !== false) return ['blacklisted', msg.reply('You have been blacklisted from Dice.')];
 });*/
 
@@ -168,6 +169,29 @@ async function announceServerCount(serverCount, newServer) {
 	});
 }
 
+// When a user joins the Dice server, log it
+async function announceMemberJoin(member) {
+	const guild = client.guilds.get(rules.homeServerID);
+	// #joins
+	const channel = guild.channels.get('399432904809250849');
+	channel.send({
+		embed: {
+			timestamp: member.joinedTimestamp,
+			color: 0xff9800,
+			author: {
+				name: member.tag,
+				icon: member.displayAvatarURL(128),
+			},
+			fields: [
+				{
+					name: 'Number of Server Members',
+					value: `\`${guild.members.size}\` users`,
+				},
+			],
+		},
+	});
+}
+
 client.on('guildCreate', () => {
 	// Bot joins a new server
 	updateServerCount(client.guilds.size);
@@ -178,6 +202,11 @@ client.on('guildDelete', () => {
 	// Bot leaves a server
 	updateServerCount(client.guilds.size);
 	announceServerCount(client.guilds.size, false);
+});
+
+client.on('guildMemberAdd', member => {
+	// If member joined on the official Dice server announce it
+	if (member.guild.id === rules.homeServerID) announceMemberJoin(member);
 });
 
 client.on('message', async msg => {
