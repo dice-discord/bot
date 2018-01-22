@@ -26,8 +26,8 @@
     "dependencies": {
         "async": "^2.5.0",
         "bufferutil": "^3.0.3",
-        "discord.js": "github:hydrabolt/discord.js",
-        "discord.js-commando": "github:Gawdl3y/discord.js-commando",
+        "discord.js": "github:discordjs/discord.js",
+        "discord.js-commando": "github:discordjs/Commando",
         "moment": "^2.20.1",
         "mongodb": "^3.0.0-rc0",
         "path": "^0.12.7",
