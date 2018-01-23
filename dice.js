@@ -40,6 +40,9 @@ client.dispatcher.addInhibitor(async (msg) => {
     if (await diceAPI.getBlackListLevel(msg.author.id) !== false) return ['blacklisted', msg.reply('You have been blacklisted from Dice.')];
 });*/
 
+// Handle promise rejections
+process.on('unhandledRejection', error => winston.error(`Uncaught Promise Rejection:\n${error}`));
+
 // Update server counter on bot listings
 
 // Discordbots.org
@@ -170,29 +173,6 @@ async function announceServerCount(serverCount, newServer) {
 	});
 }
 
-// When a user joins the Dice server, log it
-async function announceMemberJoin(member) {
-	const guild = client.guilds.get(rules.homeServerID);
-	// #joins
-	const channel = guild.channels.get('399432904809250849');
-	channel.send({
-		embed: {
-			timestamp: member.joinedTimestamp,
-			color: 0xff9800,
-			author: {
-				name: member.tag,
-				icon: member.user.displayAvatarURL(128),
-			},
-			fields: [
-				{
-					name: 'Number of Server Members',
-					value: `\`${guild.members.size}\` users`,
-				},
-			],
-		},
-	});
-}
-
 client.on('guildCreate', () => {
 	// Bot joins a new server
 	updateServerCount(client.guilds.size);
@@ -207,7 +187,27 @@ client.on('guildDelete', () => {
 
 client.on('guildMemberAdd', member => {
 	// If member joined on the official Dice server announce it
-	if (member.guild.id === rules.homeServerID) announceMemberJoin(member);
+	if (member.guild.id === rules.homeServerID) {
+		const guild = client.guilds.get(rules.homeServerID);
+		// #joins
+		const channel = guild.channels.get('399432904809250849');
+		channel.send({
+			embed: {
+				timestamp: member.joinedTimestamp,
+				color: 0xff9800,
+				author: {
+					name: `${member.user.tag} (${member.user.id})`,
+					icon: member.user.displayAvatarURL(128),
+				},
+				fields: [
+					{
+						name: 'Number of Server Members',
+						value: `\`${guild.members.size}\` users`,
+					},
+				],
+			},
+		});
+	}
 });
 
 client.on('message', async msg => {
@@ -228,7 +228,7 @@ client.on('message', async msg => {
 					},
 					{
 						name: 'Balance',
-						value: await diceAPI.getBalance(msg.author.id),
+						value: diceAPI.parseFloat(await diceAPI.getBalance(msg.author.id)),
 					},
 				],
 			},
