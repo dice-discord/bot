@@ -54,21 +54,22 @@ module.exports = class DailyCommand extends Command {
 			message = 'You got a 10% bonus for being a **inviter** from inviting one user';
 		}
 
-		winston.debug(
-			`@${
-				msg.author.username
-			} You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${
-				rules.currencyPlural
-			}.`
-		);
+		async function payDaily() {
+			diceAPI.increaseBalance(msg.author.id, payout);
+			diceAPI.setDailyUsed(msg.author.id, currentTime);
+			diceAPI.increaseBalance(this.client.user.id, payout);
+		}
+
+		// prettier-ignore
+		winston.debug(`@${msg.author.username} You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`);
 		winston.debug(`Old timestamp: ${new Date(oldTime)} (${oldTime})`);
 		winston.debug(`Current timestamp: ${new Date(currentTime)} (${currentTime})`);
 
+		await payDaily();
 		if (oldTime + fullDay < currentTime || oldTime === false) {
-			if (oldTime === false)
-				{winston.verbose('Old timestamp was returned as false, meaning empty in the database.');}
-			await diceAPI.increaseBalance(msg.author.id, payout);
-			await diceAPI.setDailyUsed(msg.author.id, currentTime);
+			if (oldTime === false) {
+				winston.verbose('Old timestamp was returned as false, meaning empty in the database.');
+			}
 			// Daily not collected in one day
 			if (message) {
 				return msg.reply(`You were paid ${payout} ${rules.currencyPlural}\n${message}`);
@@ -77,17 +78,12 @@ module.exports = class DailyCommand extends Command {
 			}
 		} else if (waitDuration.hours() === 0) {
 			// Daily collected in a day or less
-			return msg.reply(
-				`🕓 You must wait ${waitDuration.minutes()} minutes before collecting your daily ${
-					rules.currencyPlural
-				}.`
+			// prettier-ignore
+			return msg.reply(`🕓 You must wait ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`
 			);
 		} else {
-			return msg.reply(
-				`🕓 You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${
-					rules.currencyPlural
-				}.`
-			);
+			// prettier-ignore
+			return msg.reply(`🕓 You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`);
 		}
 	}
 };
