@@ -3,6 +3,7 @@
 // Set up dependencies
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
+const replaceall = require('replaceall');
 const winston = require('winston');
 winston.level = 'debug';
 const packageData = require('./package');
@@ -13,7 +14,6 @@ const rules = require('./rules');
 // Set up bot metadata
 const client = new CommandoClient({
 	commandPrefix: '$',
-	unknownCommandResponse: false,
 	owner: ['210024244766179329'],
 	disableEveryone: true,
 });
@@ -234,6 +234,34 @@ client.on('message', async msg => {
 			},
 		});
 	}
+
+	// Protecting bot token
+	if (msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
+		// Message can be deleted, so delete it
+		msg.delete().then(() => {
+			// prettier-ignore
+			winston.error(`TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
+			https://discordapp.com/developers/applications/me/${client.id}\n
+			Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
+			Message: ${msg.content}`);
+		});
+	} else if (msg.content.includes(process.env.BOT_TOKEN) && !msg.editable && !msg.deletable) {
+		// Message can't be delete or edited
+		// prettier-ignore
+		winston.error(`TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
+		https://discordapp.com/developers/applications/me/${client.id}\n
+		Bot token found in message by ${msg.author.tag} (${msg.author.id}).\n
+		Message: ${msg.content}`);
+	} else if (msg.content.includes(process.env.BOT_TOKEN) && msg.editable) {
+		// Message is from bot so edit it
+		msg.edit(replaceall(process.env.BOT_TOKEN, '--snip--', msg.content));
+		// prettier-ignore
+		winston.error(`TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
+		https://discordapp.com/developers/applications/me/${client.id}\n
+		Bot token found and edited in message by ${msg.author.username}.\n
+		Message: ${msg.content}`);
+	}
+	// Protecting bot token
 });
 
 // Log in the bot
