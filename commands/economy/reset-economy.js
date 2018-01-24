@@ -24,34 +24,24 @@ module.exports = class ResetEconomyCommand extends Command {
 		const randomNumber = parseInt(Math.random() * (100 - 10) + 10);
 		msg.reply(`⚠ **Are you absolutely sure you want to destroy all user profiles?** ⚠\n
 		To proceed, enter \`${randomNumber}\`.\n
-		The command will automatically be cancelled in 30 seconds.`);
+		The command will automatically be cancelled in 30 seconds.`).then(() => {
+				const filter = m => msg.author.id === m.author.id;
 
-		// Only allow messages containing the verification number that are by the message author
-		const filter = verificationMessage => msg.author.id === verificationMessage.author.id;
-
-		// Create message collector for verification
-		const collector = msg.channel.createMessageCollector(filter, {
-			max: 2,
-			maxProcessed: 2,
-			time: 30000,
-		});
-
-		// Message passed through all filters
-		collector.on('collect', m => {
-			if (m.id === msg.author.id && m.content.includes(randomNumber)) {
-				winston.info(`Verification passed (collected message: ${m.content}, wiping database.`);
-				// Start resetting the economy
-				msg.reply('💣 Resetting the economy.');
-				diceAPI.resetEconomy().then(() => {
-					// Once the promise is fulfilled (when it's finished) respond to the user that it's done
-					return msg.reply('🔥 Finished resetting the economy.');
-				});
-			}
-		});
-		collector.on('end', collected => {
-			if (collected.size < 2) {
-				return msg.reply('Cancelled command.');
-			}
-		});
+				msg.channel.awaitMessages(filter, { time: 30000, maxMatches: 1, errors: ['time'] })
+					.then(messages => {
+						if (messages.first().content.includes(randomNumber)) {
+							winston.info(`Verification passed (collected message: ${messages.first().content}, wiping database.`);
+							// Start resetting the economy
+							msg.reply('💣 Resetting the economy.');
+							diceAPI.resetEconomy().then(() => {
+								// Once the promise is fulfilled (when it's finished) respond to the user that it's done
+								return msg.reply('🔥 Finished resetting the economy.');
+							});
+						}
+					})
+					.catch(() => {
+						return msg.reply('Cancelled command.');
+					});
+			});
 	}
-};
+}
