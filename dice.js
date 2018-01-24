@@ -201,8 +201,8 @@ client.on('guildMemberAdd', member => {
 				},
 				fields: [
 					{
-						name: 'Number of Server Members',
-						value: `\`${guild.members.size}\` users`,
+						name: '#⃣ Number of Server Members',
+						value: `\`${guild.members.size}\` members`,
 					},
 				],
 			},
