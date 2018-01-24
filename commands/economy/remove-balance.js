@@ -46,7 +46,7 @@ module.exports = class RemoveBalanceCommand extends Command {
 		// Permission checking
 		if (user.bot === true && user.id !== rules.houseID) {
 			// prettier-ignore
-			return msg.reply('❌ You can\'t add dots to bots.');
+			return msg.reply('❌ You can\'t remove dots from bots.');
 		}
 
 		// Wager checking
