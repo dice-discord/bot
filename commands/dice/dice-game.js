@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
-const winston = require('winston');
 const diceAPI = require('../../diceAPI');
 
 module.exports = class DiceGameCommand extends Command {
@@ -39,7 +38,6 @@ module.exports = class DiceGameCommand extends Command {
 
 	async run(msg, { wager, multiplier }) {
 		const authorBalance = await diceAPI.getBalance(msg.author.id);
-		winston.level = 'info';
 
 		// Multiplier checking
 		if (multiplier < diceAPI.simpleFormat(rules.minMultiplier)) {
@@ -97,6 +95,9 @@ module.exports = class DiceGameCommand extends Command {
 			// Green color and win message
 			color = 0x4caf50;
 			result = `You made \`${profit}\` ${rules.currencyPlural} of profit!`;
+			if (await diceAPI.getBiggestWin <= profit) {
+				diceAPI.updateBiggestWin(msg.author.id, profit);
+			}
 		}
 
 		msg.say({

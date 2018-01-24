@@ -95,7 +95,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// Leaderboard search
 	async function leaderboard() {
-		const allProfiles = await balances.find();
+		const allProfiles = balances.find();
 		const formattedBalances = await allProfiles
 			.sort({
 				balance: -1,
@@ -103,7 +103,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			.limit(10)
 			.toArray();
 
-		winston.debug(`Top ten data: ${allProfiles}`);
+		winston.debug(`Top ten data: ${await allProfiles}`);
 		winston.debug(`Top ten data formatted: ${formattedBalances}`);
 		return formattedBalances;
 	}
@@ -213,6 +213,67 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	}
 	module.exports.setBlacklistLevel = setBlacklistLevel;
 	// User blacklist setting
+
+	// Top wins leaderboard search
+	async function topWinsLeaderboard() {
+		const allProfiles = balances.find();
+		const formattedBiggestWins = await allProfiles
+			.sort({
+				biggestWin: -1,
+			})
+			.limit(10)
+			.toArray();
+
+		winston.debug(`Top ten wins data: ${await allProfiles}`);
+		winston.debug(`Top ten wins formatted: ${formattedBiggestWins}`);
+		return formattedBiggestWins;
+	}
+	module.exports.leaderboard = leaderboard;
+	// Top wins leaderboard search
+
+	// Get biggest win
+	async function getBiggestWin(requestedID) {
+		return balances
+			.findOne({
+				id: requestedID,
+			})
+			.then(result => {
+				if (!result) {
+					winston.debug('Biggest win result is empty.');
+						updateBiggestWin(requestedID, 0);
+						return 0;
+				} else {
+					const biggestWinResult = simpleFormat(result.biggestWin);
+					winston.debug(`Result for findOne: ${result}`);
+					winston.debug(`Value of biggest win: ${result.biggestWin}`);
+					winston.debug(`Formatted value of biggest win: ${biggestWinResult}`);
+					winston.debug(`Requested user ID: ${requestedID}`);
+					return biggestWinResult;
+				}
+			});
+	}
+	module.exports.getBiggestWin = getBiggestWin;
+	// Get biggest win
+
+	// Update biggest win
+	async function updateBiggestWin(requestedID, newBiggestWin) {
+		balances.updateOne(
+			{
+				id: requestedID,
+			},
+			{
+				$set: {
+					biggestWin: simpleFormat(newBiggestWin),
+				},
+			},
+			{
+				upsert: true,
+			}
+		);
+		winston.debug(`Set biggest win for ${requestedID} to ${simpleFormat(newBiggestWin)}`);
+	}
+	module.exports.updateBiggestWin = updateBiggestWin;
+	// Update biggest win
 });
 
 function winPercentage(multiplier) {
