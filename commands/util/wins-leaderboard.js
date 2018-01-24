@@ -8,10 +8,10 @@ module.exports = class LeaderboardCommand extends Command {
 		super(client, {
 			name: 'wins-leaderboard',
 			group: 'util',
-			memberName: 'leaderboard',
+			memberName: 'wins-leaderboard',
 			description: `Shows a top ten leaderboard of who had the most profitable games`,
 			aliases: ['top-games', 'top-wins', 'leaderboard-wins', 'wins-top'],
-			examples: ['leaderboard'],
+			examples: ['wins-leaderboard'],
 		});
 	}
 
