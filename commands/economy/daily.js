@@ -65,15 +65,18 @@ module.exports = class DailyCommand extends Command {
 		winston.debug(`Old timestamp: ${new Date(oldTime)} (${oldTime})`);
 		winston.debug(`Current timestamp: ${new Date(currentTime)} (${currentTime})`);
 
-		await payDaily();
+	
 		if (oldTime + fullDay < currentTime || oldTime === false) {
 			if (oldTime === false) {
 				winston.verbose('Old timestamp was returned as false, meaning empty in the database.');
 			}
 			// Daily not collected in one day
 			if (message) {
+				await payDaily();
 				return msg.reply(`You were paid ${payout} ${rules.currencyPlural}\n${message}`);
 			} else {
+				await payDaily();
+				
 				return msg.reply(`You were paid ${payout} ${rules.currencyPlural}`);
 			}
 		} else if (waitDuration.hours() === 0) {

@@ -228,7 +228,7 @@ client.on('message', async msg => {
 					},
 					{
 						name: 'Balance',
-						value: diceAPI.parseFloat(await diceAPI.getBalance(msg.author.id)),
+						value: parseFloat(await diceAPI.getBalance(msg.author.id)),
 					},
 				],
 			},
