@@ -10,6 +10,7 @@ module.exports = class DiceGameCommand extends Command {
 			group: 'dice',
 			memberName: 'dice-game',
 			description:
+				// prettier-ignore
 				'For each bet the outcome is randomly chosen between 1 and 100. It\'s up to you to guess a target that you think the outcome will exceed.',
 			aliases: ['game', 'play', 'play-game', 'dice', 'play-dice'],
 			examples: ['dice 250 4'],
@@ -61,6 +62,7 @@ module.exports = class DiceGameCommand extends Command {
 				}. Your balance is \`${authorBalance}\` ${rules.currencyPlural}.`
 			);
 		} else if (wager * multiplier - wager > (await diceAPI.getBalance(rules.houseID))) {
+			// prettier-ignore
 			return msg.reply('❌ I couldn\'t pay your winnings if you won.');
 		} else if (isNaN(wager)) {
 			return msg.reply(`❌ \`${wager}\` is not a valid number.`);
