@@ -197,7 +197,7 @@ client.on('guildMemberAdd', member => {
 				color: 0xff9800,
 				author: {
 					name: `${member.user.tag} (${member.user.id})`,
-					icon: member.user.displayAvatarURL(128),
+					icon_url: member.user.displayAvatarURL(128),
 				},
 				fields: [
 					{
