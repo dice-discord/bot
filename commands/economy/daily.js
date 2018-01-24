@@ -64,8 +64,11 @@ module.exports = class DailyCommand extends Command {
 				winston.verbose('Old timestamp was returned as false, meaning empty in the database.');
 			}
 
+			// Pay message author their daily
 			await diceAPI.increaseBalance(msg.author.id, payout);
+			// Save the time their daily was used
 			await diceAPI.setDailyUsed(msg.author.id, currentTime);
+			// Pay Dice the same amount to help handle the economy
 			diceAPI.increaseBalance(this.client.user.id, payout);
 
 			// Daily not collected in one day
