@@ -228,7 +228,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 		winston.debug(`Top ten wins formatted: ${formattedBiggestWins}`);
 		return formattedBiggestWins;
 	}
-	module.exports.leaderboard = leaderboard;
+	module.exports.topWinsLeaderboard = topWinsLeaderboard;
 	// Top wins leaderboard search
 
 	// Get biggest win
