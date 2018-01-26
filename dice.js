@@ -190,6 +190,7 @@ client.on('guildMemberAdd', member => {
 		const channel = guild.channels.get('399432904809250849');
 		channel.send({
 			embed: {
+				title: 'New Member',
 				timestamp: member.joinedTimestamp,
 				color: 0xff9800,
 				author: {
