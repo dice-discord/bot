@@ -40,11 +40,8 @@ module.exports = class BalanceCommand extends Command {
 
 			// Someone else's balance
 			if (houseBalance < userBalance && user.id !== rules.houseID) {
-				return msg.reply(
-					`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${
-						rules.currencyPlural
-					}. That's more than ${this.client.user}!`
-				);
+				 // prettier-ignore
+				return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${this.client.user}!`);
 			} else {
 				return msg.reply(
 					`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}.`
@@ -55,11 +52,8 @@ module.exports = class BalanceCommand extends Command {
 
 			// We are looking up the message author's balance
 			if (houseBalance < userBalance && user.id !== rules.houseID) {
-				return msg.reply(
-					`🏦 You have a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${
-						rules.houseID
-					}!`
-				);
+				// prettier-ignore
+				return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${this.client.user}!`);
 			} else {
 				return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules.currencyPlural}.`);
 			}
