@@ -30,7 +30,6 @@ module.exports = class StatisticsCommand extends Command {
 					},
 					{
 						name: '👥 Total Number of Servers',
-						// Subtract one because of the Dice bot
 						value: `${this.client.guilds.size} servers`,
 					},
 				],
