@@ -9,7 +9,7 @@ module.exports = class BlacklistUserCommand extends Command {
 			memberName: 'blacklist-user',
 			description: 'Add a user to the blacklist',
 			details: 'Only the bot owner(s) may use this command.',
-			aliases: ['block-user', 'user-blacklist', 'user-block'],
+			aliases: ['block-user', 'user-blacklist', 'user-block', 'blacklist'],
 			examples: ['blacklist @Dice'],
 			args: [
 				{
