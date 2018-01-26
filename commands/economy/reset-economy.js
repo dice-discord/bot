@@ -30,7 +30,7 @@ module.exports = class ResetEconomyCommand extends Command {
 				msg.channel.awaitMessages(filter, { time: 30000, maxMatches: 1, errors: ['time'] })
 					.then(messages => {
 						if (messages.first().content.includes(randomNumber)) {
-							winston.info(`Verification passed (collected message: ${messages.first().content}, wiping database.`);
+							winston.info(`[COMMAND](DAILY) Verification passed (collected message: ${messages.first().content}, wiping database.`);
 							// Start resetting the economy
 							msg.reply('💣 Resetting the economy.');
 							diceAPI.resetEconomy().then(() => {

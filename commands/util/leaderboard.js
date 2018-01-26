@@ -16,12 +16,10 @@ module.exports = class LeaderboardCommand extends Command {
 	}
 
 	async run(msg) {
-		winston.level = 'debug';
-
 		const leaderboardArray = await diceAPI.leaderboard();
 
-		winston.verbose(`Contents of leaderboard array: ${leaderboardArray}`);
-		winston.verbose(`Leaderboard array length: ${leaderboardArray.length}`);
+		winston.verbose(`[COMMAND](LEADERBOARD) Contents of leaderboard array: ${leaderboardArray}`);
+		winston.verbose(`[COMMAND](LEADERBOARD) Leaderboard array length: ${leaderboardArray.length}`);
 
 		// Check if there are enough users to populate the embed
 		if (leaderboardArray.length < 10) {
@@ -29,12 +27,10 @@ module.exports = class LeaderboardCommand extends Command {
 		}
 
 		const botClient = this.client;
-		winston.debug('About to fetchUser PizzaFox.');
-		winston.debug(`PizzaFox user: ${await this.client.users.fetch('210024244766179329')}`);
 
 		async function userTagFromID(arrayPlace) {
 			const targetID = leaderboardArray[arrayPlace].id;
-			winston.debug(`Checking user tag from array index ${arrayPlace}`);
+			winston.debug(`[COMMAND](LEADERBOARD) Checking user tag from array index ${arrayPlace}`);
 			if (botClient.users.get(targetID)) {
 				return botClient.users.get(targetID).tag;
 			} else {

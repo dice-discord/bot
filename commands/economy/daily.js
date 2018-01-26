@@ -55,13 +55,13 @@ module.exports = class DailyCommand extends Command {
 		}
 
 		// prettier-ignore
-		winston.debug(`@${msg.author.username} You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`);
-		winston.debug(`Old timestamp: ${new Date(oldTime)} (${oldTime})`);
-		winston.debug(`Current timestamp: ${new Date(currentTime)} (${currentTime})`);
+		winston.debug(`[COMMAND](DAILY) @${msg.author.username} You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`);
+		winston.debug(`[COMMAND](DAILY) Old timestamp: ${new Date(oldTime)} (${oldTime})`);
+		winston.debug(`[COMMAND](DAILY) Current timestamp: ${new Date(currentTime)} (${currentTime})`);
 
 		if (oldTime + fullDay < currentTime || oldTime === false) {
 			if (oldTime === false) {
-				winston.verbose('Old timestamp was returned as false, meaning empty in the database.');
+				winston.verbose('[COMMAND](DAILY) Old timestamp was returned as false, meaning empty in the database.');
 			}
 
 			// Pay message author their daily

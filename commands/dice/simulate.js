@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
-const winston = require('winston');
 const diceAPI = require('../../diceAPI');
 
 module.exports = class SimulateGameCommand extends Command {
@@ -44,8 +43,6 @@ module.exports = class SimulateGameCommand extends Command {
 	}
 
 	run(msg, { wager, multiplier }) {
-		winston.level = 'info';
-
 		// Multiplier checking
 		if (multiplier < diceAPI.simpleFormat(rules.minMultiplier)) {
 			return msg.reply(`❌ Your target multiplier must be at least \`${rules.minMultiplier}\`.`);

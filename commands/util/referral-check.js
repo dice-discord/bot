@@ -32,7 +32,7 @@ module.exports = class ReferralCheckCommand extends Command {
 		const affiliate = rules.rewardRoles[3];
 
 		const invites = await msg.guild.fetchInvites();
-		winston.verbose(`Invites collection: ${invites}`);
+		winston.verbose(`[COMMAND](REFFERAL-CHECK) Invites collection: ${invites}`);
 		let uses = 0;
 		let message;
 
@@ -41,30 +41,30 @@ module.exports = class ReferralCheckCommand extends Command {
 
 			// Make sure the invite was made by the message author
 			if (value.inviter === msg.author) {
-				winston.verbose(`${msg.author.tag} created this invite (${key})`);
-				winston.verbose(`value.uses: ${value.uses}`);
+				winston.verbose(`[COMMAND](REFFERAL-CHECK) ${msg.author.tag} created this invite (${key})`);
+				winston.verbose(`[COMMAND](REFFERAL-CHECK) value.uses: ${value.uses}`);
 				uses = uses + value.uses;
 			}
 		}
 
 		if (uses >= affiliate.requirement && !msg.member.roles.has(affiliate.id)) {
 			msg.member.addRole(affiliate.id, 'Invited 25+ users').then(() => {
-				winston.verbose(`Added affiliate role to ${msg.author.tag}`);
+				winston.verbose(`[COMMAND](REFFERAL-CHECK) Added affiliate role to ${msg.author.tag}`);
 				msg.reply('You have been given the **affiliate** role');
 			});
 		} else if (uses >= recruiter.requirement && !msg.member.roles.has(recruiter.id)) {
 			msg.member.addRole(recruiter.id, 'Invited 10+ users').then(() => {
-				winston.verbose(`Added recruiter role to ${msg.author.tag}`);
+				winston.verbose(`[COMMAND](REFFERAL-CHECK) Added recruiter role to ${msg.author.tag}`);
 				msg.reply('You have been given the **recruiter** role');
 			});
 		} else if (uses >= backer.requirement && !msg.member.roles.has(backer.id)) {
 			msg.member.addRole(backer.id, 'Invited 5+ users').then(() => {
-				winston.verbose(`Added backer role to ${msg.author.tag}`);
+				winston.verbose(`[COMMAND](REFFERAL-CHECK) Added backer role to ${msg.author.tag}`);
 				msg.reply('You have been given the **backer** role');
 			});
 		} else if (uses >= inviter.requirement && !msg.member.roles.has(inviter.id)) {
 			msg.member.addRole(inviter.id, 'Invited 1+ users').then(() => {
-				winston.verbose(`Added inviter role to ${msg.author.tag}`);
+				winston.verbose(`[COMMAND](REFFERAL-CHECK) Added inviter role to ${msg.author.tag}`);
 				msg.reply('You have been given the **inviter** role');
 			});
 		}
@@ -80,7 +80,7 @@ module.exports = class ReferralCheckCommand extends Command {
 			message = 'You are currently an **inviter**.';
 		}
 
-		winston.verbose(`${msg.author.tag} has invited ${uses} people to this server.`);
+		winston.verbose(`[COMMAND](REFFERAL-CHECK) ${msg.author.tag} has invited ${uses} people to this server.`);
 		if (message) {
 			return msg.reply(
 				`${message}\nYou have invited ${uses} users. Please see <#397518385870667807> for information on how many invites are needed to progress to the next role.`

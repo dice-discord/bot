@@ -28,7 +28,6 @@ module.exports = class InfoCommand extends Command {
 	}
 
 	async run(msg, { user }) {
-		winston.level = 'debug';
 		user = user || msg.author;
 		const userBalance = await diceAPI.getBalance(user.id);
 		const userProfilePicture = user.displayAvatarURL(128);
@@ -43,7 +42,7 @@ module.exports = class InfoCommand extends Command {
 			startingBalance = rules.newUserBalance;
 		}
 
-		winston.verbose(`Target user display URL: ${userProfilePicture}`);
+		winston.verbose(`[COMMAND](INFO) Target user display URL: ${userProfilePicture}`);
 
 		return msg.say({
 			embed: {

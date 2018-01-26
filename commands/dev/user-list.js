@@ -28,7 +28,7 @@ module.exports = class UserListCommand extends Command {
 
 		async function userTagFromID(arrayPlace) {
 			const targetID = database[arrayPlace].id;
-			winston.debug(`[${this.memberName}] Checking user tag from array index ${arrayPlace}`);
+			winston.debug(`[COMMAND](USER-LIST) Checking user tag from array index ${arrayPlace}`);
 			if (botClient.users.get(targetID)) {
 				return botClient.users.get(targetID).tag;
 			} else {
@@ -40,7 +40,7 @@ module.exports = class UserListCommand extends Command {
 			userList.push(`${await userTagFromID(index)} (\`${database[index].id}\`)`);
 		}
 
-		winston.debug(`[${this.memberName}] First item in userList: ${userList[0]}`);
+		winston.debug(`[COMMAND](USER-LIST) First item in userList: ${userList[0]}`);
 		msg.say(userList.join('\n'));
 
 		return msg.reply(`👤 ${await diceAPI.totalUsers()} users in total. Only 50 users were listed.`);

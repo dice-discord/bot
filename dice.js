@@ -60,12 +60,11 @@ function sendDiscordBotsORGServerCount(serverData) {
 		json: true,
 	};
 
-	winston.debug(`discordbots.org token: ${process.env.DISCORDBOTSORG_TOKEN}`);
+	winston.debug(`[DICE] discordbots.org token: ${process.env.DISCORDBOTSORG_TOKEN}`);
 	request(options, (err, httpResponse, body) => {
-		if (err) return winston.error(err);
+		if (err) return winston.error(`[DICE] ${err}`);
 		if (body) {
-			winston.debug('DiscordBots.org results:');
-			winston.debug(body);
+			winston.debug(`[DICE] DiscordBots.org results:\n${body}`);
 		}
 	});
 }
@@ -85,19 +84,18 @@ function sendBotsDiscordPWServerCount(serverData) {
 		json: true,
 	};
 
-	winston.debug(`bots.discord.pw token: ${process.env.BOTSDISCORDPW_TOKEN}`);
+	winston.debug(`[DICE] bots.discord.pw token: ${process.env.BOTSDISCORDPW_TOKEN}`);
 	request(options, (err, httpResponse, body) => {
-		if (err) return winston.error(err);
+		if (err) return winston.error(`[DICE] ${err}`);
 		if (body) {
-			winston.debug('Bots.Discord.pw results:');
-			winston.debug(body);
+			winston.debug(`[DICE] Bots.Discord.pw results:\n${body}`);
 		}
 	});
 }
 
 // Bots.discordlist.net
 function sendDiscordlistServerCount(serverData) {
-	winston.debug(`bots.discordlist.net token: ${process.env.DISCORDLIST_TOKEN}`);
+	winston.debug(`[DICE] bots.discordlist.net token: ${process.env.DISCORDLIST_TOKEN}`);
 	request(
 		{
 			url: 'https://bots.discordlist.net/api',
@@ -109,10 +107,9 @@ function sendDiscordlistServerCount(serverData) {
 			},
 		},
 		(err, httpResponse, body) => {
-			if (err) return winston.error(err);
+			if (err) return winston.error(`[DICE] ${err}`);
 			if (body) {
-				winston.debug('Discordlist results:');
-				winston.debug(body);
+				winston.debug(`[DICE] Discordlist results:\n${body}`);
 			}
 		}
 	);
@@ -121,7 +118,7 @@ function sendDiscordlistServerCount(serverData) {
 // Run all three at once
 function updateServerCount(serverData) {
 	if (client.user.id === '388191157869477888') {
-		winston.verbose('Sending POST requests to bot listings.');
+		winston.verbose('[DICE] Sending POST requests to bot listings.');
 		sendDiscordBotsORGServerCount(serverData);
 		sendBotsDiscordPWServerCount(serverData);
 		sendDiscordlistServerCount(serverData);
@@ -130,9 +127,9 @@ function updateServerCount(serverData) {
 // module.exports.updateServerCount = updateServerCount;
 
 client.on('ready', () => {
-	winston.info('Logged in!');
-	winston.verbose(`Node.js version: ${process.version}`);
-	winston.verbose(`Dice version v${packageData.version}`);
+	winston.info('[DICE] Logged in!');
+	winston.verbose(`[DICE] Node.js version: ${process.version}`);
+	winston.verbose(`[DICE] Dice version v${packageData.version}`);
 
 	// Set game presence to the help command once loaded
 	client.user.setActivity('for @Dice help', {
@@ -240,28 +237,28 @@ client.on('message', async msg => {
 	}
 
 	// Protecting bot token
+	const warning = `[DICE] TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
+	https://discordapp.com/developers/applications/me/${client.user.id}\n`;
+
 	if (msg.content.includes(process.env.BOT_TOKEN) && msg.editable) {
 		// Message is from bot so edit it
 		msg.edit(replaceall(process.env.BOT_TOKEN, '--snip--', msg.content));
 		// prettier-ignore
-		winston.error(`TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
-		https://discordapp.com/developers/applications/me/${client.user.id}\n
+		winston.error(`[DICE] ${warning}
 		Bot token found and edited in message from this bot.\n
 		Message: ${msg.content}`);
 	} else if (msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
 		// Message can be deleted, so delete it
 		msg.delete().then(() => {
 			// prettier-ignore
-			winston.error(`TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
-			https://discordapp.com/developers/applications/me/${client.user.id}\n
+			winston.error(`[DICE] ${warning}
 			Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
 			Message: ${msg.content}`);
 		});
 	} else if (msg.content.includes(process.env.BOT_TOKEN) && !msg.editable && !msg.deletable) {
 		// Message can't be delete or edited
 		// prettier-ignore
-		winston.error(`TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
-		https://discordapp.com/developers/applications/me/${client.user.id}\n
+		winston.error(`[DICE] ${warning}
 		Bot token found in message by ${msg.author.tag} (${msg.author.id}).\n
 		Message: ${msg.content}`);
 	}
