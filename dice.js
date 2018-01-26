@@ -223,12 +223,16 @@ client.on('message', async msg => {
 				timestamp: new Date(msg.createdTimestamp),
 				fields: [
 					{
-						name: 'Message',
+						name: '📝 Message',
 						value: msg.content,
 					},
 					{
-						name: 'Balance',
-						value: `${await diceAPI.getBalance(msg.author.id)} ${rules.currencyPlural}`,
+						name: '🏦 User Balance',
+						value: `\`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}`,
+					},
+					{
+						name: '🏦 Dice Balance',
+						value: `\`${await diceAPI.getBalance(client.user.id)}\` ${rules.currencyPlural}`,
 					},
 				],
 			},
