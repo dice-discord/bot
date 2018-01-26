@@ -241,7 +241,7 @@ client.on('message', async msg => {
 		msg.edit(replaceall(process.env.BOT_TOKEN, '--snip--', msg.content));
 		// prettier-ignore
 		winston.error(`TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
-		https://discordapp.com/developers/applications/me/${this.client.user.id}\n
+		https://discordapp.com/developers/applications/me/${client.user.id}\n
 		Bot token found and edited in message from this bot.\n
 		Message: ${msg.content}`);
 	} else if (msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
@@ -249,7 +249,7 @@ client.on('message', async msg => {
 		msg.delete().then(() => {
 			// prettier-ignore
 			winston.error(`TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
-			https://discordapp.com/developers/applications/me/${this.client.user.id}\n
+			https://discordapp.com/developers/applications/me/${client.user.id}\n
 			Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
 			Message: ${msg.content}`);
 		});
@@ -257,7 +257,7 @@ client.on('message', async msg => {
 		// Message can't be delete or edited
 		// prettier-ignore
 		winston.error(`TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
-		https://discordapp.com/developers/applications/me/${this.client.user.id}\n
+		https://discordapp.com/developers/applications/me/${client.user.id}\n
 		Bot token found in message by ${msg.author.tag} (${msg.author.id}).\n
 		Message: ${msg.content}`);
 	}
