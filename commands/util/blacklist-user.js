@@ -5,7 +5,7 @@ module.exports = class BlacklistUserCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'blacklist-user',
-			group: 'economy',
+			group: 'util',
 			memberName: 'blacklist-user',
 			description: 'Add a user to the blacklist',
 			details: 'Only the bot owner(s) may use this command.',
