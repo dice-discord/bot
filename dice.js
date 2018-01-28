@@ -127,7 +127,7 @@ function updateServerCount(serverData) {
 // module.exports.updateServerCount = updateServerCount;
 
 client.on('ready', () => {
-	winston.info('[DICE] Logged in!');
+	winston.info(`[DICE] Logged in as ${client.tag}!`);
 	winston.verbose(`[DICE] Node.js version: ${process.version}`);
 	winston.verbose(`[DICE] Dice version v${packageData.version}`);
 
