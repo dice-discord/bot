@@ -15,6 +15,7 @@ module.exports = class InfoCommand extends Command {
 			args: [
 				{
 					key: 'user',
+					// prettier-ignore
 					prompt: 'Who\'s profile do you want to look up?',
 					type: 'user',
 					default: '',

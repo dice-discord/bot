@@ -19,9 +19,10 @@ module.exports = class LeaderboardCommand extends Command {
 	async run(msg) {
 		const leaderboardArray = await diceAPI.topWinsLeaderboard();
 
+		// prettier-ignore
 		winston.verbose(`[COMMAND](WINS-LEADERBOARD) Contents of top wins leaderboard array: ${leaderboardArray}`);
+		// prettier-ignore
 		winston.verbose(`[COMMAND](WINS-LEADERBOARD) Top wins leaderboard array length: ${leaderboardArray.length}`);
-
 		// Check if there are enough games to populate the embed
 		if (leaderboardArray.length < 10) {
 			return msg.reply('❌ There are less than 10 wins total.');
