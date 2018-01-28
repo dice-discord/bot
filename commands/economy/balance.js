@@ -8,12 +8,14 @@ module.exports = class BalanceCommand extends Command {
 			name: 'balance',
 			group: 'economy',
 			memberName: 'balance',
+			// prettier-ignore
 			description: 'Check a user\'s balance',
 			aliases: ['bal', 'balance-check', 'bal-check', 'credits'],
 			examples: ['balance', 'balance @PizzaFox#0075'],
 			args: [
 				{
 					key: 'user',
+					// prettier-ignore
 					prompt: 'Who\'s balance do you want to check?',
 					type: 'user',
 					default: '',
@@ -32,6 +34,7 @@ module.exports = class BalanceCommand extends Command {
 
 		// Bot checking
 		if (user.bot && user.id !== rules.houseID) {
+			// prettier-ignore
 			return msg.reply('❌ Bots can\'t play.');
 		}
 
@@ -40,12 +43,11 @@ module.exports = class BalanceCommand extends Command {
 
 			// Someone else's balance
 			if (houseBalance < userBalance && user.id !== rules.houseID) {
-				 // prettier-ignore
+				// prettier-ignore
 				return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${this.client.user}!`);
 			} else {
-				return msg.reply(
-					`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}.`
-				);
+				// prettier-ignore
+				return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}.`);
 			}
 		} else {
 			userBalance = await diceAPI.getBalance(msg.author.id);
