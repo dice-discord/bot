@@ -1,20 +1,18 @@
 const rules = require('./rules');
 const mongodb = require('mongodb');
 const winston = require('winston');
-
-winston.level = 'debug';
 winston.verbose('diceAPI loading');
 
 // Set up database variables
 const uri = process.env.MONGODB_URI;
 if (process.env.MONGODB_URI == null) {
-	winston.error('mongoDB URI is undefined!');
+	winston.error('[API] mongoDB URI is undefined!');
 } else {
-	winston.debug(`mongoDB URI: ${uri}`);
+	winston.debug(`[API] mongoDB URI: ${uri}`);
 }
 
 mongodb.MongoClient.connect(uri, function(err, database) {
-	if (err) winston.error(err);
+	if (err) winston.error(`[API] ${err}`);
 	winston.debug('Connected to database server');
 
 	const balances = database.db('balances').collection('balances');
@@ -27,22 +25,22 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			})
 			.then(result => {
 				if (!result) {
-					winston.debug('Result is empty. Checking if requested ID is the house.');
+					winston.debug('[API] Result is empty. Checking if requested ID is the house.');
 					if (requestedID === rules.houseID) {
-						winston.debug('Requested ID is the house ID.');
+						winston.debug('[API] Requested ID is the house ID.');
 						updateBalance(requestedID, rules.houseStartingBalance);
 						return rules.houseStartingBalance;
 					} else {
-						winston.debug('Requested ID isn\'t the house ID.');
+						winston.debug('[API] Requested ID isn\'t the house ID.');
 						updateBalance(requestedID, rules.newUserBalance);
 						return rules.newUserBalance;
 					}
 				} else {
 					const balanceResult = simpleFormat(result.balance);
-					winston.debug(`Result for findOne: ${result}`);
-					winston.debug(`Value of balance: ${result.balance}`);
-					winston.debug(`Formatted value of balance: ${balanceResult}`);
-					winston.debug(`Requested user ID: ${requestedID}`);
+					winston.debug(`[API] Result for findOne: ${result}`);
+					winston.debug(`[API] Value of balance: ${result.balance}`);
+					winston.debug(`[API] Formatted value of balance: ${balanceResult}`);
+					winston.debug(`[API] Requested user ID: ${requestedID}`);
 					return balanceResult;
 				}
 			});
@@ -65,7 +63,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 				upsert: true,
 			}
 		);
-		winston.debug(`Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
+		winston.debug(`[API] Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
 	}
 	module.exports.updateBalance = updateBalance;
 	// Update balance
@@ -103,8 +101,8 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			.limit(10)
 			.toArray();
 
-		winston.debug(`Top ten data: ${await allProfiles}`);
-		winston.debug(`Top ten data formatted: ${formattedBalances}`);
+		winston.debug(`[API] Top ten data: ${await allProfiles}`);
+		winston.debug(`[API] Top ten data formatted: ${formattedBalances}`);
 		return formattedBalances;
 	}
 	module.exports.leaderboard = leaderboard;
@@ -113,7 +111,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// Total users
 	async function totalUsers() {
 		const userCount = await balances.count({});
-		winston.debug(`Number of all users: ${userCount}`);
+		winston.debug(`[API] Number of all users: ${userCount}`);
 		return userCount;
 	}
 	module.exports.totalUsers = totalUsers;
@@ -134,28 +132,27 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 				upsert: true,
 			}
 		);
-		winston.debug(
-			`Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`
-		);
+		// prettier-ignore
+		winston.debug(`[API] Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
 	}
 	module.exports.setDailyUsed = setDailyUsed;
 	// Daily reward
 
 	// Daily reward searching
 	async function getDailyUsed(requestedID) {
-		winston.debug(`Looking up daily timestamp for ${requestedID}`);
+		winston.debug(`[API] Looking up daily timestamp for ${requestedID}`);
 		return balances
 			.findOne({
 				id: requestedID,
 			})
 			.then(result => {
-				if (result) winston.debug(`Find one result for daily timestamp: ${result.daily}`);
+				if (result) winston.debug(`[API] Find one result for daily timestamp: ${result.daily}`);
 				if (!result || isNaN(result.daily)) {
-					winston.debug('Daily last used timestamp result is empty.');
+					winston.debug('[API] Daily last used timestamp result is empty.');
 					return false;
 				} else {
 					const timestampResult = result.daily;
-					winston.debug(`Daily timestamp: ${new Date(timestampResult)} (${timestampResult})`);
+					winston.debug(`[API] Daily timestamp: ${new Date(timestampResult)} (${timestampResult})`);
 					return timestampResult;
 				}
 			});
@@ -166,7 +163,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// All users
 	async function allUsers() {
 		const allProfiles = await balances.find();
-		winston.debug('All users were requested.');
+		winston.debug('[API] All users were requested.');
 		return allProfiles.toArray();
 	}
 	module.exports.allUsers = allUsers;
@@ -174,19 +171,19 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// User blacklist checking
 	async function getBlackListLevel(requestedID) {
-		winston.debug(`Looking up blacklist level for ${requestedID}`);
+		winston.debug(`[API] Looking up blacklist level for ${requestedID}`);
 		return balances
 			.findOne({
 				id: requestedID,
 			})
 			.then(result => {
-				if (result) winston.debug(`Find one result for blacklist level: ${result.blacklist}`);
+				if (result) winston.debug(`[API] Find one result for blacklist level: ${result.blacklist}`);
 				if (!result || isNaN(result.blacklist)) {
-					winston.debug('Blacklist level result is empty, or not blacklisted.');
+					winston.debug('[API] Blacklist level result is empty, or not blacklisted.');
 					return false;
 				} else {
 					const blacklistResult = result.blacklist;
-					winston.debug(`Blacklist level: ${blacklistResult}`);
+					winston.debug(`[API] Blacklist level: ${blacklistResult}`);
 					return blacklistResult;
 				}
 			});
@@ -209,7 +206,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 				upsert: true,
 			}
 		);
-		winston.debug(`Set blacklist level for ${requestedID} to ${level}.`);
+		winston.debug(`[API] Set blacklist level for ${requestedID} to ${level}.`);
 	}
 	module.exports.setBlacklistLevel = setBlacklistLevel;
 	// User blacklist setting
@@ -224,8 +221,8 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			.limit(10)
 			.toArray();
 
-		winston.debug(`Top ten wins data: ${await allProfiles}`);
-		winston.debug(`Top ten wins formatted: ${formattedBiggestWins}`);
+		winston.debug(`[API] Top ten wins data: ${await allProfiles}`);
+		winston.debug(`[API] Top ten wins formatted: ${formattedBiggestWins}`);
 		return formattedBiggestWins;
 	}
 	module.exports.topWinsLeaderboard = topWinsLeaderboard;
@@ -239,15 +236,15 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			})
 			.then(result => {
 				if (!result) {
-					winston.debug('Biggest win result is empty.');
+					winston.debug('[API] Biggest win result is empty.');
 						updateBiggestWin(requestedID, 0);
 						return 0;
 				} else {
 					const biggestWinResult = simpleFormat(result.biggestWin);
-					winston.debug(`Result for findOne: ${result}`);
-					winston.debug(`Value of biggest win: ${result.biggestWin}`);
-					winston.debug(`Formatted value of biggest win: ${biggestWinResult}`);
-					winston.debug(`Requested user ID: ${requestedID}`);
+					winston.debug(`[API] Result for findOne: ${result}`);
+					winston.debug(`[API] Value of biggest win: ${result.biggestWin}`);
+					winston.debug(`[API] Formatted value of biggest win: ${biggestWinResult}`);
+					winston.debug(`[API] Requested user ID: ${requestedID}`);
 					return biggestWinResult;
 				}
 			});
@@ -270,7 +267,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 				upsert: true,
 			}
 		);
-		winston.debug(`Set biggest win for ${requestedID} to ${simpleFormat(newBiggestWin)}`);
+		winston.debug(`[API] Set biggest win for ${requestedID} to ${simpleFormat(newBiggestWin)}`);
 	}
 	module.exports.updateBiggestWin = updateBiggestWin;
 	// Update biggest win
