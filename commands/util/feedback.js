@@ -29,7 +29,7 @@ module.exports = class feedback extends Command {
 			msg.reply('📝 Thanks for sending your feedback.');
 		}
 
-		winston.debug('About to send RichEmbed');
+		winston.debug('[COMMAND](FEEDBACK) About to send RichEmbed');
 		const developer = this.client.users.get('210024244766179329');
 
 		return developer.send({

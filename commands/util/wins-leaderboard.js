@@ -12,14 +12,15 @@ module.exports = class LeaderboardCommand extends Command {
 			description: `Shows a top ten leaderboard of who had the most profitable games`,
 			aliases: ['top-games', 'top-wins', 'leaderboard-wins', 'wins-top'],
 			examples: ['wins-leaderboard'],
+			ownerOnly: true,
 		});
 	}
 
 	async run(msg) {
 		const leaderboardArray = await diceAPI.topWinsLeaderboard();
 
-		winston.verbose(`Contents of top wins leaderboard array: ${leaderboardArray}`);
-		winston.verbose(`Top wins leaderboard array length: ${leaderboardArray.length}`);
+		winston.verbose(`[COMMAND](WINS-LEADERBOARD) Contents of top wins leaderboard array: ${leaderboardArray}`);
+		winston.verbose(`[COMMAND](WINS-LEADERBOARD) Top wins leaderboard array length: ${leaderboardArray.length}`);
 
 		// Check if there are enough games to populate the embed
 		if (leaderboardArray.length < 10) {
@@ -30,7 +31,7 @@ module.exports = class LeaderboardCommand extends Command {
 
 		async function userTagFromID(arrayPlace) {
 			const targetID = leaderboardArray[arrayPlace].id;
-			winston.debug(`Checking user tag from array index ${arrayPlace}`);
+			winston.debug(`[COMMAND](WINS-LEADERBOARD) Checking user tag from array index ${arrayPlace}`);
 			if (botClient.users.get(targetID)) {
 				return botClient.users.get(targetID).tag;
 			} else {

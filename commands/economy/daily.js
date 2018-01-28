@@ -41,27 +41,27 @@ module.exports = class DailyCommand extends Command {
 		// Bonuses for referring users
 		if (msg.member.roles.has(affiliate.id) && msg.guild.id === '388366947689168897') {
 			payout = payout * affiliate.multiplier;
-			message =
-				'You got double the regular amount for being an **affiliate** from inviting 25 users';
+			// prettier-ignore
+			message = `You got double the regular amount for being an **${affiliate.name}** from inviting 25 users`;
 		} else if (msg.member.roles.has(recruiter.id) && msg.guild.id === '388366947689168897') {
 			payout = payout * recruiter.multiplier;
-			message = 'You got a 75% bonus for being a **recruiter** from inviting ten users';
+			message = `You got a 75% bonus for being a **${recruiter.name}** from inviting ten users`;
 		} else if (msg.member.roles.has(backer.id) && msg.guild.id === '388366947689168897') {
 			payout = payout * backer.multiplier;
-			message = 'You got a 25% bonus for being a **backer** from inviting five users';
+			message = `You got a 25% bonus for being a **${backer.name}** from inviting five users`;
 		} else if (msg.member.roles.has(inviter.id) && msg.guild.id === '388366947689168897') {
 			payout = payout * inviter.multiplier;
-			message = 'You got a 10% bonus for being a **inviter** from inviting one user';
+			message = `You got a 10% bonus for being a **${inviter.name}** from inviting one user`;
 		}
 
 		// prettier-ignore
-		winston.debug(`@${msg.author.username} You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`);
-		winston.debug(`Old timestamp: ${new Date(oldTime)} (${oldTime})`);
-		winston.debug(`Current timestamp: ${new Date(currentTime)} (${currentTime})`);
+		winston.debug(`[COMMAND](DAILY) @${msg.author.username} You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`);
+		winston.debug(`[COMMAND](DAILY) Old timestamp: ${new Date(oldTime)} (${oldTime})`);
+		winston.debug(`[COMMAND](DAILY) Current timestamp: ${new Date(currentTime)} (${currentTime})`);
 
 		if (oldTime + fullDay < currentTime || oldTime === false) {
 			if (oldTime === false) {
-				winston.verbose('Old timestamp was returned as false, meaning empty in the database.');
+				winston.verbose('[COMMAND](DAILY) Old timestamp was returned as false, meaning empty in the database.');
 			}
 
 			// Pay message author their daily
