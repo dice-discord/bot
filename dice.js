@@ -267,5 +267,10 @@ client.on('message', async msg => {
 	// Protecting bot token
 });
 
+client.on('unknownCommand', commandMessage => {
+	// Unknown command triggered
+	commandMessage.message.react(client.emojis.get("406965554738495488"));
+});
+
 // Log in the bot
 client.login(process.env.BOT_TOKEN);
