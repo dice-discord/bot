@@ -30,7 +30,6 @@
         "moment": "^2.20.1",
         "mongodb": "^3.0.0-rc0",
         "path": "^0.12.7",
-        "pino": "^4.10.3",
         "replaceall": "^0.1.6",
         "request": "^2.83.0",
         "winston": "^2.4.0"
