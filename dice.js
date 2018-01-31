@@ -269,7 +269,10 @@ client.on('message', async msg => {
 
 client.on('unknownCommand', commandMessage => {
 	// Unknown command triggered
-	commandMessage.message.react(client.emojis.get("406965554738495488"));
+	if (commandMessage.message.channel.type === 'dm' || commandMessage.message.channel.type === 'group' || commandMessage.message.channel.permissionsFor(commandMessage.guild.me).has('ADD_REACTIONS')) {
+		// A DM channel where the bot will have permissions to react or a text channel where it can react
+		commandMessage.message.react(client.emojis.get("406965554738495488"));	
+	}
 });
 
 // Log in the bot
