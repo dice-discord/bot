@@ -268,7 +268,7 @@ client.on('message', async msg => {
 });
 
 const safeChannels = ['group', 'dm']
-client.on('unknownCommand', commandMessage => 
+client.on('unknownCommand', commandMessage => {
 	winston.verbose('Unknown command triggered. Checking if it can be reacted to.');
 	const msg = commandMessage.message;
 	
