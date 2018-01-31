@@ -267,11 +267,16 @@ client.on('message', async msg => {
 	// Protecting bot token
 });
 
-client.on('unknownCommand', commandMessage => {
+const safeChannels = ['group', 'dm']
+client.on('unknownCommand', commandMessage => 
+	winston.verbose('Unknown command triggered. Checking if it can be reacted to.');
+	const msg = commandMessage.message;
+	
 	// Unknown command triggered
-	if (commandMessage.message.channel.type === 'dm' || commandMessage.message.channel.type === 'group' || commandMessage.message.channel.permissionsFor(commandMessage.guild.me).has('ADD_REACTIONS')) {
+	if (safeChannels.includes(msg.channel.type) || msg.channel.permissionsFor(commandMessage.guild.me).has('ADD_REACTIONS')) {
 		// A DM channel where the bot will have permissions to react or a text channel where it can react
-		commandMessage.message.react(client.emojis.get("406965554738495488"));	
+		msg.react(client.emojis.get("406965554738495488"));
+		winston.debug('Message can be reacted to.');
 	}
 });
 
