@@ -267,9 +267,17 @@ client.on('message', async msg => {
 	// Protecting bot token
 });
 
+const safeChannels = ['group', 'dm']
 client.on('unknownCommand', commandMessage => {
+	winston.verbose('Unknown command triggered. Checking if it can be reacted to.');
+	const msg = commandMessage.message;
+	
 	// Unknown command triggered
-	commandMessage.message.react(client.emojis.get("406965554738495488"));
+	if (safeChannels.includes(msg.channel.type) || msg.channel.permissionsFor(commandMessage.guild.me).has('ADD_REACTIONS')) {
+		// A DM channel where the bot will have permissions to react or a text channel where it can react
+		msg.react(client.emojis.get("406965554738495488"));
+		winston.debug('Message can be reacted to.');
+	}
 });
 
 // Log in the bot
