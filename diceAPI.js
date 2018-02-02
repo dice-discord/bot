@@ -1,19 +1,19 @@
 const rules = require('./rules');
 const mongodb = require('mongodb');
 const winston = require('winston');
-winston.verbose('diceAPI loading');
+winston.verbose('[API] Dice API loading');
 
 // Set up database variables
 const uri = process.env.MONGODB_URI;
 if (process.env.MONGODB_URI == null) {
-	winston.error('[API] mongoDB URI is undefined!');
+	winston.error('[API](DATABASE) mongoDB URI is undefined!');
 } else {
-	winston.debug(`[API] mongoDB URI: ${uri}`);
+	winston.debug(`[API](DATABASE) mongoDB URI: ${uri}`);
 }
 
 mongodb.MongoClient.connect(uri, function(err, database) {
-	if (err) winston.error(`[API] ${err}`);
-	winston.debug('Connected to database server');
+	if (err) winston.error(`[API](DATABASE) ${err}`);
+	winston.debug('[API](DATABASE) Connected to database server');
 
 	const balances = database.db('balances').collection('balances');
 
@@ -25,22 +25,24 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			})
 			.then(result => {
 				if (!result) {
-					winston.debug('[API] Result is empty. Checking if requested ID is the house.');
+					// prettier-ignore
+					winston.debug('[API](GET-BALANCE) Result is empty. Checking if requested ID is the house.');
 					if (requestedID === rules.houseID) {
-						winston.debug('[API] Requested ID is the house ID.');
+						winston.debug('[API](GET-BALANCE) Requested ID is the house ID.');
 						updateBalance(requestedID, rules.houseStartingBalance);
 						return rules.houseStartingBalance;
 					} else {
-						winston.debug('[API] Requested ID isn\'t the house ID.');
+						// prettier-ignore
+						winston.debug('[API](GET-BALANCE) Requested ID isn\'t the house ID.');
 						updateBalance(requestedID, rules.newUserBalance);
 						return rules.newUserBalance;
 					}
 				} else {
 					const balanceResult = simpleFormat(result.balance);
-					winston.debug(`[API] Result for findOne: ${result}`);
-					winston.debug(`[API] Value of balance: ${result.balance}`);
-					winston.debug(`[API] Formatted value of balance: ${balanceResult}`);
-					winston.debug(`[API] Requested user ID: ${requestedID}`);
+					winston.debug(`[API](GET-BALANCE) Result for findOne: ${result}`);
+					winston.debug(`[API](GET-BALANCE) Value of balance: ${result.balance}`);
+					winston.debug(`[API](GET-BALANCE) Formatted value of balance: ${balanceResult}`);
+					winston.debug(`[API](GET-BALANCE) Requested user ID: ${requestedID}`);
 					return balanceResult;
 				}
 			});
@@ -63,7 +65,8 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 				upsert: true,
 			}
 		);
-		winston.debug(`[API] Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
+		// prettier-ignore
+		winston.debug(`[API](UPDATE-BALANCE) Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
 	}
 	module.exports.updateBalance = updateBalance;
 	// Update balance
@@ -93,7 +96,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// Leaderboard search
 	async function leaderboard() {
-		const allProfiles = balances.find();
+		const allProfiles = await balances.find();
 		const formattedBalances = await allProfiles
 			.sort({
 				balance: -1,
@@ -101,17 +104,19 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			.limit(10)
 			.toArray();
 
-		winston.debug(`[API] Top ten data: ${await allProfiles}`);
-		winston.debug(`[API] Top ten data formatted: ${formattedBalances}`);
+		winston.debug('[API](LEADERBOARD) Top ten data formatted:', formattedBalances);
 		return formattedBalances;
 	}
 	module.exports.leaderboard = leaderboard;
+
+	// Call leaderboard right now to fetch the users
+	leaderboard();
 	// Leaderboard search
 
 	// Total users
 	async function totalUsers() {
 		const userCount = await balances.count({});
-		winston.debug(`[API] Number of all users: ${userCount}`);
+		winston.debug(`[API](TOTAL-USERS) Number of all users: ${userCount}`);
 		return userCount;
 	}
 	module.exports.totalUsers = totalUsers;
@@ -133,26 +138,28 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			}
 		);
 		// prettier-ignore
-		winston.debug(`[API] Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
+		winston.debug(`[API](SET-DAILY-USED) Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
 	}
 	module.exports.setDailyUsed = setDailyUsed;
 	// Daily reward
 
 	// Daily reward searching
 	async function getDailyUsed(requestedID) {
-		winston.debug(`[API] Looking up daily timestamp for ${requestedID}`);
+		winston.debug(`[API](GET-DAILY-USED) Looking up daily timestamp for ${requestedID}`);
 		return balances
 			.findOne({
 				id: requestedID,
 			})
 			.then(result => {
-				if (result) winston.debug(`[API] Find one result for daily timestamp: ${result.daily}`);
+				// prettier-ignore
+				if (result) winston.debug(`[API](GET-DAILY-USED) Find one result for daily timestamp: ${result.daily}`);
 				if (!result || isNaN(result.daily)) {
-					winston.debug('[API] Daily last used timestamp result is empty.');
+					winston.debug('[API](GET-DAILY-USED) Daily last used timestamp result is empty.');
 					return false;
 				} else {
 					const timestampResult = result.daily;
-					winston.debug(`[API] Daily timestamp: ${new Date(timestampResult)} (${timestampResult})`);
+					// prettier-ignore
+					winston.debug(`[API](GET-DAILY-USED) Daily timestamp: ${new Date(timestampResult)} (${timestampResult})`);
 					return timestampResult;
 				}
 			});
@@ -163,7 +170,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// All users
 	async function allUsers() {
 		const allProfiles = await balances.find();
-		winston.debug('[API] All users were requested.');
+		winston.debug('[API](ALL-USERS) All users were requested.');
 		return allProfiles.toArray();
 	}
 	module.exports.allUsers = allUsers;
@@ -171,19 +178,20 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// User blacklist checking
 	async function getBlackListLevel(requestedID) {
-		winston.debug(`[API] Looking up blacklist level for ${requestedID}`);
+		winston.debug(`[API](BLACKLIST) Looking up blacklist level for ${requestedID}`);
 		return balances
 			.findOne({
 				id: requestedID,
 			})
 			.then(result => {
-				if (result) winston.debug(`[API] Find one result for blacklist level: ${result.blacklist}`);
+				// prettier-ignore
+				if (result) winston.debug(`[API](BLACKLIST) Find one result for blacklist level: ${result.blacklist}`);
 				if (!result || isNaN(result.blacklist)) {
-					winston.debug('[API] Blacklist level result is empty, or not blacklisted.');
+					winston.debug('[API](BLACKLIST) Blacklist level result is empty, or not blacklisted.');
 					return false;
 				} else {
 					const blacklistResult = result.blacklist;
-					winston.debug(`[API] Blacklist level: ${blacklistResult}`);
+					winston.debug(`[API](BLACKLIST) Blacklist level for ${requestedID}: ${blacklistResult}`);
 					return blacklistResult;
 				}
 			});
@@ -237,8 +245,8 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			.then(result => {
 				if (!result) {
 					winston.debug('[API] Biggest win result is empty.');
-						updateBiggestWin(requestedID, 0);
-						return 0;
+					updateBiggestWin(requestedID, 0);
+					return 0;
 				} else {
 					const biggestWinResult = simpleFormat(result.biggestWin);
 					winston.debug(`[API] Result for findOne: ${result}`);
