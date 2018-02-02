@@ -27,13 +27,8 @@ module.exports = class UserListCommand extends Command {
 		const userList = [];
 
 		async function userTagFromID(arrayPlace) {
-			const targetID = database[arrayPlace].id;
 			winston.debug(`[COMMAND](USER-LIST) Checking user tag from array index ${arrayPlace}`);
-			if (botClient.users.get(targetID)) {
-				return botClient.users.get(targetID).tag;
-			} else {
-				return botClient.users.fetch(targetID).tag;
-			}
+			return botClient.users.fetch(database[arrayPlace].id).tag;
 		}
 
 		for (let index = 0; index < 50; index++) {
