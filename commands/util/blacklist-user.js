@@ -27,9 +27,12 @@ module.exports = class BlacklistUserCommand extends Command {
 	}
 
 	async run(msg, { user }) {
-		await diceAPI.setBlacklistLevel(user.id, 1);
-
-		// Tell the author
-		return msg.reply(`🚫 Blacklisted ${user}.`);
+		if ((await diceAPI.getBlackListLevel(user.id)) === true) {
+			return msg.reply(`${user} is already blacklisted`);
+		} else {
+			await diceAPI.setBlacklistLevel(user.id, 1);
+			// Tell the author
+			return msg.reply(`🚫 Blacklisted ${user}.`);
+		}
 	}
 };
