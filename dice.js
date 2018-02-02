@@ -65,7 +65,7 @@ function sendDiscordBotsORGServerCount(serverData) {
 	request(options, (err, httpResponse, body) => {
 		if (err) return winston.error(`[DICE] ${err}`);
 		if (body) {
-			winston.debug(`[DICE] DiscordBots.org results:\n${body}`);
+			winston.debug('[DICE] DiscordBots.org results', body);
 		}
 	});
 }
@@ -89,7 +89,7 @@ function sendBotsDiscordPWServerCount(serverData) {
 	request(options, (err, httpResponse, body) => {
 		if (err) return winston.error(`[DICE] ${err}`);
 		if (body) {
-			winston.debug(`[DICE] Bots.Discord.pw results:\n${body}`);
+			winston.debug('[DICE] Bots.Discord.pw results', body);
 		}
 	});
 }
@@ -110,7 +110,7 @@ function sendDiscordlistServerCount(serverData) {
 		(err, httpResponse, body) => {
 			if (err) return winston.error(`[DICE] ${err}`);
 			if (body) {
-				winston.debug(`[DICE] Discordlist results:\n${body}`);
+				winston.debug('[DICE] Discordlist results', body);
 			}
 		}
 	);
@@ -125,20 +125,6 @@ function updateServerCount(serverData) {
 		sendDiscordlistServerCount(serverData);
 	}
 }
-// module.exports.updateServerCount = updateServerCount;
-
-client.on('ready', () => {
-	winston.info(`[DICE] Logged in as ${client.tag}!`);
-	winston.verbose(`[DICE] Node.js version: ${process.version}`);
-	winston.verbose(`[DICE] Dice version v${packageData.version}`);
-
-	// Set game presence to the help command once loaded
-	client.user.setActivity('for @Dice help', {
-		type: 'WATCHING',
-	});
-
-	updateServerCount(client.guilds.size);
-});
 
 // Everytime a server adds or removes Dice, announce it
 async function announceServerCount(serverCount, newServer) {
@@ -151,9 +137,8 @@ async function announceServerCount(serverCount, newServer) {
 		changeTypeColor = 0xff9800;
 	}
 
-	// #stats
-	const channel = client.channels.find('id', '399451781261950977');
-	channel.send({
+	// #stats channel
+	client.channels.find('id', '399451781261950977').send({
 		embed: {
 			timestamp: new Date(),
 			color: changeTypeColor,
@@ -171,114 +156,116 @@ async function announceServerCount(serverCount, newServer) {
 	});
 }
 
-client.on('guildCreate', () => {
-	// Bot joins a new server
-	updateServerCount(client.guilds.size);
-	announceServerCount(client.guilds.size, true);
-});
+client
+	.on('ready', () => {
+		winston.info(`[DICE] Logged in as ${client.tag}!`);
+		winston.verbose(`[DICE] Node.js version: ${process.version}`);
+		winston.verbose(`[DICE] Dice version v${packageData.version}`);
 
-client.on('guildDelete', () => {
-	// Bot leaves a server
-	updateServerCount(client.guilds.size);
-	announceServerCount(client.guilds.size, false);
-});
-
-client.on('guildMemberAdd', member => {
-	// If member joined on the official Dice server announce it
-	if (member.guild.id === rules.homeServerID) {
-		const guild = client.guilds.get(rules.homeServerID);
-		// #joins
-		const channel = guild.channels.get('399432904809250849');
-		channel.send({
-			embed: {
-				title: 'New Member',
-				timestamp: member.joinedTimestamp,
-				color: 0xff9800,
-				author: {
-					name: `${member.user.tag} (${member.user.id})`,
-					icon_url: member.user.displayAvatarURL(128),
-				},
-				fields: [
-					{
-						name: '#⃣ Number of Server Members',
-						value: `\`${guild.members.size}\` members`,
-					},
-				],
-			},
+		// Set game presence to the help command once loaded
+		client.user.setActivity('for @Dice help', {
+			type: 'WATCHING',
 		});
-	}
-});
 
-client.on('message', async msg => {
-	if (msg.content.startsWith(client.commandPrefix)) {
+		updateServerCount(client.guilds.size);
+	})
+	.on('guildCreate', () => {
+		// Bot joins a new server
+		updateServerCount(client.guilds.size);
+		announceServerCount(client.guilds.size, true);
+	})
+	.on('guildDelete', () => {
+		// Bot leaves a server
+		updateServerCount(client.guilds.size);
+		announceServerCount(client.guilds.size, false);
+	})
+	.on('guildMemberAdd', member => {
+		// If member joined on the official Dice server announce it
+		if (member.guild.id === rules.homeServerID) {
+			const guild = client.guilds.get(rules.homeServerID);
+			// #joins
+			const channel = guild.channels.get('399432904809250849');
+			channel.send({
+				embed: {
+					title: 'New Member',
+					timestamp: member.joinedTimestamp,
+					color: 0xff9800,
+					author: {
+						name: `${member.user.tag} (${member.user.id})`,
+						icon_url: member.user.displayAvatarURL(128),
+					},
+					fields: [
+						{
+							name: '#⃣ Number of Server Members',
+							value: `\`${guild.members.size}\` members`,
+						},
+					],
+				},
+			});
+		}
+	})
+	.on('commandRun', async (cmd, promise, message) => {
 		// Command logger for research purposes
-		const channel = client.channels.find('id', '399458745480118272');
-		channel.send({
+
+		client.channels.find('id', '399458745480118272').send({
 			embed: {
 				author: {
-					name: `${msg.author.tag} (${msg.author.id})`,
-					icon_url: msg.author.displayAvatarURL(128),
+					name: `${message.author.tag} (${message.author.id})`,
+					icon_url: message.author.displayAvatarURL(128),
 				},
-				timestamp: new Date(msg.createdTimestamp),
+				timestamp: new Date(message.createdTimestamp),
 				fields: [
 					{
 						name: '📝 Message',
-						value: msg.content,
+						value: message.content,
 					},
 					{
 						name: '🏦 User Balance',
-						value: `\`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}`,
+						value: `\`${await diceAPI.getBalance(message.author.id)}\` ${rules.currencyPlural}`,
 					},
 					{
-						name: '🏦 Dice Balance',
+						name: `🏦 ${client.user.username} Balance`,
 						value: `\`${await diceAPI.getBalance(client.user.id)}\` ${rules.currencyPlural}`,
 					},
 				],
 			},
 		});
-	}
-
-	// Protecting bot token
-	const warning = `[DICE] TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
-	https://discordapp.com/developers/applications/me/${client.user.id}\n`;
-
-	if (msg.content.includes(process.env.BOT_TOKEN) && msg.editable) {
-		// Message is from bot so edit it
-		msg.edit(replaceall(process.env.BOT_TOKEN, '--snip--', msg.content));
 		// prettier-ignore
-		winston.error(`[DICE] ${warning}
-		Bot token found and edited in message from this bot.\n
-		Message: ${msg.content}`);
-	} else if (msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
-		// Message can be deleted, so delete it
-		msg.delete().then(() => {
+		winston.silly(`[DICE] Command run by ${message.author.tag} (${message.author.id}): ${message.content}`);
+	})
+	.on('message', async msg => {
+		/* Protecting bot token */
+		const warning = `[DICE] TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
+		https://discordapp.com/developers/applications/me/${client.user.id}\n`;
+
+		if (msg.content.includes(process.env.BOT_TOKEN) && msg.editable) {
+			// Message is from bot so edit it
+			msg.edit(replaceall(process.env.BOT_TOKEN, '--snip--', msg.content));
 			// prettier-ignore
 			winston.error(`[DICE] ${warning}
-			Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
+			Bot token found and edited in message from this bot.\n
 			Message: ${msg.content}`);
-		});
-	} else if (msg.content.includes(process.env.BOT_TOKEN) && !msg.editable && !msg.deletable) {
-		// Message can't be delete or edited
-		// prettier-ignore
-		winston.error(`[DICE] ${warning}
-		Bot token found in message by ${msg.author.tag} (${msg.author.id}).\n
-		Message: ${msg.content}`);
-	}
-	// Protecting bot token
-});
-
-const safeChannels = ['group', 'dm']
-client.on('unknownCommand', commandMessage => {
-	winston.verbose('Unknown command triggered. Checking if it can be reacted to.');
-	const msg = commandMessage.message;
-	
-	// Unknown command triggered
-	if (safeChannels.includes(msg.channel.type) || msg.channel.permissionsFor(commandMessage.guild.me).has('ADD_REACTIONS')) {
-		// A DM channel where the bot will have permissions to react or a text channel where it can react
-		msg.react(client.emojis.get("406965554738495488"));
-		winston.debug('Message can be reacted to.');
-	}
-});
+		} else if (msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
+			// Message can be deleted, so delete it
+			msg.delete().then(() => {
+				// prettier-ignore
+				winston.error(`[DICE] ${warning}
+				Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
+				Message: ${msg.content}`);
+			});
+		} else if (msg.content.includes(process.env.BOT_TOKEN) && !msg.editable && !msg.deletable) {
+			// Message can't be delete or edited
+			// prettier-ignore
+			winston.error(`[DICE] ${warning}
+			Bot token found in message by ${msg.author.tag} (${msg.author.id}).\n
+			Message: ${msg.content}`);
+		}
+		/* Protecting bot token */
+	})
+	.on('unknownCommand', commandMessage => {
+		// Unknown command triggered
+		commandMessage.message.react(client.emojis.get('406965554738495488'));
+	});
 
 // Log in the bot
 client.login(process.env.BOT_TOKEN);
