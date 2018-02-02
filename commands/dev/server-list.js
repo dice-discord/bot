@@ -26,7 +26,7 @@ module.exports = class ServerListCommand extends Command {
 		const guildList = [];
 
 		// For each guild the bot is in, add it to the list
-		for (const guild of guilds.values(); let index = 0; index < 40; index++) {
+		for (const guild of guilds.values()) {
 			guildList.push(`${guild.name} (\`${guild.id}\`)`);
 		}
 		
