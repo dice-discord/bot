@@ -13,12 +13,12 @@ module.exports = class CheckVersionCommand extends Command {
 			examples: ['check-version'],
 			throttling: {
 				usages: 1,
-				duration: 30,
+				duration: 15,
 			},
 		});
 	}
 
 	run(msg) {
-		return msg.reply(`${this.client.user} version \`${packageData.version}\`.`);
+		return msg.reply(`🎲 ${this.client.user} version \`${packageData.version}\`.`);
 	}
 };
