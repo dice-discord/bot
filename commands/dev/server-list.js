@@ -31,9 +31,9 @@ module.exports = class ServerListCommand extends Command {
 		}
 		
 		// One giant message
-		singleMessage = guildList.join('\n')
+		const singleMessage = guildList.join('\n')
 		// Multiple messages to avoid the max character limit
-		multipleMessages = Util.splitMessage(singleMessage);
+		const multipleMessages = Util.splitMessage(singleMessage);
 		
 		// For each item in the multiple messages array, send on of the messages
 		for (let index = 0; index < multipleMessages.length; index++) {
