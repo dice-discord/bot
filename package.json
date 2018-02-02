@@ -12,10 +12,7 @@
         "wager"
     ],
     "license": "Apache-2.0",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/PizzaFox/dice.git"
-    },
+    "repository": "https://github.com/PizzaFox/dice.git",
     "url": "https://github.com/PizzaFox/dice/issues",
     "email": "me@jonahsnider.ninja",
     "homepage": "https://github.com/PizzaFox/dice/blob/master/README.md",
@@ -26,7 +23,7 @@
     "dependencies": {
         "async": "^2.5.0",
         "discord.js": "github:discordjs/discord.js",
-        "discord.js-commando": "github:discordjs/Commando#11.2",
+        "discord.js-commando": "discordjs/Commando#11.2",
         "moment": "^2.20.1",
         "mongodb": "^3.0.0-rc0",
         "path": "^0.12.7",
