@@ -37,7 +37,7 @@ module.exports = class ReferralCheckCommand extends Command {
 		let message;
 
 		for (const [key, value] of invites) {
-			winston.verbose(`Key: ${key}. Value: ${value}.`);
+			winston.debug(`[COMMAND](REFFERAL-CHECK) Key: ${key}. Value: ${value}.`);
 
 			// Make sure the invite was made by the message author
 			if (value.inviter === msg.author) {
@@ -48,22 +48,22 @@ module.exports = class ReferralCheckCommand extends Command {
 		}
 
 		if (uses >= affiliate.requirement && !msg.member.roles.has(affiliate.id)) {
-			msg.member.addRole(affiliate.id, 'Invited 25+ users').then(() => {
+			msg.member.roles.add(affiliate.id, 'Invited 25+ users').then(() => {
 				winston.verbose(`[COMMAND](REFFERAL-CHECK) Added affiliate role to ${msg.author.tag}`);
 				msg.reply('You have been given the **affiliate** role');
 			});
 		} else if (uses >= recruiter.requirement && !msg.member.roles.has(recruiter.id)) {
-			msg.member.addRole(recruiter.id, 'Invited 10+ users').then(() => {
+			msg.member.roles.add(recruiter.id, 'Invited 10+ users').then(() => {
 				winston.verbose(`[COMMAND](REFFERAL-CHECK) Added recruiter role to ${msg.author.tag}`);
 				msg.reply('You have been given the **recruiter** role');
 			});
 		} else if (uses >= backer.requirement && !msg.member.roles.has(backer.id)) {
-			msg.member.addRole(backer.id, 'Invited 5+ users').then(() => {
+			msg.member.roles.add(backer.id, 'Invited 5+ users').then(() => {
 				winston.verbose(`[COMMAND](REFFERAL-CHECK) Added backer role to ${msg.author.tag}`);
 				msg.reply('You have been given the **backer** role');
 			});
 		} else if (uses >= inviter.requirement && !msg.member.roles.has(inviter.id)) {
-			msg.member.addRole(inviter.id, 'Invited 1+ users').then(() => {
+			msg.member.roles.add(inviter.id, 'Invited 1+ users').then(() => {
 				winston.verbose(`[COMMAND](REFFERAL-CHECK) Added inviter role to ${msg.author.tag}`);
 				msg.reply('You have been given the **inviter** role');
 			});
@@ -80,6 +80,7 @@ module.exports = class ReferralCheckCommand extends Command {
 			message = 'You are currently an **inviter**.';
 		}
 
+		// prettier-ignore
 		winston.verbose(`[COMMAND](REFFERAL-CHECK) ${msg.author.tag} has invited ${uses} people to this server.`);
 		if (message) {
 			return msg.reply(
