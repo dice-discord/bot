@@ -13,6 +13,6 @@ module.exports = class InviteCommand extends Command {
 	}
 
 	run(msg) {
-		msg.reply(`👋 https://discord.now.sh/${this.client.id}`);
+		msg.reply(`👋 https://discord.now.sh/${this.client.user.id}`);
 	}
 };
