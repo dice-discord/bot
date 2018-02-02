@@ -18,7 +18,7 @@ module.exports = class LeaderboardCommand extends Command {
 	async run(msg) {
 		const leaderboardArray = await diceAPI.leaderboard();
 
-		winston.verbose(`[COMMAND](LEADERBOARD) Contents of leaderboard array: ${leaderboardArray}`);
+		winston.verbose('[COMMAND](LEADERBOARD) Contents of leaderboard array:', leaderboardArray);
 		winston.verbose(`[COMMAND](LEADERBOARD) Leaderboard array length: ${leaderboardArray.length}`);
 
 		// Check if there are enough users to populate the embed
@@ -31,11 +31,7 @@ module.exports = class LeaderboardCommand extends Command {
 		async function userTagFromID(arrayPlace) {
 			const targetID = leaderboardArray[arrayPlace].id;
 			winston.debug(`[COMMAND](LEADERBOARD) Checking user tag from array index ${arrayPlace}`);
-			if (botClient.users.get(targetID)) {
-				return botClient.users.get(targetID).tag;
-			} else {
-				return botClient.users.fetch(targetID).tag;
-			}
+			return botClient.users.fetch(targetID).tag;
 		}
 
 		return msg.reply({
