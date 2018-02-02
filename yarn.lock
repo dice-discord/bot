@@ -369,9 +369,9 @@ delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
 
-discord.js-commando@discordjs/Commando#11.2:
+discord.js-commando@discordjs/Commando:
   version "0.9.0"
-  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/821e0ada2165a7329477403355108f55408296e9"
+  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/b66845899abe6ee07169e97fa77b58a870df4a8d"
   dependencies:
     common-tags "^1.0.0"
     escape-string-regexp "^1.0.0"

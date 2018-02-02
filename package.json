@@ -23,7 +23,7 @@
     "dependencies": {
         "async": "^2.5.0",
         "discord.js": "github:discordjs/discord.js",
-        "discord.js-commando": "discordjs/Commando#11.2",
+        "discord.js-commando": "discordjs/Commando",
         "moment": "^2.20.1",
         "mongodb": "^3.0.0-rc0",
         "path": "^0.12.7",
