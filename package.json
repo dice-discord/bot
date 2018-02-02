@@ -1,7 +1,7 @@
 {
     "name": "dice",
     "description": "Simple dice.",
-    "version": "1.4.3",
+    "version": "1.5.0",
     "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
     "keywords": [
         "discord",
@@ -26,12 +26,13 @@
     "dependencies": {
         "async": "^2.5.0",
         "discord.js": "github:discordjs/discord.js",
-        "discord.js-commando": "github:discordjs/Commando",
+        "discord.js-commando": "github:discordjs/Commando#11.2",
         "moment": "^2.20.1",
         "mongodb": "^3.0.0-rc0",
         "path": "^0.12.7",
         "replaceall": "^0.1.6",
         "request": "^2.83.0",
+        "sqreen": "^1.14.1",
         "winston": "^2.4.0"
     },
     "engines": {
