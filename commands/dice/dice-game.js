@@ -17,16 +17,14 @@ module.exports = class DiceGameCommand extends Command {
 				{
 					key: 'wager',
 					prompt: 'How much do you want to wager?',
-					type: 'string',
-					// Round wager by converting to simple string and then round
-					parse: wagerString => Math.round(diceAPI.simpleStringFormat(wagerString)),
+					type: 'integer',
 				},
 				{
 					key: 'multiplier',
 					prompt: 'How much do you want to multiply your wager by?',
-					type: 'string',
+					type: 'float',
 					// Round multiplier to second decimal place
-					parse: multiplierString => diceAPI.simpleStringFormat(multiplierString),
+					parse: multiplier => diceAPI.simpleFormat(multiplier),
 				},
 			],
 			throttling: {
@@ -44,26 +42,18 @@ module.exports = class DiceGameCommand extends Command {
 			return msg.reply(`❌ Your target multiplier must be at least \`${rules.minMultiplier}\`.`);
 		} else if (multiplier > diceAPI.simpleFormat(rules.maxMultiplier)) {
 			return msg.reply(`❌ Your target multiplier must be less than \`${rules.maxMultiplier}\`.`);
-		} else if (isNaN(multiplier)) {
-			return msg.reply(`❌ \`${multiplier}\` is not a valid number.`);
 		}
 
 		// Wager checking
 		if (wager < rules.minWager) {
-			return msg.reply(
-				`❌ Your wager must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
-			);
+			// prettier-ignore
+			return msg.reply(`❌ Your wager must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`);
 		} else if (wager > authorBalance) {
-			return msg.reply(
-				`❌ You are missing \`${wager - authorBalance}\` ${
-					rules.currencyPlural
-				}. Your balance is \`${authorBalance}\` ${rules.currencyPlural}.`
-			);
+			// prettier-ignore
+			return msg.reply(`❌ You are missing \`${wager - authorBalance}\` ${rules.currencyPlural}. Your balance is \`${authorBalance}\` ${rules.currencyPlural}.`);
 		} else if (wager * multiplier - wager > (await diceAPI.getBalance(rules.houseID))) {
 			// prettier-ignore
 			return msg.reply('❌ I couldn\'t pay your winnings if you won.');
-		} else if (isNaN(wager)) {
-			return msg.reply(`❌ \`${wager}\` is not a valid number.`);
 		}
 
 		// Round numbers to second decimal place
@@ -95,7 +85,7 @@ module.exports = class DiceGameCommand extends Command {
 			// Green color and win message
 			color = 0x4caf50;
 			result = `You made \`${profit}\` ${rules.currencyPlural} of profit!`;
-			if (await diceAPI.getBiggestWin <= profit) {
+			if ((await diceAPI.getBiggestWin) <= profit) {
 				diceAPI.updateBiggestWin(msg.author.id, profit);
 			}
 		}

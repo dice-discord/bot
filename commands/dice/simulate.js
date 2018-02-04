@@ -18,21 +18,19 @@ module.exports = class SimulateGameCommand extends Command {
 				'simulate-dice',
 				'sim-dice',
 			],
-			examples: ['simulate 250 4'],
+			examples: ['simulate 250 4', 'sim 23 2.01'],
 			args: [
 				{
 					key: 'wager',
-					prompt: 'How much do you want to wager?',
-					type: 'string',
-					// Round wager by converting to simple string and then round
-					parse: wagerString => Math.round(diceAPI.simpleStringFormat(wagerString)),
+					prompt: 'How much do you want to wager? (whole number)',
+					type: 'integer',
 				},
 				{
 					key: 'multiplier',
 					prompt: 'How much do you want to multiply your wager by?',
-					type: 'string',
+					type: 'float',
 					// Round multiplier to second decimal place
-					parse: multiplierString => diceAPI.simpleStringFormat(multiplierString),
+					parse: multiplier => diceAPI.simpleFormat(multiplier),
 				},
 			],
 			throttling: {
@@ -48,17 +46,12 @@ module.exports = class SimulateGameCommand extends Command {
 			return msg.reply(`❌ Your target multiplier must be at least \`${rules.minMultiplier}\`.`);
 		} else if (multiplier > diceAPI.simpleFormat(rules.maxMultiplier)) {
 			return msg.reply(`❌ Your target multiplier must be less than \`${rules.maxMultiplier}\`.`);
-		} else if (isNaN(multiplier)) {
-			return msg.reply(`❌ \`${multiplier}\` is not a valid number.`);
 		}
 
 		// Wager checking
 		if (wager < rules.minWager) {
-			return msg.reply(
-				`❌ Your wager must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
-			);
-		} else if (isNaN(wager)) {
-			return msg.reply(`❌ \`${wager}\` is not a valid number.`);
+			// prettier-ignore
+			return msg.reply(`❌ Your wager must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`);
 		}
 
 		// Round numbers to second decimal place
@@ -67,52 +60,43 @@ module.exports = class SimulateGameCommand extends Command {
 		// Get boolean if the random number is greater than the multiplier
 		const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
-		// Variables for later use in embed
-		let color;
-		let result;
-		const profit = diceAPI.simpleFormat(wager * multiplier - wager);
+		const embed = {
+			title: `**${wager} 🇽 ${multiplier}**`,
+			fields: [
+				{
+					name: '🔢 Random Number Result',
+					value: randomNumber,
+					inline: true,
+				},
+				{
+					name: '📊 Win Chance',
+					value: `${diceAPI.simpleFormat(diceAPI.winPercentage(multiplier))}%`,
+					inline: true,
+				},
+				{
+					name: '💵 Wager',
+					value: wager,
+					inline: true,
+				},
+				{
+					name: '🇽 Multiplier',
+					value: multiplier,
+					inline: true,
+				},
+			],
+		};
 
 		if (gameResult === true) {
 			// Red color and loss message
-			color = 0xf44334;
-			result = `You would have lost \`${wager}\` ${rules.currencyPlural}.`;
+			embed.setColor(0xf44334);
+			embed.addField('🎲 Result', `You would have lost \`${wager}\` ${rules.currencyPlural}.`);
 		} else {
 			// Green color and win message
-			color = 0x4caf50;
-			result = `Your profit would have been \`${profit}\` ${rules.currencyPlural}!`;
+			embed.setColor(0x4caf50);
+			// prettier-ignore
+			embed.addField('🎲 Result', `Your profit would have been \`${diceAPI.simpleFormat(wager * multiplier - wager)}\` ${rules.currencyPlural}!`);
 		}
 
-		msg.say({
-			embed: {
-				title: `**${wager} 🇽 ${multiplier}**`,
-				color: color,
-				fields: [
-					{
-						name: '🎲 Result',
-						value: result,
-					},
-					{
-						name: '🔢 Random Number Result',
-						value: `${randomNumber}`,
-						inline: true,
-					},
-					{
-						name: '📊 Win Chance',
-						value: `${diceAPI.simpleFormat(diceAPI.winPercentage(multiplier))}%`,
-						inline: true,
-					},
-					{
-						name: '💵 Wager',
-						value: `${wager}`,
-						inline: true,
-					},
-					{
-						name: '🇽 Multiplier',
-						value: `${multiplier}`,
-						inline: true,
-					},
-				],
-			},
-		});
+		msg.say(embed);
 	}
 };

@@ -15,9 +15,8 @@ module.exports = class CashOutCommand extends Command {
 				{
 					key: 'amount',
 					prompt: 'How many dots do you want to remove?',
-					type: 'string',
-					// Convert string to number and round it
-					parse: amountString => diceAPI.simpleStringFormat(amountString),
+					type: 'float',
+					parse: amount => diceAPI.simpleFormat(amount),
 				},
 			],
 			throttling: {
@@ -37,13 +36,8 @@ module.exports = class CashOutCommand extends Command {
 				`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
 			);
 		} else if (amount > beforeTransferHouseBalance) {
-			return msg.reply(
-				`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. ${
-					this.client.user
-				} doesn't have that much.`
-			);
-		} else if (isNaN(amount)) {
-			return msg.reply(`❌ \`${amount}\` is not a valid number.`);
+			// prettier-ignore
+			return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. ${this.client.user} doesn't have that much.`);
 		}
 
 		// Round to whole number

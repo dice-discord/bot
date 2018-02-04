@@ -18,7 +18,7 @@ module.exports = class CalculatorCommand extends Command {
 					prompt: 'How much do you want to multiply your wager by?',
 					type: 'string',
 					// Round multiplier to second decimal place
-					parse: multiplierString => diceAPI.simpleStringFormat(multiplierString),
+					parse: multiplierString => diceAPI.simpleFormat(multiplierString),
 				},
 			],
 		});

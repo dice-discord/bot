@@ -8,6 +8,7 @@ module.exports = class AddBalanceCommand extends Command {
 			name: 'add-balance',
 			group: 'economy',
 			memberName: 'add-balance',
+			// prettier-ignore
 			description: 'Add dots to another user\'s account',
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['add', 'add-bal', 'increase-balance', 'increase-bal'],
@@ -16,8 +17,8 @@ module.exports = class AddBalanceCommand extends Command {
 				{
 					key: 'amount',
 					prompt: 'How many dots do you want to add?',
-					type: 'string',
-					parse: amountString => diceAPI.simpleStringFormat(amountString),
+					type: 'float',
+					parse: amount => diceAPI.simpleFormat(amount),
 				},
 				{
 					key: 'user',
@@ -36,16 +37,14 @@ module.exports = class AddBalanceCommand extends Command {
 	run(msg, { user, amount }) {
 		// Permission checking
 		if (user.bot === true && user.id !== rules.houseID) {
+			// prettier-ignore
 			return msg.reply('❌ You can\'t add dots to bots.');
 		}
 
 		// Amount checking
 		if (amount < rules.minWager) {
-			return msg.reply(
-				`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencySingular}.`
-			);
-		} else if (isNaN(amount)) {
-			return msg.reply(`❌ \`${amount}\` is not a valid number.`);
+			// prettier-ignore
+			return msg.reply(`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencySingular}.`);
 		}
 
 		// Add dots to user

@@ -26,7 +26,8 @@ module.exports = class RemoveBalanceCommand extends Command {
 				{
 					key: 'amount',
 					prompt: 'How many dots do you want to remove?',
-					type: 'string',
+					type: 'float',
+					parse: amount => diceAPI.simpleFormat(amount),
 				},
 				{
 					key: 'user',
@@ -54,8 +55,6 @@ module.exports = class RemoveBalanceCommand extends Command {
 			return msg.reply(
 				`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
 			);
-		} else if (isNaN(amount)) {
-			return msg.reply(`❌ \`${amount}\` is not a valid number.`);
 		}
 
 		// Remove dots from user

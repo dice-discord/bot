@@ -16,10 +16,12 @@ module.exports = class SetBalanceCommand extends Command {
 				{
 					key: 'amount',
 					prompt: 'What do you want the new balance to be?',
-					type: 'string',
+					type: 'float',
+					parse: amount => diceAPI.simpleFormat(amount),
 				},
 				{
 					key: 'user',
+					// prettier-ignore
 					prompt: 'Who\'s balance do you want to set?',
 					type: 'user',
 				},
@@ -35,27 +37,21 @@ module.exports = class SetBalanceCommand extends Command {
 	run(msg, { user, amount }) {
 		// Permission checking
 		if (user.bot === true && user.id !== rules.houseID) {
+			// prettier-ignore
 			return msg.reply('❌ You can\'t add dots to bots.');
 		}
 
 		// Amount checking
 		if (amount < rules.minWager) {
-			return msg.reply(
-				`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
-			);
-		} else if (isNaN(amount)) {
-			return msg.reply(`❌ \`${amount}\` is not a valid number.`);
+			// prettier-ignore
+			return msg.reply(`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`);
 		}
-
-		// Convert string float to float (number)
-		amount = diceAPI.simpleStringFormat(amount);
 
 		// Add dots to user
 		diceAPI.updateBalance(user.id, amount);
 
 		// Tell the author
-		return msg.reply(
-			`💰 Set <@${user.id}>'s account balance to \`${amount}\` ${rules.currencyPlural}.`
-		);
+		// prettier-ignore
+		return msg.reply(`💰 Set <@${user.id}>'s account balance to \`${amount}\` ${rules.currencyPlural}.`);
 	}
 };
