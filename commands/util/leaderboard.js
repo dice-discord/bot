@@ -27,8 +27,11 @@ module.exports = class LeaderboardCommand extends Command {
 		}
 
 		const userTagFromID = async arrayPlace => {
+			await this.client.users.fetch(leaderboardArray[arrayPlace].id);
 			winston.debug(`[COMMAND](LEADERBOARD) Checking user tag from array index ${arrayPlace}`);
-			return this.client.users.resolve(leaderboardArray[arrayPlace].id).tag;
+			const result = this.client.users.resolve(leaderboardArray[arrayPlace].id).tag;
+			winston.debug(`[COMMAND](LEADERBOARD) Result for userTagFromID: ${result}`);
+			return result;
 		};
 
 		return msg.reply({
