@@ -21,17 +21,19 @@ module.exports = class feedback extends Command {
 	}
 
 	run(msg, { userFeedback }) {
+		const message = '📝 Thanks for sending your feedback.';
 		if (userFeedback.includes('help') || userFeedback.includes('support')) {
 			// prettier-ignore
-			msg.reply('📝 Thanks for sending your feedback. If you need help with a problem use the `support` command.');
+			msg.reply(`${message} If you need help with a problem use the \`support\` command.`);
 		} else {
-			msg.reply('📝 Thanks for sending your feedback.');
+			msg.reply(message);
 		}
 
 		winston.debug('[COMMAND](FEEDBACK) About to send RichEmbed');
 
+		const developer = this.client.users.resolve('210024244766179329');
 		// Pizza Fox#0075
-		return this.client.users.fetch('210024244766179329').send({
+		return developer.send({
 			embed: {
 				author: {
 					name: msg.author.tag,
