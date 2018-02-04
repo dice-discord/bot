@@ -377,9 +377,9 @@ discord.js-commando@discordjs/Commando:
     escape-string-regexp "^1.0.0"
     require-all "^2.0.0"
 
-"discord.js@github:discordjs/discord.js":
+discord.js@discordjs/discord.js:
   version "12.0.0-dev"
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/016526486cff91669b4459bd5e4aec40ccc9e734"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/e0cbf0bb607381633fe125c18b86722985ba31ea"
   dependencies:
     pako "^1.0.0"
     prism-media "github:hydrabolt/prism-media"
@@ -1652,8 +1652,8 @@ slice-ansi@1.0.0:
     is-fullwidth-code-point "^2.0.0"
 
 snekfetch@^3.5.0:
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/snekfetch/-/snekfetch-3.6.3.tgz#d1faf3bfbb71ddedc0c2ede2d8c473695c380ceb"
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/snekfetch/-/snekfetch-3.6.4.tgz#d13e80a616d892f3d38daae4289f4d258a645120"
 
 sntp@2.x.x:
   version "2.1.0"
