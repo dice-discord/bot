@@ -8,6 +8,7 @@ module.exports = class SetBalanceCommand extends Command {
 			name: 'set-balance',
 			group: 'economy',
 			memberName: 'set-balance',
+			// prettier-ignore
 			description: 'Set a user\'s balance',
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['set', 'set-bal', 'set-balance'],
