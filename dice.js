@@ -1,7 +1,6 @@
 // Copyright 2018 Jonah Snider
 
 // Set up dependencies
-require('sqreen');
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const replaceall = require('replaceall');

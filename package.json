@@ -1,7 +1,7 @@
 {
     "name": "dice",
     "description": "Simple dice.",
-    "version": "1.5.10",
+    "version": "1.5.11",
     "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
     "keywords": [
         "discord",
@@ -29,7 +29,6 @@
         "path": "^0.12.7",
         "replaceall": "^0.1.6",
         "request": "^2.83.0",
-        "sqreen": "^1.14.1",
         "winston": "^2.4.0"
     },
     "engines": {
