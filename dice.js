@@ -15,7 +15,7 @@ const rules = require('./rules');
 // Set up bot metadata
 const client = new CommandoClient({
 	commandPrefix: '$',
-	owner: ['210024244766179329'],
+	owner: '210024244766179329',
 	disableEveryone: true,
 	unknownCommandResponse: false,
 });
@@ -48,7 +48,7 @@ process.on('unhandledRejection', error => winston.error(`Uncaught Promise Reject
 // Update server counter on bot listings
 
 // Discordbots.org
-function sendDiscordBotsORGServerCount(serverData) {
+const sendDiscordBotsORGServerCount = serverData => {
 	const options = {
 		method: 'POST',
 		url: 'https://discordbots.org/api/bots/388191157869477888/stats',
@@ -69,10 +69,10 @@ function sendDiscordBotsORGServerCount(serverData) {
 			winston.debug('[DICE] DiscordBots.org results', body);
 		}
 	});
-}
+};
 
 // Bots.discord.pw
-function sendBotsDiscordPWServerCount(serverData) {
+const sendBotsDiscordPWServerCount = serverData => {
 	const options = {
 		method: 'POST',
 		url: 'https://bots.discord.pw/api/bots/388191157869477888/stats',
@@ -93,10 +93,10 @@ function sendBotsDiscordPWServerCount(serverData) {
 			winston.debug('[DICE] Bots.Discord.pw results', body);
 		}
 	});
-}
+};
 
 // Bots.discordlist.net
-function sendDiscordlistServerCount(serverData) {
+const sendDiscordlistServerCount = serverData => {
 	winston.debug(`[DICE] bots.discordlist.net token: ${process.env.DISCORDLIST_TOKEN}`);
 	request(
 		{
@@ -115,20 +115,20 @@ function sendDiscordlistServerCount(serverData) {
 			}
 		}
 	);
-}
+};
 
 // Run all three at once
-function updateServerCount(serverData) {
+const updateServerCount = serverData => {
 	if (client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
 		sendDiscordBotsORGServerCount(serverData);
 		sendBotsDiscordPWServerCount(serverData);
 		sendDiscordlistServerCount(serverData);
 	}
-}
+};
 
 // Everytime a server adds or removes Dice, announce it
-async function announceServerCount(serverCount, newServer) {
+const announceServerCount = async (serverCount, newServer) => {
 	let changeTypeColor;
 	if (newServer === true) {
 		changeTypeColor = 0x4caf50;
@@ -155,7 +155,7 @@ async function announceServerCount(serverCount, newServer) {
 			],
 		},
 	});
-}
+};
 
 client
 	.on('ready', () => {

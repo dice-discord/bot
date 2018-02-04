@@ -11,14 +11,27 @@ if (process.env.MONGODB_URI == null) {
 	winston.debug(`[API](DATABASE) mongoDB URI: ${uri}`);
 }
 
+const winPercentage = multiplier => {
+	return (100 - rules.houseEdgePercentage) / multiplier;
+};
+module.exports.winPercentage = winPercentage;
+
+const simpleFormat = value => {
+	winston.debug(`[API](SIMPLE-FORMAT) Requested value: ${value}`);
+	const result = parseFloat(parseFloat(value).toFixed(2));
+	winston.debug(`[API](SIMPLE-FORMAT) Result for ${value}: ${result}`);
+	return result;
+};
+module.exports.simpleFormat = simpleFormat;
+
 mongodb.MongoClient.connect(uri, function(err, database) {
 	if (err) winston.error(`[API](DATABASE) ${err}`);
-	winston.debug('[API](DATABASE) Connected to database server');
+	winston.verbose('[API](DATABASE) Connected to database server');
 
 	const balances = database.db('balances').collection('balances');
 
 	// Get balance
-	async function getBalance(requestedID) {
+	const getBalance = async requestedID => {
 		return balances
 			.findOne({
 				id: requestedID,
@@ -46,12 +59,12 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 					return balanceResult;
 				}
 			});
-	}
+	};
 	module.exports.getBalance = getBalance;
 	// Get balance
 
 	// Update balance
-	async function updateBalance(requestedID, newBalance) {
+	const updateBalance = async (requestedID, newBalance) => {
 		balances.updateOne(
 			{
 				id: requestedID,
@@ -67,35 +80,35 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 		);
 		// prettier-ignore
 		winston.debug(`[API](UPDATE-BALANCE) Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
-	}
+	};
 	module.exports.updateBalance = updateBalance;
 	// Update balance
 
 	// Increase and decrease
-	async function decreaseBalance(id, amount) {
+	const decreaseBalance = async (id, amount) => {
 		updateBalance(id, (await getBalance(id)) - amount);
-	}
+	};
 	module.exports.decreaseBalance = decreaseBalance;
 
-	async function increaseBalance(id, amount) {
+	const increaseBalance = async (id, amount) => {
 		updateBalance(id, (await getBalance(id)) + amount);
-	}
+	};
 	module.exports.increaseBalance = increaseBalance;
 	// Increase and decrease
 
 	// Reset economy
-	async function resetEconomy() {
+	const resetEconomy = async () => {
 		/* This references the collection "balances", not the database. This will not affect the "dailies" collection
         An empty search parameter will delete all items */
 		await balances.remove({});
 		// Wait for everything to get deleted before adding more information
 		updateBalance(rules.houseID, rules.houseStartingBalance);
-	}
+	};
 	module.exports.resetEconomy = resetEconomy;
 	// Reset economy
 
 	// Leaderboard search
-	async function leaderboard() {
+	const leaderboard = async () => {
 		const allProfiles = await balances.find();
 		const formattedBalances = await allProfiles
 			.sort({
@@ -106,7 +119,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 		winston.debug('[API](LEADERBOARD) Top ten data formatted:', formattedBalances);
 		return formattedBalances;
-	}
+	};
 	module.exports.leaderboard = leaderboard;
 
 	// Call leaderboard right now to fetch the users
@@ -114,16 +127,16 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// Leaderboard search
 
 	// Total users
-	async function totalUsers() {
+	const totalUsers = async () => {
 		const userCount = await balances.count({});
 		winston.debug(`[API](TOTAL-USERS) Number of all users: ${userCount}`);
 		return userCount;
-	}
+	};
 	module.exports.totalUsers = totalUsers;
 	// Total users
 
 	// Daily reward
-	async function setDailyUsed(requestedID, timestamp) {
+	const setDailyUsed = async (requestedID, timestamp) => {
 		balances.updateOne(
 			{
 				id: requestedID,
@@ -139,12 +152,12 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 		);
 		// prettier-ignore
 		winston.debug(`[API](SET-DAILY-USED) Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
-	}
+	};
 	module.exports.setDailyUsed = setDailyUsed;
 	// Daily reward
 
 	// Daily reward searching
-	async function getDailyUsed(requestedID) {
+	const getDailyUsed = async requestedID => {
 		winston.debug(`[API](GET-DAILY-USED) Looking up daily timestamp for ${requestedID}`);
 		return balances
 			.findOne({
@@ -163,21 +176,21 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 					return timestampResult;
 				}
 			});
-	}
+	};
 	module.exports.getDailyUsed = getDailyUsed;
 	// Daily reward searching
 
 	// All users
-	async function allUsers() {
+	const allUsers = async () => {
 		const allProfiles = await balances.find();
 		winston.debug('[API](ALL-USERS) All users were requested.');
 		return allProfiles.toArray();
-	}
+	};
 	module.exports.allUsers = allUsers;
 	// All users
 
 	// User blacklist checking
-	async function getBlackListLevel(requestedID) {
+	const getBlackListLevel = async requestedID => {
 		winston.debug(`[API](BLACKLIST) Looking up blacklist level for ${requestedID}`);
 		return balances
 			.findOne({
@@ -195,12 +208,12 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 					return blacklistResult;
 				}
 			});
-	}
+	};
 	module.exports.getBlackListLevel = getBlackListLevel;
 	// User blacklist checking
 
 	// User blacklist setting
-	async function setBlacklistLevel(requestedID, level) {
+	const setBlacklistLevel = async (requestedID, level) => {
 		balances.updateOne(
 			{
 				id: requestedID,
@@ -215,12 +228,12 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			}
 		);
 		winston.debug(`[API] Set blacklist level for ${requestedID} to ${level}.`);
-	}
+	};
 	module.exports.setBlacklistLevel = setBlacklistLevel;
 	// User blacklist setting
 
 	// Top wins leaderboard search
-	async function topWinsLeaderboard() {
+	const topWinsLeaderboard = async () => {
 		const allProfiles = balances.find();
 		const formattedBiggestWins = await allProfiles
 			.sort({
@@ -232,12 +245,12 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 		winston.debug(`[API] Top ten wins data: ${await allProfiles}`);
 		winston.debug(`[API] Top ten wins formatted: ${formattedBiggestWins}`);
 		return formattedBiggestWins;
-	}
+	};
 	module.exports.topWinsLeaderboard = topWinsLeaderboard;
 	// Top wins leaderboard search
 
 	// Get biggest win
-	async function getBiggestWin(requestedID) {
+	const getBiggestWin = async requestedID => {
 		return balances
 			.findOne({
 				id: requestedID,
@@ -256,12 +269,12 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 					return biggestWinResult;
 				}
 			});
-	}
+	};
 	module.exports.getBiggestWin = getBiggestWin;
 	// Get biggest win
 
 	// Update biggest win
-	async function updateBiggestWin(requestedID, newBiggestWin) {
+	const updateBiggestWin = async (requestedID, newBiggestWin) => {
 		balances.updateOne(
 			{
 				id: requestedID,
@@ -276,22 +289,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			}
 		);
 		winston.debug(`[API] Set biggest win for ${requestedID} to ${simpleFormat(newBiggestWin)}`);
-	}
+	};
 	module.exports.updateBiggestWin = updateBiggestWin;
 	// Update biggest win
 });
-
-function winPercentage(multiplier) {
-	return (100 - rules.houseEdgePercentage) / multiplier;
-}
-module.exports.winPercentage = winPercentage;
-
-function simpleFormat(number) {
-	return parseFloat(number.toFixed(2));
-}
-module.exports.simpleFormat = simpleFormat;
-
-function simpleStringFormat(stringNumber) {
-	return simpleFormat(parseFloat(stringNumber));
-}
-module.exports.simpleStringFormat = simpleStringFormat;
