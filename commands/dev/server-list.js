@@ -1,5 +1,4 @@
 const { Command } = require('discord.js-commando');
-const { Util } = require('discord.js');
 const rules = require('../../rules');
 
 module.exports = class ServerListCommand extends Command {
@@ -21,25 +20,16 @@ module.exports = class ServerListCommand extends Command {
 	}
 
 	run(msg) {
-		let guilds = this.client;
-		guilds = this.client.guilds;
+		const guilds = this.client.guilds;
 		const guildList = [];
 
 		// For each guild the bot is in, add it to the list
 		for (const guild of guilds.values()) {
 			guildList.push(`${guild.name} (\`${guild.id}\`)`);
 		}
-		
-		// One giant message
-		const singleMessage = guildList.join('\n')
-		// Multiple messages to avoid the max character limit
-		const multipleMessages = Util.splitMessage(singleMessage);
-		
-		// For each item in the multiple messages array, send on of the messages
-		for (let index = 0; index < multipleMessages.length; index++) {
-			msg.say(multipleMessage[index]);
-		}
 
-		return msg.reply(`👥 Finished! ${guilds.size} servers in total. ${multipleMessages.length} of them were listed.`);
+		// prettier-ignore
+		return msg.reply(`${guildList.join('\n')}\n
+		👥 ${guilds.size} servers in total. ${guildList.length} servers were listed.`, { split: true });
 	}
 };

@@ -26,18 +26,19 @@ module.exports = class UserListCommand extends Command {
 		const botClient = this.client;
 		const userList = [];
 
-		async function userTagFromID(arrayPlace) {
+		const userTagFromID = async arrayPlace => {
 			winston.debug(`[COMMAND](USER-LIST) Checking user tag from array index ${arrayPlace}`);
 			return botClient.users.fetch(database[arrayPlace].id).tag;
-		}
+		};
 
-		for (let index = 0; index < 50; index++) {
+		for (let index = 0; index < database.length; index++) {
 			userList.push(`${await userTagFromID(index)} (\`${database[index].id}\`)`);
 		}
 
 		winston.debug(`[COMMAND](USER-LIST) First item in userList: ${userList[0]}`);
-		msg.say(userList.join('\n'));
 
-		return msg.reply(`👤 ${await diceAPI.totalUsers()} users in total. Only 50 users were listed.`);
+		// prettier-ignore
+		return msg.reply(`👤 ${userList.join('\n')}\n
+		${await diceAPI.totalUsers()} users in total. ${userList.length} users were listed.`, { split: true });
 	}
 };
