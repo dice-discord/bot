@@ -26,13 +26,10 @@ module.exports = class LeaderboardCommand extends Command {
 			return msg.reply('❌ There are less than 10 users total.');
 		}
 
-		const botClient = this.client;
-
-		async function userTagFromID(arrayPlace) {
-			const targetID = leaderboardArray[arrayPlace].id;
+		const userTagFromID = async arrayPlace => {
 			winston.debug(`[COMMAND](LEADERBOARD) Checking user tag from array index ${arrayPlace}`);
-			return botClient.users.fetch(targetID).tag;
-		}
+			return this.client.users.resolve(leaderboardArray[arrayPlace].id).tag;
+		};
 
 		return msg.reply({
 			embed: {

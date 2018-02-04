@@ -9,7 +9,7 @@ module.exports = class LeaderboardCommand extends Command {
 			name: 'wins-leaderboard',
 			group: 'util',
 			memberName: 'wins-leaderboard',
-			description: `Shows a top ten leaderboard of who had the most profitable games`,
+			description: 'Shows a top ten leaderboard of who had the most profitable games',
 			aliases: ['top-games', 'top-wins', 'leaderboard-wins', 'wins-top'],
 			examples: ['wins-leaderboard'],
 			ownerOnly: true,
@@ -30,15 +30,11 @@ module.exports = class LeaderboardCommand extends Command {
 
 		const botClient = this.client;
 
-		async function userTagFromID(arrayPlace) {
+		const userTagFromID = arrayPlace => {
 			const targetID = leaderboardArray[arrayPlace].id;
 			winston.debug(`[COMMAND](WINS-LEADERBOARD) Checking user tag from array index ${arrayPlace}`);
-			if (botClient.users.get(targetID)) {
-				return botClient.users.get(targetID).tag;
-			} else {
-				return botClient.users.fetch(targetID).tag;
-			}
-		}
+			return botClient.users.fetch(targetID).tag;
+		};
 
 		return msg.reply({
 			embed: {

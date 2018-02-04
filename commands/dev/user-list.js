@@ -23,16 +23,13 @@ module.exports = class UserListCommand extends Command {
 
 	async run(msg) {
 		const database = await diceAPI.allUsers();
-		const botClient = this.client;
 		const userList = [];
 
-		const userTagFromID = async arrayPlace => {
-			winston.debug(`[COMMAND](USER-LIST) Checking user tag from array index ${arrayPlace}`);
-			return botClient.users.fetch(database[arrayPlace].id).tag;
-		};
-
+		msg.reply('About to start fetching users, this could take an extremely long time.');
 		for (let index = 0; index < database.length; index++) {
-			userList.push(`${await userTagFromID(index)} (\`${database[index].id}\`)`);
+			winston.debug(`[COMMAND](USER-LIST) Checking ID #${index + 1}. ${database[index].id}`);
+			// prettier-ignore
+			userList.push(`${await this.client.users.fetch(database[index].id).tag} (\`${database[index].id}\`)`);
 		}
 
 		winston.debug(`[COMMAND](USER-LIST) First item in userList: ${userList[0]}`);
