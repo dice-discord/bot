@@ -17,6 +17,7 @@ const client = new CommandoClient({
 	owner: '210024244766179329',
 	disableEveryone: true,
 	unknownCommandResponse: false,
+	invite: 'https://discord.gg/NpUmRkj',
 });
 
 client.registry
