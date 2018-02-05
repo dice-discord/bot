@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const { MessageEmbed } = require('discord.js');
 const rules = require('../../rules');
 const diceAPI = require('../../diceAPI');
 
@@ -60,12 +61,12 @@ module.exports = class SimulateGameCommand extends Command {
 		// Get boolean if the random number is greater than the multiplier
 		const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
-		const embed = {
+		const embed = new MessageEmbed({
 			title: `**${wager} 🇽 ${multiplier}**`,
 			fields: [
 				{
 					name: '🔢 Random Number Result',
-					value: randomNumber,
+					value: randomNumber.toString(),
 					inline: true,
 				},
 				{
@@ -75,16 +76,16 @@ module.exports = class SimulateGameCommand extends Command {
 				},
 				{
 					name: '💵 Wager',
-					value: wager,
+					value: wager.toString(),
 					inline: true,
 				},
 				{
 					name: '🇽 Multiplier',
-					value: multiplier,
+					value: multiplier.toString(),
 					inline: true,
 				},
 			],
-		};
+		});
 
 		if (gameResult === true) {
 			// Red color and loss message
@@ -96,6 +97,11 @@ module.exports = class SimulateGameCommand extends Command {
 			// prettier-ignore
 			embed.addField('🎲 Result', `Your profit would have been \`${diceAPI.simpleFormat(wager * multiplier - wager)}\` ${rules.currencyPlural}!`);
 		}
+
+		// Rearrange fields
+		const tempField = embed.fields[4];
+		embed.fields[4] = embed.fields[0];
+		embed.fields[0] = tempField;
 
 		msg.say(embed);
 	}

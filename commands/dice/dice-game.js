@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const { MessageEmbed } = require('discord.js');
 const rules = require('../../rules');
 const diceAPI = require('../../diceAPI');
 
@@ -62,65 +63,70 @@ module.exports = class DiceGameCommand extends Command {
 		// Get boolean if the random number is greater than the multiplier
 		const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
-		// Take away the player's wager no matter what
-		await diceAPI.decreaseBalance(msg.author.id, wager);
-		// Give the wager to the house
-		await diceAPI.increaseBalance(rules.houseID, wager);
+		const takeWager = async () => {
+			// Take away the player's wager no matter what
+			diceAPI.decreaseBalance(msg.author.id, wager);
+			// Give the wager to the house
+			diceAPI.increaseBalance(rules.houseID, wager);
+		};
+		await takeWager();
 
 		// Variables for later use in embed
-		let color;
-		let result;
 		const profit = diceAPI.simpleFormat(wager * multiplier - wager);
+
+		const embed = new MessageEmbed({
+			title: `**${wager} 🇽 ${multiplier}**`,
+			fields: [
+				{
+					name: '🔢 Random Number Result',
+					value: `${randomNumber}`,
+					inline: true,
+				},
+				{
+					name: '🏦 Updated Balance',
+					value: `${await diceAPI.getBalance(msg.author.id)} ${rules.currencyPlural}`,
+					inline: true,
+				},
+				{
+					name: '💵 Wager',
+					value: `${wager}`,
+					inline: true,
+				},
+				{
+					name: '🇽 Multiplier',
+					value: `${multiplier}`,
+					inline: true,
+				},
+			],
+		});
 
 		if (gameResult === true) {
 			// Red color and loss message
-			color = 0xf44334;
-			result = `You lost \`${wager}\` ${rules.currencyPlural}.`;
+			embed.setColor(0xf44334);
+			embed.addField('🎲 Result', `You lost \`${wager}\` ${rules.currencyPlural}.`);
 		} else {
-			// Give the player their winnings
-			await diceAPI.increaseBalance(msg.author.id, wager * multiplier);
-			// Take the winnings from the house
-			await diceAPI.decreaseBalance(rules.houseID, wager * multiplier);
+			const payout = async () => {
+				// Give the player their winnings
+				diceAPI.increaseBalance(msg.author.id, wager * multiplier);
+				// Take the winnings from the house
+				diceAPI.decreaseBalance(rules.houseID, wager * multiplier);
+			};
+			await payout();
 
 			// Green color and win message
-			color = 0x4caf50;
-			result = `You made \`${profit}\` ${rules.currencyPlural} of profit!`;
+			embed.setColor(0x4caf50);
+			// prettier-ignore
+			embed.addField('🎲 Result', `You made \`${profit}\` ${rules.currencyPlural} of profit!`	);
 			if ((await diceAPI.getBiggestWin) <= profit) {
 				diceAPI.updateBiggestWin(msg.author.id, profit);
 			}
 		}
 
-		msg.say({
-			embed: {
-				title: `**${wager} 🇽 ${multiplier}**`,
-				color: color,
-				fields: [
-					{
-						name: '🎲 Result',
-						value: result,
-					},
-					{
-						name: '🔢 Random Number Result',
-						value: `${randomNumber}`,
-						inline: true,
-					},
-					{
-						name: '🏦 Updated Balance',
-						value: `${await diceAPI.getBalance(msg.author.id)} ${rules.currencyPlural}`,
-						inline: true,
-					},
-					{
-						name: '💵 Wager',
-						value: `${wager}`,
-						inline: true,
-					},
-					{
-						name: '🇽 Multiplier',
-						value: `${multiplier}`,
-						inline: true,
-					},
-				],
-			},
-		});
+		// Rearrange fields
+		const tempField = embed.fields[4];
+		embed.fields[4] = embed.fields[0];
+		embed.fields[0] = tempField;
+
+		msg.say(embed);
 	}
 };
