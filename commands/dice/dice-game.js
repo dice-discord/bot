@@ -103,7 +103,7 @@ module.exports = class DiceGameCommand extends Command {
 		if (gameResult === true) {
 			// Red color and loss message
 			embed.setColor(0xf44334);
-			embed.addField('🎲 Result', `You lost \`${wager}\` ${rules.currencyPlural}.`);
+			embed.setDescription(`You lost \`${wager}\` ${rules.currencyPlural}.`);
 		} else {
 			const payout = async () => {
 				// Give the player their winnings
@@ -116,16 +116,11 @@ module.exports = class DiceGameCommand extends Command {
 			// Green color and win message
 			embed.setColor(0x4caf50);
 			// prettier-ignore
-			embed.addField('🎲 Result', `You made \`${profit}\` ${rules.currencyPlural} of profit!`	);
+			embed.setDescription(`You made \`${profit}\` ${rules.currencyPlural} of profit!`);
 			if ((await diceAPI.getBiggestWin) <= profit) {
 				diceAPI.updateBiggestWin(msg.author.id, profit);
 			}
 		}
-
-		// Rearrange fields
-		const tempField = embed.fields[4];
-		embed.fields[4] = embed.fields[0];
-		embed.fields[0] = tempField;
 
 		msg.say(embed);
 	}
