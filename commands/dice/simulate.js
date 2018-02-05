@@ -90,18 +90,13 @@ module.exports = class SimulateGameCommand extends Command {
 		if (gameResult === true) {
 			// Red color and loss message
 			embed.setColor(0xf44334);
-			embed.addField('🎲 Result', `You would have lost \`${wager}\` ${rules.currencyPlural}.`);
+			embed.setDescription(`You would have lost \`${wager}\` ${rules.currencyPlural}.`);
 		} else {
 			// Green color and win message
 			embed.setColor(0x4caf50);
 			// prettier-ignore
-			embed.addField('🎲 Result', `Your profit would have been \`${diceAPI.simpleFormat(wager * multiplier - wager)}\` ${rules.currencyPlural}!`);
+			embed.setDescription(`Your profit would have been \`${diceAPI.simpleFormat(wager * multiplier - wager)}\` ${rules.currencyPlural}!`);
 		}
-
-		// Rearrange fields
-		const tempField = embed.fields[4];
-		embed.fields[4] = embed.fields[0];
-		embed.fields[0] = tempField;
 
 		msg.say(embed);
 	}
