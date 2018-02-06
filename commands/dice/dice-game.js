@@ -74,6 +74,17 @@ module.exports = class DiceGameCommand extends Command {
 		// Variables for later use in embed
 		const profit = diceAPI.simpleFormat(wager * multiplier - wager);
 		
+		const payout = async () => {
+			// Give the player their winnings
+			await diceAPI.increaseBalance(msg.author.id, wager * multiplier);
+			// Take the winnings from the house
+			await diceAPI.decreaseBalance(rules.houseID, wager * multiplier);
+		}
+		
+		if (gameResult === false) {
+			await payout();		
+		}
+		
 		const embed = new MessageEmbed({
 			title: `**${wager} 🇽 ${multiplier}**`,
 			fields: [
@@ -84,7 +95,7 @@ module.exports = class DiceGameCommand extends Command {
 				},
 				{
 					name: '🏦 Updated Balance',
-					value: `${await diceAPI.getBalance(msg.author.id) + (wager * multiplier)} ${rules.currencyPlural}`,
+					value: `${await diceAPI.getBalance(msg.author.id)} ${rules.currencyPlural}`,
 					inline: true,
 				},
 				{
@@ -100,19 +111,11 @@ module.exports = class DiceGameCommand extends Command {
 			],
 		});
 		
-		const payout = async () => {
-			// Give the player their winnings
-			await diceAPI.increaseBalance(msg.author.id, wager * multiplier);
-			// Take the winnings from the house
-			await diceAPI.decreaseBalance(rules.houseID, wager * multiplier);
-		}
-		
 		if (gameResult === true) {
 			// Red color and loss message
 			embed.setColor(0xf44334);
 			embed.setDescription(`You lost \`${wager}\` ${rules.currencyPlural}.`);
 		} else {
-			await payout()
 			// Green color and win message
 			embed.setColor(0x4caf50);
 			// prettier-ignore
