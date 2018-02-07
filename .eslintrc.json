@@ -7,14 +7,13 @@
     "parserOptions": {
         "ecmaVersion": 2017
     },
-    "plugins": ["prettier"],
     "rules": {
-        "prettier/prettier": "warn",
+		"array-bracket-spacing": ["warn", "never"],
         "brace-style": ["warn", "1tbs", {
             "allowSingleLine": true
         }],
         "no-return-await": "error",
-        "comma-dangle": ["warn", "always-multiline"],
+        "comma-dangle": ["warn", "never"],
         "comma-spacing": "warn",
         "comma-style": "warn",
         "curly": ["warn", "multi-line", "consistent"],
