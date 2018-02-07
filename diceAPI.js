@@ -189,49 +189,6 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	module.exports.allUsers = allUsers;
 	// All users
 
-	// User blacklist checking
-	const getBlackListLevel = async requestedID => {
-		winston.debug(`[API](BLACKLIST) Looking up blacklist level for ${requestedID}`);
-		return balances
-			.findOne({
-				id: requestedID,
-			})
-			.then(result => {
-				// prettier-ignore
-				if (result) winston.debug(`[API](BLACKLIST) Find one result for blacklist level: ${result.blacklist}`);
-				if (!result || isNaN(result.blacklist)) {
-					winston.debug('[API](BLACKLIST) Blacklist level result is empty, or not blacklisted.');
-					return false;
-				} else {
-					const blacklistResult = result.blacklist;
-					winston.debug(`[API](BLACKLIST) Blacklist level for ${requestedID}: ${blacklistResult}`);
-					return blacklistResult;
-				}
-			});
-	};
-	module.exports.getBlackListLevel = getBlackListLevel;
-	// User blacklist checking
-
-	// User blacklist setting
-	const setBlacklistLevel = async (requestedID, level) => {
-		balances.updateOne(
-			{
-				id: requestedID,
-			},
-			{
-				$set: {
-					blacklist: level,
-				},
-			},
-			{
-				upsert: true,
-			}
-		);
-		winston.debug(`[API] Set blacklist level for ${requestedID} to ${level}.`);
-	};
-	module.exports.setBlacklistLevel = setBlacklistLevel;
-	// User blacklist setting
-
 	// Top wins leaderboard search
 	const topWinsLeaderboard = async () => {
 		const allProfiles = balances.find();

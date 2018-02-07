@@ -1,4 +1,5 @@
 {
+    "blacklistedIDs": [""],
     "minMultiplier": 1.01,
     "maxMultiplier": 100,
     "minWager": 1,

@@ -36,11 +36,11 @@ client.registry
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 // Blacklist users from commands
-/*  new CommandoClient.CommandDispatcher(client.registry);
+new CommandoClient.CommandDispatcher(client.registry);
 
 client.dispatcher.addInhibitor(async (msg) => {
-    if (await diceAPI.getBlackListLevel(msg.author.id) !== false) return ['blacklisted', msg.reply('You have been blacklisted from Dice.')];
-});*/
+    if (rules.blacklistedIDs.includes(msg.author.id)) return ['blacklisted', msg.reply('You have been blacklisted from Dice.')];
+});
 
 // Handle promise rejections
 process.on('unhandledRejection', error => winston.error(`Uncaught Promise Rejection:\n${error}`));
