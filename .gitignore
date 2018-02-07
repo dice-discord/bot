@@ -59,9 +59,3 @@ typings/
 
 # VSCode
 .vscode/launch.json
-
-# Local user data from debugging
-balances/*
-
-# My script
-custom.js
