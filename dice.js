@@ -38,8 +38,12 @@ client.registry
 // Blacklist users from commands
 new CommandoClient.CommandDispatcher(client.registry);
 
-client.dispatcher.addInhibitor(async (msg) => {
-    if (rules.blacklistedIDs.includes(msg.author.id)) return ['blacklisted', msg.reply('You have been blacklisted from Dice.')];
+client.dispatcher.addInhibitor( msg => {
+    if (rules.blacklistedIDs.includes(msg.author.id)) {
+		return ['blacklisted', msg.reply('You have been blacklisted from Dice.')]
+	} else {
+		return false;	
+	};
 });
 
 // Handle promise rejections
