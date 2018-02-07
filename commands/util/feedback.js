@@ -22,7 +22,10 @@ module.exports = class feedback extends Command {
 
 	run(msg, { userFeedback }) {
 		const message = '📝 Thanks for sending your feedback.';
-		if (userFeedback.includes('help') || userFeedback.includes('support')) {
+		if (
+			userFeedback.toLowerCase().includes('help') ||
+			userFeedback.toLowerCase().includes('support')
+		) {
 			// prettier-ignore
 			msg.reply(`${message} If you need help with a problem use the \`support\` command.`);
 		} else {
