@@ -34,7 +34,7 @@ client.registry
 
 	// Registers all of your commands in the ./commands/ directory
 	.registerCommandsIn(path.join(__dirname, 'commands'));
-
+/*
 // Blacklist users from commands
 new CommandoClient.CommandDispatcher(client.registry);
 
@@ -44,7 +44,7 @@ client.dispatcher.addInhibitor( msg => {
 	} else {
 		return false;	
 	};
-});
+});*/
 
 // Handle promise rejections
 process.on('unhandledRejection', error => winston.error(`Uncaught Promise Rejection:\n${error}`));
