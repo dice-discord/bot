@@ -4,6 +4,8 @@
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const replaceall = require('replaceall');
+const { MongoClient } = require('mongodb');
+const MongoDBProvider = require('commando-provider-mongo')
 const winston = require('winston');
 winston.level = 'debug';
 const packageData = require('./package');
@@ -43,6 +45,11 @@ client.dispatcher.addInhibitor( msg => {
 		return false;	
 	};
 });
+
+client.setProvider(
+    MongoClient.connect(process.env.MONGODB_URI)
+	.then(client => new MongoDBProvider(client, 'settings'))
+);
 
 // Handle promise rejections
 process.on('unhandledRejection', error => winston.error(`Uncaught Promise Rejection:\n${error}`));
