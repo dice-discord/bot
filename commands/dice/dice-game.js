@@ -64,19 +64,13 @@ module.exports = class DiceGameCommand extends Command {
 		const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
 		
-		// Take away the player's wager no matter what
-		diceAPI.decreaseBalance(msg.author.id, wager);
-		// Give the wager to the house
-		diceAPI.increaseBalance(rules.houseID, wager);	
+
 
 		// Variables for later use in embed
 		const profit = diceAPI.simpleFormat(wager * multiplier - wager);
 		
 
-		// Give the player their winnings
-		await diceAPI.increaseBalance(msg.author.id, wager * multiplier);
-		// Take the winnings from the house
-		await diceAPI.decreaseBalance(rules.houseID, wager * multiplier);
+
 		
 		
 		const embed = new MessageEmbed({
@@ -109,7 +103,12 @@ module.exports = class DiceGameCommand extends Command {
 			// Red color and loss message
 			embed.setColor(0xf44334);
 			embed.setDescription(`You lost \`${wager}\` ${rules.currencyPlural}.`);
+			
 		} else {
+					// Take away the player's wager no matter what
+		diceAPI.decreaseBalance(msg.author.id, wager);
+		// Give the wager to the house
+		diceAPI.increaseBalance(rules.houseID, wager);	
 			// Green color and win message
 			embed.setColor(0x4caf50);
 			// prettier-ignore
