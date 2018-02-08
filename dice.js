@@ -34,17 +34,15 @@ client.registry
 
 	// Registers all of your commands in the ./commands/ directory
 	.registerCommandsIn(path.join(__dirname, 'commands'));
-/*
-// Blacklist users from commands
-new CommandoClient.CommandDispatcher(client.registry);
 
+// Blacklist users from commands
 client.dispatcher.addInhibitor( msg => {
-    if (rules.blacklistedIDs.includes(msg.author.id)) {
+    	if (rules.blacklistedIDs.includes(msg.author.id)) {
 		return ['blacklisted', msg.reply('You have been blacklisted from Dice.')]
 	} else {
 		return false;	
 	};
-});*/
+});
 
 // Handle promise rejections
 process.on('unhandledRejection', error => winston.error(`Uncaught Promise Rejection:\n${error}`));
