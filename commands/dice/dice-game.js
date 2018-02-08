@@ -63,27 +63,23 @@ module.exports = class DiceGameCommand extends Command {
 		// Get boolean if the random number is greater than the multiplier
 		const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
-		const takeWager = async () => {
+		
 			// Take away the player's wager no matter what
 			diceAPI.decreaseBalance(msg.author.id, wager);
 			// Give the wager to the house
 			diceAPI.increaseBalance(rules.houseID, wager);	
-		}
-		await takeWager();
+		
+		
 
 		// Variables for later use in embed
 		const profit = diceAPI.simpleFormat(wager * multiplier - wager);
 		
-		const payout = async () => {
+
 			// Give the player their winnings
 			await diceAPI.increaseBalance(msg.author.id, wager * multiplier);
 			// Take the winnings from the house
 			await diceAPI.decreaseBalance(rules.houseID, wager * multiplier);
-		}
 		
-		if (gameResult === false) {
-			await payout();		
-		}
 		
 		const embed = new MessageEmbed({
 			title: `**${wager} 🇽 ${multiplier}**`,
