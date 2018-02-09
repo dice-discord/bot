@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
 
@@ -21,6 +22,6 @@ module.exports = class AccountAgeCommand extends Command {
 
 	run(msg, { user }) {
 		const target = user || msg.author;
-		return msg.reply(`⏰ \`${target.createdAt}\``);
+		return msg.reply(`⏰ ${moment(target.createdAt).humanize()} (created on ${target.createdAt})`);
 	}
 };
