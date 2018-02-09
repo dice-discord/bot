@@ -57,21 +57,26 @@ module.exports = class DiceGameCommand extends Command {
 			return msg.reply('❌ I couldn\'t pay your winnings if you won.');
 		}
 
+		// Take away the player's wager no matter what
+		diceAPI.decreaseBalance(msg.author.id, wager);
+		// Give the wager to the house
+		diceAPI.increaseBalance(rules.houseID, wager);	
+		
 		// Round numbers to second decimal place
 		const randomNumber = diceAPI.simpleFormat(Math.random() * rules.maxMultiplier);
 
 		// Get boolean if the random number is greater than the multiplier
 		const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
-		
-
-
-		// Variables for later use in embed
+		// Variables for later use
 		const profit = diceAPI.simpleFormat(wager * multiplier - wager);
 		
-
-
-		
+		if (gameResult === false) {
+			// Give the player their winnings
+			await diceAPI.increaseBalance(msg.author.id, wager * multiplier);
+			// Take the winnings from the house
+			await diceAPI.decreaseBalance(rules.houseID, wager * multiplier);
+		}
 		
 		const embed = new MessageEmbed({
 			title: `**${wager} 🇽 ${multiplier}**`,
@@ -103,12 +108,7 @@ module.exports = class DiceGameCommand extends Command {
 			// Red color and loss message
 			embed.setColor(0xf44334);
 			embed.setDescription(`You lost \`${wager}\` ${rules.currencyPlural}.`);
-			
 		} else {
-					// Take away the player's wager no matter what
-		diceAPI.decreaseBalance(msg.author.id, wager);
-		// Give the wager to the house
-		diceAPI.increaseBalance(rules.houseID, wager);	
 			// Green color and win message
 			embed.setColor(0x4caf50);
 			// prettier-ignore
