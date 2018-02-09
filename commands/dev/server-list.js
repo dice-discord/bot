@@ -13,9 +13,9 @@ module.exports = class ServerListCommand extends Command {
 			examples: ['server-list'],
 			throttling: {
 				usages: 2,
-				duration: 30,
+				duration: 30
 			},
-			ownerOnly: true,
+			ownerOnly: true
 		});
 	}
 
@@ -27,8 +27,7 @@ module.exports = class ServerListCommand extends Command {
 		for (const guild of guilds.values()) {
 			guildList.push(`${guild.name} (\`${guild.id}\`)`);
 		}
-
-		// prettier-ignore
+		
 		return msg.reply(`${guildList.join('\n')}\n
 		👥 ${guilds.size} servers in total. ${guildList.length} servers were listed.`, { split: true });
 	}

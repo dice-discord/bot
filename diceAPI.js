@@ -34,18 +34,18 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	const getBalance = async requestedID => {
 		return balances
 			.findOne({
-				id: requestedID,
+				id: requestedID
 			})
 			.then(result => {
 				if (!result) {
-					// prettier-ignore
+
 					winston.debug('[API](GET-BALANCE) Result is empty. Checking if requested ID is the house.');
 					if (requestedID === rules.houseID) {
 						winston.debug('[API](GET-BALANCE) Requested ID is the house ID.');
 						updateBalance(requestedID, rules.houseStartingBalance);
 						return rules.houseStartingBalance;
 					} else {
-						// prettier-ignore
+
 						winston.debug('[API](GET-BALANCE) Requested ID isn\'t the house ID.');
 						updateBalance(requestedID, rules.newUserBalance);
 						return rules.newUserBalance;
@@ -67,18 +67,18 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	const updateBalance = async (requestedID, newBalance) => {
 		balances.updateOne(
 			{
-				id: requestedID,
+				id: requestedID
 			},
 			{
 				$set: {
-					balance: simpleFormat(newBalance),
-				},
+					balance: simpleFormat(newBalance)
+				}
 			},
 			{
-				upsert: true,
+				upsert: true
 			}
 		);
-		// prettier-ignore
+
 		winston.debug(`[API](UPDATE-BALANCE) Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
 	};
 	module.exports.updateBalance = updateBalance;
@@ -112,7 +112,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 		const allProfiles = await balances.find();
 		const formattedBalances = await allProfiles
 			.sort({
-				balance: -1,
+				balance: -1
 			})
 			.limit(10)
 			.toArray();
@@ -139,18 +139,18 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	const setDailyUsed = async (requestedID, timestamp) => {
 		balances.updateOne(
 			{
-				id: requestedID,
+				id: requestedID
 			},
 			{
 				$set: {
-					daily: timestamp,
-				},
+					daily: timestamp
+				}
 			},
 			{
-				upsert: true,
+				upsert: true
 			}
 		);
-		// prettier-ignore
+
 		winston.debug(`[API](SET-DAILY-USED) Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
 	};
 	module.exports.setDailyUsed = setDailyUsed;
@@ -161,17 +161,16 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 		winston.debug(`[API](GET-DAILY-USED) Looking up daily timestamp for ${requestedID}`);
 		return balances
 			.findOne({
-				id: requestedID,
+				id: requestedID
 			})
 			.then(result => {
-				// prettier-ignore
 				if (result) winston.debug(`[API](GET-DAILY-USED) Find one result for daily timestamp: ${result.daily}`);
 				if (!result || isNaN(result.daily)) {
 					winston.debug('[API](GET-DAILY-USED) Daily last used timestamp result is empty.');
 					return false;
 				} else {
 					const timestampResult = result.daily;
-					// prettier-ignore
+
 					winston.debug(`[API](GET-DAILY-USED) Daily timestamp: ${new Date(timestampResult)} (${timestampResult})`);
 					return timestampResult;
 				}
@@ -194,7 +193,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 		const allProfiles = balances.find();
 		const formattedBiggestWins = await allProfiles
 			.sort({
-				biggestWin: -1,
+				biggestWin: -1
 			})
 			.limit(10)
 			.toArray();
@@ -210,7 +209,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	const getBiggestWin = async requestedID => {
 		return balances
 			.findOne({
-				id: requestedID,
+				id: requestedID
 			})
 			.then(result => {
 				if (!result) {
@@ -234,15 +233,15 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	const updateBiggestWin = async (requestedID, newBiggestWin) => {
 		balances.updateOne(
 			{
-				id: requestedID,
+				id: requestedID
 			},
 			{
 				$set: {
-					biggestWin: simpleFormat(newBiggestWin),
-				},
+					biggestWin: simpleFormat(newBiggestWin)
+				}
 			},
 			{
-				upsert: true,
+				upsert: true
 			}
 		);
 		winston.debug(`[API] Set biggest win for ${requestedID} to ${simpleFormat(newBiggestWin)}`);

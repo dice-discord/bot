@@ -13,8 +13,8 @@ module.exports = class CheckVersionCommand extends Command {
 			examples: ['check-version'],
 			throttling: {
 				usages: 1,
-				duration: 15,
-			},
+				duration: 15
+			}
 		});
 	}
 

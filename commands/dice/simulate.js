@@ -17,7 +17,7 @@ module.exports = class SimulateGameCommand extends Command {
 				'simulate-game',
 				'sim-game',
 				'simulate-dice',
-				'sim-dice',
+				'sim-dice'
 			],
 			examples: ['simulate 250 4', 'sim 23 2.01'],
 			args: [
@@ -25,6 +25,7 @@ module.exports = class SimulateGameCommand extends Command {
 					key: 'wager',
 					prompt: 'How much do you want to wager? (whole number)',
 					type: 'integer',
+					min: rules.minWager
 				},
 				{
 					key: 'multiplier',
@@ -32,29 +33,18 @@ module.exports = class SimulateGameCommand extends Command {
 					type: 'float',
 					// Round multiplier to second decimal place
 					parse: multiplier => diceAPI.simpleFormat(multiplier),
-				},
+					min: rules.minMultilpier,
+					max: rules.maxMultiplier
+				}
 			],
 			throttling: {
 				usages: 1,
-				duration: 1,
-			},
+				duration: 1
+			}
 		});
 	}
 
 	run(msg, { wager, multiplier }) {
-		// Multiplier checking
-		if (multiplier < diceAPI.simpleFormat(rules.minMultiplier)) {
-			return msg.reply(`❌ Your target multiplier must be at least \`${rules.minMultiplier}\`.`);
-		} else if (multiplier > diceAPI.simpleFormat(rules.maxMultiplier)) {
-			return msg.reply(`❌ Your target multiplier must be less than \`${rules.maxMultiplier}\`.`);
-		}
-
-		// Wager checking
-		if (wager < rules.minWager) {
-			// prettier-ignore
-			return msg.reply(`❌ Your wager must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`);
-		}
-
 		// Round numbers to second decimal place
 		const randomNumber = diceAPI.simpleFormat(Math.random() * rules.maxMultiplier);
 
@@ -67,24 +57,24 @@ module.exports = class SimulateGameCommand extends Command {
 				{
 					name: '🔢 Random Number Result',
 					value: randomNumber.toString(),
-					inline: true,
+					inline: true
 				},
 				{
 					name: '📊 Win Chance',
 					value: `${diceAPI.simpleFormat(diceAPI.winPercentage(multiplier))}%`,
-					inline: true,
+					inline: true
 				},
 				{
 					name: '💵 Wager',
 					value: wager.toString(),
-					inline: true,
+					inline: true
 				},
 				{
 					name: '🇽 Multiplier',
 					value: multiplier.toString(),
-					inline: true,
-				},
-			],
+					inline: true
+				}
+			]
 		});
 
 		if (gameResult === true) {
@@ -94,7 +84,6 @@ module.exports = class SimulateGameCommand extends Command {
 		} else {
 			// Green color and win message
 			embed.setColor(0x4caf50);
-			// prettier-ignore
 			embed.setDescription(`Your profit would have been \`${diceAPI.simpleFormat(wager * multiplier - wager)}\` ${rules.currencyPlural}!`);
 		}
 

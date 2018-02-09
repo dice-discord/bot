@@ -11,7 +11,7 @@ module.exports = class LeaderboardCommand extends Command {
 			memberName: 'leaderboard',
 			description: `Shows a top ten leaderboard of who has the most ${rules.currencyPlural}`,
 			aliases: ['top-10', 'top-ten', 'chart', 'top'],
-			examples: ['leaderboard'],
+			examples: ['leaderboard']
 		});
 	}
 
@@ -40,46 +40,46 @@ module.exports = class LeaderboardCommand extends Command {
 				fields: [
 					{
 						name: `#1 ${await userTagFromID(0)}`,
-						value: `${leaderboardArray[0].balance} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[0].balance} ${rules.currencyPlural}`
 					},
 					{
 						name: `#2 ${await userTagFromID(1)}`,
-						value: `${leaderboardArray[1].balance} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[1].balance} ${rules.currencyPlural}`
 					},
 					{
 						name: `#3 ${await userTagFromID(2)}`,
-						value: `${leaderboardArray[2].balance} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[2].balance} ${rules.currencyPlural}`
 					},
 					{
 						name: `#4 ${await userTagFromID(3)}`,
-						value: `${leaderboardArray[3].balance} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[3].balance} ${rules.currencyPlural}`
 					},
 					{
 						name: `#5 ${await userTagFromID(4)}`,
-						value: `${leaderboardArray[4].balance} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[4].balance} ${rules.currencyPlural}`
 					},
 					{
 						name: `#6 ${await userTagFromID(5)}`,
-						value: `${leaderboardArray[5].balance} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[5].balance} ${rules.currencyPlural}`
 					},
 					{
 						name: `#7 ${await userTagFromID(6)}`,
-						value: `${leaderboardArray[6].balance} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[6].balance} ${rules.currencyPlural}`
 					},
 					{
 						name: `#8 ${await userTagFromID(7)}`,
-						value: `${leaderboardArray[7].balance} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[7].balance} ${rules.currencyPlural}`
 					},
 					{
 						name: `#9 ${await userTagFromID(8)}`,
-						value: `${leaderboardArray[8].balance} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[8].balance} ${rules.currencyPlural}`
 					},
 					{
 						name: `#10 ${await userTagFromID(9)}`,
-						value: `${leaderboardArray[9].balance} ${rules.currencyPlural}`,
-					},
-				],
-			},
+						value: `${leaderboardArray[9].balance} ${rules.currencyPlural}`
+					}
+				]
+			}
 		});
 	}
 };

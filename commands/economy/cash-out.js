@@ -16,14 +16,14 @@ module.exports = class CashOutCommand extends Command {
 					key: 'amount',
 					prompt: 'How many dots do you want to remove?',
 					type: 'float',
-					parse: amount => diceAPI.simpleFormat(amount),
-				},
+					parse: amount => diceAPI.simpleFormat(amount)
+				}
 			],
 			throttling: {
 				usages: 2,
-				duration: 30,
+				duration: 30
 			},
-			ownerOnly: true,
+			ownerOnly: true
 		});
 	}
 
@@ -36,7 +36,7 @@ module.exports = class CashOutCommand extends Command {
 				`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
 			);
 		} else if (amount > beforeTransferHouseBalance) {
-			// prettier-ignore
+
 			return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. ${this.client.user} doesn't have that much.`);
 		}
 

@@ -12,17 +12,16 @@ module.exports = class LeaderboardCommand extends Command {
 			description: 'Shows a top ten leaderboard of who had the most profitable games',
 			aliases: ['top-games', 'top-wins', 'leaderboard-wins', 'wins-top'],
 			examples: ['wins-leaderboard'],
-			ownerOnly: true,
+			ownerOnly: true
 		});
 	}
 
 	async run(msg) {
 		const leaderboardArray = await diceAPI.topWinsLeaderboard();
 
-		// prettier-ignore
 		winston.verbose(`[COMMAND](WINS-LEADERBOARD) Contents of top wins leaderboard array: ${leaderboardArray}`);
-		// prettier-ignore
 		winston.verbose(`[COMMAND](WINS-LEADERBOARD) Top wins leaderboard array length: ${leaderboardArray.length}`);
+
 		// Check if there are enough games to populate the embed
 		if (leaderboardArray.length < 10) {
 			return msg.reply('❌ There are less than 10 wins total.');
@@ -42,46 +41,46 @@ module.exports = class LeaderboardCommand extends Command {
 				fields: [
 					{
 						name: `#1 ${await userTagFromID(0)}`,
-						value: `${leaderboardArray[0].biggestWin} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[0].biggestWin} ${rules.currencyPlural}`
 					},
 					{
 						name: `#2 ${await userTagFromID(1)}`,
-						value: `${leaderboardArray[1].biggestWin} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[1].biggestWin} ${rules.currencyPlural}`
 					},
 					{
 						name: `#3 ${await userTagFromID(2)}`,
-						value: `${leaderboardArray[2].biggestWin} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[2].biggestWin} ${rules.currencyPlural}`
 					},
 					{
 						name: `#4 ${await userTagFromID(3)}`,
-						value: `${leaderboardArray[3].biggestWin} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[3].biggestWin} ${rules.currencyPlural}`
 					},
 					{
 						name: `#5 ${await userTagFromID(4)}`,
-						value: `${leaderboardArray[4].biggestWin} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[4].biggestWin} ${rules.currencyPlural}`
 					},
 					{
 						name: `#6 ${await userTagFromID(5)}`,
-						value: `${leaderboardArray[5].biggestWin} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[5].biggestWin} ${rules.currencyPlural}`
 					},
 					{
 						name: `#7 ${await userTagFromID(6)}`,
-						value: `${leaderboardArray[6].biggestWin} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[6].biggestWin} ${rules.currencyPlural}`
 					},
 					{
 						name: `#8 ${await userTagFromID(7)}`,
-						value: `${leaderboardArray[7].biggestWin} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[7].biggestWin} ${rules.currencyPlural}`
 					},
 					{
 						name: `#9 ${await userTagFromID(8)}`,
-						value: `${leaderboardArray[8].biggestWin} ${rules.currencyPlural}`,
+						value: `${leaderboardArray[8].biggestWin} ${rules.currencyPlural}`
 					},
 					{
 						name: `#10 ${await userTagFromID(9)}`,
-						value: `${leaderboardArray[9].biggestWin} ${rules.currencyPlural}`,
-					},
-				],
-			},
+						value: `${leaderboardArray[9].biggestWin} ${rules.currencyPlural}`
+					}
+				]
+			}
 		});
 	}
 };

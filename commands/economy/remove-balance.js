@@ -8,7 +8,7 @@ module.exports = class RemoveBalanceCommand extends Command {
 			name: 'remove-balance',
 			group: 'economy',
 			memberName: 'remove-balance',
-			// prettier-ignore
+
 			description: 'Remove dots from another user\'s account',
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: [
@@ -19,7 +19,7 @@ module.exports = class RemoveBalanceCommand extends Command {
 				'lower',
 				'lower-bal',
 				'reduce',
-				'reduce-bal',
+				'reduce-bal'
 			],
 			examples: ['remove-balance 500 @Dice'],
 			args: [
@@ -28,33 +28,26 @@ module.exports = class RemoveBalanceCommand extends Command {
 					prompt: 'How many dots do you want to remove?',
 					type: 'float',
 					parse: amount => diceAPI.simpleFormat(amount),
+					min: rules.minWager
 				},
 				{
 					key: 'user',
 					prompt: 'Who do you want to remove dots from?',
-					type: 'user',
-				},
+					type: 'user'
+				}
 			],
 			throttling: {
 				usages: 2,
-				duration: 30,
+				duration: 30
 			},
-			ownerOnly: true,
+			ownerOnly: true
 		});
 	}
 
 	run(msg, { user, amount }) {
 		// Permission checking
 		if (user.bot === true && user.id !== rules.houseID) {
-			// prettier-ignore
 			return msg.reply('❌ You can\'t remove dots from bots.');
-		}
-
-		// Wager checking
-		if (amount < rules.minWager) {
-			return msg.reply(
-				`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
-			);
 		}
 
 		// Remove dots from user

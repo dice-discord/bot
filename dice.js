@@ -5,7 +5,7 @@ const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const replaceall = require('replaceall');
 const { MongoClient } = require('mongodb');
-const MongoDBProvider = require('commando-provider-mongo')
+const MongoDBProvider = require('commando-provider-mongo');
 const winston = require('winston');
 winston.level = 'debug';
 const packageData = require('./package');
@@ -19,7 +19,7 @@ const client = new CommandoClient({
 	owner: '210024244766179329',
 	disableEveryone: true,
 	unknownCommandResponse: false,
-	invite: 'https://discord.gg/NpUmRkj',
+	invite: 'https://discord.gg/NpUmRkj'
 });
 
 client.registry
@@ -28,7 +28,7 @@ client.registry
 		['dice', 'Dice'],
 		['util', 'Utility'],
 		['dev', 'Developer'],
-		['economy', 'Economy'],
+		['economy', 'Economy']
 	])
 
 	// Registers all built-in groups, commands, and argument types
@@ -38,17 +38,17 @@ client.registry
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 // Blacklist users from commands
-client.dispatcher.addInhibitor( msg => {
-    	if (rules.blacklistedIDs.includes(msg.author.id)) {
-		return ['blacklisted', msg.reply('You have been blacklisted from Dice.')]
+client.dispatcher.addInhibitor(msg => {
+	if (rules.blacklistedIDs.includes(msg.author.id)) {
+		return ['blacklisted', msg.reply('You have been blacklisted from Dice.')];
 	} else {
-		return false;	
-	};
+		return false;
+	}
 });
 
 client.setProvider(
-    MongoClient.connect(process.env.MONGODB_URI)
-	.then(client => new MongoDBProvider(client, 'settings'))
+	MongoClient.connect(process.env.MONGODB_URI)
+		.then(bot => new MongoDBProvider(bot, 'settings'))
 );
 
 // Handle promise rejections
@@ -63,12 +63,12 @@ const sendDiscordBotsORGServerCount = serverData => {
 		url: 'https://discordbots.org/api/bots/388191157869477888/stats',
 		headers: {
 			'cache-control': 'no-cache',
-			authorization: process.env.DISCORDBOTSORG_TOKEN,
+			authorization: process.env.DISCORDBOTSORG_TOKEN
 		},
 		body: {
-			server_count: serverData,
+			server_count: serverData
 		},
-		json: true,
+		json: true
 	};
 
 	winston.debug(`[DICE] discordbots.org token: ${process.env.DISCORDBOTSORG_TOKEN}`);
@@ -87,12 +87,12 @@ const sendBotsDiscordPWServerCount = serverData => {
 		url: 'https://bots.discord.pw/api/bots/388191157869477888/stats',
 		headers: {
 			'cache-control': 'no-cache',
-			authorization: process.env.BOTSDISCORDPW_TOKEN,
+			authorization: process.env.BOTSDISCORDPW_TOKEN
 		},
 		body: {
-			server_count: serverData,
+			server_count: serverData
 		},
-		json: true,
+		json: true
 	};
 
 	winston.debug(`[DICE] bots.discord.pw token: ${process.env.BOTSDISCORDPW_TOKEN}`);
@@ -114,8 +114,8 @@ const sendDiscordlistServerCount = serverData => {
 			json: true,
 			body: {
 				servers: serverData,
-				token: process.env.DISCORDLIST_TOKEN,
-			},
+				token: process.env.DISCORDLIST_TOKEN
+			}
 		},
 		(err, httpResponse, body) => {
 			if (err) return winston.error(`[DICE] ${err}`);
@@ -155,14 +155,14 @@ const announceServerCount = async (serverCount, newServer) => {
 			fields: [
 				{
 					name: 'Server Count',
-					value: `\`${serverCount}\` servers`,
+					value: `\`${serverCount}\` servers`
 				},
 				{
 					name: 'User Count',
-					value: `\`${(await diceAPI.totalUsers()) - 1}\` users`,
-				},
-			],
-		},
+					value: `\`${(await diceAPI.totalUsers()) - 1}\` users`
+				}
+			]
+		}
 	});
 };
 
@@ -174,7 +174,7 @@ client
 
 		// Set game presence to the help command once loaded
 		client.user.setActivity('for @Dice help or $$help', {
-			type: 'WATCHING',
+			type: 'WATCHING'
 		});
 
 		updateServerCount(client.guilds.size);
@@ -202,15 +202,15 @@ client
 					color: 0xff9800,
 					author: {
 						name: `${member.user.tag} (${member.user.id})`,
-						icon_url: member.user.displayAvatarURL(128),
+						icon_url: member.user.displayAvatarURL(128)
 					},
 					fields: [
 						{
 							name: '#⃣ Number of Server Members',
-							value: `\`${guild.members.size}\` members`,
-						},
-					],
-				},
+							value: `\`${guild.members.size}\` members`
+						}
+					]
+				}
 			});
 		}
 	})
@@ -221,26 +221,26 @@ client
 			embed: {
 				author: {
 					name: `${message.author.tag} (${message.author.id})`,
-					icon_url: message.author.displayAvatarURL(128),
+					icon_url: message.author.displayAvatarURL(128)
 				},
 				timestamp: new Date(message.createdTimestamp),
 				fields: [
 					{
 						name: '📝 Message',
-						value: message.content,
+						value: message.content
 					},
 					{
 						name: '🏦 User Balance',
-						value: `\`${await diceAPI.getBalance(message.author.id)}\` ${rules.currencyPlural}`,
+						value: `\`${await diceAPI.getBalance(message.author.id)}\` ${rules.currencyPlural}`
 					},
 					{
 						name: `🏦 ${client.user.username} Balance`,
-						value: `\`${await diceAPI.getBalance(client.user.id)}\` ${rules.currencyPlural}`,
-					},
-				],
-			},
+						value: `\`${await diceAPI.getBalance(client.user.id)}\` ${rules.currencyPlural}`
+					}
+				]
+			}
 		});
-		// prettier-ignore
+
 		winston.silly(`[DICE] Command run by ${message.author.tag} (${message.author.id}): ${message.content}`);
 	})
 	.on('message', async msg => {
@@ -251,21 +251,21 @@ client
 		if (msg.content.includes(process.env.BOT_TOKEN) && msg.editable) {
 			// Message is from bot so edit it
 			msg.edit(replaceall(process.env.BOT_TOKEN, '--snip--', msg.content));
-			// prettier-ignore
+
 			winston.error(`[DICE] ${warning}
 			Bot token found and edited in message from this bot.\n
 			Message: ${msg.content}`);
 		} else if (msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
 			// Message can be deleted, so delete it
 			msg.delete().then(() => {
-				// prettier-ignore
+
 				winston.error(`[DICE] ${warning}
 				Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
 				Message: ${msg.content}`);
 			});
 		} else if (msg.content.includes(process.env.BOT_TOKEN) && !msg.editable && !msg.deletable) {
 			// Message can't be delete or edited
-			// prettier-ignore
+
 			winston.error(`[DICE] ${warning}
 			Bot token found in message by ${msg.author.tag} (${msg.author.id}).\n
 			Message: ${msg.content}`);

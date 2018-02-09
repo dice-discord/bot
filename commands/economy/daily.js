@@ -15,9 +15,9 @@ module.exports = class DailyCommand extends Command {
 			examples: ['daily'],
 			throttling: {
 				usages: 1,
-				duration: 3,
+				duration: 3
 			},
-			guildOnly: true,
+			guildOnly: true
 		});
 	}
 
@@ -28,7 +28,7 @@ module.exports = class DailyCommand extends Command {
 		// 23 hours because it's better for users to have some wiggle room
 		const fullDay = 82800000;
 		const millisecondsUntil = oldTime - currentTime + fullDay;
-		const waitDuration = moment.duration(millisecondsUntil);
+		const waitDuration = moment.duration(millisecondsUntil).humanize();
 
 		const inviter = rules.rewardRoles[0];
 		const backer = rules.rewardRoles[1];
@@ -41,7 +41,7 @@ module.exports = class DailyCommand extends Command {
 		// Bonuses for referring users
 		if (msg.member.roles.has(affiliate.id) && msg.guild.id === '388366947689168897') {
 			payout = payout * affiliate.multiplier;
-			// prettier-ignore
+
 			message = `You got double the regular amount for being an **${affiliate.name}** from inviting 25 users`;
 		} else if (msg.member.roles.has(recruiter.id) && msg.guild.id === '388366947689168897') {
 			payout = payout * recruiter.multiplier;
@@ -54,8 +54,7 @@ module.exports = class DailyCommand extends Command {
 			message = `You got a 10% bonus for being a **${inviter.name}** from inviting one user`;
 		}
 
-		// prettier-ignore
-		winston.debug(`[COMMAND](DAILY) @${msg.author.username} You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`);
+		winston.debug(`[COMMAND](DAILY) @${msg.author.username} You must wait ${waitDuration} before collecting your daily ${rules.currencyPlural}.`);
 		winston.debug(`[COMMAND](DAILY) Old timestamp: ${new Date(oldTime)} (${oldTime})`);
 		winston.debug(`[COMMAND](DAILY) Current timestamp: ${new Date(currentTime)} (${currentTime})`);
 
@@ -77,14 +76,9 @@ module.exports = class DailyCommand extends Command {
 			} else {
 				return msg.reply(`You were paid ${payout} ${rules.currencyPlural}`);
 			}
-		} else if (waitDuration.hours() === 0) {
-			// Daily collected in a day or less
-			// prettier-ignore
-			return msg.reply(`🕓 You must wait ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`
-			);
 		} else {
-			// prettier-ignore
-			return msg.reply(`🕓 You must wait ${waitDuration.hours()} hours and ${waitDuration.minutes()} minutes before collecting your daily ${rules.currencyPlural}.`);
+			// Daily collected in a day or less (recently)
+			return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${rules.currencyPlural}.`);
 		}
 	}
 };

@@ -80,7 +80,6 @@ module.exports = class ReferralCheckCommand extends Command {
 			message = 'You are currently an **inviter**.';
 		}
 
-		// prettier-ignore
 		winston.debug(`[COMMAND](REFFERAL-CHECK) ${msg.author.tag} has invited ${uses} people to this server.`);
 		if (message) {
 			return msg.reply(

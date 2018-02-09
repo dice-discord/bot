@@ -15,16 +15,15 @@ module.exports = class InfoCommand extends Command {
 			args: [
 				{
 					key: 'user',
-					// prettier-ignore
 					prompt: 'Who\'s profile do you want to look up?',
 					type: 'user',
-					default: '',
-				},
+					default: ''
+				}
 			],
 			throttling: {
 				usages: 2,
-				duration: 20,
-			},
+				duration: 20
+			}
 		});
 	}
 
@@ -49,21 +48,21 @@ module.exports = class InfoCommand extends Command {
 			embed: {
 				title: user.tag,
 				thumbnail: {
-					url: userProfilePicture,
+					url: userProfilePicture
 				},
 				fields: [
 					{
 						name: '💰 Total Profit',
 						value: `${diceAPI.simpleFormat(userBalance - startingBalance)} ${rules.currencyPlural}`,
-						inline: true,
+						inline: true
 					},
 					{
 						name: '🏦 Balance',
 						value: `${userBalance} ${rules.currencyPlural}`,
-						inline: true,
-					},
-				],
-			},
+						inline: true
+					}
+				]
+			}
 		});
 	}
 };

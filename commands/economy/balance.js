@@ -8,23 +8,21 @@ module.exports = class BalanceCommand extends Command {
 			name: 'balance',
 			group: 'economy',
 			memberName: 'balance',
-			// prettier-ignore
+
 			description: 'Check a user\'s balance',
 			aliases: ['bal', 'balance-check', 'bal-check', 'credits'],
 			examples: ['balance', 'balance @PizzaFox#0075'],
-			args: [
-				{
-					key: 'user',
-					// prettier-ignore
-					prompt: 'Who\'s balance do you want to check?',
-					type: 'user',
-					default: '',
-				},
-			],
+			args: [{
+				key: 'user',
+
+				prompt: 'Who\'s balance do you want to check?',
+				type: 'user',
+				default: ''
+			}],
 			throttling: {
 				usages: 2,
-				duration: 10,
-			},
+				duration: 10
+			}
 		});
 	}
 
@@ -34,7 +32,7 @@ module.exports = class BalanceCommand extends Command {
 
 		// Bot checking
 		if (user.bot && user.id !== rules.houseID) {
-			// prettier-ignore
+
 			return msg.reply('❌ Bots can\'t play.');
 		}
 
@@ -43,10 +41,10 @@ module.exports = class BalanceCommand extends Command {
 
 			// Someone else's balance
 			if (houseBalance < userBalance && user.id !== rules.houseID) {
-				// prettier-ignore
+
 				return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${this.client.user}!`);
 			} else {
-				// prettier-ignore
+
 				return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}.`);
 			}
 		} else {
@@ -54,7 +52,7 @@ module.exports = class BalanceCommand extends Command {
 
 			// We are looking up the message author's balance
 			if (houseBalance < userBalance && user.id !== rules.houseID) {
-				// prettier-ignore
+
 				return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${this.client.user}!`);
 			} else {
 				return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules.currencyPlural}.`);

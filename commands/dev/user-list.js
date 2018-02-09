@@ -15,9 +15,9 @@ module.exports = class UserListCommand extends Command {
 			examples: ['user-list'],
 			throttling: {
 				usages: 2,
-				duration: 30,
+				duration: 30
 			},
-			ownerOnly: true,
+			ownerOnly: true
 		});
 	}
 
@@ -28,13 +28,11 @@ module.exports = class UserListCommand extends Command {
 		msg.reply('About to start fetching users, this could take an extremely long time.');
 		for (let index = 0; index < database.length; index++) {
 			winston.debug(`[COMMAND](USER-LIST) Checking ID #${index + 1}. ${database[index].id}`);
-			// prettier-ignore
 			userList.push(`${await this.client.users.fetch(database[index].id).tag} (\`${database[index].id}\`)`);
 		}
 
 		winston.debug(`[COMMAND](USER-LIST) First item in userList: ${userList[0]}`);
 
-		// prettier-ignore
 		return msg.reply(`👤 ${userList.join('\n')}\n
 		${await diceAPI.totalUsers()} users in total. ${userList.length} users were listed.`, { split: true });
 	}

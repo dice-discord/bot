@@ -7,7 +7,7 @@ module.exports = class ResetDailyCommand extends Command {
 			name: 'reset-daily',
 			group: 'economy',
 			memberName: 'reset-daily',
-			// prettier-ignore
+
 			description: 'Reset a user\'s last claimed daily timestamp.',
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['reset-dailies', 'daily-reset', 'dailies-reset'],
@@ -15,17 +15,16 @@ module.exports = class ResetDailyCommand extends Command {
 			args: [
 				{
 					key: 'user',
-					// prettier-ignore
 					prompt: 'Who\'s wait time do you want to reset?',
 					type: 'user',
-					default: '',
-				},
+					default: ''
+				}
 			],
 			throttling: {
 				usages: 2,
-				duration: 30,
+				duration: 30
 			},
-			ownerOnly: true,
+			ownerOnly: true
 		});
 	}
 
@@ -34,7 +33,6 @@ module.exports = class ResetDailyCommand extends Command {
 
 		// Permission checking
 		if (user.bot === true) {
-			// prettier-ignore
 			return msg.reply('❌ You can\'t reset a bot\'s daily wait time.');
 		}
 

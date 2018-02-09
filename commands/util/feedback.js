@@ -14,9 +14,9 @@ module.exports = class feedback extends Command {
 				{
 					key: 'userFeedback',
 					prompt: 'What is your feedback you want to report?',
-					type: 'string',
-				},
-			],
+					type: 'string'
+				}
+			]
 		});
 	}
 
@@ -26,7 +26,6 @@ module.exports = class feedback extends Command {
 			userFeedback.toLowerCase().includes('help') ||
 			userFeedback.toLowerCase().includes('support')
 		) {
-			// prettier-ignore
 			msg.reply(`${message} If you need help with a problem use the \`support\` command.`);
 		} else {
 			msg.reply(message);
@@ -34,22 +33,23 @@ module.exports = class feedback extends Command {
 
 		winston.debug('[COMMAND](FEEDBACK) About to send RichEmbed');
 
-		const developer = this.client.users.resolve('210024244766179329');
 		// Pizza Fox#0075
+		const developer = this.client.users.resolve('210024244766179329');
+
 		return developer.send({
 			embed: {
 				author: {
 					name: msg.author.tag,
-					icon_url: msg.author.displayAvatarURL(128),
+					icon_url: msg.author.displayAvatarURL(128)
 				},
 				timestamp: new Date(msg.createdTimestamp),
 				fields: [
 					{
 						name: 'Message',
-						value: userFeedback,
-					},
-				],
-			},
+						value: userFeedback
+					}
+				]
+			}
 		});
 	}
 };

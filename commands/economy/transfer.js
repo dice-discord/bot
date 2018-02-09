@@ -17,42 +17,34 @@ module.exports = class TransferCommand extends Command {
 					prompt: 'How many dots do you want to transfer?',
 					type: 'float',
 					parse: amount => diceAPI.simpleFormat(amount),
+					min: rules.minWager
 				},
 				{
 					key: 'user',
 					prompt: 'Who do you want to transfer dots to?',
-					type: 'user',
-				},
+					type: 'user'
+				}
 			],
 			throttling: {
 				usages: 1,
-				duration: 30,
-			},
+				duration: 30
+			}
 		});
 	}
 
 	async run(msg, { user, amount }) {
 		// Amount checking
-		if (amount < rules.minWager) {
-			return msg.reply(
-				`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
-			);
-		} else if (amount > (await diceAPI.getBalance(msg.author.id))) {
-			// prettier-ignore
+		if (amount > (await diceAPI.getBalance(msg.author.id))) {
 			return msg.reply(`❌ You need to have at least \`${amount}\` ${rules.currencyPlural}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
-		} else if (isNaN(amount)) {
-			return msg.reply(`❌ \`${amount}\` is not a valid number.`);
 		}
 
 		// No sending money to yourself
 		if (msg.author.id === user.id) {
-			// prettier-ignore
 			return msg.reply('❌ You can\'t send money to yourself.');
 		}
 
 		// No sending money to bots
 		if (user.bot === true && user.id !== rules.houseID) {
-			// prettier-ignore
 			return msg.reply('❌ You can\'t send dots to bots.');
 		}
 
@@ -66,7 +58,7 @@ module.exports = class TransferCommand extends Command {
 		await diceAPI.increaseBalance(user.id, amount);
 
 		// Tell the sender
-		// prettier-ignore
+
 		return msg.reply(`📤 Transferred \`${amount}\` ${rules.currencyPlural} to <@${user.id}>. You now have a balance of \`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}.`);
 	}
 };
