@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const rules = require('../../rules');
 
 module.exports = class AccountAgeCommand extends Command {
 	constructor(client) {
@@ -6,13 +7,20 @@ module.exports = class AccountAgeCommand extends Command {
 			name: 'account-age',
 			group: 'util',
 			memberName: 'account-age',
-			description: 'Check when your account was created',
+			description: 'Check when an account was created',
 			aliases: ['age', 'account-created'],
-			examples: ['accountage'],
+			examples: ['account-age', `account-age <@${rules.houseID}>`],
+			args: [{
+				key: 'user',
+				prompt: 'Who do you want to check?',
+				type: 'user',
+				default: ''
+			}],
 		});
 	}
 
-	run(msg) {
-		return msg.reply(`⏰ \`${msg.author.createdAt}\``);
+	run(msg, { user }) {
+		const target = user || msg.author;
+		return msg.reply(`⏰ \`${target.createdAt}\``);
 	}
 };
