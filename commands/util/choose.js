@@ -28,6 +28,6 @@ module.exports = class ChooseCommand extends Command {
 		const randomNumber = Math.floor(Math.random() * (options.length - 0) + 0);
 		
 
-		return msg.reply(`I choose #${randomNumber}, ${options[randomNumber].}`);
+		return msg.reply(`I choose #${randomNumber}, ${options[randomNumber]}.`);
 	}
 };
