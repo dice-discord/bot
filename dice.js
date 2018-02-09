@@ -173,7 +173,7 @@ client
 		winston.verbose(`[DICE] Dice version v${packageData.version}`);
 
 		// Set game presence to the help command once loaded
-		client.user.setActivity('for @Dice help', {
+		client.user.setActivity('for @Dice help or $$help', {
 			type: 'WATCHING',
 		});
 
