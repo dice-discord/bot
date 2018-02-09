@@ -9,11 +9,11 @@ module.exports = class SupportCommand extends Command {
 			memberName: 'support',
 			description: `An invite to the <@${rules.houseID}> server`,
 			aliases: ['home', 'report', 'bug'],
-			examples: ['support'],
+			examples: ['support']
 		});
 	}
 
 	run(msg) {
-		msg.reply('👋 https://discord.gg/NpUmRkj');
+		msg.reply('👋 Please talk to <@210024244766179329> on https://discord.gg/NpUmRkj');
 	}
 };
