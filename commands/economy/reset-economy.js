@@ -14,9 +14,9 @@ module.exports = class ResetEconomyCommand extends Command {
 			examples: ['reset-economy'],
 			throttling: {
 				usages: 2,
-				duration: 30,
+				duration: 30
 			},
-			ownerOnly: true,
+			ownerOnly: true
 		});
 	}
 
@@ -25,23 +25,23 @@ module.exports = class ResetEconomyCommand extends Command {
 		msg.reply(`⚠ **Are you absolutely sure you want to destroy all user profiles?** ⚠\n
 		To proceed, enter \`${randomNumber}\`.\n
 		The command will automatically be cancelled in 30 seconds.`).then(() => {
-				const filter = m => msg.author.id === m.author.id;
+			const filter = m => msg.author.id === m.author.id;
 
-				msg.channel.awaitMessages(filter, { time: 30000, maxMatches: 1, errors: ['time'] })
-					.then(messages => {
-						if (messages.first().content.includes(randomNumber)) {
-							winston.info(`[COMMAND](DAILY) Verification passed (collected message: ${messages.first().content}, wiping database.`);
-							// Start resetting the economy
-							msg.reply('💣 Resetting the economy.');
-							diceAPI.resetEconomy().then(() => {
-								// Once the promise is fulfilled (when it's finished) respond to the user that it's done
-								return msg.reply('🔥 Finished resetting the economy.');
-							});
-						}
-					})
-					.catch(() => {
-						return msg.reply('Cancelled command.');
-					});
-			});
+			msg.channel.awaitMessages(filter, { time: 30000, maxMatches: 1, errors: ['time'] })
+				.then(messages => {
+					if (messages.first().content.includes(randomNumber)) {
+						winston.info(`[COMMAND](DAILY) Verification passed (collected message: ${messages.first().content}, wiping database.`);
+						// Start resetting the economy
+						msg.reply('💣 Resetting the economy.');
+						diceAPI.resetEconomy().then(() => {
+							// Once the promise is fulfilled (when it's finished) respond to the user that it's done
+							return msg.reply('🔥 Finished resetting the economy.');
+						});
+					}
+				})
+				.catch(() => {
+					return msg.reply('Cancelled command.');
+				});
+		});
 	}
-}
+};
