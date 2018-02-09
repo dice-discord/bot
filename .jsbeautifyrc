@@ -1,4 +1,5 @@
 {
 	"indent_with_tabs": true,
-	"brace_style": "collapse,preserve-inline"
+	"brace_style": "collapse,preserve-inline",
+	"end_with_newline": true
 }
