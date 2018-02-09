@@ -52,7 +52,43 @@ client.setProvider(
 );
 
 // Handle promise rejections
-process.on('unhandledRejection', error => winston.error(`Uncaught Promise Rejection:\n${error}`));
+process
+	.on('unhandledRejection', error => {
+		winston.error(`Uncaught Promise Rejection:\n${error}`);
+		client.channels.get('411563928816975883').send({ embed: {
+			title: 'Unhandled Promise Rejection',
+			timestamp: new Date(),
+			color: 0xf44336,
+			description: `\`\`\`${error}\`\`\``
+		}});
+	})
+	.on('rejectionHandled', error => {
+		winston.error(`Handled Promise Rejection:\n${error}`);
+		client.channels.get('411563928816975883').send({ embed: {
+			title: 'Handled Promise Rejection',
+			timestamp: new Date(),
+			color: 0xf44336,
+			description: `\`\`\`${error}\`\`\``
+		}});
+	})
+	.on('uncaughtException', error => {
+		winston.error(`Uncaught Exception:\n${error}`);
+		client.channels.get('411563928816975883').send({ embed: {
+			title: 'Uncaught Exception',
+			timestamp: new Date(),
+			color: 0xf44336,
+			description: `\`\`\`${error}\`\`\``
+		}});
+	})
+	.on('warning', warning => {
+		winston.warn(warning);
+		client.channels.get('411563928816975883').send({ embed: {
+			title: 'Warning',
+			timestamp: new Date(),
+			color: 0xff9800,
+			description: `\`\`\`${warning}\`\`\``
+		}});
+	});
 
 // Update server counter on bot listings
 
