@@ -38,13 +38,6 @@
     "devDependencies": {
         "eslint": "^4.13.1",
         "eslint-config-standard": "^10.2.1",
-        "eslint-plugin-async": "^0.1.1",
-        "eslint-plugin-async-await": "0.0.0",
-        "eslint-plugin-import": "^2.7.0",
-        "eslint-plugin-node": "^5.1.1",
-        "eslint-plugin-prettier": "^2.4.0",
-        "eslint-plugin-promise": "^3.5.0",
-        "eslint-plugin-standard": "^3.0.1",
-        "prettier": "^1.10.2"
+        "eslint-plugin-standard": "^3.0.1"
     }
 }
