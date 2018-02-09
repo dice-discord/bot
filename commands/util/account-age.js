@@ -22,6 +22,6 @@ module.exports = class AccountAgeCommand extends Command {
 
 	run(msg, { user }) {
 		const target = user || msg.author;
-		return msg.reply(`⏰ ${moment().duration(target.createdAt).humanize()} (created on ${target.createdAt})`);
+		return msg.reply(`⏰ ${moment.duration(msg.createdAt - target.createdAt).humanize()} (created on ${target.createdAt})`);
 	}
 };
