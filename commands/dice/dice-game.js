@@ -41,10 +41,8 @@ module.exports = class DiceGameCommand extends Command {
 
 		// Wager checking
 		if (wager > authorBalance) {
-
 			return msg.reply(`❌ You are missing \`${wager - authorBalance}\` ${rules.currencyPlural}. Your balance is \`${authorBalance}\` ${rules.currencyPlural}.`);
 		} else if (wager * multiplier - wager > (await diceAPI.getBalance(rules.houseID))) {
-
 			return msg.reply('❌ I couldn\'t pay your winnings if you won.');
 		}
 
