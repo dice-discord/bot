@@ -89,6 +89,6 @@ module.exports = class SimulateGameCommand extends Command {
 			embed.setDescription(`Your profit would have been \`${diceAPI.simpleFormat(wager * multiplier - wager)}\` ${rules.currencyPlural}!`);
 		}
 
-		msg.say(embed);
+		msg.replyEmbed(embed);
 	}
 };

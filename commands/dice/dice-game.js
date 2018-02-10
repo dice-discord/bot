@@ -107,6 +107,6 @@ module.exports = class DiceGameCommand extends Command {
 		}
 
 
-		msg.say(embed);
+		msg.replyEmbed(embed);
 	}
 };

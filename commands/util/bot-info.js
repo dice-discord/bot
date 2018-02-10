@@ -17,7 +17,7 @@ module.exports = class BotInfoCommand extends Command {
 	}
 
 	run(msg) {
-		return msg.reply({
+		return msg.replyEmbed({
 			embed: {
 				title: 'Dice',
 				color: 0x4caf50,
