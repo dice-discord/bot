@@ -40,7 +40,7 @@ module.exports = class SimulateGameCommand extends Command {
 				}
 			],
 			throttling: {
-				usages: 1,
+				usages: 2,
 				duration: 1
 			}
 		});
