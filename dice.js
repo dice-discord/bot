@@ -294,12 +294,12 @@ client
 		/* Protecting bot token */
 	})
 	.on('unknownCommand', commandMessage => {
-		const permissions = commandMessage.guild.me.permissionsIn(commandMessage.channel);
-		// Unknown command triggered
-		if (permissions.has('ADD_REACTIONS') && permissions.has('USE_EXTERNAL_EMOJIS')) {
+		if (commandMessage.channel.type !== 'text') {
+			commandMessage.react(client.emojis.get('406965554738495488'));
+		} else if (commandMessage.guild.me.permissionsIn(commandMessage.channel).has('ADD_REACTIONS') && commandMessage.guild.me.permissionsIn(commandMessage.channel).has('USE_EXTERNAL_EMOJIS')) {
 			// Can react using the preferred emoji
 			commandMessage.react(client.emojis.get('406965554738495488'));
-		} else if (permissions.has('ADD_REACTIONS')) {
+		} else if (commandMessage.guild.me.permissionsIn(commandMessage.channel).has('ADD_REACTIONS')) {
 			// Can react with a regular emoji
 			commandMessage.react('❌');
 		}
