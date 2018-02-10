@@ -22,11 +22,12 @@
     },
     "dependencies": {
         "async": "^2.5.0",
+        "commando-provider-mongo": "^1.1.1",
+        "dblposter": "^1.0.3",
         "discord.js": "discordjs/discord.js",
         "discord.js-commando": "discordjs/Commando",
         "moment": "^2.20.1",
         "mongodb": "^3.0.0-rc0",
-        "commando-provider-mongo": "^1.1.1",
         "path": "^0.12.7",
         "replaceall": "^0.1.6",
         "request": "^2.83.0",

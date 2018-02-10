@@ -281,6 +281,12 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+dblposter@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/dblposter/-/dblposter-1.0.3.tgz#838dd5c4d70e8a4e0657b96e414fff5412452b79"
+  dependencies:
+    snekfetch "^3.6.1"
+
 debug@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
@@ -1035,7 +1041,7 @@ slice-ansi@1.0.0:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
 
-snekfetch@^3.5.0:
+snekfetch@^3.5.0, snekfetch@^3.6.1:
   version "3.6.4"
   resolved "https://registry.yarnpkg.com/snekfetch/-/snekfetch-3.6.4.tgz#d13e80a616d892f3d38daae4289f4d258a645120"
 
