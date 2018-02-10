@@ -15,7 +15,7 @@ module.exports = class DiceGameCommand extends Command {
 			examples: ['dice 250 4'],
 			args: [{
 				key: 'wager',
-				prompt: 'How much do you want to wager?',
+				prompt: 'How much do you want to wager? (whole number)',
 				type: 'integer',
 				min: rules.minWager
 			},
