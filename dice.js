@@ -292,8 +292,15 @@ client
 		/* Protecting bot token */
 	})
 	.on('unknownCommand', commandMessage => {
+		const permissions = commandMessage.guild.me.permissionsIn(commandMessage.channel);
 		// Unknown command triggered
-		commandMessage.message.react(client.emojis.get('406965554738495488'));
+		if (permissions.has('ADD_REACTIONS') && permissions.has('USE_EXTERNAL_EMOJIS')) {
+			// Can react using the preferred emoji
+			commandMessage.react(client.emojis.get('406965554738495488'));
+		} else if (permissions.has('ADD_REACTIONS')) {
+			// Can react with a regular emoji
+			commandMessage.react('❌');
+		}
 	});
 
 // Log in the bot
