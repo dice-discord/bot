@@ -1,3 +1,5 @@
+// Copyright Jonah Snider 2018
+
 const rules = require('../../rules');
 const diceAPI = require('../../diceAPI');
 const { Command } = require('discord.js-commando');
@@ -21,8 +23,8 @@ module.exports = class CalculatorCommand extends Command {
 					parse: multiplierString => diceAPI.simpleFormat(multiplierString),
 					min: rules.minMultiplier,
 					max: rules.maxMultiplier
-				},
-			],
+				}
+			]
 		});
 	}
 

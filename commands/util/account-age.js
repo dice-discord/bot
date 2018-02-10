@@ -1,3 +1,5 @@
+// Copyright Jonah Snider 2018
+
 const moment = require('moment');
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
@@ -16,7 +18,7 @@ module.exports = class AccountAgeCommand extends Command {
 				prompt: 'Who do you want to check?',
 				type: 'user',
 				default: ''
-			}],
+			}]
 		});
 	}
 

@@ -1,3 +1,5 @@
+// Copyright Jonah Snider 2018
+
 const moment = require('moment');
 const { Command } = require('discord.js-commando');
 
@@ -10,7 +12,7 @@ module.exports = class ErrorCommand extends Command {
 			description: 'Throws an error',
 			aliases: ['err'],
 			examples: ['error', 'err'],
-            ownerOnly: true
+			ownerOnly: true
 		});
 	}
 

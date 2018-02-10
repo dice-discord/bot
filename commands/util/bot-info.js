@@ -1,3 +1,5 @@
+// Copyright Jonah Snider 2018
+
 const moment = require('moment');
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');

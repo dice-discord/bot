@@ -1,3 +1,5 @@
+// Copyright Jonah Snider 2018
+
 const packageData = require('../../package');
 const rules = require('../../rules');
 const { Command } = require('discord.js-commando');

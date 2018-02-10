@@ -1,3 +1,4 @@
+// Copyright Jonah Snider 2018
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const rules = require('../../rules');

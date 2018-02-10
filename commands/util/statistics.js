@@ -1,3 +1,5 @@
+// Copyright Jonah Snider 2018
+
 const { Command } = require('discord.js-commando');
 const diceAPI = require('../../diceAPI');
 const rules = require('../../rules');
@@ -13,8 +15,8 @@ module.exports = class StatisticsCommand extends Command {
 			examples: ['statistics'],
 			throttling: {
 				usages: 2,
-				duration: 20,
-			},
+				duration: 20
+			}
 		});
 	}
 
@@ -26,14 +28,14 @@ module.exports = class StatisticsCommand extends Command {
 					{
 						name: '👤 Total Number of Users',
 						// Subtract one because of the Dice bot
-						value: `${(await diceAPI.totalUsers()) - 1} users`,
+						value: `${(await diceAPI.totalUsers()) - 1} users`
 					},
 					{
 						name: '👥 Total Number of Servers',
-						value: `${this.client.guilds.size} servers`,
-					},
-				],
-			},
+						value: `${this.client.guilds.size} servers`
+					}
+				]
+			}
 		});
 	}
 };

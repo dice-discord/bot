@@ -1,3 +1,5 @@
+// Copyright Jonah Snider 2018
+
 const rules = require('./rules');
 const mongodb = require('mongodb');
 const winston = require('winston');
