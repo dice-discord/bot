@@ -5,15 +5,15 @@ const winston = require('winston');
 const rules = require('../../rules');
 const diceAPI = require('../../diceAPI');
 
-module.exports = class InfoCommand extends Command {
+module.exports = class InformationCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'info',
+			name: 'information',
 			group: 'util',
-			memberName: 'info',
+			memberName: 'information',
 			description: 'Get information on a user',
-			aliases: ['user-info', 'user-profile', 'profile'],
-			examples: ['info', 'info PizzaFox'],
+			aliases: ['user-info', 'user-profile', 'profile', 'info', 'user-information'],
+			examples: ['info', 'information PizzaFox'],
 			args: [
 				{
 					key: 'user',
@@ -31,6 +31,12 @@ module.exports = class InfoCommand extends Command {
 
 	async run(msg, { user }) {
 		user = user || msg.author;
+
+		// Make sure the target user isn't a bot (excluding the client)
+		if (user.bot && user.id !== rules.houseID) {
+			return msg.reply('❌ Bots can\'t play.');
+		}
+
 		const userBalance = await diceAPI.getBalance(user.id);
 		const userProfilePicture = user.displayAvatarURL(128);
 		let startingBalance;
@@ -38,8 +44,6 @@ module.exports = class InfoCommand extends Command {
 		// Determine what the starting balance is for the requested user
 		if (user.id === rules.houseID) {
 			startingBalance = rules.houseStartingBalance;
-		} else if (user.bot && user.id !== rules.houseID) {
-			return msg.reply('❌ Bots can\'t play.');
 		} else {
 			startingBalance = rules.newUserBalance;
 		}
