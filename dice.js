@@ -195,11 +195,13 @@ client
 			type: 'WATCHING'
 		});
 
-		// Create new instance of Discord Bot List POST requester
-		const dblPoster = new dbl(process.env.DISCORDBOTSORG_TOKEN);
-		// Connect the instance with the client
-		dblPoster.bind(client);
-		updateServerCount(client.guilds.size);
+		if (client.user.id === '388191157869477888') {
+			// Create new instance of Discord Bot List POST requester
+			const dblPoster = new dbl(process.env.DISCORDBOTSORG_TOKEN);
+			// Connect the instance with the client
+			dblPoster.bind(client);
+			updateServerCount(client.guilds.size);
+		}
 	})
 	.on('guildCreate', () => {
 		// Bot joins a new server
