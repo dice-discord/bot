@@ -1,7 +1,7 @@
 # Dice
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c687f0ddd3a341d69108257b0ccfd60e)](https://www.codacy.com/app/PizzaFox/dice?utm_source=github.com&utm_medium=referral&utm_content=PizzaFox/dice&utm_campaign=badger)
-![Status](https://discordbots.org/api/widget/status/388191157869477888.png) [![Maintainability](https://api.codeclimate.com/v1/badges/9878732c3d7b784ddaa1/maintainability)](https://codeclimate.com/github/PizzaFox/dice/maintainability)
+![Status](https://discordbots.org/api/widget/status/388191157869477888.png)
 
 A simple game. You have a wager and a multiplier. Higher risk, higher rewards.
 
