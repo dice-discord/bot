@@ -6,6 +6,7 @@ const path = require('path');
 const replaceall = require('replaceall');
 const { MongoClient } = require('mongodb');
 const MongoDBProvider = require('commando-provider-mongo');
+const dbl = require('dblposter');
 const winston = require('winston');
 winston.level = 'debug';
 const packageData = require('./package');
@@ -55,66 +56,50 @@ client.setProvider(
 process
 	.on('unhandledRejection', error => {
 		winston.error(`Uncaught Promise Rejection:\n${error}`);
-		client.channels.get('411563928816975883').send({ embed: {
-			title: 'Unhandled Promise Rejection',
-			timestamp: new Date(),
-			color: 0xf44336,
-			description: `\`\`\`${error}\`\`\``
-		}});
+		client.channels.get('411563928816975883').send({
+			embed: {
+				title: 'Unhandled Promise Rejection',
+				timestamp: new Date(),
+				color: 0xf44336,
+				description: `\`\`\`${error}\`\`\``
+			}
+		});
 	})
 	.on('rejectionHandled', error => {
 		winston.error(`Handled Promise Rejection:\n${error}`);
-		client.channels.get('411563928816975883').send({ embed: {
-			title: 'Handled Promise Rejection',
-			timestamp: new Date(),
-			color: 0xf44336,
-			description: `\`\`\`${error}\`\`\``
-		}});
+		client.channels.get('411563928816975883').send({
+			embed: {
+				title: 'Handled Promise Rejection',
+				timestamp: new Date(),
+				color: 0xf44336,
+				description: `\`\`\`${error}\`\`\``
+			}
+		});
 	})
 	.on('uncaughtException', error => {
 		winston.error(`Uncaught Exception:\n${error}`);
-		client.channels.get('411563928816975883').send({ embed: {
-			title: 'Uncaught Exception',
-			timestamp: new Date(),
-			color: 0xf44336,
-			description: `\`\`\`${error}\`\`\``
-		}});
+		client.channels.get('411563928816975883').send({
+			embed: {
+				title: 'Uncaught Exception',
+				timestamp: new Date(),
+				color: 0xf44336,
+				description: `\`\`\`${error}\`\`\``
+			}
+		});
 	})
 	.on('warning', warning => {
 		winston.warn(warning);
-		client.channels.get('411563928816975883').send({ embed: {
-			title: 'Warning',
-			timestamp: new Date(),
-			color: 0xff9800,
-			description: `\`\`\`${warning}\`\`\``
-		}});
+		client.channels.get('411563928816975883').send({
+			embed: {
+				title: 'Warning',
+				timestamp: new Date(),
+				color: 0xff9800,
+				description: `\`\`\`${warning}\`\`\``
+			}
+		});
 	});
 
 // Update server counter on bot listings
-
-// Discordbots.org
-const sendDiscordBotsORGServerCount = serverData => {
-	const options = {
-		method: 'POST',
-		url: 'https://discordbots.org/api/bots/388191157869477888/stats',
-		headers: {
-			'cache-control': 'no-cache',
-			authorization: process.env.DISCORDBOTSORG_TOKEN
-		},
-		body: {
-			server_count: serverData
-		},
-		json: true
-	};
-
-	winston.debug(`[DICE] discordbots.org token: ${process.env.DISCORDBOTSORG_TOKEN}`);
-	request(options, (err, httpResponse, body) => {
-		if (err) return winston.error(`[DICE] ${err}`);
-		if (body) {
-			winston.debug('[DICE] DiscordBots.org results', body);
-		}
-	});
-};
 
 // Bots.discord.pw
 const sendBotsDiscordPWServerCount = serverData => {
@@ -143,30 +128,28 @@ const sendBotsDiscordPWServerCount = serverData => {
 // Bots.discordlist.net
 const sendDiscordlistServerCount = serverData => {
 	winston.debug(`[DICE] bots.discordlist.net token: ${process.env.DISCORDLIST_TOKEN}`);
-	request(
-		{
-			url: 'https://bots.discordlist.net/api',
-			method: 'POST',
-			json: true,
-			body: {
-				servers: serverData,
-				token: process.env.DISCORDLIST_TOKEN
-			}
-		},
-		(err, httpResponse, body) => {
-			if (err) return winston.error(`[DICE] ${err}`);
-			if (body) {
-				winston.debug('[DICE] Discordlist results', body);
-			}
+	request({
+		url: 'https://bots.discordlist.net/api',
+		method: 'POST',
+		json: true,
+		body: {
+			servers: serverData,
+			token: process.env.DISCORDLIST_TOKEN
 		}
+	},
+	(err, httpResponse, body) => {
+		if (err) return winston.error(`[DICE] ${err}`);
+		if (body) {
+			winston.debug('[DICE] Discordlist results', body);
+		}
+	}
 	);
 };
 
-// Run all three at once
+// Run both at once
 const updateServerCount = serverData => {
 	if (client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
-		sendDiscordBotsORGServerCount(serverData);
 		sendBotsDiscordPWServerCount(serverData);
 		sendDiscordlistServerCount(serverData);
 	}
@@ -188,15 +171,14 @@ const announceServerCount = async (serverCount, newServer) => {
 		embed: {
 			timestamp: new Date(),
 			color: changeTypeColor,
-			fields: [
-				{
-					name: 'Server Count',
-					value: `\`${serverCount}\` servers`
-				},
-				{
-					name: 'User Count',
-					value: `\`${(await diceAPI.totalUsers()) - 1}\` users`
-				}
+			fields: [{
+				name: 'Server Count',
+				value: `\`${serverCount}\` servers`
+			},
+			{
+				name: 'User Count',
+				value: `\`${(await diceAPI.totalUsers()) - 1}\` users`
+			}
 			]
 		}
 	});
@@ -213,6 +195,10 @@ client
 			type: 'WATCHING'
 		});
 
+		// Create new instance of Discord Bot List POST requester
+		const dblPoster = new dbl(process.env.DISCORDBOTSORG_TOKEN);
+		// Connect the instance with the client
+		dblPoster.bind(client);
 		updateServerCount(client.guilds.size);
 	})
 	.on('guildCreate', () => {
@@ -240,12 +226,10 @@ client
 						name: `${member.user.tag} (${member.user.id})`,
 						icon_url: member.user.displayAvatarURL(128)
 					},
-					fields: [
-						{
-							name: '#⃣ Number of Server Members',
-							value: `\`${guild.members.size}\` members`
-						}
-					]
+					fields: [{
+						name: '#⃣ Number of Server Members',
+						value: `\`${guild.members.size}\` members`
+					}]
 				}
 			});
 		}
@@ -260,19 +244,18 @@ client
 					icon_url: message.author.displayAvatarURL(128)
 				},
 				timestamp: new Date(message.createdTimestamp),
-				fields: [
-					{
-						name: '📝 Message',
-						value: message.content
-					},
-					{
-						name: '🏦 User Balance',
-						value: `\`${await diceAPI.getBalance(message.author.id)}\` ${rules.currencyPlural}`
-					},
-					{
-						name: `🏦 ${client.user.username} Balance`,
-						value: `\`${await diceAPI.getBalance(client.user.id)}\` ${rules.currencyPlural}`
-					}
+				fields: [{
+					name: '📝 Message',
+					value: message.content
+				},
+				{
+					name: '🏦 User Balance',
+					value: `\`${await diceAPI.getBalance(message.author.id)}\` ${rules.currencyPlural}`
+				},
+				{
+					name: `🏦 ${client.user.username} Balance`,
+					value: `\`${await diceAPI.getBalance(client.user.id)}\` ${rules.currencyPlural}`
+				}
 				]
 			}
 		});
