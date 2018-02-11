@@ -7,7 +7,7 @@ module.exports = class ErrorCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'error',
-			group: 'util',
+			group: 'dev',
 			memberName: 'error',
 			description: 'Throws an error',
 			aliases: ['err'],

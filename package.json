@@ -1,7 +1,7 @@
 {
     "name": "dice",
     "description": "A simple game. You have a wager and a multiplier. Higher risk, higher rewards.",
-    "version": "1.8.10",
+    "version": "1.8.11",
     "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
     "keywords": [
         "discord",
