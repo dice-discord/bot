@@ -22,18 +22,19 @@ module.exports = class DatabasePingCommand extends Command {
 	}
 
 	async run(msg) {
-		if (!msg.editable) {
-			await diceAPI.getBalance(msg.author.id);
-			const pingMsg = await msg.reply('Pinging...');
-			return pingMsg.edit(`
-				${msg.channel.type !== 'dm' ? `${msg.author},` : ''} Pong! The message round-trip took ${pingMsg.createdTimestamp - msg.createdTimestamp}ms. ${this.client.ping ? `The heartbeat ping is ${Math.round(this.client.ping)}ms.` : ''}
-			`);
-		} else {
-			await diceAPI.getBalance(msg.author.id);
-			await msg.edit('Pinging...');
-			return msg.edit(
-				`Pong! The message round-trip took ${msg.editedTimestamp - msg.createdTimestamp}ms. ${this.client.ping ? `The heartbeat ping is ${Math.round(this.client.ping)}ms.` : ''}
-			`);
+		try {
+			msg.channel.startTyping();
+			if (!msg.editable) {
+				await diceAPI.getBalance(msg.author.id);
+				const pingMsg = await msg.reply('Pinging...');
+				return pingMsg.edit(`${msg.channel.type !== 'dm' ? `${msg.author},` : ''} Pong! The message round-trip took ${pingMsg.createdTimestamp - msg.createdTimestamp}ms. ${this.client.ping ? `The heartbeat ping is ${Math.round(this.client.ping)}ms.` : ''}`);
+			} else {
+				await diceAPI.getBalance(msg.author.id);
+				await msg.edit('Pinging...');
+				return msg.edit(`Pong! The message round-trip took ${msg.editedTimestamp - msg.createdTimestamp}ms. ${this.client.ping ? `The heartbeat ping is ${Math.round(this.client.ping)}ms.` : ''}`);
+			}
+		} finally {
+			msg.channel.stopTyping();
 		}
 	}
 };

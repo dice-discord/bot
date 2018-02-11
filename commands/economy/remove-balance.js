@@ -46,14 +46,14 @@ module.exports = class RemoveBalanceCommand extends Command {
 		});
 	}
 
-	run(msg, { user, amount }) {
+	async run(msg, { user, amount }) {
 		// Permission checking
 		if (user.bot === true && user.id !== rules.houseID) {
 			return msg.reply('❌ You can\'t remove dots from bots.');
 		}
 
 		// Remove dots from user
-		diceAPI.decreaseBalance(user.id, amount);
+		await diceAPI.decreaseBalance(user.id, amount);
 
 		// Tell the author
 		return msg.reply(

@@ -30,28 +30,34 @@ module.exports = class CashOutCommand extends Command {
 	}
 
 	async run(msg, { amount }) {
-		const beforeTransferHouseBalance = await diceAPI.getBalance(rules.houseID);
+		try {
+			msg.channel.startTyping();
 
-		// Amount checking
-		if (amount < rules.minWager) {
-			return msg.reply(
-				`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
-			);
-		} else if (amount > beforeTransferHouseBalance) {
+			const beforeTransferHouseBalance = await diceAPI.getBalance(rules.houseID);
 
-			return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. ${this.client.user} doesn't have that much.`);
+			// Amount checking
+			if (amount < rules.minWager) {
+				return msg.reply(
+					`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
+				);
+			} else if (amount > beforeTransferHouseBalance) {
+
+				return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. ${this.client.user} doesn't have that much.`);
+			}
+
+			// Round to whole number
+			amount = Math.round(amount);
+
+			// Remove dots from the house
+			diceAPI.decreaseBalance(rules.houseID, amount);
+
+			// Add dots to author
+			diceAPI.increaseBalance(msg.author.id, amount);
+
+			// Tell the sender
+			return msg.reply(`📤 Cashed out \`${amount}\` ${rules.currencyPlural} to your account.`);
+		} finally {
+			msg.channel.stopTyping();
 		}
-
-		// Round to whole number
-		amount = Math.round(amount);
-
-		// Remove dots from the house
-		diceAPI.decreaseBalance(rules.houseID, amount);
-
-		// Add dots to author
-		diceAPI.increaseBalance(msg.author.id, amount);
-
-		// Tell the sender
-		return msg.reply(`📤 Cashed out \`${amount}\` ${rules.currencyPlural} to your account.`);
 	}
 };

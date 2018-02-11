@@ -36,23 +36,26 @@ module.exports = class AddBalanceCommand extends Command {
 		});
 	}
 
-	run(msg, { user, amount }) {
-		// Permission checking
-		if (user.bot === true && user.id !== rules.houseID) {
+	async run(msg, { user, amount }) {
+		try {
+			msg.channel.startTyping();
+			// Permission checking
+			if (user.bot === true && user.id !== rules.houseID) {
+				return msg.reply('❌ You can\'t add dots to bots.');
+			}
 
-			return msg.reply('❌ You can\'t add dots to bots.');
+			// Amount checking
+			if (amount < rules.minWager) {
+				return msg.reply(`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencySingular}.`);
+			}
+
+			// Add dots to user
+			await diceAPI.increaseBalance(user.id, amount);
+
+			// Tell the author
+			return msg.reply(`📥 Added \`${amount}\` ${rules.currencyPlural} to <@${user.id}>'s account.`);
+		} finally {
+			msg.channel.stopTyping();
 		}
-
-		// Amount checking
-		if (amount < rules.minWager) {
-
-			return msg.reply(`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencySingular}.`);
-		}
-
-		// Add dots to user
-		diceAPI.increaseBalance(user.id, amount);
-
-		// Tell the author
-		return msg.reply(`📥 Added \`${amount}\` ${rules.currencyPlural} to <@${user.id}>'s account.`);
 	}
 };

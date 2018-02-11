@@ -35,32 +35,38 @@ module.exports = class TransferCommand extends Command {
 	}
 
 	async run(msg, { user, amount }) {
-		// Amount checking
-		if (amount > (await diceAPI.getBalance(msg.author.id))) {
-			return msg.reply(`❌ You need to have at least \`${amount}\` ${rules.currencyPlural}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
+		try {
+			msg.channel.startTyping();
+
+			// Amount checking
+			if (amount > (await diceAPI.getBalance(msg.author.id))) {
+				return msg.reply(`❌ You need to have at least \`${amount}\` ${rules.currencyPlural}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
+			}
+
+			// No sending money to yourself
+			if (msg.author.id === user.id) {
+				return msg.reply('❌ You can\'t send money to yourself.');
+			}
+
+			// No sending money to bots
+			if (user.bot === true && user.id !== rules.houseID) {
+				return msg.reply('❌ You can\'t send dots to bots.');
+			}
+
+			// Format
+			amount = diceAPI.simpleFormat(amount);
+
+			// Remove dots from sender
+			await diceAPI.decreaseBalance(msg.author.id, amount);
+
+			// Add dots to receiver
+			await diceAPI.increaseBalance(user.id, amount);
+
+			// Tell the sender
+
+			return msg.reply(`📤 Transferred \`${amount}\` ${rules.currencyPlural} to <@${user.id}>. You now have a balance of \`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}.`);
+		} finally {
+			msg.channel.stopTyping();
 		}
-
-		// No sending money to yourself
-		if (msg.author.id === user.id) {
-			return msg.reply('❌ You can\'t send money to yourself.');
-		}
-
-		// No sending money to bots
-		if (user.bot === true && user.id !== rules.houseID) {
-			return msg.reply('❌ You can\'t send dots to bots.');
-		}
-
-		// Format
-		amount = diceAPI.simpleFormat(amount);
-
-		// Remove dots from sender
-		await diceAPI.decreaseBalance(msg.author.id, amount);
-
-		// Add dots to receiver
-		await diceAPI.increaseBalance(user.id, amount);
-
-		// Tell the sender
-
-		return msg.reply(`📤 Transferred \`${amount}\` ${rules.currencyPlural} to <@${user.id}>. You now have a balance of \`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}.`);
 	}
 };

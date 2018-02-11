@@ -21,8 +21,10 @@ module.exports = class StatisticsCommand extends Command {
 	}
 
 	async run(msg) {
-		return msg.say({
-			embed: {
+		try {
+			msg.channel.startTyping();
+
+			return msg.replyEmbed({
 				title: 'Dice Statistics',
 				fields: [
 					{
@@ -35,7 +37,10 @@ module.exports = class StatisticsCommand extends Command {
 						value: `${this.client.guilds.size} servers`
 					}
 				]
-			}
-		});
+			});
+		} finally {
+			msg.channel.stopTyping();
+		}
+
 	}
 };

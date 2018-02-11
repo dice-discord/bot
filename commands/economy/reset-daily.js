@@ -31,16 +31,22 @@ module.exports = class ResetDailyCommand extends Command {
 	}
 
 	async run(msg, { user }) {
-		user = user || msg.author;
+		try {
+			msg.channel.startTyping();
 
-		// Permission checking
-		if (user.bot === true) {
-			return msg.reply('❌ You can\'t reset a bot\'s daily wait time.');
+			user = user || msg.author;
+
+			// Permission checking
+			if (user.bot === true) {
+				return msg.reply('❌ You can\'t reset a bot\'s daily wait time.');
+			}
+
+			await diceAPI.setDailyUsed(user.id, false);
+
+			// Tell the author
+			return msg.reply(`🕓 Reset ${user}'s wait time.`);
+		} finally {
+			msg.channel.stopTyping();
 		}
-
-		await diceAPI.setDailyUsed(user.id, false);
-
-		// Tell the author
-		return msg.reply(`🕓 Reset ${user}'s wait time.`);
 	}
 };

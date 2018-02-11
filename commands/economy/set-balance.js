@@ -10,7 +10,6 @@ module.exports = class SetBalanceCommand extends Command {
 			name: 'set-balance',
 			group: 'economy',
 			memberName: 'set-balance',
-
 			description: 'Set a user\'s balance',
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['set', 'set-bal', 'set-balance'],
@@ -21,7 +20,7 @@ module.exports = class SetBalanceCommand extends Command {
 					prompt: 'What do you want the new balance to be?',
 					type: 'float',
 					parse: amount => diceAPI.simpleFormat(amount),
-					min: rules.minWager
+					min: 0
 				},
 				{
 					key: 'user',
@@ -37,16 +36,21 @@ module.exports = class SetBalanceCommand extends Command {
 		});
 	}
 
-	run(msg, { user, amount }) {
-		// Permission checking
-		if (user.bot === true && user.id !== rules.houseID) {
-			return msg.reply('❌ You can\'t add dots to bots.');
+	async run(msg, { user, amount }) {
+		try {
+			msg.channel.startTyping();
+			// Permission checking
+			if (user.bot === true && user.id !== this.client.user.id) {
+				return msg.reply('❌ You can\'t add dots to bots.');
+			}
+
+			// Add dots to user
+			await diceAPI.updateBalance(user.id, amount);
+
+			// Tell the author
+			return msg.reply(`💰 Set <@${user.id}>'s account balance to \`${amount}\` ${rules.currencyPlural}.`);
+		} finally {
+			msg.channel.stopTyping();
 		}
-
-		// Add dots to user
-		diceAPI.updateBalance(user.id, amount);
-
-		// Tell the author
-		return msg.reply(`💰 Set <@${user.id}>'s account balance to \`${amount}\` ${rules.currencyPlural}.`);
 	}
 };

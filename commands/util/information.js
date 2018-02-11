@@ -30,28 +30,30 @@ module.exports = class InformationCommand extends Command {
 	}
 
 	async run(msg, { user }) {
-		user = user || msg.author;
+		try {
+			msg.channel.startTyping();
 
-		// Make sure the target user isn't a bot (excluding the client)
-		if (user.bot && user.id !== rules.houseID) {
-			return msg.reply('❌ Bots can\'t play.');
-		}
+			user = user || msg.author;
 
-		const userBalance = await diceAPI.getBalance(user.id);
-		const userProfilePicture = user.displayAvatarURL(128);
-		let startingBalance;
+			// Make sure the target user isn't a bot (excluding the client)
+			if (user.bot && user.id !== rules.houseID) {
+				return msg.reply('❌ Bots can\'t play.');
+			}
 
-		// Determine what the starting balance is for the requested user
-		if (user.id === rules.houseID) {
-			startingBalance = rules.houseStartingBalance;
-		} else {
-			startingBalance = rules.newUserBalance;
-		}
+			const userBalance = await diceAPI.getBalance(user.id);
+			const userProfilePicture = user.displayAvatarURL(128);
+			let startingBalance;
 
-		winston.verbose(`[COMMAND](INFO) Target user display URL: ${userProfilePicture}`);
+			// Determine what the starting balance is for the requested user
+			if (user.id === rules.houseID) {
+				startingBalance = rules.houseStartingBalance;
+			} else {
+				startingBalance = rules.newUserBalance;
+			}
 
-		return msg.say({
-			embed: {
+			winston.verbose(`[COMMAND](INFO) Target user display URL: ${userProfilePicture}`);
+
+			return msg.replyEmbed({
 				title: user.tag,
 				thumbnail: {
 					url: userProfilePicture
@@ -68,7 +70,9 @@ module.exports = class InformationCommand extends Command {
 						inline: true
 					}
 				]
-			}
-		});
+			});
+		} finally {
+			msg.channel.stopTyping();
+		}
 	}
 };

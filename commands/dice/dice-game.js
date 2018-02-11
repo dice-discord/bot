@@ -37,76 +37,80 @@ module.exports = class DiceGameCommand extends Command {
 	}
 
 	async run(msg, { wager, multiplier }) {
-		const authorBalance = await diceAPI.getBalance(msg.author.id);
+		try {
+			msg.channel.startTyping();
+			const authorBalance = await diceAPI.getBalance(msg.author.id);
 
-		// Wager checking
-		if (wager > authorBalance) {
-			return msg.reply(`❌ You are missing \`${wager - authorBalance}\` ${rules.currencyPlural}. Your balance is \`${authorBalance}\` ${rules.currencyPlural}.`);
-		} else if (wager * multiplier - wager > (await diceAPI.getBalance(rules.houseID))) {
-			return msg.reply('❌ I couldn\'t pay your winnings if you won.');
-		}
+			// Wager checking
+			if (wager > authorBalance) {
+				return msg.reply(`❌ You are missing \`${wager - authorBalance}\` ${rules.currencyPlural}. Your balance is \`${authorBalance}\` ${rules.currencyPlural}.`);
+			} else if (wager * multiplier - wager > (await diceAPI.getBalance(this.client.user.id))) {
+				return msg.reply('❌ I couldn\'t pay your winnings if you won.');
+			}
 
-		// Take away the player's wager no matter what
-		diceAPI.decreaseBalance(msg.author.id, wager);
-		// Give the wager to the house
-		diceAPI.increaseBalance(rules.houseID, wager);
+			// Take away the player's wager no matter what
+			diceAPI.decreaseBalance(msg.author.id, wager);
+			// Give the wager to the house
+			diceAPI.increaseBalance(this.client.user.id, wager);
 
-		// Round numbers to second decimal place
-		const randomNumber = diceAPI.simpleFormat(Math.random() * rules.maxMultiplier);
+			// Round numbers to second decimal place
+			const randomNumber = diceAPI.simpleFormat(Math.random() * rules.maxMultiplier);
 
-		// Get boolean if the random number is greater than the multiplier
-		const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
+			// Get boolean if the random number is greater than the multiplier
+			const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
-		// Variables for later use
-		const profit = diceAPI.simpleFormat(wager * multiplier - wager);
+			// Variables for later use
+			const profit = diceAPI.simpleFormat(wager * multiplier - wager);
 
-		if (gameResult === false) {
+			if (gameResult === false) {
 			// Give the player their winnings
-			await diceAPI.increaseBalance(msg.author.id, wager * multiplier);
-			// Take the winnings from the house
-			await diceAPI.decreaseBalance(rules.houseID, wager * multiplier);
-		}
-
-		const embed = new MessageEmbed({
-			title: `**${wager} 🇽 ${multiplier}**`,
-			fields: [{
-				name: '🔢 Random Number Result',
-				value: `${randomNumber}`,
-				inline: true
-			},
-			{
-				name: '🏦 Updated Balance',
-				value: `${await diceAPI.getBalance(msg.author.id)} ${rules.currencyPlural}`,
-				inline: true
-			},
-			{
-				name: '💵 Wager',
-				value: `${wager}`,
-				inline: true
-			},
-			{
-				name: '🇽 Multiplier',
-				value: `${multiplier}`,
-				inline: true
+				await diceAPI.increaseBalance(msg.author.id, wager * multiplier);
+				// Take the winnings from the house
+				await diceAPI.decreaseBalance(this.client.user.id, wager * multiplier);
 			}
-			]
-		});
 
-		if (gameResult === true) {
+			const embed = new MessageEmbed({
+				title: `**${wager} 🇽 ${multiplier}**`,
+				fields: [{
+					name: '🔢 Random Number Result',
+					value: `${randomNumber}`,
+					inline: true
+				},
+				{
+					name: '🏦 Updated Balance',
+					value: `${await diceAPI.getBalance(msg.author.id)} ${rules.currencyPlural}`,
+					inline: true
+				},
+				{
+					name: '💵 Wager',
+					value: `${wager}`,
+					inline: true
+				},
+				{
+					name: '🇽 Multiplier',
+					value: `${multiplier}`,
+					inline: true
+				}
+				]
+			});
+
+			if (gameResult === true) {
 			// Red color and loss message
-			embed.setColor(0xf44334);
-			embed.setDescription(`You lost \`${wager}\` ${rules.currencyPlural}.`);
-		} else {
+				embed.setColor(0xf44334);
+				embed.setDescription(`You lost \`${wager}\` ${rules.currencyPlural}.`);
+			} else {
 			// Green color and win message
-			embed.setColor(0x4caf50);
+				embed.setColor(0x4caf50);
 
-			embed.setDescription(`You made \`${profit}\` ${rules.currencyPlural} of profit!`);
-			if ((await diceAPI.getBiggestWin) <= profit) {
-				diceAPI.updateBiggestWin(msg.author.id, profit);
+				embed.setDescription(`You made \`${profit}\` ${rules.currencyPlural} of profit!`);
+				if ((await diceAPI.getBiggestWin) <= profit) {
+					diceAPI.updateBiggestWin(msg.author.id, profit);
+				}
 			}
+
+			return msg.replyEmbed(embed);
+		} finally {
+			msg.channel.stopTyping();
 		}
-
-
-		msg.replyEmbed(embed);
 	}
 };
