@@ -181,13 +181,15 @@ client
 	})
 	.on('guildCreate', async () => {
 		// Bot joins a new server
-		const count = await client.shard.broadcastEval('this.guilds.size').reduce((prev, val) => prev + val, 0);
+		let count = await client.shard.broadcastEval('this.guilds.size');
+		count = count.reduce((prev, val) => prev + val, 0);
 		updateServerCount(count);
 		announceServerCount(count, true);
 	})
 	.on('guildDelete', async () => {
 		// Bot leaves a server
-		const count = await client.shard.broadcastEval('this.guilds.size').reduce((prev, val) => prev + val, 0);
+		let count = await client.shard.broadcastEval('this.guilds.size');
+		count = count.reduce((prev, val) => prev + val, 0);
 		updateServerCount(count);
 		announceServerCount(count, false);
 	})
