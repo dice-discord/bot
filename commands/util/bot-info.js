@@ -12,6 +12,7 @@ module.exports = class BotInfoCommand extends Command {
 			group: 'util',
 			memberName: 'bot-info',
 			description: `Information about <@${rules.houseID}>`,
+			aliases: ['github', 'uptime', 'library', 'git', 'lib'],
 			examples: ['bot-info']
 		});
 	}
@@ -19,6 +20,7 @@ module.exports = class BotInfoCommand extends Command {
 	run(msg) {
 		return msg.replyEmbed({
 			title: 'Dice',
+			url: 'https://github.com/PizzaFox/dice',
 			color: 0x4caf50,
 			description: `${this.client.user} was made by <@210024244766179329> based off the game [bustadice](https://bustadice.com).`,
 			thumbnail: {
@@ -31,6 +33,11 @@ module.exports = class BotInfoCommand extends Command {
 			}, {
 				name: '🎲 Dice Version',
 				value: `v${packageData.version}`,
+				inline: true
+			},
+			{
+				name: '🔧 GitHub',
+				value: `${this.client.user} is open source! [See the repository](https://github.com/PizzaFox/dice)`,
 				inline: true
 			},
 			{
