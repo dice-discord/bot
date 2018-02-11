@@ -55,18 +55,18 @@ client.setProvider(
 // Handle promise rejections
 process
 	.on('unhandledRejection', error => {
-		winston.error(`Uncaught Promise Rejection:\n${error}`);
+		winston.error(`Uncaught Promise Rejection:\n${error.stack}`);
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Unhandled Promise Rejection',
 				timestamp: new Date(),
 				color: 0xf44336,
-				description: `\`\`\`${error}\`\`\``
+				description: `\`\`\`${error.stack}\`\`\``
 			}
 		});
 	})
 	.on('rejectionHandled', error => {
-		winston.error(`Handled Promise Rejection:\n${error}`);
+		winston.error(`Handled Promise Rejection:\n${error.stack}`);
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Handled Promise Rejection',
@@ -77,7 +77,7 @@ process
 		});
 	})
 	.on('uncaughtException', error => {
-		winston.error(`Uncaught Exception:\n${error}`);
+		winston.error(`Uncaught Exception:\n${error.stack}`);
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Uncaught Exception',
@@ -94,7 +94,7 @@ process
 				title: 'Warning',
 				timestamp: new Date(),
 				color: 0xff9800,
-				description: `\`\`\`${warning}\`\`\``
+				description: `\`\`\`${warning.stack}\`\`\``
 			}
 		});
 	});
@@ -292,17 +292,6 @@ client
 			Message: ${msg.content}`);
 		}
 		/* Protecting bot token */
-	})
-	.on('unknownCommand', commandMessage => {
-		if (commandMessage.channel.type !== 'text') {
-			commandMessage.react(client.emojis.get('406965554738495488'));
-		} else if (commandMessage.guild.me.permissionsIn(commandMessage.channel).has('ADD_REACTIONS') && commandMessage.guild.me.permissionsIn(commandMessage.channel).has('USE_EXTERNAL_EMOJIS')) {
-			// Can react using the preferred emoji
-			commandMessage.react(client.emojis.get('406965554738495488'));
-		} else if (commandMessage.guild.me.permissionsIn(commandMessage.channel).has('ADD_REACTIONS')) {
-			// Can react with a regular emoji
-			commandMessage.react('❌');
-		}
 	});
 
 // Log in the bot
