@@ -1,1 +1,1 @@
-worker: node dice.js
+worker: node index.js

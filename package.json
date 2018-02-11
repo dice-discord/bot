@@ -1,7 +1,7 @@
 {
     "name": "dice",
     "description": "A simple game. You have a wager and a multiplier. Higher risk, higher rewards.",
-    "version": "1.8.14",
+    "version": "1.9.0",
     "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
     "keywords": [
         "discord",
@@ -18,7 +18,7 @@
     "homepage": "https://github.com/PizzaFox/dice/blob/master/README.md",
     "main": "dice.js",
     "scripts": {
-        "start": "node dice.js"
+        "start": "node index.js"
     },
     "dependencies": {
         "async": "^2.5.0",

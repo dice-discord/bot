@@ -9,7 +9,6 @@ const MongoDBProvider = require('commando-provider-mongo');
 const dbl = require('dblposter');
 const winston = require('winston');
 winston.level = 'debug';
-const packageData = require('./package');
 const diceAPI = require('./diceAPI');
 const request = require('request');
 const rules = require('./rules');
@@ -111,6 +110,8 @@ const sendBotsDiscordPWServerCount = serverData => {
 			authorization: process.env.BOTSDISCORDPW_TOKEN
 		},
 		body: {
+			shard_id: client.shard.id,
+			shard_count: client.shard.count,
 			server_count: serverData
 		},
 		json: true
@@ -125,33 +126,10 @@ const sendBotsDiscordPWServerCount = serverData => {
 	});
 };
 
-// Bots.discordlist.net
-const sendDiscordlistServerCount = serverData => {
-	winston.debug(`[DICE] bots.discordlist.net token: ${process.env.DISCORDLIST_TOKEN}`);
-	request({
-		url: 'https://bots.discordlist.net/api',
-		method: 'POST',
-		json: true,
-		body: {
-			servers: serverData,
-			token: process.env.DISCORDLIST_TOKEN
-		}
-	},
-	(err, httpResponse, body) => {
-		if (err) return winston.error(`[DICE] ${err}`);
-		if (body) {
-			winston.debug('[DICE] Discordlist results', body);
-		}
-	}
-	);
-};
-
-// Run both at once
 const updateServerCount = serverData => {
 	if (client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
 		sendBotsDiscordPWServerCount(serverData);
-		sendDiscordlistServerCount(serverData);
 	}
 };
 
@@ -187,8 +165,6 @@ const announceServerCount = async (serverCount, newServer) => {
 client
 	.on('ready', () => {
 		winston.info(`[DICE] Logged in as ${client.user.tag}!`);
-		winston.verbose(`[DICE] Node.js version: ${process.version}`);
-		winston.verbose(`[DICE] Dice version v${packageData.version}`);
 
 		// Set game presence to the help command once loaded
 		client.user.setActivity('for @Dice help or $$help', {
@@ -203,15 +179,17 @@ client
 			updateServerCount(client.guilds.size);
 		}
 	})
-	.on('guildCreate', () => {
+	.on('guildCreate', async () => {
 		// Bot joins a new server
-		updateServerCount(client.guilds.size);
-		announceServerCount(client.guilds.size, true);
+		const count = await client.shard.broadcastEval('this.guilds.size').reduce((prev, val) => prev + val, 0);
+		updateServerCount(count);
+		announceServerCount(count, true);
 	})
-	.on('guildDelete', () => {
+	.on('guildDelete', async () => {
 		// Bot leaves a server
-		updateServerCount(client.guilds.size);
-		announceServerCount(client.guilds.size, false);
+		const count = await client.shard.broadcastEval('this.guilds.size').reduce((prev, val) => prev + val, 0);
+		updateServerCount(count);
+		announceServerCount(count, false);
 	})
 	.on('guildMemberAdd', member => {
 		// If member joined on the official Dice server announce it
