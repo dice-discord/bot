@@ -28,7 +28,8 @@ client.registry
 		['dice', 'Dice'],
 		['util', 'Utility'],
 		['dev', 'Developer'],
-		['economy', 'Economy']
+		['economy', 'Economy'],
+		['minecraft', 'Minecraft'],
 		['games', 'Games']
 	])
 
