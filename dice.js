@@ -6,10 +6,10 @@ const path = require('path');
 const replaceall = require('replaceall');
 const { MongoClient } = require('mongodb');
 const MongoDBProvider = require('commando-provider-mongo');
-const dbl = require('dblposter');
+const DBL = require('dblapi.js');
 const winston = require('winston');
 winston.level = 'debug';
-const diceAPI = require('./diceAPI');
+const diceAPI = require('./providers/diceAPI');
 const request = require('request');
 const rules = require('./rules');
 
@@ -46,6 +46,7 @@ client.dispatcher.addInhibitor(msg => {
 	}
 });
 
+// Store settings like the prefix in a MongoDB collection called "settings"
 client.setProvider(
 	MongoClient.connect(process.env.MONGODB_URI)
 		.then(bot => new MongoDBProvider(bot, 'settings'))
@@ -98,10 +99,11 @@ process
 		});
 	});
 
-// Update server counter on bot listings
+/* Update server counter on bot listings */
+const dbl = new DBL(process.env.DISCORDBOTSORG_TOKEN);
 
 // Bots.discord.pw
-const sendBotsDiscordPWServerCount = serverData => {
+const sendBotsDiscordPWServerCount = () => {
 	const options = {
 		method: 'POST',
 		url: 'https://bots.discord.pw/api/bots/388191157869477888/stats',
@@ -112,12 +114,11 @@ const sendBotsDiscordPWServerCount = serverData => {
 		body: {
 			shard_id: client.shard.id,
 			shard_count: client.shard.count,
-			server_count: serverData
+			server_count: client.guilds.size
 		},
 		json: true
 	};
 
-	winston.debug(`[DICE] bots.discord.pw token: ${process.env.BOTSDISCORDPW_TOKEN}`);
 	request(options, (err, httpResponse, body) => {
 		if (err) return winston.error(`[DICE] ${err}`);
 		if (body) {
@@ -126,10 +127,11 @@ const sendBotsDiscordPWServerCount = serverData => {
 	});
 };
 
-const updateServerCount = serverData => {
+const updateServerCount = () => {
 	if (client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
-		sendBotsDiscordPWServerCount(serverData);
+		sendBotsDiscordPWServerCount();
+		dbl.postStats(client.guilds.size, client.shard.id, client.shard.count);
 	}
 };
 
@@ -161,6 +163,7 @@ const announceServerCount = async (serverCount, newServer) => {
 		}
 	});
 };
+/* Update server counter on bot listings */
 
 client
 	.on('ready', () => {
@@ -171,26 +174,20 @@ client
 			type: 'WATCHING'
 		});
 
-		if (client.user.id === '388191157869477888') {
-			// Create new instance of Discord Bot List POST requester
-			const dblPoster = new dbl(process.env.DISCORDBOTSORG_TOKEN);
-			// Connect the instance with the client
-			dblPoster.bind(client);
-			updateServerCount(client.guilds.size);
-		}
+		updateServerCount();
 	})
 	.on('guildCreate', async () => {
 		// Bot joins a new server
 		let count = await client.shard.broadcastEval('this.guilds.size');
 		count = count.reduce((prev, val) => prev + val, 0);
-		updateServerCount(count);
+		updateServerCount();
 		announceServerCount(count, true);
 	})
 	.on('guildDelete', async () => {
 		// Bot leaves a server
 		let count = await client.shard.broadcastEval('this.guilds.size');
 		count = count.reduce((prev, val) => prev + val, 0);
-		updateServerCount(count);
+		updateServerCount(client.guilds.size);
 		announceServerCount(count, false);
 	})
 	.on('guildMemberAdd', member => {
