@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
-const diceAPI = require('../../diceAPI');
+const diceAPI = require('../../providers/diceAPI');
 const winston = require('winston');
 
 module.exports = class UserListCommand extends Command {

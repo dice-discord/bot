@@ -1,6 +1,6 @@
 // Copyright Jonah Snider 2018
 
-const rules = require('./rules');
+const rules = require('../rules');
 const mongodb = require('mongodb');
 const winston = require('winston');
 winston.verbose('[API] Dice API loading');
@@ -31,6 +31,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	winston.verbose('[API](DATABASE) Connected to database server');
 
 	const balances = database.db('balances').collection('balances');
+	const storage = database.db('storage').collection('storage');
 
 	// Get balance
 	const getBalance = async requestedID => {
@@ -39,26 +40,26 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 				id: requestedID
 			})
 			.then(result => {
-				if (!result) {
-
+				if (result) {
+					const balanceResult = simpleFormat(result.balance);
+					winston.debug(`[API](GET-BALANCE) Value of balance: ${result.balance}`);
+					winston.debug(`[API](GET-BALANCE) Formatted value of balance: ${balanceResult}`);
+					winston.debug(`[API](GET-BALANCE) Requested user ID: ${requestedID}`);
+					return balanceResult;
+				} else {
 					winston.debug('[API](GET-BALANCE) Result is empty. Checking if requested ID is the house.');
 					if (requestedID === rules.houseID) {
 						winston.debug('[API](GET-BALANCE) Requested ID is the house ID.');
 						updateBalance(requestedID, rules.houseStartingBalance);
 						return rules.houseStartingBalance;
+					} else if (requestedID === 'lottery') {
+						winston.debug('[API](GET-BALANCE) Requested ID is the lottery.');
+						return 0;
 					} else {
-
-						winston.debug('[API](GET-BALANCE) Requested ID isn\'t the house ID.');
+						winston.debug('[API](GET-BALANCE) Requested ID isn\'t the house ID or the lottery ID.');
 						updateBalance(requestedID, rules.newUserBalance);
 						return rules.newUserBalance;
 					}
-				} else {
-					const balanceResult = simpleFormat(result.balance);
-					winston.debug(`[API](GET-BALANCE) Result for findOne: ${result}`);
-					winston.debug(`[API](GET-BALANCE) Value of balance: ${result.balance}`);
-					winston.debug(`[API](GET-BALANCE) Formatted value of balance: ${balanceResult}`);
-					winston.debug(`[API](GET-BALANCE) Requested user ID: ${requestedID}`);
-					return balanceResult;
 				}
 			});
 	};
@@ -67,19 +68,15 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// Update balance
 	const updateBalance = async (requestedID, newBalance) => {
-		balances.updateOne(
-			{
-				id: requestedID
-			},
-			{
-				$set: {
-					balance: simpleFormat(newBalance)
-				}
-			},
-			{
-				upsert: true
+		balances.updateOne({
+			id: requestedID
+		}, {
+			$set: {
+				balance: simpleFormat(newBalance)
 			}
-		);
+		}, {
+			upsert: true
+		});
 
 		winston.debug(`[API](UPDATE-BALANCE) Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
 	};
@@ -88,12 +85,12 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// Increase and decrease
 	const decreaseBalance = async (id, amount) => {
-		updateBalance(id, (await getBalance(id)) - amount);
+		updateBalance(id, await getBalance(id) - amount);
 	};
 	module.exports.decreaseBalance = decreaseBalance;
 
 	const increaseBalance = async (id, amount) => {
-		updateBalance(id, (await getBalance(id)) + amount);
+		updateBalance(id, await getBalance(id) + amount);
 	};
 	module.exports.increaseBalance = increaseBalance;
 	// Increase and decrease
@@ -109,7 +106,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	module.exports.resetEconomy = resetEconomy;
 	// Reset economy
 
-	// Leaderboard search
+	// Leaderboard
 	const leaderboard = async () => {
 		const allProfiles = await balances.find();
 		const formattedBalances = await allProfiles
@@ -123,15 +120,11 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 		return formattedBalances;
 	};
 	module.exports.leaderboard = leaderboard;
-
-	// Call leaderboard right now to fetch the users
-	leaderboard();
-	// Leaderboard search
+	// Leaderboard
 
 	// Total users
 	const totalUsers = async () => {
 		const userCount = await balances.count({});
-		winston.debug(`[API](TOTAL-USERS) Number of all users: ${userCount}`);
 		return userCount;
 	};
 	module.exports.totalUsers = totalUsers;
@@ -139,26 +132,22 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// Daily reward
 	const setDailyUsed = async (requestedID, timestamp) => {
-		balances.updateOne(
-			{
-				id: requestedID
-			},
-			{
-				$set: {
-					daily: timestamp
-				}
-			},
-			{
-				upsert: true
+		balances.updateOne({
+			id: requestedID
+		}, {
+			$set: {
+				daily: timestamp
 			}
-		);
+		}, {
+			upsert: true
+		});
 
 		winston.debug(`[API](SET-DAILY-USED) Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
 	};
 	module.exports.setDailyUsed = setDailyUsed;
 	// Daily reward
 
-	// Daily reward searching
+	// Daily reward timestamp fetching
 	const getDailyUsed = async requestedID => {
 		winston.debug(`[API](GET-DAILY-USED) Looking up daily timestamp for ${requestedID}`);
 		return balances
@@ -179,7 +168,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			});
 	};
 	module.exports.getDailyUsed = getDailyUsed;
-	// Daily reward searching
+	// Daily reward timestamp fetching
 
 	// All users
 	const allUsers = async () => {
@@ -192,7 +181,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// Top wins leaderboard search
 	const topWinsLeaderboard = async () => {
-		const allProfiles = balances.find();
+		const allProfiles = storage.find();
 		const formattedBiggestWins = await allProfiles
 			.sort({
 				biggestWin: -1
@@ -200,7 +189,6 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 			.limit(10)
 			.toArray();
 
-		winston.debug(`[API] Top ten wins data: ${await allProfiles}`);
 		winston.debug(`[API] Top ten wins formatted: ${formattedBiggestWins}`);
 		return formattedBiggestWins;
 	};
@@ -209,22 +197,21 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// Get biggest win
 	const getBiggestWin = async requestedID => {
-		return balances
+		return storage
 			.findOne({
 				id: requestedID
 			})
 			.then(result => {
-				if (!result) {
-					winston.debug('[API] Biggest win result is empty.');
-					updateBiggestWin(requestedID, 0);
-					return 0;
-				} else {
+				if (result) {
 					const biggestWinResult = simpleFormat(result.biggestWin);
-					winston.debug(`[API] Result for findOne: ${result}`);
 					winston.debug(`[API] Value of biggest win: ${result.biggestWin}`);
 					winston.debug(`[API] Formatted value of biggest win: ${biggestWinResult}`);
 					winston.debug(`[API] Requested user ID: ${requestedID}`);
 					return biggestWinResult;
+				} else {
+					winston.debug('[API] Biggest win result is empty.');
+					updateBiggestWin(requestedID, 0);
+					return 0;
 				}
 			});
 	};
@@ -233,21 +220,77 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 
 	// Update biggest win
 	const updateBiggestWin = async (requestedID, newBiggestWin) => {
-		balances.updateOne(
-			{
-				id: requestedID
-			},
-			{
-				$set: {
-					biggestWin: simpleFormat(newBiggestWin)
-				}
-			},
-			{
-				upsert: true
+		storage.updateOne({
+			id: requestedID
+		}, {
+			$set: {
+				biggestWin: simpleFormat(newBiggestWin)
 			}
-		);
+		}, {
+			upsert: true
+		});
 		winston.debug(`[API] Set biggest win for ${requestedID} to ${simpleFormat(newBiggestWin)}`);
 	};
 	module.exports.updateBiggestWin = updateBiggestWin;
 	// Update biggest win
+
+	// Update lottery tickets
+	const updateLotteryTickets = async (requestedID, newAmount) => {
+		balances.updateOne({
+			id: requestedID
+		}, {
+			$set: {
+				tickets: newAmount
+			}
+		}, {
+			upsert: true
+		});
+
+		winston.debug(`[API](UPDATE-LOTTERY-TICKETS) Set lottery ticket amount for ${requestedID} to ${newAmount}`);
+	};
+	module.exports.updateLotteryTickets = updateLotteryTickets;
+	// Update lottery tickets
+
+	// Add lottery tickets
+	const addLotteryTickets = async (id, amount) => {
+		updateLotteryTickets(id, await getLotteryTickets(id) + amount);
+	};
+	module.exports.addLotteryTickets = addLotteryTickets;
+	// Add lottery tickets
+
+	// Get lottery tickets
+	const getLotteryTickets = async requestedID => {
+		return balances
+			.findOne({
+				id: requestedID
+			})
+			.then(result => {
+				if (result && !isNaN(result.tickets)) {
+					winston.debug(`[API](GET-LOTTERY-TICKETS) Value of tickets: ${result.tickets}`);
+					winston.debug(`[API](GET-LOTTERY-TICKETS) Requested user ID: ${requestedID}`);
+					return result.tickets;
+				} else {
+					winston.debug('[API](GET-LOTTERY-TICKETS) Result for lottery ticket amount is empty');
+					updateLotteryTickets(requestedID, 0);
+					return 0;
+				}
+			});
+	};
+	module.exports.getLotteryTickets = getLotteryTickets;
+	// Get lottery tickets
+
+	// Lottery players
+	/* const getLotteryPlayers = async () => {
+		const allProfiles = await balances.find();
+		const formattedBalances = await allProfiles
+			.sort({
+				balance: -1
+			})
+			.toArray();
+
+		winston.debug('[API](GET-LOTTERY-PLAYERS) Top ten data formatted:', formattedBalances);
+		return formattedBalances;
+	};
+	module.exports.getLotteryPlayers = getLotteryPlayers;*/
+	// Lottery players
 });

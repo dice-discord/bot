@@ -1,7 +1,7 @@
 // Copyright Jonah Snider 2018
 
 const rules = require('../../rules');
-const diceAPI = require('../../diceAPI');
+const diceAPI = require('../../providers/diceAPI');
 const { Command } = require('discord.js-commando');
 
 module.exports = class CalculatorCommand extends Command {

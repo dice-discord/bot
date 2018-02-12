@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const winston = require('winston');
-const diceAPI = require('../../diceAPI');
+const diceAPI = require('../../providers/diceAPI');
 
 module.exports = class ResetEconomyCommand extends Command {
 	constructor(client) {

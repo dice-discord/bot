@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
-const diceAPI = require('../../diceAPI');
+const diceAPI = require('../../providers/diceAPI');
 
 module.exports = class AddBalanceCommand extends Command {
 	constructor(client) {

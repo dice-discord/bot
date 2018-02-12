@@ -1,7 +1,7 @@
 // Copyright Jonah Snider 2018
 
 const { Command } = require('discord.js-commando');
-const diceAPI = require('../../diceAPI');
+const diceAPI = require('../../providers/diceAPI');
 const rules = require('../../rules');
 const winston = require('winston');
 

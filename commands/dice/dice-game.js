@@ -2,7 +2,7 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const rules = require('../../rules');
-const diceAPI = require('../../diceAPI');
+const diceAPI = require('../../providers/diceAPI');
 
 module.exports = class DiceGameCommand extends Command {
 	constructor(client) {
