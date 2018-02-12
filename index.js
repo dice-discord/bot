@@ -1,6 +1,7 @@
 // Copyright Jonah Snider 2018
 
 const winston = require('winston');
+winston.level = 'debug';
 const { ShardingManager } = require('discord.js');
 const packageData = require('./package');
 
