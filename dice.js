@@ -29,6 +29,7 @@ client.registry
 		['util', 'Utility'],
 		['dev', 'Developer'],
 		['economy', 'Economy']
+		['games', 'Games']
 	])
 
 	// Registers all built-in groups, commands, and argument types
