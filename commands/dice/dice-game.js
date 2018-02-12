@@ -51,7 +51,7 @@ module.exports = class DiceGameCommand extends Command {
 			// Take away the player's wager no matter what
 			await diceAPI.decreaseBalance(msg.author.id, wager);
 			// Give the wager to the house
-			diceAPI.increaseBalance(this.client.user.id, wager);
+			await diceAPI.increaseBalance(this.client.user.id, wager);
 
 			// Round numbers to second decimal place
 			const randomNumber = diceAPI.simpleFormat(Math.random() * rules.maxMultiplier);
@@ -95,15 +95,15 @@ module.exports = class DiceGameCommand extends Command {
 			});
 
 			if (gameResult === true) {
-			// Red color and loss message
+				// Red color and loss message
 				embed.setColor(0xf44334);
 				embed.setDescription(`You lost \`${wager}\` ${rules.currencyPlural}.`);
 			} else {
-			// Green color and win message
+				// Green color and win message
 				embed.setColor(0x4caf50);
 
 				embed.setDescription(`You made \`${profit}\` ${rules.currencyPlural} of profit!`);
-				if ((await diceAPI.getBiggestWin) <= profit) {
+				if ((await diceAPI.getBiggestWin(msg.author.id)) <= profit) {
 					diceAPI.updateBiggestWin(msg.author.id, profit);
 				}
 			}
