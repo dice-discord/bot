@@ -60,9 +60,12 @@ module.exports = class DailyCommand extends Command {
 				note = `You got a ${(inviter.multiplier - 1) * 100}% bonus for being a **${inviter.name}** from inviting 1+ users.`;
 			}
 
-			if (dbl.hasVoted(msg.author.id)) {
+			if (dbl.hasVoted(msg.author.id) && note) {
 				payout = payout * 2;
 				note = `${note}\nYou got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
+			} else if (dbl.hasVoted(msg.author.id)) {
+				payout = payout * 2;
+				note = `You got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
 			} else {
 				note = `${note}\nYou can double your payout from voting for ${this.client.user} each day. Use ${msg.anyUsage('vote')} to vote once per day.`;
 			}
