@@ -49,7 +49,7 @@ module.exports = class DiceGameCommand extends Command {
 			}
 
 			// Take away the player's wager no matter what
-			diceAPI.decreaseBalance(msg.author.id, wager);
+			await diceAPI.decreaseBalance(msg.author.id, wager);
 			// Give the wager to the house
 			diceAPI.increaseBalance(this.client.user.id, wager);
 
