@@ -14,9 +14,9 @@ module.exports = class PUBGStatisticsCommand extends Command {
 			group: 'games',
 			memberName: 'pubg-statistics',
 			description: 'Get statistics of a Player Unknown\'s Battlegrounds player',
-			details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network)',
+			details: 'The platforms are `pc` (PC) and `xbl` (Xbox Live). The regions are `na` (North America), `eu` (Europe), `as` (Asia), `oc` (Oceania), `sa` (South America), `sea` (South East Asia), and `krjp` (Korea/Japan). The seasons are `2017-pre1`, `2017-pre2`, `2017-pre3`, `2017-pre4`, `2017-pre5`, `2017-pre6`, `2018-01`, and `2018-02`. The modes are `solo`, `duo`, `squad`, `solo-fpp`, `duo-fpp`, and `squad-fpp`.',
 			aliases: ['pubg-stats', 'player-unknown\'s-battlegrounds', 'player-unknowns-battlegrounds', 'pubg'],
-			examples: ['fortnite-statistics Zaccubus pc', 'fortnite-stats "WBG Strafesh0t" pc'],
+			examples: ['pubg-statistics Zoop_Zoup 2018-02 na solo', 'pubg-stats "Zoop_Zoup" as 2017-pre6 squad'],
 			throttling: {
 				usages: 1,
 				duration: 4
@@ -33,28 +33,41 @@ module.exports = class PUBGStatisticsCommand extends Command {
 				default: ''
 			}, {
 				key: 'region',
-				prompt: 'What region do you want to get statistics for?',
+				prompt: 'What region do you want to get statistics from?',
 				type: 'string',
 				parse: region => region.toLowerCase()
+			}, {
+				key: 'mode',
+				prompt: 'What mode do you want to get statistics for?',
+				type: 'string',
+				parse: mode => mode.toLowerCase()
 			}]
 		});
 	}
 
-	async run(msg, { username, season , region }) {
+	async run(msg, { username, season , region, mode, platform }) {
 		try {
 			msg.channel.startTyping();
 
 			const regions = ['na', 'eu', 'as', 'oc', 'sa', 'sea', 'krjp'];
 			const seasons = ['2017-pre1', '2017-pre2', '2017-pre3', '2017-pre4', '2017-pre5', '2017-pre6', '2018-01', '2018-02'];
+			const modes = ['solo', 'duo', 'squad', 'solo-fpp', 'duo-fpp', 'squad-fpp']
+			const platforms = ['pc', 'xbl'];
+			if (!platforms.includes(platform)) {
+				return msg.reply('❌ Unknown platform. The platforms are `pc` (PC) and `xbl` (Xbox Live).');
+			}
 			if (!regions.includes(region)) {
-				return msg.reply('❌ Unknown region. The regions are `na` (North America), `eu` (Europe), `as` (Asia), `oc` (Oceania), `sa` (South America), `sea` (South East Asia), and `krjp` (Korea/Japan)');
+				return msg.reply('❌ Unknown region. The regions are `na` (North America), `eu` (Europe), `as` (Asia), `oc` (Oceania), `sa` (South America), `sea` (South East Asia), and `krjp` (Korea/Japan).');
 			}
 			if (!seasons.includes(season)) {
-				return msg.reply('❌ Unknown season. The seasons are `2017-pre1`, `2017-pre2`, `2017-pre3`, `2017-pre4`, `2017-pre5`, `2017-pre6`, `2018-01`, and `2018-02`');
+				return msg.reply('❌ Unknown season. The seasons are `2017-pre1`, `2017-pre2`, `2017-pre3`, `2017-pre4`, `2017-pre5`, `2017-pre6`, `2018-01`, and `2018-02`.');
+			}
+			if (!modes.includes(mode)) {
+				return msg.reply('❌ Unknown mode. The modes are `solo`, `duo`, `squad`, `solo-fpp`, `duo-fpp`, and `squad-fpp`.');
 			}
 
 			const options = {
-				uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,
+				uri: `https://api.pubgtracker.com/v2/profile/${platform}/${username}?region=${region}&season=${season}`,
 				json: true,
 				headers: {
 					'TRN-Api-Key': process.env.TRACKERNETWORK_TOKEN
@@ -67,16 +80,16 @@ module.exports = class PUBGStatisticsCommand extends Command {
 			}
 
 			const parseTime = time => {
-				winston.debug(`[COMMAND](FORTNITE-STATISTICS) Parsing the time for ${time}`);
+				winston.debug(`[COMMAND](PUBG-STATISTICS) Parsing the time for ${time}`);
 				let duration = time;
 				duration = replaceall('d', '', duration);
 				duration = replaceall('h', '', duration);
 				duration = replaceall('m', '', duration);
 
-				winston.debug(`[COMMAND](FORTNITE-STATISTICS) Time after removing letters: ${duration}`);
+				winston.debug(`[COMMAND](PUBG-STATISTICS) Time after removing letters: ${duration}`);
 
 				duration = duration.split(' ');
-				winston.debug(`[COMMAND](FORTNITE-STATISTICS) Time after splitting on spaces: ${duration}`);
+				winston.debug(`[COMMAND](PUBG-STATISTICS) Time after splitting on spaces: ${duration}`);
 
 				duration = moment.duration({
 					minutes: duration[2],
@@ -86,8 +99,8 @@ module.exports = class PUBGStatisticsCommand extends Command {
 				return duration;
 			};
 
-			winston.debug(`[COMMAND](FORTNITE-STATISTICS) Result for ${username} on ${platform}: ${JSON.stringify(stats)}`);
-			return msg.replyEmbed({
+			winston.debug(`[COMMAND](PUBG-STATISTICS) Result for ${username} on ${platform}: ${JSON.stringify(stats)}`);
+			/*return msg.replyEmbed({
 				title: stats.epicUserHandle,
 				fields: [{
 					name: '🏆 Wins',
@@ -108,7 +121,8 @@ module.exports = class PUBGStatisticsCommand extends Command {
 					name: '🔢 Score',
 					value: stats.lifeTimeStats[6].value
 				}]
-			});
+			});*/
+			return msg.reply(`\`\`\`json\n${JSON.stringify(stats)}\n\`\`\``, { split: true})
 		} finally {
 			msg.channel.stopTyping();
 		}
