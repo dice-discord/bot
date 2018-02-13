@@ -78,6 +78,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			winston.debug(`[COMMAND](FORTNITE-STATISTICS) Result for ${username} on ${platform}: ${JSON.stringify(stats)}`);
 			return msg.replyEmbed({
 				title: stats.epicUserHandle,
+				url: `https://fortnitetracker.com/profile/${platform}/${username}`,
 				fields: [{
 					name: '🏆 Wins',
 					value: `${stats.lifeTimeStats[8].value} wins (${stats.lifeTimeStats[9].value})`
