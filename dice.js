@@ -48,7 +48,7 @@ client.dispatcher.addInhibitor(msg => {
 	}
 });
 
-// Store settings like the prefix in a MongoDB collection called "settings"
+// Store settings (like a server prefix) in a MongoDB collection called "settings"
 client.setProvider(
 	MongoClient.connect(process.env.MONGODB_URI)
 		.then(bot => new MongoDBProvider(bot, 'settings'))
