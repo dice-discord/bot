@@ -27,7 +27,7 @@ module.exports = class PUBGStatisticsCommand extends Command {
 				type: 'string'
 			}, {
 				key: 'season',
-				prompt: 'What platform do you want to search on?',
+				prompt: 'What season do you want to search on?',
 				type: 'string',
 				parse: season => season.toLowerCase()
 			}, {
