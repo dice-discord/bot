@@ -13,7 +13,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			group: 'games',
 			memberName: 'fortnite-statistics',
 			description: 'Get statistics of a Fortnite player',
-			details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network)',
+			details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).',
 			aliases: ['fortnite-stats', 'fortnite'],
 			examples: ['fortnite-statistics Zaccubus pc', 'fortnite-stats "WBG Strafesh0t" pc'],
 			throttling: {
@@ -39,7 +39,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 
 			const platforms = ['pc', 'xbl', 'psn'];
 			if (!platforms.includes(platform)) {
-				return msg.reply('❌ Unknown platform. The platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network)');
+				return msg.reply('❌ Unknown platform. The platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).');
 			}
 
 			const options = {
