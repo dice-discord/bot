@@ -37,7 +37,7 @@ module.exports = class BotInfoCommand extends Command {
 			},
 			{
 				name: '🔧 GitHub',
-				value: `${this.client.user} is open source! [See the repository](https://github.com/PizzaFox/dice)`,
+				value: `${this.client.user} is open source! [See the repository](https://github.com/PizzaFox/dice).`,
 				inline: true
 			},
 			{
