@@ -1,4 +1,4 @@
-// Copyright Jonah Snider 2018
+// Copyright 2018 Jonah Snider
 
 const winston = require('winston');
 winston.level = 'debug';

@@ -3,7 +3,7 @@ const {
 } = require('discord.js-commando');
 const diceAPI = require('../../providers/diceAPI');
 
-// Copyright Jonah Snider 2018
+// Copyright 2018 Jonah Snider
 
 module.exports = class DatabasePingCommand extends Command {
 	constructor(client) {

@@ -1,4 +1,4 @@
-// Copyright Jonah Snider 2018
+// Copyright 2018 Jonah Snider
 
 const packageData = require('../../package');
 const rules = require('../../rules');
