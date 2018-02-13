@@ -81,6 +81,8 @@ module.exports = class PUBGStatisticsCommand extends Command {
 
 			if (stats.error === 'Player Not Found') {
 				return msg.reply('❌ Player not found on that platform.');
+			} else if (stats.error = 'Api is disabled due to throttling we are getting from Bluehole.  Please do not contact us, we will re-enable the API as soon as it\'s possible. We\'re sorry for any trouble this has caused, but it\'s outside of our control.' && stats.code === 3) {
+				return msg.reply('❌ The API we use is down due too throttling. This problem is out of my control, and their\'s.')
 			}
 
 			const parseTime = time => {
