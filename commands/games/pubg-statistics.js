@@ -16,7 +16,7 @@ module.exports = class PUBGStatisticsCommand extends Command {
 			description: 'Get statistics of a Player Unknown\'s Battlegrounds player',
 			details: 'The platforms are `pc` (PC) and `xbl` (Xbox Live). The regions are `na` (North America), `eu` (Europe), `as` (Asia), `oc` (Oceania), `sa` (South America), `sea` (South East Asia), and `krjp` (Korea/Japan). The seasons are `2017-pre1`, `2017-pre2`, `2017-pre3`, `2017-pre4`, `2017-pre5`, `2017-pre6`, `2018-01`, and `2018-02`. The modes are `solo`, `duo`, `squad`, `solo-fpp`, `duo-fpp`, and `squad-fpp`.',
 			aliases: ['pubg-stats', 'player-unknown\'s-battlegrounds', 'player-unknowns-battlegrounds', 'pubg'],
-			examples: ['pubg-statistics Zoop_Zoup 2018-02 na solo', 'pubg-stats "Zoop_Zoup" as 2017-pre6 squad'],
+			examples: ['pubg-statistics Zoop_Zoup 2018-02 na solo pc', 'pubg-stats "Zoop_Zoup" as 2017-pre6 squad pc'],
 			throttling: {
 				usages: 1,
 				duration: 4
@@ -41,6 +41,11 @@ module.exports = class PUBGStatisticsCommand extends Command {
 				prompt: 'What mode do you want to get statistics for?',
 				type: 'string',
 				parse: mode => mode.toLowerCase()
+			},  {
+				key: 'platform',
+				prompt: 'What platform do you want to search on?',
+				type: 'string',
+				parse: platform => platform.toLowerCase()
 			}]
 		});
 	}
