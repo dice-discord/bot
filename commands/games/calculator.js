@@ -1,4 +1,4 @@
-// Copyright Jonah Snider 2018
+// Copyright 2018 Jonah Snider
 
 const rules = require('../../rules');
 const diceAPI = require('../../providers/diceAPI');
@@ -8,9 +8,9 @@ module.exports = class CalculatorCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'calculator',
-			group: 'util',
+			group: 'games',
 			memberName: 'calculator',
-			description: 'Calculate the odds of winning a game.',
+			description: 'Calculate the odds of winning a dice game.',
 			aliases: ['calc', 'chance', 'win-chance', 'win-percentage', 'percentage', 'percent'],
 			examples: ['calculator'],
 			args: [

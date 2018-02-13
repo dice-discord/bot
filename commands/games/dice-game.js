@@ -1,4 +1,4 @@
-// Copyright Jonah Snider 2018
+// Copyright 2018 Jonah Snider
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const rules = require('../../rules');
@@ -8,7 +8,7 @@ module.exports = class DiceGameCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'dice-game',
-			group: 'dice',
+			group: 'games',
 			memberName: 'dice-game',
 			description: 'For each bet the outcome is randomly chosen between 1 and 100. It\'s up to you to guess a target that you think the outcome will exceed.',
 			aliases: ['game', 'play', 'play-game', 'dice', 'play-dice'],

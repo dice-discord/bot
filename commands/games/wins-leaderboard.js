@@ -1,4 +1,4 @@
-// Copyright Jonah Snider 2018
+// Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
 const diceAPI = require('../../providers/diceAPI');
@@ -9,7 +9,7 @@ module.exports = class LeaderboardCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'wins-leaderboard',
-			group: 'util',
+			group: 'games',
 			memberName: 'wins-leaderboard',
 			description: 'Shows a top ten leaderboard of who had the most profitable games',
 			aliases: ['top-games', 'top-wins', 'leaderboard-wins', 'wins-top'],

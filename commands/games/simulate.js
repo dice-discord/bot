@@ -1,4 +1,4 @@
-// Copyright Jonah Snider 2018
+// Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
@@ -9,7 +9,7 @@ module.exports = class SimulateGameCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'simulate',
-			group: 'dice',
+			group: 'games',
 			memberName: 'simulate',
 			description: 'Simulate a game of dice',
 			aliases: [
