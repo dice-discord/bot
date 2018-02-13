@@ -31,6 +31,7 @@ module.exports = class DailyCommand extends Command {
 			const oldTime = await diceAPI.getDailyUsed(msg.author.id);
 			const currentTime = msg.createdTimestamp;
 			const dbl = new DBL(process.env.DISCORDBOTSORG_TOKEN);
+			const voteStatus = await dbl.hasVoted(msg.author.id);
 			// 23 hours because it's better for users to have some wiggle room
 			const fullDay = 82800000;
 			const waitDuration = moment.duration(oldTime - currentTime + fullDay).humanize();
@@ -60,7 +61,6 @@ module.exports = class DailyCommand extends Command {
 				note = `You got a ${(inviter.multiplier - 1) * 100}% bonus for being a **${inviter.name}** from inviting 1+ users.`;
 			}
 
-			const voteStatus = await dbl.hasVoted(msg.author.id);
 			winston.debug(`[COMMAND](DAILY) DBL vote status for ${msg.author.tag}: ${voteStatus}`);
 			if (voteStatus && note) {
 				payout = payout * 2;
@@ -68,8 +68,10 @@ module.exports = class DailyCommand extends Command {
 			} else if (voteStatus) {
 				payout = payout * 2;
 				note = `You got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
+			} else if (note) {
+				note += `\nYou can double your payout from voting for ${this.client.user} each day. Use ${msg.anyUsage('vote')} to vote once per day.`;
 			} else {
-				note = `${note}\nYou can double your payout from voting for ${this.client.user} each day. Use ${msg.anyUsage('vote')} to vote once per day.`;
+				note = `You can double your payout from voting for ${this.client.user} each day. Use ${msg.anyUsage('vote')} to vote once per day.`;
 			}
 
 			winston.debug(`[COMMAND](DAILY) @${msg.author.tag} You must wait ${waitDuration} before collecting your daily ${rules.currencyPlural}.`);
