@@ -1,4 +1,4 @@
-// Copyright Jonah Snider 2018
+// Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
@@ -15,6 +15,6 @@ module.exports = class InviteCommand extends Command {
 	}
 
 	run(msg) {
-		msg.reply(`👋 https://discord.now.sh/${this.client.user.id}`);
+		return msg.reply(`👋 https://discord.now.sh/${this.client.user.id}`);
 	}
 };
