@@ -46,7 +46,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 				uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,
 				json: true,
 				headers: {
-					'TRN-Api-Key': process.env.TRACKERNETWORK_TOKEN
+					'TRN-Api-Key': process.env.FORTNITETN_TOKEN
 				}
 			};
 			const stats = await rp(options);

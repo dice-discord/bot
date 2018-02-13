@@ -74,7 +74,7 @@ module.exports = class PUBGStatisticsCommand extends Command {
 				uri: `https://api.pubgtracker.com/v2/profile/${platform}/${username}?region=${region}&season=${season}`,
 				json: true,
 				headers: {
-					'TRN-Api-Key': process.env.TRACKERNETWORK_TOKEN
+					'TRN-Api-Key': process.env.PUBGTN_TOKEN
 				}
 			};
 			const stats = await rp(options);
