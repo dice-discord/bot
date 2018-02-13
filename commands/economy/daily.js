@@ -1,4 +1,4 @@
-// Copyright Jonah Snider 2018
+// Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
@@ -60,10 +60,12 @@ module.exports = class DailyCommand extends Command {
 				note = `You got a ${(inviter.multiplier - 1) * 100}% bonus for being a **${inviter.name}** from inviting 1+ users.`;
 			}
 
-			if (dbl.hasVoted(msg.author.id) && note) {
+			const voteStatus = await dbl.hasVoted(msg.author.id);
+			winston.debug(`[COMMAND](DAILY) DBL vote status for ${msg.author.tag}: ${voteStatus}`);
+			if (voteStatus && note) {
 				payout = payout * 2;
-				note = `${note}\nYou got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
-			} else if (dbl.hasVoted(msg.author.id)) {
+				note += `\nYou got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
+			} else if (voteStatus) {
 				payout = payout * 2;
 				note = `You got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
 			} else {
