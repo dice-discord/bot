@@ -70,22 +70,28 @@ module.exports = class FortniteStatisticsCommand extends Command {
 				thumbnail: { url: stats.ratingIcon },
 				fields: [{
 					name: '🏆 Games Won',
-					value: `${stats.gamesWon} total wins (${stats.quickPlayStats.games.won} from quick play, ${stats.competitiveStats.games.won} from competitive)`
+					value: `${stats.gamesWon} total wins (${stats.quickPlayStats.games.won} from quick play, ${stats.competitiveStats.games.won} from competitive)`,
+					inline: true
 				}, {
 					name: '💀 Average Eliminations',
-					value: `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play. ${stats.competitiveStats.eliminationsAvg} from competitive.`
+					value: `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play. ${stats.competitiveStats.eliminationsAvg} from competitive.`,
+					inline: true
 				}, {
 					name: '🎮 Games Played',
-					value: `${stats.quickPlayStats.games.played + stats.competitiveStats.games.played} games played total (${stats.quickPlayStats.games.played} from quick play, ${stats.competitiveStats.games.played} from competitive)`
+					value: `${stats.quickPlayStats.games.played + stats.competitiveStats.games.played} games played total (${stats.quickPlayStats.games.played} from quick play, ${stats.competitiveStats.games.played} from competitive)`,
+					inline: true
 				}, {
 					name: '🏅 Medals (Quick Play)',
-					value: `${stats.quickPlayStats.awards.medals} medals total.\n🥇 ${stats.quickPlayStats.awards.medalsGold} gold medals\n🥈 ${stats.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${stats.quickPlayStats.awards.medalsBronze} bronze medals`
+					value: `${stats.quickPlayStats.awards.medals} medals total.\n🥇 ${stats.quickPlayStats.awards.medalsGold} gold medals\n🥈 ${stats.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${stats.quickPlayStats.awards.medalsBronze} bronze medals`,
+					inline: true
 				}, {
 					name: '🏅 Medals (Competitive)',
-					value: `${stats.competitiveStats.awards.medals} medals total.\n🥇 ${stats.competitiveStats.awards.medalsGold} gold medals\n🥈 ${stats.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${stats.competitiveStats.awards.medalsBronze} bronze medals`
+					value: `${stats.competitiveStats.awards.medals} medals total.\n🥇 ${stats.competitiveStats.awards.medalsGold} gold medals\n🥈 ${stats.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${stats.competitiveStats.awards.medalsBronze} bronze medals`,
+					inline: true
 				}, {
 					name: '🃏 Cards',
-					value: `${stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards} total cards (${stats.quickPlayStats.awards.cards} from quick play, ${stats.competitiveStats.awards.cards} from competitive)`
+					value: `${stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards} total cards (${stats.quickPlayStats.awards.cards} from quick play, ${stats.competitiveStats.awards.cards} from competitive)`,
+					inline: true
 				}]
 			});
 		} finally {
