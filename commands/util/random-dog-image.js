@@ -3,15 +3,15 @@
 const { Command } = require('discord.js-commando');
 const rp = require('request-promise');
 
-module.exports = class RandomCatImageCommand extends Command {
+module.exports = class RandomDogImageCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'random-cat-image',
+			name: 'random-dog-image',
 			group: 'util',
-			memberName: 'random-cat-image',
+			memberName: 'random-dog-image',
 			description: 'Get a picture of a random cat',
-			aliases: ['random-cat', 'cat-image', 'cat'],
-			examples: ['cat-image', 'random-cat'],
+			aliases: ['random-dog', 'dog-image', 'dog'],
+			examples: ['dog-image', 'random-dog'],
 			throttling: {
 				usages: 1,
 				duration: 5
