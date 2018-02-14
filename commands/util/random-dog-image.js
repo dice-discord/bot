@@ -38,7 +38,7 @@ module.exports = class RandomDogImageCommand extends Command {
 			return msg.replyEmbed({
 				author: {
 					name: 'dog.ceo',
-					iconURL: 'https://dog.ceo/img/dog-api-logo.svg',
+					iconURL: 'https://dog.ceo/img/favicon.png',
 					url: 'https://dog.ceo/dog-api/'
 				},
 				image: { url: result.message }
