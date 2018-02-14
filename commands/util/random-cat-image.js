@@ -2,7 +2,6 @@
 
 const { Command } = require('discord.js-commando');
 const rp = require('request-promise');
-const replaceall = require('replaceall');
 
 module.exports = class RandomCatImageCommand extends Command {
 	constructor(client) {
