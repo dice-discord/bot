@@ -75,6 +75,18 @@ module.exports = class FortniteStatisticsCommand extends Command {
 				}, {
 					name: '💀 Average Eliminations',
 					value: `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play. ${stats.competitiveStats.eliminationsAvg} from competitive.`
+				}, {
+					name: '🎮 Games Played',
+					value: `${stats.quickPlayStats.games.played + stats.competitiveStats.games.played} games played total (${stats.quickPlayStats.games.played} from quick play, ${stats.competitiveStats.games.played} from competitive)`
+				}, {
+					name: '🏅 Medals (Quick Play)',
+					value: `${stats.quickPlayStats.awards.medals} medals total.\n🥇 ${stats.quickPlayStats.awards.medals.medalsGold} gold medals\n🥈 ${stats.quickPlayStats.awards.medals.medalsSilver} silver medals\n🥉 ${stats.quickPlayStats.awards.medals.medalsBronze} bronze medals`
+				}, {
+					name: '🏅 Medals (Competitive)',
+					value: `${stats.competitiveStats.awards.medals} medals total.\n🥇 ${stats.competitiveStats.awards.medals.medalsGold} gold medals\n🥈 ${stats.competitiveStats.awards.medals.medalsSilver} silver medals\n🥉 ${stats.competitiveStats.awards.medals.medalsBronze} bronze medals`
+				}, {
+					name: '🃏 Cards',
+					value: `${stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards} total cards (${stats.quickPlayStats.awards.cards} from quick play, ${stats.competitiveStats.awards.cards} from competitive)`
 				}]
 			});
 		} finally {
