@@ -35,7 +35,11 @@ module.exports = class RandomCatImageCommand extends Command {
 			}
 
 			return msg.replyEmbed({
-				url: 'http://random.cat',
+				author: {
+					name: 'random.cat',
+					iconURL: 'http://random.cat/favicon.ico',
+					url: 'http://random.cat'
+				},
 				image: { url: result.file }
 			});
 		} finally {
