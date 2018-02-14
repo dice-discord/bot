@@ -9,12 +9,11 @@ module.exports = class FortniteStatisticsCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'overwatch-statistics',
-			ownerOnly: true,
 			group: 'games',
 			memberName: 'overwatch-statistics',
 			description: 'Get statistics of an Overwatch player',
 			details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).',
-			aliases: ['overwatch-stats', 'overwatch'],
+			aliases: ['overwatch-stats', 'overwatch', 'ow-statistics', 'ow-stats', 'ow'],
 			examples: ['overwatch-statistics cats#11481 pc us'],
 			throttling: {
 				usages: 1,
@@ -80,10 +79,10 @@ module.exports = class FortniteStatisticsCommand extends Command {
 					value: `${stats.quickPlayStats.games.played + stats.competitiveStats.games.played} games played total (${stats.quickPlayStats.games.played} from quick play, ${stats.competitiveStats.games.played} from competitive)`
 				}, {
 					name: '🏅 Medals (Quick Play)',
-					value: `${stats.quickPlayStats.awards.medals} medals total.\n🥇 ${stats.quickPlayStats.awards.medals.medalsGold} gold medals\n🥈 ${stats.quickPlayStats.awards.medals.medalsSilver} silver medals\n🥉 ${stats.quickPlayStats.awards.medals.medalsBronze} bronze medals`
+					value: `${stats.quickPlayStats.awards.medals} medals total.\n🥇 ${stats.quickPlayStats.awards.medalsGold} gold medals\n🥈 ${stats.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${stats.quickPlayStats.awards.medalsBronze} bronze medals`
 				}, {
 					name: '🏅 Medals (Competitive)',
-					value: `${stats.competitiveStats.awards.medals} medals total.\n🥇 ${stats.competitiveStats.awards.medals.medalsGold} gold medals\n🥈 ${stats.competitiveStats.awards.medals.medalsSilver} silver medals\n🥉 ${stats.competitiveStats.awards.medals.medalsBronze} bronze medals`
+					value: `${stats.competitiveStats.awards.medals} medals total.\n🥇 ${stats.competitiveStats.awards.medalsGold} gold medals\n🥈 ${stats.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${stats.competitiveStats.awards.medalsBronze} bronze medals`
 				}, {
 					name: '🃏 Cards',
 					value: `${stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards} total cards (${stats.quickPlayStats.awards.cards} from quick play, ${stats.competitiveStats.awards.cards} from competitive)`
