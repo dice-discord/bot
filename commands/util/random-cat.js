@@ -37,7 +37,7 @@ module.exports = class RandomCatImageCommand extends Command {
 			return msg.replyEmbed({
 				author: {
 					name: 'random.cat',
-					iconURL: 'http://random.cat/favicon.ico',
+					iconURL: 'https://i.imgur.com/Ik0Gf0r.png',
 					url: 'http://random.cat'
 				},
 				image: { url: result.file }
