@@ -12,7 +12,7 @@ module.exports = class RandomCatImageCommand extends Command {
 			memberName: 'random-cat-image',
 			description: 'Get a picture of a random cat',
 			aliases: ['random-cat', 'cat-image', 'cat'],
-			examples: ['cat-image', 'random-cat pc'],
+			examples: ['cat-image', 'random-cat'],
 			throttling: {
 				usages: 1,
 				duration: 5
@@ -25,7 +25,7 @@ module.exports = class RandomCatImageCommand extends Command {
 			msg.channel.startTyping();
 
 			const options = {
-				uri: 'http://random.cat/meow',
+				uri: 'http://random.cat/meow.php',
 				json: true
 			};
 			const result = await rp(options);
