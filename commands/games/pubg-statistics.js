@@ -40,7 +40,7 @@ module.exports = class PUBGStatisticsCommand extends Command {
 				prompt: 'What mode do you want to get statistics for?',
 				type: 'string',
 				parse: mode => mode.toLowerCase()
-			},  {
+			}, {
 				key: 'platform',
 				prompt: 'What platform do you want to search on?',
 				type: 'string',
@@ -49,13 +49,13 @@ module.exports = class PUBGStatisticsCommand extends Command {
 		});
 	}
 
-	async run(msg, { username, season , region, mode, platform }) {
+	async run(msg, { username, season, region, mode, platform }) {
 		try {
 			msg.channel.startTyping();
 
 			const regions = ['na', 'eu', 'as', 'oc', 'sa', 'sea', 'krjp'];
 			const seasons = ['2017-pre1', '2017-pre2', '2017-pre3', '2017-pre4', '2017-pre5', '2017-pre6', '2018-01', '2018-02'];
-			const modes = ['solo', 'duo', 'squad', 'solo-fpp', 'duo-fpp', 'squad-fpp']
+			const modes = ['solo', 'duo', 'squad', 'solo-fpp', 'duo-fpp', 'squad-fpp'];
 			const platforms = ['pc', 'xbl'];
 			if (!platforms.includes(platform)) {
 				return msg.reply('❌ Unknown platform. The platforms are `pc` (PC) and `xbl` (Xbox Live).');
@@ -81,8 +81,8 @@ module.exports = class PUBGStatisticsCommand extends Command {
 
 			if (stats.error === 'Player Not Found') {
 				return msg.reply('❌ Player not found on that platform.');
-			} else if (stats.error = 'Api is disabled due to throttling we are getting from Bluehole.  Please do not contact us, we will re-enable the API as soon as it\'s possible. We\'re sorry for any trouble this has caused, but it\'s outside of our control.' && stats.code === 3) {
-				return msg.reply('❌ The API we use is down due too throttling. This problem is out of my control, and their\'s.')
+			} else if (stats.error === 'Api is disabled due to throttling we are getting from Bluehole.  Please do not contact us, we will re-enable the API as soon as it\'s possible. We\'re sorry for any trouble this has caused, but it\'s outside of our control.' && stats.code === 3) {
+				return msg.reply('❌ The API we use is down due too throttling. This problem is out of my control, and their\'s.');
 			}
 
 			const parseTime = time => {
@@ -106,7 +106,7 @@ module.exports = class PUBGStatisticsCommand extends Command {
 			};
 
 			winston.debug(`[COMMAND](PUBG-STATISTICS) Result for ${username} on ${platform}: ${JSON.stringify(stats)}`);
-			/*return msg.replyEmbed({
+			/* return msg.replyEmbed({
 				title: stats.epicUserHandle,
 				fields: [{
 					name: '🏆 Wins',
@@ -128,7 +128,7 @@ module.exports = class PUBGStatisticsCommand extends Command {
 					value: stats.lifeTimeStats[6].value
 				}]
 			});*/
-			return msg.reply(`\`\`\`json\n${JSON.stringify(stats)}\n\`\`\``, { split: true})
+			return msg.reply(`\`\`\`json\n${JSON.stringify(stats)}\n\`\`\``, { split: true });
 		} finally {
 			msg.channel.stopTyping();
 		}
