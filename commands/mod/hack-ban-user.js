@@ -11,6 +11,7 @@ module.exports = class HackBanUserCommand extends Command {
 			memberName: 'hack-ban-user',
 			description: 'Ban a user before they\'ve even joined your server (hackban)',
 			examples: ['hack-ban @Zoop', 'hack-ban 172002275412279296 Spamming messages'],
+			guildOnly: true,
 			clientPermissions: ['BAN_MEMBERS'],
             userPermissions: ['BAN_MEMBERS'],
             throttling: {
