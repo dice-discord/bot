@@ -9,8 +9,8 @@ module.exports = class BanMemberCommand extends Command {
 			aliases: ['ban-user', 'ban'],
 			group: 'mod',
 			memberName: 'ban-member',
-			description: 'Bulk delete messages in a text channel',
-			examples: ['bulk-delete 20'],
+			description: 'Ban a server member',
+			examples: ['ban Zoop', 'ban Zoop 7 Spamming messages'],
 			clientPermissions: ['BAN_MEMBERS'],
 			userPermissions: ['BAN_MEMBERS'],
 			args: [{

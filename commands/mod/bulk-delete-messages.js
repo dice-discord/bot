@@ -2,15 +2,15 @@
 
 const { Command } = require('discord.js-commando');
 
-module.exports = class BulkDeleteCommand extends Command {
+module.exports = class BulkDeleteMessagesCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'bulk-delete',
-			aliases: ['prune', 'message-prune', 'message-bulk-delete', 'delete-messages', 'messages-prune', 'messages-bulk-delete'],
+			name: 'bulk-delete-messages',
+			aliases: ['prune', 'message-prune', 'message-bulk-delete', 'delete-messages', 'messages-prune', 'messages-bulk-delete', 'bulk-delete'],
 			group: 'mod',
-			memberName: 'bulk-delete',
+			memberName: 'bulk-delete-messages',
 			description: 'Bulk delete messages in a text channel',
-			examples: ['bulk-delete 20'],
+			examples: ['bulk-delete-messages 20'],
 			clientPermissions: ['MANAGE_MESSAGES'],
 			userPermissions: ['MANAGE_MESSAGES'],
 			args: [{
