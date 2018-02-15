@@ -13,6 +13,7 @@ module.exports = class BulkDeleteMessagesCommand extends Command {
 			examples: ['bulk-delete-messages 20'],
 			clientPermissions: ['MANAGE_MESSAGES'],
 			userPermissions: ['MANAGE_MESSAGES'],
+			guildOnly: true,
 			args: [{
 				key: 'messageCount',
 				prompt: 'How many messages do you want to delete?',

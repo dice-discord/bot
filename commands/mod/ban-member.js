@@ -13,6 +13,7 @@ module.exports = class BanMemberCommand extends Command {
 			examples: ['ban Zoop', 'ban Zoop 7 Spamming messages'],
 			clientPermissions: ['BAN_MEMBERS'],
 			userPermissions: ['BAN_MEMBERS'],
+			guildOnly: true,
 			args: [{
 				key: 'member',
 				prompt: 'Which member do you want to ban?',
