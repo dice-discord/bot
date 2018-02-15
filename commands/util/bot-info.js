@@ -44,7 +44,7 @@ module.exports = class BotInfoCommand extends Command {
 						inline: true
 					},
 					{
-						name: '🔧 Discord.js Version',
+						name: '⚙ Discord.js Version',
 						value: '12.0.0-dev',
 						inline: true
 					},
