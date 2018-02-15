@@ -43,23 +43,19 @@ module.exports = class BanMemberCommand extends Command {
 			reason = `Requested by ${msg.author.tag}`;
 		}
 
-		if (member.bannable && days !== 0 && reason) {
+		if (member.bannable && days !== 0) {
 			// Member can be banned, reason and days specified
+			this.client.provider.set(msg.guild, `banned${user.id}`, { banned: true, reason: reason });
 			member.ban({ reason: reason, days: days })
 				.then((bannedMember) => {
 					return msg.reply(`🚪 ${bannedMember} was banned for \`${reason}\`. \`${days}\` days of their messages were deleted.`);
 				});
-		} else if (member.bannable && reason) {
+		} else if (member.bannable) {
 			// Member can be banned, reason specified, and days unspecified
+			this.client.provider.set(msg.guild, `banned${user.id}`, { banned: true, reason: reason });
 			member.ban({ reason: reason })
 				.then((bannedMember) => {
 					return msg.reply(`🚪 ${bannedMember} was banned for \`${reason}\`.`);
-				});
-		} else if (member.bannable) {
-			// Member can be banned, reason and days unspecified
-			member.ban({ reason: reason })
-				.then((bannedMember) => {
-					return msg.reply(`🚪 ${bannedMember} was banned.`);
 				});
 		} else {
 			return msg.reply('❌ Unable to ban that member');

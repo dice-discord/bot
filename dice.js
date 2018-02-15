@@ -193,7 +193,14 @@ client
 		updateServerCount(client.guilds.size);
 		announceServerCount(count, false);
 	})
-	.on('guildMemberAdd', member => {
+	.on('guildMemberAdd', async member => {
+		// Check if the member is hackbanned
+		const result = await client.provider.get(member.guild, `banned${member.id}`);
+		if (result) {
+			if (result.banned === true) {
+				member.ban({ reason: result.reason });
+			}
+		}
 		// If member joined on the official Dice server announce it
 		if (member.guild.id === rules.homeServerID) {
 			const guild = client.guilds.get(rules.homeServerID);
