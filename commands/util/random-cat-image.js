@@ -44,6 +44,5 @@ module.exports = class RandomCatImageCommand extends Command {
 		} finally {
 			msg.channel.stopTyping();
 		}
-
 	}
 };

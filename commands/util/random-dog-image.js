@@ -46,6 +46,5 @@ module.exports = class RandomDogImageCommand extends Command {
 		} finally {
 			msg.channel.stopTyping();
 		}
-
 	}
 };
