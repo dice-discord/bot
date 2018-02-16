@@ -23,11 +23,10 @@ module.exports = class HackBanUserCommand extends Command {
 			args: [{
 				key: 'user',
 				prompt: 'What user do you want to ban?',
-				type: 'user',
-				label: 'server member'
+				type: 'user'
 			}, {
 				key: 'reason',
-				prompt: 'What is the reason for banning this member?',
+				prompt: 'What is the reason for banning this user?',
 				type: 'string',
 				label: 'reason for ban',
 				default: '',
