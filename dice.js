@@ -91,7 +91,7 @@ process
 		});
 	})
 	.on('warning', warning => {
-		winston.warn(warning);
+		winston.warn(warning.stack);
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Warning',
@@ -196,7 +196,7 @@ client
 	.on('guildMemberAdd', async member => {
 		/* Check if the member is hackbanned */
 		// Get all of the bans (from commands) on this guild
-		const bansData = await this.client.provider.get(member.guild, 'bans');
+		const bansData = await client.provider.get(member.guild, 'bans');
 		if (member.bannable && bansData[member.id].banned === true) {
 			// Able to ban member
 			member.ban({ reason: bansData[member.id].reason });
