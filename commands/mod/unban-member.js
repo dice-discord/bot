@@ -5,6 +5,7 @@ const { Command } = require('discord.js-commando');
 module.exports = class UnbanMemberCommand extends Command {
 	constructor(client) {
 		super(client, {
+			ownerOnly: true,
 			name: 'unban-member',
 			aliases: ['unban-user', 'unban', 'un-hack-ban-member', 'un-hack-ban-user'],
 			group: 'mod',
