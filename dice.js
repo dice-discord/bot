@@ -180,28 +180,29 @@ client
 		updateServerCount();
 	})
 	.on('guildCreate', async () => {
-		// Bot joins a new server
+		/* Bot joins a new server */
 		let count = await client.shard.broadcastEval('this.guilds.size');
 		count = count.reduce((prev, val) => prev + val, 0);
 		updateServerCount();
 		announceServerCount(count, true);
 	})
 	.on('guildDelete', async () => {
-		// Bot leaves a server
+		/* Bot leaves a server */
 		let count = await client.shard.broadcastEval('this.guilds.size');
 		count = count.reduce((prev, val) => prev + val, 0);
 		updateServerCount(client.guilds.size);
 		announceServerCount(count, false);
 	})
 	.on('guildMemberAdd', async member => {
-		// Check if the member is hackbanned
-		const result = await client.provider.get(member.guild, `banned${member.id}`);
-		if (result) {
-			if (result.banned === true) {
-				member.ban({ reason: result.reason });
-			}
+		/* Check if the member is hackbanned */
+		// Get all of the bans (from commands) on this guild
+		const bansData = await this.client.provider.get(member.guild, 'bans');
+		if (member.bannable && bansData[member.id].banned === true) {
+			// Able to ban member
+			member.ban({ reason: bansData[member.id].reason });
 		}
-		// If member joined on the official Dice server announce it
+
+		/* If member joined on the official Dice server announce it */
 		if (member.guild.id === rules.homeServerID) {
 			const guild = client.guilds.get(rules.homeServerID);
 			// #joins

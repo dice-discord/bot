@@ -31,35 +31,44 @@ module.exports = class BanMemberCommand extends Command {
 				prompt: 'What is the reason for banning this member?',
 				type: 'string',
 				label: 'reason for ban',
-				default: ''
+				default: '',
+				validate: reason => {
+					if (reason.length > 400) {
+						return `Your reason was ${reason.length} characters long. Please limit your title to 400 characters.`;
+					} else {
+						return true;
+					}
+				}
 			}]
 		});
 	}
 
 	run(msg, { member, days, reason }) {
-		if (reason) {
-			reason += ` - Requested by ${msg.author.tag}`;
-		} else {
-			reason = `Requested by ${msg.author.tag}`;
-		}
+		try {
+			msg.channel.startTyping();
+			if (reason) {
+				reason += ` - Requested by ${msg.author.tag}`;
+			} else {
+				reason = `Requested by ${msg.author.tag}`;
+			}
 
-		if (member.bannable && days !== 0) {
-			// Member can be banned, reason and days specified
-			this.client.provider.set(msg.guild, `banned${user.id}`, { banned: true, reason: reason });
-			member.ban({ reason: reason, days: days })
-				.then((bannedMember) => {
-					return msg.reply(`🚪 ${bannedMember} was banned for \`${reason}\`. \`${days}\` days of their messages were deleted.`);
-				});
-		} else if (member.bannable) {
-			// Member can be banned, reason specified, and days unspecified
-			this.client.provider.set(msg.guild, `banned${user.id}`, { banned: true, reason: reason });
-			member.ban({ reason: reason })
-				.then((bannedMember) => {
-					return msg.reply(`🚪 ${bannedMember} was banned for \`${reason}\`.`);
-				});
-		} else {
-			return msg.reply('❌ Unable to ban that member');
+			if (member.bannable && days !== 0) {
+				// Member can be banned, and days specified
+				msg.guild.members.ban(member, { reason: reason, days: days })
+					.then((bannedMember) => {
+						return msg.reply(`🚪 ${bannedMember} was banned for \`${reason}\`. \`${days}\` days of their messages were deleted.`);
+					});
+			} else if (member.bannable) {
+				// Member can be banned, and days unspecified
+				msg.guild.members.ban(member, { reason: reason })
+					.then((bannedMember) => {
+						return msg.reply(`🚪 ${bannedMember} was banned for \`${reason}\`.`);
+					});
+			} else {
+				return msg.reply('❌ Unable to ban that member');
+			}
+		} finally {
+			msg.channel.stopTyping();
 		}
-
 	}
 };
