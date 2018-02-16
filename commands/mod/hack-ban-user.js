@@ -6,6 +6,7 @@ const rules = require('../../rules');
 module.exports = class HackBanUserCommand extends Command {
 	constructor(client) {
 		super(client, {
+			ownerOnly: true,
 			name: 'hack-ban-user',
 			aliases: ['hack-ban-member', 'hack-ban'],
 			group: 'mod',
