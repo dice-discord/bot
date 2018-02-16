@@ -43,7 +43,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			}
 
 			const options = {
-				uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,
+				uri: 'https://fortnitetracker.com',
 				json: true,
 				headers: {
 					'TRN-Api-Key': process.env.FORTNITETN_TOKEN
