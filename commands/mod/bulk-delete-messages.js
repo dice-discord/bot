@@ -29,8 +29,8 @@ module.exports = class BulkDeleteMessagesCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			msg.delete();
-			const messagesToDelete = await msg.channel.messages.fetch({ limit: messageCount });
+			await msg.delete();
+			const messagesToDelete = await msg.channel.messages.fetch({ limit: messageCount }).array();
 			msg.channel.bulkDelete(messagesToDelete)
 				.then((messages) => {
 					return msg.reply(`🗑 \`${messages.size}\` messages deleted.`);
