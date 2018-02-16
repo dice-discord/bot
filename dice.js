@@ -195,12 +195,12 @@ client
 	})
 	.on('guildMemberAdd', async member => {
 		/* Check if the member is hackbanned */
-		// Get all of the bans (from commands) on this guild
+		/*// Get all of the bans (from commands) on this guild
 		const bansData = await client.provider.get(member.guild, 'bans');
 		if (member.bannable && bansData[member.id].banned === true) {
 			// Able to ban member
 			member.ban({ reason: bansData[member.id].reason });
-		}
+		}*/
 
 		/* If member joined on the official Dice server announce it */
 		if (member.guild.id === rules.homeServerID) {
