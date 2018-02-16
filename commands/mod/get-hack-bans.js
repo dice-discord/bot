@@ -5,6 +5,7 @@ const { Command } = require('discord.js-commando');
 module.exports = class GetHackBansCommand extends Command {
 	constructor(client) {
 		super(client, {
+			ownerOnly: true,
 			name: 'get-hack-bans',
 			aliases: ['get-hack-ban'],
 			group: 'mod',
