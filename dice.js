@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 // Set up dependencies
-const { CommandoClient } = require('discord.js-commando');
+const { CommandoClient, FriendlyError } = require('discord.js-commando');
 const path = require('path');
 const replaceall = require('replaceall');
 const { MongoClient } = require('mongodb');
@@ -54,53 +54,6 @@ client.setProvider(
 	MongoClient.connect(process.env.MONGODB_URI)
 		.then(bot => new MongoDBProvider(bot, 'settings'))
 );
-
-// Handle promise rejections
-process
-	.on('unhandledRejection', error => {
-		winston.error(`Uncaught Promise Rejection:\n${error.stack}`);
-		client.channels.get('411563928816975883').send({
-			embed: {
-				title: 'Unhandled Promise Rejection',
-				timestamp: new Date(),
-				color: 0xf44336,
-				description: `\`\`\`${error.stack}\`\`\``
-			}
-		});
-	})
-	.on('rejectionHandled', error => {
-		winston.error(`Handled Promise Rejection:\n${error.stack}`);
-		client.channels.get('411563928816975883').send({
-			embed: {
-				title: 'Handled Promise Rejection',
-				timestamp: new Date(),
-				color: 0xf44336,
-				description: `\`\`\`${error}\`\`\``
-			}
-		});
-	})
-	.on('uncaughtException', error => {
-		winston.error(`Uncaught Exception:\n${error.stack}`);
-		client.channels.get('411563928816975883').send({
-			embed: {
-				title: 'Uncaught Exception',
-				timestamp: new Date(),
-				color: 0xf44336,
-				description: `\`\`\`${error}\`\`\``
-			}
-		});
-	})
-	.on('warning', warning => {
-		winston.warn(warning.stack);
-		client.channels.get('411563928816975883').send({
-			embed: {
-				title: 'Warning',
-				timestamp: new Date(),
-				color: 0xff9800,
-				description: `\`\`\`${warning.stack}\`\`\``
-			}
-		});
-	});
 
 /* Update server counter on bot listings */
 const dbl = new DBL(process.env.DISCORDBOTSORG_TOKEN);
@@ -169,6 +122,62 @@ const announceServerCount = async (serverCount, newServer) => {
 /* Update server counter on bot listings */
 
 client
+	.on('unhandledRejection', error => {
+		winston.error();
+		client.channels.get('411563928816975883').send({
+			embed: {
+				title: 'Unhandled Promise Rejection',
+				timestamp: new Date(),
+				color: 0xf44336,
+				description: `\`\`\`${error.stack}\`\`\``
+			}
+		});
+	})
+	.on('rejectionHandled', error => {
+		winston.error();
+		client.channels.get('411563928816975883').send({
+			embed: {
+				title: 'Handled Promise Rejection',
+				timestamp: new Date(),
+				color: 0xf44336,
+				description: `\`\`\`${error.stack}\`\`\``
+			}
+		});
+	})
+	.on('uncaughtException', error => {
+		winston.error();
+		client.channels.get('411563928816975883').send({
+			embed: {
+				title: 'Uncaught Exception',
+				timestamp: new Date(),
+				color: 0xf44336,
+				description: `\`\`\`${error.stack}\`\`\``
+			}
+		});
+	})
+	.on('warning', warning => {
+		winston.warn();
+		client.channels.get('411563928816975883').send({
+			embed: {
+				title: 'Warning',
+				timestamp: new Date(),
+				color: 0xff9800,
+				description: `\`\`\`${warning.stack}\`\`\``
+			}
+		});
+	})
+	.on('commandError', (cmd, error) => {
+		if (error instanceof FriendlyError) return;
+		winston.error(`[DICE]: Error in command ${cmd.groupID}:${cmd.memberName}`, error);
+		client.channels.get('411563928816975883').send({
+			embed: {
+				title: 'Unhandled Promise Rejection',
+				timestamp: new Date(),
+				color: 0xf44336,
+				description: `\`\`\`${error.stack}\`\`\``
+			}
+		});
+	})
 	.on('ready', () => {
 		winston.info(`[DICE] Logged in as ${client.user.tag}!`);
 
@@ -195,7 +204,7 @@ client
 	})
 	.on('guildMemberAdd', async member => {
 		/* Check if the member is hackbanned */
-		/*// Get all of the bans (from commands) on this guild
+		/* // Get all of the bans (from commands) on this guild
 		const bansData = await client.provider.get(member.guild, 'bans');
 		if (member.bannable && bansData[member.id].banned === true) {
 			// Able to ban member
@@ -224,11 +233,39 @@ client
 			});
 		}
 	})
-	.on('commandRun', async (cmd, promise, message) => {
-		// Command logger for research purposes
-
-		client.channels.find('id', '399458745480118272').send({
+	.on('commandBlocked', async (msg, reason) => {
+		client.channels.get('399458745480118272').send({
 			embed: {
+				title: 'Command Blocked',
+				author: {
+					name: `${msg.author.tag} (${msg.author.id})`,
+					icon_url: msg.author.displayAvatarURL(128)
+				},
+				timestamp: new Date(msg.createdTimestamp),
+				fields: [{
+					name: '📝 Message',
+					value: msg.content
+				}, {
+					name: '⛔ Reason',
+					value: reason
+				},
+				{
+					name: '🏦 User Balance',
+					value: `\`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}`
+				},
+				{
+					name: `🏦 ${client.user.username} Balance`,
+					value: `\`${await diceAPI.getBalance(client.user.id)}\` ${rules.currencyPlural}`
+				}
+				]
+			}
+		});
+	})
+	.on('commandRun', async (cmd, promise, message) => {
+		// Command logger
+		client.channels.get('399458745480118272').send({
+			embed: {
+				title: 'Command Run',
 				author: {
 					name: `${message.author.tag} (${message.author.id})`,
 					icon_url: message.author.displayAvatarURL(128)
