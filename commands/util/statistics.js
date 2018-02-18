@@ -30,7 +30,7 @@ module.exports = class StatisticsCommand extends Command {
 				fields: [
 					{
 						name: '👤 Total Number of Users',
-						// Subtract one because of the Dice bot and lottery jackpot
+						// Subtract one because of the Dice bot and for the Dice Dev bot
 						value: `${(await diceAPI.totalUsers()) - 2} users`
 					},
 					{
