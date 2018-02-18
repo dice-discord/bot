@@ -9,19 +9,16 @@ module.exports = class ResetDailyCommand extends Command {
 			name: 'reset-daily',
 			group: 'economy',
 			memberName: 'reset-daily',
-
 			description: 'Reset a user\'s last claimed daily timestamp.',
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['reset-dailies', 'daily-reset', 'dailies-reset'],
 			examples: ['reset-daily @Dice'],
-			args: [
-				{
-					key: 'user',
-					prompt: 'Who\'s wait time do you want to reset?',
-					type: 'user',
-					default: ''
-				}
-			],
+			args: [{
+				key: 'user',
+				prompt: 'Who\'s wait time do you want to reset?',
+				type: 'user',
+				default: ''
+			}],
 			throttling: {
 				usages: 2,
 				duration: 30
