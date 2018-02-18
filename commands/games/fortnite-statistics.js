@@ -3,8 +3,6 @@
 const { Command } = require('discord.js-commando');
 const rp = require('request-promise');
 const winston = require('winston');
-const replaceall = require('replaceall');
-const moment = require('moment');
 
 module.exports = class FortniteStatisticsCommand extends Command {
 	constructor(client) {
@@ -21,19 +19,19 @@ module.exports = class FortniteStatisticsCommand extends Command {
 				duration: 4
 			},
 			args: [{
-				key: 'username',
-				prompt: 'What user do you want to look up?',
-				type: 'string'
-			}, {
 				key: 'platform',
 				prompt: 'What platform do you want to search on?',
 				type: 'string',
 				parse: platform => platform.toLowerCase()
+			}, {
+				key: 'username',
+				prompt: 'What user do you want to look up?',
+				type: 'string'
 			}]
 		});
 	}
 
-	async run(msg, { username, platform }) {
+	async run(msg, { platform, username }) {
 		try {
 			msg.channel.startTyping();
 
@@ -43,7 +41,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			}
 
 			const options = {
-				uri: 'https://fortnitetracker.com',
+				uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,
 				json: true,
 				headers: {
 					'TRN-Api-Key': process.env.FORTNITETN_TOKEN
@@ -54,26 +52,6 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			if (stats.error === 'Player Not Found') {
 				return msg.reply('❌ Player not found on that platform.');
 			}
-
-			const parseTime = time => {
-				winston.debug(`[COMMAND](FORTNITE-STATISTICS) Parsing the time for ${time}`);
-				let duration = time;
-				duration = replaceall('d', '', duration);
-				duration = replaceall('h', '', duration);
-				duration = replaceall('m', '', duration);
-
-				winston.debug(`[COMMAND](FORTNITE-STATISTICS) Time after removing letters: ${duration}`);
-
-				duration = duration.split(' ');
-				winston.debug(`[COMMAND](FORTNITE-STATISTICS) Time after splitting on spaces: ${duration}`);
-
-				duration = moment.duration({
-					minutes: duration[2],
-					hours: duration[1],
-					days: duration[0]
-				});
-				return duration;
-			};
 
 			winston.debug(`[COMMAND](FORTNITE-STATISTICS) Result for ${username} on ${platform}: ${JSON.stringify(stats)}`);
 			return msg.replyEmbed({
@@ -87,7 +65,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 					value: `${stats.lifeTimeStats[10].value} kills. ${stats.lifeTimeStats[11].value} K/D ratio. ${stats.lifeTimeStats[12].value} kills per minute.`
 				}, {
 					name: '🕒 Time Played',
-					value: `Around ${parseTime(stats.lifeTimeStats[13].value).humanize()} (${stats.lifeTimeStats[13].value})`
+					value: stats.lifeTimeStats[13].value
 				}, {
 					name: '⏲ Average Survival Time',
 					value: stats.lifeTimeStats[14].value
