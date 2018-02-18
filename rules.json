@@ -5,7 +5,6 @@
     "minWager": 1,
     "currencyPlural": "dots",
 	"currencySingular": "dot",
-	"lotteryTicketPrice": 100,
     "newUserBalance": 500,
     "houseStartingBalance": 750000,
     "houseEdgePercentage": 1,
