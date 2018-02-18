@@ -6,7 +6,6 @@ const rules = require('../../rules');
 module.exports = class HackBanUserCommand extends Command {
 	constructor(client) {
 		super(client, {
-			ownerOnly: true,
 			name: 'hack-ban-user',
 			aliases: ['hack-ban-member', 'hack-ban'],
 			group: 'mod',
@@ -46,6 +45,11 @@ module.exports = class HackBanUserCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
+			// Check permissions
+			if (!user.bannable) {
+				return msg.reply('❌ I don\'t have the permissions to ban that user');
+			}
+
 			// Note that hackbans are different than regular bans because they ban a user before they are a server member, hence the variable name differences
 			if (reason) {
 				reason += ` - Requested by ${msg.author.tag} on ${new Date(msg.createdAt)}`;
@@ -54,8 +58,8 @@ module.exports = class HackBanUserCommand extends Command {
 			}
 
 			// Get all of the bans (from commands) on this guild
-			const bansData = await this.client.provider.get(msg.guild, 'bans');
-			if (bansData[user.id].banned === true) {
+			const bansData = await this.client.provider.get(msg.guild, 'bans', {});
+			if (bansData[user.id] && bansData[user.id].banned === true) {
 				return msg.reply('❌ That user is already banned.');
 			} else {
 				// Update the object of the user from the temporary storage

@@ -5,7 +5,6 @@ const { Command } = require('discord.js-commando');
 module.exports = class UnbanMemberCommand extends Command {
 	constructor(client) {
 		super(client, {
-			ownerOnly: true,
 			name: 'unban-member',
 			aliases: ['unban-user', 'unban', 'un-hack-ban-member', 'un-hack-ban-user'],
 			group: 'mod',
@@ -48,17 +47,21 @@ module.exports = class UnbanMemberCommand extends Command {
 			}
 
 			// Get all of the bans (from commands) on this guild
-			const bansData = await this.client.provider.get(msg.guild, 'bans');
-			// Delete the object of the user from the temporary storage
-			delete bansData[user.id];
-			// Set the bans for the guild to the data modified in this command
-			this.client.provider.set(msg.guild, 'bans', bansData);
+			const bansData = await this.client.provider.get(msg.guild, 'bans', {});
 
-			// Unban the user on the guild
-			msg.guild.members.unban(user, { reason: reason })
-				.then((unbannedMember) => {
-					return msg.reply(`🚪 ${unbannedMember} was unbanned for \`${reason}\`.`);
-				});
+			if (bansData[user.id]) {
+				// Delete the object of the user from the temporary storage
+				delete bansData[user.id];
+				// Set the bans for the guild to the data modified in this command
+				this.client.provider.set(msg.guild, 'bans', bansData);
+			}
+
+			if (await msg.guild.fetchBans.has(msg.author.id)) {
+				// Unban the user on the guild
+				msg.guild.members.unban(user, { reason: reason });
+			}
+
+			return msg.reply(`🚪 ${user.tag} (\`${user.id}\`) was unbanned for \`${reason}\`.`);
 		} finally {
 			msg.channel.stopTyping();
 		}

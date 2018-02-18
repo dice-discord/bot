@@ -166,15 +166,15 @@ client
 			}
 		});
 	})
-	.on('commandError', (cmd, error) => {
+	.on('commandError', (command, error) => {
 		if (error instanceof FriendlyError) return;
-		winston.error(`[DICE]: Error in command ${cmd.groupID}:${cmd.memberName}`, error);
+		winston.error(`[DICE]: Error in command ${command.groupID}:${command.memberName}`, error);
 		client.channels.get('411563928816975883').send({
 			embed: {
-				title: 'Unhandled Promise Rejection',
+				title: 'Command Error',
 				timestamp: new Date(),
 				color: 0xf44336,
-				description: `\`\`\`${error.stack}\`\`\``
+				description: `Error in command \`${command.groupID}:${command.memberName}\`\n\`\`\`${error.stack}\`\`\``
 			}
 		});
 	})
@@ -199,17 +199,17 @@ client
 		/* Bot leaves a server */
 		let count = await client.shard.broadcastEval('this.guilds.size');
 		count = count.reduce((prev, val) => prev + val, 0);
-		updateServerCount(client.guilds.size);
+		updateServerCount();
 		announceServerCount(count, false);
 	})
 	.on('guildMemberAdd', async member => {
 		/* Check if the member is hackbanned */
-		/* // Get all of the bans (from commands) on this guild
-		const bansData = await client.provider.get(member.guild, 'bans');
+		// Get all of the bans (from commands) on this guild
+		const bansData = await client.provider.get(member.guild, 'bans', {});
 		if (member.bannable && bansData[member.id].banned === true) {
 			// Able to ban member
 			member.ban({ reason: bansData[member.id].reason });
-		}*/
+		}
 
 		/* If member joined on the official Dice server announce it */
 		if (member.guild.id === rules.homeServerID) {

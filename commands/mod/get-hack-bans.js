@@ -1,11 +1,11 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
+const winston = require('winston');
 
 module.exports = class GetHackBansCommand extends Command {
 	constructor(client) {
 		super(client, {
-			ownerOnly: true,
 			name: 'get-hack-bans',
 			aliases: ['get-hack-ban'],
 			group: 'mod',
@@ -25,16 +25,13 @@ module.exports = class GetHackBansCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			const bans = await this.client.provider.get(msg.guild, 'bans');
-			let message;
+			const bans = await this.client.provider.get(msg.guild, 'bans', {});
+			const keys = Object.keys(bans);
+			winston.debug(`[COMMAND](GET-HACK-BANS) Keys of bans on ${msg.guild.name}`, keys);
 
-			if (bans) {
-				// Member can be banned
-				for (const profile in bans) {
-					message.push(`${profile.tag} (\`${profile.id}\`) for ${profile.reason}`);
-				}
-
-				return msg.reply(message, { split: true });
+			if (bans && bans !== {}) {
+				// If there is ban data and it isn't an empty object
+				return msg.reply(Object.values(bans).map(ban => `${ban.tag} (\`${ban.id}\`) for \`${ban.reason}\``), { split: true });
 			} else {
 				return msg.reply('❌ No hackbans found on this server.');
 			}
