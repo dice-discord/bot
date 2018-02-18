@@ -25,7 +25,6 @@ const client = new CommandoClient({
 client.registry
 	// Registers your custom command groups
 	.registerGroups([
-		['dice', 'Dice'],
 		['util', 'Utility'],
 		['dev', 'Developer'],
 		['economy', 'Economy'],
