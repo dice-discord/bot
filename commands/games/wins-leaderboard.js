@@ -13,7 +13,6 @@ module.exports = class LeaderboardCommand extends Command {
 			memberName: 'wins-leaderboard',
 			description: 'Shows a top ten leaderboard of who had the most profitable games',
 			aliases: ['top-games', 'top-wins', 'leaderboard-wins', 'wins-top'],
-			examples: ['wins-leaderboard'],
 			ownerOnly: true
 		});
 	}

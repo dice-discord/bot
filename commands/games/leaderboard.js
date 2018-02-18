@@ -12,8 +12,7 @@ module.exports = class LeaderboardCommand extends Command {
 			group: 'games',
 			memberName: 'leaderboard',
 			description: `Shows a top ten leaderboard of who has the most ${rules.currencyPlural}`,
-			aliases: ['top-10', 'top-ten', 'chart', 'top'],
-			examples: ['leaderboard']
+			aliases: ['top-10', 'top-ten', 'chart', 'top']
 		});
 	}
 

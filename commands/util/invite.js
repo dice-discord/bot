@@ -9,8 +9,7 @@ module.exports = class InviteCommand extends Command {
 			name: 'invite',
 			group: 'util',
 			memberName: 'invite',
-			description: `An invite link for <@${rules.houseID}>`,
-			examples: ['invite']
+			description: `An invite link for <@${rules.houseID}>`
 		});
 	}
 

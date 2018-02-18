@@ -12,7 +12,6 @@ module.exports = class StatisticsCommand extends Command {
 			memberName: 'statistics',
 			description: `Get statistics on <@${rules.houseID}>`,
 			aliases: ['stats'],
-			examples: ['statistics'],
 			throttling: {
 				usages: 2,
 				duration: 20

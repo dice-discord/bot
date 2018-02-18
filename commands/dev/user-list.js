@@ -14,7 +14,6 @@ module.exports = class UserListCommand extends Command {
 			description: `List all users of <@${rules.houseID}>`,
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['list-users'],
-			examples: ['user-list'],
 			throttling: {
 				usages: 2,
 				duration: 30

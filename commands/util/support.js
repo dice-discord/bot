@@ -10,8 +10,7 @@ module.exports = class SupportCommand extends Command {
 			group: 'util',
 			memberName: 'support',
 			description: `An invite to the <@${rules.houseID}> server`,
-			aliases: ['home', 'report', 'bug'],
-			examples: ['support']
+			aliases: ['home', 'report', 'bug']
 		});
 	}
 

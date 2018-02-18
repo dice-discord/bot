@@ -11,7 +11,6 @@ module.exports = class RandomCatImageCommand extends Command {
 			memberName: 'random-cat-image',
 			description: 'Get a picture of a random cat',
 			aliases: ['random-cat', 'cat-image', 'cat'],
-			examples: ['cat-image', 'random-cat'],
 			throttling: {
 				usages: 1,
 				duration: 5

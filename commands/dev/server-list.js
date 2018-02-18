@@ -12,7 +12,6 @@ module.exports = class ServerListCommand extends Command {
 			description: `List all servers <@${rules.houseID}> is on`,
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['list-servers', 'guild-list', 'list-guilds'],
-			examples: ['server-list'],
 			throttling: {
 				usages: 2,
 				duration: 30
@@ -29,7 +28,7 @@ module.exports = class ServerListCommand extends Command {
 		for (const guild of guilds.values()) {
 			guildList.push(`${guild.name} (\`${guild.id}\`)`);
 		}
-		
+
 		return msg.reply(`${guildList.join('\n')}\n
 		👥 ${guilds.size} servers in total. ${guildList.length} servers were listed.`, { split: true });
 	}
