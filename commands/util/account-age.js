@@ -2,7 +2,6 @@
 
 const moment = require('moment');
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
 
 module.exports = class AccountAgeCommand extends Command {
 	constructor(client) {
@@ -12,7 +11,7 @@ module.exports = class AccountAgeCommand extends Command {
 			memberName: 'account-age',
 			description: 'Check when an account was created',
 			aliases: ['age', 'account-created'],
-			examples: ['account-age', `account-age <@${rules.houseID}>`],
+			examples: ['account-age', 'account-age @Dice'],
 			args: [{
 				key: 'user',
 				prompt: 'Who do you want to check?',
