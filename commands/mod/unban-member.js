@@ -40,6 +40,8 @@ module.exports = class UnbanMemberCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
+			let banned = false;
+
 			if (reason) {
 				reason += ` - Requested by ${msg.author.tag}`;
 			} else {
@@ -49,19 +51,28 @@ module.exports = class UnbanMemberCommand extends Command {
 			// Get all of the bans (from commands) on this guild
 			const bansData = await this.client.provider.get(msg.guild, 'bans', {});
 
+			// User is hackbanned
 			if (bansData[user.id]) {
+				banned = true;
 				// Delete the object of the user from the temporary storage
 				delete bansData[user.id];
 				// Set the bans for the guild to the data modified in this command
 				this.client.provider.set(msg.guild, 'bans', bansData);
 			}
 
-			if (await msg.guild.fetchBans.has(msg.author.id)) {
+			// User is regular banned
+			if (msg.guild.members.has(msg.author.id) && (await msg.guild.fetchBans()).has(msg.author.id)) {
+				banned = true;
 				// Unban the user on the guild
 				msg.guild.members.unban(user, { reason: reason });
 			}
 
-			return msg.reply(`🚪 ${user.tag} (\`${user.id}\`) was unbanned for \`${reason}\`.`);
+			// Check if the user is actually banned
+			if (banned === true) {
+				return msg.reply(`🚪 ${user.tag} (\`${user.id}\`) was unbanned for \`${reason}\`.`);
+			} else {
+				return msg.reply(`❌ ${user.tag} isn't banned.`);
+			}
 		} finally {
 			msg.channel.stopTyping();
 		}
