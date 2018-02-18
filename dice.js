@@ -91,7 +91,7 @@ const updateServerCount = () => {
 };
 
 // Everytime a server adds or removes Dice, announce it
-const announceServerCount = async (serverCount, newServer) => {
+const announceServerCount = async (serverCount, newServer, date) => {
 	let changeTypeColor;
 	if (newServer === true) {
 		changeTypeColor = 0x4caf50;
@@ -104,7 +104,7 @@ const announceServerCount = async (serverCount, newServer) => {
 	// #stats channel
 	client.channels.find('id', '399451781261950977').send({
 		embed: {
-			timestamp: new Date(),
+			timestamp: date,
 			color: changeTypeColor,
 			fields: [{
 				name: 'Server Count',
@@ -187,19 +187,19 @@ client
 
 		updateServerCount();
 	})
-	.on('guildCreate', async () => {
+	.on('guildCreate', async (guild) => {
 		/* Bot joins a new server */
 		let count = await client.shard.broadcastEval('this.guilds.size');
 		count = count.reduce((prev, val) => prev + val, 0);
 		updateServerCount();
-		announceServerCount(count, true);
+		announceServerCount(count, true, guild.me.joinedAt);
 	})
 	.on('guildDelete', async () => {
 		/* Bot leaves a server */
 		let count = await client.shard.broadcastEval('this.guilds.size');
 		count = count.reduce((prev, val) => prev + val, 0);
 		updateServerCount();
-		announceServerCount(count, false);
+		announceServerCount(count, false, new Date());
 	})
 	.on('guildMemberAdd', async member => {
 		/* Check if the member is hackbanned */
