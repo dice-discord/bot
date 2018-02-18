@@ -15,7 +15,6 @@ module.exports = class DailyCommand extends Command {
 			memberName: 'daily',
 			description: `Collect your daily ${rules.currencyPlural}`,
 			aliases: ['dailies'],
-			examples: ['daily'],
 			throttling: {
 				usages: 1,
 				duration: 3
@@ -35,41 +34,14 @@ module.exports = class DailyCommand extends Command {
 			// 23 hours because it's better for users to have some wiggle room
 			const fullDay = 82800000;
 			const waitDuration = moment.duration(oldTime - currentTime + fullDay).humanize();
-			const serverID = '388366947689168897';
-
-			const inviter = rules.rewardRoles[0];
-			const backer = rules.rewardRoles[1];
-			const recruiter = rules.rewardRoles[2];
-			const affiliate = rules.rewardRoles[3];
 
 			let payout = 1000;
 			let note;
 
-			// Bonuses for referring users
-
-			if (msg.member.roles.has(affiliate.id) && msg.guild.id === serverID) {
-				payout = payout * affiliate.multiplier;
-				note = `You got double the regular amount for being an **${affiliate.name}** from inviting 25+ users.`;
-			} else if (msg.member.roles.has(recruiter.id) && msg.guild.id === serverID) {
-				payout = payout * recruiter.multiplier;
-				note = `You got a ${(recruiter.multiplier - 1) * 100}% bonus for being a **${recruiter.name}** from inviting 10+ users.`;
-			} else if (msg.member.roles.has(backer.id) && msg.guild.id === serverID) {
-				payout = payout * backer.multiplier;
-				note = `You got a ${(backer.multiplier - 1) * 100}% bonus for being a **${backer.name}** from inviting 5+ users.`;
-			} else if (msg.member.roles.has(inviter.id) && msg.guild.id === serverID) {
-				payout = payout * inviter.multiplier;
-				note = `You got a ${(inviter.multiplier - 1) * 100}% bonus for being a **${inviter.name}** from inviting 1+ users.`;
-			}
-
 			winston.debug(`[COMMAND](DAILY) DBL vote status for ${msg.author.tag}: ${voteStatus}`);
-			if (voteStatus && note) {
-				payout = payout * 2;
-				note += `\nYou got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
-			} else if (voteStatus) {
+			if (voteStatus) {
 				payout = payout * 2;
 				note = `You got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
-			} else if (note) {
-				note += `\nYou can double your payout from voting for ${this.client.user} each day. Use ${msg.anyUsage('vote')} to vote once per day.`;
 			} else {
 				note = `You can double your payout from voting for ${this.client.user} each day. Use ${msg.anyUsage('vote')} to vote once per day.`;
 			}

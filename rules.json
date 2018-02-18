@@ -4,39 +4,11 @@
     "maxMultiplier": 100,
     "minWager": 1,
     "currencyPlural": "dots",
-    "currencySingular": "dot",
+	"currencySingular": "dot",
+	"lotteryTicketPrice": 100,
     "newUserBalance": 500,
     "houseStartingBalance": 750000,
     "houseEdgePercentage": 1,
     "houseID": "388191157869477888",
-    "homeServerID": "388366947689168897",
-    "rewardRoles": [{
-            "name": "inviter",
-            "id": "397627097385926657",
-            "ranking": 0,
-            "requirement": 1,
-            "multiplier": 1.1
-        },
-        {
-            "name": "backer",
-            "id": "397630972570632192",
-            "ranking": 1,
-            "requirement": 5,
-            "multiplier": 1.25
-        },
-        {
-            "name": "recruiter",
-            "id": "397627268517593088",
-            "ranking": 2,
-            "requirement": 10,
-            "multiplier": 1.75
-        },
-        {
-            "name": "affiliate",
-            "id": "397627659749687297",
-            "ranking": 3,
-            "requirement": 25,
-            "multiplier": 2
-        }
-    ]
+    "homeServerID": "388366947689168897"
 }
