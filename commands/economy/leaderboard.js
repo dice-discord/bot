@@ -1,0 +1,53 @@
+// Copyright 2018 Jonah Snider
+
+const { Command } = require('discord.js-commando');
+const { MessageEmbed } = require('discord.js');
+const diceAPI = require('../../providers/diceAPI');
+const rules = require('../../rules');
+const winston = require('winston');
+
+module.exports = class LeaderboardCommand extends Command {
+	constructor(client) {
+		super(client, {
+			name: 'leaderboard',
+			group: 'economy',
+			memberName: 'leaderboard',
+			description: `Shows a top ten leaderboard of who has the most ${rules.currencyPlural}`,
+			aliases: ['top-10', 'top-ten', 'chart', 'top']
+		});
+	}
+
+	async run(msg) {
+		try {
+			msg.channel.startTyping();
+
+			const leaderboardArray = await diceAPI.leaderboard();
+
+			winston.verbose('[COMMAND](LEADERBOARD) Contents of leaderboard array:', leaderboardArray);
+			winston.verbose(`[COMMAND](LEADERBOARD) Leaderboard array length: ${leaderboardArray.length}`);
+
+			// Check if there are enough users to populate the embed
+			if (leaderboardArray.length < 10) {
+				return msg.reply('❌ There are less than 10 users total.');
+			}
+
+			const userTagFromID = async arrayPlace => {
+				await this.client.users.fetch(leaderboardArray[arrayPlace].id);
+				winston.debug(`[COMMAND](LEADERBOARD) Checking user tag from array index ${arrayPlace}`);
+				const result = this.client.users.resolve(leaderboardArray[arrayPlace].id).tag;
+				winston.debug(`[COMMAND](LEADERBOARD) Result for userTagFromID: ${result}`);
+				return result;
+			};
+
+			const embed = new MessageEmbed({ title: 'Top 10 Leaderboard' });
+
+			for (let i = 0; i < leaderboardArray.length; i++) {
+				embed.addField(`#${i + 1} ${await userTagFromID(i)}`, `${leaderboardArray[i].balance} ${rules.currencyPlural}`);
+			}
+
+			return msg.replyEmbed(embed);
+		} finally {
+			msg.channel.stopTyping();
+		}
+	}
+};
