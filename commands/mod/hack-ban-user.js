@@ -32,7 +32,7 @@ module.exports = class HackBanUserCommand extends Command {
 				default: '',
 				validate: reason => {
 					if (reason.length > 400) {
-						return `Your reason was ${reason.length} characters long. Please limit your title to 400 characters.`;
+						return `Your reason was ${reason.length} characters long. Please limit your reason to 400 characters.`;
 					} else {
 						return true;
 					}
