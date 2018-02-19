@@ -10,33 +10,22 @@ module.exports = class RemoveBalanceCommand extends Command {
 			name: 'remove-balance',
 			group: 'economy',
 			memberName: 'remove-balance',
-
 			description: 'Remove dots from another user\'s account',
 			details: 'Only the bot owner(s) may use this command.',
-			aliases: [
-				'remove',
-				'remove-bal',
-				'decrease-balance',
-				'decrease-bal',
-				'lower',
-				'lower-bal',
-				'reduce',
-				'reduce-bal'
-			],
+			aliases: ['remove-bal', 'decrease-balance', 'decrease-bal', 'lower-bal', 'reduce-bal'],
 			examples: ['remove-balance 500 @Dice'],
-			args: [
-				{
-					key: 'amount',
-					prompt: 'How many dots do you want to remove?',
-					type: 'float',
-					parse: amount => diceAPI.simpleFormat(amount),
-					min: rules.minWager
-				},
-				{
-					key: 'user',
-					prompt: 'Who do you want to remove dots from?',
-					type: 'user'
-				}
+			args: [{
+				key: 'amount',
+				prompt: 'How many dots do you want to remove?',
+				type: 'float',
+				parse: amount => diceAPI.simpleFormat(amount),
+				min: rules.minWager
+			},
+			{
+				key: 'user',
+				prompt: 'Who do you want to remove dots from?',
+				type: 'user'
+			}
 			],
 			throttling: {
 				usages: 2,

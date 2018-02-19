@@ -10,10 +10,9 @@ module.exports = class AddBalanceCommand extends Command {
 			name: 'add-balance',
 			group: 'economy',
 			memberName: 'add-balance',
-
 			description: 'Add dots to another user\'s account',
 			details: 'Only the bot owner(s) may use this command.',
-			aliases: ['add', 'add-bal', 'increase-balance', 'increase-bal'],
+			aliases: ['add-bal', 'increase-balance', 'increase-bal'],
 			examples: ['add-balance 500 @Dice'],
 			args: [
 				{
