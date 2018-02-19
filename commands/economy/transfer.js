@@ -64,7 +64,7 @@ module.exports = class TransferCommand extends Command {
 
 			// Tell the sender
 
-			return msg.reply(`📤 Transferred \`${amount}\` ${rules.currencyPlural} to <@${user.id}>. You now have a balance of \`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}.`);
+			return msg.reply(`📤 Transferred \`${amount}\` ${rules.currencyPlural} to ${user.tag}. You now have a balance of \`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}.`);
 		} finally {
 			msg.channel.stopTyping();
 		}
