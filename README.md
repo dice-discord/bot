@@ -12,7 +12,7 @@ A general purpose utility bot, with an economy, games, and lots of other feature
 * Utility (account age, choose, random dog/cat image)
 * Economy (transfer, dailies, games, leaderboard)
 * Games (Fortnite stats, Overwatch stats, betting game)
-* Moderation (ban, hackban, bulk delete messages, unban)
+* Moderation (ban, hackban, bulk delete messages, selfroles, unban)
 * Moderators can disable commands on their server
 * Customizable prefix
 
