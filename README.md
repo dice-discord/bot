@@ -5,18 +5,16 @@
 
 A general purpose utility bot, with an economy, games, and lots of other features.
 
-## [Invite to Your Server](https://discord.now.sh/388191157869477888?p3072)
+## [Invite to Your Server](https://discordapp.com/oauth2/authorize?client_id=388191157869477888&permissions=8&scope=bot)
 
-## Additional features
+## Features
 
-Dice also has lots of other features.
-
-* Full fledged economy ( dailies, leaderboard, games)
-* Top ten leaderboard
-* Dailies
-* Referral system
+* Utility (account age, choose, random dog/cat image)
+* Economy (transfer, dailies, games, leaderboard)
+* Games (Fortnite stats, Overwatch stats, betting game)
+* Moderation (ban, hackban, bulk delete messages, unban)
 * Moderators can disable commands on their server
-* Customize the prefix
+* Customizable prefix
 
 ## Detailed Status
 
