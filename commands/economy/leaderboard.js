@@ -23,8 +23,8 @@ module.exports = class LeaderboardCommand extends Command {
 
 			const leaderboardArray = await diceAPI.leaderboard();
 
-			winston.verbose('[COMMAND](LEADERBOARD) Contents of leaderboard array:', leaderboardArray);
-			winston.verbose(`[COMMAND](LEADERBOARD) Leaderboard array length: ${leaderboardArray.length}`);
+			winston.debug('[COMMAND](LEADERBOARD) Contents of leaderboard array:', leaderboardArray);
+			winston.debug(`[COMMAND](LEADERBOARD) Leaderboard array length: ${leaderboardArray.length}`);
 
 			// Check if there are enough users to populate the embed
 			if (leaderboardArray.length < 10) {
