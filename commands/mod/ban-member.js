@@ -65,7 +65,7 @@ module.exports = class BanMemberCommand extends Command {
 						return msg.reply(`🚪 ${bannedMember} was banned for \`${reason}\`.`);
 					});
 			} else {
-				return msg.reply('❌ I don\'t have the permissions to ban that member');
+				return msg.reply('❌ I can\'t ban that member');
 			}
 		} finally {
 			msg.channel.stopTyping();
