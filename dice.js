@@ -218,7 +218,7 @@ client
 			channel.send({
 				embed: {
 					title: 'New Member',
-					timestamp: member.joinedTimestamp,
+					timestamp: member.joinedAt,
 					color: 0xff9800,
 					author: {
 						name: `${member.user.tag} (${member.user.id})`,
