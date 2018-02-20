@@ -59,6 +59,8 @@ module.exports = class FortniteStatisticsCommand extends Command {
 				json: true
 			};
 			const stats = await rp(options);
+			const totalGamesPlayed = stats.quickPlayStats.games.played + stats.competitiveStats.games.played;
+			const totalCards = stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards;
 
 			winston.debug(`[COMMAND](OVERWATCH-STATISTICS) Result for ${battletag} on ${platform}: ${JSON.stringify(stats)}`);
 			return msg.replyEmbed({
@@ -70,27 +72,27 @@ module.exports = class FortniteStatisticsCommand extends Command {
 				thumbnail: { url: stats.ratingIcon },
 				fields: [{
 					name: '🏆 Games Won',
-					value: `${stats.gamesWon} total wins (${stats.quickPlayStats.games.won} from quick play, ${stats.competitiveStats.games.won} from competitive)`,
+					value: `${stats.gamesWon ? stats.gamesWon : 0} total wins (${stats.quickPlayStats.games.won ? stats.quickPlayStats.games.won : 0} from quick play, ${stats.competitiveStats.games.won ? stats.competitiveStats.games.won : 0} from competitive)`,
 					inline: true
 				}, {
 					name: '💀 Average Eliminations',
-					value: `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play. ${stats.competitiveStats.eliminationsAvg} from competitive.`,
+					value: `${stats.quickPlayStats.eliminationsAvg ? stats.quickPlayStats.eliminationsAvg : 0} eliminations from quick play. ${stats.competitiveStats.eliminationsAvg ? stats.competitiveStats.eliminationsAvg : 0} from competitive.`,
 					inline: true
 				}, {
 					name: '🎮 Games Played',
-					value: `${stats.quickPlayStats.games.played + stats.competitiveStats.games.played} games played total (${stats.quickPlayStats.games.played} from quick play, ${stats.competitiveStats.games.played} from competitive)`,
+					value: `${totalGamesPlayed ? totalGamesPlayed : 0} games played total (${stats.quickPlayStats.games.played} from quick play, ${stats.competitiveStats.games.played} from competitive)`,
 					inline: true
 				}, {
 					name: '🏅 Medals (Quick Play)',
-					value: `${stats.quickPlayStats.awards.medals} medals total.\n🥇 ${stats.quickPlayStats.awards.medalsGold} gold medals\n🥈 ${stats.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${stats.quickPlayStats.awards.medalsBronze} bronze medals`,
+					value: `${stats.quickPlayStats.awards.medals ? stats.quickPlayStats.awards.medals : 0} medals total.\n🥇 ${stats.quickPlayStats.awards.medalsGold ? stats.quickPlayStats.awards.medalsGold : 0} gold medals\n🥈 ${stats.quickPlayStats.awards.medalsSilver ? stats.quickPlayStats.awards.medalsSilver : 0} silver medals\n🥉 ${stats.quickPlayStats.awards.medalsBronze ? stats.quickPlayStats.awards.medalsBronze : 0} bronze medals`,
 					inline: true
 				}, {
 					name: '🏅 Medals (Competitive)',
-					value: `${stats.competitiveStats.awards.medals} medals total.\n🥇 ${stats.competitiveStats.awards.medalsGold} gold medals\n🥈 ${stats.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${stats.competitiveStats.awards.medalsBronze} bronze medals`,
+					value: `${stats.competitiveStats.awards.medals ? stats.competitiveStats.awards.medals : 0} medals total.\n🥇 ${stats.competitiveStats.awards.medalsGold ? stats.competitiveStats.awards.medalsGold : 0} gold medals\n🥈 ${stats.competitiveStats.awards.medalsSilver ? stats.competitiveStats.awards.medalsSilver : 0} silver medals\n🥉 ${stats.competitiveStats.awards.medalsBronze ? stats.competitiveStats.awards.medalsBronze : 0} bronze medals`,
 					inline: true
 				}, {
 					name: '🃏 Cards',
-					value: `${stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards} total cards (${stats.quickPlayStats.awards.cards} from quick play, ${stats.competitiveStats.awards.cards} from competitive)`,
+					value: `${totalCards ? totalCards : 0} total cards (${stats.quickPlayStats.awards.cards ? stats.quickPlayStats.awards.cards : 0} from quick play, ${stats.competitiveStats.awards.cards ? stats.competitiveStats.awards.cards : 0} from competitive)`,
 					inline: true
 				}]
 			});
