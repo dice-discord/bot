@@ -35,8 +35,9 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 
 			// Find the position of the role and delete it from the array
 			selfRoles.splice(selfRoles.indexOf(role.id));
+			// Set the array to our updated version
+			await this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
 
-			await msg.member.roles.add(role.id, 'Selfrole');
 			return msg.reply(`Removed '${role.name}' as a selfrole.`);
 		} finally {
 			msg.channel.stopTyping();
