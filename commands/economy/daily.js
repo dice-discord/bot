@@ -71,7 +71,7 @@ module.exports = class DailyCommand extends Command {
 				}
 			} else {
 			// Daily collected in a day or less (so, recently)
-				return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${rules.currencyPlural}.`);
+				return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${rules.currencyPlural}. Remember to vote each day and get double ${rules.currencyPlural}. Use ${msg.anyUsage('vote')}.`);
 			}
 		} finally {
 			msg.channel.stopTyping();
