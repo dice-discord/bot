@@ -11,7 +11,7 @@ module.exports = class HeadCommand extends Command {
 			examples: ['head Notch'],
 			throttling: {
 				usages: 1,
-				duration: 15
+				duration: 3
 			},
 			args: [{
 				key: 'username',

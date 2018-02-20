@@ -13,7 +13,7 @@ module.exports = class RandomCatImageCommand extends Command {
 			aliases: ['random-cat', 'cat-image', 'cat'],
 			throttling: {
 				usages: 1,
-				duration: 5
+				duration: 4
 			}
 		});
 	}

@@ -13,7 +13,7 @@ module.exports = class MiniMeCommand extends Command {
 			examples: ['mini-me Notch', 'mini-me Notch false'],
 			throttling: {
 				usages: 1,
-				duration: 15
+				duration: 3
 			},
 			args: [{
 				key: 'username',

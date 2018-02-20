@@ -24,7 +24,11 @@ module.exports = class CalculatorCommand extends Command {
 					min: rules.minMultiplier,
 					max: rules.maxMultiplier
 				}
-			]
+			],
+			throttling: {
+				usages: 2,
+				duration: 5
+			}
 		});
 	}
 

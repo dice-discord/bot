@@ -16,7 +16,11 @@ module.exports = class ChooseCommand extends Command {
 				prompt: 'What do you want to select?',
 				type: 'string',
 				infinite: true
-			}]
+			}],
+			throttling: {
+				usages: 2,
+				duration: 6
+			}
 		});
 	}
 

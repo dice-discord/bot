@@ -18,7 +18,11 @@ module.exports = class FeedbackCommand extends Command {
 					prompt: 'What is your feedback you want to report?',
 					type: 'string'
 				}
-			]
+			],
+			throttling: {
+				usages: 2,
+				duration: 60
+			}
 		});
 	}
 

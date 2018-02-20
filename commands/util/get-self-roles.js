@@ -17,7 +17,11 @@ module.exports = class GetSelfRolesCommand extends Command {
 				key: 'role',
 				prompt: 'What role do you want to get?',
 				type: 'role'
-			}]
+			}],
+			throttling: {
+				usages: 2,
+				duration: 4
+			}
 		});
 	}
 

@@ -12,7 +12,11 @@ module.exports = class BotInfoCommand extends Command {
 			group: 'util',
 			memberName: 'bot-info',
 			description: `Information about <@${rules.houseID}>`,
-			aliases: ['github', 'uptime', 'library', 'git', 'lib', 'version', 'bot']
+			aliases: ['github', 'uptime', 'library', 'git', 'lib', 'version', 'bot'],
+			throttling: {
+				usages: 3,
+				duration: 8
+			}
 		});
 	}
 

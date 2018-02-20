@@ -32,7 +32,11 @@ module.exports = class UnbanMemberCommand extends Command {
 						return true;
 					}
 				}
-			}]
+			}],
+			throttling: {
+				usages: 2,
+				duration: 4
+			}
 		});
 	}
 

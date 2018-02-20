@@ -13,7 +13,7 @@ module.exports = class BodyCommand extends Command {
 			examples: ['body Notch', 'body Notch false'],
 			throttling: {
 				usages: 1,
-				duration: 15
+				duration: 3
 			},
 			args: [{
 				key: 'username',

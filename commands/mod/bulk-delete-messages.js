@@ -21,7 +21,11 @@ module.exports = class BulkDeleteMessagesCommand extends Command {
 				min: 1,
 				max: 100,
 				label: 'message count'
-			}]
+			}],
+			throttling: {
+				usages: 2,
+				duration: 4
+			},
 		});
 	}
 

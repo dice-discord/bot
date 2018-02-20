@@ -13,7 +13,11 @@ module.exports = class LeaderboardCommand extends Command {
 			group: 'economy',
 			memberName: 'leaderboard',
 			description: `Shows a top ten leaderboard of who has the most ${rules.currencyPlural}`,
-			aliases: ['top-10', 'top-ten', 'chart', 'top']
+			aliases: ['top-10', 'top-ten', 'chart', 'top'],
+			throttling: {
+				usages: 1,
+				duration: 5
+			}
 		});
 	}
 

@@ -16,7 +16,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			examples: ['fortnite-statistics Zaccubus pc', 'fortnite-stats "WBG Strafesh0t" pc'],
 			throttling: {
 				usages: 1,
-				duration: 4
+				duration: 10
 			},
 			args: [{
 				key: 'platform',

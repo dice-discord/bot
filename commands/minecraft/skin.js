@@ -11,7 +11,7 @@ module.exports = class SkinCommand extends Command {
 			examples: ['face Notch'],
 			throttling: {
 				usages: 1,
-				duration: 15
+				duration: 3
 			},
 			args: [{
 				key: 'username',

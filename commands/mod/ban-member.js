@@ -14,6 +14,10 @@ module.exports = class BanMemberCommand extends Command {
 			clientPermissions: ['BAN_MEMBERS'],
 			userPermissions: ['BAN_MEMBERS'],
 			guildOnly: true,
+			throttling: {
+				usages: 3,
+				duration: 6
+			},
 			args: [{
 				key: 'member',
 				prompt: 'Which member do you want to ban?',

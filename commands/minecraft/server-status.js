@@ -11,13 +11,10 @@ module.exports = class ServerStatusCommand extends Command {
 			memberName: 'server-status',
 			description: 'Get information about a Minecraft server',
 			aliases: ['server', 'status'],
-			examples: [
-				'server-status us.mineplex.com',
-				'server-status 127.0.0.1 25565'
-			],
+			examples: ['server-status us.mineplex.com', 'server-status 127.0.0.1 25565'],
 			throttling: {
 				usages: 1,
-				duration: 15
+				duration: 5
 			},
 			args: [
 				{
@@ -30,13 +27,8 @@ module.exports = class ServerStatusCommand extends Command {
 					prompt: 'What\'s the server port?',
 					type: 'integer',
 					default: 25565,
-					validate: port => {
-						if (port <= 65535 && port > 0) {
-							return true;
-						} else {
-							return 'The port must be above 0 and below 65535';
-						}
-					}
+					max: 65535,
+					min: 1
 				}
 			]
 		});

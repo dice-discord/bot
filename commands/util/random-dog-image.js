@@ -13,7 +13,7 @@ module.exports = class RandomDogImageCommand extends Command {
 			aliases: ['random-dog', 'dog-image', 'dog'],
 			throttling: {
 				usages: 1,
-				duration: 5
+				duration: 4
 			}
 		});
 	}

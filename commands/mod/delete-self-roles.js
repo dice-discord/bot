@@ -17,7 +17,11 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 				key: 'role',
 				prompt: 'What role do you want to delete?',
 				type: 'role'
-			}]
+			}],
+			throttling: {
+				usages: 2,
+				duration: 4
+			},
 		});
 	}
 

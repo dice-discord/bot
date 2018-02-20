@@ -17,7 +17,11 @@ module.exports = class AccountAgeCommand extends Command {
 				prompt: 'Who do you want to check?',
 				type: 'user',
 				default: ''
-			}]
+			}],
+			throttling: {
+				usages: 2,
+				duration: 4
+			}
 		});
 	}
 

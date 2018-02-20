@@ -17,7 +17,11 @@ module.exports = class SelfRolesAddCommand extends Command {
 				key: 'role',
 				prompt: 'What role do you want to add?',
 				type: 'role'
-			}]
+			}],
+			throttling: {
+				usages: 2,
+				duration: 4
+			}
 		});
 	}
 

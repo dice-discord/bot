@@ -16,7 +16,7 @@ module.exports = class UserListCommand extends Command {
 			aliases: ['list-users'],
 			throttling: {
 				usages: 2,
-				duration: 30
+				duration: 40
 			},
 			ownerOnly: true
 		});
