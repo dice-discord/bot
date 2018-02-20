@@ -37,6 +37,7 @@ module.exports = class SelfRolesAddCommand extends Command {
 			selfRoles.push(role.id);
 			// Set the array to our updated version
 			await this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
+
 			return msg.reply(`Added '${role.name}' as a selfrole.`);
 		} finally {
 			msg.channel.stopTyping();
