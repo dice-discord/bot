@@ -23,7 +23,7 @@ module.exports = class ListSelfRolesCommand extends Command {
 			const selfRoles = await this.client.provider.get(msg.guild, 'selfRoles', []);
 
 			// If the selfroles array is empty
-			if (selfRoles === []) {
+			if (selfRoles.length === 0) {
 				return msg.reply('❌ No selfroles');
 			}
 
