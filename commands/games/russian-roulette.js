@@ -18,7 +18,7 @@ module.exports = class RussianRouletteCommand extends Command {
 
 	run(msg) {
 		// Round numbers to second decimal place
-		const randomNumber = Math.round(Math.random() * (6 - 1) + 1);
+		const randomNumber = Math.floor(Math.random() * (6 - 1 + 1) + 1);
 
 		if (randomNumber === 6) {
 			return msg.reply('💥 *Bang*. You lose.');
