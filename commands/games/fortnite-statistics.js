@@ -13,7 +13,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			description: 'Get statistics of a Fortnite player',
 			details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).',
 			aliases: ['fortnite-stats', 'fortnite'],
-			examples: ['fortnite-statistics Zaccubus pc', 'fortnite-stats "WBG Strafesh0t" pc'],
+			examples: ['fortnite-statistics pc Zaccubus', 'fortnite-stats pc "WBG Strafesh0t"'],
 			throttling: {
 				usages: 1,
 				duration: 10
@@ -56,7 +56,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			winston.debug(`[COMMAND](FORTNITE-STATISTICS) Result for ${username} on ${platform}: ${JSON.stringify(stats)}`);
 			return msg.replyEmbed({
 				title: stats.epicUserHandle,
-				url: `https://fortnitetracker.com/profile/${platform}/${username}`,
+				url: 'https://fortnitetracker.com/',
 				fields: [{
 					name: '🏆 Wins',
 					value: `${stats.lifeTimeStats[8].value} wins (${stats.lifeTimeStats[9].value})`
