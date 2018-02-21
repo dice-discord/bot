@@ -1,6 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
+const winston = require('winston');
 
 module.exports = class UnbanMemberCommand extends Command {
 	constructor(client) {
@@ -47,7 +48,7 @@ module.exports = class UnbanMemberCommand extends Command {
 			let banned = false;
 
 			if (reason) {
-				reason += ` - Requested by ${msg.author.tag}`;
+				reason = `${reason} - Requested by ${msg.author.tag}`;
 			} else {
 				reason = `Requested by ${msg.author.tag}`;
 			}
@@ -65,7 +66,9 @@ module.exports = class UnbanMemberCommand extends Command {
 			}
 
 			// User is regular banned
-			if (msg.guild.members.has(msg.author.id) && (await msg.guild.fetchBans()).has(msg.author.id)) {
+			winston.debug(`[COMMAND](UNBAN-MEMBER) Bans for ${msg.guild}: ${(await msg.guild.fetchBans()).array()}`);
+			winston.debug(`[COMMAND](UNBAN-MEMBER) Is ${user.tag} banned on ${msg.guild}: ${(await msg.guild.fetchBans()).has(user.id)}`);
+			if ((await msg.guild.fetchBans()).has(user.id)) {
 				banned = true;
 				// Unban the user on the guild
 				msg.guild.members.unban(user, { reason: reason });

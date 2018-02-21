@@ -51,7 +51,7 @@ module.exports = class BanMemberCommand extends Command {
 		try {
 			msg.channel.startTyping();
 			if (reason) {
-				reason += ` - Requested by ${msg.author.tag}`;
+				reason = `${reason} - Requested by ${msg.author.tag}`;
 			} else {
 				reason = `Requested by ${msg.author.tag}`;
 			}
@@ -60,13 +60,13 @@ module.exports = class BanMemberCommand extends Command {
 				// Member can be banned, and days specified
 				msg.guild.members.ban(member, { reason: reason, days: days })
 					.then((bannedMember) => {
-						return msg.reply(`🚪 ${bannedMember} was banned for \`${reason}\`. \`${days}\` days of their messages were deleted.`);
+						return msg.reply(`🚪 ${bannedMember.tag} was banned for \`${reason}\`. \`${days}\` days of their messages were deleted.`);
 					});
 			} else if (member.bannable) {
 				// Member can be banned, and days unspecified
 				msg.guild.members.ban(member, { reason: reason })
 					.then((bannedMember) => {
-						return msg.reply(`🚪 ${bannedMember} was banned for \`${reason}\`.`);
+						return msg.reply(`🚪 ${bannedMember.tag} was banned for \`${reason}\`.`);
 					});
 			} else {
 				return msg.reply('❌ I can\'t ban that member');

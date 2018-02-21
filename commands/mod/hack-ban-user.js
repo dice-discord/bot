@@ -47,7 +47,7 @@ module.exports = class HackBanUserCommand extends Command {
 
 			// Note that hackbans are different than regular bans because they ban a user before they are a server member, hence the variable name differences
 			if (reason) {
-				reason += ` - Requested by ${msg.author.tag} on ${new Date(msg.createdAt)}`;
+				reason = `${reason} - Requested by ${msg.author.tag} on ${new Date(msg.createdAt)}`;
 			} else {
 				reason = `Requested by ${msg.author.tag} on ${new Date(msg.createdAt)}`;
 			}
