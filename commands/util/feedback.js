@@ -32,7 +32,7 @@ module.exports = class FeedbackCommand extends Command {
 			userFeedback.toLowerCase().includes('help') ||
 			userFeedback.toLowerCase().includes('support')
 		) {
-			msg.reply(`${message} If you need help with a problem use the \`support\` command.`);
+			msg.reply(`${message} If you need help with a problem use ${msg.anyUsage('support')}.`);
 		} else {
 			msg.reply(message);
 		}
