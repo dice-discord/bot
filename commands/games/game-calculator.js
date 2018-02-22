@@ -4,20 +4,20 @@ const rules = require('../../rules');
 const diceAPI = require('../../providers/diceAPI');
 const { Command } = require('discord.js-commando');
 
-module.exports = class CalculatorCommand extends Command {
+module.exports = class GameCalculatorCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'calculator',
+			name: 'game-calculator',
 			group: 'games',
-			memberName: 'calculator',
+			memberName: 'game-calculator',
 			description: 'Calculate the odds of winning a dice game.',
-			aliases: ['calc', 'chance', 'win-chance', 'win-percentage', 'percentage', 'percent'],
-			examples: ['calculator'],
+			aliases: ['game-calc', 'game-chance', 'win-chance', 'win-percentage', 'game-percentage', 'game-percent', 'win-percent', 'win-calc'],
+			examples: ['calculator 4', 'calculator 1.02'],
 			args: [
 				{
 					key: 'multiplier',
 					label: 'multiplier',
-					prompt: 'How much do you want to multiply your wager by?',
+					prompt: 'What multiplier do you want to check?',
 					type: 'float',
 					// Round multiplier to second decimal place
 					parse: multiplierString => diceAPI.simpleFormat(multiplierString),
