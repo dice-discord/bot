@@ -31,8 +31,7 @@ module.exports = class BodyCommand extends Command {
 	async run(msg, { username, isometric }) {
 		const embed = new MessageEmbed({
 			author: {
-				name: username,
-				icon_url: `https://minotar.net/helm/${username}`
+				name: username
 			}
 		});
 		if (isometric) {
