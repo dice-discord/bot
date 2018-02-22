@@ -10,14 +10,14 @@ module.exports = class BodyCommand extends Command {
 			memberName: 'body',
 			description: 'Shows an isometric view of a Minecraft user\'s body',
 			aliases: ['minecraft-body', 'mc-body'],
-			examples: ['body Notch', 'body Notch false'],
+			examples: ['body 853c80ef3c3749fdaa49938b674adae6', 'body 0729c688b2ae4b32aa0b15433cb41ca2 false'],
 			throttling: {
 				usages: 1,
 				duration: 3
 			},
 			args: [{
-				key: 'username',
-				prompt: 'What user do you want to look up?',
+				key: 'uuid',
+				prompt: 'What is user ID of the user do you want to look up?',
 				type: 'string'
 			}, {
 				key: 'isometric',
@@ -32,16 +32,16 @@ module.exports = class BodyCommand extends Command {
 		const embed = new MessageEmbed({
 			author: {
 				name: username,
-				icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
+				icon_url: `https://minotar.net/helm/${username}`
 			}
 		});
 		if (isometric) {
-			embed.setImage(`http://crafatar.com/renders/body/${encodeURIComponent(username)}?scale=10`);
+			embed.setImage(`http://crafatar.com/renders/body/${username}?scale=10`);
 		} else {
-			embed.setImage(`https://minotar.net/body/${encodeURIComponent(username)}`);
+			embed.setImage(`https://minotar.net/body/${username}`);
 		}
 
-		winston.debug(`[COMMAND](BODY) URL for ${encodeURIComponent(username)}: ${embed.image.url}`);
+		winston.debug(`[COMMAND](BODY) URL for ${username}: ${embed.image.url}`);
 		return msg.reply(embed);
 	}
 };
