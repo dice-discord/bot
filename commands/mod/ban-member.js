@@ -47,7 +47,7 @@ module.exports = class BanMemberCommand extends Command {
 		});
 	}
 
-	run(msg, { member, days, reason }) {
+	async run(msg, { member, days, reason }) {
 		try {
 			msg.channel.startTyping();
 			if (reason) {
@@ -56,18 +56,12 @@ module.exports = class BanMemberCommand extends Command {
 				reason = `Requested by ${msg.author.tag}`;
 			}
 
-			if (member.bannable && days !== 0) {
+			if (member.bannable) {
 				// Member can be banned, and days specified
-				msg.guild.members.ban(member, { reason: reason, days: days })
-					.then((bannedMember) => {
-						return msg.reply(`🚪 ${bannedMember.tag} was banned for \`${reason}\`. \`${days}\` days of their messages were deleted.`);
-					});
-			} else if (member.bannable) {
-				// Member can be banned, and days unspecified
-				msg.guild.members.ban(member, { reason: reason })
-					.then((bannedMember) => {
-						return msg.reply(`🚪 ${bannedMember.tag} was banned for \`${reason}\`.`);
-					});
+				await member.ban({ reason: reason, days: days });
+				// React with the success emoji
+				msg.react('406965554629574658');
+				return null;
 			} else {
 				return msg.reply('❌ I can\'t ban that member');
 			}

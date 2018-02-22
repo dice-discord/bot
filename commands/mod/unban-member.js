@@ -7,10 +7,10 @@ module.exports = class UnbanMemberCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'unban-member',
-			aliases: ['unban-user', 'unban', 'un-hack-ban-member', 'un-hack-ban-user'],
+			aliases: ['unban-user', 'unban', 'unhack-ban', 'unhack-ban-member', 'unhack-ban-user'],
 			group: 'mod',
 			memberName: 'unban-member',
-			description: 'Unban a server member',
+			description: 'Unban a user from a server',
 			details: 'Works with unbanning users who were hackbanned',
 			examples: ['unban Zoop', 'unban 208970190547976202'],
 			clientPermissions: ['BAN_MEMBERS'],
@@ -76,7 +76,9 @@ module.exports = class UnbanMemberCommand extends Command {
 
 			// Check if the user is actually banned
 			if (banned === true) {
-				return msg.reply(`🚪 ${user.tag} (\`${user.id}\`) was unbanned for \`${reason}\`.`);
+				// React with the success emoji
+				msg.react('406965554629574658');
+				return null;
 			} else {
 				return msg.reply(`❌ ${user.tag} isn't banned.`);
 			}

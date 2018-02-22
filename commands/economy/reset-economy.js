@@ -36,7 +36,7 @@ module.exports = class ResetEconomyCommand extends Command {
 						msg.reply('💣 Resetting the economy.');
 						diceAPI.resetEconomy().then(() => {
 							// Once the promise is fulfilled (when it's finished) respond to the user that it's done
-							return msg.reply('🔥 Finished resetting the economy.');
+							return msg.reply('💥 Finished resetting the economy.');
 						});
 					}
 				})

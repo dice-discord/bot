@@ -62,7 +62,9 @@ module.exports = class HackBanUserCommand extends Command {
 				// Set the bans for the guild to the data modified in this command
 				this.client.provider.set(msg.guild, 'bans', bansData);
 
-				return msg.reply(`🚪 If ${user.tag} joins this server, they will be banned for \`${reason}\`.`);
+				// React with the success emoji
+				msg.react('406965554629574658');
+				return null;
 			}
 		} finally {
 			msg.channel.stopTyping();

@@ -44,9 +44,8 @@ module.exports = class RemoveBalanceCommand extends Command {
 		// Remove dots from user
 		await diceAPI.decreaseBalance(user.id, amount);
 
-		// Tell the author
-		return msg.reply(
-			`📤 Removed \`${amount}\` ${rules.currencyPlural} from <@${user.id}>'s account.`
-		);
+		// React with the success emoji
+		msg.react('406965554629574658');
+		return null;
 	}
 };

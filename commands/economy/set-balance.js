@@ -1,8 +1,8 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
 const diceAPI = require('../../providers/diceAPI');
+const rules = require('../../rules');
 
 module.exports = class SetBalanceCommand extends Command {
 	constructor(client) {
@@ -20,7 +20,7 @@ module.exports = class SetBalanceCommand extends Command {
 					prompt: 'What do you want the new balance to be?',
 					type: 'float',
 					parse: amount => diceAPI.simpleFormat(amount),
-					min: 0
+					min: rules.minWager
 				},
 				{
 					key: 'user',
@@ -47,8 +47,9 @@ module.exports = class SetBalanceCommand extends Command {
 			// Add dots to user
 			await diceAPI.updateBalance(user.id, amount);
 
-			// Tell the author
-			return msg.reply(`💰 Set <@${user.id}>'s account balance to \`${amount}\` ${rules.currencyPlural}.`);
+			// React with the success emoji
+			msg.react('406965554629574658');
+			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}

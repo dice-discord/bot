@@ -62,9 +62,9 @@ module.exports = class TransferCommand extends Command {
 			// Add dots to receiver
 			await diceAPI.increaseBalance(user.id, amount);
 
-			// Tell the sender
-
-			return msg.reply(`📤 Transferred \`${amount}\` ${rules.currencyPlural} to ${user.tag}. You now have a balance of \`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}.`);
+			// React with the success emoji
+			msg.react('406965554629574658');
+			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}

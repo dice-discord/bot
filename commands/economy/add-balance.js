@@ -19,6 +19,7 @@ module.exports = class AddBalanceCommand extends Command {
 					key: 'amount',
 					prompt: 'How many dots do you want to add?',
 					type: 'float',
+					min: rules.minWager,
 					parse: amount => diceAPI.simpleFormat(amount)
 				},
 				{
@@ -43,16 +44,12 @@ module.exports = class AddBalanceCommand extends Command {
 				return msg.reply('❌ You can\'t add dots to bots.');
 			}
 
-			// Amount checking
-			if (amount < rules.minWager) {
-				return msg.reply(`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencySingular}.`);
-			}
-
 			// Add dots to user
 			await diceAPI.increaseBalance(user.id, amount);
 
-			// Tell the author
-			return msg.reply(`📥 Added \`${amount}\` ${rules.currencyPlural} to <@${user.id}>'s account.`);
+			// React with the success emoji
+			msg.react('406965554629574658');
+			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}

@@ -40,8 +40,9 @@ module.exports = class ResetDailyCommand extends Command {
 
 			await diceAPI.setDailyUsed(user.id, false);
 
-			// Tell the author
-			return msg.reply(`🕓 Reset ${user}'s wait time.`);
+			// React with the success emoji
+			msg.react('406965554629574658');
+			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}

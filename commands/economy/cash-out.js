@@ -18,6 +18,7 @@ module.exports = class CashOutCommand extends Command {
 					key: 'amount',
 					prompt: 'How many dots do you want to remove?',
 					type: 'float',
+					min: rules.minWager,
 					parse: amount => diceAPI.simpleFormat(amount)
 				}
 			],
@@ -33,29 +34,25 @@ module.exports = class CashOutCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			const beforeTransferHouseBalance = await diceAPI.getBalance(rules.houseID);
+			const beforeTransferHouseBalance = await diceAPI.getBalance(this.client.user.id);
 
 			// Amount checking
-			if (amount < rules.minWager) {
-				return msg.reply(
-					`❌ Your amount must be at least \`${rules.minWager}\` ${rules.currencyPlural}.`
-				);
-			} else if (amount > beforeTransferHouseBalance) {
-
-				return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\`. ${this.client.user} doesn't have that much.`);
+			if (amount > beforeTransferHouseBalance) {
+				return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\` ${rules.currencyPlural}. ${this.client.user} doesn't have that much.`);
 			}
 
 			// Round to whole number
 			amount = Math.round(amount);
 
 			// Remove dots from the house
-			diceAPI.decreaseBalance(rules.houseID, amount);
+			diceAPI.decreaseBalance(this.client.user.id, amount);
 
 			// Add dots to author
 			diceAPI.increaseBalance(msg.author.id, amount);
 
-			// Tell the sender
-			return msg.reply(`📤 Cashed out \`${amount}\` ${rules.currencyPlural} to your account.`);
+			// React with the success emoji
+			msg.react('406965554629574658');
+			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}
