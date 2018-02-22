@@ -30,7 +30,10 @@ module.exports = class DailyCommand extends Command {
 			const oldTime = await diceAPI.getDailyUsed(msg.author.id);
 			const currentTime = msg.createdTimestamp;
 			const dbl = new DBL(process.env.DISCORDBOTSORG_TOKEN);
-			const voteStatus = await dbl.hasVoted(msg.author.id);
+			const voteStatus = await dbl.hasVoted(msg.author.id).catch((error) => {
+				winston.error('[COMMAND](DAILY) Error in discordbots.org vote checking', error.stack);
+				return false;
+			});
 			// 23 hours because it's better for users to have some wiggle room
 			const fullDay = 82800000;
 			const waitDuration = moment.duration(oldTime - currentTime + fullDay).humanize();
