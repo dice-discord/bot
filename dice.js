@@ -206,7 +206,7 @@ client
 		/* Check if the member is hackbanned */
 		// Get all of the bans (from commands) on this guild
 		const bansData = await client.provider.get(member.guild, 'bans', {});
-		if (member.bannable && bansData[member.id].banned === true) {
+		if (member.bannable && bansData[member.id]) {
 			// Able to ban member
 			member.ban({ reason: bansData[member.id].reason });
 		}
