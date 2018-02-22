@@ -30,7 +30,8 @@ client.registry
 		['economy', 'Economy'],
 		['minecraft', 'Minecraft'],
 		['games', 'Games'],
-		['mod', 'Moderation']
+		['mod', 'Moderation'],
+		['fun', 'Fun']
 	])
 
 	// Registers all built-in groups, commands, and argument types
