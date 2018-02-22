@@ -49,12 +49,9 @@ module.exports = class TransferCommand extends Command {
 			}
 
 			// No sending money to bots
-			if (user.bot === true && user.id !== rules.houseID) {
+			if (user.bot === true && user.id !== this.client.user.id) {
 				return msg.reply('❌ You can\'t send dots to bots.');
 			}
-
-			// Format
-			amount = diceAPI.simpleFormat(amount);
 
 			// Remove dots from sender
 			await diceAPI.decreaseBalance(msg.author.id, amount);

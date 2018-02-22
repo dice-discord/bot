@@ -29,11 +29,11 @@ module.exports = class BalanceCommand extends Command {
 	async run(msg, { user }) {
 		try {
 			msg.channel.startTyping();
-			const houseBalance = await diceAPI.getBalance(rules.houseID);
+			const houseBalance = await diceAPI.getBalance(this.client.user.id);
 			let userBalance;
 
 			// Bot checking
-			if (user.bot && user.id !== rules.houseID) {
+			if (user.bot && user.id !== this.client.user.id) {
 				return msg.reply('❌ Bots can\'t play.');
 			}
 
@@ -41,7 +41,7 @@ module.exports = class BalanceCommand extends Command {
 				userBalance = await diceAPI.getBalance(user.id);
 
 				// Someone else's balance
-				if (houseBalance < userBalance && user.id !== rules.houseID) {
+				if (houseBalance < userBalance && user.id !== this.client.user.id) {
 					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${this.client.user}!`);
 				} else {
 					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}.`);
@@ -50,7 +50,7 @@ module.exports = class BalanceCommand extends Command {
 				userBalance = await diceAPI.getBalance(msg.author.id);
 
 				// We are looking up the message author's balance
-				if (houseBalance < userBalance && user.id !== rules.houseID) {
+				if (houseBalance < userBalance && user.id !== this.client.user.id) {
 					return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${this.client.user}!`);
 				} else {
 					return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules.currencyPlural}.`);

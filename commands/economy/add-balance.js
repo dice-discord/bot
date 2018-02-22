@@ -40,7 +40,7 @@ module.exports = class AddBalanceCommand extends Command {
 		try {
 			msg.channel.startTyping();
 			// Permission checking
-			if (user.bot === true && user.id !== rules.houseID) {
+			if (user.bot === true && user.id !== this.client.user.id) {
 				return msg.reply('❌ You can\'t add dots to bots.');
 			}
 

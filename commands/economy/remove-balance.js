@@ -37,7 +37,7 @@ module.exports = class RemoveBalanceCommand extends Command {
 
 	async run(msg, { user, amount }) {
 		// Permission checking
-		if (user.bot === true && user.id !== rules.houseID) {
+		if (user.bot === true && user.id !== this.client.user.id) {
 			return msg.reply('❌ You can\'t remove dots from bots.');
 		}
 
