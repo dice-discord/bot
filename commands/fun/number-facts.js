@@ -11,7 +11,7 @@ module.exports = class NumberFactsCommand extends Command {
 			memberName: 'number-facts',
 			description: 'Get a fact about a number',
 			details: 'Not specifying the number to lookup will give you a random fact',
-			aliases: ['num-facts', 'random-number-facts', 'random-num-facts', 'num-fact', 'random-number-fact', 'random-num-fact'],
+			aliases: ['num-facts', 'number-fact', 'random-number-facts', 'random-num-facts', 'num-fact', 'random-number-fact', 'random-num-fact'],
 			examples: ['number-facts', 'number-facts 46'],
 			args: [{
 				key: 'number',
