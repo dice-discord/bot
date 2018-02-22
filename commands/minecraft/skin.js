@@ -26,9 +26,9 @@ module.exports = class SkinCommand extends Command {
 			embed: {
 				author: {
 					name: username,
-					icon_url: `https://minotar.net/helm/${username}`
+					icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
 				},
-				image: { url: `https://minotar.net/skin/${username}` }
+				image: { url: `https://minotar.net/skin/${encodeURIComponent(username)}` }
 			}
 		});
 	}

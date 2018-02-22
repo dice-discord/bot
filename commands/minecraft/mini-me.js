@@ -34,14 +34,14 @@ module.exports = class MiniMeCommand extends Command {
 		const embed = new MessageEmbed({
 			author: {
 				name: username,
-				icon_url: `https://minotar.net/helm/${username}`
+				icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
 			}
 		});
 
 		if (transparency) {
-			embed.setImage(`http://avatar.yourminecraftservers.com/avatar/trnsp/steve/tall/128/${username}.png`);
+			embed.setImage(`http://avatar.yourminecraftservers.com/avatar/trnsp/steve/tall/128/${encodeURIComponent(username)}.png`);
 		} else {
-			embed.setImage(`http://avatar.yourminecraftservers.com/avatar/rad/steve/tall/128/${username}.png`);
+			embed.setImage(`http://avatar.yourminecraftservers.com/avatar/rad/steve/tall/128/${encodeURIComponent(username)}.png`);
 		}
 		winston.debug(`Image URL for ${username}: ${embed.image.url}`);
 		return msg.reply(embed);

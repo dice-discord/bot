@@ -32,16 +32,16 @@ module.exports = class BodyCommand extends Command {
 		const embed = new MessageEmbed({
 			author: {
 				name: username,
-				icon_url: `https://minotar.net/helm/${username}`
+				icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
 			}
 		});
 		if (isometric) {
-			embed.setImage(`http://crafatar.com/renders/body/${username}?scale=10`);
+			embed.setImage(`http://crafatar.com/renders/body/${encodeURIComponent(username)}?scale=10`);
 		} else {
-			embed.setImage(`https://minotar.net/body/${username}`);
+			embed.setImage(`https://minotar.net/body/${encodeURIComponent(username)}`);
 		}
 
-		winston.debug(`[COMMAND](BODY) URL for ${username}: ${embed.image.url}`);
+		winston.debug(`[COMMAND](BODY) URL for ${encodeURIComponent(username)}: ${embed.image.url}`);
 		return msg.reply(embed);
 	}
 };
