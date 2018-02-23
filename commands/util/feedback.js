@@ -37,7 +37,7 @@ module.exports = class FeedbackCommand extends Command {
 			msg.reply(message);
 		}
 
-		winston.debug('[COMMAND](FEEDBACK) About to send RichEmbed');
+		winston.debug('[COMMAND](FEEDBACK) About to send MessageEmbed');
 
 		// Pizza Fox#0075
 		const developer = this.client.users.resolve('210024244766179329');
@@ -45,7 +45,7 @@ module.exports = class FeedbackCommand extends Command {
 		return developer.send({
 			embed: {
 				author: {
-					name: msg.author.tag,
+					name: `${msg.author.tag} (\`${msg.author.id}\`)`,
 					icon_url: msg.author.displayAvatarURL(128)
 				},
 				timestamp: new Date(msg.createdTimestamp),
