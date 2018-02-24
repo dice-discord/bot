@@ -25,7 +25,7 @@ module.exports = class DiceGameCommand extends Command {
 				type: 'float',
 				// Round multiplier to second decimal place
 				parse: multiplier => diceAPI.simpleFormat(multiplier),
-				min: rules.minMultilpier,
+				min: rules.minMultiplier,
 				max: rules.maxMultiplier
 			}
 			],
