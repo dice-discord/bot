@@ -45,37 +45,18 @@ module.exports = class UnbanMemberCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			let banned = false;
-
 			if (reason) {
 				reason = `${reason} - Requested by ${msg.author.tag}`;
 			} else {
 				reason = `Requested by ${msg.author.tag}`;
 			}
 
-			// Get all of the bans (from commands) on this guild
-			const bansData = await this.client.provider.get(msg.guild, 'bans', {});
-
-			// User is hackbanned
-			if (bansData[user.id]) {
-				banned = true;
-				// Delete the object of the user from the temporary storage
-				delete bansData[user.id];
-				// Set the bans for the guild to the data modified in this command
-				this.client.provider.set(msg.guild, 'bans', bansData);
-			}
-
 			// User is regular banned
 			winston.debug(`[COMMAND](UNBAN-MEMBER) Bans for ${msg.guild}: ${(await msg.guild.fetchBans()).array()}`);
 			winston.debug(`[COMMAND](UNBAN-MEMBER) Is ${user.tag} banned on ${msg.guild}: ${(await msg.guild.fetchBans()).has(user.id)}`);
 			if ((await msg.guild.fetchBans()).has(user.id)) {
-				banned = true;
 				// Unban the user on the guild
 				msg.guild.members.unban(user, { reason: reason });
-			}
-
-			// Check if the user is actually banned
-			if (banned === true) {
 				// React with the success emoji
 				msg.react('406965554629574658');
 				return null;

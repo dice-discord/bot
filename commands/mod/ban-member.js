@@ -6,11 +6,11 @@ module.exports = class BanMemberCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'ban-member',
-			aliases: ['ban-user', 'ban'],
+			aliases: ['ban-user', 'ban-member', 'hackban-user', 'hackban-member', 'hackban'],
 			group: 'mod',
 			memberName: 'ban-member',
-			description: 'Ban a server member',
-			examples: ['ban Zoop', 'ban Zoop 7 Spamming messages'],
+			description: 'Ban any user from your server',
+			examples: ['ban @Zoop', 'ban 213041121700478976', 'ban Zoop Spamming messages'],
 			clientPermissions: ['BAN_MEMBERS'],
 			userPermissions: ['BAN_MEMBERS'],
 			guildOnly: true,
@@ -19,17 +19,9 @@ module.exports = class BanMemberCommand extends Command {
 				duration: 6
 			},
 			args: [{
-				key: 'member',
+				key: 'user',
 				prompt: 'Which member do you want to ban?',
-				type: 'member',
-				label: 'server member'
-			}, {
-				key: 'days',
-				prompt: 'How many days of messages do you want to delete?',
-				type: 'integer',
-				label: 'days of messages to delete',
-				default: 0,
-				min: 0
+				type: 'user'
 			}, {
 				key: 'reason',
 				prompt: 'What is the reason for banning this member?',
@@ -47,7 +39,7 @@ module.exports = class BanMemberCommand extends Command {
 		});
 	}
 
-	async run(msg, { member, days, reason }) {
+	async run(msg, { user, reason }) {
 		try {
 			msg.channel.startTyping();
 			if (reason) {
@@ -56,13 +48,14 @@ module.exports = class BanMemberCommand extends Command {
 				reason = `Requested by ${msg.author.tag}`;
 			}
 
-			if (member.bannable) {
-				// Member can be banned, and days specified
-				await member.ban({ reason: reason, days: days });
+			if (!msg.guild.members.has(user.id) || msg.guild.members.get(user.id).bannable) {
+				// Member not on guild or bannable
+				await msg.guild.members.ban(user.id, { reason: reason });
 				// React with the success emoji
 				msg.react('406965554629574658');
 				return null;
-			} else {
+			} else if (!msg.guild.members.get(user.id).bannable) {
+				// Member not bannable
 				return msg.reply('❌ I can\'t ban that member');
 			}
 		} finally {
