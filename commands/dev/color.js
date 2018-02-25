@@ -17,8 +17,7 @@ module.exports = class ColorCommand extends Command {
 			args: [{
 				key: 'color',
 				prompt: 'What color do you want to get information on?',
-				type: 'string',
-				parse: input => parseColor(input)
+				type: 'string'
 			}],
 			throttling: {
 				usages: 2,
@@ -28,6 +27,21 @@ module.exports = class ColorCommand extends Command {
 	}
 
 	run(msg, { color }) {
+		if (!color.startsWith('#') && color.length === 6) {
+			// Hexadecimal missing the pound sign
+			const testResult = parseColor(`#${color}`);
+			if (!testResult.cmyk || !testResult.rgb || !testResult.hsv || !testResult.hsl || !testResult.hex) {
+				// Invalid hexadecimal
+				return msg.reply('❌ Invalid color.');
+			} else {
+				// Valid hexadecimal, missing pound sign
+				color = testResult;
+			}
+		} else {
+			// Other color type
+			color = parseColor(color);
+		}
+
 		if (!color.cmyk || !color.rgb || !color.hsv || !color.hsl || !color.hex) {
 			return msg.reply('❌ Invalid color.');
 		}
