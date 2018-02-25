@@ -2,12 +2,13 @@
 
 const { Command } = require('discord.js-commando');
 const rp = require('request-promise');
+const winston = require('winston');
 
 module.exports = class RandomDogImageCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'random-dog-image',
-			group: 'util',
+			group: 'fun',
 			memberName: 'random-dog-image',
 			description: 'Get a picture of a random dog',
 			aliases: ['random-dog', 'dog-image', 'dog'],
@@ -26,22 +27,21 @@ module.exports = class RandomDogImageCommand extends Command {
 				uri: 'https://dog.ceo/api/breeds/image/random',
 				json: true
 			};
-			const result = await rp(options);
-
-			if (!result) {
-				return msg.reply('❌ There was an error with the API we use (https://dog.ceo/dog-api).');
-			} else if (result.status !== 'success') {
-				return msg.reply(`❌ There was an error with the API we use (https://dog.ceo/dog-api). Message from them: \`\`\`${result.message}\`\`\``);
-			}
-
-			return msg.replyEmbed({
-				author: {
-					name: 'dog.ceo',
-					iconURL: 'https://dog.ceo/img/favicon.png',
-					url: 'https://dog.ceo/dog-api/'
-				},
-				image: { url: result.message }
-			});
+			rp(options)
+				.catch(error => {
+					winston.error('[COMMAND](RANDOM-CAT-IMAGE)', error.stack);
+					return msg.reply('❌ There was an error with the API we use (http://dog.ceo/dog-api)');
+				})
+				.then((result) => {
+					return msg.replyEmbed({
+						author: {
+							name: 'dog.ceo',
+							iconURL: 'https://dog.ceo/img/favicon.png',
+							url: 'https://dog.ceo/dog-api/'
+						},
+						image: { url: result.message }
+					});
+				});
 		} finally {
 			msg.channel.stopTyping();
 		}
