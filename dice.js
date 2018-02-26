@@ -40,20 +40,21 @@ client.registry
 	// Registers all of your commands in the ./commands/ directory
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
-// Blacklist users from commands
-client.dispatcher.addInhibitor(msg => {
-	if (rules.blacklistedIDs.includes(msg.author.id)) {
-		return ['blacklisted', msg.reply('You have been blacklisted from Dice.')];
-	} else {
-		return false;
-	}
-});
-
 // Store settings (like a server prefix) in a MongoDB collection called "settings"
 client.setProvider(
 	MongoClient.connect(process.env.MONGODB_URI)
 		.then(bot => new MongoDBProvider(bot, 'settings'))
 );
+
+// Blacklist users from commands
+client.dispatcher.addInhibitor(msg => {
+	const blacklist = client.provider.get('global', 'blacklist', []);
+	if (blacklist.includes(msg.author.id)) {
+		return ['blacklisted', msg.reply(`You have been blacklisted from ${client.user.username}.`)];
+	} else {
+		return false;
+	}
+});
 
 /* Update server counter on bot listings */
 const dbl = new DBL(process.env.DISCORDBOTSORG_TOKEN);
@@ -205,7 +206,7 @@ client
 	.on('guildMemberAdd', async member => {
 		/* Check if the member is hackbanned */
 		// Get all of the bans (from commands) on this guild
-		const bansData = await client.provider.get(member.guild, 'bans', {});
+		const bansData = client.provider.get(member.guild, 'bans', {});
 		if (member.bannable && bansData[member.id]) {
 			// Able to ban member
 			member.ban({ reason: bansData[member.id].reason });
