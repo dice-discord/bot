@@ -213,7 +213,7 @@ client
 				embed: {
 					title: 'New Member',
 					timestamp: member.joinedAt,
-					color: 0xff9800,
+					color: 0x4caf50,
 					author: {
 						name: `${member.user.tag} (${member.user.id})`,
 						icon_url: member.user.displayAvatarURL(128)
