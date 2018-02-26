@@ -6,7 +6,7 @@ module.exports = class KickMemberCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'kick-member',
-			aliases: ['kick-user', 'kick-member',],
+			aliases: ['kick-user', 'kick',],
 			group: 'mod',
 			memberName: 'kick-member',
 			description: 'Kick a member from your server',
