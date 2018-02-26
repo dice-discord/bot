@@ -30,7 +30,7 @@ module.exports = class GetSelfRolesCommand extends Command {
 			msg.channel.startTyping();
 
 			// Get all of this guild's selfroles
-			const selfRoles = await this.client.provider.get(msg.guild, 'selfRoles', []);
+			const selfRoles = this.client.provider.get(msg.guild, 'selfRoles', []);
 
 			// Check if the role isn't a self role
 			if (!selfRoles.includes(role.id)) {

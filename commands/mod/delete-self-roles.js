@@ -6,7 +6,7 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'delete-self-roles',
-			aliases: ['self-role-delete', 'self-roles-delete', 'delete-self-role', 'remove-self-roles', 'self-role-remove', 'self-roles-remove', 'remove-self-role'],
+			aliases: ['self-role-delete', 'self-roles-delete', 'delete-self-role', 'del-self-roles', 'self-role-del', 'self-roles-del', 'del-self-role'],
 			group: 'mod',
 			memberName: 'delete-self-roles',
 			description: 'Delete a self-assigned role from this server',
@@ -30,7 +30,7 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 			msg.channel.startTyping();
 
 			// Get all of this guild's selfroles
-			const selfRoles = await this.client.provider.get(msg.guild, 'selfRoles', []);
+			const selfRoles = this.client.provider.get(msg.guild, 'selfRoles', []);
 
 			// Check if the role isn't a self role
 			if (!selfRoles.includes(role.id)) {
