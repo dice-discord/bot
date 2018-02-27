@@ -2,13 +2,13 @@
 
 const { Command } = require('discord.js-commando');
 
-module.exports = class BanMemberCommand extends Command {
+module.exports = class BanUserCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'ban-member',
-			aliases: ['ban-user', 'ban-member', 'hackban-user', 'hackban-member', 'hackban'],
+			name: 'ban-user',
+			aliases: ['ban-member', 'hackban-user', 'hackban-member', 'hackban'],
 			group: 'mod',
-			memberName: 'ban-member',
+			memberName: 'ban-user',
 			description: 'Ban any user from your server',
 			examples: ['ban @Zoop', 'ban 213041121700478976', 'ban Zoop Spamming messages'],
 			clientPermissions: ['BAN_MEMBERS'],
@@ -20,11 +20,11 @@ module.exports = class BanMemberCommand extends Command {
 			},
 			args: [{
 				key: 'user',
-				prompt: 'Which member do you want to ban?',
+				prompt: 'What user do you want to ban?',
 				type: 'user'
 			}, {
 				key: 'reason',
-				prompt: 'What is the reason for banning this member?',
+				prompt: 'What is the reason for banning this user?',
 				type: 'string',
 				label: 'reason for ban',
 				default: '',
@@ -32,7 +32,7 @@ module.exports = class BanMemberCommand extends Command {
 					if (reason.length > 400) {
 						return `Your reason was ${reason.length} characters long. Please limit your reason to 400 characters.`;
 					} else {
-						return true;
+						return null;
 					}
 				}
 			}]
@@ -42,6 +42,7 @@ module.exports = class BanMemberCommand extends Command {
 	async run(msg, { user, reason }) {
 		try {
 			msg.channel.startTyping();
+
 			if (reason) {
 				reason = `${reason} - Requested by ${msg.author.tag}`;
 			} else {
@@ -56,7 +57,7 @@ module.exports = class BanMemberCommand extends Command {
 				return null;
 			} else if (!msg.guild.members.get(user.id).bannable) {
 				// Member not bannable
-				return msg.reply('❌ I can\'t ban that member');
+				return msg.reply('❌ I can\'t ban that user');
 			}
 		} finally {
 			msg.channel.stopTyping();

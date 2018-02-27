@@ -1,7 +1,7 @@
 {
 	"name": "dice",
 	"description": "A simple game. You have a wager and a multiplier. Higher risk, higher rewards.",
-	"version": "1.38.0",
+	"version": "1.38.1",
 	"author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
 	"keywords": [
 		"discord",
@@ -29,7 +29,6 @@
 		"moment": "^2.20.1",
 		"mongodb": "^3.0.0-rc0",
 		"parse-color": "^1.0.0",
-		"path": "^0.12.7",
 		"replaceall": "^0.1.6",
 		"request": "^2.83.0",
 		"request-promise": "^4.2.2",
