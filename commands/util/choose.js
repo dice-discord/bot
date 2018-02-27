@@ -9,8 +9,8 @@ module.exports = class ChooseCommand extends Command {
 			aliases: ['select', 'pick'],
 			group: 'util',
 			memberName: 'choose',
-			description: 'Choose something from a list you provide.',
-			examples: ['choose red | blue | yellow | green'],
+			description: 'Choose an item from a list you provide',
+			examples: ['choose red blue yellow green', 'choose "play PUBG" "play Fortnite" "delete System32"'],
 			args: [{
 				key: 'options',
 				prompt: 'What do you want to select?',
