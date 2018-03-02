@@ -2,6 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const rp = require('request-promise');
+const winston = require('winston');
 
 module.exports = class DayFactsCommand extends Command {
 	constructor(client) {
@@ -36,7 +37,10 @@ module.exports = class DayFactsCommand extends Command {
 				uri: `http://numbersapi.com/${day}/date`
 			};
 
-			const result = await rp(options);
+			const result = await rp(options).catch(error => {
+				winston.error('[COMMAND](DATE-FACTS)', error.stack);
+				return msg.reply('❌ There was an error with the API we use (http://numbersapi.com)');
+			});
 
 			return msg.reply(result);
 		} finally {
