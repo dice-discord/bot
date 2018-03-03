@@ -8,10 +8,10 @@ description: Description of this website and Dice
 
 ## About
 
-### What is this?
+### What is this
 
 This is the documentation for Dice. It serves as a reference for all the commands and their usage.
 
-### What is Dice?
+### What is Dice
 
 Dice is a [Discord](https://discordapp.com) bot. It has lots of features including moderation, game stats, games, an economy, and many others.
