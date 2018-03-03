@@ -1,17 +1,17 @@
-# Welcome to MkDocs
+title: Dice Documentation
+description: Description of this website and Dice
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+# Dice <small>Documentation</small>
 
-## Commands
+!!! warning
+    This documentation is still under construction and is incomplete. For a full list of commands and their usage, use the `help` command on Dice.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+## About
 
-## Project layout
+### What is this?
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+This is the documentation for Dice. It serves as a reference for all the commands and their usage.
+
+### What is Dice?
+
+Dice is a [Discord](https://discordapp.com) bot. It has lots of features including moderation, game stats, games, an economy, and many others.
