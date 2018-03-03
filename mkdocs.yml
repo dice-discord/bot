@@ -5,8 +5,6 @@ theme:
   palette:
     primary: 'green'
     accent: 'blue'
-
-theme:
   logo: 'img/icon.svg'
 
 copyright: 'Copyright 2018 Jonah Snider'
