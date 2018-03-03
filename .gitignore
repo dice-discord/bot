@@ -1,2 +1,8 @@
 # Built documentation
 site/
+
+# Node.js modules
+node_modules/
+
+# VSCode settings
+.vscode/launch.json
