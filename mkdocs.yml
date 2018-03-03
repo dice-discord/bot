@@ -6,7 +6,7 @@ theme:
     primary: 'green'
     accent: 'blue'
   logo: 'images/logo.png'
-  favicon: 'images/favicon.png'
+  favicon: 'images/favicon.svg'
 
 copyright: 'Copyright 2018 Jonah Snider'
 
