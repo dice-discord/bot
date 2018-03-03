@@ -47,7 +47,10 @@ module.exports = class FortniteStatisticsCommand extends Command {
 					'TRN-Api-Key': process.env.FORTNITETN_TOKEN
 				}
 			};
-			const stats = await rp(options);
+			const stats = await rp(options).catch(error => {
+				winston.error('[COMMAND](FORTNITE-STATISTICS)', error.stack);
+				return msg.reply('❌ There was an error with the API we use (https://api.fortnitetracker.com)');
+			});
 
 			if (stats.error === 'Player Not Found') {
 				return msg.reply('❌ Player not found on that platform.');
