@@ -1,4 +1,4 @@
 mkdocs
-material
+mkdocs-material
 pygments
 pymdown-extensions
