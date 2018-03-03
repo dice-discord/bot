@@ -169,7 +169,7 @@ client
 	})
 	.on('commandError', (command, error) => {
 		if (error instanceof FriendlyError) return;
-		winston.error(`[DICE]: Error in command ${command.groupID}:${command.memberName}`, error);
+		winston.error(`[DICE]: Error in command ${command.groupID}:${command.memberName}`, error.stack);
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Command Error',
