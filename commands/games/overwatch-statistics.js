@@ -64,6 +64,15 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 				return msg.reply('❌ There was an error with the API we use (https://ow-api.com)');
 			});
 
+			if (stats.error === 'The requested player was not found') {
+				return msg.reply('❌ That user couldn\'t be found.');
+			} else if (stats.error) {
+				winston.error('[COMMAND](OVERWATCH-STATISTICS) Unknown error from API', stats);
+				return msg.reply(`❌ There was an error with the API we use (https://ow-api.com). The error that was sent: ${stats.error}`);
+			}
+
+			winston.debug(`[COMMAND](OVERWATCH-STATISTICS) Result for ${battletag} on ${platform}: ${JSON.stringify(stats)}`);
+
 			const embed = new MessageEmbed({
 				author: {
 					name: stats.name,
@@ -79,35 +88,39 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 
 			// Games won
 			if (stats.gamesWon && stats.quickPlayStats.games.won && stats.competitiveStats.games) {
-				embed.addField('🏆 Games Won', `${stats.gamesWon} total wins (${stats.quickPlayStats.games.won} from quick play, ${stats.competitiveStats.games.won} from competitive)`, true);
+				embed.addField('🏆 Games Won', `${stats.gamesWon} total wins (${stats.quickPlayStats.games.won} from quick play and ${stats.competitiveStats.games.won} from competitive)`);
+			} else if (stats.gamesWon && stats.quickPlayStats.games.won) {
+				embed.addField('🏆 Games Won', `${stats.gamesWon} total wins`);
 			}
 
 			// Average eliminations
 			if (stats.quickPlayStats.eliminationsAvg && stats.competitiveStats.eliminationsAvg) {
-				embed.addField('💀 Average Eliminations', `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play. ${stats.competitiveStats.eliminationsAvg} from competitive.`, true);
+				embed.addField('💀 Average Eliminations', `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play and ${stats.competitiveStats.eliminationsAvg} from competitive`);
+			} else if (stats.quickPlayStats.eliminationsAvg) {
+				embed.addField('💀 Average Eliminations', `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play`);
 			}
 
 			// Games Played
 			if (stats.quickPlayStats.games.played && stats.competitiveStats.games.played) {
-				embed.addField('🎮 Games Played', `${stats.quickPlayStats.games.played + stats.competitiveStats.games.played} games played total (${stats.quickPlayStats.games.played} from quick play, ${stats.competitiveStats.games.played} from competitive)`, true);
+				embed.addField('🎮 Games Played', `${stats.quickPlayStats.games.played + stats.competitiveStats.games.played} games played total (${stats.quickPlayStats.games.played} from quick play and ${stats.competitiveStats.games.played} from competitive)`);
+			} else if (stats.quickPlayStats.games.played) {
+				embed.addField('🎮 Games Played', `${stats.quickPlayStats.games.played} games played total`);
 			}
 
 			// Quick play medals
 			if (stats.quickPlayStats.awards.medals) {
-				embed.addField('🏅 Medals (Quick Play)', `${stats.quickPlayStats.awards.medals} medals total.\n🥇 ${stats.quickPlayStats.awards.medalsGold} gold medals\n🥈 ${stats.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${stats.quickPlayStats.awards.medalsBronze} bronze medals`, true);
+				embed.addField('🏅 Medals (Quick Play)', `${stats.quickPlayStats.awards.medals} medals total.\n🥇 ${stats.quickPlayStats.awards.medalsGold} gold medals\n🥈 ${stats.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${stats.quickPlayStats.awards.medalsBronze} bronze medals`);
 			}
 
 			// Competitive medals
 			if (stats.competitiveStats.awards.medals) {
-				embed.addField('🏅 Medals (Competitive)', `${stats.competitiveStats.awards.medals} medals total.\n🥇 ${stats.competitiveStats.awards.medalsGold} gold medals\n🥈 ${stats.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${stats.competitiveStats.awards.medalsBronze} bronze medals`, true);
+				embed.addField('🏅 Medals (Competitive)', `${stats.competitiveStats.awards.medals} medals total.\n🥇 ${stats.competitiveStats.awards.medalsGold} gold medals\n🥈 ${stats.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${stats.competitiveStats.awards.medalsBronze} bronze medals`);
 			}
 
 			// Cards
 			if (stats.competitiveStats.awards.cards && stats.quickPlayStats.awards.cards) {
 				embed.addField('🃏 Cards', `${stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards} total cards (${stats.quickPlayStats.awards.cards} from quick play, ${stats.competitiveStats.awards.cards} from competitive)`, true);
 			}
-
-			winston.debug(`[COMMAND](OVERWATCH-STATISTICS) Result for ${battletag} on ${platform}: ${JSON.stringify(stats)}`);
 			return msg.replyEmbed(embed);
 		} finally {
 			msg.channel.stopTyping();
