@@ -13,5 +13,13 @@ Shows a top ten leaderboard of who has the most dots
 
 * `top-10`
 * `top-ten`
+* `top10`
+* `topten`
 * `chart`
 * `top`
+
+## Usage
+
+### Format
+
+`leaderboard`

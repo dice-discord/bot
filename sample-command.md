@@ -21,6 +21,10 @@ Details
 
 ## Usage
 
+### Format
+
+`command`
+
 ### Examples
 
 * `Example`

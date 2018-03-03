@@ -10,6 +10,10 @@ Display and convert a color from and to hexadecimal, HSL, RGB, CMYK, and CSS nam
 
 ## Usage
 
+### Format
+
+`color <color>`
+
 ### Examples
 
 * `color blue`

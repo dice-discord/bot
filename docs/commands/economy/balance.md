@@ -13,10 +13,16 @@ Check a user's balance
 
 * `bal`
 * `balance-check`
+* `balancecheck`
 * `bal-check`
+* `balcheck`
 * `credits`
 
 ## Usage
+
+### Format
+
+`balance [user]`
 
 ### Examples
 

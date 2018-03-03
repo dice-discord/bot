@@ -15,5 +15,9 @@ Collect your daily dots
 
 ## Usage
 
+### Format
+
+`daily`
+
 !!! tip
     Use the [vote](/commands/utility/vote) command to get double the payout
