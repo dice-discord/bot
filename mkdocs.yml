@@ -29,7 +29,7 @@ markdown_extensions:
       permalink: true
   - footnotes
 
-  - metadata
+  - meta
 
   - pymdownx.arithmatex
   - pymdownx.betterem:
