@@ -13,7 +13,6 @@ module.exports = class DatabasePingCommand extends Command {
 			memberName: 'database-ping',
 			description: 'Checks the bot\'s ping to the Discord server and does a database request.',
 			aliases: ['db-ping'],
-			examples: ['database-ping'],
 			throttling: {
 				usages: 2,
 				duration: 20
