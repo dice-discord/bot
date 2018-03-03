@@ -5,12 +5,14 @@ theme:
   palette:
     primary: 'green'
     accent: 'blue'
-  logo: 'img/icon.svg'
+  logo: 'images/logo.png'
+  favicon: 'images/favicon.png'
 
 copyright: 'Copyright 2018 Jonah Snider'
 
 repo_name: 'pizzafox/dice'
 repo_url: 'https://github.com/pizzafox/dice'
+edit_uri: edit/docs/docs
 
 extra:
   social:
