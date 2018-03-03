@@ -1,1 +1,51 @@
 site_name: Dice
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'green'
+    accent: 'blue'
+
+theme:
+  logo: 'img/icon.svg'
+
+copyright: 'Copyright 2018 Jonah Snider'
+
+repo_name: 'pizzafox/dice'
+repo_url: 'https://github.com/pizzafox/dice'
+
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/pizzafox'
+    - type: 'twitter'
+      link: 'https://twitter.com/thepizzafox'
+
+markdown_extensions:
+  - admonition
+
+  - codehilite:
+      guess_lang: false
+
+  - toc:
+      permalink: true
+  - footnotes
+
+  - metadata
+
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
