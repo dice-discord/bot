@@ -37,6 +37,15 @@ module.exports = class SelfRolesAddCommand extends Command {
 				return msg.reply('❌ That role is already a self role.');
 			}
 
+			// Check if the author is able to add the role
+			if (role.comparePositionTo(msg.member.roles.highest) <= 0 || !msg.member.hasPermission('ADMINISTRATOR')) {
+				return msg.reply('❌ You dont\'t have the permissions to add that role.');
+			}
+
+			if (role.comparePositionTo(msg.guild.me.roles.highest) <= 0) {
+				return msg.reply('❌ I dont\'t have the permissions to add that role.');
+			}
+
 			// Add the new role's ID to the local array
 			selfRoles.push(role.id);
 			// Set the array to our updated version

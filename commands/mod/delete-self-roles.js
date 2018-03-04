@@ -37,6 +37,11 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 				return msg.reply('❌ That role isn\'t a self role.');
 			}
 
+			// Check if the author is able to delete the role
+			if (role.comparePositionTo(msg.member.roles.highest) <= 0 || !msg.member.hasPermission('ADMINISTRATOR')) {
+				return msg.reply('❌ You dont\'t have the permissions to delete that role.');
+			}
+
 			// Find the position of the role and delete it from the array
 			selfRoles.splice(selfRoles.indexOf(role.id));
 			// Set the array to our updated version

@@ -41,6 +41,10 @@ module.exports = class GetSelfRolesCommand extends Command {
 				return msg.reply('❌ You already have that role.');
 			}
 
+			if (role.comparePositionTo(msg.guild.me.roles.highest) <= 0 || msg.member.manageable === false) {
+				return msg.reply('❌ I dont\'t have the permissions to add that role.');
+			}
+
 			await msg.member.roles.add(role.id, 'Selfrole');
 			// React with the success emoji
 			msg.react('406965554629574658');
