@@ -46,6 +46,11 @@ module.exports = class SelfRolesAddCommand extends Command {
 				return msg.reply('❌ I dont\'t have the permissions to add that role.');
 			}
 
+			// Check if role is managed by an integration
+			if (role.managed) {
+				return msg.reply('❌ An integration is managing that role.');
+			}
+
 			// Add the new role's ID to the local array
 			selfRoles.push(role.id);
 			// Set the array to our updated version
