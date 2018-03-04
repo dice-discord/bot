@@ -31,7 +31,6 @@ module.exports = class ListSelfRolesCommand extends Command {
 				return msg.reply('❌ No selfroles');
 			}
 
-
 			// List of role names
 			const roleList = [];
 
