@@ -37,10 +37,12 @@ module.exports = class GetSelfRolesCommand extends Command {
 				return msg.reply('❌ That role isn\'t a self role.');
 			}
 
+			// Check if author already has the role
 			if (msg.member.roles.has(role.id)) {
 				return msg.reply('❌ You already have that role.');
 			}
 
+			// Check if bot is able to add that role
 			if (role.comparePositionTo(msg.guild.me.roles.highest) <= 0 || msg.member.manageable === false) {
 				return msg.reply('❌ I dont\'t have the permissions to add that role.');
 			}
