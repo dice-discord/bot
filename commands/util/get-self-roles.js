@@ -43,8 +43,8 @@ module.exports = class GetSelfRolesCommand extends Command {
 			}
 
 			// Check if bot is able to add that role
-			if (role.comparePositionTo(msg.guild.me.roles.highest) <= 0 || msg.member.manageable === false) {
-				return msg.reply('❌ I dont\'t have the permissions to add that role.');
+			if (role.comparePositionTo(msg.guild.me.roles.highest) >= 0 || msg.member.manageable === false) {
+				return msg.reply('❌ I dont\'t have the permissions to give you that role.');
 			}
 
 			await msg.member.roles.add(role.id, 'Selfrole');
