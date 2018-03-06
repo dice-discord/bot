@@ -2,7 +2,7 @@
     "minMultiplier": 1.01,
     "maxMultiplier": 100,
     "minWager": 1,
-    "currencyPlural": "dots",
+    "currencyPlural": "oats",
 	"currencySingular": "dot",
     "newUserBalance": 500,
     "houseStartingBalance": 750000,

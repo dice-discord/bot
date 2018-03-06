@@ -10,21 +10,21 @@ module.exports = class AddBalanceCommand extends Command {
 			name: 'add-balance',
 			group: 'economy',
 			memberName: 'add-balance',
-			description: 'Add dots to another user\'s account',
+			description: 'Add oats to another user\'s account',
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['add-bal', 'increase-balance', 'increase-bal'],
 			examples: ['add-balance 500 @Dice'],
 			args: [
 				{
 					key: 'amount',
-					prompt: 'How many dots do you want to add?',
+					prompt: 'How many oats do you want to add?',
 					type: 'float',
 					min: rules.minWager,
 					parse: amount => diceAPI.simpleFormat(amount)
 				},
 				{
 					key: 'user',
-					prompt: 'Who do you want to add dots to?',
+					prompt: 'Who do you want to add oats to?',
 					type: 'user'
 				}
 			],
@@ -41,10 +41,10 @@ module.exports = class AddBalanceCommand extends Command {
 			msg.channel.startTyping();
 			// Permission checking
 			if (user.bot === true && user.id !== this.client.user.id) {
-				return msg.reply('❌ You can\'t add dots to bots.');
+				return msg.reply('❌ You can\'t add oats to bots.');
 			}
 
-			// Add dots to user
+			// Add oats to user
 			await diceAPI.increaseBalance(user.id, amount);
 
 			// React with the success emoji

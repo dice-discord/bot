@@ -16,7 +16,7 @@ module.exports = class CashOutCommand extends Command {
 			args: [
 				{
 					key: 'amount',
-					prompt: 'How many dots do you want to remove?',
+					prompt: 'How many oats do you want to remove?',
 					type: 'float',
 					min: rules.minWager,
 					parse: amount => diceAPI.simpleFormat(amount)
@@ -44,10 +44,10 @@ module.exports = class CashOutCommand extends Command {
 			// Round to whole number
 			amount = Math.round(amount);
 
-			// Remove dots from the house
+			// Remove oats from the house
 			diceAPI.decreaseBalance(this.client.user.id, amount);
 
-			// Add dots to author
+			// Add oats to author
 			diceAPI.increaseBalance(msg.author.id, amount);
 
 			// React with the success emoji

@@ -41,10 +41,10 @@ module.exports = class SetBalanceCommand extends Command {
 			msg.channel.startTyping();
 			// Permission checking
 			if (user.bot === true && user.id !== this.client.user.id) {
-				return msg.reply('❌ You can\'t add dots to bots.');
+				return msg.reply('❌ You can\'t add oats to bots.');
 			}
 
-			// Add dots to user
+			// Add oats to user
 			await diceAPI.updateBalance(user.id, amount);
 
 			// React with the success emoji

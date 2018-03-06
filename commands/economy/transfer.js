@@ -10,20 +10,20 @@ module.exports = class TransferCommand extends Command {
 			name: 'transfer',
 			group: 'economy',
 			memberName: 'transfer',
-			description: 'Tranfser dots to another user',
+			description: 'Tranfser oats to another user',
 			aliases: ['send', 'pay'],
 			examples: ['transfer 500 @Dice'],
 			args: [
 				{
 					key: 'amount',
-					prompt: 'How many dots do you want to transfer?',
+					prompt: 'How many oats do you want to transfer?',
 					type: 'float',
 					parse: amount => diceAPI.simpleFormat(amount),
 					min: rules.minWager
 				},
 				{
 					key: 'user',
-					prompt: 'Who do you want to transfer dots to?',
+					prompt: 'Who do you want to transfer oats to?',
 					type: 'user'
 				}
 			],
@@ -50,13 +50,13 @@ module.exports = class TransferCommand extends Command {
 
 			// No sending money to bots
 			if (user.bot === true && user.id !== this.client.user.id) {
-				return msg.reply('❌ You can\'t send dots to bots.');
+				return msg.reply('❌ You can\'t send oats to bots.');
 			}
 
-			// Remove dots from sender
+			// Remove oats from sender
 			await diceAPI.decreaseBalance(msg.author.id, amount);
 
-			// Add dots to receiver
+			// Add oats to receiver
 			await diceAPI.increaseBalance(user.id, amount);
 
 			// React with the success emoji
