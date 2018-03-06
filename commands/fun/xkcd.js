@@ -34,14 +34,14 @@ module.exports = class XKCDCommand extends Command {
 			let options = {
 				uri: `https://xkcd.com/${comic}/info.0.json`
 			};
-			if (comic === 'random') {
+			if (comic === 'latest') {
 				options.uri = `https://xkcd.com/info.0.json`
 			}
 
 			const result = await rp(options).catch(error => {
 				winston.error('[COMMAND](XKCD)', error.stack);
 				return msg.reply('❌ There was an error with the XKCD website');
-			});;
+			});
 
 			return msg.replyEmbed({
 				title: `${result.safe_title} (${result.num})`,
