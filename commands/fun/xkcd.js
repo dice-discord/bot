@@ -55,9 +55,6 @@ module.exports = class XKCDCommand extends Command {
 				fields: [{
 					name: 'Alt',
 					value: result.alt
-				}, {
-					name: 'Transcript',
-					value: result.transcript
 				}]
 			});
 		} finally {
