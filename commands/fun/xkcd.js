@@ -32,7 +32,8 @@ module.exports = class XKCDCommand extends Command {
 			msg.channel.startTyping();
 
 			let options = {
-				uri: `https://xkcd.com/${comic}/info.0.json`
+				uri: `https://xkcd.com/${comic}/info.0.json`,
+				json: true
 			};
 			if (comic === 'latest') {
 				options.uri = `https://xkcd.com/info.0.json`
