@@ -1,8 +1,10 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
+const { MessageEmbed } = require('discord.js');
 const rp = require('request-promise');
 const winston = require('winston');
+const moment = require('moment');
 
 module.exports = class XKCDCommand extends Command {
 	constructor(client) {
@@ -13,12 +15,13 @@ module.exports = class XKCDCommand extends Command {
 			description: 'Get an XKCD comic',
 			details: 'Not specifying the comic to lookup will give you the most recent comic',
 			aliases: ['random-xkcd', 'xkcd-comic', 'random-xkcd-comic'],
-			examples: ['xkcd', 'xkcd 314'],
+			examples: ['xkcd', 'xkcd 614'],
 			args: [{
 				key: 'comic',
 				prompt: 'What comic number do you want see?',
 				type: 'integer',
-				default: 'latest'
+				default: 'latest',
+				min: 1
 			}],
 			throttling: {
 				usages: 2,
@@ -31,12 +34,12 @@ module.exports = class XKCDCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			let options = {
+			const options = {
 				uri: `https://xkcd.com/${comic}/info.0.json`,
 				json: true
 			};
 			if (comic === 'latest') {
-				options.uri = `https://xkcd.com/info.0.json`
+				options.uri = 'https://xkcd.com/info.0.json';
 			}
 
 			const result = await rp(options).catch(error => {
@@ -44,19 +47,42 @@ module.exports = class XKCDCommand extends Command {
 				return msg.reply('❌ There was an error with the XKCD website');
 			});
 
-			return msg.replyEmbed({
-				title: `${result.safe_title} (${result.num})`,
+			// Result embed
+			const embed = new MessageEmbed({
+				title: `${result.safe_title} (#${result.num})`,
 				author: {
 					name: 'XKCD',
 					iconURL: 'https://i.imgur.com/AP0vVy5.png',
 					url: 'https://xkcd.com'
-				},
-				image: { url: result.img },
-				fields: [{
-					name: 'Alt',
-					value: result.alt
-				}]
+				}
 			});
+
+			// Check if comic exists
+			if (result.img) {
+				embed.setImage(result.img);
+			} else {
+				return msg.reply('❌ Couldn\'t find that comic');
+			}
+
+			// Alt text
+			if (result.alt) embed.addField('Alt', result.alt);
+
+			// Transcript
+			if (result.transcript) embed.addField('Transcript', result.transcript);
+
+			// Check if there's a link
+			if (result.link) {
+				embed.setURL(result.link);
+			} else {
+				embed.setURL(result.img);
+			}
+
+			// Creation date
+			if (result.day && result.month && result.year) {
+				embed.setTimestamp(new Date(moment([result.year, result.month, result.day])));
+			}
+
+			return msg.replyEmbed(embed);
 		} finally {
 			msg.channel.stopTyping();
 		}
