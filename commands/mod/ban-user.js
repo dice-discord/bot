@@ -6,7 +6,7 @@ module.exports = class BanUserCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'ban-user',
-			aliases: ['ban-member', 'hackban-user', 'hackban-member', 'hackban'],
+			aliases: ['ban', 'ban-member', 'hackban-user', 'hackban-member', 'hackban'],
 			group: 'mod',
 			memberName: 'ban-user',
 			description: 'Ban any user from your server',

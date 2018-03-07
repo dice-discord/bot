@@ -60,5 +60,5 @@ typings/
 # VSCode
 .vscode/launch.json
 
-# New secret commands
-/new
+# MacOS
+.DS_Store
