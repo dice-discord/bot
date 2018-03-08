@@ -1,5 +1,6 @@
 // Copyright Jonah Snider 2018
 
+const winston = require('winston');
 const { Command } = require('discord.js-commando');
 
 module.exports = class UnblacklistUserCommand extends Command {
@@ -23,20 +24,20 @@ module.exports = class UnblacklistUserCommand extends Command {
 		});
 	}
 
-	run(msg, { user }) {
-		// Get all of this guild's selfroles
+	async run(msg, { user }) {
+		// Get all blacklisted users
 		const blacklist = this.client.provider.get('global', 'blacklist', []);
 
-		// Check if the role isn't a self role
+		// Check if the user is actually blacklisted
 		if (!blacklist.includes(user.id)) return msg.reply('❌ That user isn\'t blacklisted.');
 
-		// Find the position of the role and delete it from the array
+		// Find the user in the array and delete it
+		winston.debug(`[COMMAND](UNBLACKLIST-USER) Blacklist item index: ${blacklist.indexOf(user.id)}`);
 		blacklist.splice(blacklist.indexOf(user.id));
 		// Set the array to our updated version
-		this.client.provider.set(global, 'blacklist', blacklist);
+		await this.client.provider.set('global', 'blacklist', blacklist);
 
 		// React with the success emoji
 		msg.react('406965554629574658');
-		return null;
 	}
 };
