@@ -7,6 +7,7 @@ const replaceall = require('replaceall');
 const { MongoClient } = require('mongodb');
 const MongoDBProvider = require('commando-provider-mongo');
 const DBL = require('dblapi.js');
+const BFD = require('bfd-api');
 const winston = require('winston');
 winston.level = 'debug';
 const diceAPI = require('./providers/diceAPI');
@@ -58,6 +59,7 @@ client.dispatcher.addInhibitor(msg => {
 
 /* Update server counter on bot listings */
 const dbl = new DBL(process.env.DISCORDBOTSORG_TOKEN);
+const bfd = new BFD(process.env.BOTSFORDISCORD_TOKEN);
 
 // Bots.discord.pw
 const sendBotsDiscordPWServerCount = () => {
@@ -84,10 +86,11 @@ const sendBotsDiscordPWServerCount = () => {
 	});
 };
 
-const updateServerCount = () => {
+const updateServerCount = async () => {
 	if (client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
 		sendBotsDiscordPWServerCount();
+		bfd.postCount(await client.shard.broadcastEval('this.guilds.size'), client.user.id);
 		dbl.postStats(client.guilds.size, client.shard.id, client.shard.count);
 	}
 };
