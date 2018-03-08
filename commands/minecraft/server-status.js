@@ -10,7 +10,7 @@ module.exports = class ServerStatusCommand extends Command {
 			group: 'minecraft',
 			memberName: 'server-status',
 			description: 'Get information about a Minecraft server',
-			aliases: ['server', 'status'],
+			aliases: ['mc-server', 'minecraft-server', 'mc-server-status', 'minecraft-server-status'],
 			examples: ['server-status us.mineplex.com', 'server-status 127.0.0.1 25565'],
 			throttling: {
 				usages: 1,
