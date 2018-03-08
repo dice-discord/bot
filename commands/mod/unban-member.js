@@ -59,7 +59,6 @@ module.exports = class UnbanMemberCommand extends Command {
 				msg.guild.members.unban(user, { reason: reason });
 				// React with the success emoji
 				msg.react('406965554629574658');
-				return null;
 			} else {
 				return msg.reply(`❌ ${user.tag} isn't banned.`);
 			}

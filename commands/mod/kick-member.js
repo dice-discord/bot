@@ -6,7 +6,7 @@ module.exports = class KickMemberCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'kick-member',
-			aliases: ['kick-user', 'kick',],
+			aliases: ['kick-user', 'kick'],
 			group: 'mod',
 			memberName: 'kick-member',
 			description: 'Kick a member from your server',
@@ -41,8 +41,8 @@ module.exports = class KickMemberCommand extends Command {
 
 	async run(msg, { member, reason }) {
 		try {
-            msg.channel.startTyping();
-            
+			msg.channel.startTyping();
+
 			if (reason) {
 				reason = `${reason} - Requested by ${msg.author.tag}`;
 			} else {
@@ -51,11 +51,10 @@ module.exports = class KickMemberCommand extends Command {
 
 			if (member.kickable) {
 				// Member not on guild or bannable
-                await member.kick(reason);
+				await member.kick(reason);
 
 				// React with the success emoji
 				msg.react('406965554629574658');
-				return null;
 			} else {
 				// Member not kickable
 				return msg.reply('❌ I can\'t kick that member');

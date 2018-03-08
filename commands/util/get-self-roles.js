@@ -50,7 +50,6 @@ module.exports = class GetSelfRolesCommand extends Command {
 			await msg.member.roles.add(role.id, 'Selfrole');
 			// React with the success emoji
 			msg.react('406965554629574658');
-			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}

@@ -54,7 +54,6 @@ module.exports = class BanUserCommand extends Command {
 				await msg.guild.members.ban(user.id, { reason: reason });
 				// React with the success emoji
 				msg.react('406965554629574658');
-				return null;
 			} else if (!msg.guild.members.get(user.id).bannable) {
 				// Member not bannable
 				return msg.reply('❌ I can\'t ban that user');
