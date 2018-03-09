@@ -28,13 +28,7 @@ module.exports = class BanUserCommand extends Command {
 				type: 'string',
 				label: 'reason for ban',
 				default: '',
-				validate: reason => {
-					if (reason.length > 400) {
-						return `Your reason was ${reason.length} characters long. Please limit your reason to 400 characters.`;
-					} else {
-						return null;
-					}
-				}
+				max: 400
 			}]
 		});
 	}
