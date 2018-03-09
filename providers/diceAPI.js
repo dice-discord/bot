@@ -3,7 +3,18 @@
 const rules = require('../rules');
 const mongodb = require('mongodb');
 const winston = require('winston');
+const KeenTracking = require('keen-tracking');
+
+// Set up Keen client
+const keenClient = new KeenTracking({
+	projectId: process.env.KEEN_PROJECTID,
+	writeKey: process.env.KEEN_WRITEKEY
+});
+
 winston.verbose('[API] Dice API loading');
+keenClient.recordEvent('events', {
+	title: 'Dice API loading'
+});
 
 // Set up database variables
 const uri = process.env.MONGODB_URI;
