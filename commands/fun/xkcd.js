@@ -78,7 +78,7 @@ module.exports = class XKCDCommand extends Command {
 			}
 
 			// Transcript
-			if (result.alt) {
+			if (result.transcript) {
 				embed.addField('Transcript', truncateText(result.transcript));
 			}
 
