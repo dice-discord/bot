@@ -3,18 +3,18 @@
 // Set up dependencies
 const { CommandoClient, FriendlyError } = require('discord.js-commando');
 const path = require('path');
-const replaceall = require('replaceall');
 const { MongoClient } = require('mongodb');
 const MongoDBProvider = require('commando-provider-mongo');
 const DBL = require('dblapi.js');
 const BFD = require('bfd-api');
+const KeenTracking = require('keen-tracking');
 const winston = require('winston');
 winston.level = 'debug';
 const diceAPI = require('./providers/diceAPI');
 const request = require('request');
 const rules = require('./rules');
 
-// Set up bot metadata
+// Set up bot client and settings
 const client = new CommandoClient({
 	commandPrefix: '$$',
 	owner: '210024244766179329',
@@ -23,16 +23,22 @@ const client = new CommandoClient({
 	invite: 'https://discord.gg/NpUmRkj'
 });
 
+// Set up Keen client
+const keenClient = new KeenTracking({
+	projectId: process.env.KEEN_PROJECTID,
+	writeKey: process.env.KEEN_WRITEKEY
+});
+
 client.registry
 	// Registers your custom command groups
 	.registerGroups([
 		['util', 'Utility'],
-		['dev', 'Developer'],
-		['economy', 'Economy'],
-		['minecraft', 'Minecraft'],
-		['games', 'Games'],
 		['mod', 'Moderation'],
-		['fun', 'Fun']
+		['games', 'Games'],
+		['fun', 'Fun'],
+		['minecraft', 'Minecraft'],
+		['economy', 'Economy'],
+		['dev', 'Developer']
 	])
 
 	// Registers all built-in groups, commands, and argument types
@@ -128,6 +134,10 @@ const announceServerCount = async (serverCount, newServer, date) => {
 client
 	.on('unhandledRejection', error => {
 		winston.error();
+		keenClient.recordEvent('errors', {
+			title: 'Unhandled Promise Rejection',
+			description: error.stack
+		});
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Unhandled Promise Rejection',
@@ -139,6 +149,10 @@ client
 	})
 	.on('rejectionHandled', error => {
 		winston.error();
+		keenClient.recordEvent('errors', {
+			title: 'Handled Promise Rejection',
+			description: error.stack
+		});
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Handled Promise Rejection',
@@ -150,6 +164,10 @@ client
 	})
 	.on('uncaughtException', error => {
 		winston.error();
+		keenClient.recordEvent('errors', {
+			title: 'Uncaught Exception',
+			description: error.stack
+		});
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Uncaught Exception',
@@ -161,6 +179,10 @@ client
 	})
 	.on('warning', warning => {
 		winston.warn();
+		keenClient.recordEvent('errors', {
+			title: 'Warning',
+			description: warning.stack
+		});
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Warning',
@@ -188,6 +210,11 @@ client
 		// Set game presence to the help command once loaded
 		client.user.setActivity('for @Dice help or $$help', {
 			type: 'WATCHING'
+		});
+
+		keenClient.recordEvent('events', {
+			title: 'Ready',
+			shard: client.shard.id
 		});
 
 		updateServerCount();
@@ -230,6 +257,9 @@ client
 		}
 	})
 	.on('commandBlocked', async (msg, reason) => {
+		const userBalance = await diceAPI.getBalance(msg.author.id);
+		const houseBalance = await diceAPI.getBalance(client.user.id);
+
 		client.channels.get('399458745480118272').send({
 			embed: {
 				title: 'Command Blocked',
@@ -247,66 +277,78 @@ client
 				},
 				{
 					name: '🏦 User Balance',
-					value: `\`${await diceAPI.getBalance(msg.author.id)}\` ${rules.currencyPlural}`
+					value: `\`${userBalance}\` ${rules.currencyPlural}`
 				},
 				{
 					name: `🏦 ${client.user.username} Balance`,
-					value: `\`${await diceAPI.getBalance(client.user.id)}\` ${rules.currencyPlural}`
-				}
-				]
-			}
-		});
-	})
-	.on('commandRun', async (cmd, promise, message) => {
-		// Command logger
-		client.channels.get('399458745480118272').send({
-			embed: {
-				title: 'Command Run',
-				author: {
-					name: `${message.author.tag} (${message.author.id})`,
-					icon_url: message.author.displayAvatarURL(128)
-				},
-				timestamp: new Date(message.createdTimestamp),
-				fields: [{
-					name: '📝 Message',
-					value: message.content
-				},
-				{
-					name: '🏦 User Balance',
-					value: `\`${await diceAPI.getBalance(message.author.id)}\` ${rules.currencyPlural}`
-				},
-				{
-					name: `🏦 ${client.user.username} Balance`,
-					value: `\`${await diceAPI.getBalance(client.user.id)}\` ${rules.currencyPlural}`
+					value: `\`${houseBalance}\` ${rules.currencyPlural}`
 				}
 				]
 			}
 		});
 
-		winston.silly(`[DICE] Command run by ${message.author.tag} (${message.author.id}): ${message.content}`);
+		keenClient.recordEvent('blockedCommands', {
+			author: msg.author,
+			reason: reason,
+			timestamp: new Date(msg.createdTimestamp),
+			message: msg.content,
+			userBalance: userBalance,
+			houseBalance: houseBalance
+		});
+	})
+	.on('commandRun', async (cmd, promise, msg) => {
+		const userBalance = await diceAPI.getBalance(msg.author.id);
+		const houseBalance = await diceAPI.getBalance(client.user.id);
+
+		// Command logger
+		client.channels.get('399458745480118272').send({
+			embed: {
+				title: 'Command Run',
+				author: {
+					name: `${msg.author.tag} (${msg.author.id})`,
+					icon_url: msg.author.displayAvatarURL(128)
+				},
+				timestamp: new Date(msg.createdTimestamp),
+				fields: [{
+					name: '📝 Message',
+					value: msg.content
+				},
+				{
+					name: '🏦 User Balance',
+					value: `\`${userBalance}\` ${rules.currencyPlural}`
+				},
+				{
+					name: `🏦 ${client.user.username} Balance`,
+					value: `\`${houseBalance}\` ${rules.currencyPlural}`
+				}
+				]
+			}
+		});
+
+		keenClient.recordEvent('commands', {
+			author: msg.author,
+			timestamp: new Date(msg.createdTimestamp),
+			message: msg.content,
+			userBalance: userBalance,
+			houseBalance: houseBalance
+		});
+
+		winston.silly(`[DICE] Command run by ${msg.author.tag} (${msg.author.id}): ${msg.content}`);
 	})
 	.on('message', async msg => {
 		/* Protecting bot token */
 		const warning = `[DICE] TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
 		https://discordapp.com/developers/applications/me/${client.user.id}\n`;
 
-		if (msg.content.includes(process.env.BOT_TOKEN) && msg.editable) {
-			// Message is from bot so edit it
-			msg.edit(replaceall(process.env.BOT_TOKEN, '--snip--', msg.content));
-
-			winston.error(`[DICE] ${warning}
-			Bot token found and edited in message from this bot.\n
-			Message: ${msg.content}`);
-		} else if (msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
+		if (msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
 			// Message can be deleted, so delete it
 			msg.delete().then(() => {
-
 				winston.error(`[DICE] ${warning}
 				Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
 				Message: ${msg.content}`);
 			});
-		} else if (msg.content.includes(process.env.BOT_TOKEN) && !msg.editable && !msg.deletable) {
-			// Message can't be delete or edited
+		} else if (msg.content.includes(process.env.BOT_TOKEN) && !msg.deletable) {
+			// Message can't be deleted
 
 			winston.error(`[DICE] ${warning}
 			Bot token found in message by ${msg.author.tag} (${msg.author.id}).\n

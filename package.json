@@ -1,7 +1,7 @@
 {
 	"name": "dice",
 	"description": "A general purpose utility bot, with an economy, games, and lots of other features.",
-	"version": "1.40.7",
+	"version": "1.40.8",
 	"author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
 	"keywords": [
 		"discord",
@@ -26,6 +26,7 @@
 		"dblapi.js": "^1.1.0",
 		"discord.js": "discordjs/discord.js",
 		"discord.js-commando": "discordjs/Commando",
+		"keen-tracking": "^1.4.0",
 		"moment": "^2.21.0",
 		"mongodb": "^3.0.3",
 		"parse-color": "^1.0.0",
