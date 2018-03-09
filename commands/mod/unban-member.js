@@ -27,13 +27,7 @@ module.exports = class UnbanMemberCommand extends Command {
 				type: 'string',
 				label: 'reason for ban',
 				default: '',
-				validate: reason => {
-					if (reason.length > 400) {
-						return `Your reason was ${reason.length} characters long. Please limit your reason to 400 characters.`;
-					} else {
-						return true;
-					}
-				}
+				max: 400
 			}],
 			throttling: {
 				usages: 2,
