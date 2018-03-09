@@ -86,7 +86,7 @@ module.exports = class XKCDCommand extends Command {
 			if (result.link) {
 				embed.setURL(result.link);
 			} else {
-				embed.setURL(result.img);
+				embed.setURL(`https://xkcd.com/${result.num}`);
 			}
 
 			// Creation date
