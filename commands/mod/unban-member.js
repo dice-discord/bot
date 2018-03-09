@@ -56,7 +56,7 @@ module.exports = class UnbanMemberCommand extends Command {
 			winston.debug(`[COMMAND](UNBAN-MEMBER) Is ${user.tag} banned on ${msg.guild}: ${(await msg.guild.fetchBans()).has(user.id)}`);
 			if ((await msg.guild.fetchBans()).has(user.id)) {
 				// Unban the user on the guild
-				msg.guild.members.unban(user, { reason: reason });
+				msg.guild.members.unban(user, reason);
 				// React with the success emoji
 				msg.react('406965554629574658');
 			} else {
