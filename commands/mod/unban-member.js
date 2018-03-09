@@ -2,6 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const winston = require('winston');
+const response = require('../../providers/simpleCommandResponse');
 
 module.exports = class UnbanMemberCommand extends Command {
 	constructor(client) {
@@ -51,14 +52,13 @@ module.exports = class UnbanMemberCommand extends Command {
 				reason = `Requested by ${msg.author.tag}`;
 			}
 
+			const guildBans = await msg.guild.fetchBans();
+			
 			// User is regular banned
-			winston.debug(`[COMMAND](UNBAN-MEMBER) Bans for ${msg.guild}: ${(await msg.guild.fetchBans()).array()}`);
+			winston.debug(`[COMMAND](UNBAN-MEMBER) Bans for ${msg.guild}: ${guildBans.array()}`);
 			winston.debug(`[COMMAND](UNBAN-MEMBER) Is ${user.tag} banned on ${msg.guild}: ${(await msg.guild.fetchBans()).has(user.id)}`);
-			if ((await msg.guild.fetchBans()).has(user.id)) {
-				// Unban the user on the guild
-				msg.guild.members.unban(user, reason);
-				// React with the success emoji
-				msg.react('406965554629574658');
+			if (guildBans.has(user.id)) {
+				response.respond(msg, msg.guild.me, `${user.tag} was unbanned for \`${reason}\``);
 			} else {
 				return msg.reply(`❌ ${user.tag} isn't banned.`);
 			}
