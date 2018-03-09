@@ -38,7 +38,7 @@ module.exports = class YearFactsCommand extends Command {
 			const result = await rp(options).catch(error => {
 				winston.error('[COMMAND](DATE-FACTS)', error.stack);
 				return msg.reply('❌ There was an error with the API we use (http://numbersapi.com)');
-			});;
+			});
 
 			return msg.reply(result);
 		} finally {
