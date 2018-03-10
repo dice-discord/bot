@@ -1,6 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
+const response = require('../../providers/simpleCommandResponse');
 
 module.exports = class DeleteSelfRolesCommand extends Command {
 	constructor(client) {
@@ -47,8 +48,8 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 			// Set the array to our updated version
 			await this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
 
-			// React with the success emoji
-			msg.react('406965554629574658');
+			// Respond to author with success
+			response.respond(msg);
 		} finally {
 			msg.channel.stopTyping();
 		}

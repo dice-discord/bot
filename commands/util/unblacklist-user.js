@@ -2,6 +2,7 @@
 
 const winston = require('winston');
 const { Command } = require('discord.js-commando');
+const response = require('../../providers/simpleCommandResponse');
 
 module.exports = class UnblacklistUserCommand extends Command {
 	constructor(client) {
@@ -34,10 +35,11 @@ module.exports = class UnblacklistUserCommand extends Command {
 		// Find the user in the array and delete it
 		winston.debug(`[COMMAND](UNBLACKLIST-USER) Blacklist item index: ${blacklist.indexOf(user.id)}`);
 		blacklist.splice(blacklist.indexOf(user.id));
+
 		// Set the array to our updated version
 		await this.client.provider.set('global', 'blacklist', blacklist);
 
-		// React with the success emoji
-		msg.react('406965554629574658');
+		// Respond to author with success
+		response.respond(msg);
 	}
 };

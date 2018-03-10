@@ -47,15 +47,15 @@ module.exports = class UnbanMemberCommand extends Command {
 			}
 
 			const guildBans = await msg.guild.fetchBans();
-			
+
 			// User is regular banned
 			winston.debug(`[COMMAND](UNBAN-MEMBER) Bans for ${msg.guild}: ${guildBans.array()}`);
 			winston.debug(`[COMMAND](UNBAN-MEMBER) Is ${user.tag} banned on ${msg.guild}: ${guildBans.has(user.id)}`);
 			if (guildBans.has(user.id)) {
 				// Unban the user on the guild
- 				msg.guild.members.unban(user, reason);
+				msg.guild.members.unban(user, reason);
 				// Respond to author with success
-				response.respond(msg, msg.guild.me, `${user.tag} was unbanned for \`${reason}\``);
+				response.respond(msg);
 			} else {
 				return msg.reply(`❌ ${user.tag} isn't banned.`);
 			}

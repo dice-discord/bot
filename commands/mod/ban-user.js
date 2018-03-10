@@ -1,6 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
+const response = require('../../providers/simpleCommandResponse');
 
 module.exports = class BanUserCommand extends Command {
 	constructor(client) {
@@ -46,8 +47,9 @@ module.exports = class BanUserCommand extends Command {
 			if (!msg.guild.members.has(user.id) || msg.guild.members.get(user.id).bannable) {
 				// Member not on guild or bannable
 				await msg.guild.members.ban(user.id, { reason: reason });
-				// React with the success emoji
-				msg.react('406965554629574658');
+
+				// Respond to author with success
+				response.respond(msg);
 			} else if (!msg.guild.members.get(user.id).bannable) {
 				// Member not bannable
 				return msg.reply('❌ I can\'t ban that user');

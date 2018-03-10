@@ -3,6 +3,7 @@
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
 const diceAPI = require('../../providers/diceAPI');
+const response = require('../../providers/simpleCommandResponse');
 
 module.exports = class RemoveBalanceCommand extends Command {
 	constructor(client) {
@@ -44,7 +45,7 @@ module.exports = class RemoveBalanceCommand extends Command {
 		// Remove oats from user
 		await diceAPI.decreaseBalance(user.id, amount);
 
-		// React with the success emoji
-		msg.react('406965554629574658');
+		// Respond to author with success
+		response.respond(msg);
 	}
 };

@@ -2,6 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const diceAPI = require('../../providers/diceAPI');
+const response = require('../../providers/simpleCommandResponse');
 
 module.exports = class ResetDailyCommand extends Command {
 	constructor(client) {
@@ -40,8 +41,8 @@ module.exports = class ResetDailyCommand extends Command {
 
 			await diceAPI.setDailyUsed(user.id, false);
 
-			// React with the success emoji
-			msg.react('406965554629574658');
+			// Respond to author with success
+			response.respond(msg);
 		} finally {
 			msg.channel.stopTyping();
 		}

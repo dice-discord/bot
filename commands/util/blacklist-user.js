@@ -2,6 +2,7 @@
 
 const winston = require('winston');
 const { Command } = require('discord.js-commando');
+const response = require('../../providers/simpleCommandResponse');
 
 module.exports = class BlacklistUserCommand extends Command {
 	constructor(client) {
@@ -37,8 +38,8 @@ module.exports = class BlacklistUserCommand extends Command {
 			blacklist.push(user.id);
 			await this.client.provider.set('global', 'blacklist', blacklist);
 
-			// React with the success emoji
-			msg.react('406965554629574658');
+			// Respond to author with success
+			response.respond(msg);
 		} else if (blacklist.length > 0) {
 			winston.debug('[COMMAND](BLACKLIST-USER) Blacklisted users:', blacklist);
 			return msg.reply(`All blacklisted users:\n${blacklist.join('\n')}`);

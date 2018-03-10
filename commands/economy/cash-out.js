@@ -3,6 +3,7 @@
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
 const diceAPI = require('../../providers/diceAPI');
+const response = require('../../providers/simpleCommandResponse');
 
 module.exports = class CashOutCommand extends Command {
 	constructor(client) {
@@ -50,8 +51,8 @@ module.exports = class CashOutCommand extends Command {
 			// Add oats to author
 			diceAPI.increaseBalance(msg.author.id, amount);
 
-			// React with the success emoji
-			msg.react('406965554629574658');
+			// Respond to author with success
+			response.respond(msg);
 		} finally {
 			msg.channel.stopTyping();
 		}
