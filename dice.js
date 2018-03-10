@@ -84,9 +84,9 @@ const sendBotsDiscordPWServerCount = () => {
 	};
 
 	request(options, (err, httpResponse, body) => {
-		if (err) return winston.error(`[DICE] ${err}`);
+		if (err) return winston.error('[DICE]', err.stack);
 		if (body) {
-			winston.debug(`[DICE] Bots.Discord.pw results (${httpResponse})`, body);
+			winston.debug('[DICE] Bots.Discord.pw results', body);
 		}
 	});
 };
@@ -106,9 +106,9 @@ const sendLsTerminalInkServerCount = count => {
 	};
 
 	request(options, (err, httpResponse, body) => {
-		if (err) return winston.error(`[DICE] ${err}`);
+		if (err) return winston.error('[DICE]', err.stack);
 		if (body) {
-			winston.debug(`[DICE] ls.Terminal.ink results (${httpResponse})`, body);
+			winston.debug('[DICE] ls.Terminal.ink response', body);
 		}
 	});
 };
