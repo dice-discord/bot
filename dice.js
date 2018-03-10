@@ -91,6 +91,28 @@ const sendBotsDiscordPWServerCount = () => {
 	});
 };
 
+// ls.Terminal.ink
+const sendLsTerminalInkServerCount = count => {
+	const options = {
+		method: 'POST',
+		url: `https://ls.terminal.ink/api/v1/bots/${client.id}`,
+		headers: {
+			authorization: process.env.LSTERMINALINK_TOKEN
+		},
+		body: {
+			server_count: count
+		},
+		json: true
+	};
+
+	request(options, (err, httpResponse, body) => {
+		if (err) return winston.error(`[DICE] ${err}`);
+		if (body) {
+			winston.debug('[DICE] Bots.Discord.pw results', body);
+		}
+	});
+};
+
 const updateServerCount = async () => {
 	if (client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
@@ -100,6 +122,7 @@ const updateServerCount = async () => {
 
 		sendBotsDiscordPWServerCount();
 		bfd.postCount(count, client.user.id);
+		sendLsTerminalInkServerCount(count);
 		dbl.postStats(client.guilds.size, client.shard.id, client.shard.count);
 	}
 };
