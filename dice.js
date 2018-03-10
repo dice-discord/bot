@@ -73,7 +73,6 @@ const sendBotsDiscordPWServerCount = () => {
 		method: 'POST',
 		url: 'https://bots.discord.pw/api/bots/388191157869477888/stats',
 		headers: {
-			'cache-control': 'no-cache',
 			authorization: process.env.BOTSDISCORDPW_TOKEN
 		},
 		body: {
