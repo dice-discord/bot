@@ -1,21 +1,22 @@
 /** @function
  * @name respond
  * @param {Message} message Message to respond to
- * @param {GuildMemberResolvable} clientGuildMember Guild member of client responding to the message
- * @param {string} fallbackResponse Response to send if unable to react
  */
-const respond = (message, clientGuildMember, fallbackResponse) => {
+const respond = (message) => {
 	switch (message.channel.type) {
 	case 'text':
-		if (message.channel.permissionsFor(clientGuildMember).has('ADD_REACTIONS') && message.channel.permissionsFor(clientGuildMember).has('USE_EXTERNAL_EMOJIS')) {
+		if (message.channel.permissionsFor(message.guild.me).has('ADD_REACTIONS') && message.channel.permissionsFor(message.guild.me).has('USE_EXTERNAL_EMOJIS')) {
 			// Can add the custom emoji
 			message.react('406965554629574658');
-		} else if (message.channel.permissionsFor(clientGuildMember).has('ADD_REACTIONS')) {
+		} else if (message.channel.permissionsFor(message.guild.me).has('ADD_REACTIONS')) {
 			// Can add a built-in emoji
 			message.react('✅');
+		} else if (message.channel.permissionsFor(message.guild.me).has('USE_EXTERNAL_EMOJIS')) {
+			// Can use custom emoji in a message
+			message.reply('<:success:406965554629574658>');
 		} else {
-			// Can't add emoji
-			message.reply(fallbackResponse);
+			// Can't use custom emoji
+			message.reply('✅');
 		}
 		break;
 	case 'groupdm':
