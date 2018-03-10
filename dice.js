@@ -100,7 +100,7 @@ const sendLsTerminalInkServerCount = count => {
 			authorization: process.env.LSTERMINALINK_TOKEN
 		},
 		body: {
-			server_count: count
+			count: count
 		},
 		json: true
 	};
@@ -108,7 +108,7 @@ const sendLsTerminalInkServerCount = count => {
 	request(options, (err, httpResponse, body) => {
 		if (err) return winston.error(`[DICE] ${err}`);
 		if (body) {
-			winston.debug('[DICE] Bots.Discord.pw results', body);
+			winston.debug('[DICE] ls.Terminal.ink results', body);
 		}
 	});
 };
