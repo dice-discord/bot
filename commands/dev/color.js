@@ -8,7 +8,7 @@ module.exports = class ColorCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'color',
-			aliases: ['rbg', 'cmyk', 'hsv', 'hsl', 'hex', 'hexadecimal', 'colors'],
+			aliases: ['rgb', 'cmyk', 'hsv', 'hsl', 'hex', 'hexadecimal', 'colors'],
 			group: 'dev',
 			memberName: 'color',
 			description: 'Display and convert a color',
