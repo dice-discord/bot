@@ -48,6 +48,9 @@ module.exports = class ColorCommand extends Command {
 
 		return msg.replyEmbed({
 			color: Util.resolveColor(color.rgb),
+			thumbnail: {
+				url: `https://api.terminal.ink/colour?color=${color.hex.substring(1)}`
+			},
 			fields: [{
 				name: 'CSS Keyword',
 				value: color.keyword || 'None'
