@@ -314,39 +314,24 @@ const announceGuildMemberUpdate = (channel, oldMember, newMember) => {
 		}
 	});
 
-	if (!oldMember.nickname && oldMember.nickname !== newMember.nickname &&
-		oldMember.user.discriminator === newMember.user.discriminator
-	) {
+	if (!oldMember.nickname && oldMember.nickname !== newMember.nickname) {
 		// New nickname, no old nickname
 		embed
 			.setTitle('New Member Nickname')
 			.addField('📝 New nickname', Util.escapeMarkdown(newMember.nickname));
 		channel.send(embed);
-	} else if (!newMember.nickname && oldMember.nickname !== newMember.nickname &&
-		oldMember.user.discriminator === newMember.user.discriminator
-	) {
+	} else if (!newMember.nickname && oldMember.nickname !== newMember.nickname) {
 		// Reset nickname
 		embed
 			.setTitle('Member Nickname Removed')
 			.addField('📝 Old nickname', Util.escapeMarkdown(oldMember.nickname));
 		channel.send(embed);
-	} else if (oldMember.nickname !== newMember.nickname &&
-		oldMember.user.discriminator === newMember.user.discriminator
-	) {
+	} else if (oldMember.nickname !== newMember.nickname) {
 		// Nickname change
 		embed
 			.setTitle('Changed Member Nickname')
 			.addField('📝 New nickname', Util.escapeMarkdown(newMember.nickname))
 			.addField('🕒 Old nickname', Util.escapeMarkdown(oldMember.nickname));
-		channel.send(embed);
-	} else if (oldMember.nickname === newMember.nickname &&
-		oldMember.user.discriminator !== newMember.user.discriminator
-	) {
-		// Discriminator change
-		embed
-			.setTitle('Member Discriminator Change')
-			.addField('📝 New discriminator', newMember.user.discriminator)
-			.addField('🕒 Old discriminator', oldMember.user.discriminator);
 		channel.send(embed);
 	}
 };

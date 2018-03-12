@@ -27,51 +27,57 @@ module.exports = class ColorCommand extends Command {
 	}
 
 	run(msg, { color }) {
-		if (!color.startsWith('#') && color.length === 6) {
-			// Hexadecimal missing the pound sign
-			const testResult = parseColor(`#${color}`);
-			if (!testResult.cmyk || !testResult.rgb || !testResult.hsv || !testResult.hsl || !testResult.hex) {
-				// Invalid hexadecimal
-				return msg.reply('❌ Invalid color.');
+		try {
+			msg.channel.startTyping();
+
+			if (!color.startsWith('#') && color.length === 6) {
+				// Hexadecimal missing the pound sign
+				const testResult = parseColor(`#${color}`);
+				if (!testResult.cmyk || !testResult.rgb || !testResult.hsv || !testResult.hsl || !testResult.hex) {
+					// Invalid hexadecimal
+					return msg.reply('❌ Invalid color.');
+				} else {
+					// Valid hexadecimal, missing pound sign
+					color = testResult;
+				}
 			} else {
-				// Valid hexadecimal, missing pound sign
-				color = testResult;
+				// Other color type
+				color = parseColor(color);
 			}
-		} else {
-			// Other color type
-			color = parseColor(color);
-		}
 
-		if (!color.cmyk || !color.rgb || !color.hsv || !color.hsl || !color.hex) {
-			return msg.reply('❌ Invalid color.');
-		}
-
-		return msg.replyEmbed({
-			color: Util.resolveColor(color.rgb),
-			thumbnail: {
-				url: `https://api.terminal.ink/colour?color=${color.hex.substring(1)}`
-			},
-			fields: [{
-				name: 'CSS Keyword',
-				value: color.keyword || 'None'
-			},
-			{
-				name: 'Hexadecimal',
-				value: color.hex.toString()
-			}, {
-				name: 'CMYK',
-				value: color.cmyk.join(', ')
-			}, {
-				name: 'HSL',
-				value: color.hsl.join(', ')
-			}, {
-				name: 'HSV',
-				value: color.hsv.join(', ')
-			}, {
-				name: 'RGB',
-				value: color.rgb.join(', ')
+			if (!color.cmyk || !color.rgb || !color.hsv || !color.hsl || !color.hex) {
+				return msg.reply('❌ Invalid color.');
 			}
-			]
-		});
+
+			return msg.replyEmbed({
+				color: Util.resolveColor(color.rgb),
+				thumbnail: {
+					url: `https://api.terminal.ink/colour?color=${color.hex.substring(1)}`
+				},
+				fields: [{
+						name: 'CSS Keyword',
+						value: color.keyword || 'None'
+					},
+					{
+						name: 'Hexadecimal',
+						value: color.hex.toString()
+					}, {
+						name: 'CMYK',
+						value: color.cmyk.join(', ')
+					}, {
+						name: 'HSL',
+						value: color.hsl.join(', ')
+					}, {
+						name: 'HSV',
+						value: color.hsv.join(', ')
+					}, {
+						name: 'RGB',
+						value: color.rgb.join(', ')
+					}
+				]
+			});
+		} finally {
+			msg.channel.stopTyping();
+		}
 	}
 };
