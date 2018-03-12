@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class KickMemberCommand extends Command {
 	constructor(client) {
@@ -51,11 +51,10 @@ module.exports = class KickMemberCommand extends Command {
 			}
 
 			if (member.kickable) {
-				// Member not on guild or bannable
-				await member.kick(reason);
-
-				// Respond to author with success
-				response.respond(msg);
+				// Member not on guild or kickable
+				member.kick(reason)
+					.then(() => respond(msg))
+					.catch(() => msg.reply('❌ Unable to kick that user'));
 			} else {
 				// Member not kickable
 				return msg.reply('❌ I can\'t kick that member');

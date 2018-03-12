@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class BanUserCommand extends Command {
 	constructor(client) {
@@ -35,27 +35,14 @@ module.exports = class BanUserCommand extends Command {
 	}
 
 	async run(msg, { user, reason }) {
-		try {
-			msg.channel.startTyping();
 
-			if (reason) {
-				reason = `${reason} - Requested by ${msg.author.tag}`;
-			} else {
-				reason = `Requested by ${msg.author.tag}`;
-			}
-
-			if (!msg.guild.members.has(user.id) || msg.guild.members.get(user.id).bannable) {
-				// Member not on guild or bannable
-				await msg.guild.members.ban(user.id, { reason: reason });
-
-				// Respond to author with success
-				response.respond(msg);
-			} else if (!msg.guild.members.get(user.id).bannable) {
-				// Member not bannable
-				return msg.reply('❌ I can\'t ban that user');
-			}
-		} finally {
-			msg.channel.stopTyping();
+		if (reason) {
+			reason = `${reason} - Requested by ${msg.author.tag}`;
+		} else {
+			reason = `Requested by ${msg.author.tag}`;
 		}
+		msg.guild.members.ban(user.id, { reason: reason })
+			.then(() => respond(msg))
+			.catch(() => msg.reply('❌ Unable to ban that user'));
 	}
 };
