@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const diceAPI = require('../../providers/diceAPI');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class ResetDailyCommand extends Command {
 	constructor(client) {
@@ -28,11 +28,7 @@ module.exports = class ResetDailyCommand extends Command {
 		});
 	}
 
-	async run(msg, { user }) {
-		try {
-			msg.channel.startTyping();
-
-			user = user || msg.author;
+	async run(msg, { user }) {user = user || msg.author;
 
 			// Permission checking
 			if (user.bot === true) {
@@ -42,9 +38,6 @@ module.exports = class ResetDailyCommand extends Command {
 			await diceAPI.setDailyUsed(user.id, false);
 
 			// Respond to author with success
-			response.respond(msg);
-		} finally {
-			msg.channel.stopTyping();
-		}
+			respond(msg);
 	}
 };

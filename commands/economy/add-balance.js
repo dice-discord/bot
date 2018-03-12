@@ -3,7 +3,7 @@
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
 const diceAPI = require('../../providers/diceAPI');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class AddBalanceCommand extends Command {
 	constructor(client) {
@@ -38,20 +38,15 @@ module.exports = class AddBalanceCommand extends Command {
 	}
 
 	async run(msg, { user, amount }) {
-		try {
-			msg.channel.startTyping();
-			// Permission checking
-			if (user.bot === true && user.id !== this.client.user.id) {
-				return msg.reply('❌ You can\'t add oats to bots.');
-			}
-
-			// Add oats to user
-			await diceAPI.increaseBalance(user.id, amount);
-
-			// Respond to author with success
-			response.respond(msg);
-		} finally {
-			msg.channel.stopTyping();
+		// Permission checking
+		if (user.bot === true && user.id !== this.client.user.id) {
+			return msg.reply('❌ You can\'t add oats to bots.');
 		}
+
+		// Add oats to user
+		await diceAPI.increaseBalance(user.id, amount);
+
+		// Respond to author with success
+		respond(msg);
 	}
 };

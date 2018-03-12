@@ -3,7 +3,7 @@
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
 const diceAPI = require('../../providers/diceAPI');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class CashOutCommand extends Command {
 	constructor(client) {
@@ -32,29 +32,23 @@ module.exports = class CashOutCommand extends Command {
 	}
 
 	async run(msg, { amount }) {
-		try {
-			msg.channel.startTyping();
+		const beforeTransferHouseBalance = await diceAPI.getBalance(this.client.user.id);
 
-			const beforeTransferHouseBalance = await diceAPI.getBalance(this.client.user.id);
-
-			// Amount checking
-			if (amount > beforeTransferHouseBalance) {
-				return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\` ${rules.currencyPlural}. ${this.client.user} doesn't have that much.`);
-			}
-
-			// Round to whole number
-			amount = Math.round(amount);
-
-			// Remove oats from the house
-			diceAPI.decreaseBalance(this.client.user.id, amount);
-
-			// Add oats to author
-			diceAPI.increaseBalance(msg.author.id, amount);
-
-			// Respond to author with success
-			response.respond(msg);
-		} finally {
-			msg.channel.stopTyping();
+		// Amount checking
+		if (amount > beforeTransferHouseBalance) {
+			return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\` ${rules.currencyPlural}. ${this.client.user} doesn't have that much.`);
 		}
+
+		// Round to whole number
+		amount = Math.round(amount);
+
+		// Remove oats from the house
+		diceAPI.decreaseBalance(this.client.user.id, amount);
+
+		// Add oats to author
+		diceAPI.increaseBalance(msg.author.id, amount);
+
+		// Respond to author with success
+		respond(msg);
 	}
 };
