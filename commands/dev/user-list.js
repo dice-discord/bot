@@ -25,6 +25,7 @@ module.exports = class UserListCommand extends Command {
 	async run(msg) {
 		try {
 			msg.channel.startTyping();
+
 			const database = await diceAPI.allUsers();
 			const userList = [];
 
