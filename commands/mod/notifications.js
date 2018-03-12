@@ -52,7 +52,7 @@ module.exports = class NotificationsCommand extends Command {
 				name: 'voiceChannel',
 				enabled: false
 			}, {
-				label: 'nickname and discriminator change',
+				label: 'nickname change',
 				name: 'guildMemberUpdate',
 				enabled: false
 			}];
