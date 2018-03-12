@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class GetSelfRolesCommand extends Command {
 	constructor(client) {
@@ -27,33 +27,31 @@ module.exports = class GetSelfRolesCommand extends Command {
 	}
 
 	async run(msg, { role }) {
-		try {
-			msg.channel.startTyping();
+		// Get all of this guild's selfroles
+		const selfRoles = this.client.provider.get(msg.guild, 'selfRoles', []);
 
-			// Get all of this guild's selfroles
-			const selfRoles = this.client.provider.get(msg.guild, 'selfRoles', []);
-
-			// Check if the role isn't a self role
-			if (!selfRoles.includes(role.id)) {
-				return msg.reply('❌ That role isn\'t a self role.');
-			}
-
-			// Check if author already has the role
-			if (msg.member.roles.has(role.id)) {
-				return msg.reply('❌ You already have that role.');
-			}
-
-			// Check if bot is able to add that role
-			if (role.comparePositionTo(msg.guild.me.roles.highest) >= 0 || msg.member.manageable === false) {
-				return msg.reply('❌ I dont\'t have the permissions to give you that role.');
-			}
-
-			await msg.member.roles.add(role.id, 'Selfrole');
-
-			// Respond to author with success
-			response.respond(msg);
-		} finally {
-			msg.channel.stopTyping();
+		// Check if the role isn't a self role
+		if (!selfRoles.includes(role.id)) {
+			return msg.reply('❌ That role isn\'t a self role.');
 		}
+
+		// Check if the role exists on the guild
+		if (!msg.guild.roles.has(role.id)) {
+			// Find the position of the non-existent role and delete it from the array
+			selfRoles.splice(selfRoles.indexOf(role.id));
+			// Set the array to our updated version
+			this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
+
+			return msg.reply('❌ That role doesn\'nt exist anymore.');
+		}
+
+		// Check if author already has the role
+		if (msg.member.roles.has(role.id)) {
+			return msg.reply('❌ You already have that role.');
+		}
+
+		msg.member.roles.add(role.id, 'Selfrole')
+			.then(() => respond(msg))
+			.catch(() => msg.reply('❌ Unable to give you that role.'));
 	}
 };

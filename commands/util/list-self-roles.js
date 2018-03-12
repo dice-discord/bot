@@ -7,7 +7,7 @@ module.exports = class ListSelfRolesCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'list-self-roles',
-			aliases: ['self-role-list', 'self-roles-list', 'list-self-role'],
+			aliases: ['self-role-list', 'self-roles-list', 'list-self-role', 'self-roles'],
 			group: 'util',
 			memberName: 'list-self-roles',
 			description: 'List all self-assigned roles from this server',
@@ -36,7 +36,12 @@ module.exports = class ListSelfRolesCommand extends Command {
 
 			// Iterate through each role on the guild
 			for (const [id, guild] of msg.guild.roles.entries()) {
-				if (selfRoles.includes(id) && msg.member.roles.has(id)) {
+				if (!msg.guild.roles.has(id)) {
+					// Find the position of the non-existent role and delete it from the array
+					selfRoles.splice(selfRoles.indexOf(id));
+					// Set the array to our updated version
+					this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
+				} else if (selfRoles.includes(id) && msg.member.roles.has(id)) {
 					// The role is a selfrole and the author has it
 					roleList.push(`${guild.name} ▫`);
 				} else if (selfRoles.includes(id)) {
