@@ -28,7 +28,7 @@
 		"discord.js-commando": "discordjs/Commando",
 		"keen-tracking": "^1.4.0",
 		"moment": "^2.21.0",
-		"mongodb": "^3.0.3",
+		"mongodb": "^3.0.4",
 		"parse-color": "^1.0.0",
 		"replaceall": "^0.1.6",
 		"request": "^2.85.0",
