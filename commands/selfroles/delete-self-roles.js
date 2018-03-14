@@ -8,7 +8,7 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 		super(client, {
 			name: 'delete-self-roles',
 			aliases: ['self-role-delete', 'self-roles-delete', 'delete-self-role', 'del-self-roles', 'self-role-del', 'self-roles-del', 'del-self-role'],
-			group: 'mod',
+			group: 'selfroles',
 			memberName: 'delete-self-roles',
 			description: 'Delete a self-assigned role from this server',
 			examples: ['delete-self-roles @PUBG', 'delete-self-roles Artists'],

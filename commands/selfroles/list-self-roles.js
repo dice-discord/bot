@@ -8,7 +8,7 @@ module.exports = class ListSelfRolesCommand extends Command {
 		super(client, {
 			name: 'list-self-roles',
 			aliases: ['self-role-list', 'self-roles-list', 'list-self-role', 'self-roles'],
-			group: 'util',
+			group: 'selfroles',
 			memberName: 'list-self-roles',
 			description: 'List all self-assigned roles from this server',
 			guildOnly: true,

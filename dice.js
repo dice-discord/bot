@@ -38,6 +38,7 @@ client.registry
 		['mod', 'Moderation'],
 		['games', 'Games'],
 		['fun', 'Fun'],
+		['selfroles', 'Selfroles'],
 		['minecraft', 'Minecraft'],
 		['economy', 'Economy'],
 		['dev', 'Developer']
@@ -47,7 +48,9 @@ client.registry
 	.registerDefaults()
 
 	// Registers all of your commands in the ./commands/ directory
-	.registerCommandsIn(path.join(__dirname, 'commands'));
+	.registerCommandsIn(path.join(__dirname, 'commands'))
+	// Register custom argument types in the ./types directory
+	.registerTypesIn(path.join(__dirname, 'types'));
 
 // Store settings (like a server prefix) in a MongoDB collection called "settings"
 client.setProvider(

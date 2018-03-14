@@ -8,7 +8,7 @@ module.exports = class SelfRolesAddCommand extends Command {
 		super(client, {
 			name: 'self-roles-add',
 			aliases: ['self-role-add', 'add-self-roles', 'add-self-role'],
-			group: 'mod',
+			group: 'selfroles',
 			memberName: 'self-roles-add',
 			description: 'Add roles to a server\'s selfroles',
 			examples: ['self-roles-add @PUBG', 'self-roles-add Artists'],
