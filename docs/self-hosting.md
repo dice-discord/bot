@@ -8,6 +8,8 @@ description: Instructions on self hosting Dice
 
 ## Guide
 
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/PizzaFox/dice/tree/master/)
+
 ### Overview
 
 Dice is made with [Node.js](https://nodejs.org/en/about/), [Discord.js](https://discord.js.org/#/), and [Discord.js Commando](https://github.com/discordjs/Commando/blob/master/README.md). It uses a [MongoDB](https://www.mongodb.com/what-is-mongodb) instance to store balances and settings and [Keen](https://keen.io) for statistics.
