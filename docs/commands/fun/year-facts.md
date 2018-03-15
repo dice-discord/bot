@@ -37,5 +37,5 @@ Not specifying the year to lookup will give you a random fact
 ### Arguments
 
 | Name | Type   | Required |
-| ---- | ------ | -------- |
+|------|--------|----------|
 | Year | Number | No       |

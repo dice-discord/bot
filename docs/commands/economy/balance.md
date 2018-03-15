@@ -31,6 +31,6 @@ Check a user's balance
 
 ### Arguments
 
-| Name | Type  | Required |
-| ---- | ----- | -------- |
-| User | User  | No       |
+| Name | Type | Required |
+|------|------|----------|
+| User | User | No       |

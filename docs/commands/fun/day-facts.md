@@ -35,6 +35,6 @@ Not specifying the day to lookup will give you a random fact
 
 ### Arguments
 
-| Name  | Type   | Required | Minimum | Maximum |
-| ----- | ------ | -------- | ------- | ------- |
-| Day   | Number | No       | 1       | 31      |
+| Name | Type   | Required | Minimum | Maximum |
+|------|--------|----------|---------|---------|
+| Day  | Number | No       | 1       | 31      |

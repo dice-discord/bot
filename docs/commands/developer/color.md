@@ -22,6 +22,6 @@ Display and convert a color from and to hexadecimal, HSL, RGB, CMYK, and CSS nam
 
 ### Arguments
 
-| Name  | Type  | Required |
-| ----- | ----- | -------- |
-| Color | Text  | Yes      |
+| Name  | Type | Required |
+|-------|------|----------|
+| Color | Text | Yes      |

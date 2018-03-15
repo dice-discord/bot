@@ -45,5 +45,5 @@ Not specifying the number to lookup will give you a random fact
 ### Arguments
 
 | Name   | Type   | Required | Minimum | Maximum |
-| ------ | ------ | -------- | ------- | ------- |
+|--------|--------|----------|---------|---------|
 | Number | Number | No       | 1       | 31      |
