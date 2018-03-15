@@ -1,7 +1,7 @@
-title: Self hosting Dice
+title: Self hosting Guide
 description: Instructions on self hosting Dice
 
-# Self hosting Dice
+# Self hosting guide
 
 !!! warning
     Dice is not optimized for self hosting. Many features will not work out-of-the-box because of built-in values
