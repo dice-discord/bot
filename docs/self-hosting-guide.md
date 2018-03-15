@@ -23,8 +23,8 @@ Dice is made with [Node.js](https://nodejs.org/en/about/), [Discord.js](https://
 
 ### Configuring environment variables
 
-!!! warning
-    Dice uses the Fortnite Tracker API, the Discord Bot List API, the Bots for Discord API, Keen, the Discord Bots at terminal.ink API and the Discord Bots API.
+!!! warning "Third party APIs"
+    Dice uses the Fortnite Tracker API, the Discord Bot List API, the Bots for Discord API, Keen, the Discord Bots at terminal.ink API and the Discord Bots API
 
 | Name                                                                      | Key                    | Example value                                                                                                                                                                                      |
 |---------------------------------------------------------------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
