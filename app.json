@@ -1,0 +1,44 @@
+{
+	"name": "Dice",
+	"description": "A general purpose utility bot, with an economy, games, and lots of other features.",
+	"repository": "https://github.com/PizzaFox/dice",
+	"logo": "https://github.com/PizzaFox/dice/blob/master/assets/dice.png?raw=true",
+	"success_url": "https://discordapp.com/developers/applications/me",
+	"keywords": [
+		"discord",
+		"discordbot",
+		"gambling",
+		"economy",
+		"game",
+		"moderators"
+	],
+	"buildpacks": [{
+		"url": "heroku/nodejs"
+	}],
+	"env": {
+		"BOT_TOKEN": {
+			"description": "Bot user token from Discord"
+		},
+		"BOTSDISCORDPW_TOKEN": {
+			"description": "Discord Bots API token"
+		},
+		"BOTSFORDISCORD_TOKEN": {
+			"description": "Bots for Discord API token"
+		},
+		"DISCORDBOTSORG_TOKEN": {
+			"description": "Discord Bot List API token"
+		},
+		"LSTERMINALINK_TOKEN": {
+			"description": "Discord Bots at terminal.ink API token"
+		},
+		"MONGODB_URI": {
+			"description": "MongoDB URI for settings and user profiles"
+		},
+		"KEEN_PROJECTID": {
+			"description": "Keen project ID"
+		},
+		"KEEN_WRITEKEY": {
+			"description": "Keen project write key"
+		}
+	}
+}
