@@ -34,7 +34,7 @@ Details
 
 ### Arguments
 
-| Name  | Type  | Required | Minimum | Maximum |
-| ----- | ----- | -------- | ------- | ------- |
-| Color | Text  | No       | -       | -       |
-| Color | Text  | Yes      | -       | -       |
+| Name  | Type | Required | Minimum | Maximum |
+|-------|------|----------|---------|---------|
+| Color | Text | No       | -       | -       |
+| Color | Text | Yes      | -       | -       |
