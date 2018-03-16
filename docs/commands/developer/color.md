@@ -8,6 +8,16 @@ Display and convert a color
 
 Display and convert a color from and to hexadecimal, HSL, RGB, CMYK, and CSS name
 
+## Aliases
+
+* `rgb`
+* `cmyk`
+* `hsv`
+* `hsl`
+* `hex`
+* `hexadecimal`
+* `colors`
+
 ## Usage
 
 ### Format
