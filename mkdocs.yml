@@ -1,10 +1,11 @@
 site_name: Dice
+site_url: https://dicediscord.netlify.com
 
 theme:
   name: 'material'
   palette:
     primary: 'green'
-    accent: 'blue'
+    accent: 'green'
   logo: 'images/logo.png'
   favicon: 'images/favicon.png'
 
