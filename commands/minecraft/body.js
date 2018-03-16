@@ -28,7 +28,7 @@ module.exports = class BodyCommand extends Command {
 		});
 	}
 
-	async run(msg, { username, isometric }) {
+	async run(msg, { uuid, isometric }) {
 		const embed = new MessageEmbed({
 			author: {
 				name: username
