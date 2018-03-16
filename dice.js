@@ -231,7 +231,6 @@ const announceGuildBanRemove = async (channel, user) => {
  */
 const announceGuildKick = (channel, user) => {
 	const auditEntry = channel.guild.fetchAuditLogs({
-		user: user,
 		type: 'MEMBER_KICK'
 	}).then(audit => {
 		return audit.entries.first();
