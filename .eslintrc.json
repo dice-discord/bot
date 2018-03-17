@@ -127,7 +127,7 @@
 		"operator-linebreak": ["error", "after"],
 		"padded-blocks": ["error", "never"],
 		"quote-props": ["error", "as-needed"],
-		"quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+		"quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": false }],
 		"semi-spacing": "error",
 		"semi": "error",
 		"space-before-blocks": "error",
