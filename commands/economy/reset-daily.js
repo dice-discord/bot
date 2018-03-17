@@ -28,16 +28,19 @@ module.exports = class ResetDailyCommand extends Command {
 		});
 	}
 
-	async run(msg, { user }) {user = user || msg.author;
+	async run(msg, { user }) {
+		user = user || msg.author;
 
 			// Permission checking
-			if (user.bot === true) {
-				return msg.reply('❌ You can\'t reset a bot\'s daily wait time.');
-			}
+		if(user.bot === true) {
+			return msg.reply('❌ You can\'t reset a bot\'s daily wait time.');
+		}
 
-			await diceAPI.setDailyUsed(user.id, false);
+		await diceAPI.setDailyUsed(user.id, false);
 
-			// Respond to author with success
-			respond(msg);
+		// Respond to author with success
+		respond(msg);
+
+		return null;
 	}
 };

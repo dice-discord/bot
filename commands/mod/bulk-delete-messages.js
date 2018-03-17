@@ -6,7 +6,14 @@ module.exports = class BulkDeleteMessagesCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'bulk-delete-messages',
-			aliases: ['prune', 'message-prune', 'message-bulk-delete', 'delete-messages', 'messages-prune', 'messages-bulk-delete', 'bulk-delete'],
+			aliases: ['prune',
+				'message-prune',
+				'message-bulk-delete',
+				'delete-messages',
+				'messages-prune',
+				'messages-bulk-delete',
+				'bulk-delete'
+			],
 			group: 'mod',
 			memberName: 'bulk-delete-messages',
 			description: 'Bulk delete messages in a text channel',
@@ -36,9 +43,7 @@ module.exports = class BulkDeleteMessagesCommand extends Command {
 			await msg.delete();
 			const messagesToDelete = await msg.channel.messages.fetch({ limit: messageCount });
 			msg.channel.bulkDelete(messagesToDelete)
-				.then((messages) => {
-					return msg.reply(`🗑 \`${messages.size}\` messages deleted.`);
-				});
+				.then(messages => msg.reply(`🗑 \`${messages.size}\` messages deleted.`));
 		} finally {
 			msg.channel.stopTyping();
 		}

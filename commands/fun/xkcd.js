@@ -38,7 +38,7 @@ module.exports = class XKCDCommand extends Command {
 				uri: `https://xkcd.com/${comic}/info.0.json`,
 				json: true
 			};
-			if (comic === 'latest') {
+			if(comic === 'latest') {
 				options.uri = 'https://xkcd.com/info.0.json';
 			}
 
@@ -58,14 +58,14 @@ module.exports = class XKCDCommand extends Command {
 			});
 
 			// Check if comic exists
-			if (result.img) {
+			if(result.img) {
 				embed.setImage(result.img);
 			} else {
 				return msg.reply('❌ Couldn\'t find that comic');
 			}
 
-			const truncateText = (string) => {
-				if (string.length > 1024) {
+			const truncateText = string => {
+				if(string.length > 1024) {
 					return `${string.substring(0, 1024 - 3)}...`;
 				} else {
 					return string;
@@ -73,24 +73,24 @@ module.exports = class XKCDCommand extends Command {
 			};
 
 			// Alt text
-			if (result.alt) {
+			if(result.alt) {
 				embed.addField('Alt', truncateText(result.alt));
 			}
 
 			// Transcript
-			if (result.transcript) {
+			if(result.transcript) {
 				embed.addField('Transcript', truncateText(result.transcript));
 			}
 
 			// Check if there's a link
-			if (result.link) {
+			if(result.link) {
 				embed.setURL(result.link);
 			} else {
 				embed.setURL(`https://xkcd.com/${result.num}`);
 			}
 
 			// Creation date
-			if (result.day && result.month && result.year) {
+			if(result.day && result.month && result.year) {
 				embed.setTimestamp(new Date(moment([result.year, result.month, result.day])));
 			}
 

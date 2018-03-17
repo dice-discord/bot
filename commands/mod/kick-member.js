@@ -30,7 +30,7 @@ module.exports = class KickMemberCommand extends Command {
 				label: 'reason for kick',
 				default: '',
 				validate: reason => {
-					if (reason.length > 400) {
+					if(reason.length > 400) {
 						return `Your reason was ${reason.length} characters long. Please limit your reason to 400 characters.`;
 					} else {
 						return true;
@@ -40,21 +40,23 @@ module.exports = class KickMemberCommand extends Command {
 		});
 	}
 
-	async run(msg, { member, reason }) {
+	run(msg, { member, reason }) {
 		try {
 			msg.channel.startTyping();
 
-			if (reason) {
+			if(reason) {
 				reason = `${reason} - Requested by ${msg.author.tag}`;
 			} else {
 				reason = `Requested by ${msg.author.tag}`;
 			}
 
-			if (member.kickable) {
+			if(member.kickable) {
 				// Member not on guild or kickable
 				member.kick(reason)
 					.then(() => respond(msg))
 					.catch(() => msg.reply('❌ Unable to kick that user'));
+
+				return null;
 			} else {
 				// Member not kickable
 				return msg.reply('❌ I can\'t kick that member');

@@ -2,7 +2,7 @@
 
 const winston = require('winston');
 const { Command } = require('discord.js-commando');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class UnblacklistUserCommand extends Command {
 	constructor(client) {
@@ -30,7 +30,7 @@ module.exports = class UnblacklistUserCommand extends Command {
 		const blacklist = this.client.provider.get('global', 'blacklist', []);
 
 		// Check if the user is actually blacklisted
-		if (!blacklist.includes(user.id)) return msg.reply('❌ That user isn\'t blacklisted.');
+		if(!blacklist.includes(user.id)) return msg.reply('❌ That user isn\'t blacklisted.');
 
 		// Find the user in the array and delete it
 		winston.debug(`[COMMAND](UNBLACKLIST-USER) Blacklist item index: ${blacklist.indexOf(user.id)}`);
@@ -40,6 +40,8 @@ module.exports = class UnblacklistUserCommand extends Command {
 		await this.client.provider.set('global', 'blacklist', blacklist);
 
 		// Respond to author with success
-		response.respond(msg);
+		respond(msg);
+
+		return null;
 	}
 };

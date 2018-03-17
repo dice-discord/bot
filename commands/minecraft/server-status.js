@@ -34,7 +34,7 @@ module.exports = class ServerStatusCommand extends Command {
 		});
 	}
 
-	async run(msg, { ip, port }) {
+	run(msg, { ip, port }) {
 		const options = {
 			uri: `https://mcapi.us/server/status?ip=${ip}&port=${port}`,
 			json: true
@@ -47,7 +47,7 @@ module.exports = class ServerStatusCommand extends Command {
 					`[API](MINECRAFT) Server status for ${ip}:${port}`,
 					response
 				);
-				if (response.status !== 'success') {
+				if(response.status !== 'success') {
 					return msg.reply('❌ There was an error with your request.');
 				}
 
@@ -56,14 +56,14 @@ module.exports = class ServerStatusCommand extends Command {
 					timestamp: response.last_updated
 				});
 
-				if (response.online === true) {
+				if(response.online === true) {
 					embed.addField('🖥 Server Status', 'Currently online.', true);
 					embed.addField('🖥 Version', response.server.name, true);
 					embed.addField('👥 Members', `${response.players.now}/${response.players.max}`, true);
 					embed.addField('📝 Message of the Day (MotD)', `\`\`\`${response.motd_formatted}\`\`\``, true);
 					embed.setColor(0x4caf50);
 				} else {
-					if (response.last_online) {
+					if(response.last_online) {
 						embed.addField('🖥 Server Status', `Offline. Last seen ${new Date(response.last_online)}`, true);
 					} else {
 						embed.addField('🖥 Server Status', 'Offline. Never seen online before.', true);

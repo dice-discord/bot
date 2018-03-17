@@ -34,9 +34,8 @@ module.exports = class BanUserCommand extends Command {
 		});
 	}
 
-	async run(msg, { user, reason }) {
-
-		if (reason) {
+	run(msg, { user, reason }) {
+		if(reason) {
 			reason = `${reason} - Requested by ${msg.author.tag}`;
 		} else {
 			reason = `Requested by ${msg.author.tag}`;

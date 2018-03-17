@@ -26,6 +26,7 @@ module.exports = class FaceCommand extends Command {
 			embed: {
 				author: {
 					name: username,
+					// eslint-disable-next-line camelcase
 					icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
 				},
 				image: { url: `https://minotar.net/cube/${encodeURIComponent(username)}` }

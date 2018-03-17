@@ -27,6 +27,7 @@ module.exports = class AccountAgeCommand extends Command {
 
 	run(msg, { user }) {
 		const target = user || msg.author;
+		// eslint-disable-next-line max-len
 		return msg.reply(`⏰ ${moment.duration(msg.createdAt - target.createdAt).humanize()} old. Created on ${target.createdAt}`);
 	}
 };

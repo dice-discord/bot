@@ -40,12 +40,10 @@ module.exports = class DateFactsCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			const options = {
-				uri: `http://numbersapi.com/${month}/${day}/date`
-			};
+			const options = { uri: `http://numbersapi.com/${month}/${day}/date` };
 
 			// At least one of the values was left undefined
-			if (month === 'random' || day === 'random') {
+			if(month === 'random' || day === 'random') {
 				options.uri = 'http://numbersapi.com/random/date';
 			}
 

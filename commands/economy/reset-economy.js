@@ -22,27 +22,26 @@ module.exports = class ResetEconomyCommand extends Command {
 	}
 
 	run(msg) {
-		const randomNumber = parseInt(Math.random() * (100 - 10) + 10);
+		const randomNumber = parseInt((Math.random() * (100 - 10)) + 10);
 		msg.reply(`⚠ **Are you absolutely sure you want to destroy all user profiles?** ⚠\n
 		To proceed, enter \`${randomNumber}\`.\n
 		The command will automatically be cancelled in 30 seconds.`).then(() => {
-			const filter = m => msg.author.id === m.author.id;
+			const filter = message => msg.author.id === message.author.id;
 
 			msg.channel.awaitMessages(filter, { time: 30000, maxMatches: 1, errors: ['time'] })
 				.then(messages => {
-					if (messages.first().content.includes(randomNumber)) {
+					if(messages.first().content.includes(randomNumber)) {
+						// eslint-disable-next-line max-len
 						winston.info(`[COMMAND](DAILY) Verification passed (collected message: ${messages.first().content}, wiping database.`);
 						// Start resetting the economy
 						msg.reply('💣 Resetting the economy.');
-						diceAPI.resetEconomy().then(() => {
+						diceAPI.resetEconomy().then(() =>
 							// Once the promise is fulfilled (when it's finished) respond to the user that it's done
-							return msg.reply('💥 Finished resetting the economy.');
-						});
+							msg.reply('💥 Finished resetting the economy.')
+						);
 					}
 				})
-				.catch(() => {
-					return msg.reply('Cancelled command.');
-				});
+				.catch(() => msg.reply('Cancelled command.'));
 		});
 	}
 };

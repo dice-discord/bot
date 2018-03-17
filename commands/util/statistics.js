@@ -31,7 +31,7 @@ module.exports = class StatisticsCommand extends Command {
 					{
 						name: '👤 Total Number of Users',
 						// Subtract one because of the Dice bot and for the Dice Dev bot
-						value: `${(await diceAPI.totalUsers()) - 2} users`
+						value: `${await diceAPI.totalUsers() - 2} users`
 					},
 					{
 						name: '👥 Total Number of Servers',
@@ -42,6 +42,5 @@ module.exports = class StatisticsCommand extends Command {
 		} finally {
 			msg.channel.stopTyping();
 		}
-
 	}
 };

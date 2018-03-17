@@ -1,13 +1,20 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class DeleteSelfRolesCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'delete-self-roles',
-			aliases: ['self-role-delete', 'self-roles-delete', 'delete-self-role', 'del-self-roles', 'self-role-del', 'self-roles-del', 'del-self-role'],
+			aliases: ['self-role-delete',
+				'self-roles-delete',
+				'delete-self-role',
+				'del-self-roles',
+				'self-role-del',
+				'self-roles-del',
+				'del-self-role'
+			],
 			group: 'selfroles',
 			memberName: 'delete-self-roles',
 			description: 'Delete a self-assigned role from this server',
@@ -34,12 +41,12 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 			const selfRoles = this.client.provider.get(msg.guild, 'selfRoles', []);
 
 			// Check if the role isn't a self role
-			if (!selfRoles.includes(role.id)) {
+			if(!selfRoles.includes(role.id)) {
 				return msg.reply('❌ That role isn\'t a self role.');
 			}
 
 			// Check if the author is able to delete the role
-			if (role.comparePositionTo(msg.member.roles.highest) >= 0 || !msg.member.hasPermission('ADMINISTRATOR')) {
+			if(role.comparePositionTo(msg.member.roles.highest) >= 0 || !msg.member.hasPermission('ADMINISTRATOR')) {
 				return msg.reply('❌ You dont\'t have the permissions to delete that role.');
 			}
 
@@ -49,7 +56,9 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 			await this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
 
 			// Respond to author with success
-			response.respond(msg);
+			respond(msg);
+
+			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}

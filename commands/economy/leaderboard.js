@@ -31,7 +31,7 @@ module.exports = class LeaderboardCommand extends Command {
 			winston.debug(`[COMMAND](LEADERBOARD) Leaderboard array length: ${leaderboardArray.length}`);
 
 			// Check if there are enough users to populate the embed
-			if (leaderboardArray.length < 10) {
+			if(leaderboardArray.length < 10) {
 				return msg.reply('❌ There are less than 10 users total.');
 			}
 
@@ -45,7 +45,7 @@ module.exports = class LeaderboardCommand extends Command {
 
 			const embed = new MessageEmbed({ title: 'Top 10 Leaderboard' });
 
-			for (let i = 0; i < leaderboardArray.length; i++) {
+			for(let i = 0; i < leaderboardArray.length; i++) {
 				embed.addField(`#${i + 1} ${await userTagFromID(i)}`, `${leaderboardArray[i].balance} ${rules.currencyPlural}`);
 			}
 

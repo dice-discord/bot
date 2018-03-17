@@ -36,7 +36,7 @@ module.exports = class InformationCommand extends Command {
 			user = user || msg.author;
 
 			// Make sure the target user isn't a bot (excluding the client)
-			if (user.bot && user.id !== this.client.user.id) {
+			if(user.bot && user.id !== this.client.user.id) {
 				return msg.reply('❌ Bots can\'t play.');
 			}
 
@@ -45,7 +45,7 @@ module.exports = class InformationCommand extends Command {
 			let startingBalance;
 
 			// Determine what the starting balance is for the requested user
-			if (user.id === this.client.user.id) {
+			if(user.id === this.client.user.id) {
 				startingBalance = rules.houseStartingBalance;
 			} else {
 				startingBalance = rules.newUserBalance;
@@ -55,9 +55,7 @@ module.exports = class InformationCommand extends Command {
 
 			return msg.replyEmbed({
 				title: user.tag,
-				thumbnail: {
-					url: userProfilePicture
-				},
+				thumbnail: { url: userProfilePicture },
 				fields: [
 					{
 						name: '💰 Total Profit',

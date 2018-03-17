@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class SelfRolesAddCommand extends Command {
 	constructor(client) {
@@ -34,22 +34,22 @@ module.exports = class SelfRolesAddCommand extends Command {
 			const selfRoles = this.client.provider.get(msg.guild, 'selfRoles', []);
 
 			// Check if the role is already a self role
-			if (selfRoles.includes(role.id)) {
+			if(selfRoles.includes(role.id)) {
 				return msg.reply('❌ That role is already a self role.');
 			}
 
 			// Check if the author is able to add the role
-			if (role.comparePositionTo(msg.member.roles.highest) >= 0 || !msg.member.hasPermission('ADMINISTRATOR')) {
+			if(role.comparePositionTo(msg.member.roles.highest) >= 0 || !msg.member.hasPermission('ADMINISTRATOR')) {
 				return msg.reply('❌ You dont\'t have the permissions to add that role.');
 			}
 
 			// Check if bot is able to add that role
-			if (role.comparePositionTo(msg.guild.me.roles.highest) >= 0) {
+			if(role.comparePositionTo(msg.guild.me.roles.highest) >= 0) {
 				return msg.reply('❌ I dont\'t have the permissions to add that role.');
 			}
 
 			// Check if role is managed by an integration
-			if (role.managed) {
+			if(role.managed) {
 				return msg.reply('❌ An integration is managing that role.');
 			}
 
@@ -59,7 +59,9 @@ module.exports = class SelfRolesAddCommand extends Command {
 			await this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
 
 			// Respond to author with success
-			response.respond(msg);
+			respond(msg);
+
+			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}

@@ -3,7 +3,7 @@
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
 const diceAPI = require('../../providers/diceAPI');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class TransferCommand extends Command {
 	constructor(client) {
@@ -40,17 +40,18 @@ module.exports = class TransferCommand extends Command {
 			msg.channel.startTyping();
 
 			// Amount checking
-			if (amount > (await diceAPI.getBalance(msg.author.id))) {
+			if(amount > await diceAPI.getBalance(msg.author.id)) {
+				// eslint-disable-next-line max-len
 				return msg.reply(`❌ You need to have at least \`${amount}\` ${rules.currencyPlural}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
 			}
 
 			// No sending money to yourself
-			if (msg.author.id === user.id) {
+			if(msg.author.id === user.id) {
 				return msg.reply('❌ You can\'t send money to yourself.');
 			}
 
 			// No sending money to bots
-			if (user.bot === true && user.id !== this.client.user.id) {
+			if(user.bot === true && user.id !== this.client.user.id) {
 				return msg.reply('❌ You can\'t send oats to bots.');
 			}
 
@@ -61,7 +62,9 @@ module.exports = class TransferCommand extends Command {
 			await diceAPI.increaseBalance(user.id, amount);
 
 			// Respond to author with success
-			response.respond(msg);
+			respond(msg);
+
+			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}

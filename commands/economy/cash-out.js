@@ -35,7 +35,8 @@ module.exports = class CashOutCommand extends Command {
 		const beforeTransferHouseBalance = await diceAPI.getBalance(this.client.user.id);
 
 		// Amount checking
-		if (amount > beforeTransferHouseBalance) {
+		if(amount > beforeTransferHouseBalance) {
+			// eslint-disable-next-line max-len
 			return msg.reply(`❌ Your amount must be less than \`${beforeTransferHouseBalance}\` ${rules.currencyPlural}. ${this.client.user} doesn't have that much.`);
 		}
 
@@ -50,5 +51,7 @@ module.exports = class CashOutCommand extends Command {
 
 		// Respond to author with success
 		respond(msg);
+
+		return null;
 	}
 };

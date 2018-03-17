@@ -24,11 +24,9 @@ module.exports = class BodyCommand extends Command {
 		});
 	}
 
-	async run(msg, { user }) {
+	run(msg, { user }) {
 		const embed = new MessageEmbed({
-			author: {
-				name: user
-			},
+			author: { name: user },
 			image: { url: `https://minotar.net/body/${encodeURIComponent(user)}` }
 		});
 

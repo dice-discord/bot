@@ -39,19 +39,21 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 		});
 	}
 
+	/* eslint-disable complexity */
 	async run(msg, { battletag, platform, region }) {
 		try {
 			msg.channel.startTyping();
 
 			const platforms = ['pc', 'xbl', 'psn'];
 			const regions = ['us', 'eu', 'asia'];
-			if (!platforms.includes(platform)) {
+			if(!platforms.includes(platform)) {
+				/* eslint-disable max-len */
 				return msg.reply('❌ Unknown platform. The platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).');
 			}
-			if (!regions.includes(region)) {
+			if(!regions.includes(region)) {
 				return msg.reply('❌ Unknown region. The regions are `us` (United States of America), `eu` (Europe), and `asia` (Asia)');
 			}
-			if (!battletag.includes('-')) {
+			if(!battletag.includes('-')) {
 				return msg.reply(`❌ Unknown battletag. Use ${msg.anyUsage('help overwatch-statistics')} for information on how to use this command.`);
 			}
 
@@ -64,9 +66,9 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 				return msg.reply('❌ There was an error with the API we use (https://ow-api.com)');
 			});
 
-			if (stats.error === 'The requested player was not found') {
+			if(stats.error === 'The requested player was not found') {
 				return msg.reply('❌ That user couldn\'t be found.');
-			} else if (stats.error) {
+			} else if(stats.error) {
 				winston.error('[COMMAND](OVERWATCH-STATISTICS) Unknown error from API', stats);
 				return msg.reply(`❌ There was an error with the API we use (https://ow-api.com). The error that was sent: ${stats.error}`);
 			}
@@ -82,49 +84,49 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 			});
 
 			// Rating icon
-			if (stats.ratingIcon) {
+			if(stats.ratingIcon) {
 				embed.setThumbnail(stats.ratingIcon);
 			}
 
 			// Games won
-			if (stats.gamesWon && stats.quickPlayStats.games.won && stats.competitiveStats.games) {
+			if(stats.gamesWon && stats.quickPlayStats.games.won && stats.competitiveStats.games) {
 				embed.addField('🏆 Games Won', `${stats.gamesWon} total wins (${stats.quickPlayStats.games.won} from quick play and ${stats.competitiveStats.games.won} from competitive)`);
-			} else if (stats.gamesWon && stats.quickPlayStats.games.won) {
+			} else if(stats.gamesWon && stats.quickPlayStats.games.won) {
 				embed.addField('🏆 Games Won', `${stats.gamesWon} total wins`);
 			}
 
 			// Average eliminations
-			if (stats.quickPlayStats.eliminationsAvg && stats.competitiveStats.eliminationsAvg) {
+			if(stats.quickPlayStats.eliminationsAvg && stats.competitiveStats.eliminationsAvg) {
 				embed.addField('💀 Average Eliminations', `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play and ${stats.competitiveStats.eliminationsAvg} from competitive`);
-			} else if (stats.quickPlayStats.eliminationsAvg) {
+			} else if(stats.quickPlayStats.eliminationsAvg) {
 				embed.addField('💀 Average Eliminations', `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play`);
 			}
 
 			// Games Played
-			if (stats.quickPlayStats.games.played && stats.competitiveStats.games.played) {
+			if(stats.quickPlayStats.games.played && stats.competitiveStats.games.played) {
 				embed.addField('🎮 Games Played', `${stats.quickPlayStats.games.played + stats.competitiveStats.games.played} games played total (${stats.quickPlayStats.games.played} from quick play and ${stats.competitiveStats.games.played} from competitive)`);
-			} else if (stats.quickPlayStats.games.played) {
+			} else if(stats.quickPlayStats.games.played) {
 				embed.addField('🎮 Games Played', `${stats.quickPlayStats.games.played} games played total`);
 			}
 
 			// Quick play medals
-			if (stats.quickPlayStats.awards.medals) {
+			if(stats.quickPlayStats.awards.medals) {
 				embed.addField('🏅 Medals (Quick Play)', `${stats.quickPlayStats.awards.medals} medals total.\n🥇 ${stats.quickPlayStats.awards.medalsGold} gold medals\n🥈 ${stats.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${stats.quickPlayStats.awards.medalsBronze} bronze medals`);
 			}
 
 			// Competitive medals
-			if (stats.competitiveStats.awards.medals) {
+			if(stats.competitiveStats.awards.medals) {
 				embed.addField('🏅 Medals (Competitive)', `${stats.competitiveStats.awards.medals} medals total.\n🥇 ${stats.competitiveStats.awards.medalsGold} gold medals\n🥈 ${stats.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${stats.competitiveStats.awards.medalsBronze} bronze medals`);
 			}
 
 			// Cards
-			if (stats.competitiveStats.awards.cards && stats.quickPlayStats.awards.cards) {
+			if(stats.competitiveStats.awards.cards && stats.quickPlayStats.awards.cards) {
 				embed.addField('🃏 Cards', `${stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards} total cards (${stats.quickPlayStats.awards.cards} from quick play, ${stats.competitiveStats.awards.cards} from competitive)`, true);
+				/* eslint-enable max-len */
 			}
 			return msg.replyEmbed(embed);
 		} finally {
 			msg.channel.stopTyping();
 		}
-
 	}
 };

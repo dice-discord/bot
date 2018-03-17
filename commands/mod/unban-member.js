@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const winston = require('winston');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class UnbanMemberCommand extends Command {
 	constructor(client) {
@@ -40,7 +40,7 @@ module.exports = class UnbanMemberCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			if (reason) {
+			if(reason) {
 				reason = `${reason} - Requested by ${msg.author.tag}`;
 			} else {
 				reason = `Requested by ${msg.author.tag}`;
@@ -51,11 +51,13 @@ module.exports = class UnbanMemberCommand extends Command {
 			// User is regular banned
 			winston.debug(`[COMMAND](UNBAN-MEMBER) Bans for ${msg.guild}: ${guildBans.array()}`);
 			winston.debug(`[COMMAND](UNBAN-MEMBER) Is ${user.tag} banned on ${msg.guild}: ${guildBans.has(user.id)}`);
-			if (guildBans.has(user.id)) {
+			if(guildBans.has(user.id)) {
 				// Unban the user on the guild
 				msg.guild.members.unban(user, reason);
 				// Respond to author with success
-				response.respond(msg);
+				respond(msg);
+
+				return null;
 			} else {
 				return msg.reply(`❌ ${user.tag} isn't banned.`);
 			}

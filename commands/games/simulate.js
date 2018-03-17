@@ -69,14 +69,15 @@ module.exports = class SimulateCommand extends Command {
 			]
 		});
 
-		if (gameResult === true) {
+		if(gameResult === true) {
 			// Red color and loss message
 			embed.setColor(0xf44334);
 			embed.setDescription(`You would have lost \`${wager}\` ${rules.currencyPlural}.`);
 		} else {
 			// Green color and win message
 			embed.setColor(0x4caf50);
-			embed.setDescription(`Your profit would have been \`${diceAPI.simpleFormat(wager * multiplier - wager)}\` ${rules.currencyPlural}!`);
+			// eslint-disable-next-line max-len
+			embed.setDescription(`Your profit would have been \`${diceAPI.simpleFormat((wager * multiplier) - wager)}\` ${rules.currencyPlural}!`);
 		}
 
 		return msg.replyEmbed(embed);

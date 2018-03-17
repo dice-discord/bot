@@ -30,7 +30,7 @@ module.exports = class UserListCommand extends Command {
 			const userList = [];
 
 			msg.reply('About to start fetching users, this could take an extremely long time.');
-			for (let index = 0; index < database.length; index++) {
+			for(let index = 0; index < database.length; index++) {
 				winston.debug(`[COMMAND](USER-LIST) Checking ID #${index + 1}. ${database[index].id}`);
 				userList.push(`${await this.client.users.fetch(database[index].id).tag} (\`${database[index].id}\`)`);
 			}

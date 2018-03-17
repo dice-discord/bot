@@ -27,7 +27,7 @@ module.exports = class ListSelfRolesCommand extends Command {
 			const selfRoles = await this.client.provider.get(msg.guild, 'selfRoles', []);
 
 			// If the selfroles array is empty
-			if (selfRoles.length === 0) {
+			if(selfRoles.length === 0) {
 				return msg.reply('❌ No selfroles');
 			}
 
@@ -35,16 +35,16 @@ module.exports = class ListSelfRolesCommand extends Command {
 			const roleList = [];
 
 			// Iterate through each role on the guild
-			for (const [id, guild] of msg.guild.roles.entries()) {
-				if (!msg.guild.roles.has(id)) {
+			for(const [id, guild] of msg.guild.roles.entries()) {
+				if(!msg.guild.roles.has(id)) {
 					// Find the position of the non-existent role and delete it from the array
 					selfRoles.splice(selfRoles.indexOf(id));
 					// Set the array to our updated version
 					this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
-				} else if (selfRoles.includes(id) && msg.member.roles.has(id)) {
+				} else if(selfRoles.includes(id) && msg.member.roles.has(id)) {
 					// The role is a selfrole and the author has it
 					roleList.push(`${guild.name} ▫`);
-				} else if (selfRoles.includes(id)) {
+				} else if(selfRoles.includes(id)) {
 					// The role is a selfrole
 					roleList.push(guild.name);
 				}

@@ -3,7 +3,7 @@
 const { Command } = require('discord.js-commando');
 const diceAPI = require('../../providers/diceAPI');
 const rules = require('../../rules');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class SetBalanceCommand extends Command {
 	constructor(client) {
@@ -41,7 +41,7 @@ module.exports = class SetBalanceCommand extends Command {
 		try {
 			msg.channel.startTyping();
 			// Permission checking
-			if (user.bot === true && user.id !== this.client.user.id) {
+			if(user.bot === true && user.id !== this.client.user.id) {
 				return msg.reply('❌ You can\'t add oats to bots.');
 			}
 
@@ -49,7 +49,9 @@ module.exports = class SetBalanceCommand extends Command {
 			await diceAPI.updateBalance(user.id, amount);
 
 			// Respond to author with success
-			response.respond(msg);
+			respond(msg);
+
+			return null;
 		} finally {
 			msg.channel.stopTyping();
 		}

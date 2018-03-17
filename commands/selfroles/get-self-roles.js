@@ -26,17 +26,17 @@ module.exports = class GetSelfRolesCommand extends Command {
 		});
 	}
 
-	async run(msg, { role }) {
+	run(msg, { role }) {
 		// Get all of this guild's selfroles
 		const selfRoles = this.client.provider.get(msg.guild, 'selfRoles', []);
 
 		// Check if the role isn't a self role
-		if (!selfRoles.includes(role.id)) {
+		if(!selfRoles.includes(role.id)) {
 			return msg.reply('❌ That role isn\'t a self role.');
 		}
 
 		// Check if the role exists on the guild
-		if (!msg.guild.roles.has(role.id)) {
+		if(!msg.guild.roles.has(role.id)) {
 			// Find the position of the non-existent role and delete it from the array
 			selfRoles.splice(selfRoles.indexOf(role.id));
 			// Set the array to our updated version
@@ -46,12 +46,14 @@ module.exports = class GetSelfRolesCommand extends Command {
 		}
 
 		// Check if author already has the role
-		if (msg.member.roles.has(role.id)) {
+		if(msg.member.roles.has(role.id)) {
 			return msg.reply('❌ You already have that role.');
 		}
 
 		msg.member.roles.add(role.id, 'Selfrole')
 			.then(() => respond(msg))
 			.catch(() => msg.reply('❌ Unable to give you that role.'));
+
+		return null;
 	}
 };

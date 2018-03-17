@@ -10,7 +10,9 @@ module.exports = class DiceGameCommand extends Command {
 			name: 'dice-game',
 			group: 'games',
 			memberName: 'dice-game',
-			description: 'For each bet the outcome is randomly chosen between 1 and 100. It\'s up to you to guess a target that you think the outcome will exceed.',
+			description: 'Bet a wager on a multiplier',
+			// eslint-disable-next-line max-len
+			details: 'For each bet the outcome is randomly chosen between 1 and 100. It\'s up to you to guess a target that you think the outcome will exceed.',
 			aliases: ['game', 'play', 'play-game', 'dice', 'play-dice'],
 			examples: ['dice 250 4'],
 			args: [{
@@ -42,9 +44,10 @@ module.exports = class DiceGameCommand extends Command {
 			const authorBalance = await diceAPI.getBalance(msg.author.id);
 
 			// Wager checking
-			if (wager > authorBalance) {
+			if(wager > authorBalance) {
+				// eslint-disable-next-line max-len
 				return msg.reply(`❌ You are missing \`${wager - authorBalance}\` ${rules.currencyPlural}. Your balance is \`${authorBalance}\` ${rules.currencyPlural}.`);
-			} else if (wager * multiplier - wager > (await diceAPI.getBalance(this.client.user.id))) {
+			} else if((wager * multiplier) - wager > await diceAPI.getBalance(this.client.user.id)) {
 				return msg.reply('❌ I couldn\'t pay your winnings if you won.');
 			}
 
@@ -60,9 +63,9 @@ module.exports = class DiceGameCommand extends Command {
 			const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
 
 			// Variables for later use
-			const profit = diceAPI.simpleFormat(wager * multiplier - wager);
+			const profit = diceAPI.simpleFormat((wager * multiplier) - wager);
 
-			if (gameResult === false) {
+			if(gameResult === false) {
 			// Give the player their winnings
 				await diceAPI.increaseBalance(msg.author.id, wager * multiplier);
 				// Take the winnings from the house
@@ -94,7 +97,7 @@ module.exports = class DiceGameCommand extends Command {
 				]
 			});
 
-			if (gameResult === true) {
+			if(gameResult === true) {
 				// Red color and loss message
 				embed.setColor(0xf44334);
 				embed.setDescription(`You lost \`${wager}\` ${rules.currencyPlural}.`);
@@ -103,7 +106,7 @@ module.exports = class DiceGameCommand extends Command {
 				embed.setColor(0x4caf50);
 
 				embed.setDescription(`You made \`${profit}\` ${rules.currencyPlural} of profit!`);
-				if ((await diceAPI.getBiggestWin(msg.author.id)) <= profit) {
+				if(await diceAPI.getBiggestWin(msg.author.id) <= profit) {
 					diceAPI.updateBiggestWin(msg.author.id, profit);
 				}
 			}

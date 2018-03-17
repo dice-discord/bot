@@ -2,7 +2,7 @@
 
 const winston = require('winston');
 const { Command } = require('discord.js-commando');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class BlacklistUserCommand extends Command {
 	constructor(client) {
@@ -28,19 +28,22 @@ module.exports = class BlacklistUserCommand extends Command {
 
 	async run(msg, { user }) {
 		const blacklist = this.client.provider.get('global', 'blacklist', []);
+		// eslint-disable-next-line max-len
 		winston.debug('[COMMAND](BLACKLIST-USER) Blacklist from provider (will be empty if result is empty array):', blacklist);
 
-		if (user) {
-			if (this.client.isOwner(user.id)) return msg.reply('The bot owner can not be blacklisted.');
+		if(user) {
+			if(this.client.isOwner(user.id)) return msg.reply('The bot owner can not be blacklisted.');
 
-			if (blacklist.includes(user.id)) return msg.reply('That user is already blacklisted.');
+			if(blacklist.includes(user.id)) return msg.reply('That user is already blacklisted.');
 
 			blacklist.push(user.id);
 			await this.client.provider.set('global', 'blacklist', blacklist);
 
 			// Respond to author with success
-			response.respond(msg);
-		} else if (blacklist.length > 0) {
+			respond(msg);
+
+			return null;
+		} else if(blacklist.length > 0) {
 			winston.debug('[COMMAND](BLACKLIST-USER) Blacklisted users:', blacklist);
 			return msg.reply(`All blacklisted users:\n${blacklist.join('\n')}`);
 		} else {

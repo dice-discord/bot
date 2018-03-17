@@ -26,9 +26,9 @@ module.exports = class ChooseCommand extends Command {
 
 	run(msg, { options }) {
 		// Argument checking
-		if (options.length < 2) return msg.reply('❌ Please provide 2 or more options.');
+		if(options.length < 2) return msg.reply('❌ Please provide 2 or more options.');
 
-		const randomNumber = Math.floor(Math.random() * (options.length - 0) + 0);
+		const randomNumber = Math.floor((Math.random() * (options.length - 0)) + 0);
 
 		return msg.reply(`I choose #${randomNumber + 1}, ${options[randomNumber]}.`);
 	}

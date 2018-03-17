@@ -11,7 +11,6 @@ module.exports = class ErrorCommand extends Command {
 			memberName: 'error',
 			description: 'Throws an error',
 			aliases: ['err'],
-			examples: ['error', 'err'],
 			ownerOnly: true
 		});
 	}

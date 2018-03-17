@@ -12,21 +12,17 @@ const keenClient = new KeenTracking({
 });
 
 winston.verbose('[API] Dice API loading');
-keenClient.recordEvent('events', {
-	title: 'Dice API loading'
-});
+keenClient.recordEvent('events', { title: 'Dice API loading' });
 
 // Set up database variables
 const uri = process.env.MONGODB_URI;
-if (process.env.MONGODB_URI == null) {
+if(typeof process.env.MONGODB_URI === undefined) {
 	winston.error('[API](DATABASE) mongoDB URI is undefined!');
 } else {
 	winston.debug(`[API](DATABASE) mongoDB URI: ${uri}`);
 }
 
-const winPercentage = multiplier => {
-	return (100 - rules.houseEdgePercentage) / multiplier;
-};
+const winPercentage = multiplier => (100 - rules.houseEdgePercentage) / multiplier;
 module.exports.winPercentage = winPercentage;
 
 const simpleFormat = value => {
@@ -37,21 +33,18 @@ const simpleFormat = value => {
 };
 module.exports.simpleFormat = simpleFormat;
 
-mongodb.MongoClient.connect(uri, function(err, database) {
-	if (err) winston.error(`[API](DATABASE) ${err}`);
+mongodb.MongoClient.connect(uri, (err, database) => {
+	if(err) winston.error(`[API](DATABASE) ${err}`);
 	winston.verbose('[API](DATABASE) Connected to database server');
 
 	const balances = database.db('balances').collection('balances');
 	const storage = database.db('storage').collection('storage');
 
 	// Get balance
-	const getBalance = async requestedID => {
-		return balances
-			.findOne({
-				id: requestedID
-			})
+	const getBalance = requestedID => balances
+			.findOne({ id: requestedID })
 			.then(result => {
-				if (result) {
+				if(result) {
 					const balanceResult = simpleFormat(result.balance);
 					winston.debug(`[API](GET-BALANCE) Value of balance: ${result.balance}`);
 					winston.debug(`[API](GET-BALANCE) Formatted value of balance: ${balanceResult}`);
@@ -59,11 +52,11 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 					return balanceResult;
 				} else {
 					winston.debug('[API](GET-BALANCE) Result is empty. Checking if requested ID is the house.');
-					if (requestedID === rules.houseID) {
+					if(requestedID === rules.houseID) {
 						winston.debug('[API](GET-BALANCE) Requested ID is the house ID.');
 						updateBalance(requestedID, rules.houseStartingBalance);
 						return rules.houseStartingBalance;
-					} else if (requestedID === 'lottery') {
+					} else if(requestedID === 'lottery') {
 						winston.debug('[API](GET-BALANCE) Requested ID is the lottery.');
 						return 0;
 					} else {
@@ -73,21 +66,12 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 					}
 				}
 			});
-	};
 	module.exports.getBalance = getBalance;
 	// Get balance
 
 	// Update balance
-	const updateBalance = async (requestedID, newBalance) => {
-		balances.updateOne({
-			id: requestedID
-		}, {
-			$set: {
-				balance: simpleFormat(newBalance)
-			}
-		}, {
-			upsert: true
-		});
+	const updateBalance = (requestedID, newBalance) => {
+		balances.updateOne({ id: requestedID }, { $set: { balance: simpleFormat(newBalance) } }, { upsert: true });
 
 		winston.debug(`[API](UPDATE-BALANCE) Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
 	};
@@ -95,19 +79,19 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// Update balance
 
 	// Increase and decrease
-	const decreaseBalance = async (id, amount) => {
+	const decreaseBalance = async(id, amount) => {
 		updateBalance(id, await getBalance(id) - amount);
 	};
 	module.exports.decreaseBalance = decreaseBalance;
 
-	const increaseBalance = async (id, amount) => {
+	const increaseBalance = async(id, amount) => {
 		updateBalance(id, await getBalance(id) + amount);
 	};
 	module.exports.increaseBalance = increaseBalance;
 	// Increase and decrease
 
 	// Reset economy
-	const resetEconomy = async () => {
+	const resetEconomy = async() => {
 		/* This references the collection "balances", not the database. This will not affect the "dailies" collection
         An empty search parameter will delete all items */
 		await balances.remove({});
@@ -118,12 +102,10 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// Reset economy
 
 	// Leaderboard
-	const leaderboard = async () => {
+	const leaderboard = async() => {
 		const allProfiles = await balances.find();
 		const formattedBalances = await allProfiles
-			.sort({
-				balance: -1
-			})
+			.sort({ balance: -1 })
 			.limit(10)
 			.toArray();
 
@@ -134,7 +116,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// Leaderboard
 
 	// Total users
-	const totalUsers = async () => {
+	const totalUsers = async() => {
 		const userCount = await balances.count({});
 		return userCount;
 	};
@@ -142,32 +124,23 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// Total users
 
 	// Daily reward
-	const setDailyUsed = async (requestedID, timestamp) => {
-		balances.updateOne({
-			id: requestedID
-		}, {
-			$set: {
-				daily: timestamp
-			}
-		}, {
-			upsert: true
-		});
+	const setDailyUsed = (requestedID, timestamp) => {
+		balances.updateOne({ id: requestedID }, { $set: { daily: timestamp } }, { upsert: true });
 
+		// eslint-disable-next-line max-len
 		winston.debug(`[API](SET-DAILY-USED) Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
 	};
 	module.exports.setDailyUsed = setDailyUsed;
 	// Daily reward
 
 	// Daily reward timestamp fetching
-	const getDailyUsed = async requestedID => {
+	const getDailyUsed = requestedID => {
 		winston.debug(`[API](GET-DAILY-USED) Looking up daily timestamp for ${requestedID}`);
 		return balances
-			.findOne({
-				id: requestedID
-			})
+			.findOne({ id: requestedID })
 			.then(result => {
-				if (result) winston.debug(`[API](GET-DAILY-USED) Find one result for daily timestamp: ${result.daily}`);
-				if (!result || isNaN(result.daily)) {
+				if(result) winston.debug(`[API](GET-DAILY-USED) Find one result for daily timestamp: ${result.daily}`);
+				if(!result || isNaN(result.daily)) {
 					winston.debug('[API](GET-DAILY-USED) Daily last used timestamp result is empty.');
 					return false;
 				} else {
@@ -182,7 +155,7 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// Daily reward timestamp fetching
 
 	// All users
-	const allUsers = async () => {
+	const allUsers = async() => {
 		const allProfiles = await balances.find();
 		winston.debug('[API](ALL-USERS) All users were requested.');
 		return allProfiles.toArray();
@@ -191,12 +164,10 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// All users
 
 	// Top wins leaderboard search
-	const topWinsLeaderboard = async () => {
+	const topWinsLeaderboard = async() => {
 		const allProfiles = storage.find();
 		const formattedBiggestWins = await allProfiles
-			.sort({
-				biggestWin: -1
-			})
+			.sort({ biggestWin: -1 })
 			.limit(10)
 			.toArray();
 
@@ -207,13 +178,10 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 	// Top wins leaderboard search
 
 	// Get biggest win
-	const getBiggestWin = async requestedID => {
-		return storage
-			.findOne({
-				id: requestedID
-			})
+	const getBiggestWin = requestedID => storage
+			.findOne({ id: requestedID })
 			.then(result => {
-				if (result) {
+				if(result) {
 					const biggestWinResult = simpleFormat(result.biggestWin);
 					winston.debug(`[API] Value of biggest win: ${result.biggestWin}`);
 					winston.debug(`[API] Formatted value of biggest win: ${biggestWinResult}`);
@@ -225,21 +193,12 @@ mongodb.MongoClient.connect(uri, function(err, database) {
 					return 0;
 				}
 			});
-	};
 	module.exports.getBiggestWin = getBiggestWin;
 	// Get biggest win
 
 	// Update biggest win
-	const updateBiggestWin = async (requestedID, newBiggestWin) => {
-		storage.updateOne({
-			id: requestedID
-		}, {
-			$set: {
-				biggestWin: simpleFormat(newBiggestWin)
-			}
-		}, {
-			upsert: true
-		});
+	const updateBiggestWin = (requestedID, newBiggestWin) => {
+		storage.updateOne({ id: requestedID }, { $set: { biggestWin: simpleFormat(newBiggestWin) } }, { upsert: true });
 		winston.debug(`[API] Set biggest win for ${requestedID} to ${simpleFormat(newBiggestWin)}`);
 	};
 	module.exports.updateBiggestWin = updateBiggestWin;

@@ -33,9 +33,7 @@ module.exports = class DayFactsCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			const options = {
-				uri: `http://numbersapi.com/${day}/date`
-			};
+			const options = { uri: `http://numbersapi.com/${day}/date` };
 
 			const result = await rp(options).catch(error => {
 				winston.error('[COMMAND](DATE-FACTS)', error.stack);

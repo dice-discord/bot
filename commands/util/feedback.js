@@ -28,7 +28,7 @@ module.exports = class FeedbackCommand extends Command {
 
 	run(msg, { userFeedback }) {
 		const message = '📝 Thanks for sending your feedback.';
-		if (
+		if(
 			userFeedback.toLowerCase().includes('help') ||
 			userFeedback.toLowerCase().includes('support')
 		) {
@@ -46,6 +46,7 @@ module.exports = class FeedbackCommand extends Command {
 			embed: {
 				author: {
 					name: `${msg.author.tag} (\`${msg.author.id}\`)`,
+					// eslint-disable-next-line camelcase
 					icon_url: msg.author.displayAvatarURL(128)
 				},
 				timestamp: new Date(msg.createdTimestamp),

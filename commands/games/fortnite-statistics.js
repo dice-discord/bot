@@ -36,23 +36,22 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			msg.channel.startTyping();
 
 			const platforms = ['pc', 'xbl', 'psn'];
-			if (!platforms.includes(platform)) {
+			if(!platforms.includes(platform)) {
+				// eslint-disable-next-line max-len
 				return msg.reply('❌ Unknown platform. The platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).');
 			}
 
 			const options = {
 				uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,
 				json: true,
-				headers: {
-					'TRN-Api-Key': process.env.FORTNITETN_TOKEN
-				}
+				headers: { 'TRN-Api-Key': process.env.FORTNITETN_TOKEN }
 			};
 			const stats = await rp(options).catch(error => {
 				winston.error('[COMMAND](FORTNITE-STATISTICS)', error.stack);
 				return msg.reply('❌ There was an error with the API we use (https://api.fortnitetracker.com)');
 			});
 
-			if (stats.error === 'Player Not Found') {
+			if(stats.error === 'Player Not Found') {
 				return msg.reply('❌ Player not found on that platform.');
 			}
 
@@ -65,6 +64,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 					value: `${stats.lifeTimeStats[8].value} wins (${stats.lifeTimeStats[9].value})`
 				}, {
 					name: '💀 Kills',
+					// eslint-disable-next-line max-len
 					value: `${stats.lifeTimeStats[10].value} kills. ${stats.lifeTimeStats[11].value} K/D ratio. ${stats.lifeTimeStats[12].value} kills per minute.`
 				}, {
 					name: '🕒 Time Played',
@@ -83,6 +83,5 @@ module.exports = class FortniteStatisticsCommand extends Command {
 		} finally {
 			msg.channel.stopTyping();
 		}
-
 	}
 };

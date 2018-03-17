@@ -13,7 +13,7 @@ const moment = require('moment');
 const winston = require('winston');
 winston.level = 'debug';
 const diceAPI = require('./providers/diceAPI');
-const request = require('request');
+const rp = require('request-promise');
 const rules = require('./rules');
 
 // Set up bot client and settings
@@ -61,7 +61,7 @@ client.setProvider(
 // Blacklist users from commands
 client.dispatcher.addInhibitor(msg => {
 	const blacklist = client.provider.get('global', 'blacklist', []);
-	if (blacklist.includes(msg.author.id)) {
+	if(blacklist.includes(msg.author.id)) {
 		return ['blacklisted', msg.reply(`You have been blacklisted from ${client.user.username}.`)];
 	} else {
 		return false;
@@ -77,49 +77,35 @@ const sendBotsDiscordPWServerCount = () => {
 	const options = {
 		method: 'POST',
 		url: 'https://bots.discord.pw/api/bots/388191157869477888/stats',
-		headers: {
-			authorization: process.env.BOTSDISCORDPW_TOKEN
-		},
+		headers: { authorization: process.env.BOTSDISCORDPW_TOKEN },
 		body: {
+			/* eslint-disable camelcase */
 			shard_id: client.shard.id,
 			shard_count: client.shard.count,
 			server_count: client.guilds.size
+			/* eslint-enable camelcase */
 		},
 		json: true
 	};
 
-	request(options, (err, httpResponse, body) => {
-		if (err) return winston.error('[DICE]', err.stack);
-		if (body) {
-			winston.debug('[DICE] Bots.Discord.pw results', body);
-		}
-	});
+	rp(options).catch(error => winston.error('[DICE]', error.stack));
 };
 
-// ls.Terminal.ink
+// Ls.Terminal.ink
 const sendLsTerminalInkServerCount = count => {
 	const options = {
 		method: 'POST',
 		url: `https://ls.terminal.ink/api/v1/bots/${client.id}`,
-		headers: {
-			authorization: process.env.LSTERMINALINK_TOKEN
-		},
-		body: {
-			count: count
-		},
+		headers: { authorization: process.env.LSTERMINALINK_TOKEN },
+		body: { count: count },
 		json: true
 	};
 
-	request(options, (err, httpResponse, body) => {
-		if (err) return winston.error('[DICE]', err.stack);
-		if (body) {
-			winston.debug('[DICE] ls.Terminal.ink response', body);
-		}
-	});
+	rp(options).catch(error => winston.error('[DICE]', error.stack));
 };
 
-const updateServerCount = async () => {
-	if (client.user.id === '388191157869477888') {
+const updateServerCount = async() => {
+	if(client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
 
 		let count = await client.shard.broadcastEval('this.guilds.size');
@@ -133,11 +119,11 @@ const updateServerCount = async () => {
 };
 
 // Everytime a server adds or removes Dice, announce it
-const announceServerCount = async (serverCount, newServer, date) => {
+const announceServerCount = async(serverCount, newServer, date) => {
 	let changeTypeColor;
-	if (newServer === true) {
+	if(newServer === true) {
 		changeTypeColor = 0x4caf50;
-	} else if (newServer === false) {
+	} else if(newServer === false) {
 		changeTypeColor = 0xf44336;
 	} else {
 		changeTypeColor = 0xff9800;
@@ -154,7 +140,7 @@ const announceServerCount = async (serverCount, newServer, date) => {
 			},
 			{
 				name: 'User Count',
-				value: `\`${(await diceAPI.totalUsers()) - 1}\` users`
+				value: `\`${await diceAPI.totalUsers() - 1}\` users`
 			}
 			]
 		}
@@ -162,15 +148,13 @@ const announceServerCount = async (serverCount, newServer, date) => {
 };
 /* Update server counter on bot listings */
 
-/** @function
+/**
  * Announces the banning or unbanning of a user on a guild
  * @param {TextChannel} channel Channel to send the embed
  * @param {User} user User who was banned/unbanned
  */
-const announceGuildBanAdd = async (channel, user) => {
-	const auditLogs = await channel.guild.fetchAuditLogs({
-		type: 'MEMBER_BAN_ADD'
-	});
+const announceGuildBanAdd = async(channel, user) => {
+	const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_ADD' });
 
 	const auditEntry = auditLogs.entries.first();
 
@@ -188,20 +172,18 @@ const announceGuildBanAdd = async (channel, user) => {
 		timestamp: auditEntry.createdAt
 	});
 
-	if (auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
+	if(auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
 
 	channel.send({ embed });
 };
 
-/** @function
+/**
  * Announces the unbanning of a user on a guild
  * @param {TextChannel} channel Channel to send the embed
  * @param {User} user User who was unbanned
  */
-const announceGuildBanRemove = async (channel, user) => {
-	const auditLogs = await channel.guild.fetchAuditLogs({
-		type: 'MEMBER_BAN_REMOVE'
-	});
+const announceGuildBanRemove = async(channel, user) => {
+	const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_REMOVE' });
 
 	const auditEntry = auditLogs.entries.first();
 
@@ -219,39 +201,12 @@ const announceGuildBanRemove = async (channel, user) => {
 		timestamp: auditEntry.createdAt
 	});
 
-	if (auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
+	if(auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
 
 	channel.send({ embed });
 };
 
-/** @function
- * Announces the kicking of a user on a guild
- * @param {TextChannel} channel Channel to send the embed
- * @param {User} user User who was kicked
- */
-const announceGuildKick = (channel, user) => {
-	const auditEntry = channel.guild.fetchAuditLogs({
-		type: 'MEMBER_KICK'
-	}).then(audit => {
-		return audit.entries.first();
-	});
-
-	const embed = new MessageEmbed({
-		title: `${user.tag} was kicked by ${auditEntry.executor}`,
-		author: {
-			name: `${user.tag} (${user.id})`,
-			iconURL: user.displayAvatarURL(128)
-		},
-		color: 0xf44334,
-		timestamp: auditEntry.createdAt
-	});
-
-	if (auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
-
-	channel.send({ embed });
-};
-
-/** @function
+/**
  * Announces the joining of a member on a guild
  * @param {TextChannel} channel Channel to send the embed
  * @param {GuildMember} member User who joined
@@ -264,6 +219,7 @@ const announceGuildMemberJoin = (channel, member) => {
 			color: 0x4caf50,
 			author: {
 				name: `${member.user.tag} (${member.user.id})`,
+				// eslint-disable-next-line camelcase
 				icon_url: member.user.displayAvatarURL(128)
 			},
 			fields: [{
@@ -274,7 +230,7 @@ const announceGuildMemberJoin = (channel, member) => {
 	});
 };
 
-/** @function
+/**
  * Announces the leaving of a member on a guild
  * @param {TextChannel} channel Channel to send the embed
  * @param {GuildMember} member User who left
@@ -284,12 +240,11 @@ const announceGuildMemberLeave = (channel, member) => {
 		embed: {
 			title: 'Member left',
 			timestamp: new Date(),
-			footer: {
-				text: `Member for around ${moment.duration(new Date() - member.joinedAt).humanize()}`
-			},
+			footer: { text: `Member for around ${moment.duration(new Date() - member.joinedAt).humanize()}` },
 			color: 0xf44336,
 			author: {
 				name: `${member.user.tag} (${member.user.id})`,
+				// eslint-disable-next-line camelcase
 				icon_url: member.user.displayAvatarURL(128)
 			},
 			fields: [{
@@ -300,7 +255,7 @@ const announceGuildMemberLeave = (channel, member) => {
 	});
 };
 
-/** @function
+/**
  * Announces a guild member update
  * @param {TextChannel} channel Channel to send the embed
  * @param {GuildMember} oldMember Old member from update
@@ -312,23 +267,24 @@ const announceGuildMemberUpdate = (channel, oldMember, newMember) => {
 		timestamp: new Date(),
 		author: {
 			name: `${newMember.user.tag} (${newMember.user.id})`,
+			// eslint-disable-next-line camelcase
 			icon_url: newMember.user.displayAvatarURL(128)
 		}
 	});
 
-	if (!oldMember.nickname && oldMember.nickname !== newMember.nickname) {
+	if(!oldMember.nickname && oldMember.nickname !== newMember.nickname) {
 		// New nickname, no old nickname
 		embed
 			.setTitle('New Member Nickname')
 			.addField('📝 New nickname', Util.escapeMarkdown(newMember.nickname));
 		channel.send(embed);
-	} else if (!newMember.nickname && oldMember.nickname !== newMember.nickname) {
+	} else if(!newMember.nickname && oldMember.nickname !== newMember.nickname) {
 		// Reset nickname
 		embed
 			.setTitle('Member Nickname Removed')
 			.addField('📝 Old nickname', Util.escapeMarkdown(oldMember.nickname));
 		channel.send(embed);
-	} else if (oldMember.nickname !== newMember.nickname) {
+	} else if(oldMember.nickname !== newMember.nickname) {
 		// Nickname change
 		embed
 			.setTitle('Changed Member Nickname')
@@ -338,7 +294,7 @@ const announceGuildMemberUpdate = (channel, oldMember, newMember) => {
 	}
 };
 
-/** @function
+/**
  * Announces a guild member's voice connection status
  * @param {TextChannel} channel Channel to send the embed
  * @param {GuildMember} oldMember Old member from update
@@ -349,11 +305,12 @@ const announceVoiceChannelUpdate = (channel, oldMember, newMember) => {
 		timestamp: new Date(),
 		author: {
 			name: `${newMember.user.tag} (${newMember.user.id})`,
+			// eslint-disable-next-line camelcase
 			icon_url: newMember.user.displayAvatarURL(128)
 		}
 	});
 
-	if (oldMember.voiceChannel && newMember.voiceChannel && oldMember.voiceChannel !== newMember.voiceChannel) {
+	if(oldMember.voiceChannel && newMember.voiceChannel && oldMember.voiceChannel !== newMember.voiceChannel) {
 		// Transfering from one voice channel to another
 		embed
 			.setTitle('↔ Switched voice channels')
@@ -361,14 +318,14 @@ const announceVoiceChannelUpdate = (channel, oldMember, newMember) => {
 			.addField('Old voice channel', oldMember.voiceChannel.name)
 			.addField('New voice channel', newMember.voiceChannel.name);
 		channel.send(embed);
-	} else if (newMember.voiceChannel && newMember.voiceChannel !== oldMember.voiceChannel) {
+	} else if(newMember.voiceChannel && newMember.voiceChannel !== oldMember.voiceChannel) {
 		// Connected to a voice channel
 		embed
 			.setTitle('➡ Connected to a voice channel')
 			.setColor(0x4caf50)
 			.addField('Voice channel', newMember.voiceChannel.name);
 		channel.send(embed);
-	} else if (oldMember.voiceChannel && newMember.voiceChannel !== oldMember.voiceChannel) {
+	} else if(oldMember.voiceChannel && newMember.voiceChannel !== oldMember.voiceChannel) {
 		// Disconnected from a voice channel
 		embed
 			.setTitle('⬅ Disconnected from a voice channel')
@@ -440,7 +397,7 @@ client
 		});
 	})
 	.on('commandError', (command, error) => {
-		if (error instanceof FriendlyError) return;
+		if(error instanceof FriendlyError) return;
 		winston.error(`[DICE]: Error in command ${command.groupID}:${command.memberName}`, error.stack);
 		client.channels.get('411563928816975883').send({
 			embed: {
@@ -455,9 +412,7 @@ client
 		winston.info(`[DICE] Logged in as ${client.user.tag}!`);
 
 		// Set game presence to the help command once loaded
-		client.user.setActivity('for @Dice help or $$help', {
-			type: 'WATCHING'
-		});
+		client.user.setActivity('for @Dice help or $$help', { type: 'WATCHING' });
 
 		keenClient.recordEvent('events', {
 			title: 'Ready',
@@ -466,14 +421,14 @@ client
 
 		updateServerCount();
 	})
-	.on('guildCreate', async (guild) => {
+	.on('guildCreate', async guild => {
 		/* Bot joins a new server */
 		let count = await client.shard.broadcastEval('this.guilds.size');
 		count = count.reduce((prev, val) => prev + val, 0);
 		updateServerCount();
 		announceServerCount(count, true, guild.me.joinedAt);
 	})
-	.on('guildDelete', async () => {
+	.on('guildDelete', async() => {
 		/* Bot leaves a server */
 		let count = await client.shard.broadcastEval('this.guilds.size');
 		count = count.reduce((prev, val) => prev + val, 0);
@@ -483,13 +438,14 @@ client
 	.on('guildMemberAdd', member => {
 		const guildSettings = client.provider.get(member.guild, 'notifications', {});
 
-		for (const id in guildSettings) {
+		for(const id in guildSettings) {
 			// For each channel's settinsg in the database
-			if (member.guild.channels.has(id)) {
+			if(member.guild.channels.has(id)) {
 				// If the channel in the database exists on the server
 				guildSettings[id].forEach(item => {
 					// For each individual setting of this channel, check if the join/leave notifications are enabled
-					if (item.name === 'guildMemberJoinLeave' && item.enabled === true) announceGuildMemberJoin(member.guild.channels.get(id), member);
+					// eslint-disable-next-line max-len
+					if(item.name === 'guildMemberJoinLeave' && item.enabled === true) announceGuildMemberJoin(member.guild.channels.get(id), member);
 				});
 			}
 		}
@@ -497,17 +453,15 @@ client
 	.on('guildMemberRemove', member => {
 		const guildSettings = client.provider.get(member.guild, 'notifications', {});
 
-		const auditEntry = member.guild.fetchAuditLogs().then(audit => {
-			return audit.entries.first();
-		});
+		const auditEntry = member.guild.fetchAuditLogs().then(audit => audit.entries.first());
 
-		for (const id in guildSettings) {
+		for(const id in guildSettings) {
 			// For each channel's settinsg in the database
-			if (member.guild.channels.has(id)) {
+			if(member.guild.channels.has(id)) {
 				// If the channel in the database exists on the server
 				guildSettings[id].forEach(item => {
 					// For each individual setting of this channel, check if the join/leave notifications are enabled
-					if (item.name === 'guildMemberJoinLeave' && item.enabled === true) {
+					if(item.name === 'guildMemberJoinLeave' && item.enabled === true) {
 						announceGuildMemberLeave(member.guild.channels.get(id), member);
 					}
 
@@ -522,13 +476,13 @@ client
 	.on('guildBanAdd', (guild, user) => {
 		const guildSettings = client.provider.get(guild, 'notifications', {});
 
-		for (const id in guildSettings) {
+		for(const id in guildSettings) {
 			// For each channel's settinsg in the database
-			if (guild.channels.has(id)) {
+			if(guild.channels.has(id)) {
 				// If the channel in the database exists on the server
 				guildSettings[id].forEach(item => {
 					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					if (item.name === 'banUnban' && item.enabled === true) announceGuildBanAdd(guild.channels.get(id), user);
+					if(item.name === 'banUnban' && item.enabled === true) announceGuildBanAdd(guild.channels.get(id), user);
 				});
 			}
 		}
@@ -536,13 +490,13 @@ client
 	.on('guildBanRemove', (guild, user) => {
 		const guildSettings = client.provider.get(guild, 'notifications', {});
 
-		for (const id in guildSettings) {
+		for(const id in guildSettings) {
 			// For each channel's settinsg in the database
-			if (guild.channels.has(id)) {
+			if(guild.channels.has(id)) {
 				// If the channel in the database exists on the server
 				guildSettings[id].forEach(item => {
 					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					if (item.name === 'banUnban' && item.enabled === true) announceGuildBanRemove(guild.channels.get(id), user);
+					if(item.name === 'banUnban' && item.enabled === true) announceGuildBanRemove(guild.channels.get(id), user);
 				});
 			}
 		}
@@ -550,13 +504,14 @@ client
 	.on('voiceStateUpdate', (oldMember, newMember) => {
 		const guildSettings = client.provider.get(newMember.guild, 'notifications', {});
 
-		for (const id in guildSettings) {
+		for(const id in guildSettings) {
 			// For each channel's settinsg in the database
-			if (newMember.guild.channels.has(id)) {
+			if(newMember.guild.channels.has(id)) {
 				// If the channel in the database exists on the server
 				guildSettings[id].forEach(item => {
 					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					if (item.name === 'voiceChannel' && item.enabled === true && (oldMember.voiceChannel || newMember.voiceChannel)) {
+					// eslint-disable-next-line max-len
+					if(item.name === 'voiceChannel' && item.enabled === true && (oldMember.voiceChannel || newMember.voiceChannel)) {
 						announceVoiceChannelUpdate(newMember.guild.channels.get(id), oldMember, newMember);
 					}
 				});
@@ -566,20 +521,20 @@ client
 	.on('guildMemberUpdate', (oldMember, newMember) => {
 		const guildSettings = client.provider.get(newMember.guild, 'notifications', {});
 
-		for (const id in guildSettings) {
+		for(const id in guildSettings) {
 			// For each channel's settinsg in the database
-			if (newMember.guild.channels.has(id)) {
+			if(newMember.guild.channels.has(id)) {
 				// If the channel in the database exists on the server
 				guildSettings[id].forEach(item => {
 					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					if (item.name === 'guildMemberUpdate' && item.enabled === true && oldMember && newMember) {
+					if(item.name === 'guildMemberUpdate' && item.enabled === true && oldMember && newMember) {
 						announceGuildMemberUpdate(newMember.guild.channels.get(id), oldMember, newMember);
 					}
 				});
 			}
 		}
 	})
-	.on('commandBlocked', async (msg, reason) => {
+	.on('commandBlocked', async(msg, reason) => {
 		const userBalance = await diceAPI.getBalance(msg.author.id);
 		const houseBalance = await diceAPI.getBalance(client.user.id);
 
@@ -588,6 +543,7 @@ client
 				title: 'Command Blocked',
 				author: {
 					name: `${msg.author.tag} (${msg.author.id})`,
+					// eslint-disable-next-line camelcase
 					icon_url: msg.author.displayAvatarURL(128)
 				},
 				timestamp: new Date(msg.createdTimestamp),
@@ -619,7 +575,7 @@ client
 			houseBalance: houseBalance
 		});
 	})
-	.on('commandRun', async (cmd, promise, msg) => {
+	.on('commandRun', async(cmd, promise, msg) => {
 		const userBalance = await diceAPI.getBalance(msg.author.id);
 		const houseBalance = await diceAPI.getBalance(client.user.id);
 
@@ -629,6 +585,7 @@ client
 				title: 'Command Run',
 				author: {
 					name: `${msg.author.tag} (${msg.author.id})`,
+					// eslint-disable-next-line camelcase
 					icon_url: msg.author.displayAvatarURL(128)
 				},
 				timestamp: new Date(msg.createdTimestamp),
@@ -658,19 +615,19 @@ client
 
 		winston.silly(`[DICE] Command run by ${msg.author.tag} (${msg.author.id}): ${msg.content}`);
 	})
-	.on('message', async msg => {
+	.on('message', msg => {
 		/* Protecting bot token */
 		const warning = `[DICE] TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
 		https://discordapp.com/developers/applications/me/${client.user.id}\n`;
 
-		if (msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
+		if(msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
 			// Message can be deleted, so delete it
 			msg.delete().then(() => {
 				winston.error(`[DICE] ${warning}
 				Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
 				Message: ${msg.content}`);
 			});
-		} else if (msg.content.includes(process.env.BOT_TOKEN) && !msg.deletable) {
+		} else if(msg.content.includes(process.env.BOT_TOKEN) && !msg.deletable) {
 			// Message can't be deleted
 
 			winston.error(`[DICE] ${warning}

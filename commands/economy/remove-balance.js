@@ -3,7 +3,7 @@
 const { Command } = require('discord.js-commando');
 const rules = require('../../rules');
 const diceAPI = require('../../providers/diceAPI');
-const response = require('../../providers/simpleCommandResponse');
+const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class RemoveBalanceCommand extends Command {
 	constructor(client) {
@@ -38,7 +38,7 @@ module.exports = class RemoveBalanceCommand extends Command {
 
 	async run(msg, { user, amount }) {
 		// Permission checking
-		if (user.bot === true && user.id !== this.client.user.id) {
+		if(user.bot === true && user.id !== this.client.user.id) {
 			return msg.reply('❌ You can\'t remove oats from bots.');
 		}
 
@@ -46,6 +46,8 @@ module.exports = class RemoveBalanceCommand extends Command {
 		await diceAPI.decreaseBalance(user.id, amount);
 
 		// Respond to author with success
-		response.respond(msg);
+		respond(msg);
+
+		return null;
 	}
 };

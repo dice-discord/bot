@@ -32,16 +32,14 @@ module.exports = class RandomCatImageCommand extends Command {
 					winston.error('[COMMAND](RANDOM-CAT-IMAGE)', error.stack);
 					return msg.reply('❌ There was an error with the API we use (http://random.cat)');
 				})
-				.then((result) => {
-					return msg.replyEmbed({
-						author: {
-							name: 'random.cat',
-							iconURL: 'https://i.imgur.com/Ik0Gf0r.png',
-							url: 'http://random.cat'
-						},
-						image: { url: result.file }
-					});
-				});
+				.then(result => msg.replyEmbed({
+					author: {
+						name: 'random.cat',
+						iconURL: 'https://i.imgur.com/Ik0Gf0r.png',
+						url: 'http://random.cat'
+					},
+					image: { url: result.file }
+				}));
 		} finally {
 			msg.channel.stopTyping();
 		}

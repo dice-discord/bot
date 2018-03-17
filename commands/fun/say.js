@@ -25,8 +25,8 @@ module.exports = class SayCommand extends Command {
 		});
 	}
 
-	async run(msg, { phrase }) {
-		msg.delete();
+	run(msg, { phrase }) {
+		if(msg.deletable) msg.delete();
 		return msg.say(phrase);
 	}
 };

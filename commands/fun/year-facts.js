@@ -31,9 +31,7 @@ module.exports = class YearFactsCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			const options = {
-				uri: `http://numbersapi.com/${year}/year`
-			};
+			const options = { uri: `http://numbersapi.com/${year}/year` };
 
 			const result = await rp(options).catch(error => {
 				winston.error('[COMMAND](DATE-FACTS)', error.stack);

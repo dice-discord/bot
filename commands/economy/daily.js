@@ -30,7 +30,7 @@ module.exports = class DailyCommand extends Command {
 			const oldTime = await diceAPI.getDailyUsed(msg.author.id);
 			const currentTime = msg.createdTimestamp;
 			const dbl = new DBL(process.env.DISCORDBOTSORG_TOKEN);
-			const voteStatus = await dbl.hasVoted(msg.author.id).catch((error) => {
+			const voteStatus = await dbl.hasVoted(msg.author.id).catch(error => {
 				winston.error('[COMMAND](DAILY) Error in discordbots.org vote checking', error.stack);
 				return false;
 			});
@@ -42,19 +42,22 @@ module.exports = class DailyCommand extends Command {
 			let note;
 
 			winston.debug(`[COMMAND](DAILY) DBL vote status for ${msg.author.tag}: ${voteStatus}`);
-			if (voteStatus) {
-				payout = payout * 2;
+			if(voteStatus) {
+				payout *= 2;
+				// eslint-disable-next-line max-len
 				note = `You got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
 			} else {
+				// eslint-disable-next-line max-len
 				note = `You can double your payout from voting for ${this.client.user} each day. Use ${msg.anyUsage('vote')} to vote once per day.`;
 			}
 
+			// eslint-disable-next-line max-len
 			winston.debug(`[COMMAND](DAILY) @${msg.author.tag} You must wait ${waitDuration} before collecting your daily ${rules.currencyPlural}.`);
 			winston.debug(`[COMMAND](DAILY) Old timestamp: ${new Date(oldTime)} (${oldTime})`);
 			winston.debug(`[COMMAND](DAILY) Current timestamp: ${new Date(currentTime)} (${currentTime})`);
 
-			if (oldTime + fullDay < currentTime || oldTime === false) {
-				if (oldTime === false) {
+			if(oldTime + fullDay < currentTime || oldTime === false) {
+				if(oldTime === false) {
 					winston.verbose('[COMMAND](DAILY) Old timestamp was returned as false, meaning empty in the database.');
 				}
 
@@ -67,13 +70,14 @@ module.exports = class DailyCommand extends Command {
 
 				// Daily not collected in one day
 				const message = `You were paid ${payout} ${rules.currencyPlural}`;
-				if (note) {
+				if(note) {
 					return msg.reply(`${message}\n${note}`);
 				} else {
 					return msg.reply(message);
 				}
 			} else {
-			// Daily collected in a day or less (so, recently)
+				// Daily collected in a day or less (so, recently)
+				// eslint-disable-next-line max-len
 				return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${rules.currencyPlural}. Remember to vote each day and get double ${rules.currencyPlural}. Use ${msg.anyUsage('vote')}.`);
 			}
 		} finally {

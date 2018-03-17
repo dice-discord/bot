@@ -8,6 +8,7 @@ module.exports = class MiniMeCommand extends Command {
 			name: 'mini-me',
 			group: 'minecraft',
 			memberName: 'mini-me',
+			// eslint-disable-next-line max-len
 			description: 'Shows a \'mini-me\' of a Minecraft user\'s body with an option for a transparent background or gradient',
 			aliases: ['minecraft-mini-me', 'mc-mini-me', 'minecraft-mini', 'mc-mini', 'mini'],
 			examples: ['mini-me Notch', 'mini-me Notch false'],
@@ -34,13 +35,16 @@ module.exports = class MiniMeCommand extends Command {
 		const embed = new MessageEmbed({
 			author: {
 				name: username,
+				// eslint-disable-next-line camelcase
 				icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
 			}
 		});
 
-		if (transparency) {
+		if(transparency) {
+			// eslint-disable-next-line max-len
 			embed.setImage(`http://avatar.yourminecraftservers.com/avatar/trnsp/steve/tall/128/${encodeURIComponent(username)}.png`);
 		} else {
+			// eslint-disable-next-line max-len
 			embed.setImage(`http://avatar.yourminecraftservers.com/avatar/rad/steve/tall/128/${encodeURIComponent(username)}.png`);
 		}
 		winston.debug(`Image URL for ${username}: ${embed.image.url}`);
