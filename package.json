@@ -33,7 +33,7 @@
 		"replaceall": "^0.1.6",
 		"request": "^2.85.0",
 		"request-promise": "^4.2.2",
-		"winston": "^3.0.0-rc2"
+		"winston": "^2.4.1"
 	},
 	"engines": {
 		"node": "8.9.4"
