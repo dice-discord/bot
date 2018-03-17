@@ -17,9 +17,9 @@ module.exports = class BodyCommand extends Command {
 			},
 			args: [{
 				key: 'user',
-				prompt: 'What is username of the user do you want to look up?',
+				prompt: 'What is username you want to look up?',
 				type: 'string',
-				label: 'UUID'
+				label: 'username'
 			}]
 		});
 	}
