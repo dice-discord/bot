@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
+const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 const winston = require('winston');
 
@@ -11,7 +11,7 @@ module.exports = class UserListCommand extends Command {
 			name: 'user-list',
 			group: 'dev',
 			memberName: 'user-list',
-			description: `List all users of <@${rules.houseID}>`,
+			description: `List all users of <@${config.clientID}>`,
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['list-users'],
 			throttling: {

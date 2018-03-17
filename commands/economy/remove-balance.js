@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
+const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 const { respond } = require('../../providers/simpleCommandResponse');
 
@@ -20,7 +20,7 @@ module.exports = class RemoveBalanceCommand extends Command {
 				prompt: 'How many oats do you want to remove?',
 				type: 'float',
 				parse: amount => diceAPI.simpleFormat(amount),
-				min: rules.minWager
+				min: config.minWager
 			},
 			{
 				key: 'user',

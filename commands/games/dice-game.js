@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const rules = require('../../rules');
+const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 
 module.exports = class DiceGameCommand extends Command {
@@ -19,7 +19,7 @@ module.exports = class DiceGameCommand extends Command {
 				key: 'wager',
 				prompt: 'How much do you want to wager? (whole number)',
 				type: 'integer',
-				min: rules.minWager
+				min: config.minWager
 			},
 			{
 				key: 'multiplier',
@@ -27,8 +27,8 @@ module.exports = class DiceGameCommand extends Command {
 				type: 'float',
 				// Round multiplier to second decimal place
 				parse: multiplier => diceAPI.simpleFormat(multiplier),
-				min: rules.minMultiplier,
-				max: rules.maxMultiplier
+				min: config.minMultiplier,
+				max: config.maxMultiplier
 			}
 			],
 			throttling: {
@@ -46,7 +46,7 @@ module.exports = class DiceGameCommand extends Command {
 			// Wager checking
 			if(wager > authorBalance) {
 				// eslint-disable-next-line max-len
-				return msg.reply(`❌ You are missing \`${wager - authorBalance}\` ${rules.currencyPlural}. Your balance is \`${authorBalance}\` ${rules.currencyPlural}.`);
+				return msg.reply(`❌ You are missing \`${wager - authorBalance}\` ${config.currency.plural}. Your balance is \`${authorBalance}\` ${config.currency.plural}.`);
 			} else if((wager * multiplier) - wager > await diceAPI.getBalance(this.client.user.id)) {
 				return msg.reply('❌ I couldn\'t pay your winnings if you won.');
 			}
@@ -57,7 +57,7 @@ module.exports = class DiceGameCommand extends Command {
 			await diceAPI.increaseBalance(this.client.user.id, wager);
 
 			// Round numbers to second decimal place
-			const randomNumber = diceAPI.simpleFormat(Math.random() * rules.maxMultiplier);
+			const randomNumber = diceAPI.simpleFormat(Math.random() * config.maxMultiplier);
 
 			// Get boolean if the random number is greater than the multiplier
 			const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
@@ -81,7 +81,7 @@ module.exports = class DiceGameCommand extends Command {
 				},
 				{
 					name: '🏦 Updated Balance',
-					value: `${await diceAPI.getBalance(msg.author.id)} ${rules.currencyPlural}`,
+					value: `${await diceAPI.getBalance(msg.author.id)} ${config.currency.plural}`,
 					inline: true
 				},
 				{
@@ -100,12 +100,12 @@ module.exports = class DiceGameCommand extends Command {
 			if(gameResult === true) {
 				// Red color and loss message
 				embed.setColor(0xf44334);
-				embed.setDescription(`You lost \`${wager}\` ${rules.currencyPlural}.`);
+				embed.setDescription(`You lost \`${wager}\` ${config.currency.plural}.`);
 			} else {
 				// Green color and win message
 				embed.setColor(0x4caf50);
 
-				embed.setDescription(`You made \`${profit}\` ${rules.currencyPlural} of profit!`);
+				embed.setDescription(`You made \`${profit}\` ${config.currency.plural} of profit!`);
 				if(await diceAPI.getBiggestWin(msg.author.id) <= profit) {
 					diceAPI.updateBiggestWin(msg.author.id, profit);
 				}

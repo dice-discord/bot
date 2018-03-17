@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
+const config = require('../../config');
 
 module.exports = class ServerListCommand extends Command {
 	constructor(client) {
@@ -9,7 +9,7 @@ module.exports = class ServerListCommand extends Command {
 			name: 'server-list',
 			group: 'dev',
 			memberName: 'server-list',
-			description: `List all servers <@${rules.houseID}> is on`,
+			description: `List all servers <@${config.clientID}> is on`,
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['list-servers', 'guild-list', 'list-guilds'],
 			throttling: {

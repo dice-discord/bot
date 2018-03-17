@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
+const config = require('../../config');
 
 module.exports = class InviteCommand extends Command {
 	constructor(client) {
@@ -9,7 +9,7 @@ module.exports = class InviteCommand extends Command {
 			name: 'invite',
 			group: 'util',
 			memberName: 'invite',
-			description: `An invite link for <@${rules.houseID}>`,
+			description: `An invite link for <@${config.clientID}>`,
 			throttling: {
 				usages: 1,
 				duration: 3

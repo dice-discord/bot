@@ -1,6 +1,6 @@
 // Copyright 2018 Jonah Snider
 
-const rules = require('../../rules');
+const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 const { Command } = require('discord.js-commando');
 
@@ -29,8 +29,8 @@ module.exports = class GameCalculatorCommand extends Command {
 					type: 'float',
 					// Round multiplier to second decimal place
 					parse: multiplierString => diceAPI.simpleFormat(multiplierString),
-					min: rules.minMultiplier,
-					max: rules.maxMultiplier
+					min: config.minMultiplier,
+					max: config.maxMultiplier
 				}
 			],
 			throttling: {

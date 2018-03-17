@@ -1,28 +1,28 @@
 // Copyright 2018 Jonah Snider
 
-const rules = require('../rules');
+const config = require('../config');
 const mongodb = require('mongodb');
 const winston = require('winston');
 const KeenTracking = require('keen-tracking');
 
 // Set up Keen client
 const keenClient = new KeenTracking({
-	projectId: process.env.KEEN_PROJECTID,
-	writeKey: process.env.KEEN_WRITEKEY
+	projectId: config.keen.projectID,
+	writeKey: config.keen.writeKey
 });
 
 winston.verbose('[API] Dice API loading');
 keenClient.recordEvent('events', { title: 'Dice API loading' });
 
 // Set up database variables
-const uri = process.env.MONGODB_URI;
-if(typeof process.env.MONGODB_URI === undefined) {
+const uri = config.mongoDBURI;
+if(typeof config.mongoDBURI === undefined) {
 	winston.error('[API](DATABASE) mongoDB URI is undefined!');
 } else {
 	winston.debug(`[API](DATABASE) mongoDB URI: ${uri}`);
 }
 
-const winPercentage = multiplier => (100 - rules.houseEdgePercentage) / multiplier;
+const winPercentage = multiplier => (100 - config.houseEdgePercentage) / multiplier;
 module.exports.winPercentage = winPercentage;
 
 const simpleFormat = value => {
@@ -52,17 +52,17 @@ mongodb.MongoClient.connect(uri, (err, database) => {
 					return balanceResult;
 				} else {
 					winston.debug('[API](GET-BALANCE) Result is empty. Checking if requested ID is the house.');
-					if(requestedID === rules.houseID) {
+					if(requestedID === config.clientID) {
 						winston.debug('[API](GET-BALANCE) Requested ID is the house ID.');
-						updateBalance(requestedID, rules.houseStartingBalance);
-						return rules.houseStartingBalance;
+						updateBalance(requestedID, config.houseStartingBalance);
+						return config.houseStartingBalance;
 					} else if(requestedID === 'lottery') {
 						winston.debug('[API](GET-BALANCE) Requested ID is the lottery.');
 						return 0;
 					} else {
 						winston.debug('[API](GET-BALANCE) Requested ID isn\'t the house ID or the lottery ID.');
-						updateBalance(requestedID, rules.newUserBalance);
-						return rules.newUserBalance;
+						updateBalance(requestedID, config.newUserBalance);
+						return config.newUserBalance;
 					}
 				}
 			});
@@ -96,7 +96,7 @@ mongodb.MongoClient.connect(uri, (err, database) => {
         An empty search parameter will delete all items */
 		await balances.remove({});
 		// Wait for everything to get deleted before adding more information
-		updateBalance(rules.houseID, rules.houseStartingBalance);
+		updateBalance(config.clientID, config.houseStartingBalance);
 	};
 	module.exports.resetEconomy = resetEconomy;
 	// Reset economy

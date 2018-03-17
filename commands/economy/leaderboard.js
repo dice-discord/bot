@@ -3,7 +3,7 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const diceAPI = require('../../providers/diceAPI');
-const rules = require('../../rules');
+const config = require('../../config');
 const winston = require('winston');
 
 module.exports = class LeaderboardCommand extends Command {
@@ -12,7 +12,7 @@ module.exports = class LeaderboardCommand extends Command {
 			name: 'leaderboard',
 			group: 'economy',
 			memberName: 'leaderboard',
-			description: `Shows a top ten leaderboard of who has the most ${rules.currencyPlural}`,
+			description: `Shows a top ten leaderboard of who has the most ${config.currency.plural}`,
 			aliases: ['top-10', 'top-ten', 'chart', 'top'],
 			throttling: {
 				usages: 1,
@@ -46,7 +46,8 @@ module.exports = class LeaderboardCommand extends Command {
 			const embed = new MessageEmbed({ title: 'Top 10 Leaderboard' });
 
 			for(let i = 0; i < leaderboardArray.length; i++) {
-				embed.addField(`#${i + 1} ${await userTagFromID(i)}`, `${leaderboardArray[i].balance} ${rules.currencyPlural}`);
+				// eslint-disable-next-line max-len
+				embed.addField(`#${i + 1} ${await userTagFromID(i)}`, `${leaderboardArray[i].balance} ${config.currency.plural}`);
 			}
 
 			return msg.replyEmbed(embed);

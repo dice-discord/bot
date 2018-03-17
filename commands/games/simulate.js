@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const rules = require('../../rules');
+const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 
 module.exports = class SimulateCommand extends Command {
@@ -18,7 +18,7 @@ module.exports = class SimulateCommand extends Command {
 				key: 'wager',
 				prompt: 'How much do you want to wager? (whole number)',
 				type: 'integer',
-				min: rules.minWager
+				min: config.minWager
 			},
 			{
 				key: 'multiplier',
@@ -26,8 +26,8 @@ module.exports = class SimulateCommand extends Command {
 				type: 'float',
 				// Round multiplier to second decimal place
 				parse: multiplier => diceAPI.simpleFormat(multiplier),
-				min: rules.minMultilpier,
-				max: rules.maxMultiplier
+				min: config.minMultilpier,
+				max: config.maxMultiplier
 			}
 			],
 			throttling: {
@@ -39,7 +39,7 @@ module.exports = class SimulateCommand extends Command {
 
 	run(msg, { wager, multiplier }) {
 		// Round numbers to second decimal place
-		const randomNumber = diceAPI.simpleFormat(Math.random() * rules.maxMultiplier);
+		const randomNumber = diceAPI.simpleFormat(Math.random() * config.maxMultiplier);
 
 		// Get boolean if the random number is greater than the multiplier
 		const gameResult = randomNumber > diceAPI.winPercentage(multiplier);
@@ -72,12 +72,12 @@ module.exports = class SimulateCommand extends Command {
 		if(gameResult === true) {
 			// Red color and loss message
 			embed.setColor(0xf44334);
-			embed.setDescription(`You would have lost \`${wager}\` ${rules.currencyPlural}.`);
+			embed.setDescription(`You would have lost \`${wager}\` ${config.currency.plural}.`);
 		} else {
 			// Green color and win message
 			embed.setColor(0x4caf50);
 			// eslint-disable-next-line max-len
-			embed.setDescription(`Your profit would have been \`${diceAPI.simpleFormat((wager * multiplier) - wager)}\` ${rules.currencyPlural}!`);
+			embed.setDescription(`Your profit would have been \`${diceAPI.simpleFormat((wager * multiplier) - wager)}\` ${config.currency.plural}!`);
 		}
 
 		return msg.replyEmbed(embed);

@@ -14,7 +14,7 @@ const winston = require('winston');
 winston.level = 'debug';
 const diceAPI = require('./providers/diceAPI');
 const rp = require('request-promise');
-const rules = require('./rules');
+const config = require('./config');
 
 // Set up bot client and settings
 const client = new CommandoClient({
@@ -27,8 +27,8 @@ const client = new CommandoClient({
 
 // Set up Keen client
 const keenClient = new KeenTracking({
-	projectId: process.env.KEEN_PROJECTID,
-	writeKey: process.env.KEEN_WRITEKEY
+	projectId: config.keen.projectID,
+	writeKey: config.keen.writeKey
 });
 
 client.registry
@@ -54,7 +54,7 @@ client.registry
 
 // Store settings (like a server prefix) in a MongoDB collection called "settings"
 client.setProvider(
-	MongoClient.connect(process.env.MONGODB_URI)
+	MongoClient.connect(config.mongoDBURI)
 		.then(bot => new MongoDBProvider(bot, 'settings'))
 );
 
@@ -69,15 +69,15 @@ client.dispatcher.addInhibitor(msg => {
 });
 
 /* Update server counter on bot listings */
-const dbl = new DBL(process.env.DISCORDBOTSORG_TOKEN);
-const bfd = new BFD(process.env.BOTSFORDISCORD_TOKEN);
+const dbl = new DBL(config.discordBotsListToken);
+const bfd = new BFD(config.botsForDiscordToken);
 
 // Bots.discord.pw
 const sendBotsDiscordPWServerCount = () => {
 	const options = {
 		method: 'POST',
 		url: 'https://bots.discord.pw/api/bots/388191157869477888/stats',
-		headers: { authorization: process.env.BOTSDISCORDPW_TOKEN },
+		headers: { authorization: config.discordBotsToken },
 		body: {
 			/* eslint-disable camelcase */
 			shard_id: client.shard.id,
@@ -96,7 +96,7 @@ const sendLsTerminalInkServerCount = count => {
 	const options = {
 		method: 'POST',
 		url: `https://ls.terminal.ink/api/v1/bots/${client.id}`,
-		headers: { authorization: process.env.LSTERMINALINK_TOKEN },
+		headers: { authorization: config.discordBotsAtTerminalInk },
 		body: { count: count },
 		json: true
 	};
@@ -453,8 +453,6 @@ client
 	.on('guildMemberRemove', member => {
 		const guildSettings = client.provider.get(member.guild, 'notifications', {});
 
-		const auditEntry = member.guild.fetchAuditLogs().then(audit => audit.entries.first());
-
 		for(const id in guildSettings) {
 			// For each channel's settinsg in the database
 			if(member.guild.channels.has(id)) {
@@ -464,11 +462,6 @@ client
 					if(item.name === 'guildMemberJoinLeave' && item.enabled === true) {
 						announceGuildMemberLeave(member.guild.channels.get(id), member);
 					}
-
-					winston.debug(`[DICE] Target of audit entry: ${auditEntry.target.tag}`);
-					winston.debug(`[DICE] Member who left: ${member.user.tag}`);
-					winston.debug(`[DICE] Audit entry action: ${auditEntry.action}`);
-					winston.debug(`[DICE] Current item: ${item.label} notifications. Enabled: ${item.enabled}`);
 				});
 			}
 		}
@@ -556,11 +549,11 @@ client
 				},
 				{
 					name: '🏦 User Balance',
-					value: `\`${userBalance}\` ${rules.currencyPlural}`
+					value: `\`${userBalance}\` ${config.currency.plural}`
 				},
 				{
 					name: `🏦 ${client.user.username} Balance`,
-					value: `\`${houseBalance}\` ${rules.currencyPlural}`
+					value: `\`${houseBalance}\` ${config.currency.plural}`
 				}
 				]
 			}
@@ -595,11 +588,11 @@ client
 				},
 				{
 					name: '🏦 User Balance',
-					value: `\`${userBalance}\` ${rules.currencyPlural}`
+					value: `\`${userBalance}\` ${config.currency.plural}`
 				},
 				{
 					name: `🏦 ${client.user.username} Balance`,
-					value: `\`${houseBalance}\` ${rules.currencyPlural}`
+					value: `\`${houseBalance}\` ${config.currency.plural}`
 				}
 				]
 			}
@@ -620,14 +613,14 @@ client
 		const warning = `[DICE] TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
 		https://discordapp.com/developers/applications/me/${client.user.id}\n`;
 
-		if(msg.content.includes(process.env.BOT_TOKEN) && msg.deletable) {
+		if(msg.content.includes(config.botToken) && msg.deletable) {
 			// Message can be deleted, so delete it
 			msg.delete().then(() => {
 				winston.error(`[DICE] ${warning}
 				Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
 				Message: ${msg.content}`);
 			});
-		} else if(msg.content.includes(process.env.BOT_TOKEN) && !msg.deletable) {
+		} else if(msg.content.includes(config.botToken) && !msg.deletable) {
 			// Message can't be deleted
 
 			winston.error(`[DICE] ${warning}
@@ -638,4 +631,4 @@ client
 	});
 
 // Log in the bot
-client.login(process.env.BOT_TOKEN);
+client.login(config.botToken);

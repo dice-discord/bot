@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
+const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 const { respond } = require('../../providers/simpleCommandResponse');
 
@@ -20,7 +20,7 @@ module.exports = class TransferCommand extends Command {
 					prompt: 'How many oats do you want to transfer?',
 					type: 'float',
 					parse: amount => diceAPI.simpleFormat(amount),
-					min: rules.minWager
+					min: config.minWager
 				},
 				{
 					key: 'user',
@@ -42,7 +42,7 @@ module.exports = class TransferCommand extends Command {
 			// Amount checking
 			if(amount > await diceAPI.getBalance(msg.author.id)) {
 				// eslint-disable-next-line max-len
-				return msg.reply(`❌ You need to have at least \`${amount}\` ${rules.currencyPlural}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
+				return msg.reply(`❌ You need to have at least \`${amount}\` ${config.currency.plural}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
 			}
 
 			// No sending money to yourself

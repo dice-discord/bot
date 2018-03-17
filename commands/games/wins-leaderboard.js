@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const diceAPI = require('../../providers/diceAPI');
-const rules = require('../../rules');
+const config = require('../../config');
 const winston = require('winston');
 
 module.exports = class LeaderboardCommand extends Command {
@@ -49,43 +49,43 @@ module.exports = class LeaderboardCommand extends Command {
 					fields: [
 						{
 							name: `#1 ${await userTagFromID(0)}`,
-							value: `${leaderboardArray[0].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[0].biggestWin} ${config.currency.plural}`
 						},
 						{
 							name: `#2 ${await userTagFromID(1)}`,
-							value: `${leaderboardArray[1].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[1].biggestWin} ${config.currency.plural}`
 						},
 						{
 							name: `#3 ${await userTagFromID(2)}`,
-							value: `${leaderboardArray[2].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[2].biggestWin} ${config.currency.plural}`
 						},
 						{
 							name: `#4 ${await userTagFromID(3)}`,
-							value: `${leaderboardArray[3].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[3].biggestWin} ${config.currency.plural}`
 						},
 						{
 							name: `#5 ${await userTagFromID(4)}`,
-							value: `${leaderboardArray[4].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[4].biggestWin} ${config.currency.plural}`
 						},
 						{
 							name: `#6 ${await userTagFromID(5)}`,
-							value: `${leaderboardArray[5].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[5].biggestWin} ${config.currency.plural}`
 						},
 						{
 							name: `#7 ${await userTagFromID(6)}`,
-							value: `${leaderboardArray[6].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[6].biggestWin} ${config.currency.plural}`
 						},
 						{
 							name: `#8 ${await userTagFromID(7)}`,
-							value: `${leaderboardArray[7].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[7].biggestWin} ${config.currency.plural}`
 						},
 						{
 							name: `#9 ${await userTagFromID(8)}`,
-							value: `${leaderboardArray[8].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[8].biggestWin} ${config.currency.plural}`
 						},
 						{
 							name: `#10 ${await userTagFromID(9)}`,
-							value: `${leaderboardArray[9].biggestWin} ${rules.currencyPlural}`
+							value: `${leaderboardArray[9].biggestWin} ${config.currency.plural}`
 						}
 					]
 				}

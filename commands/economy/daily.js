@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
+const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 const moment = require('moment');
 const winston = require('winston');
@@ -13,7 +13,7 @@ module.exports = class DailyCommand extends Command {
 			name: 'daily',
 			group: 'economy',
 			memberName: 'daily',
-			description: `Collect your daily ${rules.currencyPlural}`,
+			description: `Collect your daily ${config.currency.plural}`,
 			aliases: ['dailies'],
 			throttling: {
 				usages: 1,
@@ -29,7 +29,7 @@ module.exports = class DailyCommand extends Command {
 			// Initialize variables
 			const oldTime = await diceAPI.getDailyUsed(msg.author.id);
 			const currentTime = msg.createdTimestamp;
-			const dbl = new DBL(process.env.DISCORDBOTSORG_TOKEN);
+			const dbl = new DBL(config.discordBotsListToken);
 			const voteStatus = await dbl.hasVoted(msg.author.id).catch(error => {
 				winston.error('[COMMAND](DAILY) Error in discordbots.org vote checking', error.stack);
 				return false;
@@ -52,7 +52,7 @@ module.exports = class DailyCommand extends Command {
 			}
 
 			// eslint-disable-next-line max-len
-			winston.debug(`[COMMAND](DAILY) @${msg.author.tag} You must wait ${waitDuration} before collecting your daily ${rules.currencyPlural}.`);
+			winston.debug(`[COMMAND](DAILY) @${msg.author.tag} You must wait ${waitDuration} before collecting your daily ${config.currency.plural}.`);
 			winston.debug(`[COMMAND](DAILY) Old timestamp: ${new Date(oldTime)} (${oldTime})`);
 			winston.debug(`[COMMAND](DAILY) Current timestamp: ${new Date(currentTime)} (${currentTime})`);
 
@@ -69,7 +69,7 @@ module.exports = class DailyCommand extends Command {
 				diceAPI.increaseBalance(this.client.user.id, payout);
 
 				// Daily not collected in one day
-				const message = `You were paid ${payout} ${rules.currencyPlural}`;
+				const message = `You were paid ${payout} ${config.currency.plural}`;
 				if(note) {
 					return msg.reply(`${message}\n${note}`);
 				} else {
@@ -78,7 +78,7 @@ module.exports = class DailyCommand extends Command {
 			} else {
 				// Daily collected in a day or less (so, recently)
 				// eslint-disable-next-line max-len
-				return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${rules.currencyPlural}. Remember to vote each day and get double ${rules.currencyPlural}. Use ${msg.anyUsage('vote')}.`);
+				return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${config.currency.plural}. Remember to vote each day and get double ${config.currency.plural}. Use ${msg.anyUsage('vote')}.`);
 			}
 		} finally {
 			msg.channel.stopTyping();

@@ -3,6 +3,7 @@
 const { Command } = require('discord.js-commando');
 const rp = require('request-promise');
 const winston = require('winston');
+const config = require('../../config');
 
 module.exports = class FortniteStatisticsCommand extends Command {
 	constructor(client) {
@@ -44,7 +45,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			const options = {
 				uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,
 				json: true,
-				headers: { 'TRN-Api-Key': process.env.FORTNITETN_TOKEN }
+				headers: { 'TRN-Api-Key': config.fortniteTrackerNetworkToken }
 			};
 			const stats = await rp(options).catch(error => {
 				winston.error('[COMMAND](FORTNITE-STATISTICS)', error.stack);

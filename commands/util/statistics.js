@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const diceAPI = require('../../providers/diceAPI');
-const rules = require('../../rules');
+const config = require('../../config');
 
 module.exports = class StatisticsCommand extends Command {
 	constructor(client) {
@@ -10,7 +10,7 @@ module.exports = class StatisticsCommand extends Command {
 			name: 'statistics',
 			group: 'util',
 			memberName: 'statistics',
-			description: `Get statistics on <@${rules.houseID}>`,
+			description: `Get statistics on <@${config.clientID}>`,
 			aliases: ['stats'],
 			throttling: {
 				usages: 2,

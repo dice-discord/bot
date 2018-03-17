@@ -2,7 +2,7 @@
 
 const moment = require('moment');
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
+const config = require('../../config');
 const packageData = require('../../package');
 
 module.exports = class BotInfoCommand extends Command {
@@ -11,7 +11,7 @@ module.exports = class BotInfoCommand extends Command {
 			name: 'bot-info',
 			group: 'util',
 			memberName: 'bot-info',
-			description: `Information about <@${rules.houseID}>`,
+			description: `Information about <@${config.clientID}>`,
 			aliases: ['github', 'uptime', 'library', 'git', 'lib', 'version', 'bot'],
 			throttling: {
 				usages: 3,

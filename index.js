@@ -4,8 +4,9 @@ const winston = require('winston');
 winston.level = 'debug';
 const { ShardingManager } = require('discord.js');
 const packageData = require('./package');
+const config = require('./config');
 
-const manager = new ShardingManager('./dice.js', { token: process.env.BOT_TOKEN });
+const manager = new ShardingManager('./dice.js', { token: config.botToken });
 
 manager.spawn();
 manager

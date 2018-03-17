@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rules = require('../../rules');
+const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 
 module.exports = class BalanceCommand extends Command {
@@ -43,9 +43,9 @@ module.exports = class BalanceCommand extends Command {
 				// Someone else's balance
 				if(houseBalance < userBalance && user.id !== this.client.user.id) {
 					// eslint-disable-next-line max-len
-					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${this.client.user}!`);
+					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${config.currency.plural}. That's more than ${this.client.user}!`);
 				} else {
-					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${rules.currencyPlural}.`);
+					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${config.currency.plural}.`);
 				}
 			} else {
 				userBalance = await diceAPI.getBalance(msg.author.id);
@@ -53,9 +53,9 @@ module.exports = class BalanceCommand extends Command {
 				// We are looking up the message author's balance
 				if(houseBalance < userBalance && user.id !== this.client.user.id) {
 					// eslint-disable-next-line max-len
-					return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules.currencyPlural}. That's more than ${this.client.user}!`);
+					return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${config.currency.plural}. That's more than ${this.client.user}!`);
 				} else {
-					return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${rules.currencyPlural}.`);
+					return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${config.currency.plural}.`);
 				}
 			}
 		} finally {

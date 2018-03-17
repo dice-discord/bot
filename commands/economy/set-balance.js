@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const diceAPI = require('../../providers/diceAPI');
-const rules = require('../../rules');
+const config = require('../../config');
 const { respond } = require('../../providers/simpleCommandResponse');
 
 module.exports = class SetBalanceCommand extends Command {
@@ -21,7 +21,7 @@ module.exports = class SetBalanceCommand extends Command {
 					prompt: 'What do you want the new balance to be?',
 					type: 'float',
 					parse: amount => diceAPI.simpleFormat(amount),
-					min: rules.minWager
+					min: config.minWager
 				},
 				{
 					key: 'user',

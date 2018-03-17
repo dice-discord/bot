@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const winston = require('winston');
-const rules = require('../../rules');
+const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 
 module.exports = class InformationCommand extends Command {
@@ -46,9 +46,9 @@ module.exports = class InformationCommand extends Command {
 
 			// Determine what the starting balance is for the requested user
 			if(user.id === this.client.user.id) {
-				startingBalance = rules.houseStartingBalance;
+				startingBalance = config.houseStartingBalance;
 			} else {
-				startingBalance = rules.newUserBalance;
+				startingBalance = config.newUserBalance;
 			}
 
 			winston.verbose(`[COMMAND](INFO) Target user display URL: ${userProfilePicture}`);
@@ -59,12 +59,12 @@ module.exports = class InformationCommand extends Command {
 				fields: [
 					{
 						name: '💰 Total Profit',
-						value: `${diceAPI.simpleFormat(userBalance - startingBalance)} ${rules.currencyPlural}`,
+						value: `${diceAPI.simpleFormat(userBalance - startingBalance)} ${config.currency.plural}`,
 						inline: true
 					},
 					{
 						name: '🏦 Balance',
-						value: `${userBalance} ${rules.currencyPlural}`,
+						value: `${userBalance} ${config.currency.plural}`,
 						inline: true
 					}
 				]
