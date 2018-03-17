@@ -29,7 +29,7 @@ module.exports = class BodyCommand extends Command {
 			author: {
 				name: user
 			},
-			image: { url: `https://minotar.net/body/${user}`}
+			image: { url: `https://minotar.net/body/${user}` }
 		});
 
 		winston.debug(`[COMMAND](BODY) URL for ${user}: ${embed.image.url}`);
