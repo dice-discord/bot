@@ -515,10 +515,6 @@ client
 					winston.debug(`[DICE] Member who left: ${member.user.tag}`);
 					winston.debug(`[DICE] Audit entry action: ${auditEntry.action}`);
 					winston.debug(`[DICE] Current item: ${item.label} notifications. Enabled: ${item.enabled}`);
-					if (auditEntry.target.user === member.user && auditEntry.action === 'MEMBER_KICK' && item.name === 'banKick' && item.enabled === true) {
-						winston.debug(`[DICE] Ban and kick notifications are enabled for ${id}`);
-						announceGuildKick(member.guild.channels.get(id), member.user);
-					}
 				});
 			}
 		}
@@ -532,7 +528,7 @@ client
 				// If the channel in the database exists on the server
 				guildSettings[id].forEach(item => {
 					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					if (item.name === 'banKick' && item.enabled === true) announceGuildBanAdd(guild.channels.get(id), user);
+					if (item.name === 'banUnban' && item.enabled === true) announceGuildBanAdd(guild.channels.get(id), user);
 				});
 			}
 		}
@@ -546,7 +542,7 @@ client
 				// If the channel in the database exists on the server
 				guildSettings[id].forEach(item => {
 					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					if (item.name === 'banKick' && item.enabled === true) announceGuildBanRemove(guild.channels.get(id), user);
+					if (item.name === 'banUnban' && item.enabled === true) announceGuildBanRemove(guild.channels.get(id), user);
 				});
 			}
 		}

@@ -40,8 +40,8 @@ module.exports = class NotificationsCommand extends Command {
 			winston.debug(`[COMMAND](NOTIFICATIONS) The channel ${msg.channel.name} does not have settings, will set them to the default`);
 			// This channel doesn't have settings for it so set it to the default values (everything disabled)
 			guildSettings[msg.channel.id] = [{
-				label: 'ban and kick',
-				name: 'banKick',
+				label: 'ban and unban',
+				name: 'banUnban',
 				enabled: false
 			}, {
 				label: 'member join and leave',
