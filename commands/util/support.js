@@ -19,6 +19,6 @@ module.exports = class SupportCommand extends Command {
 	}
 
 	run(msg) {
-		msg.reply('👋 Please talk to <@210024244766179329> on https://discord.gg/NpUmRkj');
+		msg.reply('👋 https://discord.gg/NpUmRkj');
 	}
 };
