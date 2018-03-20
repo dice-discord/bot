@@ -7,7 +7,8 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'delete-self-roles',
-			aliases: ['self-role-delete',
+			aliases: [
+				'self-role-delete',
 				'self-roles-delete',
 				'delete-self-role',
 				'del-self-roles',
@@ -23,7 +24,7 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 			guildOnly: true,
 			args: [{
 				key: 'role',
-				prompt: 'What role do you want to delete?',
+				prompt: 'What selfrole do you want to delete?',
 				type: 'role'
 			}],
 			throttling: {
