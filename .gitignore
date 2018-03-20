@@ -6,3 +6,6 @@ node_modules/
 
 # VSCode settings
 .vscode/launch.json
+
+# MacOS file system
+.DS_Store
