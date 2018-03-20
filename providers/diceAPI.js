@@ -51,16 +51,13 @@ mongodb.MongoClient.connect(uri, (err, database) => {
 					winston.debug(`[API](GET-BALANCE) Requested user ID: ${requestedID}`);
 					return balanceResult;
 				} else {
-					winston.debug('[API](GET-BALANCE) Result is empty. Checking if requested ID is the house.');
+					winston.debug('[API](GET-BALANCE) Result is empty. Checking if requested ID is the house');
 					if(requestedID === config.clientID) {
-						winston.debug('[API](GET-BALANCE) Requested ID is the house ID.');
+						winston.debug('[API](GET-BALANCE) Requested ID is the house ID');
 						updateBalance(requestedID, config.houseStartingBalance);
 						return config.houseStartingBalance;
-					} else if(requestedID === 'lottery') {
-						winston.debug('[API](GET-BALANCE) Requested ID is the lottery.');
-						return 0;
 					} else {
-						winston.debug('[API](GET-BALANCE) Requested ID isn\'t the house ID or the lottery ID.');
+						winston.debug('[API](GET-BALANCE) Requested ID isn\'t the house ID');
 						updateBalance(requestedID, config.newUserBalance);
 						return config.newUserBalance;
 					}
