@@ -11,6 +11,19 @@ module.exports = {
 	houseEdgePercentage: 1,
 	clientID: '388191157869477888',
 	homeServerID: '388366947689168897',
+	notifications: [{
+		label: 'ban and unban',
+		name: 'banUnban'
+	}, {
+		label: 'member join and leave',
+		name: 'guildMemberJoinLeave'
+	}, {
+		label: 'voice channel',
+		name: 'voiceChannel'
+	}, {
+		label: 'nickname change',
+		name: 'guildMemberUpdate'
+	}],
 
 	/* eslint-disable no-process-env */
 	mongoDBURI: process.env.MONGODB_URI,

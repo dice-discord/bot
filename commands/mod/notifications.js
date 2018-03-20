@@ -4,12 +4,14 @@ const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const { respond } = require('../../providers/simpleCommandResponse');
 const winston = require('winston');
+const { notifications } = require('../../config');
 
 module.exports = class NotificationsCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'notifications',
-			aliases: ['notification',
+			aliases: [
+				'notification',
 				'notify',
 				'alerts',
 				'server-notifications',
@@ -29,7 +31,7 @@ module.exports = class NotificationsCommand extends Command {
 				prompt: 'Which notification do you want to toggle for this channel?',
 				type: 'integer',
 				min: 1,
-				max: 4,
+				max: notifications.length,
 				default: false
 			}],
 			throttling: {
@@ -40,31 +42,16 @@ module.exports = class NotificationsCommand extends Command {
 	}
 
 	async run(msg, { notification }) {
-		// Get this guild's settings in the form of notification settings mapped by channel ID
+		// Get this guild's settings
 		const guildSettings = this.client.provider.get(msg.guild, 'notifications', {});
 
 		if(!guildSettings[msg.channel.id]) {
 			// eslint-disable-next-line max-len
 			winston.debug(`[COMMAND](NOTIFICATIONS) The channel ${msg.channel.name} does not have settings, will set them to the default`);
 			// This channel doesn't have settings for it so set it to the default values (everything disabled)
-			guildSettings[msg.channel.id] = [{
-				label: 'ban and unban',
-				name: 'banUnban',
-				enabled: false
-			}, {
-				label: 'member join and leave',
-				name: 'guildMemberJoinLeave',
-				enabled: false
-			}, {
-				label: 'voice channel',
-				name: 'voiceChannel',
-				enabled: false
-			}, {
-				label: 'nickname change',
-				name: 'guildMemberUpdate',
-				enabled: false
-			}];
+			guildSettings[msg.channel.id] = [false, false, false, false];
 		}
+
 		// Get the settings
 		const channelSettings = guildSettings[msg.channel.id];
 		winston.debug(`[COMMAND](NOTIFICATIONS) Channel settings for ${msg.channel.name}:`, channelSettings);
@@ -72,8 +59,8 @@ module.exports = class NotificationsCommand extends Command {
 		if(notification) {
 			// If the setting was specified
 
-			// Toggle the enabled value on our local settings
-			channelSettings[notification - 1].enabled = !channelSettings[notification - 1].enabled;
+			// Toggle the value on our local settings
+			channelSettings[notification - 1] = !channelSettings[notification - 1];
 
 			// Set the local guild settings for this channel to our updated configuration
 			guildSettings[msg.channel.id] = channelSettings;
@@ -89,9 +76,9 @@ module.exports = class NotificationsCommand extends Command {
 			// If the setting was unspecified
 			const embed = new MessageEmbed({ title: `Notifications for #${msg.channel.name}` });
 
-			channelSettings.forEach(item => {
+			notifications.forEach(item => {
 				// eslint-disable-next-line max-len
-				embed.addField(`${item.enabled ? 'Disable' : 'Enable'} ${item.label} notifications`, `Use ${msg.anyUsage(`notification ${channelSettings.indexOf(item) + 1}`)} to **${item.enabled ? 'disable' : 'enable'}** this item`);
+				embed.addField(`${channelSettings[notifications.indexOf(item)] ? 'Disable' : 'Enable'} ${item.label} notifications`, `Use ${msg.anyUsage(`notification ${notifications.indexOf(item) + 1}`)} to **${channelSettings[notifications.indexOf(item)] ? 'disable' : 'enable'}** this item`);
 			});
 
 			return msg.replyEmbed(embed);

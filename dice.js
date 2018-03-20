@@ -55,7 +55,7 @@ client.registry
 // Store settings (like a server prefix) in a MongoDB collection called "settings"
 client.setProvider(
 	MongoClient.connect(config.mongoDBURI)
-		.then(bot => new MongoDBProvider(bot, 'settings'))
+	.then(bot => new MongoDBProvider(bot, 'settings'))
 );
 
 // Blacklist users from commands
@@ -336,33 +336,33 @@ const announceVoiceChannelUpdate = (channel, oldMember, newMember) => {
 };
 
 client
-	.on('unhandledRejection', error => {
+	.on('unhandledRejection', (reason, promise) => {
 		winston.error();
 		keenClient.recordEvent('errors', {
 			title: 'Unhandled Promise Rejection',
-			description: error.stack
+			description: reason.stack
 		});
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Unhandled Promise Rejection',
 				timestamp: new Date(),
 				color: 0xf44336,
-				description: `\`\`\`${error.stack}\`\`\``
+				description: `${promise}\n\`\`\`${reason.stack}\`\`\``
 			}
 		});
 	})
-	.on('rejectionHandled', error => {
+	.on('rejectionHandled', (reason, promise) => {
 		winston.error();
 		keenClient.recordEvent('errors', {
 			title: 'Handled Promise Rejection',
-			description: error.stack
+			description: reason.stack
 		});
 		client.channels.get('411563928816975883').send({
 			embed: {
 				title: 'Handled Promise Rejection',
 				timestamp: new Date(),
 				color: 0xf44336,
-				description: `\`\`\`${error.stack}\`\`\``
+				description: `${promise}\n\`\`\`${reason.stack}\`\`\``
 			}
 		});
 	})
@@ -439,92 +439,59 @@ client
 		const guildSettings = client.provider.get(member.guild, 'notifications', {});
 
 		for(const id in guildSettings) {
-			// For each channel's settinsg in the database
-			if(member.guild.channels.has(id)) {
-				// If the channel in the database exists on the server
-				guildSettings[id].forEach(item => {
-					// For each individual setting of this channel, check if the join/leave notifications are enabled
-					// eslint-disable-next-line max-len
-					if(item.name === 'guildMemberJoinLeave' && item.enabled === true) announceGuildMemberJoin(member.guild.channels.get(id), member);
-				});
-			}
+			const channelSettings = guildSettings[id];
+			// If the channel in the database exists on the server
+			// eslint-disable-next-line max-len
+			if(member.guild.channels.has(id) && channelSettings[1] === true) announceGuildMemberJoin(member.guild.channels.get(id), member);
 		}
 	})
 	.on('guildMemberRemove', member => {
 		const guildSettings = client.provider.get(member.guild, 'notifications', {});
 
 		for(const id in guildSettings) {
-			// For each channel's settinsg in the database
-			if(member.guild.channels.has(id)) {
-				// If the channel in the database exists on the server
-				guildSettings[id].forEach(item => {
-					// For each individual setting of this channel, check if the join/leave notifications are enabled
-					if(item.name === 'guildMemberJoinLeave' && item.enabled === true) {
-						announceGuildMemberLeave(member.guild.channels.get(id), member);
-					}
-				});
-			}
+			const channelSettings = guildSettings[id];
+			// If the channel in the database exists on the server
+			// eslint-disable-next-line max-len
+			if(member.guild.channels.has(id) && channelSettings[1] === true) announceGuildMemberLeave(member.guild.channels.get(id), member);
 		}
 	})
 	.on('guildBanAdd', (guild, user) => {
 		const guildSettings = client.provider.get(guild, 'notifications', {});
 
 		for(const id in guildSettings) {
-			// For each channel's settinsg in the database
-			if(guild.channels.has(id)) {
-				// If the channel in the database exists on the server
-				guildSettings[id].forEach(item => {
-					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					if(item.name === 'banUnban' && item.enabled === true) announceGuildBanAdd(guild.channels.get(id), user);
-				});
-			}
+			const channelSettings = guildSettings[id];
+			// If the channel in the database exists on the server
+			if(guild.channels.has(id) && channelSettings[0] === true) announceGuildBanAdd(guild.channels.get(id), user);
 		}
 	})
 	.on('guildBanRemove', (guild, user) => {
 		const guildSettings = client.provider.get(guild, 'notifications', {});
 
 		for(const id in guildSettings) {
-			// For each channel's settinsg in the database
-			if(guild.channels.has(id)) {
-				// If the channel in the database exists on the server
-				guildSettings[id].forEach(item => {
-					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					if(item.name === 'banUnban' && item.enabled === true) announceGuildBanRemove(guild.channels.get(id), user);
-				});
-			}
+			const channelSettings = guildSettings[id];
+			// If the channel in the database exists on the server
+			// eslint-disable-next-line max-len
+			if(guild.channels.has(id) && channelSettings[0] === true) announceGuildBanRemove(guild.channels.get(id), user);
 		}
 	})
 	.on('voiceStateUpdate', (oldMember, newMember) => {
 		const guildSettings = client.provider.get(newMember.guild, 'notifications', {});
 
 		for(const id in guildSettings) {
-			// For each channel's settinsg in the database
-			if(newMember.guild.channels.has(id)) {
-				// If the channel in the database exists on the server
-				guildSettings[id].forEach(item => {
-					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					// eslint-disable-next-line max-len
-					if(item.name === 'voiceChannel' && item.enabled === true && (oldMember.voiceChannel || newMember.voiceChannel)) {
-						announceVoiceChannelUpdate(newMember.guild.channels.get(id), oldMember, newMember);
-					}
-				});
-			}
+			const channelSettings = guildSettings[id];
+			// If the channel in the database exists on the server
+			// eslint-disable-next-line max-len
+			if(newMember.guild.channels.has(id) && channelSettings[2] === true && (oldMember.voiceChannel || newMember.voiceChannel)) announceVoiceChannelUpdate(newMember.guild.channels.get(id), oldMember, newMember);
 		}
 	})
 	.on('guildMemberUpdate', (oldMember, newMember) => {
 		const guildSettings = client.provider.get(newMember.guild, 'notifications', {});
 
 		for(const id in guildSettings) {
-			// For each channel's settinsg in the database
-			if(newMember.guild.channels.has(id)) {
-				// If the channel in the database exists on the server
-				guildSettings[id].forEach(item => {
-					// For each individual setting of this channel, check if the ban/unban/kick notifications are enabled
-					if(item.name === 'guildMemberUpdate' && item.enabled === true && oldMember && newMember) {
-						announceGuildMemberUpdate(newMember.guild.channels.get(id), oldMember, newMember);
-					}
-				});
-			}
+			const channelSettings = guildSettings[id];
+			// If the channel in the database exists on the server
+			// eslint-disable-next-line max-len
+			if(newMember.guild.channels.has(id) && channelSettings[3] === true && oldMember && newMember) announceGuildMemberUpdate(newMember.guild.channels.get(id), oldMember, newMember);
 		}
 	})
 	.on('commandBlocked', async(msg, reason) => {
