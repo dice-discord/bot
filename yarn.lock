@@ -239,9 +239,9 @@ combined-stream@1.0.6, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-commando-provider-mongo@ItsDizzy/commando-provider-mongo#develop:
-  version "1.2.1"
-  resolved "https://codeload.github.com/ItsDizzy/commando-provider-mongo/tar.gz/fca8b4dc9de1df786b282e6f325124c5aecae26a"
+commando-provider-mongo@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/commando-provider-mongo/-/commando-provider-mongo-1.1.1.tgz#f3b6d322064c32be2a4c226d0cdf8ce682c0a68e"
 
 common-tags@^1.0.0:
   version "1.7.2"
