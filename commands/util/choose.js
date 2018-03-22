@@ -1,6 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
+const { Util } = require('discord.js');
 
 module.exports = class ChooseCommand extends Command {
 	constructor(client) {
@@ -15,6 +16,7 @@ module.exports = class ChooseCommand extends Command {
 				key: 'options',
 				prompt: 'What do you want to select?',
 				type: 'string',
+				parse: value => Util.escapeMarkdown(value),
 				infinite: true
 			}],
 			throttling: {
