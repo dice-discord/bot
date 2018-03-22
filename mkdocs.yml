@@ -3,6 +3,7 @@ site_url: https://dicediscord.netlify.com
 
 theme:
   name: 'material'
+  custom_dir: theme_modifications
   palette:
     primary: 'green'
     accent: 'green'
