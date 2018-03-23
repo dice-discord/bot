@@ -31,15 +31,4 @@ Lists the conversion rates for Discoin currencies
 
 ### Format
 
-`convert-oats <amount> <currency to convert to>`
-
-### Examples
-
-* `convert-oats 500 dts`
-
-### Arguments
-
-| Name                   | Type   | Required |
-|------------------------|--------|----------|
-| Amount                 | Number | Yes      |
-| Currency to convert to | Text   | Yes      |
+`discoin-rates`
