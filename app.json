@@ -39,6 +39,9 @@
 		},
 		"KEEN_WRITEKEY": {
 			"description": "Keen project write key"
+		},
+		"DISCOIN_TOKEN": {
+			"description": "Discoin network token"
 		}
 	}
 }
