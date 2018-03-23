@@ -91,19 +91,6 @@ const sendBotsDiscordPWServerCount = () => {
 	rp(options).catch(error => winston.error('[DICE] Error in POSTing to bots.discord.pw', error.stack));
 };
 
-// Ls.Terminal.ink
-const sendLsTerminalInkServerCount = count => {
-	const options = {
-		method: 'POST',
-		url: `https://ls.terminal.ink/api/v1/bots/${client.id}`,
-		headers: { authorization: config.discordBotsAtTerminalInk },
-		body: { count: count },
-		json: true
-	};
-
-	rp(options).catch(error => winston.error('[DICE] Error in POSTing to ls.terminal.ink', error.stack));
-};
-
 const updateServerCount = async() => {
 	if(client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
@@ -113,7 +100,6 @@ const updateServerCount = async() => {
 
 		sendBotsDiscordPWServerCount();
 		bfd.postCount(count, client.user.id);
-		sendLsTerminalInkServerCount(count);
 		dbl.postStats(client.guilds.size, client.shard.id, client.shard.count);
 	}
 };
