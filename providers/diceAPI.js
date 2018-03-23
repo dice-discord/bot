@@ -1,9 +1,9 @@
 // Copyright 2018 Jonah Snider
 
-const config = require('../config');
-const mongodb = require('mongodb');
-const winston = require('winston');
-const KeenTracking = require('keen-tracking');
+const config = require('../config'),
+	mongodb = require('mongodb'),
+	winston = require('winston'),
+	KeenTracking = require('keen-tracking');
 
 // Set up Keen client
 const keenClient = new KeenTracking({
@@ -16,15 +16,23 @@ keenClient.recordEvent('events', { title: 'Dice API loading' });
 
 // Set up database variables
 const uri = config.mongoDBURI;
-if(typeof config.mongoDBURI === undefined) {
+if(typeof config.mongoDBURI === 'undefined') {
 	winston.error('[API](DATABASE) mongoDB URI is undefined!');
 } else {
 	winston.debug(`[API](DATABASE) mongoDB URI: ${uri}`);
 }
 
+/**
+ * @param {number} multiplier Multiplier to calculate win percentage for
+ * @returns {number} User balance
+ */
 const winPercentage = multiplier => (100 - config.houseEdgePercentage) / multiplier;
 module.exports.winPercentage = winPercentage;
 
+/**
+ * @param {number} value Value to format
+ * @returns {number} User balance
+ */
 const simpleFormat = value => {
 	winston.debug(`[API](SIMPLE-FORMAT) Requested value: ${value}`);
 	const result = parseFloat(parseFloat(value).toFixed(2));
@@ -38,9 +46,12 @@ mongodb.MongoClient.connect(uri, (err, database) => {
 	winston.verbose('[API](DATABASE) Connected to database server');
 
 	const balances = database.db('balances').collection('balances');
-	const storage = database.db('storage').collection('storage');
 
-	// Get balance
+	/**
+	 * @async
+	 * @param {string} requestedID Requested user ID
+	 * @returns {number} User balance
+	 */
 	const getBalance = requestedID => balances
 			.findOne({ id: requestedID })
 			.then(result => {
@@ -64,41 +75,71 @@ mongodb.MongoClient.connect(uri, (err, database) => {
 				}
 			});
 	module.exports.getBalance = getBalance;
-	// Get balance
 
-	// Update balance
+	/**
+	 * @param {string} requestedID Requested user ID
+	 * @async
+	 * @returns {boolean}
+	 */
+	const userExists = requestedID => balances
+			.findOne({ id: requestedID })
+			.then(result => {
+				if(result) {
+					return true;
+				} else {
+					return false;
+				}
+			});
+	module.exports.userExists = userExists;
+
+	/**
+	 * @param {string} requestedID Requested user ID
+	 * @param {number} newBalance New balance to set
+	 * @async
+	 */
 	const updateBalance = (requestedID, newBalance) => {
 		balances.updateOne({ id: requestedID }, { $set: { balance: simpleFormat(newBalance) } }, { upsert: true });
 
 		winston.debug(`[API](UPDATE-BALANCE) Set balance for ${requestedID} to ${simpleFormat(newBalance)}`);
 	};
 	module.exports.updateBalance = updateBalance;
-	// Update balance
 
-	// Increase and decrease
+	/**
+	 * @async
+	 * @param {string} id Requested user id
+	 * @param {number} amount Amount to decrease balance by
+	 */
 	const decreaseBalance = async(id, amount) => {
 		updateBalance(id, await getBalance(id) - amount);
 	};
 	module.exports.decreaseBalance = decreaseBalance;
 
+	/**
+	 * @async
+	 * @param {string} id Requested user id
+	 * @param {number} amount Amount to increase balance by
+	 */
 	const increaseBalance = async(id, amount) => {
 		updateBalance(id, await getBalance(id) + amount);
 	};
 	module.exports.increaseBalance = increaseBalance;
-	// Increase and decrease
 
-	// Reset economy
+	/**
+	 * @async
+	 * This references the collection "balances", not the database
+	 */
 	const resetEconomy = async() => {
-		/* This references the collection "balances", not the database. This will not affect the "dailies" collection
-        An empty search parameter will delete all items */
+        // An empty search parameter will delete all items
 		await balances.remove({});
 		// Wait for everything to get deleted before adding more information
 		updateBalance(config.clientID, config.houseStartingBalance);
 	};
 	module.exports.resetEconomy = resetEconomy;
-	// Reset economy
 
-	// Leaderboard
+	/**
+	 * @async
+	 * @returns {Array<Object>} Top ten data
+	 */
 	const leaderboard = async() => {
 		const allProfiles = await balances.find();
 		const formattedBalances = await allProfiles
@@ -110,17 +151,22 @@ mongodb.MongoClient.connect(uri, (err, database) => {
 		return formattedBalances;
 	};
 	module.exports.leaderboard = leaderboard;
-	// Leaderboard
 
-	// Total users
+	/**
+	 * @async
+	 * @returns {number} User count
+	 */
 	const totalUsers = async() => {
 		const userCount = await balances.count({});
 		return userCount;
 	};
 	module.exports.totalUsers = totalUsers;
-	// Total users
 
-	// Daily reward
+	/**
+	 * @async
+	 * @param {string} requestedID Requested user ID
+	 * @param {number} timestamp Unix timestamp of when the daily was used
+	 */
 	const setDailyUsed = (requestedID, timestamp) => {
 		balances.updateOne({ id: requestedID }, { $set: { daily: timestamp } }, { upsert: true });
 
@@ -128,9 +174,12 @@ mongodb.MongoClient.connect(uri, (err, database) => {
 		winston.debug(`[API](SET-DAILY-USED) Set daily timestamp for ${requestedID} to ${new Date(timestamp)} (${timestamp})`);
 	};
 	module.exports.setDailyUsed = setDailyUsed;
-	// Daily reward
 
-	// Daily reward timestamp fetching
+	/**
+	 * @async
+	 * @param {string} requestedID Requested user ID
+	 * @returns {number} timestamp Unix timestamp of when the daily was used
+	 */
 	const getDailyUsed = requestedID => {
 		winston.debug(`[API](GET-DAILY-USED) Looking up daily timestamp for ${requestedID}`);
 		return balances
@@ -149,55 +198,15 @@ mongodb.MongoClient.connect(uri, (err, database) => {
 			});
 	};
 	module.exports.getDailyUsed = getDailyUsed;
-	// Daily reward timestamp fetching
 
-	// All users
+	/**
+	 * @async
+	 * @returns {Array<Object>} All users
+	 */
 	const allUsers = async() => {
 		const allProfiles = await balances.find();
 		winston.debug('[API](ALL-USERS) All users were requested.');
 		return allProfiles.toArray();
 	};
 	module.exports.allUsers = allUsers;
-	// All users
-
-	// Top wins leaderboard search
-	const topWinsLeaderboard = async() => {
-		const allProfiles = storage.find();
-		const formattedBiggestWins = await allProfiles
-			.sort({ biggestWin: -1 })
-			.limit(10)
-			.toArray();
-
-		winston.debug(`[API] Top ten wins formatted: ${formattedBiggestWins}`);
-		return formattedBiggestWins;
-	};
-	module.exports.topWinsLeaderboard = topWinsLeaderboard;
-	// Top wins leaderboard search
-
-	// Get biggest win
-	const getBiggestWin = requestedID => storage
-			.findOne({ id: requestedID })
-			.then(result => {
-				if(result) {
-					const biggestWinResult = simpleFormat(result.biggestWin);
-					winston.debug(`[API] Value of biggest win: ${result.biggestWin}`);
-					winston.debug(`[API] Formatted value of biggest win: ${biggestWinResult}`);
-					winston.debug(`[API] Requested user ID: ${requestedID}`);
-					return biggestWinResult;
-				} else {
-					winston.debug('[API] Biggest win result is empty.');
-					updateBiggestWin(requestedID, 0);
-					return 0;
-				}
-			});
-	module.exports.getBiggestWin = getBiggestWin;
-	// Get biggest win
-
-	// Update biggest win
-	const updateBiggestWin = (requestedID, newBiggestWin) => {
-		storage.updateOne({ id: requestedID }, { $set: { biggestWin: simpleFormat(newBiggestWin) } }, { upsert: true });
-		winston.debug(`[API] Set biggest win for ${requestedID} to ${simpleFormat(newBiggestWin)}`);
-	};
-	module.exports.updateBiggestWin = updateBiggestWin;
-	// Update biggest win
 });

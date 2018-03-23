@@ -106,9 +106,6 @@ module.exports = class DiceGameCommand extends Command {
 				embed.setColor(0x4caf50);
 
 				embed.setDescription(`You made \`${profit}\` ${config.currency.plural} of profit!`);
-				if(await diceAPI.getBiggestWin(msg.author.id) <= profit) {
-					diceAPI.updateBiggestWin(msg.author.id, profit);
-				}
 			}
 
 			return msg.replyEmbed(embed);

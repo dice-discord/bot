@@ -24,6 +24,12 @@ module.exports = {
 		label: 'nickname change',
 		name: 'guildMemberUpdate'
 	}],
+	discoinCurrencyCodes: ['DTS', 'ELT', 'KEK', 'RBN', 'SBT'],
+
+	channels: {
+		commandLogs: '399458745480118272',
+		errors: '411563928816975883'
+	},
 
 	/* eslint-disable no-process-env */
 	mongoDBURI: process.env.MONGODB_URI,
@@ -33,6 +39,7 @@ module.exports = {
 		writeKey: process.env.KEEN_WRITEKEY
 	},
 	fortniteTrackerNetworkToken: process.env.FORTNITETN_TOKEN,
+	discoinToken: process.env.DISCOIN_TOKEN,
 
 	discordBotsListToken: process.env.DISCORDBOTSORG_TOKEN,
 	botsForDiscordToken: process.env.BOTSFORDISCORD_TOKEN,

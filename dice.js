@@ -1,20 +1,21 @@
 // Copyright 2018 Jonah Snider
 
 // Set up dependencies
-const { CommandoClient, FriendlyError } = require('discord.js-commando');
-const { MessageEmbed, Util } = require('discord.js');
-const path = require('path');
-const { MongoClient } = require('mongodb');
-const MongoDBProvider = require('commando-provider-mongo');
-const DBL = require('dblapi.js');
-const BFD = require('bfd-api');
-const KeenTracking = require('keen-tracking');
-const moment = require('moment');
-const winston = require('winston');
+const { CommandoClient, FriendlyError } = require('discord.js-commando'),
+	{ MessageEmbed, Util } = require('discord.js'),
+	path = require('path'),
+	{ MongoClient } = require('mongodb'),
+	MongoDBProvider = require('commando-provider-mongo'),
+	DBL = require('dblapi.js'),
+	BFD = require('bfd-api'),
+	KeenTracking = require('keen-tracking'),
+	moment = require('moment'),
+	winston = require('winston'),
+	diceAPI = require('./providers/diceAPI'),
+	rp = require('request-promise'),
+	config = require('./config');
+
 winston.level = 'debug';
-const diceAPI = require('./providers/diceAPI');
-const rp = require('request-promise');
-const config = require('./config');
 
 // Set up bot client and settings
 const client = new CommandoClient({
@@ -34,7 +35,6 @@ const keenClient = new KeenTracking({
 client.registry
 	// Registers your custom command groups
 	.registerGroups([
-		['util', 'Utility'],
 		['mod', 'Moderation'],
 		['games', 'Games'],
 		['fun', 'Fun'],
@@ -154,25 +154,28 @@ const announceServerCount = async(serverCount, newServer, date) => {
  * @param {User} user User who was banned/unbanned
  */
 const announceGuildBanAdd = async(channel, user) => {
-	const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_ADD' });
-
-	const auditEntry = auditLogs.entries.first();
-
 	const embed = new MessageEmbed({
 		title: `${user.tag} was banned`,
 		author: {
 			name: `${user.tag} (${user.id})`,
 			iconURL: user.displayAvatarURL(128)
 		},
-		footer: {
-			iconURL: auditEntry.executor.displayAvatarURL(128),
-			text: `Banned by ${auditEntry.executor.tag} (${auditEntry.executor.id})`
-		},
-		color: 0xf44336,
-		timestamp: auditEntry.createdAt
+		color: 0xf44336
 	});
 
-	if(auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
+	if(channel.permissionsFor(channel.guild.me).has('VIEW_AUDIT_LOG')) {
+		const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_ADD' });
+		const auditEntry = auditLogs.entries.first();
+
+		if(auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
+		embed.setTimestamp(auditEntry.createdAt);
+		embed.setFooter(`Banned by ${auditEntry.executor.tag} (${auditEntry.executor.id})`,
+		auditEntry.executor.displayAvatarURL(128));
+	} else {
+		embed.setFooter('Give me permissions to view the audit log and more information will appear');
+		embed.setTimestamp(new Date());
+	}
+
 
 	channel.send({ embed });
 };
@@ -183,25 +186,28 @@ const announceGuildBanAdd = async(channel, user) => {
  * @param {User} user User who was unbanned
  */
 const announceGuildBanRemove = async(channel, user) => {
-	const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_REMOVE' });
-
-	const auditEntry = auditLogs.entries.first();
-
 	const embed = new MessageEmbed({
 		title: `${user.tag} was unbanned`,
 		author: {
 			name: `${user.tag} (${user.id})`,
 			iconURL: user.displayAvatarURL(128)
 		},
-		footer: {
-			iconURL: auditEntry.executor.displayAvatarURL(128),
-			text: `Unbanned by ${auditEntry.executor.tag} (${auditEntry.executor.id})`
-		},
-		color: 0x4caf50,
-		timestamp: auditEntry.createdAt
+		color: 0x4caf50
 	});
 
-	if(auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
+	if(channel.permissionsFor(channel.guild.me).has('VIEW_AUDIT_LOG')) {
+		const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_REMOVE' });
+		const auditEntry = auditLogs.entries.first();
+
+		if(auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
+		embed.setTimestamp(auditEntry.createdAt);
+		embed.setFooter(`Unbanned by ${auditEntry.executor.tag} (${auditEntry.executor.id})`,
+		auditEntry.executor.displayAvatarURL(128));
+	} else {
+		embed.setFooter('Give me permissions to view the audit log and more information will appear');
+		embed.setTimestamp(new Date());
+	}
+
 
 	channel.send({ embed });
 };
@@ -335,6 +341,42 @@ const announceVoiceChannelUpdate = (channel, oldMember, newMember) => {
 	}
 };
 
+const checkDiscoinTransactions = async() => {
+	const transactions = await rp({
+		json: true,
+		method: 'GET',
+		url: 'http://discoin.sidetrip.xyz/transactions',
+		headers: { Authorization: config.discoinToken }
+	}).catch(error => winston.error('[DICE] Error in Discoin transaction GETting', error));
+
+	winston.debug('[DICE] All Discoin transactions:', transactions);
+
+	for(const transaction of transactions) {
+		if(transaction.type !== 'refund') {
+			winston.debug('[DICE] Discoin transaction fetched:', transaction);
+			diceAPI.increaseBalance(transaction.user, transaction.amount);
+			// eslint-disable-next-line no-await-in-loop
+			(await client.users.fetch(transaction.user)).send({
+				embed: {
+					title: '💱 Discoin Conversion Received',
+					url: 'https://discoin.sidetrip.xyz/record',
+					timestamp: new Date(transaction.timestamp),
+					thumbnail: { url: 'https://avatars2.githubusercontent.com/u/30993376' },
+					fields: [{
+						name: '💰 Amount',
+						value: `${transaction.source} ➡ ${transaction.amount} OAT`
+					}, {
+						name: '🗒 Receipt',
+						value: `\`${transaction.receipt}\``
+					}]
+				}
+			}).catch(error => {
+				winston.error(`[DICE] Unable to send DM about Discoin conversion to ${transaction.user}`, error);
+			});
+		}
+	}
+};
+
 client
 	.on('unhandledRejection', (reason, promise) => {
 		winston.error();
@@ -342,7 +384,7 @@ client
 			title: 'Unhandled Promise Rejection',
 			description: reason.stack
 		});
-		client.channels.get('411563928816975883').send({
+		client.channels.get(config.channels.errors).send({
 			embed: {
 				title: 'Unhandled Promise Rejection',
 				timestamp: new Date(),
@@ -357,7 +399,7 @@ client
 			title: 'Handled Promise Rejection',
 			description: reason.stack
 		});
-		client.channels.get('411563928816975883').send({
+		client.channels.get(config.channels.errors).send({
 			embed: {
 				title: 'Handled Promise Rejection',
 				timestamp: new Date(),
@@ -372,7 +414,7 @@ client
 			title: 'Uncaught Exception',
 			description: error.stack
 		});
-		client.channels.get('411563928816975883').send({
+		client.channels.get(config.channels.errors).send({
 			embed: {
 				title: 'Uncaught Exception',
 				timestamp: new Date(),
@@ -387,7 +429,7 @@ client
 			title: 'Warning',
 			description: warning.stack
 		});
-		client.channels.get('411563928816975883').send({
+		client.channels.get(config.channels.errors).send({
 			embed: {
 				title: 'Warning',
 				timestamp: new Date(),
@@ -399,7 +441,7 @@ client
 	.on('commandError', (command, error) => {
 		if(error instanceof FriendlyError) return;
 		winston.error(`[DICE]: Error in command ${command.groupID}:${command.memberName}`, error.stack);
-		client.channels.get('411563928816975883').send({
+		client.channels.get(config.channels.errors).send({
 			embed: {
 				title: 'Command Error',
 				timestamp: new Date(),
@@ -420,6 +462,9 @@ client
 		});
 
 		updateServerCount();
+
+		checkDiscoinTransactions();
+		client.setInterval(checkDiscoinTransactions, 300000);
 	})
 	.on('guildCreate', async guild => {
 		/* Bot joins a new server */
@@ -498,7 +543,7 @@ client
 		const userBalance = await diceAPI.getBalance(msg.author.id);
 		const houseBalance = await diceAPI.getBalance(client.user.id);
 
-		client.channels.get('399458745480118272').send({
+		client.channels.get(config.channels.commandLogs).send({
 			embed: {
 				title: 'Command Blocked',
 				author: {
@@ -536,11 +581,11 @@ client
 		});
 	})
 	.on('commandRun', async(cmd, promise, msg) => {
-		const userBalance = await diceAPI.getBalance(msg.author.id);
-		const houseBalance = await diceAPI.getBalance(client.user.id);
+		const userBalance = await diceAPI.getBalance(msg.author.id),
+			houseBalance = await diceAPI.getBalance(client.user.id);
 
 		// Command logger
-		client.channels.get('399458745480118272').send({
+		client.channels.get(config.channels.commandLogs).send({
 			embed: {
 				title: 'Command Run',
 				author: {

@@ -28,7 +28,7 @@ module.exports = class BotInfoCommand extends Command {
 				url: 'https://github.com/PizzaFox/dice',
 				color: 0x4caf50,
 				// eslint-disable-next-line max-len
-				description: `${this.client.user} was made by <@210024244766179329>. It was first a game bot based off the game [bustadice](https://bustadice.com). Later more features were created and added, one by one creating the ${this.client.user} we have today.`,
+				description: `${this.client.user} was made by <@210024244766179329>. It was first a game bot based off the game [bustadice](https://bustadice.com). Later more features were created and added, one by one creating the ${this.client.user} we have today. ${this.client.user}. In March 2018 Dice was accepted into the [Discoin](https://discoin.gitbooks.io/docs/content/users-guide.html) network, a system allowing for participating bots to convert currencies.`,
 				thumbnail: { url: this.client.user.displayAvatarURL({ format: 'webp' }) },
 				fields: [
 					{
@@ -57,7 +57,7 @@ module.exports = class BotInfoCommand extends Command {
 					},
 					{
 						name: '🤠 Support team',
-						value: '<@115511836543025152> and <@208970190547976202>'
+						value: 'okthx#1013 and Mr.Pig McOinks#3425'
 					}
 				]
 			});
