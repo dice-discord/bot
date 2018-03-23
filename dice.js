@@ -88,7 +88,7 @@ const sendBotsDiscordPWServerCount = () => {
 		json: true
 	};
 
-	rp(options).catch(error => winston.error('[DICE]', error.stack));
+	rp(options).catch(error => winston.error('[DICE] Error in POSTing to bots.discord.pw', error.stack));
 };
 
 // Ls.Terminal.ink
@@ -101,7 +101,7 @@ const sendLsTerminalInkServerCount = count => {
 		json: true
 	};
 
-	rp(options).catch(error => winston.error('[DICE]', error.stack));
+	rp(options).catch(error => winston.error('[DICE] Error in POSTing to ls.terminal.ink', error.stack));
 };
 
 const updateServerCount = async() => {
