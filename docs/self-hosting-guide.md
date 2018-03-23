@@ -36,6 +36,7 @@ Dice is made with [Node.js](https://nodejs.org/en/about/), [Discord.js](https://
 | [MongoDB URI](https://docs.mongodb.com/manual/installation/)              | `MONGODB_URI`          | `mongodb://dicediscordbot:NV^WhTB#1FN9IQWFUo5ji@127.0.0.1:27017`                                                                                                                                   |
 | [Keen](https://keen.io) project ID                                        | `KEEN_PROJECTID`       | `em35pb5qfjezh6m0p5h3fpee`                                                                                                                                                                         |
 | [Keen](https://keen.io) write key                                         | `KEEN_WRITEKEY`        | `U1ER0DLXA16E7LHQIBWLNVTABL03YP2FVG6RO24IXRUICPU8UE8Y37XK8BJXYC47FXD45HKPF74Y20MDXHETAPUZDW6SA4V2QY0Z8Y37XK8BJXYC47FXD45HKPF74Y20MDXHETAPUZDW6SA4V2QY0ZU9TSYDWQGDUADQS9L480ZQXFE1ULIWRON60SJOLT0K` |
+| [Discoin](https://discoin.gitbooks.io/docs/content/) token                | `DISCOIN_TOKEN`        | `yGwq56qrcqdrUSfrGWvX4WEBnEFceFomX3ZTzHot5roE3DH1F8`                                                                                                                                               |
 
 ### Running the bot
 
