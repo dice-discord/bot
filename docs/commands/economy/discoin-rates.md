@@ -20,10 +20,12 @@ Lists the conversion rates for Discoin currencies
 
 ## Aliases
 
-* `convert`
-* `convert-currencies`
-* `convertoats`
-* `convertcurrencies`
+* `rates`
+* `conversion-rates`
+* `convert-rates`
+* `discoinrates`
+* `conversionrates`
+* `convertrates`
 
 ## Usage
 
