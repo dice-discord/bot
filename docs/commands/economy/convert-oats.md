@@ -10,7 +10,7 @@ source: convert-oats.js
 Converts oats to another bot's currency
 
 !!! note
-    Use the [discoin-rates](/commands/economy/discoin-rates) command to see all currencies
+    Use the [discoin-rates](/commands/economy/discoin-rates) command to see all currencies    
 
 ## Aliases
 
