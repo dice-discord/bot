@@ -327,6 +327,9 @@ const announceVoiceChannelUpdate = (channel, oldMember, newMember) => {
 	}
 };
 
+/**
+ * @async
+ */
 const checkDiscoinTransactions = async() => {
 	const transactions = await rp({
 		json: true,
@@ -341,24 +344,32 @@ const checkDiscoinTransactions = async() => {
 		if(transaction.type !== 'refund') {
 			winston.debug('[DICE] Discoin transaction fetched:', transaction);
 			diceAPI.increaseBalance(transaction.user, transaction.amount);
+
+			const embed = new MessageEmbed({
+				title: '💱 Discoin Conversion Received',
+				url: 'https://discoin.sidetrip.xyz/record',
+				timestamp: new Date(transaction.timestamp),
+				thumbnail: { url: 'https://avatars2.githubusercontent.com/u/30993376' },
+				fields: [{
+					name: '💰 Amount',
+					value: `${transaction.source} ➡ ${transaction.amount} OAT`
+				}, {
+					name: '🗒 Receipt',
+					value: `\`${transaction.receipt}\``
+				}]
+			});
+
 			// eslint-disable-next-line no-await-in-loop
-			(await client.users.fetch(transaction.user)).send({
-				embed: {
-					title: '💱 Discoin Conversion Received',
-					url: 'https://discoin.sidetrip.xyz/record',
-					timestamp: new Date(transaction.timestamp),
-					thumbnail: { url: 'https://avatars2.githubusercontent.com/u/30993376' },
-					fields: [{
-						name: '💰 Amount',
-						value: `${transaction.source} ➡ ${transaction.amount} OAT`
-					}, {
-						name: '🗒 Receipt',
-						value: `\`${transaction.receipt}\``
-					}]
-				}
-			}).catch(error => {
+			(await client.users.fetch(transaction.user)).send({ embed }).catch(error => {
 				winston.error(`[DICE] Unable to send DM about Discoin conversion to ${transaction.user}`, error);
 			});
+
+			// eslint-disable-next-line no-await-in-loop
+			const user = await client.users.fetch(transaction.user);
+
+			embed.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL(128));
+
+			client.channels.get(config.channels.commandLogs).send({ embed });
 		}
 	}
 };
