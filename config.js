@@ -24,7 +24,7 @@ module.exports = {
 		label: 'nickname change',
 		name: 'guildMemberUpdate'
 	}],
-	discoinCurrencyCodes: ['DTS', 'ELT', 'KEK', 'RBN', 'SBT'],
+	discoinCurrencyCodes: ['dts', 'elt', 'kek', 'rbn', 'sbt'],
 
 	channels: {
 		commandLogs: '399458745480118272',
