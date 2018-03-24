@@ -5,6 +5,8 @@ const { MessageEmbed } = require('discord.js');
 const rp = require('request-promise');
 const winston = require('winston');
 const replaceall = require('replaceall');
+const platforms = ['pc', 'xbl', 'psn'];
+const regions = ['us', 'eu', 'asia'];
 
 module.exports = class OverwatchStatisticsCommand extends Command {
 	constructor(client) {
@@ -24,17 +26,23 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 				key: 'battletag',
 				prompt: 'What user do you want to look up?',
 				type: 'string',
-				parse: battletag => replaceall('#', '-', battletag)
+				parse: battletag => replaceall('#', '-', battletag),
+				validate: value => {
+					if(value.includes('#')) return true;
+					return false;
+				}
 			}, {
 				key: 'platform',
 				prompt: 'What platform do you want to search on?',
 				type: 'string',
-				parse: platform => platform.toLowerCase()
+				parse: platform => platform.toLowerCase(),
+				oneOf: platforms
 			}, {
 				key: 'region',
 				prompt: 'What region do you want to get statistics from?',
 				type: 'string',
-				parse: region => region.toLowerCase()
+				parse: region => region.toLowerCase(),
+				oneOf: regions
 			}]
 		});
 	}
@@ -43,19 +51,6 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 	async run(msg, { battletag, platform, region }) {
 		try {
 			msg.channel.startTyping();
-
-			const platforms = ['pc', 'xbl', 'psn'];
-			const regions = ['us', 'eu', 'asia'];
-			if(!platforms.includes(platform)) {
-				/* eslint-disable max-len */
-				return msg.reply('❌ Unknown platform. The platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).');
-			}
-			if(!regions.includes(region)) {
-				return msg.reply('❌ Unknown region. The regions are `us` (United States of America), `eu` (Europe), and `asia` (Asia)');
-			}
-			if(!battletag.includes('-')) {
-				return msg.reply(`❌ Unknown battletag. Use ${msg.anyUsage('help overwatch-statistics')} for information on how to use this command.`);
-			}
 
 			const options = {
 				uri: `https://ow-api.com/v1/stats/${platform}/${region}/${battletag}/profile`,
@@ -66,6 +61,7 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 				return msg.reply('❌ There was an error with the API we use (https://ow-api.com)');
 			});
 
+			/* eslint-disable max-len */
 			if(stats.error === 'The requested player was not found') {
 				return msg.reply('❌ That user couldn\'t be found.');
 			} else if(stats.error) {
@@ -122,7 +118,7 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 			// Cards
 			if(stats.competitiveStats.awards.cards && stats.quickPlayStats.awards.cards) {
 				embed.addField('🃏 Cards', `${stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards} total cards (${stats.quickPlayStats.awards.cards} from quick play, ${stats.competitiveStats.awards.cards} from competitive)`, true);
-				/* eslint-enable max-len */
+				/* eslint-enable max-len complexity */
 			}
 			return msg.replyEmbed(embed);
 		} finally {

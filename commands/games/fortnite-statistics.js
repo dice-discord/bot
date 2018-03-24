@@ -4,6 +4,7 @@ const { Command } = require('discord.js-commando');
 const rp = require('request-promise');
 const winston = require('winston');
 const config = require('../../config');
+const platforms = ['pc', 'xbl', 'psn'];
 
 module.exports = class FortniteStatisticsCommand extends Command {
 	constructor(client) {
@@ -23,7 +24,8 @@ module.exports = class FortniteStatisticsCommand extends Command {
 				key: 'platform',
 				prompt: 'What platform do you want to search on?',
 				type: 'string',
-				parse: platform => platform.toLowerCase()
+				parse: platform => platform.toLowerCase(),
+				oneOf: platforms
 			}, {
 				key: 'username',
 				prompt: 'What user do you want to look up?',
@@ -35,12 +37,6 @@ module.exports = class FortniteStatisticsCommand extends Command {
 	async run(msg, { platform, username }) {
 		try {
 			msg.channel.startTyping();
-
-			const platforms = ['pc', 'xbl', 'psn'];
-			if(!platforms.includes(platform)) {
-				// eslint-disable-next-line max-len
-				return msg.reply('❌ Unknown platform. The platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).');
-			}
 
 			const options = {
 				uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,

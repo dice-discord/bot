@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const { Util } = require('discord.js');
 const modes = ['encode', 'decode'];
 
 /**
@@ -29,15 +30,13 @@ module.exports = class Base64Command extends Command {
 				key: 'mode',
 				prompt: 'Do you want to `encode` or `decode`?',
 				type: 'string',
-				validate: mode => {
-					if(modes.includes(mode.toLowerCase())) return true;
-					return 'Invalid mode, please enter either `encode` or `decode`.';
-				},
+				oneOf: modes,
 				parse: mode => mode.toLowerCase()
 			}, {
 				key: 'text',
 				prompt: 'What text do you want to convert to Base64?',
-				type: 'string'
+				type: 'string',
+				parse: value => Util.escapeMarkdown(value)
 			}]
 		});
 	}

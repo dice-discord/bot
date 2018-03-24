@@ -26,14 +26,8 @@ module.exports = class ConvertOatsCommand extends Command {
 				prompt: 'What currency do you want to convert your oats to?',
 				type: 'string',
 				label: 'currency to convert to',
-				parse: value => value.toUpperCase(),
-				validate: value => {
-					if(config.discoinCurrencyCodes.includes(value.toUpperCase())) {
-						return true;
-					} else {
-						return `Invalid currency to convert to. Valid currencies: ${config.discoinCurrencyCodes.join(', ')}`;
-					}
-				}
+				oneOf: config.discoinCurrencyCodes,
+				parse: value => value.toUpperCase()
 			}
 			],
 			throttling: {
