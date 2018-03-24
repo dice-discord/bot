@@ -75,7 +75,7 @@ module.exports = class ConvertOatsCommand extends Command {
 						title: '💱 Conversion Successful',
 						color: 0x4caf50,
 						footer: { text: `${response.body.limitNow} uses for ${currency} remaining today` },
-						timestamp: new Date(response.body.timestamp),
+						timestamp: new Date(response.body.timestamp * 1000),
 						fields: [{
 							name: '💰 Amount',
 							value: `${amount} OAT ➡ ${response.body.resultAmount} ${currency}`
