@@ -332,7 +332,7 @@ delayed-stream@~1.0.0:
 
 discord.js-commando@discordjs/Commando:
   version "0.10.0-dev"
-  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/eec0ca5dd5ccaa6ea8bcd45bc9f1058c3d847485"
+  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/1f03bd35563812ec1c8a65d4938bb100ae18eaa3"
   dependencies:
     common-tags "^1.0.0"
     escape-string-regexp "^1.0.0"
@@ -343,10 +343,10 @@ discord.js@discordjs/discord.js:
   resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/d041cb2460a294b026e73750647647168ce7359a"
   dependencies:
     pako "^1.0.0"
-    prism-media "github:hydrabolt/prism-media"
-    snekfetch "^3.5.0"
+    prism-media "^0.2.0"
+    snekfetch "^3.6.0"
     tweetnacl "^1.0.0"
-    ws "^3.3.1"
+    ws "^4.0.0"
 
 doctrine@^2.1.0:
   version "2.1.0"
@@ -664,8 +664,8 @@ is-path-cwd@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-path-cwd/-/is-path-cwd-1.0.0.tgz#d225ec23132e89edd38fda767472e62e65f1106d"
 
 is-path-in-cwd@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/is-path-in-cwd/-/is-path-in-cwd-1.0.0.tgz#6477582b8214d602346094567003be8a9eac04dc"
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/is-path-in-cwd/-/is-path-in-cwd-1.0.1.tgz#5ac48b345ef675339bd6c7a48a912110b241cf52"
   dependencies:
     is-path-inside "^1.0.0"
 
@@ -809,18 +809,18 @@ moment@^2.21.0:
   version "2.21.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
 
-mongodb-core@3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.0.4.tgz#a3fdf466e697a2f1df87e458e5e2df1c26cc654b"
+mongodb-core@3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.0.5.tgz#38d722f2beb99075e628939dad73f355d002d982"
   dependencies:
     bson "~1.0.4"
     require_optional "^1.0.1"
 
 mongodb@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.0.4.tgz#ee0c0f7bc565edc5f40ee2d23170e522a8ad2286"
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.0.5.tgz#1a3abe6bfdecaee3f35986e1669903b8564a4909"
   dependencies:
-    mongodb-core "3.0.4"
+    mongodb-core "3.0.5"
 
 ms@2.0.0:
   version "2.0.0"
@@ -913,9 +913,9 @@ prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
 
-"prism-media@github:hydrabolt/prism-media":
+prism-media@^0.2.0:
   version "0.2.0"
-  resolved "https://codeload.github.com/hydrabolt/prism-media/tar.gz/b367fca09ecea193b17f3611cb41a05154c9d682"
+  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-0.2.0.tgz#82c183da430c41c3025df3610a92a61b107b1918"
 
 process-nextick-args@~2.0.0:
   version "2.0.0"
@@ -1086,7 +1086,7 @@ slice-ansi@1.0.0:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
 
-snekfetch@^3.5.0, snekfetch@^3.6.4:
+snekfetch@^3.6.0, snekfetch@^3.6.4:
   version "3.6.4"
   resolved "https://registry.yarnpkg.com/snekfetch/-/snekfetch-3.6.4.tgz#d13e80a616d892f3d38daae4289f4d258a645120"
 
@@ -1220,10 +1220,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-ultron@~1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
-
 util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
@@ -1271,13 +1267,12 @@ write@^0.2.1:
   dependencies:
     mkdirp "^0.5.1"
 
-ws@^3.3.1:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-3.3.3.tgz#f1cf84fe2d5e901ebce94efaece785f187a228f2"
+ws@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-4.1.0.tgz#a979b5d7d4da68bf54efe0408967c324869a7289"
   dependencies:
     async-limiter "~1.0.0"
     safe-buffer "~5.1.0"
-    ultron "~1.1.0"
 
 yallist@^2.1.2:
   version "2.1.2"
