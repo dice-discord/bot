@@ -348,7 +348,7 @@ const checkDiscoinTransactions = async() => {
 			const embed = new MessageEmbed({
 				title: '💱 Discoin Conversion Received',
 				url: 'https://discoin.sidetrip.xyz/record',
-				timestamp: new Date(transaction.timestamp),
+				timestamp: new Date(transaction.timestamp * 1000),
 				thumbnail: { url: 'https://avatars2.githubusercontent.com/u/30993376' },
 				fields: [{
 					name: '💰 Amount',
