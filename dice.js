@@ -58,7 +58,9 @@ client.setProvider(
 	.then(bot => new MongoDBProvider(bot, 'settings'))
 );
 
-// Blacklist users from commands
+/**
+ * Blacklist users from commands
+ */
 client.dispatcher.addInhibitor(msg => {
 	const blacklist = client.provider.get('global', 'blacklist', []);
 	if(blacklist.includes(msg.author.id)) {
@@ -68,11 +70,13 @@ client.dispatcher.addInhibitor(msg => {
 	}
 });
 
-/* Update server counter on bot listings */
+// Use libraries for tracking server count
 const dbl = new DBL(config.discordBotsListToken);
 const bfd = new BFD(config.botsForDiscordToken);
 
-// Bots.discord.pw
+/**
+ * Bots.discord.pw
+ */
 const sendBotsDiscordPWServerCount = () => {
 	const options = {
 		method: 'POST',
@@ -91,6 +95,10 @@ const sendBotsDiscordPWServerCount = () => {
 	rp(options).catch(error => winston.error('[DICE] Error in POSTing to bots.discord.pw', error.stack));
 };
 
+/**
+ * @async
+ * Updates the server count on bot listings
+ */
 const updateServerCount = async() => {
 	if(client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
@@ -104,7 +112,12 @@ const updateServerCount = async() => {
 	}
 };
 
-// Everytime a server adds or removes Dice, announce it
+/**
+ * @async
+ * @param {number} serverCount Updated server count
+ * @param {boolean} newServer Boolean indicating if this update was joining or leaving a server
+ * @param {Date} date Timestamp of update
+ */
 const announceServerCount = async(serverCount, newServer, date) => {
 	let changeTypeColor;
 	if(newServer === true) {
@@ -115,8 +128,8 @@ const announceServerCount = async(serverCount, newServer, date) => {
 		changeTypeColor = 0xff9800;
 	}
 
-	// #stats channel
-	client.channels.find('id', '399451781261950977').send({
+	// Server joins channel
+	client.channels.get(config.channels.joinLogs).send({
 		embed: {
 			timestamp: date,
 			color: changeTypeColor,
@@ -132,7 +145,6 @@ const announceServerCount = async(serverCount, newServer, date) => {
 		}
 	});
 };
-/* Update server counter on bot listings */
 
 /**
  * Announces the banning or unbanning of a user on a guild

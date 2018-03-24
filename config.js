@@ -28,7 +28,8 @@ module.exports = {
 
 	channels: {
 		commandLogs: '399458745480118272',
-		errors: '411563928816975883'
+		errors: '411563928816975883',
+		joinLogs: '399451781261950977'
 	},
 
 	/* eslint-disable no-process-env */
