@@ -24,10 +24,10 @@ Oats' three letter currency code is `OAT`. You use this when exchanging other cu
 
 ### Commands
 
-| Name                                           | Description                                     |
-|------------------------------------------------|-------------------------------------------------|
-|[convert-oats](/commands/economy/convert-oats)  |Converts oats to another bot's currency          |
-|[discoin-rates](/commands/economy/discoin-rates)|Lists the conversion rates for Discoin currencies|
+| Name                                             | Description                                       |
+|--------------------------------------------------|---------------------------------------------------|
+| [convert-oats](/commands/economy/convert-oats)   | Converts oats to another bot's currency           |
+| [discoin-rates](/commands/economy/discoin-rates) | Lists the conversion rates for Discoin currencies |
 
 ## Receiving exchanged currencies
 
