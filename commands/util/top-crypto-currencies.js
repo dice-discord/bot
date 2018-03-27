@@ -46,7 +46,8 @@ module.exports = class TopCryptoCurrenciesCommand extends Command {
 				json: true
 			};
 
-			const results = await rp(options).catch(error => msg.reply(`An error occured with CoinMarketCap (\`${error}\`)`));
+			const results = await rp(options)
+				.catch(error => msg.reply(`❌ An error occured with CoinMarketCap (\`${error}\`)`));
 
 			winston.debug('[COMMAND](TOP-CRYPTO-CURRENCIES) Results from CoinMarketCap:', results);
 
