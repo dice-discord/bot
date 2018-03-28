@@ -1,5 +1,5 @@
 title: Dice Documentation
-description: Description of this website and Dice
+description: A general purpose utility bot, with an economy, video game stats, moderation tools, and lots of other features.
 
 # Dice <small>Documentation</small>
 
