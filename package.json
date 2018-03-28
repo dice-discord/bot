@@ -1,7 +1,7 @@
 {
 	"name": "dice",
 	"description": "A general purpose utility bot, with an economy, games, and lots of other features.",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
 	"keywords": [
 		"discord",
