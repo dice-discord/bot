@@ -41,10 +41,12 @@ module.exports = class ConvertOatsCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
+			const authorBalance = await diceAPI.getBalance(msg.author.id);
+
 			// Amount checking
-			if(amount > await diceAPI.getBalance(msg.author.id)) {
+			if(amount > authorBalance) {
 				// eslint-disable-next-line max-len
-				return msg.reply(`❌ You need to have at least \`${amount}\` ${config.currency.plural}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
+				return msg.reply(`❌ You need to have at least \`${amount}\` ${config.currency.plural}. Your balance is \`${authorBalance}\`.`);
 			}
 
 			rp({
