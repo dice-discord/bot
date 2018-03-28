@@ -8,6 +8,7 @@ theme:
     primary: 'green'
     accent: 'green'
   logo: 'images/logo.png'
+  detailedLogo: 'images/dice.png'
   favicon: 'images/favicon.png'
 
 copyright: 'Copyright 2018 Jonah Snider'
