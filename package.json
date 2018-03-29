@@ -28,11 +28,11 @@
 		"discord.js-commando": "discordjs/Commando",
 		"keen-tracking": "^1.4.0",
 		"moment": "^2.21.0",
-		"mongodb": "^3.0.4",
+		"mongodb": "^3.0.5",
 		"parse-color": "^1.0.0",
 		"replaceall": "^0.1.6",
 		"request": "^2.85.0",
-		"request-promise": "^4.2.2",
+		"request-promise-native": "^1.0.5",
 		"winston": "^2.4.1"
 	},
 	"engines": {

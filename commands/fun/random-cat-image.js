@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rp = require('request-promise');
+const rp = require('request-promise-native');
 const winston = require('winston');
 
 module.exports = class RandomCatImageCommand extends Command {

@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
-const rp = require('request-promise');
+const rp = require('request-promise-native');
 const diceAPI = require('../../providers/diceAPI');
 
 module.exports = class RefundTransactionCommand extends Command {

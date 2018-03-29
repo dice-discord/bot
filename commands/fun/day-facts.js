@@ -1,7 +1,7 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const rp = require('request-promise');
+const rp = require('request-promise-native');
 const winston = require('winston');
 
 module.exports = class DayFactsCommand extends Command {
@@ -41,8 +41,6 @@ module.exports = class DayFactsCommand extends Command {
 					winston.error('[COMMAND](DATE-FACTS)', error.stack);
 					return msg.reply('❌ There was an error with the API we use (http://numbersapi.com)');
 				});
-
-			return msg.reply(result);
 		} finally {
 			msg.channel.stopTyping();
 		}

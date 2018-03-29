@@ -2,7 +2,7 @@
 
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const rp = require('request-promise');
+const rp = require('request-promise-native');
 const winston = require('winston');
 const moment = require('moment');
 

@@ -3,7 +3,7 @@
 const { Command } = require('discord.js-commando');
 const { currencyCodes } = require('../../config');
 const winston = require('winston');
-const rp = require('request-promise');
+const rp = require('request-promise-native');
 
 module.exports = class CryptoCurrencyLookUpCommand extends Command {
 	constructor(client) {

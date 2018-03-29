@@ -3,7 +3,7 @@
 const { Command } = require('discord.js-commando'),
 	{ MessageEmbed } = require('discord.js'),
 	winston = require('winston'),
-	rp = require('request-promise');
+	rp = require('request-promise-native');
 
 module.exports = class DiscoinRatesCommand extends Command {
 	constructor(client) {

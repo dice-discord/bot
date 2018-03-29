@@ -12,7 +12,7 @@ const { CommandoClient, FriendlyError } = require('discord.js-commando'),
 	moment = require('moment'),
 	winston = require('winston'),
 	diceAPI = require('./providers/diceAPI'),
-	rp = require('request-promise'),
+	rp = require('request-promise-native'),
 	config = require('./config');
 
 winston.level = 'debug';
