@@ -55,7 +55,7 @@ module.exports = class CryptoCurrencyLookUpCommand extends Command {
 						// Sets the color to green if the change is positive, red if otherwise
 						color: cryptoCurrency.percent_change_24h >= 0 ? 0x4caf50 : 0xf44334,
 						timestamp: new Date(cryptoCurrency.last_updated),
-						thumbnail: { url: `https://altpocket.io/icons/32x32/${cryptoCurrency.symbol}.png` },
+						thumbnail: { url: `http://cryptoicons.co/128/white/${cryptoCurrency.symbol.toLowerCase()}.png` },
 						author: {
 							name: 'CoinMarketCap',
 							iconURL: 'https://pbs.twimg.com/profile_images/930670494927421441/GquNeyus_400x400.jpg',
