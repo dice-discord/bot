@@ -24,7 +24,7 @@ Dice is made with [Node.js](https://nodejs.org/en/about/), [Discord.js](https://
 ### Configuring environment variables
 
 !!! note "Third party APIs"
-    Dice uses the Fortnite Tracker API, the Discord Bot List API, the Bots for Discord API, Keen, the Discord Bots at terminal.ink API and the Discord Bots API
+    Dice uses the Fortnite Tracker API, the Discord Bot List API, the Bots for Discord API, Keen, the botlist.space API and the Discord Bots API
 
 | Name                                                                      | Key                    | Example value                                                                                                                                                                                      |
 |---------------------------------------------------------------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -32,7 +32,7 @@ Dice is made with [Node.js](https://nodejs.org/en/about/), [Discord.js](https://
 | [Discord Bot List token](https://discordbots.org/api/docs#mybots)         | `DISCORDBOTSORG_TOKEN` | `@^8rdS40aO9Y74SlkIp2&9iFn77os%pSp7U1F3UvC59GD1NW%OX#w2uF2M64y7^08L95nqVi7#2k^RU2P9q13m71BM0H0r9%9nV^@^8rdS40aO9Y74SlkIp2&9iFn77os%pSp7U1F3UvC59GD1NW%OX#w2uF2M64`                                 |
 | [Fortnite Tracker API token](https://fortnitetracker.com/site-api/create) | `FORTNITETN_TOKEN`     | `ma6066n1tvzv51a221xt1ajr-ffz1-ouwp-s65p-87-6v97p9944yv5axoo851w6rh1ut`                                                                                                                            |
 | [Discord Bots token](https://bots.discord.pw/api)                         | `BOTSDISCORDPW_TOKEN`  | `760Q&dy3gu50&0&AwKAaM7E3Z6NV^WhTB#1FN9IQWFUo5jiPcK*3r%4M9^00bGc8V3zb78u2$3855AXt2O#88Xebh392S!6Ng6Cbj6E6I6CT1FmT81ZNE32OACZg&vMEf83683ix381TH$Z42wxI1#7F333ssnN9`                                 |
-| [Discord Bots at terminal.ink](https://docs.terminal.ink/ls/v1.html)      | `LSTERMINALINK_TOKEN`  | `526a7qgzq4fm913q33955v31842262s0212b79f63mpsal578xmj2ujk7740j2h186pp30ikm43zf53o901aszg9472yh95tpu43zgoeukgho4v86irfu8bjfiuefk1h`                                                                 |
+| [botlist.space token](https://botlist.space)      | `BOTLISTSPACE_TOKEN`  | `526a7qgzq4fm913q33955v31842262s0212b79f63mpsal578xmj2ujk7740j2h186pp30ikm43zf53o901aszg9472yh95tpu43zgoeukgho4v86irfu8bjfiuefk1h`                                                                 |
 | [MongoDB URI](https://docs.mongodb.com/manual/installation/)              | `MONGODB_URI`          | `mongodb://dicediscordbot:NV^WhTB#1FN9IQWFUo5ji@127.0.0.1:27017`                                                                                                                                   |
 | [Keen](https://keen.io) project ID                                        | `KEEN_PROJECTID`       | `em35pb5qfjezh6m0p5h3fpee`                                                                                                                                                                         |
 | [Keen](https://keen.io) write key                                         | `KEEN_WRITEKEY`        | `U1ER0DLXA16E7LHQIBWLNVTABL03YP2FVG6RO24IXRUICPU8UE8Y37XK8BJXYC47FXD45HKPF74Y20MDXHETAPUZDW6SA4V2QY0Z8Y37XK8BJXYC47FXD45HKPF74Y20MDXHETAPUZDW6SA4V2QY0ZU9TSYDWQGDUADQS9L480ZQXFE1ULIWRON60SJOLT0K` |
