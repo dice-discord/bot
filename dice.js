@@ -96,6 +96,24 @@ const sendBotsDiscordPWServerCount = () => {
 };
 
 /**
+ * Botlist.space
+ * @async
+ * @param {number} count Server count
+ */
+const sendBotListSpaceServerCount = count => {
+	const options = {
+		method: 'POST',
+		url: 'https://botlist.space/api/bots/388191157869477888',
+		headers: { authorization: config.botsListSpaceToken },
+		// eslint-disable-next-line camelcase
+		body: { server_count: count },
+		json: true
+	};
+
+	rp(options).catch(error => winston.error('[DICE] Error in POSTing to botlist.space', error.stack));
+};
+
+/**
  * @async
  * Updates the server count on bot listings
  */
@@ -107,6 +125,7 @@ const updateServerCount = async() => {
 		count = count.reduce((prev, val) => prev + val, 0);
 
 		sendBotsDiscordPWServerCount();
+		sendBotListSpaceServerCount(count);
 		bfd.postCount(count, client.user.id);
 		dbl.postStats(client.guilds.size, client.shard.id, client.shard.count);
 	}
@@ -205,7 +224,6 @@ const announceGuildBanRemove = async(channel, user) => {
 		embed.setFooter('Give me permissions to view the audit log and more information will appear');
 		embed.setTimestamp(new Date());
 	}
-
 
 	channel.send({ embed });
 };

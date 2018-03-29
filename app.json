@@ -28,8 +28,8 @@
 		"DISCORDBOTSORG_TOKEN": {
 			"description": "Discord Bot List API token"
 		},
-		"LSTERMINALINK_TOKEN": {
-			"description": "Discord Bots at terminal.ink API token"
+		"BOTLISTSPACE_TOKEN": {
+			"description": "botlist.space API token"
 		},
 		"MONGODB_URI": {
 			"description": "MongoDB URI for settings and user profiles"
