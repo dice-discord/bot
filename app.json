@@ -42,6 +42,9 @@
 		},
 		"DISCOIN_TOKEN": {
 			"description": "Discoin network token"
+		},
+		"SENTRY_URI": {
+			"description": "URI for Sentry error logging"
 		}
 	}
 }

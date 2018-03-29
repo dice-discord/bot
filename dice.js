@@ -13,9 +13,11 @@ const { CommandoClient, FriendlyError } = require('discord.js-commando'),
 	winston = require('winston'),
 	diceAPI = require('./providers/diceAPI'),
 	rp = require('request-promise-native'),
+	Raven = require('raven'),
 	config = require('./config');
 
 winston.level = 'debug';
+Raven.config(config.sentryURI).install();
 
 // Set up bot client and settings
 const client = new CommandoClient({

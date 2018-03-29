@@ -74,6 +74,7 @@ module.exports = {
 	},
 	fortniteTrackerNetworkToken: process.env.FORTNITETN_TOKEN,
 	discoinToken: process.env.DISCOIN_TOKEN,
+	sentryURI: process.env.SENTRY_URI,
 
 	discordBotsListToken: process.env.DISCORDBOTSORG_TOKEN,
 	botsForDiscordToken: process.env.BOTSFORDISCORD_TOKEN,
