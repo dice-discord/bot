@@ -30,6 +30,7 @@
 		"moment": "^2.21.0",
 		"mongodb": "^3.0.5",
 		"parse-color": "^1.0.0",
+		"raven": "^2.4.2",
 		"replaceall": "^0.1.6",
 		"request": "^2.85.0",
 		"request-promise-native": "^1.0.5",
