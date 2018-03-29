@@ -27,18 +27,18 @@ module.exports = class YearFactsCommand extends Command {
 		});
 	}
 
-	async run(msg, { year }) {
+	run(msg, { year }) {
 		try {
 			msg.channel.startTyping();
 
 			const options = { uri: `http://numbersapi.com/${year}/year` };
 
-			const result = await rp(options).catch(error => {
-				winston.error('[COMMAND](DATE-FACTS)', error.stack);
-				return msg.reply('❌ There was an error with the API we use (http://numbersapi.com)');
-			});
-
-			return msg.reply(result);
+			rp(options)
+				.then(result => msg.reply(result))
+				.catch(error => {
+					winston.error('[COMMAND](DATE-FACTS)', error.stack);
+					return msg.reply('❌ There was an error with the API we use (http://numbersapi.com)');
+				});
 		} finally {
 			msg.channel.stopTyping();
 		}

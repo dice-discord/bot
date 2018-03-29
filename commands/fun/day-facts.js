@@ -29,16 +29,18 @@ module.exports = class DayFactsCommand extends Command {
 		});
 	}
 
-	async run(msg, { day }) {
+	run(msg, { day }) {
 		try {
 			msg.channel.startTyping();
 
 			const options = { uri: `http://numbersapi.com/${day}/date` };
 
-			const result = await rp(options).catch(error => {
-				winston.error('[COMMAND](DATE-FACTS)', error.stack);
-				return msg.reply('❌ There was an error with the API we use (http://numbersapi.com)');
-			});
+			rp(options)
+				.then(result => msg.reply(result))
+				.catch(error => {
+					winston.error('[COMMAND](DATE-FACTS)', error.stack);
+					return msg.reply('❌ There was an error with the API we use (http://numbersapi.com)');
+				});
 
 			return msg.reply(result);
 		} finally {
