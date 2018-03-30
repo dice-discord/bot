@@ -10,7 +10,7 @@ module.exports = class LookUpStockCommand extends Command {
 			group: 'util',
 			memberName: 'look-up-stock',
 			description: 'Get the price of a stock',
-			aliases: ['stock', 'stock-look-up'],
+			aliases: ['stock', 'stock-look-up', 'stocks'],
 			examples: ['look-up-stock AAPL'],
 			throttling: {
 				usages: 4,
@@ -66,6 +66,7 @@ module.exports = class LookUpStockCommand extends Command {
 					})
 				)
 				.catch(error => {
+					// When stock isn't found it returns true
 					if(error === true) {
 						return msg.reply('❌ Unknown stock');
 					} else {
