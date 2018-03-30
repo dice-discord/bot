@@ -78,14 +78,14 @@ Dice is a [Discord](https://discordapp.com) bot. It has lots of features includi
 | `ping`                    | Checks the bot's ping to the Discord server.                                                          | Utility    |
 | `account-age`             | Check when an account was created.                                                                    | Utility    |
 | `average-numbers`         | Gets the average of several numbers.                                                                  | Utility    |
-| `bot-info`                | Information about Dice.                                                                              | Utility    |
+| `bot-info`                | Information about Dice.                                                                               | Utility    |
 | `choose`                  | Choose an item from a list you provide.                                                               | Utility    |
 | `crypto-currency-look-up` | Look up a crypto currency.                                                                            | Utility    |
 | `feedback`                | Submit bugs and suggestions to the developer.                                                         | Utility    |
-| `invite`                  | An invite link for Dice.                                                                             | Utility    |
+| `invite`                  | An invite link for Dice.                                                                              | Utility    |
 | `look-up-stock`           | Get the price of a stock.                                                                             | Utility    |
 | `quote-message`           | Delete a role from this server.                                                                       | Utility    |
-| `statistics`              | Get statistics on Dice.                                                                              | Utility    |
-| `support`                 | An invite to the Dice server.                                                                        | Utility    |
+| `statistics`              | Get statistics on Dice.                                                                               | Utility    |
+| `support`                 | An invite to the Dice server.                                                                         | Utility    |
 | `top-crypto-currencies`   | Get the top prices for crypto currencies.                                                             | Utility    |
 | `vote`                    | Vote once per day and get double your daily.                                                          | Utility    |
