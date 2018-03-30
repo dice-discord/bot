@@ -11,7 +11,7 @@ module.exports = class BotInfoCommand extends Command {
 			name: 'bot-info',
 			group: 'util',
 			memberName: 'bot-info',
-			description: `Information about <@${config.clientID}>`,
+			description: `Information about <@${config.clientID}>.`,
 			aliases: ['github', 'uptime', 'library', 'git', 'lib', 'version', 'bot'],
 			throttling: {
 				usages: 3,

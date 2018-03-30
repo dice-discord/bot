@@ -10,7 +10,7 @@ module.exports = class SelfRolesAddCommand extends Command {
 			aliases: ['self-role-add', 'add-self-roles', 'add-self-role'],
 			group: 'selfroles',
 			memberName: 'self-roles-add',
-			description: 'Add roles to a server\'s selfroles',
+			description: 'Add roles to a server\'s selfroles.',
 			examples: ['self-roles-add @PUBG', 'self-roles-add Artists'],
 			userPermissions: ['MANAGE_ROLES'],
 			guildOnly: true,

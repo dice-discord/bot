@@ -9,7 +9,7 @@ module.exports = class SupportCommand extends Command {
 			name: 'support',
 			group: 'util',
 			memberName: 'support',
-			description: `An invite to the <@${config.clientID}> server`,
+			description: `An invite to the <@${config.clientID}> server.`,
 			aliases: ['home', 'report', 'bug'],
 			throttling: {
 				usages: 1,

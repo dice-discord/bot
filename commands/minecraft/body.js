@@ -8,7 +8,7 @@ module.exports = class BodyCommand extends Command {
 			name: 'body',
 			group: 'minecraft',
 			memberName: 'body',
-			description: 'Shows a Minecraft user\'s body',
+			description: 'Shows a Minecraft user\'s body.',
 			aliases: ['minecraft-body', 'mc-body'],
 			examples: ['body Notch'],
 			throttling: {

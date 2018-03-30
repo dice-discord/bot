@@ -9,7 +9,7 @@ module.exports = class InviteCommand extends Command {
 			name: 'invite',
 			group: 'util',
 			memberName: 'invite',
-			description: `An invite link for <@${config.clientID}>`,
+			description: `An invite link for <@${config.clientID}>.`,
 			throttling: {
 				usages: 1,
 				duration: 3

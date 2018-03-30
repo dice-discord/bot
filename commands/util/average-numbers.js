@@ -9,7 +9,7 @@ module.exports = class AverageNumbersCommand extends Command {
 			aliases: ['average', 'avg-numbers', 'avg'],
 			group: 'util',
 			memberName: 'average-numbers',
-			description: 'Gets the average of several numbers',
+			description: 'Gets the average of several numbers.',
 			examples: ['average 55 59 45 61', 'average 5.01 1.01 -8.04 15.067'],
 			args: [{
 				key: 'numbers',

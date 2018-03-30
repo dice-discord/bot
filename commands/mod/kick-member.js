@@ -10,7 +10,7 @@ module.exports = class KickMemberCommand extends Command {
 			aliases: ['kick-user', 'kick'],
 			group: 'mod',
 			memberName: 'kick-member',
-			description: 'Kick a member from your server',
+			description: 'Kick a member from your server.',
 			examples: ['kick @Zoop', 'kick 213041121700478976', 'kick Zoop Spamming messages'],
 			clientPermissions: ['KICK_MEMBERS'],
 			userPermissions: ['KICK_MEMBERS'],

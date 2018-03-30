@@ -10,7 +10,7 @@ module.exports = class FeedbackCommand extends Command {
 			aliases: ['bug-report', 'feed-back', 'suggest', 'suggestion'],
 			group: 'util',
 			memberName: 'feedback',
-			description: 'Submit bugs and suggestions to the developer',
+			description: 'Submit bugs and suggestions to the developer.',
 			examples: ['feedback When I use `$dice` the bot lags.'],
 			args: [
 				{

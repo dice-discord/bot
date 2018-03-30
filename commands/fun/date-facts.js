@@ -10,7 +10,7 @@ module.exports = class DateFactsCommand extends Command {
 			name: 'date-facts',
 			group: 'fun',
 			memberName: 'date-facts',
-			description: 'Get a fact about a date',
+			description: 'Get a fact about a date.',
 			details: 'Not specifying the date to lookup will give you a random fact',
 			aliases: ['date-fact', 'random-date-facts', 'random-date-fact'],
 			examples: ['date-facts', 'date-facts 46'],

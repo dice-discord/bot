@@ -11,7 +11,7 @@ module.exports = class RefundTransactionCommand extends Command {
 			name: 'refund-transaction',
 			group: 'economy',
 			memberName: 'refund-transaction',
-			description: 'Refund a transaction on Discoin',
+			description: 'Refund a transaction on Discoin.',
 			aliases: ['refund', 'revert-transaction', 'revert'],
 			examples: ['revert e03f7f5b048414d8eadf9fd6e1245803b3c2da9a'],
 			args: [{

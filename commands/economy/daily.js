@@ -13,7 +13,7 @@ module.exports = class DailyCommand extends Command {
 			name: 'daily',
 			group: 'economy',
 			memberName: 'daily',
-			description: `Collect your daily ${config.currency.plural}`,
+			description: `Collect your daily ${config.currency.plural}.`,
 			aliases: ['dailies'],
 			throttling: {
 				usages: 1,

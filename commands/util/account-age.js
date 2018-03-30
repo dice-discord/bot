@@ -9,7 +9,7 @@ module.exports = class AccountAgeCommand extends Command {
 			name: 'account-age',
 			group: 'util',
 			memberName: 'account-age',
-			description: 'Check when an account was created',
+			description: 'Check when an account was created.',
 			aliases: ['age', 'account-created'],
 			examples: ['account-age', 'account-age @Dice'],
 			args: [{

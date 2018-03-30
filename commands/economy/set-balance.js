@@ -11,7 +11,7 @@ module.exports = class SetBalanceCommand extends Command {
 			name: 'set-balance',
 			group: 'economy',
 			memberName: 'set-balance',
-			description: 'Set a user\'s balance',
+			description: 'Set a user\'s balance.',
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['set-bal', 'set-balance'],
 			examples: ['set-balance 500 @Dice'],

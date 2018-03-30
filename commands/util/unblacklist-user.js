@@ -11,7 +11,7 @@ module.exports = class UnblacklistUserCommand extends Command {
 			aliases: ['unblacklist', 'remove-blacklist-user', 'remove-blacklist'],
 			group: 'util',
 			memberName: 'unblacklist-user',
-			description: 'Remove a user from the blacklist',
+			description: 'Remove a user from the blacklist.',
 			throttling: {
 				usages: 2,
 				duration: 3

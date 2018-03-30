@@ -12,7 +12,7 @@ module.exports = class LeaderboardCommand extends Command {
 			name: 'leaderboard',
 			group: 'economy',
 			memberName: 'leaderboard',
-			description: `Shows a top ten leaderboard of who has the most ${config.currency.plural}`,
+			description: `Shows a top ten leaderboard of who has the most ${config.currency.plural}.`,
 			aliases: ['top-10', 'top-ten', 'chart', 'top'],
 			throttling: {
 				usages: 1,

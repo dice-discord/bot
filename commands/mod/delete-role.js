@@ -18,7 +18,7 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 			],
 			group: 'mod',
 			memberName: 'delete-role',
-			description: 'Delete a role from this server',
+			description: 'Delete a role from this server.',
 			examples: ['delete-role @PUBG', 'delete-role Artists'],
 			userPermissions: ['MANAGE_ROLES'],
 			guildOnly: true,

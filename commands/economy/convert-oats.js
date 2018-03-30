@@ -12,7 +12,7 @@ module.exports = class ConvertOatsCommand extends Command {
 			name: 'convert-oats',
 			group: 'economy',
 			memberName: 'convert-oats',
-			description: 'Converts oats to another bot\'s currency',
+			description: 'Converts oats to another bot\'s currency.',
 			details: 'Use the `discoin-rates` command to see all currencies',
 			aliases: ['convert', 'convert-currencies'],
 			examples: ['convert-oats 500 dts'],

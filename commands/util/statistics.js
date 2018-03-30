@@ -10,7 +10,7 @@ module.exports = class StatisticsCommand extends Command {
 			name: 'statistics',
 			group: 'util',
 			memberName: 'statistics',
-			description: `Get statistics on <@${config.clientID}>`,
+			description: `Get statistics on <@${config.clientID}>.`,
 			aliases: ['stats'],
 			throttling: {
 				usages: 2,

@@ -10,7 +10,7 @@ module.exports = class RandomDogImageCommand extends Command {
 			name: 'random-dog-image',
 			group: 'fun',
 			memberName: 'random-dog-image',
-			description: 'Get a picture of a random dog',
+			description: 'Get a picture of a random dog.',
 			aliases: ['random-dog', 'dog-image', 'dog'],
 			throttling: {
 				usages: 1,

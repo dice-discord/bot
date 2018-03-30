@@ -12,7 +12,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			name: 'fortnite-statistics',
 			group: 'games',
 			memberName: 'fortnite-statistics',
-			description: 'Get statistics of a Fortnite player',
+			description: 'Get statistics of a Fortnite player.',
 			details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).',
 			aliases: ['fortnite-stats', 'fortnite'],
 			examples: ['fortnite-statistics pc Zaccubus', 'fortnite-stats pc "WBG Strafesh0t"'],

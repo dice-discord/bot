@@ -11,7 +11,7 @@ module.exports = class SimulateCommand extends Command {
 			name: 'simulate',
 			group: 'games',
 			memberName: 'simulate',
-			description: 'Simulate a game of dice',
+			description: 'Simulate a game of dice.',
 			aliases: ['practice', 'practice-game', 'sim', 'simulate-game', 'sim-game', 'simulate-dice', 'sim-dice'],
 			examples: ['simulate 250 4', 'sim 23 2.01'],
 			args: [{

@@ -8,7 +8,7 @@ module.exports = class SayCommand extends Command {
 			name: 'say',
 			group: 'fun',
 			memberName: 'say',
-			description: 'Have the bot say a phrase you specify',
+			description: 'Have the bot say a phrase you specify.',
 			details: 'Only the bot owner(s) may use this command',
 			aliases: ['repeat'],
 			examples: ['say I am a bot'],

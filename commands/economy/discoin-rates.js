@@ -11,7 +11,7 @@ module.exports = class DiscoinRatesCommand extends Command {
 			name: 'discoin-rates',
 			group: 'economy',
 			memberName: 'discoin-rates',
-			description: 'Lists the conversion rates for Discoin currencies',
+			description: 'Lists the conversion rates for Discoin currencies.',
 			aliases: ['rates', 'conversion-rates', 'convert-rates'],
 			throttling: {
 				usages: 1,

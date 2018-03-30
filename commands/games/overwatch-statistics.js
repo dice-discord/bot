@@ -14,7 +14,7 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 			name: 'overwatch-statistics',
 			group: 'games',
 			memberName: 'overwatch-statistics',
-			description: 'Get statistics of an Overwatch player',
+			description: 'Get statistics of an Overwatch player.',
 			details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).',
 			aliases: ['overwatch-stats', 'overwatch', 'ow-statistics', 'ow-stats', 'ow'],
 			examples: ['overwatch-statistics cats#11481 pc us'],

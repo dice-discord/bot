@@ -10,7 +10,7 @@ module.exports = class ResetEconomyCommand extends Command {
 			name: 'reset-economy',
 			group: 'economy',
 			memberName: 'reset-economy',
-			description: 'Reset the entire economy',
+			description: 'Reset the entire economy.',
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['destroy-eco', 'destroy-economy', 'economy-destroy', 'eco-destroy', 'reset-eco'],
 			throttling: {

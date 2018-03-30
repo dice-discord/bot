@@ -9,7 +9,7 @@ module.exports = class LookUpStockCommand extends Command {
 			name: 'look-up-stock',
 			group: 'util',
 			memberName: 'look-up-stock',
-			description: 'Get the price of a stock',
+			description: 'Get the price of a stock.',
 			aliases: ['stock', 'stock-look-up', 'stocks'],
 			examples: ['look-up-stock AAPL'],
 			throttling: {

@@ -11,7 +11,7 @@ module.exports = class UnbanMemberCommand extends Command {
 			aliases: ['unban-user', 'unban', 'unhack-ban', 'unhack-ban-member', 'unhack-ban-user'],
 			group: 'mod',
 			memberName: 'unban-member',
-			description: 'Unban a user from a server',
+			description: 'Unban a user from a server.',
 			details: 'Works with unbanning users who were hackbanned',
 			examples: ['unban Zoop', 'unban 208970190547976202'],
 			clientPermissions: ['BAN_MEMBERS'],

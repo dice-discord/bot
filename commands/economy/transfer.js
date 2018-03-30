@@ -11,7 +11,7 @@ module.exports = class TransferCommand extends Command {
 			name: 'transfer',
 			group: 'economy',
 			memberName: 'transfer',
-			description: 'Transfer oats to another user',
+			description: 'Transfer oats to another user.',
 			aliases: ['send', 'pay'],
 			examples: ['transfer 500 @Dice'],
 			args: [

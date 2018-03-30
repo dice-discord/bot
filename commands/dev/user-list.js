@@ -11,7 +11,7 @@ module.exports = class UserListCommand extends Command {
 			name: 'user-list',
 			group: 'dev',
 			memberName: 'user-list',
-			description: `List all users of <@${config.clientID}>`,
+			description: `List all users of <@${config.clientID}>.`,
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['list-users'],
 			throttling: {

@@ -9,7 +9,7 @@ module.exports = class MiniMeCommand extends Command {
 			group: 'minecraft',
 			memberName: 'mini-me',
 			// eslint-disable-next-line max-len
-			description: 'Shows a \'mini-me\' of a Minecraft user\'s body with an option for a transparent background or gradient',
+			description: 'Shows a \'mini-me\' of a Minecraft user\'s body with an option for a transparent background or gradient.',
 			aliases: ['minecraft-mini-me', 'mc-mini-me', 'minecraft-mini', 'mc-mini', 'mini'],
 			examples: ['mini-me Notch', 'mini-me Notch false'],
 			throttling: {

@@ -10,7 +10,7 @@ module.exports = class BalanceCommand extends Command {
 			name: 'balance',
 			group: 'economy',
 			memberName: 'balance',
-			description: 'Check a user\'s balance',
+			description: 'Check a user\'s balance.',
 			aliases: ['bal', 'balance-check', 'bal-check', 'credits'],
 			examples: ['balance', 'balance @PizzaFox#0075'],
 			args: [{

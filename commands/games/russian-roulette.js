@@ -8,7 +8,7 @@ module.exports = class RussianRouletteCommand extends Command {
 			name: 'russian-roulette',
 			group: 'games',
 			memberName: 'russian-roulette',
-			description: 'Play a game of Russian roulette',
+			description: 'Play a game of Russian roulette.',
 			throttling: {
 				usages: 1,
 				duration: 3

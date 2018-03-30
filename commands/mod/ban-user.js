@@ -10,7 +10,7 @@ module.exports = class BanUserCommand extends Command {
 			aliases: ['ban', 'ban-member', 'hackban-user', 'hackban-member', 'hackban'],
 			group: 'mod',
 			memberName: 'ban-user',
-			description: 'Ban any user from your server',
+			description: 'Ban any user from your server.',
 			examples: ['ban @Zoop', 'ban 213041121700478976', 'ban Zoop Spamming messages'],
 			clientPermissions: ['BAN_MEMBERS'],
 			userPermissions: ['BAN_MEMBERS'],

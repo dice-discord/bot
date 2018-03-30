@@ -10,7 +10,7 @@ module.exports = class ListSelfRolesCommand extends Command {
 			aliases: ['self-role-list', 'self-roles-list', 'list-self-role', 'self-roles'],
 			group: 'selfroles',
 			memberName: 'list-self-roles',
-			description: 'List all self-assigned roles from this server',
+			description: 'List all self-assigned roles from this server.',
 			guildOnly: true,
 			throttling: {
 				usages: 2,

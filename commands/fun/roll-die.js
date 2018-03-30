@@ -9,7 +9,7 @@ module.exports = class RollDieCommand extends Command {
 			aliases: ['roll-dice', 'die', 'dice'],
 			group: 'fun',
 			memberName: 'roll-die',
-			description: 'Roll a die ',
+			description: 'Roll a die.',
 			examples: ['roll-die', 'roll-die 20'],
 			args: [{
 				key: 'sides',

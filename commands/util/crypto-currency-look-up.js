@@ -11,7 +11,7 @@ module.exports = class CryptoCurrencyLookUpCommand extends Command {
 			name: 'crypto-currency-look-up',
 			group: 'util',
 			memberName: 'crypto-currency-look-up',
-			description: 'Look up a crypto currency',
+			description: 'Look up a crypto currency.',
 			aliases: ['crypto-currency', 'crypto-look-up', 'crypto'],
 			examples: ['crypto-currency-look-up bitcoin', 'crypto-currency-look-up ethereum-classic aud'],
 			throttling: {

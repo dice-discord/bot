@@ -6,7 +6,7 @@ module.exports = class HeadCommand extends Command {
 			name: 'head',
 			group: 'minecraft',
 			memberName: 'head',
-			description: 'Shows an isometric view of a Minecraft user\'s head',
+			description: 'Shows an isometric view of a Minecraft user\'s head.',
 			aliases: ['minecraft-head', 'mc-head'],
 			examples: ['head Notch'],
 			throttling: {

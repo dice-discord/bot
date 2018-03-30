@@ -16,7 +16,7 @@ module.exports = class BulkDeleteMessagesCommand extends Command {
 			],
 			group: 'mod',
 			memberName: 'bulk-delete-messages',
-			description: 'Bulk delete messages in a text channel',
+			description: 'Bulk delete messages in a text channel.',
 			examples: ['bulk-delete-messages 20'],
 			clientPermissions: ['MANAGE_MESSAGES'],
 			userPermissions: ['MANAGE_MESSAGES'],

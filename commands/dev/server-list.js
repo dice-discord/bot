@@ -9,7 +9,7 @@ module.exports = class ServerListCommand extends Command {
 			name: 'server-list',
 			group: 'dev',
 			memberName: 'server-list',
-			description: `List all servers <@${config.clientID}> is on`,
+			description: `List all servers <@${config.clientID}> is on.`,
 			details: 'Only the bot owner(s) may use this command.',
 			aliases: ['list-servers', 'guild-list', 'list-guilds'],
 			throttling: {

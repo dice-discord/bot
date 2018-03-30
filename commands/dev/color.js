@@ -11,7 +11,7 @@ module.exports = class ColorCommand extends Command {
 			aliases: ['rgb', 'cmyk', 'hsv', 'hsl', 'hex', 'hexadecimal', 'colors'],
 			group: 'dev',
 			memberName: 'color',
-			description: 'Display and convert a color',
+			description: 'Display and convert a color.',
 			details: 'Display and convert a color from and to hexadecimal, HSL, RGB, CMYK, and CSS name',
 			examples: ['color blue', 'color #deaded', 'color hsl(210,50,50)'],
 			args: [{

@@ -10,7 +10,7 @@ module.exports = class GameCalculatorCommand extends Command {
 			name: 'game-calculator',
 			group: 'games',
 			memberName: 'game-calculator',
-			description: 'Calculate the odds of winning a dice game.',
+			description: 'Calculate the odds of winning a the betting game.',
 			aliases: ['game-calc',
 				'game-chance',
 				'win-chance',

@@ -10,7 +10,7 @@ module.exports = class NumberFactsCommand extends Command {
 			name: 'number-facts',
 			group: 'fun',
 			memberName: 'number-facts',
-			description: 'Get a fact about a number',
+			description: 'Get a fact about a number.',
 			details: 'Not specifying the number to lookup will give you a random fact',
 			aliases: ['num-facts',
 				'number-fact',

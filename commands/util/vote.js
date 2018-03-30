@@ -8,7 +8,7 @@ module.exports = class VoteCommand extends Command {
 			name: 'vote',
 			group: 'util',
 			memberName: 'vote',
-			description: 'Vote once per day and get double your daily',
+			description: 'Vote once per day and get double your daily.',
 			throttling: {
 				usages: 1,
 				duration: 3

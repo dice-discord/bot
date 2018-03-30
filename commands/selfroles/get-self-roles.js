@@ -10,7 +10,7 @@ module.exports = class GetSelfRolesCommand extends Command {
 			aliases: ['self-role-get', 'self-roles-get', 'get-self-role'],
 			group: 'selfroles',
 			memberName: 'get-self-roles',
-			description: 'Get a self-assigned role from this server',
+			description: 'Get a self-assigned role from this server.',
 			examples: ['get-self-roles @PUBG', 'get-self-roles Artists'],
 			clientPermissions: ['MANAGE_ROLES'],
 			guildOnly: true,

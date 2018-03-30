@@ -11,7 +11,7 @@ module.exports = class InformationCommand extends Command {
 			name: 'information',
 			group: 'games',
 			memberName: 'information',
-			description: 'Get information on a user',
+			description: 'Get information on a user.',
 			aliases: ['user-info', 'user-profile', 'profile', 'info', 'user-information'],
 			examples: ['info', 'information PizzaFox'],
 			args: [

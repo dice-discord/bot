@@ -11,7 +11,7 @@ module.exports = class QuoteMessageCommand extends Command {
 			aliases: ['quote'],
 			group: 'util',
 			memberName: 'quote-message',
-			description: 'Delete a role from this server',
+			description: 'Delete a role from this server.',
 			examples: ['quote-message 424936127154094080'],
 			guildOnly: true,
 			args: [{

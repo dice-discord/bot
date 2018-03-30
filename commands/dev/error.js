@@ -9,7 +9,7 @@ module.exports = class ErrorCommand extends Command {
 			name: 'error',
 			group: 'dev',
 			memberName: 'error',
-			description: 'Throws an error',
+			description: 'Throws an error.',
 			aliases: ['err'],
 			ownerOnly: true
 		});
