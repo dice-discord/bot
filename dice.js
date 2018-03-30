@@ -37,6 +37,7 @@ const keenClient = new KeenTracking({
 client.registry
 	// Registers your custom command groups
 	.registerGroups([
+		['util', 'Utility'],
 		['mod', 'Moderation'],
 		['games', 'Games'],
 		['fun', 'Fun'],
