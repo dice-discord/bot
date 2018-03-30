@@ -409,6 +409,7 @@ const checkDiscoinTransactions = async() => {
 client
 	.on('unhandledRejection', (reason, promise) => {
 		winston.error();
+		Raven.captureException(reason);
 		keenClient.recordEvent('errors', {
 			title: 'Unhandled Promise Rejection',
 			description: reason.stack
@@ -424,6 +425,7 @@ client
 	})
 	.on('rejectionHandled', (reason, promise) => {
 		winston.error();
+		Raven.captureException(reason);
 		keenClient.recordEvent('errors', {
 			title: 'Handled Promise Rejection',
 			description: reason.stack
@@ -439,6 +441,7 @@ client
 	})
 	.on('uncaughtException', error => {
 		winston.error();
+		Raven.captureException(error);
 		keenClient.recordEvent('errors', {
 			title: 'Uncaught Exception',
 			description: error.stack
@@ -454,6 +457,7 @@ client
 	})
 	.on('warning', warning => {
 		winston.warn();
+		Raven.captureException(warning);
 		keenClient.recordEvent('errors', {
 			title: 'Warning',
 			description: warning.stack
@@ -469,6 +473,7 @@ client
 	})
 	.on('commandError', (command, error) => {
 		if(error instanceof FriendlyError) return;
+		Raven.captureException(error);
 		winston.error(`[DICE]: Error in command ${command.groupID}:${command.memberName}`, error.stack);
 		client.channels.get(config.channels.errors).send({
 			embed: {
