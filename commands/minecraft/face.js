@@ -6,7 +6,7 @@ module.exports = class FaceCommand extends Command {
 			name: 'face',
 			group: 'minecraft',
 			memberName: 'face',
-			description: 'Shows an front view of a Minecraft user\'s face.',
+			description: 'Shows a front view of a Minecraft user\'s face.',
 			aliases: ['minecraft-face', 'mc-face'],
 			examples: ['face Notch'],
 			throttling: {
