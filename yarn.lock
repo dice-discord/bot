@@ -30,8 +30,8 @@ ajv@^5.1.0, ajv@^5.2.3, ajv@^5.3.0:
     json-schema-traverse "^0.3.0"
 
 ansi-escapes@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.0.0.tgz#ec3e8b4e9f8064fc02c3ac9b65f1c275bda8ef92"
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.1.0.tgz#f73207bb81207d75fd6c83f125af26eea378ca30"
 
 ansi-regex@^2.0.0:
   version "2.1.1"
@@ -657,11 +657,7 @@ cookie@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
 
-core-js@^2.4.0:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.3.tgz#8acc38345824f16d8365b7c9b4259168e8ed603e"
-
-core-js@^2.5.0:
+core-js@^2.4.0, core-js@^2.5.0:
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.4.tgz#f2c8bf181f2a80b92f360121429ce63a2f0aeae0"
 
@@ -720,9 +716,9 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-dblapi.js@^1.2.0:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/dblapi.js/-/dblapi.js-1.2.1.tgz#93a29eef048626202d06ecf7a03c4240f8e5043e"
+dblapi.js@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dblapi.js/-/dblapi.js-2.0.0.tgz#8f5dd76ae93da984ce068a54ea1bb4e1f81ffec3"
   dependencies:
     snekfetch "^3.6.4"
 
@@ -760,7 +756,7 @@ delayed-stream@~1.0.0:
 
 discord.js-commando@discordjs/Commando:
   version "0.10.0-dev"
-  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/1f03bd35563812ec1c8a65d4938bb100ae18eaa3"
+  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/c17b6d9eae82c4e5bf6357f1c5a46cf078423f85"
   dependencies:
     common-tags "^1.0.0"
     escape-string-regexp "^1.0.0"
@@ -768,7 +764,7 @@ discord.js-commando@discordjs/Commando:
 
 discord.js@discordjs/discord.js:
   version "12.0.0-dev"
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/d041cb2460a294b026e73750647647168ce7359a"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/a5e8f05d01e34b69b80736688704ee594b4d0900"
   dependencies:
     pako "^1.0.0"
     prism-media "github:hydrabolt/prism-media"
@@ -1003,8 +999,8 @@ glob@^7.0.3, glob@^7.0.5, glob@^7.1.2:
     path-is-absolute "^1.0.0"
 
 globals@^11.0.1:
-  version "11.3.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-11.3.0.tgz#e04fdb7b9796d8adac9c8f64c14837b2313378b0"
+  version "11.4.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-11.4.0.tgz#b85c793349561c16076a3c13549238a27945f1bc"
 
 globals@^9.18.0:
   version "9.18.0"
@@ -1359,8 +1355,8 @@ mkdirp@^0.5.1:
     minimist "0.0.8"
 
 moment@^2.17.1, moment@^2.21.0:
-  version "2.21.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.0.tgz#7921ade01017dd45186e7fee5f424f0b8663a730"
 
 mongodb-core@3.0.5:
   version "3.0.5"
@@ -1470,9 +1466,9 @@ prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
 
-"prism-media@github:hydrabolt/prism-media":
-  version "0.2.0"
-  resolved "https://codeload.github.com/hydrabolt/prism-media/tar.gz/b367fca09ecea193b17f3611cb41a05154c9d682"
+prism-media@^0.2.0:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-0.2.1.tgz#7968f2c7194588887c4c48081968d8c28e0d2469"
 
 private@^0.1.6:
   version "0.1.8"
@@ -1549,8 +1545,8 @@ regenerator-transform@^0.10.0:
     private "^0.1.6"
 
 regexpp@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-1.0.1.tgz#d857c3a741dce075c2848dcb019a0a975b190d43"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-1.1.0.tgz#0e3516dd0b7904f413d2d4193dce4618c3a689ab"
 
 regexpu-core@^2.0.0:
   version "2.0.0"
@@ -1723,7 +1719,7 @@ slice-ansi@1.0.0:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
 
-snekfetch@^3.5.0, snekfetch@^3.6.4:
+snekfetch@^3.6.0, snekfetch@^3.6.4:
   version "3.6.4"
   resolved "https://registry.yarnpkg.com/snekfetch/-/snekfetch-3.6.4.tgz#d13e80a616d892f3d38daae4289f4d258a645120"
 
@@ -1879,10 +1875,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-ultron@~1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
-
 util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
@@ -1934,13 +1926,12 @@ write@^0.2.1:
   dependencies:
     mkdirp "^0.5.1"
 
-ws@^3.3.1:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-3.3.3.tgz#f1cf84fe2d5e901ebce94efaece785f187a228f2"
+ws@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-4.1.0.tgz#a979b5d7d4da68bf54efe0408967c324869a7289"
   dependencies:
     async-limiter "~1.0.0"
     safe-buffer "~5.1.0"
-    ultron "~1.1.0"
 
 xtend@^4.0.0:
   version "4.0.1"
