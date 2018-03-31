@@ -5,22 +5,21 @@ const { MessageEmbed } = require('discord.js');
 const config = require('../../config');
 const diceAPI = require('../../providers/diceAPI');
 
-module.exports = class SimulateCommand extends Command {
+module.exports = class SimulateGameCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'simulate',
+			name: 'simulate-game',
 			group: 'games',
-			memberName: 'simulate',
-			description: 'Simulate a game of dice.',
-			aliases: ['practice', 'practice-game', 'sim', 'simulate-game', 'sim-game', 'simulate-dice', 'sim-dice'],
-			examples: ['simulate 250 4', 'sim 23 2.01'],
+			memberName: 'simulate-game',
+			description: 'Simulate a round of the betting game.',
+			aliases: ['practice-game', 'sim-game', 'simulate-dice', 'sim-dice'],
+			examples: ['simulate-game 250 4', 'sim 23-game 2.01'],
 			args: [{
 				key: 'wager',
 				prompt: 'How much do you want to wager? (whole number)',
 				type: 'integer',
 				min: config.minWager
-			},
-			{
+			}, {
 				key: 'multiplier',
 				prompt: 'How much do you want to multiply your wager by?',
 				type: 'float',
@@ -28,8 +27,7 @@ module.exports = class SimulateCommand extends Command {
 				parse: multiplier => diceAPI.simpleFormat(multiplier),
 				min: config.minMultilpier,
 				max: config.maxMultiplier
-			}
-			],
+			}],
 			throttling: {
 				usages: 2,
 				duration: 1
