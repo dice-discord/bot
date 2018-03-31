@@ -11,7 +11,7 @@ module.exports = class RemoveSelfRoleCommand extends Command {
 			group: 'selfroles',
 			memberName: 'remove-self-role',
 			description: 'Remove a self-assigned role from yourself.',
-			examples: ['remove-self-roles @PUBG', 'remove-self-roles Artists'],
+			examples: ['remove-self-role @PUBG', 'remove-self-role Artists'],
 			clientPermissions: ['MANAGE_ROLES'],
 			guildOnly: true,
 			args: [{
