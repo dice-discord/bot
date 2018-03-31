@@ -109,7 +109,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 		if(command.argsCollector.args && command.argsCollector.args.length > 0) {
 			const args = [];
 			// eslint-disable-next-line max-len
-			command.argsCollector.args.forEach(arg => args.push(`| ${arg.label ? capitalizeString(arg.label) : capitalizeString(arg.key)} | ${capitalizeString(arg.type.id)} |${arg.default ? 'No' : 'Yes'} | ${arg.min ? arg.min : ''} | ${arg.max ? arg.max : ''} |`));
+			command.argsCollector.args.forEach(arg => args.push(`| ${arg.label ? capitalizeString(arg.label) : capitalizeString(arg.key)} | ${capitalizeString(arg.type.id)} |${typeof arg.default !== 'undefined' ? 'No' : 'Yes'} | ${arg.min ? arg.min : ''} | ${arg.max ? arg.max : ''} |`));
 
 			result = stripIndents`
 			${result}
