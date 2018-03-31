@@ -1,22 +1,22 @@
 title: Leaderboard
-description: Shows a top ten leaderboard of who has the most dots
+description: Shows a top ten leaderboard of who has the most oats.
 path: tree/master/commands/economy
 source: leaderboard.js
 
-# Database ping
+# Leaderboard
 
 ## Description
 
-Shows a top ten leaderboard of who has the most dots
+Shows a top ten leaderboard of who has the most oats.
 
 ## Aliases
 
 * `top-10`
 * `top-ten`
-* `top10`
-* `topten`
 * `chart`
 * `top`
+* `top10`
+* `topten`
 
 ## Usage
 
