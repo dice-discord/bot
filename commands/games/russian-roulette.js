@@ -11,13 +11,13 @@ module.exports = class RussianRouletteCommand extends Command {
 			description: 'Play a game of Russian roulette.',
 			throttling: {
 				usages: 1,
-				duration: 3
+				duration: 2
 			}
 		});
 	}
 
 	run(msg) {
-		// Round numbers to second decimal place
+		// Round numbers
 		const randomNumber = Math.floor(Math.random() * 6);
 
 		if(randomNumber === 0) {
