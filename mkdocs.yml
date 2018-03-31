@@ -10,6 +10,8 @@ theme:
   logo: 'images/logo.png'
   detailedLogo: 'images/dice.png'
   favicon: 'images/favicon.png'
+  feature:
+    tabs: true
 
 copyright: 'Copyright 2018 Jonah Snider'
 
