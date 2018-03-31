@@ -1,5 +1,5 @@
 title: Delete self role
-description: Delete a self-assigned role from this server.
+description: Delete a self-assigned role from a server.
 path: tree/master/commands/selfroles
 source: delete-self-role.js
 
@@ -7,7 +7,7 @@ source: delete-self-role.js
 
 ## Description
 
-Delete a self-assigned role from this server.
+Delete a self-assigned role from a server.
 
 ## Aliases
 
