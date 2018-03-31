@@ -3,9 +3,6 @@ description: A general purpose utility bot, with an economy, video game stats, m
 
 # Dice <small>documentation</small>
 
-!!! warning
-    This documentation is still under construction and is incomplete. For a full list of commands and their usage, use the `help` command on Dice.
-
 ## About
 
 ### What is this
@@ -34,30 +31,30 @@ Dice is a [Discord](https://discordapp.com) bot. It has lots of features includi
 | [`ping`](/commands/utility/ping)                                       | Checks the bot's ping to the Discord server.                                                          | Utility    |
 | [`account-age`](/commands/utility/account-age)                         | Check when an account was created.                                                                    | Utility    |
 | [`average-numbers`](/commands/utility/average-numbers)                 | Gets the average of several numbers.                                                                  | Utility    |
-| [`bot-info`](/commands/utility/bot-info)                               | Information about Dice.                                                                               | Utility    |
+| [`bot-info`](/commands/utility/bot-info)                               | Information about Dice.                                                                              | Utility    |
 | [`choose`](/commands/utility/choose)                                   | Choose an item from a list you provide.                                                               | Utility    |
 | [`crypto-currency-look-up`](/commands/utility/crypto-currency-look-up) | Look up a crypto currency.                                                                            | Utility    |
 | [`feedback`](/commands/utility/feedback)                               | Submit bugs and suggestions to the developer.                                                         | Utility    |
-| [`invite`](/commands/utility/invite)                                   | An invite link for Dice.                                                                              | Utility    |
+| [`invite`](/commands/utility/invite)                                   | An invite link for Dice.                                                                             | Utility    |
 | [`look-up-stock`](/commands/utility/look-up-stock)                     | Get the price of a stock.                                                                             | Utility    |
-| [`quote-message`](/commands/utility/quote-message)                     | Delete a role from this server.                                                                       | Utility    |
-| [`statistics`](/commands/utility/statistics)                           | Get statistics on Dice.                                                                               | Utility    |
-| [`support`](/commands/utility/support)                                 | An invite to the Dice server.                                                                         | Utility    |
-| [`top-crypto-currencies`](/commands/utility/top-crypto-currencies)     | Get the top prices for crypto currencies.                                                             | Utility    |
+| [`quote-message`](/commands/utility/quote-message)                     | Quote a message from a server.                                                                        | Utility    |
+| [`statistics`](/commands/utility/statistics)                           | Get statistics on Dice.                                                                              | Utility    |
+| [`support`](/commands/utility/support)                                 | An invite to the Dice server.                                                                        | Utility    |
+| [`top-crypto-currencies`](/commands/utility/top-crypto-currencies)     | Get prices for the top crypto currencies.                                                             | Utility    |
 | [`vote`](/commands/utility/vote)                                       | Vote once per day and get double your daily.                                                          | Utility    |
 | [`ban-user`](/commands/moderation/ban-user)                            | Ban any user from your server.                                                                        | Moderation |
 | [`bulk-delete-messages`](/commands/moderation/bulk-delete-messages)    | Bulk delete messages in a text channel.                                                               | Moderation |
 | [`delete-role`](/commands/moderation/delete-role)                      | Delete a role from this server.                                                                       | Moderation |
 | [`kick-member`](/commands/moderation/kick-member)                      | Kick a member from your server.                                                                       | Moderation |
 | [`notifications`](/commands/moderation/notifications)                  | Check or set what notifications for server events are sent to a channel.                              | Moderation |
-| [`unban-member`](/commands/moderation/unban-member)                    | Unban a user from a server.                                                                           | Moderation |
+| [`unban-user`](/commands/moderation/unban-user)                        | Unban a user from a server.                                                                           | Moderation |
 | [`dice-game`](/commands/games/dice-game)                               | Bet a wager on a multiplier.                                                                          | Games      |
 | [`fortnite-statistics`](/commands/games/fortnite-statistics)           | Get statistics of a Fortnite player.                                                                  | Games      |
-| [`game-calculator`](/commands/games/game-calculator)                   | Calculate the odds of winning a the betting game.                                                     | Games      |
+| [`game-calculator`](/commands/games/game-calculator)                   | Calculate the odds of winning a round of the betting game.                                            | Games      |
 | [`information`](/commands/games/information)                           | Get information on a user.                                                                            | Games      |
 | [`overwatch-statistics`](/commands/games/overwatch-statistics)         | Get statistics of an Overwatch player.                                                                | Games      |
 | [`russian-roulette`](/commands/games/russian-roulette)                 | Play a game of Russian roulette.                                                                      | Games      |
-| [`simulate`](/commands/games/simulate)                                 | Simulate a game of dice.                                                                              | Games      |
+| [`simulate-game`](/commands/games/simulate-game)                       | Simulate a round of the betting game.                                                                 | Games      |
 | [`date-facts`](/commands/fun/date-facts)                               | Get a fact about a date.                                                                              | Fun        |
 | [`day-facts`](/commands/fun/day-facts)                                 | Get a fact about a day.                                                                               | Fun        |
 | [`number-facts`](/commands/fun/number-facts)                           | Get a fact about a number.                                                                            | Fun        |
@@ -66,13 +63,13 @@ Dice is a [Discord](https://discordapp.com) bot. It has lots of features includi
 | [`roll-die`](/commands/fun/roll-die)                                   | Roll a die.                                                                                           | Fun        |
 | [`xkcd`](/commands/fun/xkcd)                                           | Get an XKCD comic.                                                                                    | Fun        |
 | [`year-facts`](/commands/fun/year-facts)                               | Get a fact about a year.                                                                              | Fun        |
-| [`delete-self-roles`](/commands/selfroles/delete-self-roles)           | Delete a self-assigned role from this server.                                                         | Selfroles  |
-| [`get-self-roles`](/commands/selfroles/get-self-roles)                 | Get a self-assigned role from this server.                                                            | Selfroles  |
+| [`delete-self-role`](/commands/selfroles/delete-self-role)             | Delete a self-assigned role from this server.                                                         | Selfroles  |
+| [`get-self-role`](/commands/selfroles/get-self-role)                   | Get a self-assigned role from this server.                                                            | Selfroles  |
 | [`list-self-roles`](/commands/selfroles/list-self-roles)               | List all self-assigned roles from this server.                                                        | Selfroles  |
-| [`remove-self-roles`](/commands/selfroles/remove-self-roles)           | Remove a self-assigned role from yourself.                                                            | Selfroles  |
-| [`self-roles-add`](/commands/selfroles/self-roles-add)                 | Add roles to a server's selfroles.                                                                    | Selfroles  |
+| [`remove-self-role`](/commands/selfroles/remove-self-role)             | Remove a self-assigned role from yourself.                                                            | Selfroles  |
+| [`self-roles-add`](/commands/selfroles/self-roles-add)                 | Add roles to a server's self roles.                                                                   | Selfroles  |
 | [`body`](/commands/minecraft/body)                                     | Shows a Minecraft user's body.                                                                        | Minecraft  |
-| [`face`](/commands/minecraft/face)                                     | Shows an front view of a Minecraft user's face.                                                       | Minecraft  |
+| [`face`](/commands/minecraft/face)                                     | Shows a front view of a Minecraft user's face.                                                        | Minecraft  |
 | [`head`](/commands/minecraft/head)                                     | Shows an isometric view of a Minecraft user's head.                                                   | Minecraft  |
 | [`mini-me`](/commands/minecraft/mini-me)                               | Shows a 'mini-me' of a Minecraft user's body with an option for a transparent background or gradient. | Minecraft  |
 | [`server-status`](/commands/minecraft/server-status)                   | Get information about a Minecraft server.                                                             | Minecraft  |
