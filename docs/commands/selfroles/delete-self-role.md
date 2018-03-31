@@ -1,5 +1,5 @@
 title: Delete self role
-description: Delete a self-assigned role from a server.
+description: Delete a self-assigned role from this server.
 path: tree/master/commands/selfroles
 source: delete-self-role.js
 
@@ -7,7 +7,7 @@ source: delete-self-role.js
 
 ## Description
 
-Delete a self-assigned role from a server.
+Delete a self-assigned role from this server.
 
 ## Aliases
 
@@ -35,8 +35,8 @@ Delete a self-assigned role from a server.
 
 ### Examples
 
-* `delete-self-roles @PUBG`
-* `delete-self-roles Artists`
+* `delete-self-role @PUBG`
+* `delete-self-role Artists`
 
 ### Arguments
 
