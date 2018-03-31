@@ -4,13 +4,13 @@ const { Command } = require('discord.js-commando');
 const winston = require('winston');
 const { respond } = require('../../providers/simpleCommandResponse');
 
-module.exports = class UnbanMemberCommand extends Command {
+module.exports = class UnbanUserCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'unban-member',
-			aliases: ['unban-user', 'unban', 'unhack-ban', 'unhack-ban-member', 'unhack-ban-user'],
+			name: 'unban-user',
+			aliases: ['unban-member', 'unban', 'unhack-ban', 'unhack-ban-member', 'unhack-ban-user'],
 			group: 'mod',
-			memberName: 'unban-member',
+			memberName: 'unban-user',
 			description: 'Unban a user from a server.',
 			details: 'Works with unbanning users who were hackbanned',
 			examples: ['unban Zoop', 'unban 208970190547976202'],
@@ -40,11 +40,7 @@ module.exports = class UnbanMemberCommand extends Command {
 		try {
 			msg.channel.startTyping();
 
-			if(reason) {
-				reason = `${reason} - Requested by ${msg.author.tag}`;
-			} else {
-				reason = `Requested by ${msg.author.tag}`;
-			}
+			reason = reason ? `${reason} - Requested by ${msg.author.tag}` : `Requested by ${msg.author.tag}`;
 
 			const guildBans = await msg.guild.fetchBans();
 
