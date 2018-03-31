@@ -24,11 +24,10 @@ module.exports = class GameCalculatorCommand extends Command {
 			args: [
 				{
 					key: 'multiplier',
-					label: 'multiplier',
 					prompt: 'What multiplier do you want to check?',
 					type: 'float',
 					// Round multiplier to second decimal place
-					parse: multiplierString => diceAPI.simpleFormat(multiplierString),
+					parse: value => diceAPI.simpleFormat(value),
 					min: config.minMultiplier,
 					max: config.maxMultiplier
 				}
