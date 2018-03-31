@@ -1,7 +1,5 @@
 title: Enable
 description: Enables a command or command group.
-path: tree/master/commands/commands
-source: enable.js
 
 # Enable
 

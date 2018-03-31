@@ -1,7 +1,5 @@
 title: Disable
 description: Disables a command or command group.
-path: tree/master/commands/commands
-source: disable.js
 
 # Disable
 
