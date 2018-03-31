@@ -20,7 +20,7 @@ edit_uri: edit/docs/docs
 extra:
   social:
     - type: 'github'
-      link: 'https://github.com/pizzafox'
+      link: 'https://github.com/pizzafox/dice'
     - type: 'twitter'
       link: 'https://twitter.com/thepizzafox'
 
