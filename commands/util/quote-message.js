@@ -11,13 +11,14 @@ module.exports = class QuoteMessageCommand extends Command {
 			aliases: ['quote'],
 			group: 'util',
 			memberName: 'quote-message',
-			description: 'Delete a role from this server.',
+			description: 'Quote a message from a server.',
 			examples: ['quote-message 424936127154094080'],
 			guildOnly: true,
 			args: [{
 				key: 'message',
 				prompt: 'What message do you want to quote?',
-				type: 'message'
+				type: 'message',
+				label: 'message ID'
 			}],
 			throttling: {
 				usages: 2,
