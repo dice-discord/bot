@@ -12,7 +12,7 @@ module.exports = class BalanceCommand extends Command {
 			memberName: 'balance',
 			description: 'Check a user\'s balance.',
 			aliases: ['bal', 'balance-check', 'bal-check', 'credits'],
-			examples: ['balance', 'balance @PizzaFox#0075'],
+			examples: ['balance', 'balance @PizzaFox', 'balance zoop'],
 			args: [{
 				key: 'user',
 				prompt: 'Who\'s balance do you want to check?',
