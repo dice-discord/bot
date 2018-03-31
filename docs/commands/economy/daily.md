@@ -1,5 +1,5 @@
 title: Daily
-description: Collect your daily dots
+description: Collect your daily oats.
 path: tree/master/commands/economy
 source: daily.js
 
@@ -7,7 +7,7 @@ source: daily.js
 
 ## Description
 
-Collect your daily dots
+Collect your daily oats.
 
 ## Aliases
 
@@ -15,9 +15,9 @@ Collect your daily dots
 
 ## Usage
 
+!!! tip
+    Use the [vote](/commands/utility/vote) command to get double the payout
+
 ### Format
 
 `daily`
-
-!!! tip
-    Use the [vote](/commands/utility/vote) command to get double the payout
