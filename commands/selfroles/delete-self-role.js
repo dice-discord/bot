@@ -3,14 +3,14 @@
 const { Command } = require('discord.js-commando');
 const { respond } = require('../../providers/simpleCommandResponse');
 
-module.exports = class DeleteSelfRolesCommand extends Command {
+module.exports = class DeleteSelfRoleCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'delete-self-roles',
+			name: 'delete-self-role',
 			aliases: [
 				'self-role-delete',
 				'self-roles-delete',
-				'delete-self-role',
+				'delete-self-roles',
 				'del-self-roles',
 				'self-role-del',
 				'self-roles-del',
