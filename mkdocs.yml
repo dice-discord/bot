@@ -21,8 +21,6 @@ extra:
   social:
     - type: 'github'
       link: 'https://github.com/pizzafox/dice'
-    - type: 'twitter'
-      link: 'https://twitter.com/thepizzafox'
 
 markdown_extensions:
   - admonition
