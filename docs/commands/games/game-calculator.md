@@ -42,6 +42,6 @@ Calculate the odds of winning a round of the betting game.
 
 ### Arguments
 
-| Name       | Type  | Required | Minimum | Maximum |
-|------------|-------|----------|---------|---------|
-| Multiplier | Float | Yes      | 1.01    | 100     |
+| Name       | Type   | Required | Minimum | Maximum |
+|------------|--------|----------|---------|---------|
+| Multiplier | Number | Yes      | 1.01    | 100     |

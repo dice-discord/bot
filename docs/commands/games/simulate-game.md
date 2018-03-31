@@ -37,4 +37,4 @@ Simulate a round of the betting game.
 | Name       | Type    | Required | Minimum | Maximum |
 |------------|---------|----------|---------|---------|
 | Wager      | Integer | Yes      | 1       |         |
-| Multiplier | Float   | Yes      | 1.01    | 100     |
+| Multiplier | Number  | Yes      | 1.01    | 100     |

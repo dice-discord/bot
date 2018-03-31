@@ -1,5 +1,5 @@
 title: Random dog image
-description: Get a picture of a random dog
+description: Get a picture of a random dog.
 path: tree/master/commands/fun
 source: random-dog-image.js
 
@@ -7,7 +7,7 @@ source: random-dog-image.js
 
 ## Description
 
-Get a picture of a random dog
+Get a picture of a random dog.
 
 ## Aliases
 

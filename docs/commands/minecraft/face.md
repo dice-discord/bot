@@ -1,5 +1,5 @@
 title: Face
-description: Shows an front view of a Minecraft user's face.
+description: Shows a front view of a Minecraft user's face.
 path: tree/master/commands/minecraft
 source: face.js
 
@@ -7,7 +7,7 @@ source: face.js
 
 ## Description
 
-Shows an front view of a Minecraft user's face.
+Shows a front view of a Minecraft user's face.
 
 ## Aliases
 
@@ -28,6 +28,6 @@ Shows an front view of a Minecraft user's face.
 
 ### Arguments
 
-| Name     | Type   | Required |
-|----------|--------|----------|
-| Username | String | Yes      |
+| Name  | Type | Required | Minimum | Maximum |
+|-------|------|----------|---------|---------|
+| Username | String |Yes |  |  |

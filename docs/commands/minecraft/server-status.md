@@ -1,5 +1,5 @@
 title: Server status
-description: Get information about a Minecraft server
+description: Get information about a Minecraft server.
 path: tree/master/commands/minecraft
 source: server-status.js
 
@@ -7,7 +7,7 @@ source: server-status.js
 
 ## Description
 
-Get information about a Minecraft server
+Get information about a Minecraft server.
 
 ## Aliases
 
@@ -34,7 +34,7 @@ Get information about a Minecraft server
 
 ### Arguments
 
-| Name       | Type   | Required | Minimum | Maximum |
-|------------|--------|----------|---------|---------|
-| IP address | String   | Yes      |         |         |
-| Port       | Number | No       | 1       | 65535   |
+| Name       | Type    | Required | Minimum | Maximum |
+|------------|---------|----------|---------|---------|
+| IP address | String  | Yes      |         |         |
+| Port       | Integer | No       | 1       | 65535   |

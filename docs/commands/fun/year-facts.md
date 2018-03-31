@@ -1,5 +1,5 @@
 title: Year facts
-description: Get a fact about a year
+description: Get a fact about a year.
 path: tree/master/commands/fun
 source: year-facts.js
 
@@ -7,7 +7,7 @@ source: year-facts.js
 
 ## Description
 
-Get a fact about a year
+Get a fact about a year.
 
 ## Details
 
@@ -36,6 +36,6 @@ Not specifying the year to lookup will give you a random fact
 
 ### Arguments
 
-| Name | Type   | Required |
-|------|--------|----------|
-| Year | Number | No       |
+| Name | Type    | Required |
+|------|---------|----------|
+| Year | Integer | No       |
