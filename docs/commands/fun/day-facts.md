@@ -1,5 +1,5 @@
 title: Day facts
-description: Get a fact about a day
+description: Get a fact about a day.
 path: tree/master/commands/fun
 source: day-facts.js
 
@@ -7,7 +7,7 @@ source: day-facts.js
 
 ## Description
 
-Get a fact about a day
+Get a fact about a day.
 
 ## Details
 
@@ -21,6 +21,7 @@ Not specifying the day to lookup will give you a random fact
 * `dayfacts`
 * `dayfact`
 * `randomdayfacts`
+* `randomdayfact`
 
 ## Usage
 
@@ -35,6 +36,6 @@ Not specifying the day to lookup will give you a random fact
 
 ### Arguments
 
-| Name | Type   | Required | Minimum | Maximum |
-|------|--------|----------|---------|---------|
-| Day  | Number | No       | 1       | 31      |
+| Name | Type    | Required | Minimum | Maximum |
+|------|---------|----------|---------|---------|
+| Day  | Integer | No       | 1       | 31      |
