@@ -8,8 +8,8 @@ module.exports = class GetSelfRoleCommand extends Command {
 		super(client, {
 			name: 'get-self-role',
 			aliases: ['self-role-get', 'self-roles-get', 'get-self-roles'],
-			group: 'selfrole',
-			memberName: 'get-self-roles',
+			group: 'selfroles',
+			memberName: 'get-self-role',
 			description: 'Get a self-assigned role from this server.',
 			examples: ['get-self-roles @PUBG', 'get-self-roles Artists'],
 			clientPermissions: ['MANAGE_ROLES'],
