@@ -70,7 +70,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 
 			## Details
 			
-			${command.description}`;
+			${command.details}`;
 		}
 
 		if(command.aliases && command.aliases.length > 0) {
