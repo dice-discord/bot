@@ -3,20 +3,20 @@
 const { Command } = require('discord.js-commando');
 const { respond } = require('../../providers/simpleCommandResponse');
 
-module.exports = class RemoveSelfRolesCommand extends Command {
+module.exports = class RemoveSelfRoleCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'remove-self-roles',
-			aliases: ['self-role-remove', 'self-roles-remove', 'remove-self-role'],
+			name: 'remove-self-role',
+			aliases: ['self-role-remove', 'self-roles-remove', 'remove-self-roles'],
 			group: 'selfroles',
-			memberName: 'remove-self-roles',
+			memberName: 'remove-self-role',
 			description: 'Remove a self-assigned role from yourself.',
 			examples: ['remove-self-roles @PUBG', 'remove-self-roles Artists'],
 			clientPermissions: ['MANAGE_ROLES'],
 			guildOnly: true,
 			args: [{
 				key: 'role',
-				prompt: 'Which of your selfroles do you want to remove?',
+				prompt: 'Which of your self roles do you want to remove?',
 				type: 'role'
 			}],
 			throttling: {

@@ -3,12 +3,12 @@
 const { Command } = require('discord.js-commando');
 const { respond } = require('../../providers/simpleCommandResponse');
 
-module.exports = class GetSelfRolesCommand extends Command {
+module.exports = class GetSelfRoleCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'get-self-roles',
-			aliases: ['self-role-get', 'self-roles-get', 'get-self-role'],
-			group: 'selfroles',
+			name: 'get-self-role',
+			aliases: ['self-role-get', 'self-roles-get', 'get-self-roles'],
+			group: 'selfrole',
 			memberName: 'get-self-roles',
 			description: 'Get a self-assigned role from this server.',
 			examples: ['get-self-roles @PUBG', 'get-self-roles Artists'],
