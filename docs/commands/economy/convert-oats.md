@@ -34,4 +34,4 @@ Converts oats to another bot's currency
 | Name                   | Type   | Required |
 |------------------------|--------|----------|
 | Amount                 | Number | Yes      |
-| Currency to convert to | Text   | Yes      |
+| Currency to convert to | String   | Yes      |

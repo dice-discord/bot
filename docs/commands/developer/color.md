@@ -34,4 +34,4 @@ Display and convert a color from and to hexadecimal, HSL, RGB, CMYK, and CSS nam
 
 | Name  | Type | Required |
 |-------|------|----------|
-| Color | Text | Yes      |
+| Color | String | Yes      |
