@@ -20,7 +20,7 @@ module.exports = class GameCalculatorCommand extends Command {
 				'win-percent',
 				'win-calc'
 			],
-			examples: ['calculator 4', 'calculator 1.02'],
+			examples: ['game-calculator 4', 'game-calculator 1.02'],
 			args: [
 				{
 					key: 'multiplier',
