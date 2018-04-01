@@ -39,6 +39,7 @@ client.registry
 	.registerGroups([
 		['util', 'Utility'],
 		['mod', 'Moderation'],
+		['search', 'Search'],
 		['games', 'Games'],
 		['fun', 'Fun'],
 		['selfroles', 'Selfroles'],

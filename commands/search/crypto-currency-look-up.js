@@ -9,7 +9,7 @@ module.exports = class CryptoCurrencyLookUpCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'crypto-currency-look-up',
-			group: 'util',
+			group: 'search',
 			memberName: 'crypto-currency-look-up',
 			description: 'Look up a crypto currency.',
 			aliases: ['crypto-currency', 'crypto-look-up', 'crypto'],

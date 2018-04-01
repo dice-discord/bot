@@ -7,7 +7,7 @@ module.exports = class LookUpStockCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'look-up-stock',
-			group: 'util',
+			group: 'search',
 			memberName: 'look-up-stock',
 			description: 'Get the price of a stock.',
 			aliases: ['stock', 'stock-look-up', 'stocks'],

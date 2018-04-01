@@ -10,7 +10,7 @@ module.exports = class TopCryptoCurrenciesCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'top-crypto-currencies',
-			group: 'util',
+			group: 'search',
 			memberName: 'top-crypto-currencies',
 			description: 'Get prices for the top crypto currencies.',
 			aliases: ['top-crypto-currency', 'top-cryptos', 'top-crypto'],
