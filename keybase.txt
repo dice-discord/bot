@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/pizzafox
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://dice.js.org
+  * I am pizzafox (https://keybase.io/pizzafox) on keybase.
+  * I have a public key ASCTnO1QuamE81UnbNv3AMqXjqUCevBF4-iAT5h0UrXh6wo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "012078d8478babc3fbf624787afc6ae06c180e8bfbfa9a5a3b2e56a7beac7b030bf80a",
+      "host": "keybase.io",
+      "kid": "0120939ced50b9a984f355276cdbf700ca978ea5027af045e3e8804f987452b5e1eb0a",
+      "uid": "45f53f29517c3f06292153689754c219",
+      "username": "pizzafox"
+    },
+    "merkle_root": {
+      "ctime": 1522550592,
+      "hash": "7f549c73177379d879cc48aac06594eb8e71046f8f4a0d6825f10082add3f4ad221606abe8f7b167ffa911ccb1d265708a67ae7af920f89762847b52e107f9dd",
+      "hash_meta": "3a86cc1c4dfa9908bbd58fabf6a9a27843ccc009b796c127a390ce08f05f1aef",
+      "seqno": 2318155
+    },
+    "service": {
+      "hostname": "dice.js.org",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.45"
+  },
+  "ctime": 1522550668,
+  "expire_in": 504576000,
+  "prev": "2b51247864f2e224c462726114eb63abc3469bbac8b4be932a06a5eac1982f90",
+  "seqno": 62,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgk5ztULmphPNVJ2zb9wDKl46lAnrwRePogE+YdFK14esKp3BheWxvYWTFA0R7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwNzhkODQ3OGJhYmMzZmJmNjI0Nzg3YWZjNmFlMDZjMTgwZThiZmJmYTlhNWEzYjJlNTZhN2JlYWM3YjAzMGJmODBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwOTM5Y2VkNTBiOWE5ODRmMzU1Mjc2Y2RiZjcwMGNhOTc4ZWE1MDI3YWYwNDVlM2U4ODA0Zjk4NzQ1MmI1ZTFlYjBhIiwidWlkIjoiNDVmNTNmMjk1MTdjM2YwNjI5MjE1MzY4OTc1NGMyMTkiLCJ1c2VybmFtZSI6InBpenphZm94In0sIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNTIyNTUwNTkyLCJoYXNoIjoiN2Y1NDljNzMxNzczNzlkODc5Y2M0OGFhYzA2NTk0ZWI4ZTcxMDQ2ZjhmNGEwZDY4MjVmMTAwODJhZGQzZjRhZDIyMTYwNmFiZThmN2IxNjdmZmE5MTFjY2IxZDI2NTcwOGE2N2FlN2FmOTIwZjg5NzYyODQ3YjUyZTEwN2Y5ZGQiLCJoYXNoX21ldGEiOiIzYTg2Y2MxYzRkZmE5OTA4YmJkNThmYWJmNmE5YTI3ODQzY2NjMDA5Yjc5NmMxMjdhMzkwY2UwOGYwNWYxYWVmIiwic2Vxbm8iOjIzMTgxNTV9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoiZGljZS5qcy5vcmciLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC40NSJ9LCJjdGltZSI6MTUyMjU1MDY2OCwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsInByZXYiOiIyYjUxMjQ3ODY0ZjJlMjI0YzQ2MjcyNjExNGViNjNhYmMzNDY5YmJhYzhiNGJlOTMyYTA2YTVlYWMxOTgyZjkwIiwic2Vxbm8iOjYyLCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQN1MrcfAGf3ficxnF6mtw1O1Qqs5YBEaq2Z1hBxwOYG4LHt432J2y1LGuZxjXRGN+K8LNhoZLIS1rl6GMfiTkwCoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCCsklrdHexLlubEZ6X81mHkRnHzIr8nOdToOXaYHgU57KN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/pizzafox
+
+==================================================================
