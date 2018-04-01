@@ -9,7 +9,7 @@ module.exports = class LMGTFYCommand extends Command {
 			group: 'search',
 			memberName: 'lmgtfy',
 			description: 'Generate a let-me-Google-that-for-you link.',
-			examples: ['look-up-stock AAPL'],
+			examples: ['lmgtfy dice discord bot'],
 			aliases: ['let-me-google-that-for-you'],
 			throttling: {
 				usages: 2,
