@@ -7,7 +7,7 @@ module.exports = class SupportCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'support',
-			group: 'util',
+			group: 'single',
 			memberName: 'support',
 			description: `An invite to the <@${config.clientID}> server.`,
 			aliases: ['home', 'report', 'bug'],

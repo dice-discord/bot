@@ -6,7 +6,7 @@ module.exports = class VoteCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'vote',
-			group: 'util',
+			group: 'single',
 			memberName: 'vote',
 			description: 'Vote once per day and get double your daily.',
 			throttling: {

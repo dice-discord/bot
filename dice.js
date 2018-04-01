@@ -42,6 +42,7 @@ client.registry
 		['search', 'Search'],
 		['games', 'Games'],
 		['fun', 'Fun'],
+		['single', 'Single response'],
 		['selfroles', 'Selfroles'],
 		['minecraft', 'Minecraft'],
 		['economy', 'Economy'],

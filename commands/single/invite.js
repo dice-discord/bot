@@ -7,7 +7,7 @@ module.exports = class InviteCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'invite',
-			group: 'util',
+			group: 'single',
 			memberName: 'invite',
 			description: `An invite link for <@${config.clientID}>.`,
 			throttling: {
