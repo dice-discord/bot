@@ -1,6 +1,6 @@
 title: Crypto currency look up
 description: Look up a crypto currency.
-path: tree/master/commands/util
+path: tree/master/commands/search
 source: crypto-currency-look-up.js
 
 # Crypto currency look up
