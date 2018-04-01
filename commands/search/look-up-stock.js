@@ -12,6 +12,7 @@ module.exports = class LookUpStockCommand extends Command {
 			description: 'Get the price of a stock.',
 			aliases: ['stock', 'stock-look-up', 'stocks'],
 			examples: ['look-up-stock AAPL'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 4,
 				duration: 20

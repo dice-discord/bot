@@ -12,6 +12,7 @@ module.exports = class StatisticsCommand extends Command {
 			memberName: 'statistics',
 			description: `Get statistics on <@${config.clientID}>.`,
 			aliases: ['stats'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 2,
 				duration: 20

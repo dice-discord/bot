@@ -20,6 +20,7 @@ module.exports = class QuoteMessageCommand extends Command {
 				type: 'message',
 				label: 'message ID'
 			}],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 2,
 				duration: 6

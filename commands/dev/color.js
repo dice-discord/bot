@@ -14,6 +14,7 @@ module.exports = class ColorCommand extends Command {
 			description: 'Display and convert a color.',
 			details: 'Display and convert a color from and to hexadecimal, HSL, RGB, CMYK, and CSS name',
 			examples: ['color blue', 'color #deaded', 'color hsl(210,50,50)'],
+			clientPermissions: ['EMBED_LINKS'],
 			args: [{
 				key: 'color',
 				prompt: 'What color do you want to get information on?',

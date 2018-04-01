@@ -15,6 +15,7 @@ module.exports = class DiceGameCommand extends Command {
 			details: 'For each bet the outcome is randomly chosen between 1 and 100. It\'s up to you to guess a target that you think the outcome will exceed.',
 			aliases: ['game', 'play', 'play-game', 'play-dice'],
 			examples: ['dice 250 4'],
+			clientPermissions: ['EMBED_LINKS'],
 			args: [{
 				key: 'wager',
 				prompt: 'How much do you want to wager? (whole number)',

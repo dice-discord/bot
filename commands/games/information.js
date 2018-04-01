@@ -14,6 +14,7 @@ module.exports = class InformationCommand extends Command {
 			description: 'Get information on a user.',
 			aliases: ['user-info', 'user-profile', 'profile', 'info', 'user-information'],
 			examples: ['info', 'information PizzaFox'],
+			clientPermissions: ['EMBED_LINKS'],
 			args: [
 				{
 					key: 'user',

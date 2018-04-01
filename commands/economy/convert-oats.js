@@ -16,6 +16,7 @@ module.exports = class ConvertOatsCommand extends Command {
 			details: 'Use the `discoin-rates` command to see all currencies',
 			aliases: ['convert', 'convert-currencies'],
 			examples: ['convert-oats 500 dts'],
+			clientPermissions: ['EMBED_LINKS'],
 			args: [{
 				key: 'amount',
 				prompt: 'How many oats do you want to convert to another Discoin currency?',
@@ -28,8 +29,7 @@ module.exports = class ConvertOatsCommand extends Command {
 				label: 'currency to convert to',
 				oneOf: config.discoinCurrencyCodes,
 				parse: value => value.toUpperCase()
-			}
-			],
+			}],
 			throttling: {
 				usages: 1,
 				duration: 30

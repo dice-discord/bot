@@ -16,6 +16,7 @@ module.exports = class FortniteStatisticsCommand extends Command {
 			details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).',
 			aliases: ['fortnite-stats', 'fortnite'],
 			examples: ['fortnite-statistics pc Zaccubus', 'fortnite-stats pc "WBG Strafesh0t"'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 1,
 				duration: 10

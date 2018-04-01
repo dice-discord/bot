@@ -14,6 +14,7 @@ module.exports = class SimulateGameCommand extends Command {
 			description: 'Simulate a round of the betting game.',
 			aliases: ['practice-game', 'sim-game', 'simulate-dice', 'sim-dice'],
 			examples: ['simulate-game 250 4', 'sim 23-game 2.01'],
+			clientPermissions: ['EMBED_LINKS'],
 			args: [{
 				key: 'wager',
 				prompt: 'How much do you want to wager? (whole number)',

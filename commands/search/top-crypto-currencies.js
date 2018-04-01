@@ -15,6 +15,7 @@ module.exports = class TopCryptoCurrenciesCommand extends Command {
 			description: 'Get prices for the top crypto currencies.',
 			aliases: ['top-crypto-currency', 'top-cryptos', 'top-crypto'],
 			examples: ['top-crypto-currencies', 'top-crypto-currencies 5', 'top-crypto-currencies 10 AUD'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 1,
 				duration: 30

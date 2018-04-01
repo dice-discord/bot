@@ -24,6 +24,7 @@ module.exports = class NotificationsCommand extends Command {
 			description: 'Check or set what notifications for server events are sent to a channel.',
 			details: 'Not specifying an event type to toggle will list the statuses of all events in the channel',
 			userPermissions: ['MANAGE_GUILD'],
+			clientPermissions: ['EMBED_LINKS'],
 			examples: ['notifications 1', 'notifications'],
 			guildOnly: true,
 			args: [{

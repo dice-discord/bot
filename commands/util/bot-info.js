@@ -13,6 +13,7 @@ module.exports = class BotInfoCommand extends Command {
 			memberName: 'bot-info',
 			description: `Information about <@${config.clientID}>.`,
 			aliases: ['github', 'uptime', 'library', 'git', 'lib', 'version', 'bot'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 3,
 				duration: 8

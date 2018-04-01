@@ -13,7 +13,8 @@ module.exports = class RefundTransactionCommand extends Command {
 			memberName: 'refund-transaction',
 			description: 'Refund a transaction on Discoin.',
 			aliases: ['refund', 'revert-transaction', 'revert'],
-			examples: ['revert e03f7f5b048414d8eadf9fd6e1245803b3c2da9a'],
+			examples: ['refund-transaction e03f7f5b048414d8eadf9fd6e1245803b3c2da9a'],
+			clientPermissions: ['EMBED_LINKS'],
 			args: [{
 				key: 'receipt',
 				prompt: 'What is the receipt for the transaction you want to revert?',

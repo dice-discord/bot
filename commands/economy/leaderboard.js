@@ -14,6 +14,7 @@ module.exports = class LeaderboardCommand extends Command {
 			memberName: 'leaderboard',
 			description: `Shows a top ten leaderboard of who has the most ${config.currency.plural}.`,
 			aliases: ['top-10', 'top-ten', 'chart', 'top'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 1,
 				duration: 5

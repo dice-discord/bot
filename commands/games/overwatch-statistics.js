@@ -18,6 +18,7 @@ module.exports = class OverwatchStatisticsCommand extends Command {
 			details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).',
 			aliases: ['overwatch-stats', 'overwatch', 'ow-statistics', 'ow-stats', 'ow'],
 			examples: ['overwatch-statistics cats#11481 pc us'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 1,
 				duration: 4
