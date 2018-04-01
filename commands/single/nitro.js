@@ -27,6 +27,6 @@ module.exports = class NitroCommand extends Command {
 			This message can only be viewed by users with Discord Nitro.
 			[Lift off with Discord Nitro today](https://discordapp.com/nitro).`
 		};
-		return msg.replyEmbed(embed);
+		return msg.embed(embed);
 	}
 };
