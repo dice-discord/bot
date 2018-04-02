@@ -24,7 +24,7 @@ module.exports = {
 		label: 'nickname change',
 		name: 'guildMemberUpdate'
 	}],
-	discoinCurrencyCodes: ['dts', 'elt', 'kek', 'rbn', 'sbt'],
+	discoinCurrencyCodes: ['dts', 'elt', 'kek', 'rbn', 'sbt', 'pcn'],
 	currencyCodes: [
 		'aud',
 		'brl',
