@@ -16,7 +16,6 @@ Lists the conversion rates for Discoin currencies
 | EliteLooter | ELT           | 0.9        | 1            |
 | KekBot      | KEK           | 3          | 1            |
 | Pollux      | RBN           | 0.9        | 0.95         |
-| SmoreBot    | SBT           | 1          | 1            |
 
 ## Aliases
 
