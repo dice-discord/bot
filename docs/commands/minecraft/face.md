@@ -1,33 +1,33 @@
 title: Face
-description: hows an isometric view of a Minecraft user's head
+description: Shows a front view of a Minecraft user's face.
 path: tree/master/commands/minecraft
-source: head.js
+source: face.js
 
 # Face
 
 ## Description
 
-Shows an isometric view of a Minecraft user's head
+Shows a front view of a Minecraft user's face.
 
 ## Aliases
 
-* `minecraft-head`
-* `mc-head`
-* `minecrafthead`
-* `mchead`
+* `minecraft-face`
+* `mc-face`
+* `minecraftface`
+* `mcface`
 
 ## Usage
 
 ### Format
 
-`head <username>`
+`face <username>`
 
 ### Examples
 
-* `head Notch`
+* `face Notch`
 
 ### Arguments
 
-| Name     | Type | Required |
-|----------|------|----------|
-| Username | Text | Yes      |
+| Name  | Type | Required | Minimum | Maximum |
+|-------|------|----------|---------|---------|
+| Username | String |Yes |  |  |

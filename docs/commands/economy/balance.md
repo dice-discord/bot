@@ -1,5 +1,5 @@
 title: Balance
-description: Check a user's balance
+description: Check a user's balance.
 path: tree/master/commands/economy
 source: balance.js
 
@@ -7,16 +7,16 @@ source: balance.js
 
 ## Description
 
-Check a user's balance
+Check a user's balance.
 
 ## Aliases
 
 * `bal`
 * `balance-check`
-* `balancecheck`
 * `bal-check`
-* `balcheck`
 * `credits`
+* `balancecheck`
+* `balcheck`
 
 ## Usage
 
@@ -28,6 +28,7 @@ Check a user's balance
 
 * `balance`
 * `balance @PizzaFox`
+* `balance zoop`
 
 ### Arguments
 

@@ -1,8 +1,13 @@
+title: Color
+description: Display and convert a color.
+path: tree/master/commands/dev
+source: color.js
+
 # Color
 
 ## Description
 
-Display and convert a color
+Display and convert a color.
 
 ## Details
 
@@ -32,6 +37,6 @@ Display and convert a color from and to hexadecimal, HSL, RGB, CMYK, and CSS nam
 
 ### Arguments
 
-| Name  | Type | Required |
-|-------|------|----------|
-| Color | Text | Yes      |
+| Name  | Type   | Required |
+|-------|--------|----------|
+| Color | String | Yes      |

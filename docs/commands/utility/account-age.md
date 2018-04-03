@@ -1,5 +1,5 @@
 title: Account age
-description: Check when an account was created
+description: Check when an account was created.
 path: tree/master/commands/util
 source: account-age.js
 
@@ -7,13 +7,13 @@ source: account-age.js
 
 ## Description
 
-Check when an account was created
+Check when an account was created.
 
 ## Aliases
 
-* `accountage`
 * `age`
 * `account-created`
+* `accountage`
 * `accountcreated`
 
 ## Usage
@@ -24,5 +24,11 @@ Check when an account was created
 
 ### Examples
 
-`account-age`
-`account-age @Dice`
+* `account-age`
+* `account-age @Dice`
+
+### Arguments
+
+| Name | Type | Required |
+|------|------|----------|
+| User | User | No       |

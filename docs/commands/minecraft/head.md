@@ -1,5 +1,5 @@
 title: Head
-description: hows an isometric view of a Minecraft user's head
+description: Shows an isometric view of a Minecraft user's head.
 path: tree/master/commands/minecraft
 source: head.js
 
@@ -7,7 +7,7 @@ source: head.js
 
 ## Description
 
-Shows an isometric view of a Minecraft user's head
+Shows an isometric view of a Minecraft user's head.
 
 ## Aliases
 
@@ -20,7 +20,7 @@ Shows an isometric view of a Minecraft user's head
 
 ### Format
 
-`server-status <username>`
+`head <username>`
 
 ### Examples
 
@@ -28,6 +28,6 @@ Shows an isometric view of a Minecraft user's head
 
 ### Arguments
 
-| Name     | Type | Required |
-|----------|------|----------|
-| Username | Text | Yes      |
+| Name  | Type | Required | Minimum | Maximum |
+|-------|------|----------|---------|---------|
+| Username | String |Yes |  |  |

@@ -1,5 +1,5 @@
 title: Number facts
-description: Get a fact about a number
+description: Get a fact about a number.
 path: tree/master/commands/fun
 source: number-facts.js
 
@@ -7,7 +7,7 @@ source: number-facts.js
 
 ## Description
 
-Get a fact about a number
+Get a fact about a number.
 
 ## Details
 
@@ -40,10 +40,10 @@ Not specifying the number to lookup will give you a random fact
 ### Examples
 
 * `number-facts`
-* `number-facts 14`
+* `number-facts 46`
 
 ### Arguments
 
-| Name   | Type   | Required | Minimum | Maximum |
-|--------|--------|----------|---------|---------|
-| Number | Number | No       | 1       | 31      |
+| Name   | Type    | Required |
+|--------|---------|----------|
+| Number | Integer | No       |
