@@ -59,23 +59,23 @@ module.exports = class FortniteStatisticsCommand extends Command {
 				url: `https://fortnitetracker.com/profile/${platform}/${encodeURIComponent(username)}`,
 				fields: [{
 					name: '🏆 Wins',
-					value: `${stats.lifeTimeStats[8].value} wins (${stats.lifeTimeStats[9].value})`
+					value: `${stats.lifeTimeStats[8].value || 0} wins (${stats.lifeTimeStats[9].value || 0})`
 				}, {
 					name: '💀 Kills',
 					// eslint-disable-next-line max-len
-					value: `${stats.lifeTimeStats[10].value} kills. ${stats.lifeTimeStats[11].value} K/D ratio. ${stats.lifeTimeStats[12].value} kills per minute.`
+					value: `${stats.lifeTimeStats[10].value || 0} kills. ${stats.lifeTimeStats[11].value || 0} K/D ratio. ${stats.lifeTimeStats[12].value} kills per minute.`
 				}, {
 					name: '🕒 Time Played',
-					value: stats.lifeTimeStats[13].value
+					value: stats.lifeTimeStats[13].value || 0
 				}, {
 					name: '⏲ Average Survival Time',
-					value: stats.lifeTimeStats[14].value
+					value: stats.lifeTimeStats[14].value || 0
 				}, {
 					name: '🎮 Matches Played',
-					value: stats.lifeTimeStats[7].value
+					value: stats.lifeTimeStats[7].value || 0
 				}, {
 					name: '🔢 Score',
-					value: stats.lifeTimeStats[6].value
+					value: stats.lifeTimeStats[6].value || 0
 				}]
 			});
 		} finally {
