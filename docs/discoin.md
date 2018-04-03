@@ -7,7 +7,7 @@ Discoin is a universal system for bots to exchange currencies with. Dice is inte
 
 ## [User guide](https://discoin.gitbooks.io/docs/content/users-guide.html)
 
-## Conversion rates
+## [Conversion rates](https://discoin.sidetrip.xyz/rates)
 
 | Name        | Currency code | To Discoin | From Discoin |
 |-------------|---------------|------------|--------------|
