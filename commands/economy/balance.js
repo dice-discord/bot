@@ -43,9 +43,10 @@ module.exports = class BalanceCommand extends Command {
 				// Someone else's balance
 				if(houseBalance < userBalance && user.id !== this.client.user.id) {
 					// eslint-disable-next-line max-len
-					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${config.currency.plural}. That's more than ${this.client.user}!`);
+					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance.toLocaleString()}\` ${config.currency.plural}. That's more than ${this.client.user}!`);
 				} else {
-					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance}\` ${config.currency.plural}.`);
+					// eslint-disable-next-line max-len
+					return msg.reply(`🏦 ${user.tag}'s account has a balance of \`${userBalance.toLocaleString()}\` ${config.currency.plural}.`);
 				}
 			} else {
 				userBalance = await diceAPI.getBalance(msg.author.id);
@@ -53,9 +54,9 @@ module.exports = class BalanceCommand extends Command {
 				// We are looking up the message author's balance
 				if(houseBalance < userBalance && user.id !== this.client.user.id) {
 					// eslint-disable-next-line max-len
-					return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${config.currency.plural}. That's more than ${this.client.user}!`);
+					return msg.reply(`🏦 You have a balance of \`${userBalance.toLocaleString()}\` ${config.currency.plural}. That's more than ${this.client.user}!`);
 				} else {
-					return msg.reply(`🏦 You have a balance of \`${userBalance}\` ${config.currency.plural}.`);
+					return msg.reply(`🏦 You have a balance of \`${userBalance.toLocaleString()}\` ${config.currency.plural}.`);
 				}
 			}
 		} finally {

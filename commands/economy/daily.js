@@ -69,7 +69,7 @@ module.exports = class DailyCommand extends Command {
 				diceAPI.increaseBalance(this.client.user.id, payout);
 
 				// Daily not collected in one day
-				const message = `You were paid ${payout} ${config.currency.plural}`;
+				const message = `You were paid ${payout.toLocaleString()} ${config.currency.plural}`;
 				if(note) {
 					return msg.reply(`${message}\n${note}`);
 				} else {

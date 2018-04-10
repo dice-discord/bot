@@ -47,7 +47,7 @@ module.exports = class DiceGameCommand extends Command {
 			// Wager checking
 			if(wager > authorBalance) {
 				// eslint-disable-next-line max-len
-				return msg.reply(`❌ You are missing \`${wager - authorBalance}\` ${config.currency.plural}. Your balance is \`${authorBalance}\` ${config.currency.plural}.`);
+				return msg.reply(`❌ You are missing \`${(wager - authorBalance).toLocaleString()}\` ${config.currency.plural}. Your balance is \`${authorBalance.toLocaleString()}\` ${config.currency.plural}.`);
 			} else if((wager * multiplier) - wager > await diceAPI.getBalance(this.client.user.id)) {
 				return msg.reply('❌ I couldn\'t pay your winnings if you won.');
 			}
@@ -82,7 +82,7 @@ module.exports = class DiceGameCommand extends Command {
 				},
 				{
 					name: '🏦 Updated Balance',
-					value: `${await diceAPI.getBalance(msg.author.id)} ${config.currency.plural}`,
+					value: `${(await diceAPI.getBalance(msg.author.id)).toLocaleString()} ${config.currency.plural}`,
 					inline: true
 				},
 				{
@@ -101,12 +101,12 @@ module.exports = class DiceGameCommand extends Command {
 			if(gameResult === true) {
 				// Red color and loss message
 				embed.setColor(0xf44334);
-				embed.setDescription(`You lost \`${wager}\` ${config.currency.plural}.`);
+				embed.setDescription(`You lost \`${wager.toLocaleString()}\` ${config.currency.plural}.`);
 			} else {
 				// Green color and win message
 				embed.setColor(0x4caf50);
 
-				embed.setDescription(`You made \`${profit}\` ${config.currency.plural} of profit!`);
+				embed.setDescription(`You made \`${profit.toLocaleString()}\` ${config.currency.plural} of profit!`);
 			}
 
 			return msg.replyEmbed(embed);

@@ -60,12 +60,12 @@ module.exports = class InformationCommand extends Command {
 				fields: [
 					{
 						name: '💰 Total Profit',
-						value: `${diceAPI.simpleFormat(userBalance - startingBalance)} ${config.currency.plural}`,
+						value: `${diceAPI.simpleFormat(userBalance - startingBalance).toLocaleString()} ${config.currency.plural}`,
 						inline: true
 					},
 					{
 						name: '🏦 Balance',
-						value: `${userBalance} ${config.currency.plural}`,
+						value: `${userBalance.toLocaleString()} ${config.currency.plural}`,
 						inline: true
 					}
 				]

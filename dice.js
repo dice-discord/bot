@@ -598,11 +598,11 @@ client
 				},
 				{
 					name: '🏦 User Balance',
-					value: `\`${userBalance}\` ${config.currency.plural}`
+					value: `\`${userBalance.toLocaleString()}\` ${config.currency.plural}`
 				},
 				{
 					name: `🏦 ${client.user.username} Balance`,
-					value: `\`${houseBalance}\` ${config.currency.plural}`
+					value: `\`${houseBalance.toLocaleString()}\` ${config.currency.plural}`
 				}
 				]
 			}
@@ -637,11 +637,11 @@ client
 				},
 				{
 					name: '🏦 User Balance',
-					value: `\`${userBalance}\` ${config.currency.plural}`
+					value: `\`${userBalance.toLocaleString()}\` ${config.currency.plural}`
 				},
 				{
 					name: `🏦 ${client.user.username} Balance`,
-					value: `\`${houseBalance}\` ${config.currency.plural}`
+					value: `\`${houseBalance.toLocaleString()}\` ${config.currency.plural}`
 				}
 				]
 			}

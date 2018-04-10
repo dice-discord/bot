@@ -48,7 +48,7 @@ module.exports = class LeaderboardCommand extends Command {
 
 			for(let i = 0; i < leaderboardArray.length; i++) {
 				// eslint-disable-next-line max-len
-				embed.addField(`#${i + 1} ${await userTagFromID(i)}`, `${leaderboardArray[i].balance} ${config.currency.plural}`);
+				embed.addField(`#${i + 1} ${await userTagFromID(i)}`, `${leaderboardArray[i].balance.toLocaleString()} ${config.currency.plural}`);
 			}
 
 			return msg.replyEmbed(embed);

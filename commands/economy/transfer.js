@@ -42,7 +42,7 @@ module.exports = class TransferCommand extends Command {
 			// Amount checking
 			if(amount > await diceAPI.getBalance(msg.author.id)) {
 				// eslint-disable-next-line max-len
-				return msg.reply(`❌ You need to have at least \`${amount}\` ${config.currency.plural}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
+				return msg.reply(`❌ You need to have at least \`${amount.toLocaleString()}\` ${config.currency.plural}. Your balance is \`${await diceAPI.getBalance(msg.author.id)}\`.`);
 			}
 
 			// No sending money to yourself
@@ -52,7 +52,7 @@ module.exports = class TransferCommand extends Command {
 
 			// No sending money to bots
 			if(user.bot === true && user.id !== this.client.user.id) {
-				return msg.reply('❌ You can\'t send oats to bots.');
+				return msg.reply(`❌ You can't send ${config.currency.plural} to bots.`);
 			}
 
 			// Remove oats from sender
