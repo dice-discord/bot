@@ -36,9 +36,11 @@ module.exports = class MiniMeCommand extends Command {
 		const embed = new MessageEmbed({
 			author: {
 				name: username,
+				url: `http://minecraftskinavatar.com/customize?id=${encodeURIComponent(username)}&source=minecraft`,
 				// eslint-disable-next-line camelcase
 				icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
-			}
+			},
+			footer: { text: 'Provided by minecraftskinavatar.com' }
 		});
 
 		if(transparency) {
