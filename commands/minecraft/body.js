@@ -11,6 +11,7 @@ module.exports = class BodyCommand extends Command {
 			description: 'Shows a Minecraft user\'s body.',
 			aliases: ['minecraft-body', 'mc-body'],
 			examples: ['body Notch'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 1,
 				duration: 3

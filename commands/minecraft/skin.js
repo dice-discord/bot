@@ -9,6 +9,7 @@ module.exports = class SkinCommand extends Command {
 			description: 'Get the skin of a Minecraft user.',
 			aliases: ['minecraft-skin', 'mc-skin'],
 			examples: ['face Notch'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 1,
 				duration: 3

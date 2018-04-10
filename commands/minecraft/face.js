@@ -9,6 +9,7 @@ module.exports = class FaceCommand extends Command {
 			description: 'Shows a front view of a Minecraft user\'s face.',
 			aliases: ['minecraft-face', 'mc-face'],
 			examples: ['face Notch'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 1,
 				duration: 3

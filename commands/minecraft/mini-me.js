@@ -12,6 +12,7 @@ module.exports = class MiniMeCommand extends Command {
 			description: 'Shows a \'mini-me\' of a Minecraft user\'s body with an option for a transparent background or gradient.',
 			aliases: ['minecraft-mini-me', 'mc-mini-me', 'minecraft-mini', 'mc-mini', 'mini'],
 			examples: ['mini-me Notch', 'mini-me Notch false'],
+			clientPermissions: ['EMBED_LINKS'],
 			throttling: {
 				usages: 1,
 				duration: 3
