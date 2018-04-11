@@ -159,11 +159,11 @@ const announceServerCount = async(serverCount, newServer, date) => {
 			color: changeTypeColor,
 			fields: [{
 				name: 'Server Count',
-				value: `\`${serverCount}\` servers`
+				value: `\`${serverCount.toLocaleString()}\` servers`
 			},
 			{
 				name: 'User Count',
-				value: `\`${await diceAPI.totalUsers() - 1}\` users`
+				value: `\`${(await diceAPI.totalUsers() - 1).toLocaleString()}\` users`
 			}
 			]
 		}
