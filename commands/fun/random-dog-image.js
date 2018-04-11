@@ -29,10 +29,6 @@ module.exports = class RandomDogImageCommand extends Command {
 				json: true
 			};
 			rp(options)
-				.catch(error => {
-					winston.error('[COMMAND](RANDOM-CAT-IMAGE)', error.stack);
-					return msg.reply('❌ There was an error with the API we use (http://dog.ceo/dog-api)');
-				})
 				.then(result => msg.replyEmbed({
 					author: {
 						name: 'dog.ceo',
@@ -40,7 +36,11 @@ module.exports = class RandomDogImageCommand extends Command {
 						url: 'https://dog.ceo/dog-api/'
 					},
 					image: { url: result.message }
-				}));
+				}))
+				.catch(error => {
+					winston.error('[COMMAND](RANDOM-CAT-IMAGE)', error.stack);
+					return msg.reply('❌ There was an error with the API we use (http://dog.ceo/dog-api)');
+				});
 		} finally {
 			msg.channel.stopTyping();
 		}
