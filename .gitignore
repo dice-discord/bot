@@ -58,7 +58,7 @@ typings/
 .env
 
 # VSCode
-.vscode/launch.json
+.vscode/
 
 # MacOS
 .DS_Store
