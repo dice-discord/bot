@@ -27,29 +27,23 @@ module.exports = class RemoveSelfRoleCommand extends Command {
 	}
 
 	async run(msg, { role }) {
-		try {
-			msg.channel.startTyping();
-
-			// Get all of this guild's selfroles
-			const selfRoles = this.client.provider.get(msg.guild, 'selfRoles', []);
+		// Get all of this guild's selfroles
+		const selfRoles = this.client.provider.get(msg.guild, 'selfRoles', []);
 
 			// Check if the role isn't a self role
-			if(!selfRoles.includes(role.id)) {
-				return msg.reply('❌ That role isn\'t a self role.');
-			}
+		if(!selfRoles.includes(role.id)) {
+			return msg.reply('❌ That role isn\'t a self role.');
+		}
 
-			if(!msg.member.roles.has(role.id)) {
-				return msg.reply('❌ You don\'t have that role.');
-			}
+		if(!msg.member.roles.has(role.id)) {
+			return msg.reply('❌ You don\'t have that role.');
+		}
 
-			await msg.member.roles.remove(role.id, 'Selfrole');
+		await msg.member.roles.remove(role.id, 'Selfrole');
 
 			// Respond to author with success
-			respond(msg);
+		respond(msg);
 
-			return null;
-		} finally {
-			msg.channel.stopTyping();
-		}
+		return null;
 	}
 };
