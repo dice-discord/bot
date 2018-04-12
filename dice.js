@@ -80,45 +80,6 @@ const dbl = new DBL(config.discordBotsListToken);
 const bfd = new BFD(config.botsForDiscordToken);
 
 /**
- * Bots.discord.pw
- */
-const sendBotsDiscordPWServerCount = () => {
-	const options = {
-		method: 'POST',
-		url: 'https://bots.discord.pw/api/bots/388191157869477888/stats',
-		headers: { authorization: config.discordBotsToken },
-		body: {
-			/* eslint-disable camelcase */
-			shard_id: client.shard.id,
-			shard_count: client.shard.count,
-			server_count: client.guilds.size
-			/* eslint-enable camelcase */
-		},
-		json: true
-	};
-
-	rp(options).catch(error => winston.error('[DICE] Error in POSTing to bots.discord.pw', error.stack));
-};
-
-/**
- * Botlist.space
- * @async
- * @param {number} count Server count
- */
-const sendBotListSpaceServerCount = count => {
-	const options = {
-		method: 'POST',
-		url: 'https://botlist.space/api/bots/388191157869477888',
-		headers: { authorization: config.botsListSpaceToken },
-		// eslint-disable-next-line camelcase
-		body: { server_count: count },
-		json: true
-	};
-
-	rp(options).catch(error => winston.error('[DICE] Error in POSTing to botlist.space', error.stack));
-};
-
-/**
  * @async
  * Updates the server count on bot listings
  */
@@ -126,12 +87,47 @@ const updateServerCount = async() => {
 	if(client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
 
-		let count = await client.shard.broadcastEval('this.guilds.size');
-		count = count.reduce((prev, val) => prev + val, 0);
+		var count = (await client.shard.broadcastEval('this.guilds.size')).reduce((prev, val) => prev + val, 0);
 
-		sendBotsDiscordPWServerCount();
-		sendBotListSpaceServerCount(count);
+		// Discord bots (bots.discord.pw)
+		rp({
+			method: 'POST',
+			url: 'https://bots.discord.pw/api/bots/388191157869477888/stats',
+			headers: { authorization: config.discordBotsToken },
+			body: {
+				/* eslint-disable camelcase */
+				shard_id: client.shard.id,
+				shard_count: client.shard.count,
+				server_count: client.guilds.size
+				/* eslint-enable camelcase */
+			},
+			json: true
+		}).catch(error => winston.error('[DICE] Error in POSTing to bots.discord.pw', error.stack));
+
+		// Botlist.space (botlist.space)
+		rp({
+			method: 'POST',
+			url: 'https://botlist.space/api/bots/388191157869477888',
+			headers: { authorization: config.botListSpaceToken },
+			// eslint-disable-next-line camelcase
+			body: { server_count: count },
+			json: true
+		}).catch(error => winston.error('[DICE] Error in POSTing to botlist.space', error.stack));
+
+		// Discord services (discord.services)
+		rp({
+			method: 'POST',
+			url: 'https://discord.services/api/bots/388191157869477888',
+			headers: { authorization: config.discordServicesToken },
+			// eslint-disable-next-line camelcase
+			body: { server_count: count },
+			json: true
+		}).catch(error => winston.error('[DICE] Error in POSTing to botlist.space', error.stack));
+
+		// Bots for Discord (botsfordiscord.com)
 		bfd.postCount(count, client.user.id);
+
+		// Discord bot list (discordbotlist.org)
 		dbl.postStats(client.guilds.size, client.shard.id, client.shard.count);
 	}
 };
