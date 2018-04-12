@@ -1,4 +1,6 @@
-/** @function
+/**
+ * Responds with a check mark to a message
+ * @function
  * @name respond
  * @param {Message} message Message to respond to
  */
