@@ -41,7 +41,7 @@ module.exports = class RemoveSelfRoleCommand extends Command {
 
 		await msg.member.roles.remove(role.id, 'Selfrole');
 
-			// Respond to author with success
+		// Respond to author with success
 		respond(msg);
 
 		return null;

@@ -37,7 +37,7 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 	run(msg, { role }) {
 		// Check if the author is able to delete the role
 		if(role.comparePositionTo(msg.member.roles.highest) >= 0 || !msg.member.hasPermission('ADMINISTRATOR')) {
-			return msg.reply('❌ You dont\'t have the permissions to delete that role.');
+			return msg.reply('❌ You don\'t have the permissions to delete that role.');
 		}
 
 		role.delete(`Requested by ${msg.author.tag}`)
