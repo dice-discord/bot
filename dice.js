@@ -102,7 +102,7 @@ const updateServerCount = async() => {
 				/* eslint-enable camelcase */
 			},
 			json: true
-		}).catch(error => winston.error('[DICE] Error in POSTing to bots.discord.pw', error.stack));
+		}).catch(error => winston.error('[DICE] Error in POSTing to Discord bots (bots.discord.pw)', error.stack));
 
 		// Botlist.space (botlist.space)
 		rp({
@@ -122,7 +122,7 @@ const updateServerCount = async() => {
 			// eslint-disable-next-line camelcase
 			body: { server_count: count },
 			json: true
-		}).catch(error => winston.error('[DICE] Error in POSTing to botlist.space', error.stack));
+		}).catch(error => winston.error('[DICE] Error in POSTing to Discord services (discord.services)', error.stack));
 
 		// Bots for Discord (botsfordiscord.com)
 		bfd.postCount(count, client.user.id);
