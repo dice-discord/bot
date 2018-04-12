@@ -60,7 +60,7 @@ client.registry
 // Store settings (like a server prefix) in a MongoDB collection called "settings"
 client.setProvider(
 	MongoClient.connect(config.mongoDBURI)
-	.then(bot => new MongoDBProvider(bot, 'settings'))
+	.then(db => new MongoDBProvider(db, 'settings'))
 );
 
 /**
