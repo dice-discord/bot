@@ -45,7 +45,7 @@ module.exports = class BlacklistUsersCommand extends Command {
 				}
 			});
 
-			if(error) return msg.reply(`${error}\nNo users were blacklisted.`, { split: true });
+			if(error) return msg.reply(`${error}No users were blacklisted.`, { split: true });
 
 			await this.client.provider.set('global', 'blacklist', blacklist);
 
