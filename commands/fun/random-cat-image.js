@@ -25,7 +25,7 @@ module.exports = class RandomCatImageCommand extends Command {
 			msg.channel.startTyping();
 
 			const options = {
-				uri: 'http://random.cat/meow.php',
+				uri: 'http://aws.random.cat/meow',
 				json: true
 			};
 			rp(options)
