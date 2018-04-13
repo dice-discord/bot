@@ -19,17 +19,20 @@
 		"BOT_TOKEN": {
 			"description": "Bot user token from Discord"
 		},
-		"BOTSDISCORDPW_TOKEN": {
+		"DISCORDBOTS_TOKEN": {
 			"description": "Discord Bots API token"
 		},
 		"BOTSFORDISCORD_TOKEN": {
 			"description": "Bots for Discord API token"
 		},
-		"DISCORDBOTSORG_TOKEN": {
+		"DISCORDBOTLIST_TOKEN": {
 			"description": "Discord Bot List API token"
 		},
 		"BOTLISTSPACE_TOKEN": {
 			"description": "botlist.space API token"
+		},
+		"DISCORDSERVICES_TOKEN": {
+			"description": "Discord Services API token"
 		},
 		"MONGODB_URI": {
 			"description": "MongoDB URI for settings and user profiles"
@@ -40,8 +43,11 @@
 		"KEEN_WRITEKEY": {
 			"description": "Keen project write key"
 		},
+		"FORTNITETN_TOKEN": {
+			"description": "Fortnite Track Network API token"
+		},
 		"DISCOIN_TOKEN": {
-			"description": "Discoin network token"
+			"description": "Discoin network API token"
 		},
 		"SENTRY_URI": {
 			"description": "URI for Sentry error logging"

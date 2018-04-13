@@ -76,9 +76,9 @@ module.exports = {
 	discoinToken: process.env.DISCOIN_TOKEN,
 	sentryURI: process.env.SENTRY_URI,
 
-	discordBotsListToken: process.env.DISCORDBOTSORG_TOKEN,
+	discordBotsListToken: process.env.DISCORDBOTLIST_TOKEN,
 	botsForDiscordToken: process.env.BOTSFORDISCORD_TOKEN,
-	discordBotsToken: process.env.BOTSDISCORDPW_TOKEN,
+	discordBotsToken: process.env.DISCORDBOTS_TOKEN,
 	botListSpaceToken: process.env.BOTLISTSPACE_TOKEN,
 	discordServiceToken: process.env.DISCORDSERVICES_TOKEN
 	/* eslint-enable no-process-env */
