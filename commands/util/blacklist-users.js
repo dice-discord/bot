@@ -4,13 +4,13 @@ const winston = require('winston');
 const { Command } = require('discord.js-commando');
 const { respond } = require('../../providers/simpleCommandResponse');
 
-module.exports = class BlacklistUserCommand extends Command {
+module.exports = class BlacklistUsersCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'blacklist-user',
-			aliases: ['blacklist'],
+			name: 'blacklist-users',
+			aliases: ['blacklist', 'blacklist-user'],
 			group: 'util',
-			memberName: 'blacklist-user',
+			memberName: 'blacklist-users',
 			description: 'Prohibit a user from using the bot.',
 			throttling: {
 				usages: 2,
@@ -18,25 +18,35 @@ module.exports = class BlacklistUserCommand extends Command {
 			},
 			ownerOnly: true,
 			args: [{
-				key: 'user',
-				prompt: 'Who do you want to blacklist?',
+				key: 'users',
+				label: 'user',
+				prompt: 'What users do you want to blacklist?',
 				type: 'user',
-				default: ''
+				default: [],
+				infinite: true
 			}]
 		});
 	}
 
-	async run(msg, { user }) {
-		const blacklist = this.client.provider.get('global', 'blacklist', []);
+	async run(msg, { users }) {
+		const blacklist = await this.client.provider.get('global', 'blacklist', []);
 		// eslint-disable-next-line max-len
 		winston.debug('[COMMAND](BLACKLIST-USER) Blacklist from provider (will be empty if result is empty array):', blacklist);
 
-		if(user) {
-			if(this.client.isOwner(user.id)) return msg.reply('The bot owner can not be blacklisted.');
+		if(users.length > 0) {
+			let error = '';
+			users.forEach(user => {
+				if(this.client.isOwner(user.id)) {
+					error += 'The bot owner can not be blacklisted.\n';
+				} else if(blacklist.includes(user.id)) {
+					error += `${user} is already blacklisted.\n`;
+				} else {
+					blacklist.push(user.id);
+				}
+			});
 
-			if(blacklist.includes(user.id)) return msg.reply('That user is already blacklisted.');
+			if(error) return msg.reply(`${error}\nNo users were blacklisted.`, { split: true });
 
-			blacklist.push(user.id);
 			await this.client.provider.set('global', 'blacklist', blacklist);
 
 			// Respond to author with success
@@ -45,7 +55,7 @@ module.exports = class BlacklistUserCommand extends Command {
 			return null;
 		} else if(blacklist.length > 0) {
 			winston.debug('[COMMAND](BLACKLIST-USER) Blacklisted users:', blacklist);
-			return msg.reply(`All blacklisted users:\n${blacklist.join('\n')}`);
+			return msg.reply(`All blacklisted users:\n${blacklist.join('\n')}`, { split: true });
 		} else {
 			return msg.reply('No blacklisted users.');
 		}
