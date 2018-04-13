@@ -80,6 +80,6 @@ module.exports = {
 	botsForDiscordToken: process.env.BOTSFORDISCORD_TOKEN,
 	discordBotsToken: process.env.DISCORDBOTS_TOKEN,
 	botListSpaceToken: process.env.BOTLISTSPACE_TOKEN,
-	discordServiceToken: process.env.DISCORDSERVICES_TOKEN
+	discordServicesToken: process.env.DISCORDSERVICES_TOKEN
 	/* eslint-enable no-process-env */
 };
