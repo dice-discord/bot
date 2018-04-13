@@ -87,7 +87,7 @@ const updateServerCount = async() => {
 	if(client.user.id === '388191157869477888') {
 		winston.verbose('[DICE] Sending POST requests to bot listings.');
 
-		var count = (await client.shard.broadcastEval('this.guilds.size')).reduce((prev, val) => prev + val, 0);
+		const count = (await client.shard.broadcastEval('this.guilds.size')).reduce((prev, val) => prev + val, 0);
 
 		// Discord bots (bots.discord.pw)
 		rp({
