@@ -40,7 +40,7 @@
 		"yahoo-stocks": "2.0.1"
 	},
 	"engines": {
-		"node": "8.9.4"
+		"node": "8.11.1"
 	},
 	"devDependencies": {
 		"eslint": "4.19.1",
