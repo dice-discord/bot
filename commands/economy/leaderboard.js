@@ -36,19 +36,20 @@ module.exports = class LeaderboardCommand extends Command {
 				return msg.reply('❌ There are less than 10 users total.');
 			}
 
-			const userTagFromID = async arrayPlace => {
-				await this.client.users.fetch(leaderboardArray[arrayPlace].id);
-				winston.debug(`[COMMAND](LEADERBOARD) Checking user tag from array index ${arrayPlace}`);
-				const result = this.client.users.resolve(leaderboardArray[arrayPlace].id).tag;
-				winston.debug(`[COMMAND](LEADERBOARD) Result for userTagFromID: ${result}`);
-				return result;
-			};
+			const userTagFromID = async arrayPlace => (await this.client.users.fetch(leaderboardArray[arrayPlace].id)).tag;
+
+			const users = [];
+			leaderboardArray.forEach(user => users.push(user));
+
+			const promises = [];
+			users.forEach(user => promises.push(userTagFromID(leaderboardArray.indexOf(user))));
+			const tags = await Promise.all(promises);
 
 			const embed = new MessageEmbed({ title: 'Top 10 Leaderboard' });
 
 			for(let i = 0; i < leaderboardArray.length; i++) {
 				// eslint-disable-next-line max-len
-				embed.addField(`#${i + 1} ${await userTagFromID(i)}`, `${leaderboardArray[i].balance.toLocaleString()} ${config.currency.plural}`);
+				embed.addField(`#${i + 1} ${tags[i]}`, `${leaderboardArray[i].balance.toLocaleString()} ${config.currency.plural}`);
 			}
 
 			return msg.replyEmbed(embed);
