@@ -18,7 +18,8 @@
 	"homepage": "https://github.com/PizzaFox/dice/blob/master/README.md",
 	"main": "dice.js",
 	"scripts": {
-		"start": "node index.js"
+		"start": "node index.js",
+		"lint": "eslint ."
 	},
 	"dependencies": {
 		"bfd-api": "0.2.6",
