@@ -1,51 +1,51 @@
 {
-  "name": "dice",
-  "description": "A general purpose utility bot, with an economy, games, and lots of other features.",
-  "version": "2.9.3",
-  "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
-  "keywords": [
-    "discord",
-    "discordbot",
-    "gambling",
-    "economy",
-    "game",
-    "moderators"
-  ],
-  "license": "Apache-2.0",
-  "repository": "https://github.com/PizzaFox/dice.git",
-  "url": "https://github.com/PizzaFox/dice/issues",
-  "email": "me@jonahsnider.ninja",
-  "homepage": "https://github.com/PizzaFox/dice/blob/master/README.md",
-  "main": "dice.js",
-  "scripts": {
-    "start": "node index.js",
-    "lint": "eslint ."
-  },
-  "dependencies": {
-    "bfd-api": "0.2.6",
-    "child-process-promise": "2.2.1",
-    "commando-provider-mongo": "PizzaFox/commando-provider-mongo",
-    "common-tags": "1.7.2",
-    "dblapi.js": "2.0.0",
-    "discord.js": "discordjs/discord.js",
-    "discord.js-commando": "discordjs/Commando",
-    "keen-tracking": "1.4.0",
-    "moment": "2.22.0",
-    "mongodb": "3.0.6",
-    "parse-color": "1.0.0",
-    "raven": "2.5.0",
-    "replaceall": "0.1.6",
-    "request": "2.85.0",
-    "request-promise-native": "1.0.5",
-    "winston": "2.4.1",
-    "yahoo-stocks": "2.0.2"
-  },
-  "engines": {
-    "node": "8.11.1"
-  },
-  "devDependencies": {
-    "eslint": "4.19.1",
-    "eslint-config-standard": "11.0.0",
-    "eslint-plugin-standard": "3.0.1"
-  }
+	"name": "dice",
+	"description": "A general purpose utility bot, with an economy, games, and lots of other features.",
+	"version": "2.9.3",
+	"author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
+	"keywords": [
+		"discord",
+		"discordbot",
+		"gambling",
+		"economy",
+		"game",
+		"moderators"
+	],
+	"license": "Apache-2.0",
+	"repository": "https://github.com/PizzaFox/dice.git",
+	"url": "https://github.com/PizzaFox/dice/issues",
+	"email": "me@jonahsnider.ninja",
+	"homepage": "https://github.com/PizzaFox/dice/blob/master/README.md",
+	"main": "dice.js",
+	"scripts": {
+		"start": "node index.js",
+		"lint": "eslint ."
+	},
+	"dependencies": {
+		"bfd-api": "0.2.6",
+		"child-process-promise": "2.2.1",
+		"commando-provider-mongo": "PizzaFox/commando-provider-mongo",
+		"common-tags": "1.7.2",
+		"dblapi.js": "2.0.0",
+		"discord.js": "discordjs/discord.js",
+		"discord.js-commando": "discordjs/Commando",
+		"keen-tracking": "1.4.0",
+		"moment": "2.22.0",
+		"mongodb": "3.0.6",
+		"parse-color": "1.0.0",
+		"raven": "2.5.0",
+		"replaceall": "0.1.6",
+		"request": "2.85.0",
+		"request-promise-native": "1.0.5",
+		"winston": "2.4.1",
+		"yahoo-stocks": "2.0.2"
+	},
+	"engines": {
+		"node": "8.11.1"
+	},
+	"devDependencies": {
+		"eslint": "4.19.1",
+		"eslint-config-standard": "11.0.0",
+		"eslint-plugin-standard": "3.0.1"
+	}
 }
