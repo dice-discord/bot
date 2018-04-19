@@ -62,3 +62,6 @@ typings/
 
 # MacOS
 .DS_Store
+
+# PM2 settings
+.config.js
