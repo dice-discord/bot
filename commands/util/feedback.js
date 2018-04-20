@@ -11,7 +11,7 @@ module.exports = class FeedbackCommand extends Command {
 			group: 'util',
 			memberName: 'feedback',
 			description: 'Submit bugs and suggestions to the developer.',
-			examples: ['feedback When I use `$dice` the bot lags.'],
+			examples: ['feedback When I use `$$dice` the bot lags.'],
 			args: [{
 				key: 'userFeedback',
 				prompt: 'What is your feedback you want to report?',
