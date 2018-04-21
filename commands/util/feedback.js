@@ -11,14 +11,12 @@ module.exports = class FeedbackCommand extends Command {
 			group: 'util',
 			memberName: 'feedback',
 			description: 'Submit bugs and suggestions to the developer.',
-			examples: ['feedback When I use `$dice` the bot lags.'],
-			args: [
-				{
-					key: 'userFeedback',
-					prompt: 'What is your feedback you want to report?',
-					type: 'string'
-				}
-			],
+			examples: ['feedback When I use `$$dice` the bot lags.'],
+			args: [{
+				key: 'userFeedback',
+				prompt: 'What is your feedback you want to report?',
+				type: 'string'
+			}],
 			throttling: {
 				usages: 2,
 				duration: 60
@@ -45,7 +43,7 @@ module.exports = class FeedbackCommand extends Command {
 		return developer.send({
 			embed: {
 				author: {
-					name: `${msg.author.tag} (\`${msg.author.id}\`)`,
+					name: `${msg.author.tag} (${msg.author.id})`,
 					// eslint-disable-next-line camelcase
 					icon_url: msg.author.displayAvatarURL(128)
 				},
