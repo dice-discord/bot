@@ -5,6 +5,8 @@
 
 A general purpose utility bot, with an economy, games, and lots of other features.
 
+Please note, this repository is outdated. Starting April 21st, 2018, Dice became closed source.
+
 ## [Invite to Your Server](https://discordapp.com/oauth2/authorize?client_id=388191157869477888&permissions=8&scope=bot)
 
 ## Features
