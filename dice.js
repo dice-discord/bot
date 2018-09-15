@@ -641,7 +641,6 @@ client
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
-
       if (
         newMsg.guild.channels.has(id) &&
         channelSettings[6] === true &&
@@ -727,14 +726,14 @@ client
     const warning = `TOKEN COMPROMISED, REGENERATE IMMEDIATELY!\n
 		https://discordapp.com/developers/applications/me/${client.user.id}\n`;
 
-    if (msg.content.includes(config.botTokens[config.env]) && msg.deletable) {
+    if (msg.content.includes(config.discordToken) && msg.deletable) {
       // Message can be deleted, so delete it
       msg.delete().then(() => {
         logger.critical(`${warning}
 				Bot token found and deleted in message by ${msg.author.tag} (${msg.author.id}).\n
 				Message: ${msg.content}`);
       });
-    } else if (msg.content.includes(config.botTokens[config.env]) && !msg.deletable) {
+    } else if (msg.content.includes(config.discordToken) && !msg.deletable) {
       // Message can't be deleted
 
       logger.critical(`${warning}
@@ -745,4 +744,4 @@ client
 
 // Log in the bot
 logger.time('login');
-client.login(config.botTokens[config.env]);
+client.login(config.discordToken);

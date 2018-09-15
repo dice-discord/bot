@@ -4,7 +4,7 @@ const logger = require('./providers/logger').scope('shard manager');
 const { ShardingManager } = require('discord.js');
 const packageData = require('./package');
 const config = require('./config');
-const manager = new ShardingManager('./dice.js', { token: config.botTokens[config.env] });
+const manager = new ShardingManager('./dice.js', { token: config.discordToken });
 
 manager
   .on('shardCreate', shard => logger.start('Launched shard', shard.id))
