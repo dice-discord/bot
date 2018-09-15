@@ -1,7 +1,7 @@
 {
   "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
   "dependencies": {
-    "blapi": "T0TProduction/BLAPI#pr/14",
+    "blapi": "0.4.2",
     "child-process-promise": "2.2.1",
     "commando-provider-mongo": "1.2.1",
     "common-tags": "1.8.0",
@@ -52,5 +52,5 @@
     "displayDate": true,
     "displayTimestamp": true
   },
-  "version": "2.31.0"
+  "version": "2.31.1"
 }
