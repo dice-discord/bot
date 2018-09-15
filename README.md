@@ -19,7 +19,6 @@ A general purpose utility bot, with an economy, games, and lots of other feature
 ## Detailed Status
 
 [![Discord Bots](https://discordbots.org/api/widget/388191157869477888.svg)](https://discordbots.org/bot/388191157869477888)
-[![Bots for Discord](https://botsfordiscord.com/api/v1/bots/388191157869477888/embed)](https://botsfordiscord.com/bot/388191157869477888)
 
 ## Contributing
 
