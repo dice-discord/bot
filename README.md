@@ -41,16 +41,10 @@ docker push pizzafox/dice:latest
 
 #### Running
 
-Dice ideally is run on a server with at least 2GB of RAM that is dedicated to Dice. The `--restart=always` will make the Docker instance start on boot. Remember to change your environment variables when running or building the image.
+Dice ideally is run on a server with at least 2GB of RAM that is dedicated to Dice. Run the following command when in a directory with a `docker-compose.yml` file. An example of a file can be found in `example-docker-compose.yml`.
 
 ```bash
-docker run \
--d=true \
---name dice \
---restart=always \
--e NODE_ENV=production \
--e CONFIG_JSON={"settingName": "value"} \
-pizzafox/dice:latest
+docker-compose up
 ```
 
 An example of the config JSON can be found in the `config.example.json` file.
