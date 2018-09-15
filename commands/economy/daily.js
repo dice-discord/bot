@@ -2,86 +2,106 @@
 
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
-const diceAPI = require('../../providers/diceAPI');
+const database = require('../../providers/database');
 const moment = require('moment');
-const winston = require('winston');
+const logger = require('../../providers/logger').scope('command', 'daily');
 const DBL = require('dblapi.js');
+const { oneLine } = require('common-tags');
 
 module.exports = class DailyCommand extends Command {
-	constructor(client) {
-		super(client, {
-			name: 'daily',
-			group: 'economy',
-			memberName: 'daily',
-			description: `Collect your daily ${config.currency.plural}.`,
-			aliases: ['dailies'],
-			throttling: {
-				usages: 1,
-				duration: 3
-			}
-		});
-	}
+  constructor(client) {
+    super(client, {
+      name: 'daily',
+      group: 'economy',
+      memberName: 'daily',
+      description: `Collect your daily ${config.currency.plural}.`,
+      aliases: ['dailies'],
+      throttling: {
+        usages: 1,
+        duration: 3
+      }
+    });
+  }
 
-	async run(msg) {
-		try {
-			msg.channel.startTyping();
+  async run(msg) {
+    try {
+      msg.channel.startTyping();
 
-			// Initialize variables
-			const oldTime = await diceAPI.getDailyUsed(msg.author.id);
-			const currentTime = msg.createdTimestamp;
-			const dbl = new DBL(config.discordBotsListToken);
-			const voteStatus = await dbl.hasVoted(msg.author.id).catch(error => {
-				winston.error('[COMMAND](DAILY) Error in discordbots.org vote checking', error.stack);
-				return false;
-			});
-			// 23 hours because it's better for users to have some wiggle room
-			const fullDay = 82800000;
-			const waitDuration = moment.duration(oldTime - currentTime + fullDay).humanize();
+      // Initialize variables
+      const oldTime = await database.getDailyUsed(msg.author.id);
+      const currentTime = msg.createdTimestamp;
+      const dbl = new DBL(config.discordBotsListToken);
+      const dblData = await Promise.all([
+        dbl
+          .hasVoted(msg.author.id)
+          .catch(error => {
+            logger.error('Error in discordbots.org vote checking', error.stack);
+            return false;
+          }),
+        dbl.isWeekend()
+      ]);
 
-			let payout = 1000;
-			let note;
+      // 23 hours because it's better for users to have some wiggle room
+      const fullDay = 82800000;
+      const waitDuration = moment.duration(oldTime - currentTime + fullDay).humanize();
 
-			winston.debug(`[COMMAND](DAILY) DBL vote status for ${msg.author.tag}: ${voteStatus}`);
-			if(voteStatus) {
-				payout *= 2;
-				// eslint-disable-next-line max-len
-				note = `You got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
-			} else {
-				// eslint-disable-next-line max-len
-				note = `You can double your payout from voting for ${this.client.user} each day. Use ${msg.anyUsage('vote')} to vote once per day.`;
-			}
+      let payout = 1000;
+      let note;
 
-			// eslint-disable-next-line max-len
-			winston.debug(`[COMMAND](DAILY) @${msg.author.tag} You must wait ${waitDuration} before collecting your daily ${config.currency.plural}.`);
-			winston.debug(`[COMMAND](DAILY) Old timestamp: ${new Date(oldTime)} (${oldTime})`);
-			winston.debug(`[COMMAND](DAILY) Current timestamp: ${new Date(currentTime)} (${currentTime})`);
+      logger.debug(`DBL vote status for ${msg.author.tag}: ${dblData[0]}${dblData[1] ? ' (weekend)' : ''}`);
 
-			if(oldTime + fullDay < currentTime || oldTime === false) {
-				if(oldTime === false) {
-					winston.verbose('[COMMAND](DAILY) Old timestamp was returned as false, meaning empty in the database.');
-				}
+      let multiplier = 1;
 
-				// Pay message author their daily
-				await diceAPI.increaseBalance(msg.author.id, payout);
-				// Save the time their daily was used
-				await diceAPI.setDailyUsed(msg.author.id, currentTime);
-				// Pay Dice the same amount to help handle the economy
-				diceAPI.increaseBalance(this.client.user.id, payout);
+      if (dblData[0] && dblData[1]) {
+        payout *= 4;
+        multiplier *= 4;
+        // eslint-disable-next-line max-len
+        note = `You got ${multiplier}x your payout from voting for ${this.client.user} today and during the weekend. Use ${msg.anyUsage('vote')} to vote once per day.`;
+      } else if (dblData[0]) {
+        payout *= 2;
+        multiplier *= 2;
+        // eslint-disable-next-line max-len
+        note = `You got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
+      } else {
+        // eslint-disable-next-line max-len
+        note = `You can double your payout from voting for ${this.client.user} each day and quadruple it for voting on the weekend. Use ${msg.anyUsage('vote')} to vote once per day.`;
+      }
 
-				// Daily not collected in one day
-				const message = `You were paid ${payout.toLocaleString()} ${config.currency.plural}`;
-				if(note) {
-					return msg.reply(`${message}\n${note}`);
-				} else {
-					return msg.reply(message);
-				}
-			} else {
-				// Daily collected in a day or less (so, recently)
-				// eslint-disable-next-line max-len
-				return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${config.currency.plural}. Remember to vote each day and get double ${config.currency.plural}. Use ${msg.anyUsage('vote')}.`);
-			}
-		} finally {
-			msg.channel.stopTyping();
-		}
-	}
+      if (config.patrons[msg.author.id] && config.patrons[msg.author.id].basic === true) {
+        payout *= 2;
+        multiplier *= 2;
+
+        // eslint-disable-next-line max-len
+        note = `You got ${multiplier}x your payout from voting for being a basic tier (or higher) patron.`;
+      }
+
+      // eslint-disable-next-line max-len
+      logger.debug(`Old timestamp: ${new Date(oldTime)} (${oldTime})`);
+      logger.debug(`Current timestamp: ${new Date(currentTime)} (${currentTime})`);
+
+      if (oldTime + fullDay < currentTime || oldTime === false) {
+        if (oldTime === false) {
+          logger.note('Old timestamp was returned as false, meaning empty in the database.');
+        }
+
+        // Pay message author their daily and save the time their daily was used
+        await Promise.all([
+          database.balances.increase(msg.author.id, payout),
+          database.setDailyUsed(msg.author.id, currentTime)
+        ]);
+        // Pay Dice the same amount to help handle the economy
+        database.balances.increase(this.client.user.id, payout);
+
+        // Daily not collected in one day
+        const message = oneLine`You were paid ${payout.toLocaleString()} ${config.currency.plural}.
+        Your balance is now ${(await database.balances.get(msg.author.id)).toLocaleString()} ${config.currency.plural}.`;
+        return msg.reply(`${message}${note ? `\n${note}` : ''}`);
+      }
+      // Daily collected in a day or less (so, recently)
+      // eslint-disable-next-line max-len
+      return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${config.currency.plural}. Remember to vote each day and get double ${config.currency.plural}. Use ${msg.anyUsage('vote')}.`);
+    } finally {
+      msg.channel.stopTyping();
+    }
+  }
 };

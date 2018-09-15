@@ -1,18 +1,14 @@
 // Copyright 2018 Jonah Snider
 
-const winston = require('winston');
-winston.level = 'debug';
+const logger = require('./providers/logger').scope('shard manager');
 const { ShardingManager } = require('discord.js');
 const packageData = require('./package');
 const config = require('./config');
+const manager = new ShardingManager('./dice.js', { token: config.botTokens[config.env] });
 
-const manager = new ShardingManager('./dice.js', { token: config.botToken });
-
-manager.spawn();
 manager
-	.on('launch', shard => winston.verbose(`[DICE](SHARDER) Launched shard ${shard.id}`))
-	.on('message', (shard, message) => {
-		winston.debug(`[SHARD](${shard.id}) : ${message._eval} : ${message._result}`);
-	});
-winston.verbose(`[DICE] Node.js version: ${process.version}`);
-winston.verbose(`[DICE] Dice version v${packageData.version}`);
+  .on('shardCreate', shard => logger.start('Launched shard', shard.id))
+  .spawn(this.totalShards, 10000);
+
+logger.note(`Node.js version: ${process.version}`);
+logger.note(`Dice version v${packageData.version}`);

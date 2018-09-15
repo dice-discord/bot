@@ -3,86 +3,85 @@
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const { respond } = require('../../providers/simpleCommandResponse');
-const winston = require('winston');
+const logger = require('../../providers/logger').scope('command', 'notifications');
 const { notifications } = require('../../config');
 
 module.exports = class NotificationsCommand extends Command {
-	constructor(client) {
-		super(client, {
-			name: 'notifications',
-			aliases: [
-				'notification',
-				'notify',
-				'alerts',
-				'server-notifications',
-				'server-notification',
-				'server-notify',
-				'server-alerts'
-			],
-			group: 'mod',
-			memberName: 'notifications',
-			description: 'Check or set what notifications for server events are sent to a channel.',
-			details: 'Not specifying an event type to toggle will list the statuses of all events in the channel',
-			userPermissions: ['MANAGE_GUILD'],
-			clientPermissions: ['EMBED_LINKS'],
-			examples: ['notifications 1', 'notifications'],
-			guildOnly: true,
-			args: [{
-				key: 'notification',
-				prompt: 'Which notification do you want to toggle for this channel?',
-				type: 'integer',
-				min: 1,
-				max: notifications.length,
-				default: false
-			}],
-			throttling: {
-				usages: 2,
-				duration: 10
-			}
-		});
-	}
+  constructor(client) {
+    super(client, {
+      name: 'notifications',
+      aliases: [
+        'notification',
+        'notify',
+        'alerts',
+        'server-notifications',
+        'server-notification',
+        'server-notify',
+        'server-alerts'
+      ],
+      group: 'mod',
+      memberName: 'notifications',
+      description: 'Check or set what notifications for server events are sent to a channel.',
+      details: 'Not specifying an event type to toggle will list the statuses of all events in the channel',
+      userPermissions: ['MANAGE_GUILD'],
+      clientPermissions: ['EMBED_LINKS'],
+      examples: ['notifications 1', 'notifications'],
+      guildOnly: true,
+      args: [{
+        'key': 'notification',
+        'prompt': 'Which notification do you want to toggle for this channel?',
+        'type': 'integer',
+        'min': 1,
+        'max': notifications.length,
+        'default': false
+      }],
+      throttling: {
+        usages: 2,
+        duration: 10
+      }
+    });
+  }
 
-	async run(msg, { notification }) {
-		// Get this guild's settings
-		const guildSettings = this.client.provider.get(msg.guild, 'notifications', {});
+  async run(msg, { notification }) {
+    // Get this guild's settings
+    const guildSettings = this.client.provider.get(msg.guild, 'notifications', {});
 
-		if(!guildSettings[msg.channel.id]) {
-			// eslint-disable-next-line max-len
-			winston.debug(`[COMMAND](NOTIFICATIONS) The channel ${msg.channel.name} does not have settings, will set them to the default`);
-			// This channel doesn't have settings for it so set it to the default values (everything disabled)
-			guildSettings[msg.channel.id] = [false, false, false, false];
-		}
+    if (!guildSettings[msg.channel.id]) {
+      // eslint-disable-next-line max-len
+      logger.debug(`The channel ${msg.channel.name} does not have settings, will set them to the default`);
+      // This channel doesn't have settings for it so set it to the default values (everything disabled)
+      guildSettings[msg.channel.id] = [false, false, false, false, false];
+    }
 
-		// Get the settings
-		const channelSettings = guildSettings[msg.channel.id];
-		winston.debug(`[COMMAND](NOTIFICATIONS) Channel settings for ${msg.channel.name}:`, channelSettings);
+    // Get the settings
+    const channelSettings = guildSettings[msg.channel.id];
+    logger.debug(`Channel settings for ${msg.channel.name}:`, channelSettings);
 
-		if(notification) {
-			// If the setting was specified
+    if (notification) {
+      // If the setting was specified
 
-			// Toggle the value on our local settings
-			channelSettings[notification - 1] = !channelSettings[notification - 1];
+      // Toggle the value on our local settings
+      channelSettings[notification - 1] = !channelSettings[notification - 1];
 
-			// Set the local guild settings for this channel to our updated configuration
-			guildSettings[msg.channel.id] = channelSettings;
+      // Set the local guild settings for this channel to our updated configuration
+      guildSettings[msg.channel.id] = channelSettings;
 
-			// Set the guild settings to our updated version
-			await this.client.provider.set(msg.guild, 'notifications', guildSettings);
+      // Set the guild settings to our updated version
+      await this.client.provider.set(msg.guild, 'notifications', guildSettings);
 
-			// Respond to author with success
-			respond(msg);
+      // Respond to author with success
+      respond(msg);
 
-			return null;
-		} else {
-			// If the setting was unspecified
-			const embed = new MessageEmbed({ title: `Notifications for #${msg.channel.name}` });
+      return null;
+    }
+    // If the setting was unspecified
+    const embed = new MessageEmbed({ title: `Notifications for #${msg.channel.name}` });
 
-			notifications.forEach(item => {
-				// eslint-disable-next-line max-len
-				embed.addField(`${channelSettings[notifications.indexOf(item)] ? 'Disable' : 'Enable'} ${item.label} notifications`, `Use ${msg.anyUsage(`notification ${notifications.indexOf(item) + 1}`)} to **${channelSettings[notifications.indexOf(item)] ? 'disable' : 'enable'}** this item`);
-			});
+    notifications.forEach(item => {
+      // eslint-disable-next-line max-len
+      embed.addField(`${channelSettings[notifications.indexOf(item)] ? 'Disable' : 'Enable'} ${item.label} notifications`, `Use ${msg.anyUsage(`notification ${notifications.indexOf(item) + 1}`)} to **${channelSettings[notifications.indexOf(item)] ? 'disable' : 'enable'}** this item`);
+    });
 
-			return msg.replyEmbed(embed);
-		}
-	}
+    return msg.replyEmbed(embed);
+  }
 };

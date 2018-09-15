@@ -1,0 +1,123 @@
+{
+  "botListTokens": {
+    "botlist.space": "token",
+    "bots.discord.pw": "token",
+    "bots.ondiscord.xyz": "token",
+    "botsfordiscord.com": "token",
+    "discord.services": "token",
+    "discordbot.world": "token",
+    "discordbots.org": "token"
+  },
+  "botTokens": {
+    "development": "token",
+    "production": "token"
+  },
+  "channels": {
+    "botServerLogs": "399451781261950977",
+    "commandLogs": "399458745480118272",
+    "errors": "411563928816975883"
+  },
+  "clientID": "388191157869477888",
+  "commandPrefix": "$$",
+  "currency": {
+    "plural": "oats",
+    "singular": "oat"
+  },
+  "currencyCodes": [
+    "aud",
+    "brl",
+    "cad",
+    "chf",
+    "clp",
+    "cny",
+    "czk",
+    "dkk",
+    "eur",
+    "gbp",
+    "hkd",
+    "huf",
+    "idr",
+    "ils",
+    "inr",
+    "jpy",
+    "krw",
+    "mxn",
+    "myr",
+    "nok",
+    "nzd",
+    "php",
+    "pkr",
+    "pln",
+    "rub",
+    "sek",
+    "sgd",
+    "thb",
+    "try",
+    "twd",
+    "zar"
+  ],
+  "discoinCurrencyCodes": [
+    "dts",
+    "elt",
+    "kek",
+    "rbn",
+    "pcn"
+  ],
+  "discoinToken": "token",
+  "discordBotsDotOrgToken": "token",
+  "fortniteTrackerNetworkToken": "token",
+  "homeServerID": "388366947689168897",
+  "houseEdgePercentage": 1,
+  "houseStartingBalance": 750000,
+  "invite": "https://discord.gg/NpUmRkj",
+  "keen": {
+    "projectID": "token",
+    "writeKey": "token"
+  },
+  "maxMultiplier": 100,
+  "minCurrency": 1,
+  "minMultiplier": 1.01,
+  "mongoDBURI": "mongodb+srv://username:password@db.example.com/db?retryWrites=true",
+  "newUserBalance": 500,
+  "notifications": [
+    {
+      "label": "ban and unban",
+      "name": "banUnban"
+    },
+    {
+      "label": "member join and leave",
+      "name": "guildMemberJoinLeave"
+    },
+    {
+      "label": "voice channel",
+      "name": "voiceChannel"
+    },
+    {
+      "label": "nickname change",
+      "name": "guildMemberUpdate"
+    },
+    {
+      "label": "user account birthday",
+      "name": "userAccountBirthday"
+    },
+    {
+      "label": "message delete",
+      "name": "messageDelete"
+    },
+    {
+      "label": "message update/edit",
+      "name": "messageUpdate"
+    }
+  ],
+  "owners": [
+    "210024244766179329"
+  ],
+  "patrons": {
+    "userID": {
+      "basic": true,
+      "crown": true
+    }
+  },
+  "sentryURI": "token",
+  "successEmoji": "406965554629574658"
+}
