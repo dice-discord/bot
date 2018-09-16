@@ -21,7 +21,7 @@ Raven.config(config.sentryURI).install();
 // Set up bot client and settings
 const client = new CommandoClient({
   commandPrefix: config.commandPrefix,
-  owners: config.owners,
+  owner: config.owners,
   disableEveryone: true,
   unknownCommandResponse: false,
   invite: config.invites.server
