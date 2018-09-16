@@ -38,15 +38,22 @@
     "gambling",
     "economy",
     "game",
-    "moderators"
+    "moderators",
+    "logging",
+    "moderation",
+    "utility",
+    "games",
+    "search",
+    "fun",
+    "dev"
   ],
   "license": "Apache-2.0",
   "main": "index.js",
   "name": "dice",
   "scripts": {
+    "build": "docker build -t pizzafox/dice:latest .",
     "lint": "eslint .",
-    "start": "node index.js",
-    "build": "docker build -t pizzafox/dice:latest ."
+    "start": "node index.js"
   },
   "signale": {
     "displayDate": true,
