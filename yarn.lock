@@ -132,9 +132,9 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-blapi@0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/blapi/-/blapi-0.4.2.tgz#29896e5555d2bcf52bfaf3e14684efd2ed25339f"
+blapi@0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/blapi/-/blapi-0.4.3.tgz#f048e3535bac67e4ec7f96a33c9770249c76d7ee"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
