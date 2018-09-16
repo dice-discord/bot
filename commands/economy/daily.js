@@ -30,7 +30,7 @@ module.exports = class DailyCommand extends Command {
       // Initialize variables
       const oldTime = await database.getDailyUsed(msg.author.id);
       const currentTime = msg.createdTimestamp;
-      const dbl = new DBL(config.discordBotsListToken);
+      const dbl = new DBL(config.botListTokens['discordbots.org']);
       const dblData = await Promise.all([
         dbl
           .hasVoted(msg.author.id)
