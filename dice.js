@@ -21,10 +21,10 @@ Raven.config(config.sentryURI).install();
 // Set up bot client and settings
 const client = new CommandoClient({
   commandPrefix: config.commandPrefix,
-  owner: config.owners,
+  owners: config.owners,
   disableEveryone: true,
   unknownCommandResponse: false,
-  invite: config.invite
+  invite: config.invites.server
 });
 
 // Get the logger running with an accurate scope
@@ -56,6 +56,7 @@ client.registry
 
   // Registers all of your commands in the ./commands/ directory
   .registerCommandsIn(path.join(__dirname, 'commands'))
+
   // Register custom argument types in the ./types directory
   .registerTypesIn(path.join(__dirname, 'types'));
 

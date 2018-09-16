@@ -18,6 +18,6 @@ module.exports = class InviteCommand extends Command {
   }
 
   run(msg) {
-    return msg.reply(`👋 https://discord.now.sh/${this.client.user.id}?p8`);
+    return msg.reply(`👋 ${config.invites.bot}`);
   }
 };

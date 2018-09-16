@@ -64,7 +64,10 @@ const config = {
   fortniteTrackerNetworkToken: process.env.FORTNITE_TRACKER_NETWORK_TOKEN,
   houseEdgePercentage: 1,
   houseStartingBalance: 750000,
-  invite: 'https://discord.gg/NpUmRkj',
+  invites: {
+    bot: 'http://dice.js.org/invite',
+    server:'https://discord.gg/NpUmRkj'
+  },
   keen: {
     projectID: process.env.KEEN_PROJECT_ID,
     writeKey: process.env.KEEN_WRITE_KEY
