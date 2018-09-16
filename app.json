@@ -1,0 +1,100 @@
+{
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "description": "A general purpose utility bot, with an economy, games, and lots of other features.",
+  "env": {
+    "DISCORD_TOKEN": {
+      "description": "Bot user token from Discord"
+    },
+    "DISCOIN_TOKEN": {
+      "description": "Discoin network API token",
+      "required": false
+    },
+    "BOTLIST_SPACE_TOKEN": {
+      "description": "Botlist.space API token",
+      "required": false
+    },
+    "BOTS_ONDISCORD_XYZ_TOKEN": {
+      "description": "Bots on Discord API token",
+      "required": false
+    },
+    "BOTSFORDISCORD_COM_TOKEN": {
+      "description": "Bots For Discord API token",
+      "required": false
+    },
+    "DISCORD_SERVICES_TOKEN": {
+      "description": "Discord Services API token",
+      "required": false
+    },
+    "DISCORDBOATS_CLUB_TOKEN": {
+      "description": "Discord Boats API token",
+      "required": false
+    },
+    "DISCORDBOT_WORLD_TOKEN": {
+      "description": "Discord Bot World API token",
+      "required": false
+    },
+    "DISCORDBOTS_GROUP_TOKEN": {
+      "description": "Discord Bot World API token",
+      "required": false
+    },
+    "DISCORDBOTS_ORG_TOKEN": {
+      "description": "Discord Bot World API token",
+      "required": false
+    },
+    "CLIENT_ID": {
+      "description": "User ID of the bot account"
+    },
+    "COMMAND_PREFIX": {
+      "description": "Prefix to use for commands",
+      "required": false
+    },
+    "FORTNITE_TRACKER_NETWORK_TOKEN": {
+      "description": "Fortnite Track Network API token",
+      "required": false
+    },
+    "KEEN_PROJECT_ID": {
+      "description": "Keen project ID",
+      "required": false
+    },
+    "KEEN_WRITE_KEY": {
+      "description": "Keen project write key",
+      "required": false
+    },
+    "MONGODB_URI": {
+      "description": "MongoDB URI for settings and user profiles"
+    },
+    "SENTRY_URI": {
+      "description": "URI for Sentry error logging",
+      "required": false
+    }
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "standard1x"
+    }
+  },
+  "keywords": [
+    "discord",
+    "discordbot",
+    "gambling",
+    "economy",
+    "game",
+    "moderators",
+    "logging",
+    "moderation",
+    "utility",
+    "games",
+    "search",
+    "fun",
+    "dev"
+  ],
+  "logo": "https://raw.githubusercontent.com/PizzaFox/dice/master/assets/dice.png",
+  "name": "Dice",
+  "repository": "https://github.com/pizzafox/dice",
+  "success_url": "https://discordapp.com/developers/applications/me"
+}
