@@ -47,6 +47,4 @@ Dice ideally is run on a server with at least 2GB of RAM that is dedicated to Di
 docker-compose up
 ```
 
-An example of the config JSON can be found in the `config.example.json` file.
-
 > Copyright 2018 Jonah Snider
