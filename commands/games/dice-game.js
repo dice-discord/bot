@@ -15,7 +15,7 @@ module.exports = class DiceGameCommand extends Command {
       description: 'Bet a wager on a multiplier.',
       // eslint-disable-next-line max-len
       details: 'For each bet the outcome is randomly chosen between 1 and 100. It\'s up to you to guess a target that you think the outcome will exceed.',
-      aliases: ['game', 'play', 'play-game', 'play-dice'],
+      aliases: ['game', 'play-game', 'play-dice', 'betting-game', 'bet'],
       examples: ['dice 250 4'],
       clientPermissions: ['EMBED_LINKS'],
       args: [{
