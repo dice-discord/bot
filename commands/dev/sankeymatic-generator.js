@@ -1,8 +1,6 @@
 // Copyright 2018 Jonah Snider
 
 const { Command } = require('discord.js-commando');
-const { stripIndents } = require('common-tags');
-const replaceAll = require('replaceall');
 
 module.exports = class SankeyMATICGeneratorCommand extends Command {
   constructor(client) {
