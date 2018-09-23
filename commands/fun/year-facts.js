@@ -15,10 +15,10 @@ module.exports = class YearFactsCommand extends Command {
       aliases: ['year-fact', 'random-year-facts', 'random-year-fact'],
       examples: ['year-facts', 'year-facts 1969'],
       args: [{
-        'key': 'year',
-        'prompt': 'What year do you want to get facts for?',
-        'type': 'integer',
-        'default': 'random'
+        key: 'year',
+        prompt: 'What year do you want to get facts for?',
+        type: 'integer',
+        default: 'random'
       }],
       throttling: {
         usages: 2,

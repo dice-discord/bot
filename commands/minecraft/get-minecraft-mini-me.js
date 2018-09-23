@@ -24,10 +24,10 @@ module.exports = class GetMinecraftMiniMeCommand extends Command {
         prompt: 'What user do you want to look up?',
         type: 'string'
       }, {
-        'key': 'transparency',
-        'prompt': 'Should the background be transparent?',
-        'type': 'boolean',
-        'default': true
+        key: 'transparency',
+        prompt: 'Should the background be transparent?',
+        type: 'boolean',
+        default: true
       }]
     });
   }

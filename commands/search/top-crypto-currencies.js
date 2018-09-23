@@ -21,20 +21,20 @@ module.exports = class TopCryptoCurrenciesCommand extends Command {
         duration: 30
       },
       args: [{
-        'key': 'limit',
-        'prompt': 'How many items do you want to limit your results for?',
-        'type': 'integer',
-        'default': 10,
-        'min': 2,
-        'max': 25
+        key: 'limit',
+        prompt: 'How many items do you want to limit your results for?',
+        type: 'integer',
+        default: 10,
+        min: 2,
+        max: 25
       }, {
-        'key': 'currency',
-        'prompt': 'What currency do you want to get results in?',
-        'type': 'string',
-        'label': 'currency code',
-        'default': 'usd',
-        'parse': value => value.toLowerCase(),
-        'oneOf': currencyCodes
+        key: 'currency',
+        prompt: 'What currency do you want to get results in?',
+        type: 'string',
+        label: 'currency code',
+        default: 'usd',
+        parse: value => value.toLowerCase(),
+        oneOf: currencyCodes
       }]
     });
   }

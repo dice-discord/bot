@@ -14,10 +14,10 @@ module.exports = class BalanceCommand extends Command {
       aliases: ['bal', 'balance-check', 'bal-check', 'credits'],
       examples: ['balance', 'balance @PizzaFox', 'balance zoop'],
       args: [{
-        'key': 'user',
-        'prompt': 'Who\'s balance do you want to check?',
-        'type': 'user',
-        'default': ''
+        key: 'user',
+        prompt: 'Who\'s balance do you want to check?',
+        type: 'user',
+        default: ''
       }],
       throttling: {
         usages: 2,

@@ -66,7 +66,7 @@ const config = {
   houseStartingBalance: 750000,
   invites: {
     bot: 'http://dice.js.org/invite',
-    server:'https://discord.gg/NpUmRkj'
+    server: 'https://discord.gg/NpUmRkj'
   },
   keen: {
     projectID: process.env.KEEN_PROJECT_ID,

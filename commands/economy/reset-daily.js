@@ -15,10 +15,10 @@ module.exports = class ResetDailyCommand extends Command {
       aliases: ['reset-dailies', 'daily-reset', 'dailies-reset'],
       examples: ['reset-daily @Dice'],
       args: [{
-        'key': 'user',
-        'prompt': 'Who\'s wait time do you want to reset?',
-        'type': 'user',
-        'default': ''
+        key: 'user',
+        prompt: 'Who\'s wait time do you want to reset?',
+        type: 'user',
+        default: ''
       }],
       throttling: {
         usages: 2,

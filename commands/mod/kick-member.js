@@ -24,12 +24,12 @@ module.exports = class KickMemberCommand extends Command {
         prompt: 'Which member do you want to kick?',
         type: 'member'
       }, {
-        'key': 'reason',
-        'prompt': 'What is the reason for kicking this member?',
-        'type': 'string',
-        'label': 'reason for kick',
-        'default': '',
-        'max': 400
+        key: 'reason',
+        prompt: 'What is the reason for kicking this member?',
+        type: 'string',
+        label: 'reason for kick',
+        default: '',
+        max: 400
       }]
     });
   }

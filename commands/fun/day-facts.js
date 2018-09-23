@@ -15,12 +15,12 @@ module.exports = class DayFactsCommand extends Command {
       aliases: ['day-fact', 'random-day-facts', 'random-day-fact'],
       examples: ['day-facts', 'day-facts 14'],
       args: [{
-        'key': 'day',
-        'prompt': 'What day do you want to get facts for?',
-        'type': 'integer',
-        'min': 1,
-        'max': 31,
-        'default': 'random'
+        key: 'day',
+        prompt: 'What day do you want to get facts for?',
+        type: 'integer',
+        min: 1,
+        max: 31,
+        default: 'random'
       }],
       throttling: {
         usages: 2,

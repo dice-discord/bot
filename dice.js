@@ -361,10 +361,10 @@ schedule.scheduleJob('0 0 * * *', () => {
   userAccountBirthdayLogger.debug('It\'s currently', now);
   client.guilds.filter(
     guild => guild.members.filter(
-      member => member.user.createdAt.getDate() === now.getDate() &&
-      member.user.createdAt.getMonth() === now.getMonth() &&
-      member.user.createdAt.getFullYear() !== now.getFullYear() &&
-      member.user.bot === false
+      member => member.user.createdAt.getDate() === now.getDate()
+      && member.user.createdAt.getMonth() === now.getMonth()
+      && member.user.createdAt.getFullYear() !== now.getFullYear()
+      && member.user.bot === false
     )
       .forEach(
         member => {
@@ -379,9 +379,9 @@ schedule.scheduleJob('0 0 * * *', () => {
             const channelSettings = guildSettings[id];
 
             if (
-              member.guild.channels.has(id) &&
-              channelSettings[4] === true &&
-              member.guild.channels.get(id).permissionsFor(member.guild.me).has('SEND_MESSAGES')
+              member.guild.channels.has(id)
+              && channelSettings[4] === true
+              && member.guild.channels.get(id).permissionsFor(member.guild.me).has('SEND_MESSAGES')
             ) {
               // The channel in the database exists on the server and permissions to send messages are there
               announceUserAccountBirthday(member.guild.channels.get(id), member.user);
@@ -471,9 +471,9 @@ client
       const channelSettings = guildSettings[id];
 
       if (
-        member.guild.channels.has(id) &&
-        channelSettings[1] === true &&
-        member.guild.channels.get(id).permissionsFor(member.guild.me).has('SEND_MESSAGES')
+        member.guild.channels.has(id)
+        && channelSettings[1] === true
+        && member.guild.channels.get(id).permissionsFor(member.guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
         announceGuildMemberJoin(member.guild.channels.get(id), member);
@@ -492,9 +492,9 @@ client
       const channelSettings = guildSettings[id];
 
       if (
-        member.guild.channels.has(id) &&
-        channelSettings[1] === true &&
-        member.guild.channels.get(id).permissionsFor(member.guild.me).has('SEND_MESSAGES')
+        member.guild.channels.has(id)
+        && channelSettings[1] === true
+        && member.guild.channels.get(id).permissionsFor(member.guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
         announceGuildMemberLeave(member.guild.channels.get(id), member);
@@ -513,9 +513,9 @@ client
       const channelSettings = guildSettings[id];
 
       if (
-        guild.channels.has(id) &&
-        channelSettings[0] === true &&
-        guild.channels.get(id).permissionsFor(guild.me).has('SEND_MESSAGES')
+        guild.channels.has(id)
+        && channelSettings[0] === true
+        && guild.channels.get(id).permissionsFor(guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
         announceGuildBanAdd(guild.channels.get(id), user);
@@ -534,9 +534,9 @@ client
       const channelSettings = guildSettings[id];
 
       if (
-        guild.channels.has(id) &&
-        channelSettings[0] === true &&
-        guild.channels.get(id).permissionsFor(guild.me).has('SEND_MESSAGES')
+        guild.channels.has(id)
+        && channelSettings[0] === true
+        && guild.channels.get(id).permissionsFor(guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
         announceGuildBanRemove(guild.channels.get(id), user);
@@ -555,9 +555,9 @@ client
       const channelSettings = guildSettings[id];
 
       if (
-        newMember.guild.channels.has(id) &&
-        channelSettings[2] === true &&
-        newMember.guild.channels.get(id).permissionsFor(newMember.guild.me).has('SEND_MESSAGES')
+        newMember.guild.channels.has(id)
+        && channelSettings[2] === true
+        && newMember.guild.channels.get(id).permissionsFor(newMember.guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
         if (oldMember.voiceChannel || newMember.voiceChannel) {
@@ -578,9 +578,9 @@ client
       const channelSettings = guildSettings[id];
 
       if (
-        newMember.guild.channels.has(id) &&
-        channelSettings[3] === true &&
-        newMember.guild.channels.get(id).permissionsFor(newMember.guild.me).has('SEND_MESSAGES')
+        newMember.guild.channels.has(id)
+        && channelSettings[3] === true
+        && newMember.guild.channels.get(id).permissionsFor(newMember.guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
         if (oldMember && newMember) {
@@ -602,9 +602,9 @@ client
       const channelSettings = guildSettings[id];
 
       if (
-        msg.guild.channels.has(id) &&
-        channelSettings[5] === true &&
-        msg.guild.channels.get(id).permissionsFor(msg.guild.me).has('SEND_MESSAGES')
+        msg.guild.channels.has(id)
+        && channelSettings[5] === true
+        && msg.guild.channels.get(id).permissionsFor(msg.guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
         channels.push(msg.guild.channels.get(id));
@@ -643,9 +643,9 @@ client
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
       if (
-        newMsg.guild.channels.has(id) &&
-        channelSettings[6] === true &&
-        newMsg.guild.channels.get(id).permissionsFor(newMsg.guild.me).has('SEND_MESSAGES')
+        newMsg.guild.channels.has(id)
+        && channelSettings[6] === true
+        && newMsg.guild.channels.get(id).permissionsFor(newMsg.guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
         channels.push(newMsg.guild.channels.get(id));
@@ -657,9 +657,9 @@ client
       }
     }
 
-    if (channels.length > 0 &&
-      newMsg.editedAt &&
-      (oldMsg.content !== newMsg.content || oldMsg.embeds.length !== newMsg.embeds.length)) {
+    if (channels.length > 0
+      && newMsg.editedAt
+      && (oldMsg.content !== newMsg.content || oldMsg.embeds.length !== newMsg.embeds.length)) {
       const embed = new MessageEmbed({
         title: `✏ Message edited (${newMsg.id})`,
         url: `https://discordapp.com/channels/${newMsg.guild.id}/${newMsg.channel.id}/${newMsg.id}`,

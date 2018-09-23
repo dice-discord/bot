@@ -25,12 +25,12 @@ module.exports = class StarboundServerStatusCommand extends Command {
         prompt: 'What is the IP address or host you want to look up?',
         type: 'string'
       }, {
-        'key': 'port',
-        'prompt': 'What is the server\'s port?',
-        'type': 'integer',
-        'default': 21025,
-        'max': 65535,
-        'min': 1
+        key: 'port',
+        prompt: 'What is the server\'s port?',
+        type: 'integer',
+        default: 21025,
+        max: 65535,
+        min: 1
       }]
     });
   }

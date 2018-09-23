@@ -56,9 +56,9 @@ module.exports = class QuoteMessageCommand extends Command {
     const linkRegex = /https?:\/\/(?:\w+\.)?[\w-]+\.[\w]{2,3}(?:\/[\w-_.]+)+\.(?:png|jpg|jpeg|gif|webp)/;
 
     // Embed (that may or may not exist) with an image in it
-    const imageEmbed = message.embeds.find(msgEmbed => msgEmbed.type === 'rich' &&
-   msgEmbed.image &&
-    extensions.includes(path.extname(msgEmbed.image.url)));
+    const imageEmbed = message.embeds.find(msgEmbed => msgEmbed.type === 'rich'
+   && msgEmbed.image
+    && extensions.includes(path.extname(msgEmbed.image.url)));
     if (imageEmbed) messageImage = imageEmbed.image.url;
 
     // Uploaded image

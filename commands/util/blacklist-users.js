@@ -18,12 +18,12 @@ module.exports = class BlacklistUsersCommand extends Command {
       },
       ownerOnly: true,
       args: [{
-        'key': 'users',
-        'label': 'user',
-        'prompt': 'What users do you want to blacklist?',
-        'type': 'user',
-        'default': [],
-        'infinite': true
+        key: 'users',
+        label: 'user',
+        prompt: 'What users do you want to blacklist?',
+        type: 'user',
+        default: [],
+        infinite: true
       }]
     });
   }

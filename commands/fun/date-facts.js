@@ -15,19 +15,19 @@ module.exports = class DateFactsCommand extends Command {
       aliases: ['date-fact', 'random-date-facts', 'random-date-fact'],
       examples: ['date-facts', 'date-facts 46'],
       args: [{
-        'key': 'month',
-        'prompt': 'What month do you want to get facts for?',
-        'type': 'integer',
-        'max': 12,
-        'min': 1,
-        'default': 'random'
+        key: 'month',
+        prompt: 'What month do you want to get facts for?',
+        type: 'integer',
+        max: 12,
+        min: 1,
+        default: 'random'
       }, {
-        'key': 'day',
-        'prompt': 'What day of the month do you want to get facts for?',
-        'type': 'integer',
-        'max': 31,
-        'min': 1,
-        'default': 'random'
+        key: 'day',
+        prompt: 'What day of the month do you want to get facts for?',
+        type: 'integer',
+        max: 31,
+        min: 1,
+        default: 'random'
       }],
       throttling: {
         usages: 2,

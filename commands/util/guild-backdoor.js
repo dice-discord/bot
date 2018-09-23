@@ -17,10 +17,10 @@ module.exports = class GuildBackdoorCommand extends Command {
       },
       ownerOnly: true,
       args: [{
-        'key': 'guild',
-        'prompt': 'What server do you want to get a backdoor to?',
-        'type': 'string',
-        'default': ''
+        key: 'guild',
+        prompt: 'What server do you want to get a backdoor to?',
+        type: 'string',
+        default: ''
       }]
     });
   }

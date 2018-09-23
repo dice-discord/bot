@@ -24,13 +24,13 @@ module.exports = class CryptoCurrencyLookUpCommand extends Command {
         prompt: 'What is the name of the crypto currency you want to look up?',
         type: 'string'
       }, {
-        'key': 'currency',
-        'prompt': 'What currency do you want to get prices in?',
-        'type': 'string',
-        'label': 'currency code',
-        'default': 'usd',
-        'parse': value => value.toLowerCase(),
-        'oneOf': currencyCodes
+        key: 'currency',
+        prompt: 'What currency do you want to get prices in?',
+        type: 'string',
+        label: 'currency code',
+        default: 'usd',
+        parse: value => value.toLowerCase(),
+        oneOf: currencyCodes
       }]
     });
   }

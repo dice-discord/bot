@@ -13,10 +13,10 @@ module.exports = class AccountAgeCommand extends Command {
       aliases: ['age', 'account-created'],
       examples: ['account-age', 'account-age @Dice'],
       args: [{
-        'key': 'user',
-        'prompt': 'Who do you want to check?',
-        'type': 'user',
-        'default': ''
+        key: 'user',
+        prompt: 'Who do you want to check?',
+        type: 'user',
+        default: ''
       }],
       throttling: {
         usages: 2,

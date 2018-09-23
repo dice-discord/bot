@@ -12,12 +12,12 @@ module.exports = class RollDieCommand extends Command {
       description: 'Roll a die.',
       examples: ['roll-die', 'roll-die 20'],
       args: [{
-        'key': 'sides',
-        'prompt': 'How many sides do you want your die to have?',
-        'type': 'integer',
-        'label': 'number of die sides',
-        'default': 6,
-        'min': 1
+        key: 'sides',
+        prompt: 'How many sides do you want your die to have?',
+        type: 'integer',
+        label: 'number of die sides',
+        default: 6,
+        min: 1
       }],
       throttling: {
         usages: 2,

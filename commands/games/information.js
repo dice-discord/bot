@@ -18,10 +18,10 @@ module.exports = class InformationCommand extends Command {
       clientPermissions: ['EMBED_LINKS'],
       args: [
         {
-          'key': 'user',
-          'prompt': 'Who\'s profile do you want to look up?',
-          'type': 'user',
-          'default': ''
+          key: 'user',
+          prompt: 'Who\'s profile do you want to look up?',
+          type: 'user',
+          default: ''
         }
       ],
       throttling: {

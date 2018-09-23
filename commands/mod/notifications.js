@@ -28,12 +28,12 @@ module.exports = class NotificationsCommand extends Command {
       examples: ['notifications 1', 'notifications'],
       guildOnly: true,
       args: [{
-        'key': 'notification',
-        'prompt': 'Which notification do you want to toggle for this channel?',
-        'type': 'integer',
-        'min': 1,
-        'max': notifications.length,
-        'default': false
+        key: 'notification',
+        prompt: 'Which notification do you want to toggle for this channel?',
+        type: 'integer',
+        min: 1,
+        max: notifications.length,
+        default: false
       }],
       throttling: {
         usages: 2,

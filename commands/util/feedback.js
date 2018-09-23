@@ -28,8 +28,8 @@ module.exports = class FeedbackCommand extends Command {
   run(msg, { userFeedback }) {
     const message = '📝 Thanks for sending your feedback.';
     if (
-      userFeedback.toLowerCase().includes('help') ||
-   userFeedback.toLowerCase().includes('support')
+      userFeedback.toLowerCase().includes('help')
+   || userFeedback.toLowerCase().includes('support')
     ) {
       msg.reply(`${message} If you need help with a problem use ${msg.anyUsage('support')}.`);
     } else {

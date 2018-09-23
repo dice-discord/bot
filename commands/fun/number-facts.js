@@ -21,10 +21,10 @@ module.exports = class NumberFactsCommand extends Command {
         'random-num-fact'],
       examples: ['number-facts', 'number-facts 46'],
       args: [{
-        'key': 'number',
-        'prompt': 'What number do you want to get facts for?',
-        'type': 'integer',
-        'default': 'random'
+        key: 'number',
+        prompt: 'What number do you want to get facts for?',
+        type: 'integer',
+        default: 'random'
       }],
       throttling: {
         usages: 2,

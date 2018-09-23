@@ -19,11 +19,11 @@ module.exports = class XKCDCommand extends Command {
       examples: ['xkcd', 'xkcd 614'],
       clientPermissions: ['EMBED_LINKS'],
       args: [{
-        'key': 'comic',
-        'prompt': 'What comic number do you want see?',
-        'type': 'integer',
-        'default': 'latest',
-        'min': 1
+        key: 'comic',
+        prompt: 'What comic number do you want see?',
+        type: 'integer',
+        default: 'latest',
+        min: 1
       }],
       throttling: {
         usages: 2,

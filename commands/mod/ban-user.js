@@ -24,12 +24,12 @@ module.exports = class BanUserCommand extends Command {
         prompt: 'What user do you want to ban?',
         type: 'user'
       }, {
-        'key': 'reason',
-        'prompt': 'What is the reason for banning this user?',
-        'type': 'string',
-        'label': 'reason for ban',
-        'default': '',
-        'max': 400
+        key: 'reason',
+        prompt: 'What is the reason for banning this user?',
+        type: 'string',
+        label: 'reason for ban',
+        default: '',
+        max: 400
       }]
     });
   }

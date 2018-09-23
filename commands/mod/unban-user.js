@@ -22,12 +22,12 @@ module.exports = class UnbanUserCommand extends Command {
         prompt: 'Which user do you want to unban?',
         type: 'user'
       }, {
-        'key': 'reason',
-        'prompt': 'What is the reason for unbanning this user?',
-        'type': 'string',
-        'label': 'reason for ban',
-        'default': '',
-        'max': 400
+        key: 'reason',
+        prompt: 'What is the reason for unbanning this user?',
+        type: 'string',
+        label: 'reason for ban',
+        default: '',
+        max: 400
       }],
       throttling: {
         usages: 2,
