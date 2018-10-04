@@ -114,7 +114,7 @@ const config = {
       crown: true
     }
   },
-  sentryURI: process.env.SENTRY_URI,
+  sentryDSN: process.env.SENTRY_DSN,
   successEmoji: '406965554629574658'
 };
 

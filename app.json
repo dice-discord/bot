@@ -67,7 +67,7 @@
     "MONGODB_URI": {
       "description": "MongoDB URI for settings and user profiles"
     },
-    "SENTRY_URI": {
+    "SENTRY_DSN": {
       "description": "URI for Sentry error logging",
       "required": false
     }
@@ -75,7 +75,7 @@
   "formation": {
     "worker": {
       "quantity": 1,
-      "size": "standard1x"
+      "size": "free"
     }
   },
   "keywords": [
@@ -95,6 +95,5 @@
   ],
   "logo": "https://raw.githubusercontent.com/PizzaFox/dice/master/assets/dice.png",
   "name": "Dice",
-  "repository": "https://github.com/pizzafox/dice",
-  "success_url": "https://discordapp.com/developers/applications/me"
+  "repository": "https://github.com/pizzafox/dice"
 }

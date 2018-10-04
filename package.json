@@ -1,6 +1,7 @@
 {
   "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
   "dependencies": {
+    "@sentry/node": "4.0.6",
     "blapi": "0.4.3",
     "child-process-promise": "2.2.1",
     "commando-provider-mongo": "1.2.1",
@@ -59,5 +60,5 @@
     "displayDate": true,
     "displayTimestamp": true
   },
-  "version": "2.32.0"
+  "version": "2.32.1"
 }

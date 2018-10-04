@@ -10,13 +10,13 @@ const KeenTracking = require('keen-tracking');
 const moment = require('moment');
 const database = require('./providers/database');
 const rp = require('request-promise-native');
-const Raven = require('raven');
+const Sentry = require('@sentry/node');
 const config = require('./config');
 const schedule = require('node-schedule');
 const wait = require('./util/wait');
 const blapi = require('blapi');
 
-Raven.config(config.sentryURI).install();
+Sentry.init({ dsn: config.sentryDSN });
 
 // Set up bot client and settings
 const client = new CommandoClient({
@@ -405,7 +405,7 @@ const reportError = err => {
   // Log the error
   logger.error(err);
   // Log the error on Sentry
-  Raven.captureException(err);
+  Sentry.captureException(err);
 };
 
 /**
@@ -417,7 +417,7 @@ const reportPromiseRejection = (reason, promise) => {
   // Log the error and promise
   logger.error(reason, 'at the promise', promise);
   // Log the error on Sentry
-  Raven.captureException(reason);
+  Sentry.captureException(reason);
 };
 
 client
@@ -435,11 +435,11 @@ client
   })
   .on('warning', warning => {
     logger.warn(warning);
-    Raven.captureException(warning);
+    Sentry.captureException(warning);
   })
   .on('commandError', (command, error) => {
     if (error instanceof FriendlyError) return;
-    Raven.captureException(error);
+    Sentry.captureException(error);
     logger.error(error);
   })
   .on('ready', () => {

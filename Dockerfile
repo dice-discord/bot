@@ -18,6 +18,5 @@ COPY . .
 
 # Initialize environment variables
 ENV NODE_ENV=production
-ENV CONFIG_JSON=
 
 CMD [ "yarn", "start" ]
