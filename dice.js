@@ -15,7 +15,9 @@ const config = require('./config');
 const schedule = require('node-schedule');
 const wait = require('./util/wait');
 const blapi = require('blapi');
+const stripWebhookURL = require('./util/stripWebhookURL');
 
+// Use Sentry
 if (config.sentryDSN) sentry.init({ dsn: config.sentryDSN });
 
 // Set up bot client and settings
@@ -27,8 +29,9 @@ const client = new CommandoClient({
   invite: config.invites.server
 });
 
-// Get the logger running with an accurate scope
+// Get the loggers running with accurate scopes
 const logger = require('./providers/logger').scope(`shard ${client.shard.id}`);
+const webhookLogger = logger.scope(`shard ${client.shard.id}`, 'webhook');
 
 // Set up Keen client
 const keenClient = new KeenTracking({
@@ -324,6 +327,38 @@ const checkDiscoinTransactions = async () => {
     if (transaction.type !== 'refund') {
       checkDiscoinTransactionsLogger.debug('Discoin transaction fetched:', JSON.stringify(transaction));
       database.balances.increase(transaction.user, transaction.amount);
+
+      if (config.webhooks.discoin) {
+        const webhookData = stripWebhookURL(config.webhooks.discoin);
+        const webhook = new WebhookClient(webhookData.id, webhookData.token);
+
+        const user = await client.users.fetch(transaction.user);
+
+        webhook
+          .send({
+            embeds: [{
+              title: '💱 Discoin Conversion Received',
+              author: {
+                name: `${user.tag} (${user.id})`,
+                url: 'https://discordapp.com',
+                // eslint-disable-next-line camelcase
+                icon_url: user.displayAvatarURL(128)
+              },
+              url: 'https://discoin.sidetrip.xyz/record',
+              timestamp: new Date(transaction.timestamp * 1000),
+              thumbnail: { url: 'https://avatars2.githubusercontent.com/u/30993376' },
+              fields: [{
+                name: '💰 Amount',
+                value: `${transaction.source} ➡ ${transaction.amount} OAT`
+              }, {
+                name: '🗒 Receipt',
+                value: `\`${transaction.receipt}\``
+              }]
+            }]
+          })
+          .then(() => webhookLogger.debug('Sent Discoin webhook'))
+          .catch(webhookLogger.error);
+      }
     }
   }
 };
@@ -441,20 +476,19 @@ client
     }
 
     // All shards before this have been spawned and this shard start up successfully
-    if (client.shard.id + 1 === client.shard.count && config.webhooks.updates.id && config.webhooks.updates.token) {
-      const webhookLogger = logger.scope('webhook');
-      const webhook = new WebhookClient(config.webhooks.updates.id, config.webhooks.updates.token);
+    if (client.shard.id + 1 === client.shard.count && config.webhooks.updates) {
+      const webhookData = stripWebhookURL(config.webhooks.updates);
+      const webhook = new WebhookClient(webhookData.id, webhookData.token);
 
-      webhookLogger.debug(`Webhook ID to use: ${config.webhooks.updates.id}`);
-
-      webhook.send({
-        embeds: [{
-          color: 0x4caf50,
-          title: `${client.user.username} Ready`,
-          timestamp: new Date()
-        }]
-      })
-        .then(webhookLogger.debug)
+      webhook
+        .send({
+          embeds: [{
+            color: 0x4caf50,
+            title: `${client.user.username} Ready`,
+            timestamp: new Date()
+          }]
+        })
+        .then(() => webhookLogger.debug('Sent ready webhook'))
         .catch(webhookLogger.error);
     }
   })

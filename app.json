@@ -29,6 +29,10 @@
       "description": "Discoin network API token",
       "required": false
     },
+    "DISCOIN_WEBHOOK_URL": {
+      "description": "Webhook URL for sending notifications when the Discoin transactions of incoming oats occur",
+      "required": false
+    },
     "DISCORDBOATS_CLUB_TOKEN": {
       "description": "Discord Boats API token",
       "required": false
@@ -71,12 +75,8 @@
       "description": "URI for Sentry error logging",
       "required": false
     },
-    "UPDATES_WEBHOOK_ID": {
-      "description": "Webhook ID for sending notifications when the bot starts up",
-      "required": false
-    },
-    "UPDATES_WEBHOOK_TOKEN": {
-      "description": "Webhook token for sending notifications when the bot starts up",
+    "UPDATES_WEBHOOK_URL": {
+      "description": "Webhook URL for sending notifications when the bot starts up",
       "required": false
     }
   },

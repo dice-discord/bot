@@ -23,8 +23,8 @@ services:
       - KEEN_WRITE_KEY=token
       - MONGODB_URI=mongodb+srv://username:password@127.0.0.1/db?retryWrites=true
       - SENTRY_DSN=https://d9a317a91b5ce8d9316a07df35a4543b@sentry.io/124351
-      - UPDATES_WEBHOOK_ID=2154709134605984092745
-      - UPDATES_WEBHOOK_TOKEN=token
+      - UPDATES_WEBHOOK_URL=https://discordapp.com/api/webhooks/497695995912519681/ULFEK2aMJto8fT-TKd8ulpFYQkslI2snJuYceaGIR3Nd3XRlh8n-nsKIY6mR5PcsifpT
+      - DISCOIN_WEBHOOK_URL=https://discordapp.com/api/webhooks/497695995912519681/ULFEK2aMJto8fT-TKd8ulpFYQkslI2snJuYceaGIR3Nd3XRlh8n-nsKIY6mR5PcsifpT
   watchtower:
     image: v2tec/watchtower
     restart: always
