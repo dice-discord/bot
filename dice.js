@@ -450,7 +450,7 @@ client
       webhook.send({
         embeds: [{
           color: 0x4caf50,
-          title: `${client.username} Ready`,
+          title: `${client.user.username} Ready`,
           timestamp: new Date()
         }]
       })
