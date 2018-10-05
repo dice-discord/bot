@@ -1,6 +1,6 @@
 # Dice
 
-![Status](https://discordbots.org/api/widget/status/388191157869477888.png) [![Deploy to Heroku](https://img.shields.io/badge/deploy%20to-heroku-7056bf.svg)](https://heroku.com/deploy?template=https://github.com/pizzafox/dice/tree/master)
+![Status](https://discordbots.org/api/widget/status/388191157869477888.png) [![Deploy to Heroku](https://img.shields.io/badge/deploy%20to-heroku-7056bf.svg)](https://heroku.com/deploy?template=https://github.com/pizzafox/dice/tree/master) [![Known Vulnerabilities](https://snyk.io/test/github/PizzaFox/dice/badge.svg?targetFile=package.json)](https://snyk.io/test/github/PizzaFox/dice?targetFile=package.json)
 
 A general purpose utility bot, with an economy, games, and lots of other features.
 
