@@ -442,13 +442,20 @@ client
 
     // All shards before this have been spawned and this shard start up successfully
     if (client.shard.id + 1 === client.shard.count && config.webhooks.updates.id && config.webhooks.updates.token) {
+      const webhookLogger = logger.scope('webhook');
       const webhook = new WebhookClient(config.webhooks.updates.id, config.webhooks.updates.token);
 
+      webhookLogger.debug(`Webhook ID to use: ${config.webhooks.updates.id}`);
+
       webhook.send({
-        color: 0x4caf50,
-        title: `${client.username} Ready`,
-        timestamp: new Date()
-      });
+        embeds: [{
+          color: 0x4caf50,
+          title: `${client.username} Ready`,
+          timestamp: new Date()
+        }]
+      })
+        .then(webhookLogger.debug)
+        .catch(webhookLogger.error);
     }
   })
   .on('guildMemberAdd', member => {
