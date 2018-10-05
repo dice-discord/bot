@@ -6,7 +6,6 @@ const config = {
     'botlist.space': process.env.BOTLIST_SPACE_TOKEN,
     'bots.discord.pw': process.env.BOTS_DISCORD_PW_TOKEN,
     'bots.ondiscord.xyz': process.env.BOTS_ONDISCORD_XYZ_TOKEN,
-    'botsfordiscord.com': process.env.BOTSFORDISCORD_COM_TOKEN,
     'discord.services': process.env.DISCORD_SERVICES_TOKEN,
     'discordboats.club': process.env.DISCORDBOATS_CLUB_TOKEN,
     'discordbot.world': process.env.DISCORDBOAT_WORLD_TOKEN,
