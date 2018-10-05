@@ -64,7 +64,8 @@ client.registry
 client.setProvider(
   MongoClient
     .connect(config.mongoDBURI, { useNewUrlParser: true })
-    // The MongoDB SettingsProvider package is not good, so the actual client isn't passed in (despite docs saying to pass in the client)
+    // The MongoDB SettingsProvider package is not good, so the actual
+    // client isn't passed in (despite docs saying to pass in the client)
     .then(mongoClient => new MongoDBProvider(mongoClient.db('settings'), 'settings'))
 );
 
