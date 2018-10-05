@@ -16,7 +16,7 @@ module.exports = class DiceGameCommand extends Command {
       // eslint-disable-next-line max-len
       details: 'For each bet the outcome is randomly chosen between 1 and 100. It\'s up to you to guess a target that you think the outcome will exceed.',
       aliases: ['game', 'play-game', 'play-dice', 'betting-game', 'bet'],
-      examples: ['dice 250 4'],
+      examples: ['dice-game 250 4'],
       clientPermissions: ['EMBED_LINKS'],
       args: [{
         key: 'wager',
@@ -50,7 +50,7 @@ module.exports = class DiceGameCommand extends Command {
         // eslint-disable-next-line max-len
         return msg.reply(`You are missing \`${(wager - authorBalance).toLocaleString()}\` ${config.currency.plural}. Your balance is \`${authorBalance.toLocaleString()}\` ${config.currency.plural}.`);
       } else if ((wager * multiplier) - wager > await database.balances.get(this.client.user.id)) {
-        return msg.reply('I couldn\'t pay your winnings if you won.');
+        return msg.reply('I couldn\'t pay you your winnings if you won.');
       }
 
       await Promise.all([
