@@ -324,32 +324,6 @@ const checkDiscoinTransactions = async () => {
     if (transaction.type !== 'refund') {
       checkDiscoinTransactionsLogger.debug('Discoin transaction fetched:', JSON.stringify(transaction));
       database.balances.increase(transaction.user, transaction.amount);
-
-      const embed = new MessageEmbed({
-        title: '💱 Discoin Conversion Received',
-        url: 'https://discoin.sidetrip.xyz/record',
-        timestamp: new Date(transaction.timestamp * 1000),
-        thumbnail: { url: 'https://avatars2.githubusercontent.com/u/30993376' },
-        fields: [{
-          name: '💰 Amount',
-          value: `${transaction.source} ➡ ${transaction.amount} OAT`
-        }, {
-          name: '🗒 Receipt',
-          value: `\`${transaction.receipt}\``
-        }]
-      });
-
-      const user = await client.users.fetch(transaction.user);
-
-      user
-        .send({ embed })
-        .catch(error => {
-          checkDiscoinTransactionsLogger.error(error);
-        });
-
-      embed.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL(128));
-
-      client.channels.get(config.channels.commandLogs).send({ embed });
     }
   }
 };
