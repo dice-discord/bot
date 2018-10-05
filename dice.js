@@ -2,7 +2,7 @@
 
 // Set up dependencies
 const { CommandoClient, FriendlyError } = require('discord.js-commando');
-const { MessageEmbed, Util } = require('discord.js');
+const { MessageEmbed, Util, WebhookClient } = require('discord.js');
 const path = require('path');
 const { MongoClient } = require('mongodb');
 const MongoDBProvider = require('commando-provider-mongo');
@@ -434,9 +434,21 @@ client
     });
 
     // Only check for Discoin transactions if this is shard 0
-    if (client.shard.id === 0 && client.user.id === '388191157869477888') {
-      checkDiscoinTransactions();
-      client.setInterval(checkDiscoinTransactions, 300000);
+    if (client.shard.id === 0 && client.user.id === config.clientID) {
+      schedule.scheduleJob('/5 * * * *', () => {
+        checkDiscoinTransactions();
+      });
+    }
+
+    // All shards before this have been spawned and this shard start up successfully
+    if (client.shard.id + 1 === client.shard.count && config.webhooks.updates.id && config.webhooks.updates.token) {
+      const webhook = new WebhookClient(config.webhooks.updates.id, config.webhooks.updates.token);
+
+      webhook.send({
+        color: 0x4caf50,
+        title: `${client.username} Ready`,
+        timestamp: new Date()
+      });
     }
   })
   .on('guildMemberAdd', member => {

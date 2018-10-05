@@ -114,7 +114,13 @@ const config = {
     }
   },
   sentryDSN: process.env.SENTRY_DSN,
-  successEmoji: '406965554629574658'
+  successEmoji: '406965554629574658',
+  webhooks: {
+    updates: {
+      id: process.env.UPDATES_WEBHOOK_ID,
+      token: process.env.UPDATES_WEBHOOK_TOKEN
+    }
+  }
 };
 
 module.exports = config;
