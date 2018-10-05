@@ -28,20 +28,11 @@ Basically all contributions to Dice are welcome. Clone the repository and make a
 
 #### Editing
 
-Since Dice is containerized, making changes to the source code should be pushed to the Docker repository (`pizzafox/dice`). Once you have made changes, you must do the following instructions:
-
-Note: These instructions assume you are in the Dice source code folder and the [Docker](https://docker.io) daemon is running. Replace "latest" with a specific version (found in `package.json`) if you would like.
-
-```bash
-# Build the Docker container
-docker build -t pizzafox/dice:latest .
-# Push the container to the Docker repository
-docker push pizzafox/dice:latest
-```
+When a commit is made Docker Hub automatically builds the image to `pizzafox/dice:latest`. The officially hosted version of Dice auto updates to `pizzafox/dice:latest` every 5 minutes.
 
 #### Running
 
-Dice ideally is run on a server with at least 2GB of RAM that is dedicated to Dice. Run the following command when in a directory with a `docker-compose.yml` file. An example of a file can be found in `example-docker-compose.yml`.
+Dice ideally is run on a server with at least 2GB of RAM that is dedicated to Dice. Every 5 minutes it downloads and runs the latest version of the image provided. Run the following command when in a directory with a `docker-compose.yml` file. An example of a file can be found in `example-docker-compose.yml`.
 
 ```bash
 docker-compose up
