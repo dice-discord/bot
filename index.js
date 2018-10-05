@@ -4,7 +4,10 @@ const logger = require('./providers/logger').scope('shard manager');
 const { ShardingManager } = require('discord.js');
 const packageData = require('./package');
 const config = require('./config');
+const sentry = require('@sentry/node');
 const manager = new ShardingManager('./dice.js', { token: config.discordToken });
+
+if (config.sentryDSN) sentry.init({ dsn: config.sentryDSN });
 
 manager
   .on('shardCreate', shard => logger.start('Launched shard', shard.id))

@@ -10,13 +10,13 @@ const KeenTracking = require('keen-tracking');
 const moment = require('moment');
 const database = require('./providers/database');
 const rp = require('request-promise-native');
-const Sentry = require('@sentry/node');
+const sentry = require('@sentry/node');
 const config = require('./config');
 const schedule = require('node-schedule');
 const wait = require('./util/wait');
 const blapi = require('blapi');
 
-Sentry.init({ dsn: config.sentryDSN });
+if (config.sentryDSN) sentry.init({ dsn: config.sentryDSN });
 
 // Set up bot client and settings
 const client = new CommandoClient({
@@ -380,7 +380,7 @@ const reportError = err => {
   // Log the error
   logger.error(err);
   // Log the error on Sentry
-  Sentry.captureException(err);
+  sentry.captureException(err);
 };
 
 /**
@@ -392,7 +392,7 @@ const reportPromiseRejection = (reason, promise) => {
   // Log the error and promise
   logger.error(reason, 'at the promise', promise);
   // Log the error on Sentry
-  Sentry.captureException(reason);
+  sentry.captureException(reason);
 };
 
 client
@@ -410,11 +410,11 @@ client
   })
   .on('warning', warning => {
     logger.warn(warning);
-    Sentry.captureException(warning);
+    sentry.captureException(warning);
   })
   .on('commandError', (command, error) => {
     if (error instanceof FriendlyError) return;
-    Sentry.captureException(error);
+    sentry.captureException(error);
     logger.error(error);
   })
   .on('ready', () => {
