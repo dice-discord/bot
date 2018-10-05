@@ -86,7 +86,7 @@ module.exports = class ConvertOatsCommand extends Command {
           case 503:
             return msg.reply('Discoin is currently unavailable. Try again later');
           case 403:
-            if (!response.body.reason) {
+            if (!response.body || !response.body.reason) {
               return msg.reply('A 403 error was sent by Discoin. They didn\'t say why.');
             }
             switch (response.body.reason) {
