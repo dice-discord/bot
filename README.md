@@ -38,4 +38,4 @@ Dice ideally is run on a server with at least 2GB of RAM that is dedicated to Di
 docker-compose up
 ```
 
-> Copyright 2018 Jonah Snider
+> Copyright 2018 [Jonah Snider](https://jonahsnider.ninja)
