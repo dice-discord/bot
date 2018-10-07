@@ -101,7 +101,7 @@
     "fun",
     "dev"
   ],
-  "logo": "https://raw.githubusercontent.com/PizzaFox/dice/master/assets/dice.png",
+  "logo": "https://raw.githubusercontent.com/dice-discord/bot/master/assets/dice.png",
   "name": "Dice",
-  "repository": "https://github.com/pizzafox/dice"
+  "repository": "https://github.com/dice-discord/bot"
 }
