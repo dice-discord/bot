@@ -1,6 +1,6 @@
-// made by nate lol (2018)
+// Copyright Nathaniel Zerai 2018
 const { Command } = require('discord.js-commando');
-const logger = require('../../providers/logger').scope('command', 'insurgency server status');
+const logger = require('../../providers/logger').scope('command', 'rust server status');
 const srcdsHelper = require('../../util/srcdsHelper');
 const gamedig = require('gamedig');
 
@@ -47,8 +47,7 @@ module.exports = class RustServerStatusCommand extends Command {
 
       gamedig.query(options)
         .then(data => msg.replyEmbed(srcdsHelper(data)
-          .setThumbnail('hhttps://steamcdn-a.akamaihd.net/steam/apps/252490/header.jpg')))
-          .addfield()
+          .setThumbnail('https://steamcdn-a.akamaihd.net/steam/apps/252490/header.jpg')))
         .catch(error => {
           if (error === 'UDP Watchdog Timeout') return msg.reply('Server timed out, it\'s probably offline.');
 
