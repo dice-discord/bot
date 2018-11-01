@@ -1,5 +1,6 @@
 // Copyright 2018 Jonah Snider
 
+require('dotenv').config();
 const logger = require('./util/logger').scope('shard manager');
 const { ShardingManager } = require('discord.js');
 const packageData = require('./package');
