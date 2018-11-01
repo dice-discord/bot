@@ -20,6 +20,7 @@ const { MongoClient } = require('mongodb');
 const Keyv = require('keyv');
 const logger = require('./logger').scope('database');
 const KeenTracking = require('keen-tracking');
+const ms = require('ms');
 
 logger.start('Database loading');
 
@@ -63,7 +64,7 @@ const database = async () => {
         return userBalance;
       } else {
         // Set the default balance in the background to *slightly* increase performance
-        economy.set(id, defaultBal);
+        economy.set(id, defaultBal, ms('1 year'));
         return defaultBal;
       }
     },
@@ -121,7 +122,7 @@ const database = async () => {
   const setDailyUsed = (id, timestamp) => {
     const setDailyUsedLogger = logger.scope('daily used', 'set');
     setDailyUsedLogger.debug(`Set daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`);
-    return dailies.set(id, timestamp);
+    return dailies.set(id, timestamp, ms('1 year'));
   };
   module.exports.setDailyUsed = setDailyUsed;
 
