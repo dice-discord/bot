@@ -31,6 +31,7 @@ const schedule = require('node-schedule');
 const wait = require('./util/wait');
 const blapi = require('blapi');
 const stripWebhookURL = require('./util/stripWebhookURL');
+const packageJSON = require('./package.json');
 
 // Use Sentry
 if (config.sentryDSN) sentry.init({ dsn: config.sentryDSN });
@@ -497,6 +498,10 @@ client
           embeds: [{
             color: 0x4caf50,
             title: `${client.user.username} Ready`,
+            fields: [{
+              name: 'Version',
+              value: `v${packageJSON.version}`
+            }],
             timestamp: new Date()
           }]
         })
