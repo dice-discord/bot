@@ -45,7 +45,30 @@ module.exports = class LeaderboardCommand extends Command {
       logger.debug('Contents of leaderboard array:', JSON.stringify(leaderboardArray));
       logger.debug('Leaderboard array length:', leaderboardArray.length);
 
-      const userTagFromID = arrayPlace => this.client.users.fetch(leaderboardArray[arrayPlace].id).then(user => user.tag);
+
+      const userTagFromID = arrayPlace => {
+        const keyvString = leaderboardArray[arrayPlace].key;
+        let id;
+        const regex = /keyv:(\d+)/g;
+        let m;
+
+        while ((m = regex.exec(keyvString)) !== null) {
+          // This is necessary to avoid infinite loops with zero-width matches
+          if (m.index === regex.lastIndex) {
+            regex.lastIndex++;
+          }
+
+          // The result can be accessed through the `m`-variable.
+          m.forEach((match, groupIndex) => {
+            if (groupIndex === 1) {
+              id = match;
+            }
+          });
+        }
+
+        return this.client.users.fetch(id)
+          .then(user => user.tag);
+      };
 
       const users = [];
       leaderboardArray.forEach(user => users.push(user));
@@ -58,7 +81,7 @@ module.exports = class LeaderboardCommand extends Command {
 
       for (let i = 0; i < leaderboardArray.length; i++) {
         // eslint-disable-next-line max-len
-        embed.addField(`#${i + 1} ${tags[i]}`, `${leaderboardArray[i].balance.toLocaleString()} ${config.currency.plural}`);
+        embed.addField(`#${i + 1} ${tags[i]}`, `${leaderboardArray[i].value.value.toLocaleString()} ${config.currency.plural}`);
       }
 
       return msg.replyEmbed(embed);
