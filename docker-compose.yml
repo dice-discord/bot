@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   bot:
-    image: dice-discord/bot
+    image: dicediscord/bot
     restart: always
   watchtower:
     image: v2tec/watchtower
