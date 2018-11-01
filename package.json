@@ -33,7 +33,7 @@
   },
   "email": "me@jonahsnider.ninja",
   "engines": {
-    "node": "~10.13.0"
+    "node": "10.x.x"
   },
   "homepage": "https://dice.js.org",
   "keywords": [
