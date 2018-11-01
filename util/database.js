@@ -99,7 +99,7 @@ const database = async () => {
     logger.scope('database', 'leaderboard');
     const allProfiles = await economyCollection.find();
     const formattedBalances = await allProfiles
-      .sort({ value: { value: -1 } })
+      .sort({ value: -1 })
       .limit(10)
       .toArray();
 
@@ -112,7 +112,7 @@ const database = async () => {
    * @returns {Promise<number>} User count
    */
   const userCount = () => economyCollection.count({});
-  module.exports.totalUsers = userCount;
+  module.exports.userCount = userCount;
 
   /**
    * @param {string} id Requested user ID
