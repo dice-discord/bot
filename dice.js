@@ -19,9 +19,9 @@ const { FriendlyError } = require('discord.js-commando');
 const DiceClient = require('./structures/DiceClient');
 const { MessageEmbed, Util, WebhookClient } = require('discord.js');
 const path = require('path');
-// !!!!@############################ FIX DSEPEPDENCY LLOOLLOLOLOOL################
-// const KeyvProvider = require('commando-provider-keyv');
-const KeyvProvider = require('../commando-provider-keyv/index');
+
+const KeyvProvider = require('commando-provider-keyv');
+
 const Keyv = require('keyv');
 const KeenTracking = require('keen-tracking');
 const moment = require('moment');
