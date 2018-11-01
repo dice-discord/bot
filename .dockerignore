@@ -63,5 +63,8 @@ typings/
 # MacOS
 .DS_Store
 
-# Environment variables
-docker-compose.yml
+# Environment variables example
+.env.example
+
+# Docs
+*.md

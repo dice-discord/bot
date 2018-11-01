@@ -1,7 +1,21 @@
-// Copyright Jonah Snider 2018
+/*
+Copyright 2018 Jonah Snider
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
 const config = {
-  discordToken: process.env.DISCORD_TOKEN,
+  backend: process.env.BACKEND,
   botListTokens: {
     'botlist.space': process.env.BOTLIST_SPACE_TOKEN,
     'bots.discord.pw': process.env.BOTS_DISCORD_PW_TOKEN,
@@ -14,6 +28,7 @@ const config = {
   },
   clientID: process.env.CLIENT_ID,
   commandPrefix: process.env.COMMAND_PREFIX,
+  coordinatorAccessKey: process.env.ACCESS_KEY,
   currency: {
     plural: 'oats',
     singular: 'oat'
@@ -55,11 +70,11 @@ const config = {
     'dts',
     'elt',
     'kek',
-    'rbn',
-    'pcn'
+    'rbn'
   ],
   discoinToken: process.env.DISCOIN_TOKEN,
   discordBotsDotOrgToken: process.env.DISCORDBOTS_ORG_TOKEN,
+  discordToken: process.env.DISCORD_TOKEN,
   fortniteTrackerNetworkToken: process.env.FORTNITE_TRACKER_NETWORK_TOKEN,
   houseEdgePercentage: 1,
   houseStartingBalance: 750000,
@@ -114,7 +129,12 @@ const config = {
     }
   },
   sentryDSN: process.env.SENTRY_DSN,
-  successEmoji: '406965554629574658',
+  emoji: {
+    success: {
+      message: '<:success:406965554629574658>',
+      id: '406965554629574658'
+    }
+  },
   webhooks: {
     discoin: process.env.DISCOIN_WEBHOOK_URL,
     updates: process.env.UPDATES_WEBHOOK_URL

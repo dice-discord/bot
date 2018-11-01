@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const logger = require('../../providers/logger').scope('command', 'garrys mod server status');
+const logger = require('../../util/logger').scope('command', 'garrys mod server status');
 const srcdsHelper = require('../../util/srcdsHelper');
 const gamedig = require('gamedig');
 

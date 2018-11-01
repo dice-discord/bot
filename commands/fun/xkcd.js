@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const rp = require('request-promise-native');
-const logger = require('../../providers/logger').scope('command', 'xkcd');
+const logger = require('../../util/logger').scope('command', 'xkcd');
 const moment = require('moment');
 const truncateText = require('../../util/truncateText');
 

@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 
 module.exports = class DatabasePingCommand extends Command {
   constructor(client) {

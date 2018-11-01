@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const logger = require('../../providers/logger').scope('command', 'feedback');
+const logger = require('../../util/logger').scope('command', 'feedback');
 
 module.exports = class FeedbackCommand extends Command {
   constructor(client) {
@@ -41,13 +41,14 @@ module.exports = class FeedbackCommand extends Command {
 
   run(msg, { userFeedback }) {
     const message = '📝 Thanks for sending your feedback.';
+    const messages = [];
     if (
       userFeedback.toLowerCase().includes('help')
    || userFeedback.toLowerCase().includes('support')
     ) {
-      msg.reply(`${message} If you need help with a problem use ${msg.anyUsage('support')}.`);
+      messages.push(msg.reply(`${message} If you need help with a problem use ${msg.anyUsage('support')}.`));
     } else {
-      msg.reply(message);
+      messages.push(msg.reply(message));
     }
 
     logger.debug('About to send MessageEmbed');
@@ -55,7 +56,7 @@ module.exports = class FeedbackCommand extends Command {
     // Pizza Fox#0075
     const developer = this.client.users.resolve('210024244766179329');
 
-    return developer.send({
+    messages.push(developer.send({
       embed: {
         author: {
           name: `${msg.author.tag} (${msg.author.id})`,
@@ -70,6 +71,8 @@ module.exports = class FeedbackCommand extends Command {
           }
         ]
       }
-    });
+    }));
+
+    return messages;
   }
 };

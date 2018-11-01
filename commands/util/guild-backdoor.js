@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const logger = require('../../providers/logger').scope('command', 'guild backdoor');
+const logger = require('../../util/logger').scope('command', 'guild backdoor');
 
 module.exports = class GuildBackdoorCommand extends Command {
   constructor(client) {
@@ -33,17 +33,15 @@ module.exports = class GuildBackdoorCommand extends Command {
       args: [{
         key: 'guild',
         prompt: 'What server do you want to get a backdoor to?',
-        type: 'string',
-        default: ''
+        type: 'string'
       }]
     });
   }
 
   async run(msg, { guild }) {
-    logger.debug('Provided guild:', guild);
-    guild = await this.client.guilds.get(guild);
-    logger.debug('Guild after being pulled from this client\'s guilds', guild);
-    if (!guild) return msg.reply(`Not a guild ID or a guild ${this.client.user} is on.`);
+    if (!this.client.guilds.has(guild)) return msg.reply(`Not a guild ID or a guild ${this.client.user} is on.`);
+
+    guild = this.client.guilds.get(guild);
 
     const invites = await guild.fetchInvites();
     logger.debug('This guild\'s invites:', invites);

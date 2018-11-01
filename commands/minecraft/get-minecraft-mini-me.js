@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const logger = require('../../providers/logger').scope('command', 'get minecraft mini me');
+const logger = require('../../util/logger').scope('command', 'get minecraft mini me');
 
 module.exports = class GetMinecraftMiniMeCommand extends Command {
   constructor(client) {

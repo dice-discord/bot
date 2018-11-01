@@ -17,8 +17,8 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
 const simpleFormat = require('../../util/simpleFormat');
-const database = require('../../providers/database');
-const { respond } = require('../../providers/simpleCommandResponse');
+const database = require('../../util/database');
+const respond = require('../../util/simpleCommandResponse');
 
 module.exports = class RemoveBalanceCommand extends Command {
   constructor(client) {

@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const logger = require('../../providers/logger').scope('command', 'unban user');
-const { respond } = require('../../providers/simpleCommandResponse');
+const logger = require('../../util/logger').scope('command', 'unban user');
+const respond = require('../../util/simpleCommandResponse');
 
 module.exports = class UnbanUserCommand extends Command {
   constructor(client) {

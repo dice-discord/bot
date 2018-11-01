@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const logger = require('../../providers/logger').scope('command', 'discoin rates');
+const logger = require('../../util/logger').scope('command', 'discoin rates');
 const rp = require('request-promise-native');
 
 module.exports = class DiscoinRatesCommand extends Command {

@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const rp = require('request-promise-native');
-const logger = require('../../providers/logger').scope('command', 'random dog image');
+const logger = require('../../util/logger').scope('command', 'random dog image');
 
 module.exports = class RandomDogImageCommand extends Command {
   constructor(client) {

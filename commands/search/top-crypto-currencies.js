@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const { currencyCodes } = require('../../config');
-const logger = require('../../providers/logger').scope('command', 'top crypto currencies');
+const logger = require('../../util/logger').scope('command', 'top crypto currencies');
 const rp = require('request-promise-native');
 
 module.exports = class TopCryptoCurrenciesCommand extends Command {

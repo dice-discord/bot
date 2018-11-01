@@ -13,21 +13,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const { Command } = require('discord.js-commando');
 
-module.exports = class ErrorCommand extends Command {
+const { ArgumentType } = require('discord.js-commando');
+
+class RomanNumeralsType extends ArgumentType {
   constructor(client) {
-    super(client, {
-      name: 'error',
-      group: 'dev',
-      memberName: 'error',
-      description: 'Throws an error.',
-      aliases: ['err'],
-      ownerOnly: true
-    });
+    super(client, 'romannumerals');
   }
 
-  run() {
-    throw new Error('This is an error');
+  validate(value) {
+    return /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/.test(value);
   }
-};
+}
+
+module.exports = RomanNumeralsType;

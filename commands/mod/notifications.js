@@ -16,8 +16,8 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const { respond } = require('../../providers/simpleCommandResponse');
-const logger = require('../../providers/logger').scope('command', 'notifications');
+const respond = require('../../util/simpleCommandResponse');
+const logger = require('../../util/logger').scope('command', 'notifications');
 const { notifications } = require('../../config');
 
 module.exports = class NotificationsCommand extends Command {

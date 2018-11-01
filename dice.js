@@ -1,14 +1,29 @@
-// Copyright 2018 Jonah Snider
+/*
+Copyright 2018 Jonah Snider
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
 // Set up dependencies
-const { CommandoClient, FriendlyError } = require('discord.js-commando');
+const { FriendlyError } = require('discord.js-commando');
+const DiceClient = require('./structures/DiceClient');
 const { MessageEmbed, Util, WebhookClient } = require('discord.js');
 const path = require('path');
-const { MongoClient } = require('mongodb');
-const MongoDBProvider = require('commando-provider-mongo');
+const KeyvProvider = require('commando-provider-keyv');
+const Keyv = require('keyv');
 const KeenTracking = require('keen-tracking');
 const moment = require('moment');
-const database = require('./providers/database');
+const database = require('./util/database');
 const rp = require('request-promise-native');
 const sentry = require('@sentry/node');
 const config = require('./config');
@@ -21,7 +36,7 @@ const stripWebhookURL = require('./util/stripWebhookURL');
 if (config.sentryDSN) sentry.init({ dsn: config.sentryDSN });
 
 // Set up bot client and settings
-const client = new CommandoClient({
+const client = new DiceClient({
   commandPrefix: config.commandPrefix,
   owner: config.owners,
   disableEveryone: true,
@@ -30,7 +45,7 @@ const client = new CommandoClient({
 });
 
 // Get the loggers running with accurate scopes
-const logger = require('./providers/logger').scope(`shard ${client.shard.id}`);
+const logger = require('./util/logger').scope(`shard ${client.shard.id}`);
 const webhookLogger = logger.scope(`shard ${client.shard.id}`, 'webhook');
 
 // Set up Keen client
@@ -63,22 +78,19 @@ client.registry
   // Register custom argument types in the ./types directory
   .registerTypesIn(path.join(__dirname, 'types'));
 
-// Store settings (like a server prefix) in a MongoDB collection called "settings"
-client.setProvider(
-  MongoClient
-    .connect(config.mongoDBURI, { useNewUrlParser: true })
-    // The MongoDB SettingsProvider package is not good, so the actual
-    // client isn't passed in (despite docs saying to pass in the client)
-    .then(mongoClient => new MongoDBProvider(mongoClient.db('settings'), 'settings'))
-);
+// Store settings (like a server prefix) in a Keyv instance
+const copy = data => data;
+const keyv = new Keyv(config.backend, { serialize: copy, deserialize: copy, collection: 'settings' });
 
-client.dispatcher.addInhibitor(msg => {
-  const blacklist = client.provider.get('global', 'blacklist', []);
-  if (blacklist.includes(msg.author.id)) {
-    return ['blacklisted', msg.reply(`You have been blacklisted from ${client.user.username}.`)];
-  }
-  return false;
-});
+client.setProvider(new KeyvProvider(keyv));
+
+// client.dispatcher.addInhibitor(msg => {
+//   const blacklist = client.provider.get('global', 'blacklist', []);
+//   if (blacklist.includes(msg.author.id)) {
+//     return ['blacklisted', msg.reply(`You have been blacklisted from ${client.user.username}.`)];
+//   }
+//   return false;
+// });
 
 /**
  * Announces the banning or unbanning of a user on a guild
@@ -476,7 +488,7 @@ client
     }
 
     // All shards before this have been spawned and this shard start up successfully
-    if (client.shard.id + 1 === client.shard.count && config.webhooks.updates) {
+    if (client.shard.id + 1 === client.shard.count && config.webhooks.updates && client.user.id === config.clientID) {
       const webhookData = stripWebhookURL(config.webhooks.updates);
       const webhook = new WebhookClient(webhookData.id, webhookData.token);
 

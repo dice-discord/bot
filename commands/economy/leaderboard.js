@@ -16,9 +16,9 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 const config = require('../../config');
-const logger = require('../../providers/logger').scope('command', 'leaderboard');
+const logger = require('../../util/logger').scope('command', 'leaderboard');
 
 module.exports = class LeaderboardCommand extends Command {
   constructor(client) {
@@ -45,12 +45,7 @@ module.exports = class LeaderboardCommand extends Command {
       logger.debug('Contents of leaderboard array:', JSON.stringify(leaderboardArray));
       logger.debug('Leaderboard array length:', leaderboardArray.length);
 
-      // Check if there are enough users to populate the embed
-      if (leaderboardArray.length < 10) {
-        return msg.reply('There are less than 10 users total.');
-      }
-
-      const userTagFromID = async arrayPlace => (await this.client.users.fetch(leaderboardArray[arrayPlace].id)).tag;
+      const userTagFromID = arrayPlace => this.client.users.fetch(leaderboardArray[arrayPlace].id).then(user => user.tag);
 
       const users = [];
       leaderboardArray.forEach(user => users.push(user));

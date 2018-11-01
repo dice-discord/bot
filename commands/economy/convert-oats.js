@@ -17,8 +17,8 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
 const rp = require('request-promise-native');
-const logger = require('../../providers/logger').scope('command', 'convert oats');
-const database = require('../../providers/database');
+const logger = require('../../util/logger').scope('command', 'convert oats');
+const database = require('../../util/database');
 
 module.exports = class ConvertOatsCommand extends Command {
   constructor(client) {
@@ -28,7 +28,7 @@ module.exports = class ConvertOatsCommand extends Command {
       memberName: 'convert-oats',
       description: 'Converts oats to another bot\'s currency.',
       details: 'Use the `discoin-rates` command to see all currencies',
-      aliases: ['convert', 'convert-currencies', 'exchange-oats', 'exchange', 'exchange-currencies'],
+      aliases: ['convert', 'convert-currencies', 'exchange-oats', 'exchange', 'exchange-currencies', 'discoin'],
       examples: ['convert-oats 500 dts'],
       clientPermissions: ['EMBED_LINKS'],
       args: [{

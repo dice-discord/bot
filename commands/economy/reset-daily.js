@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const database = require('../../providers/database');
-const { respond } = require('../../providers/simpleCommandResponse');
+const database = require('../../util/database');
+const respond = require('../../util/simpleCommandResponse');
 
 module.exports = class ResetDailyCommand extends Command {
   constructor(client) {

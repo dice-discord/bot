@@ -19,7 +19,7 @@ const { MessageEmbed } = require('discord.js');
 const config = require('../../config');
 const simpleFormat = require('../../util/simpleFormat');
 const winPercentage = require('../../util/winPercentage');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 
 module.exports = class DiceGameCommand extends Command {
   constructor(client) {

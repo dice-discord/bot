@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const rp = require('request-promise-native');
-const logger = require('../../providers/logger').scope('command', 'day facts');
+const logger = require('../../util/logger').scope('command', 'day facts');
 
 module.exports = class DayFactsCommand extends Command {
   constructor(client) {

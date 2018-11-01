@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const rp = require('request-promise-native');
-const logger = require('../../providers/logger').scope('command', 'overwatch statistics');
+const logger = require('../../util/logger').scope('command', 'overwatch statistics');
 const replaceall = require('replaceall');
 const platforms = ['pc', 'xbl', 'psn'];
 const regions = ['us', 'eu', 'asia'];
@@ -113,27 +113,31 @@ module.exports = class OverwatchStatisticsCommand extends Command {
         embed.addField('💀 Average Eliminations', `${res.quickPlayStats.eliminationsAvg} eliminations from quick play`);
       }
 
-      // Games Played
-      if (res.quickPlayStats.games.played && res.competitiveStats.games.played) {
-        embed.addField('🎮 Games Played', `${res.quickPlayStats.games.played + res.competitiveStats.games.played} games played total (${res.quickPlayStats.games.played} from quick play and ${res.competitiveStats.games.played} from competitive)`);
-      } else if (res.quickPlayStats.games.played) {
-        embed.addField('🎮 Games Played', `${res.quickPlayStats.games.played} games played total`);
+      if (res.quickPlayStats) {
+        // Games Played
+        if (res.competitiveStats.games && res.quickPlayStats.games.played && res.competitiveStats.games.played) {
+          embed.addField('🎮 Games Played', `${res.quickPlayStats.games.played + res.competitiveStats.games.played} games played total (${res.quickPlayStats.games.played} from quick play and ${res.competitiveStats.games.played} from competitive)`);
+        } else if (res.quickPlayStats.games.played) {
+          embed.addField('🎮 Games Played', `${res.quickPlayStats.games.played} games played total`);
+        }
+
+        // Quick play medals
+        if (res.quickPlayStats.awards.medals) {
+          embed.addField('🏅 Medals (Quick Play)', `${res.quickPlayStats.awards.medals} medals total.\n🥇 ${res.quickPlayStats.awards.medalsGold} gold medals\n🥈 ${res.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${res.quickPlayStats.awards.medalsBronze} bronze medals`);
+        }
       }
 
-      // Quick play medals
-      if (res.quickPlayStats.awards.medals) {
-        embed.addField('🏅 Medals (Quick Play)', `${res.quickPlayStats.awards.medals} medals total.\n🥇 ${res.quickPlayStats.awards.medalsGold} gold medals\n🥈 ${res.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${res.quickPlayStats.awards.medalsBronze} bronze medals`);
-      }
+      if (res.competitiveStats.awards) {
+        // Competitive medals
+        if (res.competitiveStats.awards.medals) {
+          embed.addField('🏅 Medals (Competitive)', `${res.competitiveStats.awards.medals} medals total.\n🥇 ${res.competitiveStats.awards.medalsGold} gold medals\n🥈 ${res.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${res.competitiveStats.awards.medalsBronze} bronze medals`);
+        }
 
-      // Competitive medals
-      if (res.competitiveStats.awards.medals) {
-        embed.addField('🏅 Medals (Competitive)', `${res.competitiveStats.awards.medals} medals total.\n🥇 ${res.competitiveStats.awards.medalsGold} gold medals\n🥈 ${res.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${res.competitiveStats.awards.medalsBronze} bronze medals`);
-      }
-
-      // Cards
-      if (res.competitiveStats.awards.cards && res.quickPlayStats.awards.cards) {
-        embed.addField('🃏 Cards', `${res.competitiveStats.awards.cards + res.quickPlayStats.awards.cards} total cards (${res.quickPlayStats.awards.cards} from quick play, ${res.competitiveStats.awards.cards} from competitive)`, true);
-        /* eslint-enable max-len complexity */
+        // Cards
+        if (res.competitiveStats.awards.cards && res.quickPlayStats.awards.cards) {
+          embed.addField('🃏 Cards', `${res.competitiveStats.awards.cards + res.quickPlayStats.awards.cards} total cards (${res.quickPlayStats.awards.cards} from quick play, ${res.competitiveStats.awards.cards} from competitive)`, true);
+          /* eslint-enable max-len complexity */
+        }
       }
       return msg.replyEmbed(embed);
     } finally {

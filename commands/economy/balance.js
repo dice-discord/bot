@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 
 module.exports = class BalanceCommand extends Command {
   constructor(client) {

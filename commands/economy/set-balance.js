@@ -15,10 +15,10 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 const simpleFormat = require('../../util/simpleFormat');
 const config = require('../../config');
-const { respond } = require('../../providers/simpleCommandResponse');
+const respond = require('../../util/simpleCommandResponse');
 
 module.exports = class SetBalanceCommand extends Command {
   constructor(client) {
@@ -61,7 +61,7 @@ module.exports = class SetBalanceCommand extends Command {
       }
 
       // Add oats to user
-      await database.balances.update(user.id, amount);
+      await database.balances.set(user.id, amount);
 
       // Respond to author with success
       respond(msg);

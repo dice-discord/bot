@@ -15,10 +15,10 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const logger = require('../../providers/logger').scope('command', 'information');
+const logger = require('../../util/logger').scope('command', 'information');
 const config = require('../../config');
 const simpleFormat = require('../../util/simpleFormat');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 
 module.exports = class InformationCommand extends Command {
   constructor(client) {

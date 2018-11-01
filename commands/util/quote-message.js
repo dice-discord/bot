@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const path = require('path');
-const logger = require('../../providers/logger').scope('command', 'quote message');
+const logger = require('../../util/logger').scope('command', 'quote message');
 const truncateText = require('../../util/truncateText');
 
 module.exports = class QuoteMessageCommand extends Command {

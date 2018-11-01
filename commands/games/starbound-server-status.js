@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const logger = require('../../providers/logger').scope('command', 'starbound server status');
+const logger = require('../../util/logger').scope('command', 'starbound server status');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const gamedig = require('gamedig');
@@ -61,6 +61,9 @@ module.exports = class StarboundServerStatusCommand extends Command {
         options.port = port;
       }
 
+      const curr = data.raw.numplayers;
+      const max = data.maxplayers;
+
       gamedig.query(options)
         .then(data => msg.replyEmbed(new MessageEmbed({
           title: data.name,
@@ -71,7 +74,7 @@ module.exports = class StarboundServerStatusCommand extends Command {
             value: `${data.query.address} (port ${data.query.port})`
           }, {
             name: 'Online Players',
-            value: `${data.raw.numplayers}/${data.maxplayers} (${Math.round((data.raw.numplayers / data.maxplayers) * 100)}%)`
+            value: `${curr}/${max} (${Math.round((curr / max) * 100)}%)`
           }, {
             name: 'Password Required',
             value: data.password ? 'Yes' : 'No'

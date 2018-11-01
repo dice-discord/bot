@@ -15,9 +15,8 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const logger = require('../../providers/logger').scope('command', 'reset economy');
-const database = require('../../providers/database');
-const { stripIndents } = require('common-tags');
+const logger = require('../../util/logger').scope('command', 'reset economy');
+const database = require('../../util/database');
 
 module.exports = class ResetEconomyCommand extends Command {
   constructor(client) {
@@ -28,34 +27,25 @@ module.exports = class ResetEconomyCommand extends Command {
       description: 'Reset the entire economy.',
       details: 'Only the bot owner(s) may use this command.',
       aliases: ['destroy-eco', 'destroy-economy', 'economy-destroy', 'eco-destroy', 'reset-eco'],
-      throttling: {
-        usages: 2,
-        duration: 30
-      },
+      args: [{
+        key: 'verification',
+        prompt: '⚠ **Are you absolutely sure you want to destroy all user profiles?** ⚠',
+        type: 'boolean',
+        default: false
+      }],
       ownerOnly: true
     });
   }
 
-  run(msg) {
-    const randomNumber = parseInt((Math.random() * (100 - 10)) + 10, 10);
-    msg.reply(stripIndents`⚠ **Are you absolutely sure you want to destroy all user profiles?** ⚠\n
-    To proceed, enter \`${randomNumber}\`.\n
-    The command will automatically be cancelled in 30 seconds.`)
-      .then(() => {
-        const filter = message => msg.author.id === message.author.id;
+  async run(msg, { verification }) {
+    if (verification) {
+      await database.resetEconomy();
 
-        msg.channel.awaitMessages(filter, { time: 30000, maxMatches: 1, errors: ['time'] })
-          .then(messages => {
-            if (messages.first().content.includes(randomNumber)) {
-              logger.critical(`Verification passed (collected message: ${messages.first().content}, wiping database.`);
-              // Start resetting the economy
-              msg.reply('💣 Resetting the economy.');
-              database.resetEconomy().then(() =>
-                // Once the promise is fulfilled (when it's finished) respond to the user that it's done
-                msg.reply('💥 Finished resetting the economy.'));
-            }
-          })
-          .catch(() => msg.reply('Cancelled command.'));
-      });
+      logger.critical('Reset the economy');
+
+      return msg.reply('💥 Finished resetting the economy.');
+    } else {
+      return msg.reply('Cancelled command (missing verification).');
+    }
   }
 };

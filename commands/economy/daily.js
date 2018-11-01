@@ -16,11 +16,12 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 const moment = require('moment');
-const logger = require('../../providers/logger').scope('command', 'daily');
+const logger = require('../../util/logger').scope('command', 'daily');
 const DBL = require('dblapi.js');
 const { oneLine } = require('common-tags');
+const ms = require('ms');
 
 module.exports = class DailyCommand extends Command {
   constructor(client) {
@@ -56,7 +57,7 @@ module.exports = class DailyCommand extends Command {
       ]);
 
       // 23 hours because it's better for users to have some wiggle room
-      const fullDay = 82800000;
+      const fullDay = ms('23 hours');
       const waitDuration = moment.duration(oldTime - currentTime + fullDay).humanize();
 
       let payout = 1000;
@@ -85,19 +86,18 @@ module.exports = class DailyCommand extends Command {
         payout *= 2;
         multiplier *= 2;
 
-        // eslint-disable-next-line max-len
         note = `You got ${multiplier}x your payout from voting for being a basic tier (or higher) patron.`;
       }
 
-      // eslint-disable-next-line max-len
-      logger.debug(`Old timestamp: ${new Date(oldTime)} (${oldTime})`);
+      if (oldTime) {
+        logger.debug(`Old timestamp: ${new Date(oldTime)} (${oldTime})`);
+      } else {
+        logger.debug('No date in records (undefined)');
+      }
+
       logger.debug(`Current timestamp: ${new Date(currentTime)} (${currentTime})`);
 
-      if (oldTime + fullDay < currentTime || oldTime === false) {
-        if (oldTime === false) {
-          logger.note('Old timestamp was returned as false, meaning empty in the database.');
-        }
-
+      if (!oldTime || oldTime + fullDay < currentTime) {
         // Pay message author their daily and save the time their daily was used
         await Promise.all([
           database.balances.increase(msg.author.id, payout),
@@ -112,7 +112,6 @@ module.exports = class DailyCommand extends Command {
         return msg.reply(`${message}${note ? `\n${note}` : ''}`);
       }
       // Daily collected in a day or less (so, recently)
-      // eslint-disable-next-line max-len
       return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${config.currency.plural}. Remember to vote each day and get double ${config.currency.plural}. Use ${msg.anyUsage('vote')}.`);
     } finally {
       msg.channel.stopTyping();

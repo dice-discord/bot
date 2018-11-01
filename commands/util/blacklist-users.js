@@ -14,9 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const logger = require('../../providers/logger').scope('command', 'blacklist users');
+const logger = require('../../util/logger').scope('command', 'blacklist users');
 const { Command } = require('discord.js-commando');
-const { respond } = require('../../providers/simpleCommandResponse');
+const respond = require('../../util/simpleCommandResponse');
 
 module.exports = class BlacklistUsersCommand extends Command {
   constructor(client) {

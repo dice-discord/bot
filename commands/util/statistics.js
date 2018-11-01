@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 const config = require('../../config');
 
 module.exports = class StatisticsCommand extends Command {
@@ -46,7 +46,7 @@ module.exports = class StatisticsCommand extends Command {
           {
             name: '👤 Total Number of Users',
             // Subtract one because of the Dice bot and for the Dice Dev bot
-            value: `${(await database.totalUsers() - 2).toLocaleString()} users`
+            value: `${(await database.userCount() - 2).toLocaleString()} users`
           },
           {
             name: '👥 Total Number of Servers',

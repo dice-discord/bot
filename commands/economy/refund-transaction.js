@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
 const rp = require('request-promise-native');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 
 module.exports = class RefundTransactionCommand extends Command {
   constructor(client) {

@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const srcdsHelper = require('../../util/srcdsHelper');
-const logger = require('../../providers/logger').scope('command', 'csgo server status');
+const logger = require('../../util/logger').scope('command', 'csgo server status');
 const gamedig = require('gamedig');
 
 module.exports = class CSGOStatusCommand extends Command {

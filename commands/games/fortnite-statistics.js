@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const rp = require('request-promise-native');
-const logger = require('../../providers/logger').scope('command', 'fortnite statistics');
+const logger = require('../../util/logger').scope('command', 'fortnite statistics');
 const config = require('../../config');
 const { MessageEmbed } = require('discord.js');
 const platforms = ['pc', 'xbl', 'psn'];

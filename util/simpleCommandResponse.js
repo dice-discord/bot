@@ -14,29 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { successEmoji } = require('../config');
+const { emoji } = require('../config');
 
 /**
  * Responds with a check mark to a message
- * @function
  * @name respond
  * @param {Message} message Message to respond to
  */
-const respond = message => {
+module.exports = message => {
+  const clientPermissions = message.channel.permissionsFor(message.guild.me);
   switch (message.channel.type) {
   case 'text':
-    if (message.channel.permissionsFor(message.guild.me).has('ADD_REACTIONS')
-        && message.channel.permissionsFor(message.guild.me).has('USE_EXTERNAL_EMOJIS')
-        && message.client.emojis.has(successEmoji)) {
+    if (clientPermissions.has('ADD_REACTIONS') && clientPermissions.has('USE_EXTERNAL_EMOJIS')) {
       // Can add the custom emoji
-      message.react(successEmoji);
-    } else if (message.channel.permissionsFor(message.guild.me).has('ADD_REACTIONS')) {
+      message.react(emoji.success.id);
+    } else if (clientPermissions.has('ADD_REACTIONS')) {
       // Can add a built-in emoji
       message.react('✅');
-    } else if (message.channel.permissionsFor(message.guild.me).has('USE_EXTERNAL_EMOJIS')
-        && message.client.emojis.has(successEmoji)) {
+    } else if (clientPermissions.has('USE_EXTERNAL_EMOJIS')) {
       // Can use custom emoji in a message
-      message.reply('<:success:406965554629574658>');
+      message.reply(emoji.success.message);
     } else {
       // Can't use custom emoji
       message.reply('✅');
@@ -44,8 +41,8 @@ const respond = message => {
     break;
   case 'groupdm':
   case 'dm':
-    message.react(successEmoji);
+    message.react(emoji.success.id
+      );
     break;
   }
 };
-module.exports.respond = respond;

@@ -16,9 +16,9 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
-const database = require('../../providers/database');
+const database = require('../../util/database');
 const simpleFormat = require('../../util/simpleFormat');
-const { respond } = require('../../providers/simpleCommandResponse');
+const respond = require('../../util/simpleCommandResponse');
 
 module.exports = class TransferCommand extends Command {
   constructor(client) {

@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const { currencyCodes } = require('../../config');
-const logger = require('../../providers/logger').scope('command', 'crypto currency look up');
+const logger = require('../../util/logger').scope('command', 'crypto currency look up');
 const rp = require('request-promise-native');
 
 module.exports = class CryptoCurrencyLookUpCommand extends Command {

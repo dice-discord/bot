@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const logger = require('../providers/logger').scope('simple format');
+const logger = require('./logger').scope('simple format');
 
 /**
  * @name simpleFormat

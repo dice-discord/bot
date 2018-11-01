@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const logger = require('../../providers/logger').scope('command', '7-days-to-die server status');
+const logger = require('../../util/logger').scope('command', '7-days-to-die server status');
 const { MessageEmbed, Util } = require('discord.js');
 const moment = require('moment');
 const gamedig = require('gamedig');

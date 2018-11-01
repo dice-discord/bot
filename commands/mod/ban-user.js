@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const { respond } = require('../../providers/simpleCommandResponse');
+const respond = require('../../util/simpleCommandResponse');
 
 module.exports = class BanUserCommand extends Command {
   constructor(client) {
