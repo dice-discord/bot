@@ -42,7 +42,7 @@ module.exports = message => {
   case 'groupdm':
   case 'dm':
     message.react(emoji.success.id
-      );
+    );
     break;
   }
 };

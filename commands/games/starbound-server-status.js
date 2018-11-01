@@ -61,25 +61,27 @@ module.exports = class StarboundServerStatusCommand extends Command {
         options.port = port;
       }
 
-      const curr = data.raw.numplayers;
-      const max = data.maxplayers;
-
       gamedig.query(options)
-        .then(data => msg.replyEmbed(new MessageEmbed({
-          title: data.name,
-          thumbnail: { url: 'https://steamcdn-a.akamaihd.net/steam/apps/211820/header.jpg' },
-          footer: { text: `Took ${moment.duration(data.query.duration).asSeconds().toFixed(2)} seconds to complete` },
-          fields: [{
-            name: 'IP Address',
-            value: `${data.query.address} (port ${data.query.port})`
-          }, {
-            name: 'Online Players',
-            value: `${curr}/${max} (${Math.round((curr / max) * 100)}%)`
-          }, {
-            name: 'Password Required',
-            value: data.password ? 'Yes' : 'No'
-          }]
-        })))
+        .then(data => {
+          const curr = data.raw.numplayers;
+          const max = data.maxplayers;
+
+          return msg.replyEmbed(new MessageEmbed({
+            title: data.name,
+            thumbnail: { url: 'https://steamcdn-a.akamaihd.net/steam/apps/211820/header.jpg' },
+            footer: { text: `Took ${moment.duration(data.query.duration).asSeconds().toFixed(2)} seconds to complete` },
+            fields: [{
+              name: 'IP Address',
+              value: `${data.query.address} (port ${data.query.port})`
+            }, {
+              name: 'Online Players',
+              value: `${curr}/${max} (${Math.round((curr / max) * 100)}%)`
+            }, {
+              name: 'Password Required',
+              value: data.password ? 'Yes' : 'No'
+            }]
+          }));
+        })
         .catch(error => {
           if (error === 'UDP Watchdog Timeout') return msg.reply('Server timed out, it\'s probably offline.');
 

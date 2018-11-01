@@ -41,7 +41,7 @@ module.exports = class UnblacklistUserCommand extends Command {
 
   async run(msg, { user }) {
     // Get all blacklisted users
-    const blacklist = this.client.provider.get('global', 'blacklist', []);
+    const blacklist = await this.client.provider.get('global', 'blacklist', []);
 
     // Check if the user is actually blacklisted
     if (!blacklist.includes(user.id)) return msg.reply('That user isn\'t blacklisted.');

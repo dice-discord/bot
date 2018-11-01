@@ -58,7 +58,7 @@ module.exports = class NotificationsCommand extends Command {
 
   async run(msg, { notification }) {
     // Get this guild's settings
-    const guildSettings = this.client.provider.get(msg.guild, 'notifications', {});
+    const guildSettings = await this.client.provider.get(msg.guild.id, 'notifications', {});
 
     if (!guildSettings[msg.channel.id]) {
       // eslint-disable-next-line max-len
@@ -81,7 +81,7 @@ module.exports = class NotificationsCommand extends Command {
       guildSettings[msg.channel.id] = channelSettings;
 
       // Set the guild settings to our updated version
-      await this.client.provider.set(msg.guild, 'notifications', guildSettings);
+      await this.client.provider.set(msg.guild.id, 'notifications', guildSettings);
 
       // Respond to author with success
       respond(msg);
@@ -93,7 +93,8 @@ module.exports = class NotificationsCommand extends Command {
 
     notifications.forEach(item => {
       // eslint-disable-next-line max-len
-      embed.addField(`${channelSettings[notifications.indexOf(item)] ? 'Disable' : 'Enable'} ${item.label} notifications`, `Use ${msg.anyUsage(`notification ${notifications.indexOf(item) + 1}`)} to **${channelSettings[notifications.indexOf(item)] ? 'disable' : 'enable'}** this item`);
+      const index = notifications.indexOf(item);
+      embed.addField(`${channelSettings[index] ? 'Disable' : 'Enable'} ${item.label} notifications`, `Use ${msg.anyUsage(`notification ${index + 1}`)} to **${channelSettings[index] ? 'disable' : 'enable'}** this item`);
     });
 
     return msg.replyEmbed(embed);
