@@ -57,8 +57,11 @@ module.exports = class NotificationsCommand extends Command {
   }
 
   async run(msg, { notification }) {
+    const empty = {};
+    empty[msg.channel.id] = [false, false, false, false, false, false, false];
+
     // Get this guild's settings
-    const guildSettings = await this.client.provider.get(msg.guild.id, 'notifications', {});
+    const guildSettings = await this.client.provider.get(msg.guild.id, 'notifications', empty);
 
     if (!guildSettings[msg.channel.id]) {
       // eslint-disable-next-line max-len

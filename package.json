@@ -5,7 +5,7 @@
     "@sentry/node": "~4.2.3",
     "blapi": "~0.4.5",
     "child-process-promise": "~2.2.1",
-    "commando-provider-keyv": "~1.0.3",
+    "commando-provider-keyv": "dice-discord/commando-provider-keyv",
     "common-tags": "~1.8.0",
     "dblapi.js": "~2.2.0",
     "discord.js": "discordjs/discord.js#master",
@@ -65,5 +65,5 @@
     "displayDate": true,
     "displayTimestamp": true
   },
-  "version": "3.2.1"
+  "version": "3.2.2"
 }
