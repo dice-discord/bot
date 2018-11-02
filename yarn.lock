@@ -338,10 +338,9 @@ commander@~2.8.1:
   dependencies:
     graceful-readlink ">= 1.0.0"
 
-commando-provider-keyv@~1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/commando-provider-keyv/-/commando-provider-keyv-1.0.3.tgz#63d84f131ca0b66892393be17f7743e9c6f201c8"
-  integrity sha512-JXfPm3q5BxNKorBzXuoTBFD9jrEChU10lkjD86i103i52kFTLt1COssW1Emt7l43LflyKh9ZwEE1tT3ox1lGvA==
+commando-provider-keyv@dice-discord/commando-provider-keyv:
+  version "1.0.5"
+  resolved "https://codeload.github.com/dice-discord/commando-provider-keyv/tar.gz/43985ea962afe8f3be5b3c65993de2506e3412e4"
 
 common-tags@^1.0.0, common-tags@~1.8.0:
   version "1.8.0"
@@ -463,17 +462,18 @@ discord.js-commando@discordjs/Commando#master:
   dependencies:
     common-tags "^1.0.0"
     escape-string-regexp "^1.0.0"
-    require-all "^2.0.0"
+    require-all "^3.0.0"
 
 discord.js@discordjs/discord.js#master:
   version "12.0.0-dev"
   resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/0ab69c5ad4ef6a9fe4070da4ec13b024ca17043a"
   dependencies:
+    form-data "^2.3.2"
+    node-fetch "^2.1.2"
     pako "^1.0.0"
-    prism-media "^0.2.0"
-    snekfetch "^3.6.0"
+    prism-media amishshah/prism-media
     tweetnacl "^1.0.0"
-    ws "^4.0.0"
+    ws "^6.0.0"
 
 doctrine@^2.1.0:
   version "2.1.0"
