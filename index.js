@@ -8,11 +8,11 @@ const config = require('./config');
 const sentry = require('@sentry/node');
 const manager = new ShardingManager('./dice.js', { token: config.discordToken });
 
+logger.note(`Node.js version: ${process.version}`);
+logger.note(`Dice version v${packageData.version}`);
+
 if (config.sentryDSN) sentry.init({ dsn: config.sentryDSN });
 
 manager
   .on('shardCreate', shard => logger.start('Launched shard', shard.id))
   .spawn(manager.totalShards, 10000);
-
-logger.note(`Node.js version: ${process.version}`);
-logger.note(`Dice version v${packageData.version}`);
