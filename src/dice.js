@@ -310,22 +310,22 @@ const announceVoiceChannelUpdate = (channel, oldVoiceState, newVoiceState) => {
     embed
       .setTitle('Switched voice channels')
       .setColor(0xff9800)
-      .addField('Old voice channel', oldVoiceState.channel.name)
-      .addField('New voice channel', newVoiceState.channel.name);
+      .addField('Old voice channel', Util.escapeMarkdown(oldVoiceState.channel.name))
+      .addField('New voice channel', Util.escapeMarkdown(newVoiceState.channel.name));
     channel.send(embed);
   } else if (newVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Connected to a voice channel
     embed
       .setTitle('Connected to a voice channel')
       .setColor(0x4caf50)
-      .addField('Voice channel', newVoiceState.channel.name);
+      .addField('Voice channel', Util.escapeMarkdown(newVoiceState.channel.name));
     channel.send(embed);
   } else if (oldVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Disconnected from a voice channel
     embed
       .setTitle('Disconnected from a voice channel')
       .setColor(0xf44336)
-      .addField('Voice channel', oldVoiceState.channel.name);
+      .addField('Voice channel', Util.escapeMarkdown(oldVoiceState.channel.name));
     channel.send(embed);
   }
 };
