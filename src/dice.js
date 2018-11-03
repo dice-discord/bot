@@ -121,7 +121,7 @@ const announceGuildBanAdd = async (channel, user) => {
     const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_ADD' });
     const auditEntry = auditLogs.entries.first();
 
-    if (auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
+    if (auditEntry.reason) embed.addField('Reason', auditEntry.reason);
     embed.setTimestamp(auditEntry.createdAt);
     embed.setFooter(
       `Banned by ${auditEntry.executor.tag} (${auditEntry.executor.id})`,
@@ -158,7 +158,7 @@ const announceGuildBanRemove = async (channel, user) => {
     const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_REMOVE' });
     const auditEntry = auditLogs.entries.first();
 
-    if (auditEntry.reason) embed.addField('📝 Reason', auditEntry.reason);
+    if (auditEntry.reason) embed.addField('Reason', auditEntry.reason);
     embed.setTimestamp(auditEntry.createdAt);
     embed.setFooter(`Unbanned by ${auditEntry.executor.tag} (${auditEntry.executor.id})`,
       auditEntry.executor.displayAvatarURL(128));
@@ -186,7 +186,7 @@ const announceGuildMemberJoin = (channel, member) => {
       icon_url: member.user.displayAvatarURL(128)
     },
     fields: [{
-      name: '#⃣ Number of Server Members',
+      name: 'Number of Server Members',
       value: `\`${channel.guild.members.size}\` members`
     }]
   });
@@ -238,7 +238,7 @@ const announceGuildMemberLeave = (channel, member) => {
       icon_url: member.user.displayAvatarURL(128)
     },
     fields: [{
-      name: '#⃣ Number of Server Members',
+      name: 'Number of Server Members',
       value: `\`${channel.guild.members.size}\` members`
     }]
   });
@@ -269,20 +269,20 @@ const announceGuildMemberUpdate = (channel, oldMember, newMember) => {
     // New nickname, no old nickname
     embed
       .setTitle('New Member Nickname')
-      .addField('📝 New nickname', Util.escapeMarkdown(newMember.nickname));
+      .addField('New nickname', Util.escapeMarkdown(newMember.nickname));
     channel.send(embed);
   } else if (!newMember.nickname && oldMember.nickname !== newMember.nickname) {
     // Reset nickname
     embed
       .setTitle('Member Nickname Removed')
-      .addField('📝 Old nickname', Util.escapeMarkdown(oldMember.nickname));
+      .addField('Previous nickname', Util.escapeMarkdown(oldMember.nickname));
     channel.send(embed);
   } else if (oldMember.nickname !== newMember.nickname) {
     // Nickname change
     embed
       .setTitle('Changed Member Nickname')
-      .addField('📝 New nickname', Util.escapeMarkdown(newMember.nickname))
-      .addField('🕒 Old nickname', Util.escapeMarkdown(oldMember.nickname));
+      .addField('New nickname', Util.escapeMarkdown(newMember.nickname))
+      .addField('Previous nickname', Util.escapeMarkdown(oldMember.nickname));
     channel.send(embed);
   }
 };
@@ -290,40 +290,42 @@ const announceGuildMemberUpdate = (channel, oldMember, newMember) => {
 /**
  * Announces a guild member's voice connection status
  * @param {TextChannel} channel Channel to send the embed
- * @param {GuildMember} oldMember Old member from update
- * @param {GuildMember} newMember New member from update
+ * @param {VoiceState} oldVoiceState Old voice state from update
+ * @param {VoiceState} newVoiceState New voice state from update
  */
-const announceVoiceChannelUpdate = (channel, oldMember, newMember) => {
+const announceVoiceChannelUpdate = (channel, oldVoiceState, newVoiceState) => {
+  const { member } = newVoiceState;
+  const { user } = member;
   const embed = new MessageEmbed({
     timestamp: new Date(),
     author: {
-      name: `${newMember.user.tag} (${newMember.user.id})`,
+      name: `${user.tag} (${user.id})`,
       // eslint-disable-next-line camelcase
-      icon_url: newMember.user.displayAvatarURL(128)
+      icon_url: user.displayAvatarURL(128)
     }
   });
 
-  if (oldMember.voiceChannel && newMember.voiceChannel && oldMember.voiceChannel !== newMember.voiceChannel) {
+  if (oldVoiceState.channel && newVoiceState.channel && oldVoiceState.channel !== newVoiceState.channel) {
     // Transfering from one voice channel to another
     embed
-      .setTitle('↔ Switched voice channels')
+      .setTitle('Switched voice channels')
       .setColor(0xff9800)
-      .addField('Old voice channel', oldMember.voiceChannel.name)
-      .addField('New voice channel', newMember.voiceChannel.name);
+      .addField('Old voice channel', oldVoiceState.channel.name)
+      .addField('New voice channel', newVoiceState.channel.name);
     channel.send(embed);
-  } else if (newMember.voiceChannel && newMember.voiceChannel !== oldMember.voiceChannel) {
+  } else if (newVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Connected to a voice channel
     embed
-      .setTitle('➡ Connected to a voice channel')
+      .setTitle('Connected to a voice channel')
       .setColor(0x4caf50)
-      .addField('Voice channel', newMember.voiceChannel.name);
+      .addField('Voice channel', newVoiceState.channel.name);
     channel.send(embed);
-  } else if (oldMember.voiceChannel && newMember.voiceChannel !== oldMember.voiceChannel) {
+  } else if (oldVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Disconnected from a voice channel
     embed
-      .setTitle('⬅ Disconnected from a voice channel')
+      .setTitle('Disconnected from a voice channel')
       .setColor(0xf44336)
-      .addField('Voice channel', oldMember.voiceChannel.name);
+      .addField('Voice channel', oldVoiceState.channel.name);
     channel.send(embed);
   }
 };
@@ -356,7 +358,7 @@ const checkDiscoinTransactions = async () => {
         webhook
           .send({
             embeds: [{
-              title: '💱 Discoin Conversion Received',
+              title: 'Discoin Conversion Received',
               author: {
                 name: `${user.tag} (${user.id})`,
                 url: 'https://discordapp.com',
@@ -367,10 +369,10 @@ const checkDiscoinTransactions = async () => {
               timestamp: new Date(transaction.timestamp * 1000),
               thumbnail: { url: 'https://avatars2.githubusercontent.com/u/30993376' },
               fields: [{
-                name: '💰 Amount',
+                name: 'Amount',
                 value: `${transaction.source} ➡ ${transaction.amount} OAT`
               }, {
-                name: '🗒 Receipt',
+                name: 'Receipt',
                 value: `\`${transaction.receipt}\``
               }]
             }]
@@ -599,26 +601,26 @@ client
       }
     }
   })
-  .on('voiceStateUpdate', async (oldMember, newMember) => {
-    const guildSettings = await client.provider.get(newMember.guild, 'notifications');
+  .on('voiceStateUpdate', async (oldVoiceState, newVoiceState) => {
+    const guildSettings = await client.provider.get(newVoiceState.guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
 
       if (
-        newMember.guild.channels.has(id)
+        newVoiceState.member.guild.channels.has(id)
         && channelSettings[2] === true
-        && newMember.guild.channels.get(id).permissionsFor(newMember.guild.me).has('SEND_MESSAGES')
+        && newVoiceState.member.guild.channels.get(id).permissionsFor(newVoiceState.guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
-        if (oldMember.voiceChannel || newMember.voiceChannel) {
-          announceVoiceChannelUpdate(newMember.guild.channels.get(id), oldMember, newMember);
+        if (oldVoiceState.channel || newVoiceState.channel) {
+          announceVoiceChannelUpdate(newVoiceState.member.guild.channels.get(id), oldVoiceState, newVoiceState);
         }
       } else {
         // Missing permissions so remove this channel from the provider
         channelSettings[2] = false;
         guildSettings[id] = channelSettings;
-        client.provider.set(newMember.guild, 'notifications', guildSettings);
+        client.provider.set(newVoiceState.member.guild, 'notifications', guildSettings);
       }
     }
   })
@@ -669,7 +671,7 @@ client
 
     if (channels.length > 0) {
       const embed = new MessageEmbed({
-        title: '🗑 Message deleted',
+        title: 'Message deleted',
         color: 0xf44336,
         timestamp: new Date(),
         footer: { text: `Message content is hidden to protect ${msg.author.tag}'s privacy` },
@@ -679,7 +681,7 @@ client
           icon_url: msg.author.displayAvatarURL(128)
         },
         fields: [{
-          name: '#⃣ Channel',
+          name: 'Channel',
           value: msg.channel.toString()
         }]
       });
@@ -687,8 +689,8 @@ client
       channels.forEach(channel => channel.send(embed));
     }
   })
-  .on('messageUpdate', (oldMsg, newMsg) => {
-    const guildSettings = client.provider.get(newMsg.guild, 'notifications');
+  .on('messageUpdate', async (oldMsg, newMsg) => {
+    const guildSettings = await client.provider.get(newMsg.guild, 'notifications');
     const channels = [];
 
     for (const id in guildSettings) {
@@ -712,7 +714,7 @@ client
       && newMsg.editedAt
       && (oldMsg.content !== newMsg.content || oldMsg.embeds.length !== newMsg.embeds.length)) {
       const embed = new MessageEmbed({
-        title: `✏ Message edited (${newMsg.id})`,
+        title: `Message edited (${newMsg.id})`,
         url: `https://discordapp.com/channels/${newMsg.guild.id}/${newMsg.channel.id}/${newMsg.id}`,
         color: 0xff9800,
         timestamp: newMsg.editedAt,
@@ -723,7 +725,7 @@ client
           icon_url: newMsg.author.displayAvatarURL(128)
         },
         fields: [{
-          name: '#⃣ Channel',
+          name: 'Channel',
           value: newMsg.channel.toString()
         }]
       });
