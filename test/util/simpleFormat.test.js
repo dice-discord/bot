@@ -1,5 +1,5 @@
 /* global test expect */
-const simpleFormat = require('../../util/simpleFormat');
+const simpleFormat = require('../../src/util/simpleFormat');
 
 test('doesn\'nt do anything when number is short enough', () => {
   expect(simpleFormat(5)).toBe(5);

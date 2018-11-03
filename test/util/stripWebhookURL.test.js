@@ -1,5 +1,5 @@
 /* global test expect */
-const stripWebhookURL = require('../../util/stripWebhookURL');
+const stripWebhookURL = require('../../src/util/stripWebhookURL');
 
 test('extracts id and token from webhook URL', () => {
   // eslint-disable-next-line max-len
