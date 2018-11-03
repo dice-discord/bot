@@ -715,7 +715,6 @@ client
       && (oldMsg.content !== newMsg.content || oldMsg.embeds.length !== newMsg.embeds.length)) {
       const embed = new MessageEmbed({
         title: `Message edited (${newMsg.id})`,
-        url: `https://discordapp.com/channels/${newMsg.guild.id}/${newMsg.channel.id}/${newMsg.id}`,
         color: 0xff9800,
         timestamp: newMsg.editedAt,
         footer: { text: `Message history is hidden to protect ${newMsg.author.tag}'s privacy` },
@@ -727,6 +726,9 @@ client
         fields: [{
           name: 'Channel',
           value: newMsg.channel.toString()
+        }, {
+          name: 'Message',
+          value: `[Jump to](https://discordapp.com/channels/${newMsg.guild.id}/${newMsg.channel.id}/${newMsg.id})`
         }]
       });
 

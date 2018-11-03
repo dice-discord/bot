@@ -52,10 +52,12 @@ module.exports = class QuoteMessageCommand extends Command {
         iconURL: message.author.displayAvatarURL(128)
       },
       fields: [{
-        name: '#⃣ Channel',
+        name: 'Channel',
         value: message.channel.toString()
-      }],
-      url: `https://discordapp.com/channels/${message.guild.id}/${message.channel.id}?jump=${message.id}`
+      }, {
+        name: 'Message',
+        value: `[Jump to](https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${msg.id})`
+      }]
     });
 
     // Check if message had content
