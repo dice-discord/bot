@@ -5,7 +5,7 @@
     "@sentry/node": "~4.2.4",
     "blapi": "~0.4.5",
     "child-process-promise": "~2.2.1",
-    "commando-provider-keyv": "~1.1.0",
+    "commando-provider-keyv": "~1.2.0",
     "common-tags": "~1.8.0",
     "dblapi.js": "~2.3.0",
     "discord.js": "discordjs/discord.js#master",
