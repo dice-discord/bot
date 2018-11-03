@@ -65,9 +65,11 @@ module.exports = class BlacklistUsersCommand extends Command {
 
       // Respond to author with success
       respond(msg);
+      return null;
     } else if (blacklist.length > 0) {
       return msg.reply(`All blacklisted users:\n${blacklist.join('\n')}`, { split: true });
+    } else {
+      return msg.reply('No blacklisted users.');
     }
-    return msg.reply('No blacklisted users.');
   }
 };
