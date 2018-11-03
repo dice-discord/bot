@@ -51,16 +51,16 @@ module.exports = class MinecraftServerStatusCommand extends Command {
         });
 
         if (res.online === true) {
-          embed.addField('🖥 Server Status', 'Currently online.', true);
-          embed.addField('🖥 Version', res.server.name, true);
-          embed.addField('👥 Members', `${res.players.now}/${res.players.max}`, true);
-          embed.addField('📝 Message of the Day (MotD)', `\`\`\`${res.motd_formatted}\`\`\``, true);
+          embed.addField('Server Status', 'Currently online.', true);
+          embed.addField('Version', res.server.name, true);
+          embed.addField('Members', `${res.players.now}/${res.players.max}`, true);
+          embed.addField('Message of the Day (MotD)', `\`\`\`${res.motd_formatted}\`\`\``, true);
           embed.setColor(0x4caf50);
         } else {
           if (res.last_online) {
-            embed.addField('🖥 Server Status', `Offline. Last seen ${new Date(res.last_online)}`, true);
+            embed.addField('Server Status', `Offline. Last seen ${new Date(res.last_online)}`, true);
           } else {
-            embed.addField('🖥 Server Status', 'Offline. Never seen online before.', true);
+            embed.addField('Server Status', 'Offline. Never seen online before.', true);
           }
           embed.setColor(0x607d8b);
         }

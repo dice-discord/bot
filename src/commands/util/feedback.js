@@ -40,7 +40,7 @@ module.exports = class FeedbackCommand extends Command {
   }
 
   run(msg, { userFeedback }) {
-    const message = '📝 Thanks for sending your feedback.';
+    const message = 'Thanks for sending your feedback.';
     const messages = [];
     if (
       userFeedback.toLowerCase().includes('help')
