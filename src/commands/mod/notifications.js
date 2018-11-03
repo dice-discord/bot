@@ -57,17 +57,14 @@ module.exports = class NotificationsCommand extends Command {
   }
 
   async run(msg, { notification }) {
-    const empty = {};
-    empty[msg.channel.id] = [false, false, false, false, false, false, false];
-
     // Get this guild's settings
-    const guildSettings = await this.client.provider.get(msg.guild.id, 'notifications', empty);
+    const guildSettings = await this.client.provider.get(msg.guild.id, 'notifications', {});
 
     if (!guildSettings[msg.channel.id]) {
       // eslint-disable-next-line max-len
       logger.debug(`The channel ${msg.channel.name} does not have settings, will set them to the default`);
       // This channel doesn't have settings for it so set it to the default values (everything disabled)
-      guildSettings[msg.channel.id] = [false, false, false, false, false];
+      guildSettings[msg.channel.id] = [false, false, false, false, false, false, false];
     }
 
     // Get the settings
@@ -91,13 +88,17 @@ module.exports = class NotificationsCommand extends Command {
 
       return null;
     }
+
     // If the setting was unspecified
     const embed = new MessageEmbed({ title: `Notifications for #${msg.channel.name}` });
 
     notifications.forEach(item => {
       // eslint-disable-next-line max-len
       const index = notifications.indexOf(item);
-      embed.addField(`${channelSettings[index] ? 'Disable' : 'Enable'} ${item.label} notifications`, `Use ${msg.anyUsage(`notification ${index + 1}`)} to **${channelSettings[index] ? 'disable' : 'enable'}** this item`);
+      embed.addField(
+        `${channelSettings[index] ? 'Disable' : 'Enable'} ${item.label} notifications`,
+        `Use ${msg.anyUsage(`notification ${index + 1}`)} to **${channelSettings[index] ? 'disable' : 'enable'}** this item`
+      );
     });
 
     return msg.replyEmbed(embed);
