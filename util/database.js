@@ -24,8 +24,10 @@ const ms = require('ms');
 
 logger.start('Database loading');
 
-const economy = new Keyv(config.backend, { serialize: data => data, deserialize: data => data, collection: 'economy' });
-const dailies = new Keyv(config.backend, { serialize: data => data, deserialize: data => data, collection: 'dailies' });
+const none = data => data;
+
+const economy = new Keyv(config.backend, { serialize: none, deserialize: none, collection: 'economy' });
+const dailies = new Keyv(config.backend, { serialize: none, deserialize: none, collection: 'dailies' });
 
 // Set up Keen client
 const keenClient = new KeenTracking({
