@@ -82,10 +82,10 @@ client.registry
 
 // Store settings (like a server prefix) in a Keyv instance
 const copy = data => data;
-const keyv = new Keyv(config.backend, { serialize: copy, deserialize: copy, collection: 'debug' });
+const settings = { ttl: ms('1 year'), serialize: copy, deserialize: copy, collection: 'settings' };
+const keyv = new Keyv(config.backend, settings);
 
-client.setProvider(new KeyvProvider(keyv, { ttl: ms('1 year') })).then(async () => {
-  logger.error('rfiiogerdtotgdeogigtdjjiogfoi');
+client.setProvider(new KeyvProvider(keyv)).then(async () => {
   const blacklist = await client.provider.get('global', 'blacklist', []);
   client.blacklist = blacklist;
 });
@@ -395,34 +395,34 @@ schedule.scheduleJob('0 0 * * *', () => {
       && member.user.createdAt.getFullYear() !== now.getFullYear()
       && member.user.bot === false
     )
-      .forEach(
-        member => {
-          userAccountBirthdayLogger.debug({
-            prefix: `${member.user.tag} (${member.user.id})`,
-            message: 'Passed verification, their birthday is on this day of this month and they are human'
-          });
+      .forEach(member => {
+        userAccountBirthdayLogger.debug({
+          prefix: `${member.user.tag} (${member.user.id})`,
+          message: 'Passed verification, their birthday is on this day of this month and they are human'
+        });
 
-          const guildSettings = client.provider.get(member.guild, 'notifications', {});
+        client.provider
+          .get(member.guild, 'notifications')
+          .then(guildSettings => {
+            for (const id in guildSettings) {
+              const channelSettings = guildSettings[id];
 
-          for (const id in guildSettings) {
-            const channelSettings = guildSettings[id];
-
-            if (
-              member.guild.channels.has(id)
-              && channelSettings[4] === true
-              && member.guild.channels.get(id).permissionsFor(member.guild.me).has('SEND_MESSAGES')
-            ) {
-              // The channel in the database exists on the server and permissions to send messages are there
-              announceUserAccountBirthday(member.guild.channels.get(id), member.user);
-            } else {
-              // Missing permissions so remove this channel from the provider
-              channelSettings[4] = false;
-              guildSettings[id] = channelSettings;
-              client.provider.set(member.guild, 'notifications', guildSettings);
+              if (
+                member.guild.channels.has(id)
+                && channelSettings[4] === true
+                && member.guild.channels.get(id).permissionsFor(member.guild.me).has('SEND_MESSAGES')
+              ) {
+                // The channel in the database exists on the server and permissions to send messages are there
+                announceUserAccountBirthday(member.guild.channels.get(id), member.user);
+              } else {
+                // Missing permissions so remove this channel from the provider
+                channelSettings[4] = false;
+                guildSettings[id] = channelSettings;
+                client.provider.set(member.guild, 'notifications', guildSettings);
+              }
             }
-          }
-        }
-      )
+          });
+      })
   );
 });
 
@@ -515,8 +515,8 @@ client
         .catch(webhookLogger.error);
     }
   })
-  .on('guildMemberAdd', member => {
-    const guildSettings = client.provider.get(member.guild, 'notifications', {});
+  .on('guildMemberAdd', async member => {
+    const guildSettings = await client.provider.get(member.guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -536,8 +536,8 @@ client
       }
     }
   })
-  .on('guildMemberRemove', member => {
-    const guildSettings = client.provider.get(member.guild, 'notifications');
+  .on('guildMemberRemove', async member => {
+    const guildSettings = await client.provider.get(member.guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -557,8 +557,8 @@ client
       }
     }
   })
-  .on('guildBanAdd', (guild, user) => {
-    const guildSettings = client.provider.get(guild, 'notifications');
+  .on('guildBanAdd', async (guild, user) => {
+    const guildSettings = await client.provider.get(guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -578,8 +578,8 @@ client
       }
     }
   })
-  .on('guildBanRemove', (guild, user) => {
-    const guildSettings = client.provider.get(guild, 'notifications');
+  .on('guildBanRemove', async (guild, user) => {
+    const guildSettings = await client.provider.get(guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
