@@ -30,7 +30,8 @@
   "description": "A general purpose utility bot, with an economy, games, and lots of other features.",
   "devDependencies": {
     "eslint": "~5.8.0",
-    "eslint-config-amber": "~2.0.0"
+    "eslint-config-amber": "~2.0.0",
+    "jest": "~23.6.0"
   },
   "email": "me@jonahsnider.ninja",
   "engines": {
@@ -59,7 +60,8 @@
   "scripts": {
     "build": "docker build -t pizzafox/dice:latest .",
     "lint": "eslint .",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest"
   },
   "signale": {
     "displayDate": true,

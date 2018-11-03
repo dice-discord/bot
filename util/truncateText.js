@@ -15,8 +15,6 @@ limitations under the License.
 */
 
 /**
- * @function
- * @name truncateText
  * @param {string} string String to truncate
  * @returns {string} Truncated string or original if string was short enough to begin with
  */
