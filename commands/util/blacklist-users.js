@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const logger = require('../../util/logger').scope('command', 'blacklist users');
 const { Command } = require('discord.js-commando');
 const respond = require('../../util/simpleCommandResponse');
 
@@ -44,31 +43,29 @@ module.exports = class BlacklistUsersCommand extends Command {
 
   async run(msg, { users }) {
     const blacklist = await this.client.provider.get('global', 'blacklist', []);
-    // eslint-disable-next-line max-len
-    logger.debug('Blacklist from provider (will be empty if result is empty array):', blacklist);
 
     if (users.length > 0) {
       let error = '';
+      // eslint-disable-next-line consistent-return
       users.forEach(user => {
         if (this.client.isOwner(user.id)) {
-          msg.reply(`All blacklisted users:\n${blacklist.join('\n')}`, { split: true });
+          return msg.reply(`All blacklisted users:\n${blacklist.join('\n')}`, { split: true });
         } else if (blacklist.includes(user.id)) {
           error += `${user} is already blacklisted.\n`;
         } else {
           blacklist.push(user.id);
+          return null;
         }
       });
 
       if (error) return msg.reply(`${error}No users were blacklisted.`, { split: true });
 
       await this.client.provider.set('global', 'blacklist', blacklist);
+      this.client.blacklist.push(users);
 
       // Respond to author with success
       respond(msg);
-
-      return null;
     } else if (blacklist.length > 0) {
-      logger.debug('Blacklisted users:', blacklist);
       return msg.reply(`All blacklisted users:\n${blacklist.join('\n')}`, { split: true });
     }
     return msg.reply('No blacklisted users.');

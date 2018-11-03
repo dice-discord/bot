@@ -6,6 +6,7 @@ class DiceClient extends CommandoClient {
     super(options);
 
     this.db = database;
+    this.blacklist = [];
   }
 }
 

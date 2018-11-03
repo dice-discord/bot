@@ -19,9 +19,7 @@ const { FriendlyError } = require('discord.js-commando');
 const DiceClient = require('./structures/DiceClient');
 const { MessageEmbed, Util, WebhookClient } = require('discord.js');
 const path = require('path');
-
 const KeyvProvider = require('commando-provider-keyv');
-
 const Keyv = require('keyv');
 const KeenTracking = require('keen-tracking');
 const moment = require('moment');
@@ -34,6 +32,7 @@ const wait = require('./util/wait');
 const blapi = require('blapi');
 const stripWebhookURL = require('./util/stripWebhookURL');
 const packageJSON = require('./package.json');
+const ms = require('ms');
 
 // Use Sentry
 if (config.sentryDSN) sentry.init({ dsn: config.sentryDSN });
@@ -83,17 +82,22 @@ client.registry
 
 // Store settings (like a server prefix) in a Keyv instance
 const copy = data => data;
-const keyv = new Keyv(config.backend, { serialize: copy, deserialize: copy, collection: 'settings' });
+const keyv = new Keyv(config.backend, { serialize: copy, deserialize: copy, collection: 'debug' });
 
-client.setProvider(new KeyvProvider(keyv));
+client.setProvider(new KeyvProvider(keyv, { ttl: ms('1 year') })).then(async () => {
+  logger.error('rfiiogerdtotgdeogigtdjjiogfoi');
+  const blacklist = await client.provider.get('global', 'blacklist', []);
+  client.blacklist = blacklist;
+});
 
-// client.dispatcher.addInhibitor(msg => {
-//   const blacklist = client.provider.get('global', 'blacklist', []);
-//   if (blacklist.includes(msg.author.id)) {
-//     return ['blacklisted', msg.reply(`You have been blacklisted from ${client.user.username}.`)];
-//   }
-//   return false;
-// });
+client.dispatcher.addInhibitor(msg => {
+  const { blacklist } = client;
+
+  if (blacklist.includes(msg.author.id)) {
+    return ['blacklisted', msg.reply(`You have been blacklisted from ${client.user.username}.`)];
+  }
+  return false;
+});
 
 /**
  * Announces the banning or unbanning of a user on a guild
@@ -533,7 +537,7 @@ client
     }
   })
   .on('guildMemberRemove', member => {
-    const guildSettings = client.provider.get(member.guild, 'notifications', {});
+    const guildSettings = client.provider.get(member.guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -554,7 +558,7 @@ client
     }
   })
   .on('guildBanAdd', (guild, user) => {
-    const guildSettings = client.provider.get(guild, 'notifications', {});
+    const guildSettings = client.provider.get(guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -575,7 +579,7 @@ client
     }
   })
   .on('guildBanRemove', (guild, user) => {
-    const guildSettings = client.provider.get(guild, 'notifications', {});
+    const guildSettings = client.provider.get(guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -596,7 +600,7 @@ client
     }
   })
   .on('voiceStateUpdate', (oldMember, newMember) => {
-    const guildSettings = client.provider.get(newMember.guild, 'notifications', {});
+    const guildSettings = client.provider.get(newMember.guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -619,7 +623,7 @@ client
     }
   })
   .on('guildMemberUpdate', (oldMember, newMember) => {
-    const guildSettings = client.provider.get(newMember.guild, 'notifications', {});
+    const guildSettings = client.provider.get(newMember.guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -642,7 +646,7 @@ client
     }
   })
   .on('messageDelete', msg => {
-    const guildSettings = client.provider.get(msg.guild, 'notifications', {});
+    const guildSettings = client.provider.get(msg.guild, 'notifications');
     const channels = [];
 
     for (const id in guildSettings) {
@@ -684,7 +688,7 @@ client
     }
   })
   .on('messageUpdate', (oldMsg, newMsg) => {
-    const guildSettings = client.provider.get(newMsg.guild, 'notifications', {});
+    const guildSettings = client.provider.get(newMsg.guild, 'notifications');
     const channels = [];
 
     for (const id in guildSettings) {
