@@ -18,7 +18,7 @@ const moment = require('moment');
 const { Command } = require('discord.js-commando');
 const { stripIndents } = require('common-tags');
 const config = require('../../config');
-const packageData = require('../../package');
+const packageData = require('../../../package');
 
 module.exports = class BotInfoCommand extends Command {
   constructor(client) {

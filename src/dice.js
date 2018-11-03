@@ -31,7 +31,7 @@ const schedule = require('node-schedule');
 const wait = require('./util/wait');
 const blapi = require('blapi');
 const stripWebhookURL = require('./util/stripWebhookURL');
-const packageJSON = require('./package.json');
+const packageJSON = require('../package');
 const ms = require('ms');
 
 // Use Sentry
@@ -599,8 +599,8 @@ client
       }
     }
   })
-  .on('voiceStateUpdate', (oldMember, newMember) => {
-    const guildSettings = client.provider.get(newMember.guild, 'notifications');
+  .on('voiceStateUpdate', async (oldMember, newMember) => {
+    const guildSettings = await client.provider.get(newMember.guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -622,8 +622,8 @@ client
       }
     }
   })
-  .on('guildMemberUpdate', (oldMember, newMember) => {
-    const guildSettings = client.provider.get(newMember.guild, 'notifications');
+  .on('guildMemberUpdate', async (oldMember, newMember) => {
+    const guildSettings = await client.provider.get(newMember.guild, 'notifications');
 
     for (const id in guildSettings) {
       const channelSettings = guildSettings[id];
@@ -645,8 +645,8 @@ client
       }
     }
   })
-  .on('messageDelete', msg => {
-    const guildSettings = client.provider.get(msg.guild, 'notifications');
+  .on('messageDelete', async msg => {
+    const guildSettings = await client.provider.get(msg.guild, 'notifications');
     const channels = [];
 
     for (const id in guildSettings) {

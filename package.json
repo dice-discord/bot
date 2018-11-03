@@ -54,13 +54,13 @@
     "dev"
   ],
   "license": "Apache-2.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "name": "dice",
   "repository": "dice-discord/bot",
   "scripts": {
     "build": "docker build -t pizzafox/dice:latest .",
     "lint": "eslint .",
-    "start": "node index.js",
+    "start": "node src/index.js",
     "test": "jest"
   },
   "signale": {
