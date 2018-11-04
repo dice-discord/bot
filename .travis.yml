@@ -8,5 +8,6 @@ install:
   - yarn
   - yarn global add codecov
 script:
+  - yarn lint
   - yarn test
   - cd test && codecov
