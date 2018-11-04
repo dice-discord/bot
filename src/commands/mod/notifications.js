@@ -64,7 +64,7 @@ module.exports = class NotificationsCommand extends Command {
       // eslint-disable-next-line max-len
       logger.debug(`The channel ${msg.channel.name} does not have settings, will set them to the default`);
       // This channel doesn't have settings for it so set it to the default values (everything disabled)
-      guildSettings[msg.channel.id] = [false, false, false, false, false, false, false];
+      guildSettings[msg.channel.id] = [].fill(false, 0, 6);
     }
 
     // Get the settings

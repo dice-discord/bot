@@ -197,7 +197,7 @@ const announceGuildMemberJoin = (channel, member) => {
     embed.setTimestamp();
   }
 
-  channel.send(embed);
+  return channel.send(embed);
 };
 
 /**
@@ -205,22 +205,20 @@ const announceGuildMemberJoin = (channel, member) => {
  * @param {TextChannel} channel Channel to send the embed
  * @param {User} user User who's account birthday occured
  */
-const announceUserAccountBirthday = (channel, user) => {
-  channel.send({
-    embed: {
-      title: 'Discord Account Birthday',
-      // eslint-disable-next-line max-len
-      description: `It's the Discord account birthday of ${user.tag}. On this day in ${user.createdAt.getFullYear()} they created their Discord account.`,
-      timestamp: new Date(),
-      color: 0x4caf50,
-      author: {
-        name: `${user.tag} (${user.id})`,
-        // eslint-disable-next-line camelcase
-        icon_url: user.displayAvatarURL(128)
-      }
+const announceUserAccountBirthday = (channel, user) => channel.send({
+  embed: {
+    title: 'Discord Account Birthday',
+    // eslint-disable-next-line max-len
+    description: `It's the Discord account birthday of ${user.tag}. On this day in ${user.createdAt.getFullYear()} they created their Discord account.`,
+    timestamp: new Date(),
+    color: 0x4caf50,
+    author: {
+      name: `${user.tag} (${user.id})`,
+      // eslint-disable-next-line camelcase
+      icon_url: user.displayAvatarURL(128)
     }
-  });
-};
+  }
+});
 
 /**
  * Announces the leaving of a member on a guild
@@ -245,7 +243,7 @@ const announceGuildMemberLeave = (channel, member) => {
 
   if (member.joinedAt) embed.setFooter(`Member for around ${moment.duration(new Date() - member.joinedAt).humanize()}`);
 
-  channel.send(embed);
+  return channel.send(embed);
 };
 
 /**
@@ -270,21 +268,23 @@ const announceGuildMemberUpdate = (channel, oldMember, newMember) => {
     embed
       .setTitle('New Member Nickname')
       .addField('New nickname', Util.escapeMarkdown(newMember.nickname));
-    channel.send(embed);
+    return channel.send(embed);
   } else if (!newMember.nickname && oldMember.nickname !== newMember.nickname) {
     // Reset nickname
     embed
       .setTitle('Member Nickname Removed')
       .addField('Previous nickname', Util.escapeMarkdown(oldMember.nickname));
-    channel.send(embed);
+    return channel.send(embed);
   } else if (oldMember.nickname !== newMember.nickname) {
     // Nickname change
     embed
       .setTitle('Changed Member Nickname')
       .addField('New nickname', Util.escapeMarkdown(newMember.nickname))
       .addField('Previous nickname', Util.escapeMarkdown(oldMember.nickname));
-    channel.send(embed);
+    return channel.send(embed);
   }
+
+  return null;
 };
 
 /**
@@ -312,27 +312,26 @@ const announceVoiceChannelUpdate = (channel, oldVoiceState, newVoiceState) => {
       .setColor(0xff9800)
       .addField('Old voice channel', Util.escapeMarkdown(oldVoiceState.channel.name))
       .addField('New voice channel', Util.escapeMarkdown(newVoiceState.channel.name));
-    channel.send(embed);
+    return channel.send(embed);
   } else if (newVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Connected to a voice channel
     embed
       .setTitle('Connected to a voice channel')
       .setColor(0x4caf50)
       .addField('Voice channel', Util.escapeMarkdown(newVoiceState.channel.name));
-    channel.send(embed);
+    return channel.send(embed);
   } else if (oldVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Disconnected from a voice channel
     embed
       .setTitle('Disconnected from a voice channel')
       .setColor(0xf44336)
       .addField('Voice channel', Util.escapeMarkdown(oldVoiceState.channel.name));
-    channel.send(embed);
+    return channel.send(embed);
   }
+
+  return null;
 };
 
-/**
- * @async
- */
 const checkDiscoinTransactions = async () => {
   const checkDiscoinTransactionsLogger = logger.scope(`shard ${client.shard.id}`, 'discoin');
   const transactions = await rp({
