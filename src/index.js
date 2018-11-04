@@ -20,7 +20,10 @@ const { ShardingManager } = require('discord.js');
 const packageData = require('../package');
 const config = require('./config');
 const sentry = require('@sentry/node');
-const manager = new ShardingManager('./src/dice.js', { token: config.discordToken });
+const manager = new ShardingManager('./src/dice.js', {
+  token: config.discordToken,
+  respawn: process.env.NODE_ENV === 'production'
+});
 
 logger.note(`Node.js version: ${process.version}`);
 logger.note(`Dice version v${packageData.version}`);
