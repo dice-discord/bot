@@ -72,7 +72,7 @@ const database = async () => {
     },
     set: (id, newBalance) => {
       logger.scope('balances', 'set').debug(`Set balance for ${id} to ${simpleFormat(newBalance)}`);
-      return economy.set(id, newBalance);
+      return economy.set(id, newBalance, ms('1 year'));
     },
     decrease: async (id, amount) => balances.set(id, await balances.get(id) - amount),
     increase: async (id, amount) => balances.set(id, await balances.get(id) + amount)
@@ -113,13 +113,13 @@ const database = async () => {
   /**
    * @returns {Promise<number>} User count
    */
-  const userCount = () => economyCollection.count({});
+  const userCount = () => economyCollection.countDocuments({});
   module.exports.userCount = userCount;
 
   /**
    * @param {string} id Requested user ID
    * @param {number} timestamp Unix timestamp of when the daily was used
-   * @returns {Promise<UpdateWriteOpResult>} Promise from MongoDB
+   * @returns {Promise} Promise from MongoDB
    */
   const setDailyUsed = (id, timestamp) => {
     const setDailyUsedLogger = logger.scope('daily used', 'set');
