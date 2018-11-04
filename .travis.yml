@@ -6,6 +6,7 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
 install:
   - yarn
+  - yarn global add codecov
 script:
   - yarn test
   - cd test && codecov
