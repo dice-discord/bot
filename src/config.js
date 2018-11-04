@@ -28,7 +28,6 @@ const config = {
   },
   clientID: process.env.CLIENT_ID,
   commandPrefix: process.env.COMMAND_PREFIX,
-  coordinatorAccessKey: process.env.ACCESS_KEY,
   currency: {
     plural: 'oats',
     singular: 'oat'
