@@ -31,7 +31,7 @@ const schedule = require('node-schedule');
 const wait = require('./util/wait');
 const blapi = require('blapi');
 const stripWebhookURL = require('./util/stripWebhookURL');
-const packageJSON = require('../package');
+const packageData = require('../package');
 const ms = require('ms');
 
 // Use Sentry
@@ -507,7 +507,7 @@ client
             title: `${client.user.username} Ready`,
             fields: [{
               name: 'Version',
-              value: `v${packageJSON.version}`
+              value: `v${packageData.version}`
             }],
             timestamp: new Date()
           }]
