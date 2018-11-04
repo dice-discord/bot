@@ -74,11 +74,11 @@ client.registry
   // Registers all built-in groups, commands, and argument types
   .registerDefaults()
 
-  // Registers all of your commands in the ./commands/ directory
-  .registerCommandsIn(path.join(__dirname, 'commands'))
-
   // Register custom argument types in the ./types directory
-  .registerTypesIn(path.join(__dirname, 'types'));
+  .registerTypesIn(path.join(__dirname, 'types'))
+
+  // Registers all of your commands in the ./commands/ directory
+  .registerCommandsIn(path.join(__dirname, 'commands'));
 
 // Store settings (like a server prefix) in a Keyv instance
 const copy = data => data;
