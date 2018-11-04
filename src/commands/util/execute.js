@@ -1,7 +1,7 @@
 const util = require('util');
 const discord = require('discord.js');
 const tags = require('common-tags');
-const escapeRegex = require('escape-string-regexp');
+const sensitivePattern = require('../../util/sensitivePattern');
 const { exec } = require('child-process-promise');
 const { Command } = require('discord.js-commando');
 
@@ -36,12 +36,19 @@ module.exports = class ExecuteCommand extends Command {
       this.lastResult = (await exec(args.command)).stdout;
       hrDiff = process.hrtime(hrStart);
     } catch (err) {
-      return msg.reply(`Error while executing: \`${err}\``);
+      const clean = discord.Util.escapeMarkdown(`${err}`.replace(this.sensitivePattern, '--snip--'));
+
+      return msg.reply(`Error while executing: \`${clean}\``);
     }
 
     // Prepare for callback time and respond
     this.hrStart = process.hrtime();
-    return msg.reply(this.makeResultMessages(this.lastResult, hrDiff, args.script));
+    const result = this.makeResultMessages(this.lastResult, hrDiff, args.command);
+    if (Array.isArray(result)) {
+      return result.map(item => msg.reply(item));
+    } else {
+      return msg.reply(result);
+    }
   }
 
   makeResultMessages(result, hrDiff, input = null) {
@@ -62,23 +69,18 @@ module.exports = class ExecuteCommand extends Command {
 				\`\`\`bash
 				${inspected}
 				\`\`\`
-			`, 1900, '\n', prepend, append);
-    }
-    return discord.splitMessage(tags.stripIndents`
+			`, { maxLength: 1900, prepend, append });
+    } else {
+      return discord.splitMessage(tags.stripIndents`
 				*Callback executed after ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms.*
 				\`\`\`bash
 				${inspected}
 				\`\`\`
-			`, 1900, '\n', prepend, append);
+			`, { maxLength: 1900, prepend, append });
+    }
   }
 
   get sensitivePattern() {
-    if (!this._sensitivePattern) {
-      const { client } = this;
-      let pattern = '';
-      if (client.token) pattern += escapeRegex(client.token);
-      Object.defineProperty(this, '_sensitivePattern', { value: new RegExp(pattern, 'gi') });
-    }
-    return this._sensitivePattern;
+    return sensitivePattern;
   }
 };
