@@ -38,16 +38,16 @@ module.exports = class ExecuteCommand extends Command {
     } catch (err) {
       const clean = discord.Util.escapeMarkdown(`${err}`.replace(this.sensitivePattern, '--snip--'));
 
-      return msg.reply(`Error while executing: \`${clean}\``);
+      return msg.reply(`Error while executing: \`${clean}\``, { split: true });
     }
 
     // Prepare for callback time and respond
     this.hrStart = process.hrtime();
     const result = this.makeResultMessages(this.lastResult, hrDiff, args.command);
     if (Array.isArray(result)) {
-      return result.map(item => msg.reply(item));
+      return result.map(item => msg.reply(discord.Util.escapeMarkdown(item), { split: true }));
     } else {
-      return msg.reply(result);
+      return msg.reply(discord.Util.escapeMarkdown(result), { split: true });
     }
   }
 
