@@ -56,7 +56,7 @@ module.exports = class QuoteMessageCommand extends Command {
         value: message.channel.toString()
       }, {
         name: 'Message',
-        value: `[Jump to](https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${msg.id})`
+        value: `[Jump to](https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id})`
       }]
     });
 
