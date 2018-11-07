@@ -25,7 +25,9 @@ module.exports = message => {
   const clientPermissions = message.channel.permissionsFor(message.guild.me);
   switch (message.channel.type) {
   case 'text':
-    if (clientPermissions.has('ADD_REACTIONS') && clientPermissions.has('USE_EXTERNAL_EMOJIS')) {
+    if (clientPermissions.has('ADD_REACTIONS')
+      && clientPermissions.has('USE_EXTERNAL_EMOJIS')
+      && message.client.emojis.has(emoji.success)) {
       // Can add the custom emoji
       message.react(emoji.success.id);
     } else if (clientPermissions.has('ADD_REACTIONS')) {
