@@ -299,7 +299,7 @@ const announceVoiceChannelUpdate = (channel, oldVoiceState, newVoiceState) => {
   const embed = new MessageEmbed({
     timestamp: new Date(),
     author: {
-      name: `${user.tag} (${user.id})`,
+      name: `${user.tag} (${newVoiceState.id})`,
       // eslint-disable-next-line camelcase
       icon_url: user.displayAvatarURL(128)
     }
@@ -607,19 +607,19 @@ client
       const channelSettings = guildSettings[id];
 
       if (
-        newVoiceState.member.guild.channels.has(id)
+        newVoiceState.guild.channels.has(id)
         && channelSettings[2] === true
-        && newVoiceState.member.guild.channels.get(id).permissionsFor(newVoiceState.guild.me).has('SEND_MESSAGES')
+        && newVoiceState.guild.channels.get(id).permissionsFor(newVoiceState.guild.me).has('SEND_MESSAGES')
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
         if (oldVoiceState.channel || newVoiceState.channel) {
-          announceVoiceChannelUpdate(newVoiceState.member.guild.channels.get(id), oldVoiceState, newVoiceState);
+          announceVoiceChannelUpdate(newVoiceState.guild.channels.get(id), oldVoiceState, newVoiceState);
         }
       } else {
         // Missing permissions so remove this channel from the provider
         channelSettings[2] = false;
         guildSettings[id] = channelSettings;
-        client.provider.set(newVoiceState.member.guild, 'notifications', guildSettings);
+        client.provider.set(newVoiceState.guild, 'notifications', guildSettings);
       }
     }
   })
