@@ -52,6 +52,8 @@ module.exports = class OldestMemberCommand extends Command {
       .first()
       .user;
 
-    return msg.reply(`${oldest.tag} is the oldest member on this server. Their account was created ${moment.duration(msg.createdAt - oldest.createdAt).humanize()} ago, or ${oldest.createdAt}`);
+
+    const duration = moment.duration(msg.createdAt - oldest.createdAt).humanize();
+    return msg.reply(`${oldest.tag} is the oldest member on this server. Their account was created ${duration} ago (${oldest.createdAt})`);
   }
 };

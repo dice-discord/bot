@@ -73,7 +73,11 @@ module.exports = class CSGOStatusCommand extends Command {
       }
 
       gamedig.query(options)
-        .then(data => msg.replyEmbed(srcdsHelper(data).setThumbnail('https://steamcdn-a.akamaihd.net/steam/apps/730/header.jpg')))
+        .then(data => {
+          const embed = srcdsHelper(data);
+          embed.setThumbnail('https://steamcdn-a.akamaihd.net/steam/apps/730/header.jpg');
+          return msg.replyEmbed(embed);
+        })
         .catch(error => {
           if (error === 'UDP Watchdog Timeout') return msg.reply('Server timed out, it\'s probably offline.');
 

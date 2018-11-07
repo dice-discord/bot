@@ -94,10 +94,10 @@ module.exports = class NotificationsCommand extends Command {
 
     notifications.forEach(item => {
       // eslint-disable-next-line max-len
-      const index = notifications.indexOf(item);
+      const i = notifications.indexOf(item);
       embed.addField(
-        `${channelSettings[index] ? 'Disable' : 'Enable'} ${item.label} notifications`,
-        `Use ${msg.anyUsage(`notification ${index + 1}`)} to **${channelSettings[index] ? 'disable' : 'enable'}** this item`
+        `${channelSettings[i] ? 'Disable' : 'Enable'} ${item.label} notifications`,
+        `Use ${msg.anyUsage(`notification ${i + 1}`)} to **${channelSettings[i] ? 'disable' : 'enable'}** this item`
       );
     });
 

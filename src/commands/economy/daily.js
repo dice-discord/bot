@@ -50,7 +50,7 @@ module.exports = class DailyCommand extends Command {
         dbl
           .hasVoted(msg.author.id)
           .catch(error => {
-            logger.error('Error in discordbots.org vote checking', error.stack);
+            logger.error('Error in discordbots.org vote checking', error);
             return false;
           }),
         dbl.isWeekend()
@@ -63,23 +63,22 @@ module.exports = class DailyCommand extends Command {
       let payout = 1000;
       let note;
 
-      logger.debug(`DBL vote status for ${msg.author.tag}: ${dblData[0]}${dblData[1] ? ' (weekend)' : ''}`);
+      logger.debug(`DBL vote status for ${msg.author.tag}: ${dblData[0]}${dblData[1] ? ' (on the weekend)' : ''}`);
 
       let multiplier = 1;
+      const vote = `Use ${msg.anyUsage('vote')} to vote once per day and get extra ${config.currency.plural}.`;
 
       if (dblData[0] && dblData[1]) {
         payout *= 4;
         multiplier *= 4;
-        // eslint-disable-next-line max-len
-        note = `You got ${multiplier}x your payout from voting for ${this.client.user} today and during the weekend. Use ${msg.anyUsage('vote')} to vote once per day.`;
+        note = `You got ${multiplier}x your payout from voting for ${this.client.user} today and during the weekend. ${vote}`;
       } else if (dblData[0]) {
         payout *= 2;
         multiplier *= 2;
-        // eslint-disable-next-line max-len
-        note = `You got double your payout from voting for ${this.client.user} today. Use ${msg.anyUsage('vote')} to vote once per day.`;
+        note = `You got double your payout from voting for ${this.client.user} today. ${vote}`;
       } else {
-        // eslint-disable-next-line max-len
-        note = `You can double your payout from voting for ${this.client.user} each day and quadruple it for voting on the weekend. Use ${msg.anyUsage('vote')} to vote once per day.`;
+        note = oneLine`You can double your payout from voting for ${this.client.user} each day and quadruple it for voting on the weekend.
+        ${vote}`;
       }
 
       if (config.patrons[msg.author.id] && config.patrons[msg.author.id].basic === true) {
@@ -107,12 +106,14 @@ module.exports = class DailyCommand extends Command {
         database.balances.increase(this.client.user.id, payout);
 
         // Daily not collected in one day
+        const bal = (await database.balances.get(msg.author.id)).toLocaleString();
+
         const message = oneLine`You were paid ${payout.toLocaleString()} ${config.currency.plural}.
-        Your balance is now ${(await database.balances.get(msg.author.id)).toLocaleString()} ${config.currency.plural}.`;
+        Your balance is now ${bal} ${config.currency.plural}.`;
         return msg.reply(`${message}${note ? `\n${note}` : ''}`);
       }
       // Daily collected in a day or less (so, recently)
-      return msg.reply(`🕓 You must wait ${waitDuration} before collecting your daily ${config.currency.plural}. Remember to vote each day and get double ${config.currency.plural}. Use ${msg.anyUsage('vote')}.`);
+      return msg.reply(`You must wait ${waitDuration} before collecting your daily ${config.currency.plural}. ${vote}`);
     } finally {
       msg.channel.stopTyping();
     }

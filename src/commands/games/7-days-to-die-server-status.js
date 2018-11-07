@@ -36,7 +36,10 @@ module.exports = class SevenDaysToDieServerStatusCommand extends Command {
         '7dtd-status',
         '7dtd'
       ],
-      examples: ['7-days-to-die-server-status 7dtd.thehatedcrew.com', '7-days-to-die-server-status 206.217.135.18 41001'],
+      examples: [
+        '7-days-to-die-server-status 7dtd.thehatedcrew.com',
+        '7-days-to-die-server-status 206.217.135.18 41001'
+      ],
       clientPermissions: ['EMBED_LINKS'],
       throttling: {
         usages: 1,
@@ -71,6 +74,9 @@ module.exports = class SevenDaysToDieServerStatusCommand extends Command {
 
       gamedig.query(options)
         .then(data => {
+          const cur = data.raw.numplayers;
+          const max = data.maxplayers;
+
           const embed = new MessageEmbed({
             title: data.name,
             thumbnail: { url: 'https://steamcdn-a.akamaihd.net/steam/apps/251570/header.jpg' },
@@ -83,14 +89,17 @@ module.exports = class SevenDaysToDieServerStatusCommand extends Command {
               value: `${data.query.address} (port ${data.query.port})`
             }, {
               name: 'Online Players',
-              value: `${data.raw.numplayers}/${data.maxplayers} (${Math.round((data.raw.numplayers / data.maxplayers) * 100)}%)`
+              value: `${cur}/${max} (${Math.round((cur / max) * 100)}%)`
             }, {
               name: 'Password Required',
               value: data.password ? 'Yes' : 'No'
             }]
           });
 
-          if (data.raw.rules.ServerDescription) embed.setDescription(Util.escapeMarkdown(data.raw.rules.ServerDescription));
+          if (data.raw.rules.ServerDescription) {
+            const clean = Util.escapeMarkdown(data.raw.rules.ServerDescription);
+            embed.setDescription(clean);
+          }
 
           return msg.replyEmbed(embed);
         })
