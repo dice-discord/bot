@@ -3838,6 +3838,13 @@ rimraf@^2.2.8, rimraf@^2.5.4, rimraf@^2.6.1:
   dependencies:
     glob "^7.0.5"
 
+romanize@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/romanize/-/romanize-1.1.1.tgz#c956fa1387641c8372703077a0099cd1b7d70c1c"
+  integrity sha1-yVb6E4dkHINycDB3oAmc0bfXDBw=
+  dependencies:
+    repeat-string "^1.6.1"
+
 rsvp@^3.3.3:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-3.6.2.tgz#2e96491599a96cde1b515d5674a8f7a91452926a"
