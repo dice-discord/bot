@@ -28,7 +28,12 @@ const manager = new ShardingManager('./src/dice.js', {
 logger.note(`Node.js version: ${process.version}`);
 logger.note(`Dice version v${packageData.version}`);
 
-if (config.sentryDSN) sentry.init({ dsn: config.sentryDSN, release: packageData.version });
+if (config.sentryDSN) {
+  sentry.init({
+    dsn: config.sentryDSN, release: packageData.version,
+    environment: process.env.NODE_ENV || 'development'
+  });
+}
 
 manager
   .on('shardCreate', shard => logger.start('Launched shard', shard.id))
