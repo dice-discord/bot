@@ -35,7 +35,6 @@ const packageData = require('../package');
 const ms = require('ms');
 
 // Use Sentry
-
 if (config.sentryDSN) {
   sentry.init({
     dsn: config.sentryDSN, release: packageData.version,
