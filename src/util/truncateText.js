@@ -16,7 +16,8 @@ limitations under the License.
 
 /**
  * @param {string} string String to truncate
+ * @param {number} [number=2048] Number to truncate to
  * @returns {string} Truncated string or original if string was short enough to begin with
  */
 // eslint-disable-next-line no-extra-parens
-module.exports = string => (string.length > 2048 ? `${string.substring(0, 2045)}...` : string);
+module.exports = (string, number = 2048) => (string.length > number ? `${string.substring(0, number - 3)}...` : string);
