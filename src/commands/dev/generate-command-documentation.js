@@ -69,7 +69,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
     let result = stripIndents`
 		title: ${capitalizeString(replaceAll('-', ' ', command.name))}
 		description: ${command.description}
-		path: tree/master/commands/${command.group.id}
+		path: tree/master/src/commands/${command.group.id}
 		source: ${command.name}.js
 		
 		# ${capitalizeString(replaceAll('-', ' ', command.name))}
