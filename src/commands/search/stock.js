@@ -22,7 +22,7 @@ module.exports = class LookUpStockCommand extends Command {
     super(client, {
       name: 'look-up-stock',
       group: 'search',
-      memberName: 'look-up-stock',
+      memberName: 'stock',
       description: 'Get the price of a stock.',
       aliases: ['stock', 'stock-look-up', 'stocks'],
       examples: ['look-up-stock AAPL'],

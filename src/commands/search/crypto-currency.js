@@ -24,7 +24,7 @@ module.exports = class CryptoCurrencyLookUpCommand extends Command {
     super(client, {
       name: 'crypto-currency-look-up',
       group: 'search',
-      memberName: 'crypto-currency-look-up',
+      memberName: 'crypto-currency',
       description: 'Look up a crypto currency.',
       aliases: ['crypto-currency', 'crypto-look-up', 'crypto'],
       examples: ['crypto-currency-look-up bitcoin', 'crypto-currency-look-up ethereum-classic aud'],
