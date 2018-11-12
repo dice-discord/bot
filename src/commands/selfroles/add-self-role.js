@@ -41,43 +41,37 @@ module.exports = class AddSelfRoleCommand extends Command {
   }
 
   async run(msg, { role }) {
-    try {
-      msg.channel.startTyping();
+    // Get all of this guild's selfroles
+    const selfRoles = await this.client.provider.get(msg.guild, 'selfRoles', []);
 
-      // Get all of this guild's selfroles
-      const selfRoles = await this.client.provider.get(msg.guild, 'selfRoles', []);
-
-      // Check if the role is already a self role
-      if (selfRoles.includes(role.id)) {
-        return msg.reply('That role is already a self role.');
-      }
-
-      // Check if the author is able to add the role
-      if (role.comparePositionTo(msg.member.roles.highest) >= 0 && !msg.member.hasPermission('ADMINISTRATOR')) {
-        return msg.reply('You don\'t have the permissions to add that role.');
-      }
-
-      // Check if bot is able to add that role
-      if (role.comparePositionTo(msg.guild.me.roles.highest) >= 0) {
-        return msg.reply('I don\'t have the permissions to add that role.');
-      }
-
-      // Check if role is managed by an integration
-      if (role.managed) {
-        return msg.reply('An integration is managing that role.');
-      }
-
-      // Add the new role's ID to the local array
-      selfRoles.push(role.id);
-      // Set the array to our updated version
-      await this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
-
-      // Respond to author with success
-      respond(msg);
-
-      return null;
-    } finally {
-      msg.channel.stopTyping();
+    // Check if the role is already a self role
+    if (selfRoles.includes(role.id)) {
+      return msg.reply('That role is already a self role.');
     }
+
+    // Check if the author is able to add the role
+    if (role.comparePositionTo(msg.member.roles.highest) >= 0 && !msg.member.hasPermission('ADMINISTRATOR')) {
+      return msg.reply('You don\'t have the permissions to add that role.');
+    }
+
+    // Check if bot is able to add that role
+    if (role.comparePositionTo(msg.guild.me.roles.highest) >= 0) {
+      return msg.reply('I don\'t have the permissions to add that role.');
+    }
+
+    // Check if role is managed by an integration
+    if (role.managed) {
+      return msg.reply('An integration is managing that role.');
+    }
+
+    // Add the new role's ID to the local array
+    selfRoles.push(role.id);
+    // Set the array to our updated version
+    await this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
+
+    // Respond to author with success
+    respond(msg);
+
+    return null;
   }
 };
