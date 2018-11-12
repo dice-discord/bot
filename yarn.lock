@@ -1550,10 +1550,10 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-gamedig@^1.0.46:
-  version "1.0.46"
-  resolved "https://registry.yarnpkg.com/gamedig/-/gamedig-1.0.46.tgz#5e9bd2c8f5363d5104a05fad008cccfaa03d7ab1"
-  integrity sha512-FR1rVRNcmSVckV8cygN02KtW+xlgVvuu1txyKMplq7w5JQ+rXMHLAUU4nmO/82IthE47AxDwtnOS2KGBowvnFQ==
+gamedig@^1.0.47:
+  version "1.0.47"
+  resolved "https://registry.yarnpkg.com/gamedig/-/gamedig-1.0.47.tgz#8d0cb9fc23b11615adc0aed97b7035d460875e96"
+  integrity sha512-Fspx3/sROKhR4ITHfIOWqKIYxZHq1XBJS2E337UK+0nZ02Iz/hI9Ky640UFvj7KANe2Eghm0RniYaLRLDet5zg==
   dependencies:
     async "^0.9.2"
     compressjs "^1.0.2"
