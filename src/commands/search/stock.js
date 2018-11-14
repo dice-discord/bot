@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const stocks = require('yahoo-stocks');
 
-module.exports = class LookUpStockCommand extends Command {
+module.exports = class StockCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'look-up-stock',

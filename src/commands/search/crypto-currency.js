@@ -19,7 +19,7 @@ const { currencyCodes } = require('../../config');
 const logger = require('../../util/logger').scope('command', 'crypto currency look up');
 const rp = require('request-promise-native');
 
-module.exports = class CryptoCurrencyLookUpCommand extends Command {
+module.exports = class CryptoCurrencyCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'crypto-currency-look-up',
