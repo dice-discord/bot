@@ -13,7 +13,8 @@ services:
     image: datadog/agent
     restart: always
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+      - /opt/datadog-agent-conf.d:/conf.d:ro
     env_file: .env

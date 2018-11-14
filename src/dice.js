@@ -740,6 +740,7 @@ client
     }
   })
   .on('commandBlocked', async (msg, reason) => {
+    client.increment('bot.commands.blocked');
     const userBalance = await database.balances.get(msg.author.id);
 
 
@@ -755,6 +756,7 @@ client
     });
   })
   .on('commandRun', async (cmd, promise, msg, args) => {
+    client.increment('bot.commands.run');
     const commandLogger = logger.scope(`shard ${client.shard.id}`, 'command');
     const userBalance = await database.balances.get(msg.author.id);
     const houseBalance = await database.balances.get(client.user.id);
