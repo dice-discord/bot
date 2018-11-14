@@ -14,7 +14,7 @@
     "escape-string-regexp": "^1.0.5",
     "gamedig": "^1.0.47",
     "hot-shots": "^5.9.2",
-    "keen-tracking": "^4.0.14",
+    "keen-tracking": "^4.0.8",
     "keyv": "^3.1.0",
     "moment": "^2.22.2",
     "mongodb": "^3.1.9",
