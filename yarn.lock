@@ -800,7 +800,7 @@ commando-provider-keyv@^1.3.0:
   resolved "https://registry.yarnpkg.com/commando-provider-keyv/-/commando-provider-keyv-1.3.0.tgz#d11dc9f72cf4ea69d49708f923a9939c503d3b26"
   integrity sha512-DR2smMfAN6ax8AZV/usHiEe++ABvyxYCPaBvnuUBes1l64ZKlvvU3ovk4hnDMuRJahR9jxF6W/dsAhc/CB1e5g==
 
-common-tags@^1.0.0, common-tags@^1.8.0:
+common-tags@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/common-tags/-/common-tags-1.8.0.tgz#8e3153e542d4a39e9b10554434afaaf98956a937"
   integrity sha512-6P6g0uetGpW/sdyUy/iQQCbFF0kWVMSIVSyYz7Zgjcgh8mgw8PQzDNZeyZ5DQ2gM7LBoZPHmnjz8rUthkBG5tw==
@@ -1053,9 +1053,10 @@ diff@^3.2.0:
 
 discord.js-commando@discordjs/Commando#master:
   version "0.11.0-dev"
-  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/6816b119ab1f3b2a523c377e6cf0d8889a503cf6"
+  uid "5c1b4da3f1b0d98334ff2e39d1731348c266bd31"
+  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/5c1b4da3f1b0d98334ff2e39d1731348c266bd31"
   dependencies:
-    common-tags "^1.0.0"
+    common-tags "^1.8.0"
     escape-string-regexp "^1.0.0"
     require-all "^3.0.0"
 
