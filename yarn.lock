@@ -1062,12 +1062,14 @@ discord.js-commando@discordjs/Commando#master:
 
 discord.js@discordjs/discord.js#master:
   version "12.0.0-dev"
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/3418b5a1a2e2e424369da42f0a04dc3523f3d933"
+  uid "2d68e837e5003baf5ac86e79b7f7d0e0bcd4c26a"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/2d68e837e5003baf5ac86e79b7f7d0e0bcd4c26a"
   dependencies:
     form-data "^2.3.2"
     node-fetch "^2.1.2"
     pako "^1.0.0"
     prism-media amishshah/prism-media
+    setimmediate "^1.0.5"
     tweetnacl "^1.0.0"
     ws "^6.0.0"
 
