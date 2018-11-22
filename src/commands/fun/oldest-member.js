@@ -16,6 +16,7 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const moment = require('moment');
+const { stripIndents } = require('common-tags');
 
 module.exports = class OldestMemberCommand extends Command {
   constructor(client) {
@@ -54,6 +55,7 @@ module.exports = class OldestMemberCommand extends Command {
 
 
     const duration = moment.duration(msg.createdAt - oldest.createdAt).humanize();
-    return msg.reply(`${oldest.tag} is the oldest member on this server. Their account was created ${duration} ago (${oldest.createdAt})`);
+    return msg.reply(stripIndents`${oldest.tag} is the oldest member on this server.
+    Their account was created ${duration} ago (${oldest.createdAt})`);
   }
 };

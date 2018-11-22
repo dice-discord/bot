@@ -67,17 +67,18 @@ module.exports = class DailyCommand extends Command {
 
       let multiplier = 1;
       const vote = `Use ${msg.anyUsage('vote')} to vote once per day and get extra ${config.currency.plural}.`;
+      const prompt = `your payout from voting for ${this.client.user}`;
 
       if (dblData[0] && dblData[1]) {
         payout *= 4;
         multiplier *= 4;
-        note = `You got ${multiplier}x your payout from voting for ${this.client.user} today and during the weekend. ${vote}`;
+        note = `You got ${multiplier}x ${prompt} today and during the weekend. ${vote}`;
       } else if (dblData[0]) {
         payout *= 2;
         multiplier *= 2;
-        note = `You got double your payout from voting for ${this.client.user} today. ${vote}`;
+        note = `You got double ${prompt} today. ${vote}`;
       } else {
-        note = oneLine`You can double your payout from voting for ${this.client.user} each day and quadruple it for voting on the weekend.
+        note = oneLine`You can double ${prompt} each day and quadruple it for voting on the weekend.
         ${vote}`;
       }
 
