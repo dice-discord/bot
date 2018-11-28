@@ -65,7 +65,7 @@
   "repository": "dice-discord/bot",
   "scripts": {
     "build": "docker build -t pizzafox/dice:latest .",
-    "lint": "eslint . && markdownlint -i node_modules/** .",
+    "lint": "eslint . && markdownlint -i node_modules .",
     "start": "node src/index.js",
     "test": "jest"
   },
