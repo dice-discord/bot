@@ -36,7 +36,8 @@
     "codecov": "^3.1.0",
     "eslint": "^5.9.0",
     "eslint-config-amber": "^2.0.0",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "markdownlint-cli": "^0.13.0"
   },
   "email": "me@jonahsnider.ninja",
   "engines": {
@@ -64,7 +65,7 @@
   "repository": "dice-discord/bot",
   "scripts": {
     "build": "docker build -t pizzafox/dice:latest .",
-    "lint": "eslint .",
+    "lint": "eslint . && markdownlint -i node_modules/** .",
     "start": "node src/index.js",
     "test": "jest"
   },
