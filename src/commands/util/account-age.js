@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const moment = require('moment');
+const humanize = require('date-fns/distance_in_words_to_now');
 const { Command } = require('discord.js-commando');
 
 module.exports = class AccountAgeCommand extends Command {
@@ -41,7 +41,6 @@ module.exports = class AccountAgeCommand extends Command {
 
   run(msg, { user }) {
     const target = user || msg.author;
-    // eslint-disable-next-line max-len
-    return msg.reply(`⏰ ${moment.duration(msg.createdAt - target.createdAt).humanize()} old. Created on ${target.createdAt}`);
+    return msg.reply(`⏰ ${humanize(target.createdAt)} old. Created on ${target.createdAt}`);
   }
 };

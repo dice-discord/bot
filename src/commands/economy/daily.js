@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
 const database = require('../../util/database');
-const moment = require('moment');
+const humanize = require('date-fns/distance_in_words_to_now');
 const logger = require('../../util/logger').scope('command', 'daily');
 const DBL = require('dblapi.js');
 const { oneLine } = require('common-tags');
@@ -43,8 +43,8 @@ module.exports = class DailyCommand extends Command {
       msg.channel.startTyping();
 
       // Initialize variables
-      const oldTime = await database.getDailyUsed(msg.author.id);
-      const currentTime = msg.createdTimestamp;
+      const oldTimestamp = await database.getDailyUsed(msg.author.id);
+      const currentTimestamp = msg.createdTimestamp;
       const dbl = new DBL(config.botListTokens['discordbots.org']);
       const dblData = await Promise.all([
         dbl
@@ -58,7 +58,7 @@ module.exports = class DailyCommand extends Command {
 
       // 23 hours because it's better for users to have some wiggle room
       const fullDay = ms('23 hours');
-      const waitDuration = moment.duration(oldTime - currentTime + fullDay).humanize();
+      const waitDuration = humanize(currentTimestamp + fullDay);
 
       let payout = 1000;
       let note;
@@ -89,19 +89,19 @@ module.exports = class DailyCommand extends Command {
         note = `You got ${multiplier}x your payout from voting for being a basic tier (or higher) patron.`;
       }
 
-      if (oldTime) {
-        logger.debug(`Old timestamp: ${new Date(oldTime)} (${oldTime})`);
+      if (oldTimestamp) {
+        logger.debug(`Old timestamp: ${new Date(oldTimestamp)} (${oldTimestamp})`);
       } else {
         logger.debug('No date in records (undefined)');
       }
 
-      logger.debug(`Current timestamp: ${new Date(currentTime)} (${currentTime})`);
+      logger.debug(`Current timestamp: ${new Date(currentTimestamp)} (${currentTimestamp})`);
 
-      if (!oldTime || oldTime + fullDay < currentTime) {
+      if (!oldTimestamp || oldTimestamp + fullDay < currentTimestamp) {
         // Pay message author their daily and save the time their daily was used
         await Promise.all([
           database.balances.increase(msg.author.id, payout),
-          database.setDailyUsed(msg.author.id, currentTime)
+          database.setDailyUsed(msg.author.id, currentTimestamp)
         ]);
         // Pay Dice the same amount to help handle the economy
         database.balances.increase(this.client.user.id, payout);
