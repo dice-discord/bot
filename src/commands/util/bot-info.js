@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const humanize = require('date-fns/distance_in_words_to_now');
-const subMilliseconds = require('date-fns/sub_milliseconds')
+const subMilliseconds = require('date-fns/sub_milliseconds');
 const { Command } = require('discord.js-commando');
 const { stripIndents } = require('common-tags');
 const config = require('../../config');
