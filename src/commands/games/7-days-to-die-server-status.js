@@ -34,7 +34,8 @@ module.exports = class SevenDaysToDieServerStatusCommand extends Command {
         '7-days-to-die',
         '7dtd-server',
         '7dtd-status',
-        '7dtd'
+        '7dtd',
+        '7days'
       ],
       examples: [
         '7-days-to-die-server-status 7dtd.thehatedcrew.com',
