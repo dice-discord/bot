@@ -14,7 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const moment = require('moment');
+const humanize = require('date-fns/distance_in_words_to_now');
+const subMilliseconds = require('date-fns/sub_milliseconds')
 const { Command } = require('discord.js-commando');
 const { stripIndents } = require('common-tags');
 const config = require('../../config');
@@ -58,7 +59,7 @@ module.exports = class BotInfoCommand extends Command {
         thumbnail: { url: this.client.user.displayAvatarURL({ format: 'webp' }) },
         fields: [{
           name: '🕒 Uptime',
-          value: moment.duration(this.client.uptime).humanize(),
+          value: humanize(subMilliseconds(new Date(), this.client.uptime)),
           inline: true
         }, {
           name: '🎲 Dice version',
