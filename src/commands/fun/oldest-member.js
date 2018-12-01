@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const humanize = require('date-fns/distance_in_words_to_now');
+const { formatDistance, formatRelative } = require('date-fns');
 const { stripIndents } = require('common-tags');
 
 module.exports = class OldestMemberCommand extends Command {
@@ -54,8 +54,10 @@ module.exports = class OldestMemberCommand extends Command {
       .user;
 
 
-    const duration = humanize(oldest.createdAt);
+    const { createdAt } = oldest;
+    const age = formatDistance(createdAt, new Date());
+    const date = formatRelative(createdAt, new Date());
     return msg.reply(stripIndents`${oldest.tag} is the oldest member on this server.
-    Their account was created ${duration} ago (${oldest.createdAt})`);
+    Their account is ${age} old (created ${date}).`);
   }
 };

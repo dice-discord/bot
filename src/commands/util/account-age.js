@@ -14,8 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const humanize = require('date-fns/distance_in_words_to_now');
+const { formatDistance, formatRelative } = require('date-fns');
 const { Command } = require('discord.js-commando');
+const { stripIndents } = require('common-tags');
 
 module.exports = class AccountAgeCommand extends Command {
   constructor(client) {
@@ -41,6 +42,8 @@ module.exports = class AccountAgeCommand extends Command {
 
   run(msg, { user }) {
     const target = user || msg.author;
-    return msg.reply(`⏰ ${humanize(target.createdAt)} old. Created on ${target.createdAt}`);
+    const { createdAt } = target;
+    return msg.reply(stripIndents`${formatDistance(createdAt, new Date())} old.
+    Created on ${formatRelative(createdAt, new Date())}.`);
   }
 };

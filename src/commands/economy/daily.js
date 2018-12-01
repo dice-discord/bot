@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const config = require('../../config');
 const database = require('../../util/database');
-const humanize = require('date-fns/distance_in_words_to_now');
+const { formatDistance } = require('date-fns');
 const logger = require('../../util/logger').scope('command', 'daily');
 const DBL = require('dblapi.js');
 const { oneLine } = require('common-tags');
@@ -58,7 +58,7 @@ module.exports = class DailyCommand extends Command {
 
       // 23 hours because it's better for users to have some wiggle room
       const fullDay = ms('23 hours');
-      const waitDuration = humanize(currentTimestamp + fullDay);
+      const waitDuration = formatDistance(currentTimestamp + fullDay, new Date());
 
       let payout = 1000;
       let note;
