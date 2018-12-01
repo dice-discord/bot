@@ -2,6 +2,7 @@ const { stripIndents, oneLine } = require('common-tags');
 const { MessageEmbed } = require('discord.js');
 const { Command, util } = require('discord.js-commando');
 const { disambiguation } = util;
+const genCmdURL = require('../../util/genCmdURL');
 
 module.exports = class HelpCommand extends Command {
   constructor(client) {
@@ -39,6 +40,7 @@ module.exports = class HelpCommand extends Command {
         const embed = new MessageEmbed({
           title: `${command.name}${guildOnly}${nsfw}`,
           description: command.description,
+          url: `https://dice.js.org${genCmdURL(command)}`,
           fields: [{
             name: 'Format',
             value: `${msg.anyUsage(`${command.name}${command.format ? ` ${command.format}` : ''}`)}`
@@ -61,11 +63,6 @@ module.exports = class HelpCommand extends Command {
         if (command.examples) {
           const prettyExamples = command.examples.map(example => `\`${example}\``);
           embed.addField('Examples', prettyExamples.join('\n'));
-        }
-
-        // Not used anywhere currently, might be in the future
-        if (command.urlSlug) {
-          embed.setURL(`https://dice.js.org/commands/${command.urlSlug}`);
         }
 
         const messages = [];
