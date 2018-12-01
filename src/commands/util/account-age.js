@@ -14,8 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const moment = require('moment');
+const { formatDistance, formatRelative } = require('date-fns');
 const { Command } = require('discord.js-commando');
+const { stripIndents } = require('common-tags');
 
 module.exports = class AccountAgeCommand extends Command {
   constructor(client) {
@@ -41,7 +42,8 @@ module.exports = class AccountAgeCommand extends Command {
 
   run(msg, { user }) {
     const target = user || msg.author;
-    // eslint-disable-next-line max-len
-    return msg.reply(`⏰ ${moment.duration(msg.createdAt - target.createdAt).humanize()} old. Created on ${target.createdAt}`);
+    const { createdAt } = target;
+    return msg.reply(stripIndents`${formatDistance(createdAt, new Date())} old.
+    Created on ${formatRelative(createdAt, new Date())}.`);
   }
 };

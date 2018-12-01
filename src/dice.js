@@ -22,7 +22,7 @@ const path = require('path');
 const KeyvProvider = require('commando-provider-keyv');
 const Keyv = require('keyv');
 const KeenTracking = require('keen-tracking');
-const moment = require('moment');
+const { formatDistance } = require('date-fns');
 const database = require('./util/database');
 const rp = require('request-promise-native');
 const sentry = require('@sentry/node');
@@ -246,7 +246,7 @@ const announceGuildMemberLeave = (channel, member) => {
     }]
   });
 
-  if (member.joinedAt) embed.setFooter(`Member for around ${moment.duration(new Date() - member.joinedAt).humanize()}`);
+  if (member.joinedAt) embed.setFooter(`Member for ${formatDistance(member.joinedAt, new Date())}`);
 
   return channel.send(embed);
 };

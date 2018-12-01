@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const logger = require('../../util/logger').scope('command', 'starbound server status');
 const { MessageEmbed } = require('discord.js');
-const moment = require('moment');
+const ms = require('ms');
 const gamedig = require('gamedig');
 
 module.exports = class StarboundServerStatusCommand extends Command {
@@ -69,7 +69,7 @@ module.exports = class StarboundServerStatusCommand extends Command {
           return msg.replyEmbed(new MessageEmbed({
             title: data.name,
             thumbnail: { url: 'https://steamcdn-a.akamaihd.net/steam/apps/211820/header.jpg' },
-            footer: { text: `Took ${moment.duration(data.query.duration).asSeconds().toFixed(2)} seconds to complete` },
+            footer: { text: `Took ${ms(data.query.duration)} to complete` },
             fields: [{
               name: 'IP Address',
               value: `${data.query.address} (port ${data.query.port})`

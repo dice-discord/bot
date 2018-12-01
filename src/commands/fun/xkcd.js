@@ -18,7 +18,6 @@ const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const rp = require('request-promise-native');
 const logger = require('../../util/logger').scope('command', 'xkcd');
-const moment = require('moment');
 const truncateText = require('../../util/truncateText');
 
 module.exports = class XKCDCommand extends Command {
@@ -82,12 +81,12 @@ module.exports = class XKCDCommand extends Command {
 
       // Alt text
       if (result.alt) {
-        embed.addField('Alt', truncateText(result.alt));
+        embed.addField('Alt', truncateText(result.alt, 1024));
       }
 
       // Transcript
       if (result.transcript) {
-        embed.addField('Transcript', truncateText(result.transcript));
+        embed.addField('Transcript', truncateText(result.transcript, 1024));
       }
 
       // Check if there's a link
@@ -99,7 +98,7 @@ module.exports = class XKCDCommand extends Command {
 
       // Creation date
       if (result.day && result.month && result.year) {
-        embed.setTimestamp(new Date(moment([result.year, result.month, result.day])));
+        embed.setTimestamp(new Date(result.year, result.month - 1, result.day));
       }
 
       return msg.replyEmbed(embed);
