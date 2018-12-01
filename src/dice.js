@@ -76,13 +76,21 @@ client.registry
     ['dev', 'Developer']
   ])
 
-  // Registers all built-in groups, commands, and argument types
-  .registerDefaults()
+  // Command argument types
+  .registerDefaultTypes()
+
+  // Command groups
+  .registerDefaultGroups()
+
+  // Default commands except the help command
+  .registerDefaultCommands({
+    help: false
+  })
 
   // Register custom argument types in the ./types directory
   .registerTypesIn(path.join(__dirname, 'types'))
 
-  // Registers all of your commands in the ./commands/ directory
+  // Registers all of the commands in the ./commands directory
   .registerCommandsIn(path.join(__dirname, 'commands'));
 
 // Store settings (like a server prefix) in a Keyv instance
