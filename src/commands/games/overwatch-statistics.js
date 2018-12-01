@@ -18,7 +18,6 @@ const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const rp = require('request-promise-native');
 const logger = require('../../util/logger').scope('command', 'overwatch statistics');
-const replaceall = require('replaceall');
 const platforms = ['pc', 'xbl', 'psn'];
 const regions = ['us', 'eu', 'asia'];
 
@@ -41,9 +40,9 @@ module.exports = class OverwatchStatisticsCommand extends Command {
         key: 'battletag',
         prompt: 'What user do you want to look up?',
         type: 'string',
-        parse: battletag => replaceall('#', '-', battletag),
+        parse: battletag => battletag.replace(/[#]/, '-'),
         validate: value => {
-          if (value.includes('#')) return true;
+          if (/.+[#]\d{4}/g.test(value)) return true;
           return false;
         }
       }, {
