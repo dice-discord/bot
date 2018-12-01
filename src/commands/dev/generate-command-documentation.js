@@ -89,7 +89,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 
     if (command.aliases && command.aliases.length > 0) {
       const aliases = [];
-      command.aliases.forEach(alias => aliases.push(`- \`${alias}\``));
+      command.aliases.forEach(alias => aliases.push(`- \\\`${alias}\\\``));
 
       result = stripIndents`
 			${result}
@@ -106,10 +106,10 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 		
 		### Format
 		
-		\`${command.name}${command.format ? ` ${command.format}` : ''}\``;
+		\\\`${command.name}${command.format ? ` ${command.format}` : ''}\\\``;
 
     if (command.examples && command.examples.length > 0) {
-      const examples = command.examples.map(example => `- \`${example}\``);
+      const examples = command.examples.map(example => `- \\\`${example}\\\``);
 
       result = stripIndents`
 			${result}
