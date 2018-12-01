@@ -67,7 +67,8 @@ module.exports = class NPMSearchCommand extends Command {
         });
 
         let { description } = data;
-        const dependencies = data.dependencies ? Object.keys(data.dependencies).join(', ') : null;
+        const version = data.versions[data['dist-tags'].latest];
+        const dependencies = version.dependencies ? Object.keys(version.dependencies).join(', ') : null;
 
         if (full) description = data.readme;
         if (description) embed.setDescription(truncateText(description));
