@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
-const replaceAll = require('replaceall');
+const genCmdURL = require('../../util/genCmdURL');
 
 module.exports = class GenerateCommandListCommand extends Command {
   constructor(client) {
@@ -46,7 +46,8 @@ module.exports = class GenerateCommandListCommand extends Command {
     const { groups } = this.client.registry;
 
     msg.say(groups.filter(grp => grp.commands)
-      // eslint-disable-next-line max-len
-      .map(grp => `${grp.commands.filter(cmd => !cmd.ownerOnly).map(cmd => `|[\\\`${cmd.name}\\\`](/commands/${replaceAll(' ', '-', cmd.group.name.toLowerCase())}/${cmd.name})|${cmd.description}|${cmd.group.name}|`).join('\n')}`), { split: true });
+      .map(grp => `${grp.commands.filter(cmd => !cmd.ownerOnly)
+        .map(cmd => `|[\`${cmd.name}\`](${genCmdURL(cmd)})|${cmd.description}|${cmd.group.name}|`)
+        .join('\n')}`), { split: true });
   }
 };

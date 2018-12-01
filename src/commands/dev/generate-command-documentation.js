@@ -16,7 +16,6 @@ limitations under the License.
 
 const { Command } = require('discord.js-commando');
 const { stripIndents } = require('common-tags');
-const replaceAll = require('replaceall');
 
 module.exports = class GenerateCommandDocumentationCommand extends Command {
   constructor(client) {
@@ -65,14 +64,15 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 
   run(msg, { command }) {
     const capitalizeString = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+    const prettyTitle = capitalizeString(command.name.replace(/[-]/, ' '));
 
     let result = stripIndents`
-		title: ${capitalizeString(replaceAll('-', ' ', command.name))}
+		title: ${prettyTitle}
 		description: ${command.description}
 		path: tree/master/src/commands/${command.group.id}
 		source: ${command.name}.js
 		
-		# ${capitalizeString(replaceAll('-', ' ', command.name))}
+		# ${prettyTitle}
 		
 		## Description
 		
@@ -89,7 +89,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 
     if (command.aliases && command.aliases.length > 0) {
       const aliases = [];
-      command.aliases.forEach(alias => aliases.push(`* \\\`${alias}\\\``));
+      command.aliases.forEach(alias => aliases.push(`- \`${alias}\``));
 
       result = stripIndents`
 			${result}
@@ -106,11 +106,10 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 		
 		### Format
 		
-		\\\`${command.name}${command.format ? ` ${command.format}` : ''}\\\``;
+		\`${command.name}${command.format ? ` ${command.format}` : ''}\``;
 
     if (command.examples && command.examples.length > 0) {
-      const examples = [];
-      command.examples.forEach(example => examples.push(`* \\\`${example}\\\``));
+      const examples = command.examples.map(example => `- \`${example}\``);
 
       result = stripIndents`
 			${result}
@@ -121,9 +120,15 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
     }
 
     if (command.argsCollector && command.argsCollector.args && command.argsCollector.args.length > 0) {
-      const args = [];
-      // eslint-disable-next-line max-len
-      command.argsCollector.args.forEach(arg => args.push(`| ${arg.label ? capitalizeString(arg.label) : capitalizeString(arg.key)} | ${capitalizeString(arg.type.id)} |${typeof arg.default === 'undefined' || arg.default === null ? 'Yes' : 'No'} | ${arg.min ? arg.min : ''} | ${arg.max ? arg.max : ''} |`));
+      const args = command.argsCollector.args.map(arg => {
+        const name = arg.label ? capitalizeString(arg.label) : capitalizeString(arg.key);
+        const type = capitalizeString(arg.type.id);
+        const required = arg.default ? 'Yes' : 'No';
+        const minimum = arg.min || '';
+        const maximum = arg.max || '';
+
+        return `| ${name} | ${type} | ${required} | ${minimum} | ${maximum} |`;
+      });
 
       result = stripIndents`
 			${result}
