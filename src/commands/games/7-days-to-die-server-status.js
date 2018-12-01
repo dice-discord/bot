@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require('discord.js-commando');
 const logger = require('../../util/logger').scope('command', '7-days-to-die server status');
 const { MessageEmbed, Util } = require('discord.js');
-const moment = require('moment');
+const ms = require('ms');
 const gamedig = require('gamedig');
 
 // Can't use numbers in class names
@@ -80,7 +80,7 @@ module.exports = class SevenDaysToDieServerStatusCommand extends Command {
           const embed = new MessageEmbed({
             title: data.name,
             thumbnail: { url: 'https://steamcdn-a.akamaihd.net/steam/apps/251570/header.jpg' },
-            footer: { text: `Took ${moment.duration(data.query.duration).asSeconds().toFixed(2)} seconds to complete` },
+            footer: { text: `Took ${ms(data.query.duration)} to complete` },
             fields: [{
               name: 'Map',
               value: Util.escapeMarkdown(data.map)

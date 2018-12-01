@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const moment = require('moment');
+const ms = require('ms');
 const { Util, MessageEmbed } = require('discord.js');
 
 /**
@@ -25,7 +25,7 @@ const { Util, MessageEmbed } = require('discord.js');
  */
 module.exports = data => new MessageEmbed({
   title: data.name,
-  footer: { text: `Took ${moment.duration(data.query.duration).asSeconds().toFixed(2)} seconds to complete` },
+  footer: { text: `Took ${ms(data.query.duration)} to complete` },
   fields: [{
     name: 'IP Address',
     value: `${data.query.address} (port ${data.query.port})`
