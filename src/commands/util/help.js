@@ -58,14 +58,14 @@ module.exports = class HelpCommand extends Command {
           embed.addField('Details', command.details);
         }
 
-        if (command.details) {
+        if (command.examples) {
           const prettyExamples = command.examples.map(example => `\`${example}\``);
           embed.addField('Examples', prettyExamples.join('\n'));
         }
 
         // Not used anywhere currently, might be in the future
-        if (command.url) {
-          embed.setURL(command.url);
+        if (command.urlSlug) {
+          embed.setURL(`https://dice.js.org/commands/${command.urlSlug}`);
         }
 
         const messages = [];
