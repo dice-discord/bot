@@ -45,6 +45,8 @@ module.exports = class MinecraftServerStatusCommand extends Command {
           return msg.reply('There was an error with your request.');
         }
 
+        console.error(res);
+
         const embed = new MessageEmbed({
           title: ip,
           timestamp: res.last_updated
@@ -54,7 +56,7 @@ module.exports = class MinecraftServerStatusCommand extends Command {
           embed.addField('Server Status', 'Currently online.', true);
           embed.addField('Version', res.server.name, true);
           embed.addField('Members', `${res.players.now}/${res.players.max}`, true);
-          embed.addField('Message of the Day (MotD)', `\`\`\`${res.motd_formatted}\`\`\``, true);
+          embed.addField('Message of the Day (MotD)', `\`\`\`${res.motd}\`\`\``, true);
           embed.setColor(0x4caf50);
         } else {
           if (res.last_online) {
