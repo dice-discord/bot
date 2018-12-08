@@ -11,7 +11,7 @@
     "dblapi.js": "^2.3.0",
     "discord.js": "discordjs/discord.js#master",
     "discord.js-commando": "discordjs/Commando#master",
-    "dotenv": "^6.1.0",
+    "dotenv": "^6.2.0",
     "escape-string-regexp": "^1.0.5",
     "gamedig": "^1.0.47",
     "hot-shots": "^5.9.2",
