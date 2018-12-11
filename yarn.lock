@@ -1088,10 +1088,10 @@ diff@^3.2.0:
 
 discord.js-commando@discordjs/Commando#master:
   version "0.11.0-dev"
-  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/5c1b4da3f1b0d98334ff2e39d1731348c266bd31"
+  uid "0a52df1cf80d0a410bec0e6ac3477068cc529344"
+  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/0a52df1cf80d0a410bec0e6ac3477068cc529344"
   dependencies:
     common-tags "^1.8.0"
-    escape-string-regexp "^1.0.0"
     require-all "^3.0.0"
 
 discord.js@discordjs/discord.js#master:
@@ -1188,7 +1188,7 @@ es6-promisify@^5.0.0:
   dependencies:
     es6-promise "^4.0.3"
 
-escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
+escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
