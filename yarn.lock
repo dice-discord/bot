@@ -1088,8 +1088,8 @@ diff@^3.2.0:
 
 discord.js-commando@discordjs/Commando#master:
   version "0.11.0-dev"
-  uid "0a52df1cf80d0a410bec0e6ac3477068cc529344"
-  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/0a52df1cf80d0a410bec0e6ac3477068cc529344"
+  uid "1039e50082528ed1de11e40cdc340b044b2a8165"
+  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/1039e50082528ed1de11e40cdc340b044b2a8165"
   dependencies:
     common-tags "^1.8.0"
     require-all "^3.0.0"
