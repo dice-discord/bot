@@ -15,14 +15,16 @@ limitations under the License.
 */
 
 const { Command } = require('discord.js-commando');
+const { stripIndents } = require('common-tags');
 
-module.exports = class ShardCommand extends Command {
+module.exports = class DevHelpCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'shard',
+      name: 'dev-help',
       group: 'dev',
-      memberName: 'shard',
-      description: 'Get info about this shard.',
+      memberName: 'dev-help',
+      description: 'Get info to help developers fix bugs.',
+      hidden: true,
       throttling: {
         usages: 2,
         duration: 6
@@ -31,6 +33,18 @@ module.exports = class ShardCommand extends Command {
   }
 
   run(msg) {
-    return msg.reply(`Shard ${this.client.shard.id}`);
+    return msg.replyEmbed({
+      fields: [{
+        name: 'Shard',
+        value: `${this.client.shard.id}`
+      }, {
+        name: 'IDs',
+        value: stripIndents`
+        Guild: ${msg.guild.id}
+        User: ${msg.author.id}
+        Message: ${msg.id}
+        `
+      }]
+    });
   }
 };
