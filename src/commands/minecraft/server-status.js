@@ -45,8 +45,6 @@ module.exports = class MinecraftServerStatusCommand extends Command {
           return msg.reply('There was an error with your request.');
         }
 
-        console.error(res);
-
         const embed = new MessageEmbed({
           title: ip,
           timestamp: res.last_updated
