@@ -1,5 +1,6 @@
 version: '3.7'
 volumes:
+  portainer_data:
 services:
   bot:
     image: dicediscord/bot
