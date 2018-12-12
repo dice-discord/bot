@@ -18,3 +18,11 @@ services:
       - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
       - /opt/datadog-agent-conf.d:/conf.d:ro
     env_file: .env
+  portrainer:
+    image: portrainer/portrainer
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    ports:
+      - 9000:9000
