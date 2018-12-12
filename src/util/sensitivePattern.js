@@ -1,4 +1,5 @@
-const escapeRegex = require('escape-string-regexp');
+const { util } = require('discord.js-commando');
+const { escapeRegex } = util;
 const config = require('../config');
 
 const sensitiveTerms = [];

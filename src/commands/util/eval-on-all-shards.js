@@ -1,7 +1,7 @@
 const util = require('util');
 const discord = require('discord.js');
 const tags = require('common-tags');
-const escapeRegex = require('escape-string-regexp');
+const sensitivePattern = require('../../util/sensitivePattern');
 const { Command } = require('discord.js-commando');
 
 const nl = '!!NL!!';
@@ -69,7 +69,7 @@ module.exports = class EvalOnAllShardsCommand extends Command {
   makeResultMessages(result, hrDiff, input = null) {
     const inspected = util.inspect(result, { depth: 0 })
       .replace(nlPattern, '\n')
-      .replace(this.sensitivePattern, '--snip--');
+      .replace(sensitivePattern, '--snip--');
     const split = inspected.split('\n');
     const last = inspected.length - 1;
     const prependPart = inspected[0] !== '{' && inspected[0] !== '[' && inspected[0] !== "'" ? split[0] : inspected[0];
@@ -92,15 +92,5 @@ module.exports = class EvalOnAllShardsCommand extends Command {
 				${inspected}
 				\`\`\`
 			`, 1900, '\n', prepend, append);
-  }
-
-  get sensitivePattern() {
-    if (!this._sensitivePattern) {
-      const { client } = this;
-      let pattern = '';
-      if (client.token) pattern += escapeRegex(client.token);
-      Object.defineProperty(this, '_sensitivePattern', { value: new RegExp(pattern, 'gi') });
-    }
-    return this._sensitivePattern;
   }
 };
