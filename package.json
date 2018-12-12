@@ -3,7 +3,6 @@
   "dependencies": {
     "@keyv/mongo": "^1.0.4",
     "@sentry/node": "^4.4.1",
-    "blapi": "^0.4.5",
     "child-process-promise": "^2.2.1",
     "commando-provider-keyv": "^1.3.0",
     "common-tags": "^1.8.0",
@@ -23,6 +22,7 @@
     "node-schedule": "^1.3.1",
     "parse-color": "^1.0.0",
     "raven": "^2.6.4",
+    "reported": "^1.1.4",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
     "romanize": "^1.1.1",
@@ -72,5 +72,5 @@
     "displayDate": true,
     "displayTimestamp": true
   },
-  "version": "3.8.0"
+  "version": "3.10.0"
 }

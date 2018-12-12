@@ -17,14 +17,13 @@ limitations under the License.
 const config = {
   backend: process.env.BACKEND,
   botListTokens: {
-    'botlist.space': process.env.BOTLIST_SPACE_TOKEN,
-    'bots.discord.pw': process.env.BOTS_DISCORD_PW_TOKEN,
-    'bots.ondiscord.xyz': process.env.BOTS_ONDISCORD_XYZ_TOKEN,
-    'discord.services': process.env.DISCORD_SERVICES_TOKEN,
-    'discordboats.club': process.env.DISCORDBOATS_CLUB_TOKEN,
-    'discordbot.world': process.env.DISCORDBOAT_WORLD_TOKEN,
-    'discordbots.group': process.env.DISCORDBOTS_GROUP_TOKEN,
-    'discordbots.org': process.env.DISCORDBOTS_ORG_TOKEN
+    botlistSpace: process.env.BOTLIST_SPACE_TOKEN,
+    discordBots: process.env.DISCORD_BOTS_GG_TOKEN,
+    botsOnDiscord: process.env.BOTS_ONDISCORD_XYZ_TOKEN,
+    discordBoatsClub: process.env.DISCORDBOATS_CLUB_TOKEN,
+    discordBotWorld: process.env.DISCORDBOT_WORLD_TOKEN,
+    discordBotsGroup: process.env.DISCORDBOTS_GROUP_TOKEN,
+    discordBotList: process.env.DISCORDBOTS_ORG_TOKEN
   },
   clientID: process.env.CLIENT_ID,
   commandPrefix: process.env.COMMAND_PREFIX,

@@ -29,7 +29,7 @@ const sentry = require('@sentry/node');
 const config = require('./config');
 const schedule = require('node-schedule');
 const wait = require('./util/wait');
-const blapi = require('blapi');
+const { Batch } = require('reported');
 const stripWebhookURL = require('./util/stripWebhookURL');
 const packageData = require('../package');
 const ms = require('ms');
@@ -492,23 +492,41 @@ client
     // Set game presence to the help command once loaded
     client.user.setActivity('for @Dice help', { type: 'WATCHING' });
 
-    // Use BLAPI/metalist for handling bot server counts
-    blapi.handle(client, config.botListTokens);
-
     keenClient.recordEvent('events', {
       title: 'Ready',
       tag: client.user.tag,
       shard: client.shard.id
     });
 
-    // Only check for Discoin transactions if this is shard 0
-    if (client.shard.id === 0 && client.user.id === config.clientID) {
+    // Only check for Discoin transactions and send bot stats if this is shard 0 and the production account
+    if (client.shard.id === 0 && config.clientID === client.user.id) {
+      const botListLogger = logger.scope('bot list logger');
+
+      const batchBotList = new Batch(config.botListTokens, client.user.id);
+
+      const submitToBotLists = async () => {
+        botListLogger.start('Sending stats to bot lists');
+        const shards = await client.shard.broadcastEval('this.guilds.size');
+        batchBotList.submit({
+          serverCount: shards.reduce((prev, val) => prev + val, 0),
+          shards
+        })
+          .then(() => {
+            botListLogger.complete('Finished reporting stats to bot lists');
+          }).catch(err => {
+            botListLogger.error(err);
+          });
+      };
+
+      submitToBotLists();
+      schedule.scheduleJob('*/30 * * * *', submitToBotLists);
+
       schedule.scheduleJob('/5 * * * *', () => {
         checkDiscoinTransactions();
       });
     }
 
-    // All shards before this have been spawned and this shard start up successfully
+    // All shards before this have been spawned and this shard started up successfully
     if (client.shard.id + 1 === client.shard.count && config.webhooks.updates && client.user.id === config.clientID) {
       const webhookData = stripWebhookURL(config.webhooks.updates);
       const webhook = new WebhookClient(webhookData.id, webhookData.token);
