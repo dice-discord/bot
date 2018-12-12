@@ -1,4 +1,5 @@
 version: '3.7'
+volumes:
 services:
   bot:
     image: dicediscord/bot
@@ -18,8 +19,8 @@ services:
       - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
       - /opt/datadog-agent-conf.d:/conf.d:ro
     env_file: .env
-  portrainer:
-    image: portrainer/portrainer
+  portainer:
+    image: portainer/portainer
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
