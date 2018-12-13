@@ -29,7 +29,7 @@ module.exports = class ClapCommand extends Command {
         key: 'phrase',
         prompt: 'What do you want to have clappified?',
         type: 'string',
-        parse: val => Util.cleanContent(val)
+        parse: (val, msg) => Util.cleanContent(val, msg)
       }],
       throttling: {
         usages: 2,
