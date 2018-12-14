@@ -123,7 +123,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
       const args = command.argsCollector.args.map(arg => {
         const name = arg.label ? capitalizeString(arg.label) : capitalizeString(arg.key);
         const type = capitalizeString(arg.type.id);
-        const required = arg.default ? 'Yes' : 'No';
+        const required = arg.default ? 'No' : 'Yes';
         const minimum = arg.min || '';
         const maximum = arg.max || '';
 
