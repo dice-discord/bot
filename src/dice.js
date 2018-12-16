@@ -33,6 +33,7 @@ const { Batch } = require('reported');
 const stripWebhookURL = require('./util/stripWebhookURL');
 const packageData = require('../package');
 const ms = require('ms');
+const { oneLine } = require('common-tags');
 
 // Use Sentry
 if (config.sentryDSN) {
@@ -192,6 +193,9 @@ const announceGuildMemberJoin = (channel, member) => {
   const embed = new MessageEmbed({
     title: 'New Member',
     timestamp: member.joinedAt,
+    thumbnail: {
+      url: 'https://dice.js.org/images/statuses/guildMember/join.png'
+    },
     color: 0x4caf50,
     author: {
       name: `${member.user.tag} (${member.user.id})`,
@@ -221,8 +225,11 @@ const announceGuildMemberJoin = (channel, member) => {
 const announceUserAccountBirthday = (channel, user) => channel.send({
   embed: {
     title: 'Discord Account Birthday',
-    // eslint-disable-next-line max-len
-    description: `It's the Discord account birthday of ${user.tag}. On this day in ${user.createdAt.getFullYear()} they created their Discord account.`,
+    thumbnail: {
+      url: 'https://dice.js.org/images/statuses/birthday/cake.png'
+    },
+    description: oneLine`It's the Discord account birthday of ${user.tag}.
+    On this day in ${user.createdAt.getFullYear()} they created their Discord account.`,
     timestamp: new Date(),
     color: 0x4caf50,
     author: {
@@ -243,6 +250,9 @@ const announceGuildMemberLeave = (channel, member) => {
     title: 'Member left',
     timestamp: new Date(),
     color: 0xf44336,
+    thumbnail: {
+      url: 'https://dice.js.org/images/statuses/guildMember/leave.png'
+    },
     author: {
       name: `${member.user.tag} (${member.user.id})`,
       // eslint-disable-next-line camelcase
@@ -324,21 +334,24 @@ const announceVoiceChannelUpdate = (channel, oldVoiceState, newVoiceState) => {
       .setTitle('Switched voice channels')
       .setColor(0xff9800)
       .addField('Old voice channel', Util.escapeMarkdown(oldVoiceState.channel.name))
-      .addField('New voice channel', Util.escapeMarkdown(newVoiceState.channel.name));
+      .addField('New voice channel', Util.escapeMarkdown(newVoiceState.channel.name))
+      .setThumbnail('https://dice.js.org/images/statuses/voiceChannel/transfer.png');
     return channel.send(embed);
   } else if (newVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Connected to a voice channel
     embed
       .setTitle('Connected to a voice channel')
       .setColor(0x4caf50)
-      .addField('Voice channel', Util.escapeMarkdown(newVoiceState.channel.name));
+      .addField('Voice channel', Util.escapeMarkdown(newVoiceState.channel.name))
+      .setThumbnail('https://dice.js.org/images/statuses/voiceChannel/join.png');
     return channel.send(embed);
   } else if (oldVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Disconnected from a voice channel
     embed
       .setTitle('Disconnected from a voice channel')
       .setColor(0xf44336)
-      .addField('Voice channel', Util.escapeMarkdown(oldVoiceState.channel.name));
+      .addField('Voice channel', Util.escapeMarkdown(oldVoiceState.channel.name))
+      .setThumbnail('https://dice.js.org/images/statuses/voiceChannel/leave.png');
     return channel.send(embed);
   }
 
