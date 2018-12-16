@@ -65,7 +65,7 @@
     "build": "docker build -t pizzafox/dice:latest .",
     "lint": "eslint . && markdownlint -i node_modules .",
     "start": "node src/index.js",
-    "test": "tap -J --coverage --coverage-report=text-summary test/*/*.js",
+    "test": "tap -J -R spec test/*/*.js",
     "test:coverage": "tap --coverage-report=html && codecov"
   },
   "signale": {
