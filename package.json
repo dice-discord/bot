@@ -66,7 +66,7 @@
     "lint": "eslint . && markdownlint -i node_modules .",
     "start": "node src/index.js",
     "test": "tap -J -R spec test/*/*.js",
-    "test:coverage": "tap --coverage-report=html && codecov"
+    "test:coverage": "tap -J --coverage --coverage-report=html test/*/*.js && codecov"
   },
   "signale": {
     "displayDate": true,
