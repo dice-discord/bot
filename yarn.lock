@@ -1539,10 +1539,10 @@ hosted-git-info@^2.1.4:
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
   integrity sha512-7T/BxH19zbcCTa8XkMlbK5lTo1WtgkFi3GvdWEyNuc4Vex7/9Dqbnpsf4JMydcfj9HCg4zUWFTL3Za6lapg5/w==
 
-hot-shots@^5.9.2:
-  version "5.9.2"
-  resolved "https://registry.yarnpkg.com/hot-shots/-/hot-shots-5.9.2.tgz#1cff097706f40ba2c1350d4806deebbd16a5e8c8"
-  integrity sha512-ruHZvHaxZRVUCoCleiwwCcjdr9A2/Y97C7oc9LpyMg9ae39blHvsJJQQ0QtMtxKX+i4lig/7/BqZBjUUZPUp3A==
+hot-shots@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/hot-shots/-/hot-shots-6.0.0.tgz#2768c92ce4e847ef9228245a8bf6d08c8d957fc7"
+  integrity sha512-4s0OCHdJoOYwkwlOrE3LfOUFulDd1FHXR3ks/R0FTC747VzJ74tlTj4DfaWcZE73rOV3vJoBFR67BD5tsM4HKQ==
 
 http-signature@~1.2.0:
   version "1.2.0"
