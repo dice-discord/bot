@@ -17,23 +17,29 @@ limitations under the License.
 // Set up dependencies
 const { FriendlyError } = require('discord.js-commando');
 const DiceClient = require('./structures/DiceClient');
-const { MessageEmbed, Util, WebhookClient } = require('discord.js');
+const { MessageEmbed, WebhookClient } = require('discord.js');
 const path = require('path');
 const KeyvProvider = require('commando-provider-keyv');
 const Keyv = require('keyv');
 const KeenTracking = require('keen-tracking');
-const { formatDistance } = require('date-fns');
 const database = require('./util/database');
 const rp = require('request-promise-native');
 const sentry = require('@sentry/node');
 const config = require('./config');
 const schedule = require('node-schedule');
-const wait = require('./util/wait');
 const { Batch } = require('reported');
 const stripWebhookURL = require('./util/stripWebhookURL');
 const packageData = require('../package');
 const ms = require('ms');
-const { oneLine } = require('common-tags');
+
+// Notification handlers
+const announceGuildBanAdd = require('./notificationHandlers/guildBanAdd');
+const announceGuildBanRemove = require('./notificationHandlers/guildBanRemove');
+const announceGuildMemberJoin = require('./notificationHandlers/guildMemberJoin');
+const announceGuildMemberLeave = require('./notificationHandlers/guildMemberLeave');
+const announceVoiceChannelUpdate = require('./notificationHandlers/voiceChannelUpdate');
+const announceGuildMemberUpdate = require('./notificationHandlers/guildMemberUpdate');
+const announceUserAccountBirthday = require('./notificationHandlers/userAccountBirthday');
 
 // Use Sentry
 if (config.sentryDSN) {
@@ -112,251 +118,6 @@ client.dispatcher.addInhibitor(msg => {
   }
   return false;
 });
-
-/**
- * Announces the banning or unbanning of a user on a guild
- * @param {TextChannel} channel Channel to send the embed
- * @param {User} user User who was banned
- */
-const announceGuildBanAdd = async (channel, user) => {
-  const embed = new MessageEmbed({
-    title: `${user.tag} was banned`,
-    author: {
-      name: `${user.tag} (${user.id})`,
-      iconURL: user.displayAvatarURL(128)
-    },
-    color: 0xf44336
-  });
-
-  if (channel.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-    // Hope that Discord has updated the audit log
-    await wait(1000);
-
-    const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_ADD' });
-    const auditEntry = auditLogs.entries.first();
-
-    if (auditEntry.reason) embed.addField('Reason', auditEntry.reason);
-    embed.setTimestamp(auditEntry.createdAt);
-    embed.setFooter(
-      `Banned by ${auditEntry.executor.tag} (${auditEntry.executor.id})`,
-      auditEntry.executor.displayAvatarURL(128)
-    );
-  } else {
-    embed.setFooter('Give me permissions to view the audit log and more information will appear');
-    embed.setTimestamp(new Date());
-  }
-
-
-  channel.send({ embed });
-};
-
-/**
- * Announces the unbanning of a user on a guild
- * @param {TextChannel} channel Channel to send the embed
- * @param {User} user User who was unbanned
- */
-const announceGuildBanRemove = async (channel, user) => {
-  const embed = new MessageEmbed({
-    title: `${user.tag} was unbanned`,
-    author: {
-      name: `${user.tag} (${user.id})`,
-      iconURL: user.displayAvatarURL(128)
-    },
-    color: 0x4caf50
-  });
-
-  if (channel.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
-    // Hope that Discord has updated the audit log
-    await wait(1000);
-
-    const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_REMOVE' });
-    const auditEntry = auditLogs.entries.first();
-
-    if (auditEntry.reason) embed.addField('Reason', auditEntry.reason);
-    embed.setTimestamp(auditEntry.createdAt);
-    embed.setFooter(`Unbanned by ${auditEntry.executor.tag} (${auditEntry.executor.id})`,
-      auditEntry.executor.displayAvatarURL(128));
-  } else {
-    embed.setFooter('Give me permissions to view the audit log and more information will appear');
-    embed.setTimestamp(new Date());
-  }
-
-  channel.send({ embed });
-};
-
-/**
- * Announces the joining of a member on a guild
- * @param {TextChannel} channel Channel to send the embed
- * @param {GuildMember} member Member who joined
- */
-const announceGuildMemberJoin = (channel, member) => {
-  const embed = new MessageEmbed({
-    title: 'New Member',
-    timestamp: member.joinedAt,
-    thumbnail: {
-      url: 'https://dice.js.org/images/statuses/guildMember/join.png'
-    },
-    color: 0x4caf50,
-    author: {
-      name: `${member.user.tag} (${member.user.id})`,
-      // eslint-disable-next-line camelcase
-      icon_url: member.user.displayAvatarURL(128)
-    },
-    fields: [{
-      name: 'Number of Server Members',
-      value: `\`${channel.guild.members.size}\` members`
-    }]
-  });
-
-  if (member.joinedAt) {
-    embed.setTimestamp(member.joinedAt);
-  } else {
-    embed.setTimestamp();
-  }
-
-  return channel.send(embed);
-};
-
-/**
- * Announces the account birthday of a member on a guild
- * @param {TextChannel} channel Channel to send the embed
- * @param {User} user User who's account birthday occured
- */
-const announceUserAccountBirthday = (channel, user) => channel.send({
-  embed: {
-    title: 'Discord Account Birthday',
-    thumbnail: {
-      url: 'https://dice.js.org/images/statuses/birthday/cake.png'
-    },
-    description: oneLine`It's the Discord account birthday of ${user.tag}.
-    On this day in ${user.createdAt.getFullYear()} they created their Discord account.`,
-    timestamp: new Date(),
-    color: 0x4caf50,
-    author: {
-      name: `${user.tag} (${user.id})`,
-      // eslint-disable-next-line camelcase
-      icon_url: user.displayAvatarURL(128)
-    }
-  }
-});
-
-/**
- * Announces the leaving of a member on a guild
- * @param {TextChannel} channel Channel to send the embed
- * @param {GuildMember} member User who left
- */
-const announceGuildMemberLeave = (channel, member) => {
-  const embed = new MessageEmbed({
-    title: 'Member left',
-    timestamp: new Date(),
-    color: 0xf44336,
-    thumbnail: {
-      url: 'https://dice.js.org/images/statuses/guildMember/leave.png'
-    },
-    author: {
-      name: `${member.user.tag} (${member.user.id})`,
-      // eslint-disable-next-line camelcase
-      icon_url: member.user.displayAvatarURL(128)
-    },
-    fields: [{
-      name: 'Number of Server Members',
-      value: `\`${channel.guild.members.size}\` members`
-    }]
-  });
-
-  if (member.joinedAt) embed.setFooter(`Member for ${formatDistance(member.joinedAt, new Date())}`);
-
-  return channel.send(embed);
-};
-
-/**
- * Announces a guild member update
- * @param {TextChannel} channel Channel to send the embed
- * @param {GuildMember} oldMember Old member from update
- * @param {GuildMember} newMember New member from update
- */
-const announceGuildMemberUpdate = (channel, oldMember, newMember) => {
-  const embed = new MessageEmbed({
-    color: 0xff9800,
-    timestamp: new Date(),
-    author: {
-      name: `${newMember.user.tag} (${newMember.user.id})`,
-      // eslint-disable-next-line camelcase
-      icon_url: newMember.user.displayAvatarURL(128)
-    }
-  });
-
-  if (!oldMember.nickname && oldMember.nickname !== newMember.nickname) {
-    // New nickname, no old nickname
-    embed
-      .setTitle('New Member Nickname')
-      .addField('New nickname', Util.escapeMarkdown(newMember.nickname));
-    return channel.send(embed);
-  } else if (!newMember.nickname && oldMember.nickname !== newMember.nickname) {
-    // Reset nickname
-    embed
-      .setTitle('Member Nickname Removed')
-      .addField('Previous nickname', Util.escapeMarkdown(oldMember.nickname));
-    return channel.send(embed);
-  } else if (oldMember.nickname !== newMember.nickname) {
-    // Nickname change
-    embed
-      .setTitle('Changed Member Nickname')
-      .addField('New nickname', Util.escapeMarkdown(newMember.nickname))
-      .addField('Previous nickname', Util.escapeMarkdown(oldMember.nickname));
-    return channel.send(embed);
-  }
-
-  return null;
-};
-
-/**
- * Announces a guild member's voice connection status
- * @param {TextChannel} channel Channel to send the embed
- * @param {VoiceState} oldVoiceState Old voice state from update
- * @param {VoiceState} newVoiceState New voice state from update
- */
-const announceVoiceChannelUpdate = (channel, oldVoiceState, newVoiceState) => {
-  const { member } = newVoiceState;
-  const { user } = member;
-  const embed = new MessageEmbed({
-    timestamp: new Date(),
-    author: {
-      name: `${user.tag} (${newVoiceState.id})`,
-      // eslint-disable-next-line camelcase
-      icon_url: user.displayAvatarURL(128)
-    }
-  });
-
-  if (oldVoiceState.channel && newVoiceState.channel && oldVoiceState.channel !== newVoiceState.channel) {
-    // Transfering from one voice channel to another
-    embed
-      .setTitle('Switched voice channels')
-      .setColor(0xff9800)
-      .addField('Old voice channel', Util.escapeMarkdown(oldVoiceState.channel.name))
-      .addField('New voice channel', Util.escapeMarkdown(newVoiceState.channel.name))
-      .setThumbnail('https://dice.js.org/images/statuses/voiceChannel/transfer.png');
-    return channel.send(embed);
-  } else if (newVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
-    // Connected to a voice channel
-    embed
-      .setTitle('Connected to a voice channel')
-      .setColor(0x4caf50)
-      .addField('Voice channel', Util.escapeMarkdown(newVoiceState.channel.name))
-      .setThumbnail('https://dice.js.org/images/statuses/voiceChannel/join.png');
-    return channel.send(embed);
-  } else if (oldVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
-    // Disconnected from a voice channel
-    embed
-      .setTitle('Disconnected from a voice channel')
-      .setColor(0xf44336)
-      .addField('Voice channel', Util.escapeMarkdown(oldVoiceState.channel.name))
-      .setThumbnail('https://dice.js.org/images/statuses/voiceChannel/leave.png');
-    return channel.send(embed);
-  }
-
-  return null;
-};
 
 const checkDiscoinTransactions = async () => {
   const checkDiscoinTransactionsLogger = logger.scope(`shard ${client.shard.id}`, 'discoin');
