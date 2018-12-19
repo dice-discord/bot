@@ -33,7 +33,7 @@ module.exports = class DailyCommand extends Command {
       aliases: ['dailies'],
       throttling: {
         usages: 1,
-        duration: 3
+        duration: 60
       }
     });
   }
