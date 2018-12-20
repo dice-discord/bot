@@ -1,7 +1,6 @@
 # Dice
 
 ![Status](https://discordbots.org/api/widget/status/388191157869477888.png)
-
 [![Known Vulnerabilities](https://snyk.io/test/github/dice-discord/bot/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dice-discord/bot?targetFile=package.json)
 
 A general purpose utility bot, with an economy, games, and lots of other features.
