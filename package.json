@@ -1,8 +1,8 @@
 {
   "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
   "dependencies": {
-    "@keyv/mongo": "^1.0.4",
-    "@sentry/node": "^4.4.2",
+    "@keyv/mongo": "^1.1.0",
+    "@sentry/node": "^4.5.0",
     "child-process-promise": "^2.2.1",
     "commando-provider-keyv": "^2.0.0",
     "common-tags": "^1.8.0",
@@ -11,9 +11,9 @@
     "discord.js": "discordjs/discord.js#master",
     "discord.js-commando": "discordjs/Commando#master",
     "dotenv": "^6.2.0",
-    "gamedig": "^1.0.47",
-    "hot-shots": "^6.0.1",
-    "keen-tracking": "^4.0.15",
+    "gamedig": "^1.0.49",
+    "hot-shots": "^6.1.1",
+    "keen-tracking": "^4.0.17",
     "keyv": "^3.1.0",
     "mongodb": "^3.1.10",
     "ms": "^2.1.1",
@@ -31,9 +31,9 @@
   "description": "A general purpose utility bot, with an economy, games, and lots of other features.",
   "devDependencies": {
     "codecov": "^3.1.0",
-    "eslint": "^5.10.0",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-plugin-prettier": "^3.0.0",
+    "eslint": "^5.12.0",
+    "eslint-config-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "prettier": "^1.15.3",
     "tap": "^12.1.1"
   },
