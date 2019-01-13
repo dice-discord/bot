@@ -20,7 +20,6 @@
     "node-fetch": "^2.3.0",
     "node-schedule": "^1.3.1",
     "parse-color": "^1.0.0",
-    "raven": "^2.6.4",
     "reported": "^1.1.4",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
@@ -33,8 +32,8 @@
   "devDependencies": {
     "codecov": "^3.1.0",
     "eslint": "^5.10.0",
-    "eslint-config-amber": "^2.0.0",
-    "markdownlint-cli": "^0.13.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "prettier": "^1.15.3",
     "tap": "^12.1.1"
   },
   "email": "me@jonahsnider.ninja",
