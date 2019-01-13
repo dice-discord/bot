@@ -316,7 +316,6 @@ client
 
     // Only check for Discoin transactions and send bot stats if this is shard 0 and the production account
     // For some reason shard 0 will report its ID as an array with the only item being `0`
-    console.error(client.shard.id[0]);
     if (
       (client.shard.id === 0 || client.shard.id[0] === 0) &&
       config.clientID === client.user.id
