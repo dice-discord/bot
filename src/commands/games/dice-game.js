@@ -14,39 +14,42 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const { MessageEmbed } = require('discord.js');
-const config = require('../../config');
-const simpleFormat = require('../../util/simpleFormat');
-const winPercentage = require('../../util/winPercentage');
-const database = require('../../util/database');
+const { Command } = require("discord.js-commando");
+const { MessageEmbed } = require("discord.js");
+const config = require("../../config");
+const simpleFormat = require("../../util/simpleFormat");
+const winPercentage = require("../../util/winPercentage");
+const database = require("../../util/database");
 
 module.exports = class DiceGameCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'dice-game',
-      group: 'games',
-      memberName: 'dice-game',
-      description: 'Bet a wager on a multiplier.',
+      name: "dice-game",
+      group: "games",
+      memberName: "dice-game",
+      description: "Bet a wager on a multiplier.",
       // eslint-disable-next-line max-len
-      details: 'For each bet the outcome is randomly chosen between 1 and 100. It\'s up to you to guess a target that you think the outcome will exceed.',
-      aliases: ['game', 'play-game', 'play-dice', 'betting-game', 'bet'],
-      examples: ['dice-game 250 4'],
-      clientPermissions: ['EMBED_LINKS'],
-      args: [{
-        key: 'wager',
-        prompt: 'How much do you want to wager? (whole number)',
-        type: 'integer',
-        min: config.minCurrency
-      },
-      {
-        key: 'multiplier',
-        prompt: 'How much do you want to multiply your wager by?',
-        type: 'float',
-        parse: multiplier => simpleFormat(multiplier),
-        min: config.minMultiplier,
-        max: config.maxMultiplier
-      }],
+      details:
+        "For each bet the outcome is randomly chosen between 1 and 100. It's up to you to guess a target that you think the outcome will exceed.",
+      aliases: ["game", "play-game", "play-dice", "betting-game", "bet"],
+      examples: ["dice-game 250 4"],
+      clientPermissions: ["EMBED_LINKS"],
+      args: [
+        {
+          key: "wager",
+          prompt: "How much do you want to wager? (whole number)",
+          type: "integer",
+          min: config.minCurrency
+        },
+        {
+          key: "multiplier",
+          prompt: "How much do you want to multiply your wager by?",
+          type: "float",
+          parse: multiplier => simpleFormat(multiplier),
+          min: config.minMultiplier,
+          max: config.maxMultiplier
+        }
+      ],
       throttling: {
         usages: 1,
         duration: 1
@@ -63,9 +66,18 @@ module.exports = class DiceGameCommand extends Command {
       // Wager checking
       if (wager > authorBalance) {
         // eslint-disable-next-line max-len
-        return msg.reply(`You are missing \`${(wager - authorBalance).toLocaleString()}\` ${config.currency.plural}. Your balance is \`${authorBalance.toLocaleString()}\` ${config.currency.plural}.`);
-      } else if ((wager * multiplier) - wager > await database.balances.get(this.client.user.id)) {
-        return msg.reply('I couldn\'t pay you your winnings if you won.');
+        return msg.reply(
+          `You are missing \`${(wager - authorBalance).toLocaleString()}\` ${
+            config.currency.plural
+          }. Your balance is \`${authorBalance.toLocaleString()}\` ${
+            config.currency.plural
+          }.`
+        );
+      } else if (
+        wager * multiplier - wager >
+        (await database.balances.get(this.client.user.id))
+      ) {
+        return msg.reply("I couldn't pay you your winnings if you won.");
       }
 
       await Promise.all([
@@ -96,36 +108,46 @@ module.exports = class DiceGameCommand extends Command {
 
       const embed = new MessageEmbed({
         title: `**${wager.toLocaleString()} 🇽 ${multiplier}**`,
-        fields: [{
-          name: '🔢 Random Number Result',
-          value: `${randomNumber}`,
-          inline: true
-        },
-        {
-          name: '🏦 Updated Balance',
-          value: `${(await database.balances.get(msg.author.id)).toLocaleString()} ${config.currency.plural}`,
-          inline: true
-        },
-        {
-          name: '💵 Wager',
-          value: `${wager.toLocaleString()}`,
-          inline: true
-        },
-        {
-          name: '🇽 Multiplier',
-          value: `${multiplier}`,
-          inline: true
-        }]
+        fields: [
+          {
+            name: "🔢 Random Number Result",
+            value: `${randomNumber}`,
+            inline: true
+          },
+          {
+            name: "🏦 Updated Balance",
+            value: `${(await database.balances.get(
+              msg.author.id
+            )).toLocaleString()} ${config.currency.plural}`,
+            inline: true
+          },
+          {
+            name: "💵 Wager",
+            value: `${wager.toLocaleString()}`,
+            inline: true
+          },
+          {
+            name: "🇽 Multiplier",
+            value: `${multiplier}`,
+            inline: true
+          }
+        ]
       });
 
       if (gameResult === true) {
         // Red color and loss message
         embed.setColor(0xf44334);
-        embed.setDescription(`You lost \`${wager.toLocaleString()}\` ${config.currency.plural}.`);
+        embed.setDescription(
+          `You lost \`${wager.toLocaleString()}\` ${config.currency.plural}.`
+        );
       } else {
         // Green color and win message
         embed.setColor(0x4caf50);
-        embed.setDescription(`You made \`${profit.toLocaleString()}\` ${config.currency.plural} of profit!`);
+        embed.setDescription(
+          `You made \`${profit.toLocaleString()}\` ${
+            config.currency.plural
+          } of profit!`
+        );
       }
 
       return msg.replyEmbed(embed);

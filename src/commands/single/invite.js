@@ -14,15 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const config = require('../../config');
+const { Command } = require("discord.js-commando");
+const config = require("../../config");
 
 module.exports = class InviteCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'invite',
-      group: 'single',
-      memberName: 'invite',
+      name: "invite",
+      group: "single",
+      memberName: "invite",
       description: `An invite link for <@${config.clientID}>.`,
       throttling: {
         usages: 1,

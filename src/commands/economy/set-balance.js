@@ -14,34 +14,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const database = require('../../util/database');
-const simpleFormat = require('../../util/simpleFormat');
-const config = require('../../config');
-const respond = require('../../util/simpleCommandResponse');
+const { Command } = require("discord.js-commando");
+const database = require("../../util/database");
+const simpleFormat = require("../../util/simpleFormat");
+const config = require("../../config");
+const respond = require("../../util/simpleCommandResponse");
 
 module.exports = class SetBalanceCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'set-balance',
-      group: 'economy',
-      memberName: 'set-balance',
-      description: 'Set a user\'s balance.',
-      details: 'Only the bot owner(s) may use this command.',
-      aliases: ['set-bal', 'set-balance'],
-      examples: ['set-balance 500 @Dice'],
+      name: "set-balance",
+      group: "economy",
+      memberName: "set-balance",
+      description: "Set a user's balance.",
+      details: "Only the bot owner(s) may use this command.",
+      aliases: ["set-bal", "set-balance"],
+      examples: ["set-balance 500 @Dice"],
       args: [
         {
-          key: 'amount',
-          prompt: 'What do you want the new balance to be?',
-          type: 'float',
+          key: "amount",
+          prompt: "What do you want the new balance to be?",
+          type: "float",
           parse: amount => simpleFormat(amount),
           min: config.minCurrency
         },
         {
-          key: 'user',
-          prompt: 'Who\'s balance do you want to set?',
-          type: 'user'
+          key: "user",
+          prompt: "Who's balance do you want to set?",
+          type: "user"
         }
       ],
       throttling: {
@@ -57,7 +57,7 @@ module.exports = class SetBalanceCommand extends Command {
       msg.channel.startTyping();
       // Permission checking
       if (user.bot === true && user.id !== this.client.user.id) {
-        return msg.reply('You can\'t add oats to bots.');
+        return msg.reply("You can't add oats to bots.");
       }
 
       // Add oats to user

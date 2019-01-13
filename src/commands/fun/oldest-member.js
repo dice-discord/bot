@@ -14,21 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const { formatDistance, formatRelative } = require('date-fns');
-const { stripIndents } = require('common-tags');
+const { Command } = require("discord.js-commando");
+const { formatDistance, formatRelative } = require("date-fns");
+const { stripIndents } = require("common-tags");
 
 module.exports = class OldestMemberCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'oldest-member',
-      group: 'fun',
-      memberName: 'oldest-member',
-      description: 'See who the oldest member on the server is.',
-      aliases: [
-        'oldest-user',
-        'oldest'
-      ],
+      name: "oldest-member",
+      group: "fun",
+      memberName: "oldest-member",
+      description: "See who the oldest member on the server is.",
+      aliases: ["oldest-user", "oldest"],
       guildOnly: true,
       throttling: {
         usages: 2,
@@ -50,14 +47,14 @@ module.exports = class OldestMemberCommand extends Command {
         }
         return 0;
       })
-      .first()
-      .user;
-
+      .first().user;
 
     const { createdAt } = oldest;
     const age = formatDistance(createdAt, new Date());
     const date = formatRelative(createdAt, new Date());
-    return msg.reply(stripIndents`${oldest.tag} is the oldest member on this server.
+    return msg.reply(stripIndents`${
+      oldest.tag
+    } is the oldest member on this server.
     Their account is ${age} old (created ${date}).`);
   }
 };

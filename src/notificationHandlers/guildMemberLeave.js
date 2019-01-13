@@ -1,5 +1,5 @@
-const { MessageEmbed } = require('discord.js');
-const { formatDistance } = require('date-fns');
+const { MessageEmbed } = require("discord.js");
+const { formatDistance } = require("date-fns");
 
 /**
  * Announces the leaving of a member on a guild
@@ -8,24 +8,29 @@ const { formatDistance } = require('date-fns');
  */
 module.exports = (channel, member) => {
   const embed = new MessageEmbed({
-    title: 'Member left',
+    title: "Member left",
     timestamp: new Date(),
     color: 0xf44336,
     thumbnail: {
-      url: 'https://dice.js.org/images/statuses/guildMember/leave.png'
+      url: "https://dice.js.org/images/statuses/guildMember/leave.png"
     },
     author: {
       name: `${member.user.tag} (${member.user.id})`,
       // eslint-disable-next-line camelcase
       icon_url: member.user.displayAvatarURL(128)
     },
-    fields: [{
-      name: 'Number of Server Members',
-      value: `\`${channel.guild.members.size}\` members`
-    }]
+    fields: [
+      {
+        name: "Number of Server Members",
+        value: `\`${channel.guild.members.size}\` members`
+      }
+    ]
   });
 
-  if (member.joinedAt) embed.setFooter(`Member for ${formatDistance(member.joinedAt, new Date())}`);
+  if (member.joinedAt)
+    embed.setFooter(
+      `Member for ${formatDistance(member.joinedAt, new Date())}`
+    );
 
   return channel.send(embed);
 };

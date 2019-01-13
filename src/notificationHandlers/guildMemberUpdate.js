@@ -1,4 +1,4 @@
-const { MessageEmbed, Util } = require('discord.js');
+const { MessageEmbed, Util } = require("discord.js");
 
 /**
  * Announces a guild member update
@@ -19,27 +19,33 @@ module.exports = (channel, oldMember, newMember) => {
   if (!oldMember.nickname && oldMember.nickname !== newMember.nickname) {
     // New nickname, no old nickname
     embed
-      .setTitle('New Member Nickname')
-      .addField('New nickname', Util.escapeMarkdown(newMember.nickname))
-      .setColor('#4caf50')
-      .setThumbnail('https://dice.js.org/images/statuses/guildMemberUpdate/new.png');
+      .setTitle("New Member Nickname")
+      .addField("New nickname", Util.escapeMarkdown(newMember.nickname))
+      .setColor("#4caf50")
+      .setThumbnail(
+        "https://dice.js.org/images/statuses/guildMemberUpdate/new.png"
+      );
     return channel.send(embed);
   } else if (!newMember.nickname && oldMember.nickname !== newMember.nickname) {
     // Reset nickname
     embed
-      .setTitle('Member Nickname Removed')
-      .addField('Previous nickname', Util.escapeMarkdown(oldMember.nickname))
-      .setColor('#f44336')
-      .setThumbnail('https://dice.js.org/images/statuses/guildMemberUpdate/removed.png');
+      .setTitle("Member Nickname Removed")
+      .addField("Previous nickname", Util.escapeMarkdown(oldMember.nickname))
+      .setColor("#f44336")
+      .setThumbnail(
+        "https://dice.js.org/images/statuses/guildMemberUpdate/removed.png"
+      );
     return channel.send(embed);
   } else if (oldMember.nickname !== newMember.nickname) {
     // Nickname change
     embed
-      .setTitle('Changed Member Nickname')
-      .addField('New nickname', Util.escapeMarkdown(newMember.nickname))
-      .addField('Previous nickname', Util.escapeMarkdown(oldMember.nickname))
-      .setColor('#ffc107')
-      .setThumbnail('https://dice.js.org/images/statuses/guildMemberUpdate/changed.png');
+      .setTitle("Changed Member Nickname")
+      .addField("New nickname", Util.escapeMarkdown(newMember.nickname))
+      .addField("Previous nickname", Util.escapeMarkdown(oldMember.nickname))
+      .setColor("#ffc107")
+      .setThumbnail(
+        "https://dice.js.org/images/statuses/guildMemberUpdate/changed.png"
+      );
     return channel.send(embed);
   }
 

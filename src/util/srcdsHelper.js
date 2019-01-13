@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const ms = require('ms');
-const { Util, MessageEmbed } = require('discord.js');
+const ms = require("ms");
+const { Util, MessageEmbed } = require("discord.js");
 
 /**
  * Keep code for GameDig commands that are for Source games (same protocol = same information)
@@ -23,26 +23,36 @@ const { Util, MessageEmbed } = require('discord.js');
  * @param {Object} data Result from GameDig
  * @returns {MessageEmbed}
  */
-module.exports = data => new MessageEmbed({
-  title: data.name,
-  footer: { text: `Took ${ms(data.query.duration)} to complete` },
-  fields: [{
-    name: 'IP Address',
-    value: `${data.query.address} (port ${data.query.port})`
-  }, {
-    name: 'Online Players',
-    value: `${data.raw.numplayers}/${data.maxplayers} (${Math.round((data.raw.numplayers / data.maxplayers) * 100)}%)`
-  }, {
-    name: 'Map',
-    value: Util.escapeMarkdown(data.map)
-  }, {
-    name: 'Password Required',
-    value: data.password ? 'Yes' : 'No'
-  }, {
-    name: 'Game',
-    value: Util.escapeMarkdown(data.raw.game)
-  }, {
-    name: 'Secure',
-    value: data.raw.secure ? 'Yes' : 'No'
-  }]
-});
+module.exports = data =>
+  new MessageEmbed({
+    title: data.name,
+    footer: { text: `Took ${ms(data.query.duration)} to complete` },
+    fields: [
+      {
+        name: "IP Address",
+        value: `${data.query.address} (port ${data.query.port})`
+      },
+      {
+        name: "Online Players",
+        value: `${data.raw.numplayers}/${data.maxplayers} (${Math.round(
+          (data.raw.numplayers / data.maxplayers) * 100
+        )}%)`
+      },
+      {
+        name: "Map",
+        value: Util.escapeMarkdown(data.map)
+      },
+      {
+        name: "Password Required",
+        value: data.password ? "Yes" : "No"
+      },
+      {
+        name: "Game",
+        value: Util.escapeMarkdown(data.raw.game)
+      },
+      {
+        name: "Secure",
+        value: data.raw.secure ? "Yes" : "No"
+      }
+    ]
+  });

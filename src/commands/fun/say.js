@@ -14,24 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
+const { Command } = require("discord.js-commando");
 
 module.exports = class SayCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'say',
-      group: 'fun',
-      memberName: 'say',
-      description: 'Have the bot say a phrase you specify.',
-      details: 'Only the bot owner(s) may use this command',
-      aliases: ['repeat'],
-      examples: ['say I am a bot'],
+      name: "say",
+      group: "fun",
+      memberName: "say",
+      description: "Have the bot say a phrase you specify.",
+      details: "Only the bot owner(s) may use this command",
+      aliases: ["repeat"],
+      examples: ["say I am a bot"],
       ownerOnly: true,
-      args: [{
-        key: 'phrase',
-        prompt: 'What do you want to have said?',
-        type: 'string'
-      }],
+      args: [
+        {
+          key: "phrase",
+          prompt: "What do you want to have said?",
+          type: "string"
+        }
+      ],
       throttling: {
         usages: 2,
         duration: 6

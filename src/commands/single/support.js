@@ -14,17 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const config = require('../../config');
+const { Command } = require("discord.js-commando");
+const config = require("../../config");
 
 module.exports = class SupportCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'support',
-      group: 'single',
-      memberName: 'support',
+      name: "support",
+      group: "single",
+      memberName: "support",
       description: `An invite to the <@${config.clientID}> server.`,
-      aliases: ['home', 'report', 'bug'],
+      aliases: ["home", "report", "bug"],
       throttling: {
         usages: 1,
         duration: 3
@@ -33,6 +33,6 @@ module.exports = class SupportCommand extends Command {
   }
 
   run(msg) {
-    msg.reply('👋 https://discord.gg/NpUmRkj');
+    msg.reply("👋 https://discord.gg/NpUmRkj");
   }
 };

@@ -14,23 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const config = require('../../config');
-const database = require('../../util/database');
-const { formatDistance } = require('date-fns');
-const logger = require('../../util/logger').scope('command', 'daily');
-const DBL = require('dblapi.js');
-const { oneLine } = require('common-tags');
-const ms = require('ms');
+const { Command } = require("discord.js-commando");
+const config = require("../../config");
+const database = require("../../util/database");
+const { formatDistance } = require("date-fns");
+const logger = require("../../util/logger").scope("command", "daily");
+const DBL = require("dblapi.js");
+const { oneLine } = require("common-tags");
+const ms = require("ms");
 
 module.exports = class DailyCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'daily',
-      group: 'economy',
-      memberName: 'daily',
+      name: "daily",
+      group: "economy",
+      memberName: "daily",
       description: `Collect your daily ${config.currency.plural}.`,
-      aliases: ['dailies'],
+      aliases: ["dailies"],
       throttling: {
         usages: 1,
         duration: 60
@@ -45,28 +45,35 @@ module.exports = class DailyCommand extends Command {
       // Initialize variables
       const oldTimestamp = await database.getDailyUsed(msg.author.id);
       const currentTimestamp = msg.createdTimestamp;
-      const dbl = new DBL(config.botListTokens['discordbots.org']);
+      const dbl = new DBL(config.botListTokens["discordbots.org"]);
       const dblData = await Promise.all([
-        dbl
-          .hasVoted(msg.author.id)
-          .catch(error => {
-            logger.error('Error in discordbots.org vote checking', error);
-            return false;
-          }),
+        dbl.hasVoted(msg.author.id).catch(error => {
+          logger.error("Error in discordbots.org vote checking", error);
+          return false;
+        }),
         dbl.isWeekend()
       ]);
 
       // 23 hours because it's better for users to have some wiggle room
-      const fullDay = ms('23 hours');
-      const waitDuration = formatDistance(currentTimestamp + fullDay, new Date());
+      const fullDay = ms("23 hours");
+      const waitDuration = formatDistance(
+        currentTimestamp + fullDay,
+        new Date()
+      );
 
       let payout = 1000;
       let note;
 
-      logger.debug(`DBL vote status for ${msg.author.tag}: ${dblData[0]}${dblData[1] ? ' (on the weekend)' : ''}`);
+      logger.debug(
+        `DBL vote status for ${msg.author.tag}: ${dblData[0]}${
+          dblData[1] ? " (on the weekend)" : ""
+        }`
+      );
 
       let multiplier = 1;
-      const vote = `Use ${msg.anyUsage('vote')} to vote once per day and get extra ${config.currency.plural}.`;
+      const vote = `Use ${msg.anyUsage(
+        "vote"
+      )} to vote once per day and get extra ${config.currency.plural}.`;
       const prompt = `your payout from voting for ${this.client.user}`;
 
       if (dblData[0] && dblData[1]) {
@@ -82,7 +89,10 @@ module.exports = class DailyCommand extends Command {
         ${vote}`;
       }
 
-      if (config.patrons[msg.author.id] && config.patrons[msg.author.id].basic === true) {
+      if (
+        config.patrons[msg.author.id] &&
+        config.patrons[msg.author.id].basic === true
+      ) {
         payout *= 2;
         multiplier *= 2;
 
@@ -90,12 +100,16 @@ module.exports = class DailyCommand extends Command {
       }
 
       if (oldTimestamp) {
-        logger.debug(`Old timestamp: ${new Date(oldTimestamp)} (${oldTimestamp})`);
+        logger.debug(
+          `Old timestamp: ${new Date(oldTimestamp)} (${oldTimestamp})`
+        );
       } else {
-        logger.debug('No date in records (undefined)');
+        logger.debug("No date in records (undefined)");
       }
 
-      logger.debug(`Current timestamp: ${new Date(currentTimestamp)} (${currentTimestamp})`);
+      logger.debug(
+        `Current timestamp: ${new Date(currentTimestamp)} (${currentTimestamp})`
+      );
 
       if (!oldTimestamp || oldTimestamp + fullDay < currentTimestamp) {
         // Pay message author their daily and save the time their daily was used
@@ -107,14 +121,22 @@ module.exports = class DailyCommand extends Command {
         database.balances.increase(this.client.user.id, payout);
 
         // Daily not collected in one day
-        const bal = (await database.balances.get(msg.author.id)).toLocaleString();
+        const bal = (await database.balances.get(
+          msg.author.id
+        )).toLocaleString();
 
-        const message = oneLine`You were paid ${payout.toLocaleString()} ${config.currency.plural}.
+        const message = oneLine`You were paid ${payout.toLocaleString()} ${
+          config.currency.plural
+        }.
         Your balance is now ${bal} ${config.currency.plural}.`;
-        return msg.reply(`${message}${note ? `\n${note}` : ''}`);
+        return msg.reply(`${message}${note ? `\n${note}` : ""}`);
       }
       // Daily collected in a day or less (so, recently)
-      return msg.reply(`You must wait ${waitDuration} before collecting your daily ${config.currency.plural}. ${vote}`);
+      return msg.reply(
+        `You must wait ${waitDuration} before collecting your daily ${
+          config.currency.plural
+        }. ${vote}`
+      );
     } finally {
       msg.channel.stopTyping();
     }

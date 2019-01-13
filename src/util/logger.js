@@ -14,28 +14,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Signale } = require('signale');
+const { Signale } = require("signale");
 
 // This is the base logger that all other logger instances are built on
 const options = {
   stream: process.stdout,
-  scope: 'logger',
+  scope: "logger",
   types: {
     command: {
-      badge: '>',
-      color: 'gray',
-      label: 'command'
+      badge: ">",
+      color: "gray",
+      label: "command"
     },
     critical: {
-      badge: '!!',
-      color: 'red',
-      label: 'critical'
+      badge: "!!",
+      color: "red",
+      label: "critical"
     }
   }
 };
 
 const logger = new Signale(options);
 
-logger.start('Custom Signale logger started');
+logger.start("Custom Signale logger started");
 
 module.exports = logger;

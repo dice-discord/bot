@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require("discord.js");
 
 /**
  * Announces the joining of a member on a guild
@@ -7,10 +7,10 @@ const { MessageEmbed } = require('discord.js');
  */
 module.exports = (channel, member) => {
   const embed = new MessageEmbed({
-    title: 'New Member',
+    title: "New Member",
     timestamp: member.joinedAt,
     thumbnail: {
-      url: 'https://dice.js.org/images/statuses/guildMember/join.png'
+      url: "https://dice.js.org/images/statuses/guildMember/join.png"
     },
     color: 0x4caf50,
     author: {
@@ -18,10 +18,12 @@ module.exports = (channel, member) => {
       // eslint-disable-next-line camelcase
       icon_url: member.user.displayAvatarURL(128)
     },
-    fields: [{
-      name: 'Number of Server Members',
-      value: `\`${channel.guild.members.size}\` members`
-    }]
+    fields: [
+      {
+        name: "Number of Server Members",
+        value: `\`${channel.guild.members.size}\` members`
+      }
+    ]
   });
 
   if (member.joinedAt) {

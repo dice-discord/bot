@@ -14,15 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-require('dotenv').config();
-const logger = require('./util/logger').scope('shard manager');
-const { ShardingManager } = require('discord.js');
-const packageData = require('../package');
-const config = require('./config');
-const sentry = require('@sentry/node');
-const manager = new ShardingManager('./src/dice.js', {
+require("dotenv").config();
+const logger = require("./util/logger").scope("shard manager");
+const { ShardingManager } = require("discord.js");
+const packageData = require("../package");
+const config = require("./config");
+const sentry = require("@sentry/node");
+const manager = new ShardingManager("./src/dice.js", {
   token: config.discordToken,
-  respawn: process.env.NODE_ENV === 'production'
+  respawn: process.env.NODE_ENV === "production"
 });
 
 logger.note(`Node.js version: ${process.version}`);
@@ -30,11 +30,12 @@ logger.note(`Dice version v${packageData.version}`);
 
 if (config.sentryDSN) {
   sentry.init({
-    dsn: config.sentryDSN, release: packageData.version,
-    environment: process.env.NODE_ENV || 'development'
+    dsn: config.sentryDSN,
+    release: packageData.version,
+    environment: process.env.NODE_ENV || "development"
   });
 }
 
 manager
-  .on('shardCreate', shard => logger.start('Launched shard', shard.id))
+  .on("shardCreate", shard => logger.start("Launched shard", shard.id))
   .spawn(manager.totalShards, 10000);

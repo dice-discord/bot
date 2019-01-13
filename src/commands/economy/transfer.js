@@ -14,33 +14,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const config = require('../../config');
-const database = require('../../util/database');
-const simpleFormat = require('../../util/simpleFormat');
-const respond = require('../../util/simpleCommandResponse');
+const { Command } = require("discord.js-commando");
+const config = require("../../config");
+const database = require("../../util/database");
+const simpleFormat = require("../../util/simpleFormat");
+const respond = require("../../util/simpleCommandResponse");
 
 module.exports = class TransferCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'transfer',
-      group: 'economy',
-      memberName: 'transfer',
-      description: 'Transfer oats to another user.',
-      aliases: ['send', 'pay'],
-      examples: ['transfer 500 @Dice'],
+      name: "transfer",
+      group: "economy",
+      memberName: "transfer",
+      description: "Transfer oats to another user.",
+      aliases: ["send", "pay"],
+      examples: ["transfer 500 @Dice"],
       args: [
         {
-          key: 'amount',
-          prompt: 'How many oats do you want to transfer?',
-          type: 'float',
+          key: "amount",
+          prompt: "How many oats do you want to transfer?",
+          type: "float",
           parse: amount => simpleFormat(amount),
           min: config.minCurrency
         },
         {
-          key: 'user',
-          prompt: 'Who do you want to transfer oats to?',
-          type: 'user'
+          key: "user",
+          prompt: "Who do you want to transfer oats to?",
+          type: "user"
         }
       ],
       throttling: {
@@ -55,14 +55,18 @@ module.exports = class TransferCommand extends Command {
       msg.channel.startTyping();
 
       // Amount checking
-      if (amount > await database.balances.get(msg.author.id)) {
+      if (amount > (await database.balances.get(msg.author.id))) {
         // eslint-disable-next-line max-len
-        return msg.reply(`You need to have at least \`${amount.toLocaleString()}\` ${config.currency.plural}. Your balance is \`${await database.balances.get(msg.author.id)}\`.`);
+        return msg.reply(
+          `You need to have at least \`${amount.toLocaleString()}\` ${
+            config.currency.plural
+          }. Your balance is \`${await database.balances.get(msg.author.id)}\`.`
+        );
       }
 
       // No sending money to yourself
       if (msg.author.id === user.id) {
-        return msg.reply('You can\'t send money to yourself.');
+        return msg.reply("You can't send money to yourself.");
       }
 
       // No sending money to bots

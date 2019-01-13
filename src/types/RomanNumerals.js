@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { ArgumentType } = require('discord.js-commando');
+const { ArgumentType } = require("discord.js-commando");
 
 class RomanNumeralsType extends ArgumentType {
   constructor(client) {
-    super(client, 'romannumerals');
+    super(client, "romannumerals");
   }
 
   _parse(value) {
@@ -28,7 +28,9 @@ class RomanNumeralsType extends ArgumentType {
   validate(value) {
     value = this._parse(value);
 
-    return /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/.test(value);
+    return /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/.test(
+      value
+    );
   }
 
   parse(value) {

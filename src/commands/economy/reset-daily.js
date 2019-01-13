@@ -14,26 +14,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const database = require('../../util/database');
-const respond = require('../../util/simpleCommandResponse');
+const { Command } = require("discord.js-commando");
+const database = require("../../util/database");
+const respond = require("../../util/simpleCommandResponse");
 
 module.exports = class ResetDailyCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'reset-daily',
-      group: 'economy',
-      memberName: 'reset-daily',
-      description: 'Reset a user\'s last claimed daily timestamp.',
-      details: 'Only the bot owner(s) may use this command.',
-      aliases: ['reset-dailies', 'daily-reset', 'dailies-reset'],
-      examples: ['reset-daily @Dice'],
-      args: [{
-        key: 'user',
-        prompt: 'Who\'s wait time do you want to reset?',
-        type: 'user',
-        default: ''
-      }],
+      name: "reset-daily",
+      group: "economy",
+      memberName: "reset-daily",
+      description: "Reset a user's last claimed daily timestamp.",
+      details: "Only the bot owner(s) may use this command.",
+      aliases: ["reset-dailies", "daily-reset", "dailies-reset"],
+      examples: ["reset-daily @Dice"],
+      args: [
+        {
+          key: "user",
+          prompt: "Who's wait time do you want to reset?",
+          type: "user",
+          default: ""
+        }
+      ],
       throttling: {
         usages: 2,
         duration: 30
@@ -47,7 +49,7 @@ module.exports = class ResetDailyCommand extends Command {
 
     // Permission checking
     if (user.bot === true) {
-      return msg.reply('You can\'t reset a bot\'s daily wait time.');
+      return msg.reply("You can't reset a bot's daily wait time.");
     }
 
     await database.setDailyUsed(user.id, false);

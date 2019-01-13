@@ -14,24 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const logger = require('../../util/logger').scope('command', 'feedback');
+const { Command } = require("discord.js-commando");
+const logger = require("../../util/logger").scope("command", "feedback");
 
 module.exports = class FeedbackCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'feedback',
-      aliases: ['bug-report', 'feed-back', 'suggest', 'suggestion'],
-      group: 'util',
-      memberName: 'feedback',
-      description: 'Submit bugs and suggestions to the developer.',
-      examples: ['feedback When I use `$$dice` the bot lags.'],
-      args: [{
-        key: 'userFeedback',
-        label: 'feedback',
-        prompt: 'What is your feedback you want to report?',
-        type: 'string'
-      }],
+      name: "feedback",
+      aliases: ["bug-report", "feed-back", "suggest", "suggestion"],
+      group: "util",
+      memberName: "feedback",
+      description: "Submit bugs and suggestions to the developer.",
+      examples: ["feedback When I use `$$dice` the bot lags."],
+      args: [
+        {
+          key: "userFeedback",
+          label: "feedback",
+          prompt: "What is your feedback you want to report?",
+          type: "string"
+        }
+      ],
       throttling: {
         usages: 2,
         duration: 60
@@ -40,38 +42,46 @@ module.exports = class FeedbackCommand extends Command {
   }
 
   run(msg, { userFeedback }) {
-    const message = 'Thanks for sending your feedback.';
+    const message = "Thanks for sending your feedback.";
     const messages = [];
     if (
-      userFeedback.toLowerCase().includes('help')
-   || userFeedback.toLowerCase().includes('support')
+      userFeedback.toLowerCase().includes("help") ||
+      userFeedback.toLowerCase().includes("support")
     ) {
-      messages.push(msg.reply(`${message} If you need help with a problem use ${msg.anyUsage('support')}.`));
+      messages.push(
+        msg.reply(
+          `${message} If you need help with a problem use ${msg.anyUsage(
+            "support"
+          )}.`
+        )
+      );
     } else {
       messages.push(msg.reply(message));
     }
 
-    logger.debug('About to send MessageEmbed');
+    logger.debug("About to send MessageEmbed");
 
     // Pizza Fox#0075
-    const developer = this.client.users.resolve('210024244766179329');
+    const developer = this.client.users.resolve("210024244766179329");
 
-    messages.push(developer.send({
-      embed: {
-        author: {
-          name: `${msg.author.tag} (${msg.author.id})`,
-          // eslint-disable-next-line camelcase
-          icon_url: msg.author.displayAvatarURL(128)
-        },
-        timestamp: new Date(msg.createdTimestamp),
-        fields: [
-          {
-            name: 'Message',
-            value: userFeedback
-          }
-        ]
-      }
-    }));
+    messages.push(
+      developer.send({
+        embed: {
+          author: {
+            name: `${msg.author.tag} (${msg.author.id})`,
+            // eslint-disable-next-line camelcase
+            icon_url: msg.author.displayAvatarURL(128)
+          },
+          timestamp: new Date(msg.createdTimestamp),
+          fields: [
+            {
+              name: "Message",
+              value: userFeedback
+            }
+          ]
+        }
+      })
+    );
 
     return messages;
   }

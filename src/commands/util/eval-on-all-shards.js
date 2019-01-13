@@ -1,28 +1,33 @@
-const util = require('util');
-const discord = require('discord.js');
-const tags = require('common-tags');
-const sensitivePattern = require('../../util/sensitivePattern');
-const { Command } = require('discord.js-commando');
+const util = require("util");
+const discord = require("discord.js");
+const tags = require("common-tags");
+const sensitivePattern = require("../../util/sensitivePattern");
+const { Command } = require("discord.js-commando");
 
-const nl = '!!NL!!';
-const nlPattern = new RegExp(nl, 'g');
+const nl = "!!NL!!";
+const nlPattern = new RegExp(nl, "g");
 
 module.exports = class EvalOnAllShardsCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'eval-on-all-shards',
-      aliases: ['shard-eval', 'shards-eval', 'eval-on-shards', 'eval-all-shards'],
-      group: 'util',
-      memberName: 'eval-on-all-shards',
-      description: 'Executes JavaScript code on all shards.',
-      details: 'Only the bot owner(s) may use this command.',
+      name: "eval-on-all-shards",
+      aliases: [
+        "shard-eval",
+        "shards-eval",
+        "eval-on-shards",
+        "eval-all-shards"
+      ],
+      group: "util",
+      memberName: "eval-on-all-shards",
+      description: "Executes JavaScript code on all shards.",
+      details: "Only the bot owner(s) may use this command.",
       ownerOnly: true,
 
       args: [
         {
-          key: 'script',
-          prompt: 'What code would you like to evaluate?',
-          type: 'string'
+          key: "script",
+          prompt: "What code would you like to evaluate?",
+          type: "string"
         }
       ]
     });
@@ -41,7 +46,10 @@ module.exports = class EvalOnAllShardsCommand extends Command {
       if (val instanceof Error) {
         msg.reply(`Callback error: \`${val}\``);
       } else {
-        const result = this.makeResultMessages(val, process.hrtime(this.hrStart));
+        const result = this.makeResultMessages(
+          val,
+          process.hrtime(this.hrStart)
+        );
         if (Array.isArray(result)) {
           for (const item of result) msg.reply(item);
         } else {
@@ -63,34 +71,56 @@ module.exports = class EvalOnAllShardsCommand extends Command {
 
     // Prepare for callback time and respond
     this.hrStart = process.hrtime();
-    return msg.reply(this.makeResultMessages(this.lastResult, hrDiff, args.script));
+    return msg.reply(
+      this.makeResultMessages(this.lastResult, hrDiff, args.script)
+    );
   }
 
   makeResultMessages(result, hrDiff, input = null) {
-    const inspected = util.inspect(result, { depth: 0 })
-      .replace(nlPattern, '\n')
-      .replace(sensitivePattern, '--snip--');
-    const split = inspected.split('\n');
+    const inspected = util
+      .inspect(result, { depth: 0 })
+      .replace(nlPattern, "\n")
+      .replace(sensitivePattern, "--snip--");
+    const split = inspected.split("\n");
     const last = inspected.length - 1;
-    const prependPart = inspected[0] !== '{' && inspected[0] !== '[' && inspected[0] !== "'" ? split[0] : inspected[0];
-    const appendPart = inspected[last] !== '}' && inspected[last] !== ']' && inspected[last] !== "'"
-      ? split[split.length - 1]
-      : inspected[last];
+    const prependPart =
+      inspected[0] !== "{" && inspected[0] !== "[" && inspected[0] !== "'"
+        ? split[0]
+        : inspected[0];
+    const appendPart =
+      inspected[last] !== "}" &&
+      inspected[last] !== "]" &&
+      inspected[last] !== "'"
+        ? split[split.length - 1]
+        : inspected[last];
     const prepend = `\`\`\`javascript\n${prependPart}\n`;
     const append = `\n${appendPart}\n\`\`\``;
     if (input) {
-      return discord.splitMessage(tags.stripIndents`
-				*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms.*
+      return discord.splitMessage(
+        tags.stripIndents`
+				*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ""}${hrDiff[1] / 1000000}ms.*
 				\`\`\`javascript
 				${inspected}
 				\`\`\`
-			`, 1900, '\n', prepend, append);
+			`,
+        1900,
+        "\n",
+        prepend,
+        append
+      );
     }
-    return discord.splitMessage(tags.stripIndents`
-				*Callback executed after ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms.*
+    return discord.splitMessage(
+      tags.stripIndents`
+				*Callback executed after ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ""}${hrDiff[1] /
+        1000000}ms.*
 				\`\`\`javascript
 				${inspected}
 				\`\`\`
-			`, 1900, '\n', prepend, append);
+			`,
+      1900,
+      "\n",
+      prepend,
+      append
+    );
   }
 };

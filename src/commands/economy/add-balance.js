@@ -14,34 +14,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const config = require('../../config');
-const database = require('../../util/database');
-const simpleFormat = require('../../util/simpleFormat');
-const respond = require('../../util/simpleCommandResponse');
+const { Command } = require("discord.js-commando");
+const config = require("../../config");
+const database = require("../../util/database");
+const simpleFormat = require("../../util/simpleFormat");
+const respond = require("../../util/simpleCommandResponse");
 
 module.exports = class AddBalanceCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'add-balance',
-      group: 'economy',
-      memberName: 'add-balance',
-      description: 'Add oats to another user\'s account.',
-      details: 'Only the bot owner(s) may use this command.',
-      aliases: ['add-bal', 'increase-balance', 'increase-bal'],
-      examples: ['add-balance 500 @Dice'],
+      name: "add-balance",
+      group: "economy",
+      memberName: "add-balance",
+      description: "Add oats to another user's account.",
+      details: "Only the bot owner(s) may use this command.",
+      aliases: ["add-bal", "increase-balance", "increase-bal"],
+      examples: ["add-balance 500 @Dice"],
       args: [
         {
-          key: 'amount',
-          prompt: 'How many oats do you want to add?',
-          type: 'float',
+          key: "amount",
+          prompt: "How many oats do you want to add?",
+          type: "float",
           min: config.minCurrency,
           parse: amount => simpleFormat(amount)
         },
         {
-          key: 'user',
-          prompt: 'Who do you want to add oats to?',
-          type: 'user'
+          key: "user",
+          prompt: "Who do you want to add oats to?",
+          type: "user"
         }
       ],
       throttling: {
@@ -55,7 +55,7 @@ module.exports = class AddBalanceCommand extends Command {
   async run(msg, { user, amount }) {
     // Permission checking
     if (user.bot === true && user.id !== this.client.user.id) {
-      return msg.reply('You can\'t add oats to bots.');
+      return msg.reply("You can't add oats to bots.");
     }
 
     // Add oats to user

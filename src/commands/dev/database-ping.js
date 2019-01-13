@@ -14,18 +14,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const { oneLine } = require('common-tags');
-const database = require('../../util/database');
+const { Command } = require("discord.js-commando");
+const { oneLine } = require("common-tags");
+const database = require("../../util/database");
 
 module.exports = class DatabasePingCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'database-ping',
-      group: 'dev',
-      memberName: 'database-ping',
-      description: 'Checks the bot\'s ping to the Discord server and does a database request.',
-      aliases: ['db-ping'],
+      name: "database-ping",
+      group: "dev",
+      memberName: "database-ping",
+      description:
+        "Checks the bot's ping to the Discord server and does a database request.",
+      aliases: ["db-ping"],
       throttling: {
         usages: 2,
         duration: 20
@@ -35,19 +36,29 @@ module.exports = class DatabasePingCommand extends Command {
 
   async run(msg) {
     if (msg.editable) {
-      await msg.edit('Pinging...');
+      await msg.edit("Pinging...");
       await database.balances.get(msg.author.id);
       return msg.edit(oneLine`
-				Pong! The message round-trip took ${msg.editedTimestamp - msg.createdTimestamp}ms.
-				${this.client.ping ? `The heartbeat ping is ${Math.round(this.client.ping)}ms.` : ''}
+				Pong! The message round-trip took ${msg.editedTimestamp -
+          msg.createdTimestamp}ms.
+				${
+          this.client.ping
+            ? `The heartbeat ping is ${Math.round(this.client.ping)}ms.`
+            : ""
+        }
       `);
     } else {
-      const pingMsg = await msg.reply('Pinging...');
+      const pingMsg = await msg.reply("Pinging...");
       await database.balances.get(msg.author.id);
       return pingMsg.edit(oneLine`
-				${msg.channel.type === 'dm' ? '' : `${msg.author},`}
-				Pong! The message round-trip took ${pingMsg.createdTimestamp - msg.createdTimestamp}ms.
-				${this.client.ping ? `The heartbeat ping is ${Math.round(this.client.ping)}ms.` : ''}
+				${msg.channel.type === "dm" ? "" : `${msg.author},`}
+				Pong! The message round-trip took ${pingMsg.createdTimestamp -
+          msg.createdTimestamp}ms.
+				${
+          this.client.ping
+            ? `The heartbeat ping is ${Math.round(this.client.ping)}ms.`
+            : ""
+        }
 			`);
     }
   }

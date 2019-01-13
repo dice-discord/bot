@@ -1,5 +1,5 @@
-const { MessageEmbed } = require('discord.js');
-const wait = require('../util/wait');
+const { MessageEmbed } = require("discord.js");
+const wait = require("../util/wait");
 
 /**
  * Announces the banning or unbanning of a user on a guild
@@ -14,27 +14,30 @@ module.exports = async (channel, user) => {
       iconURL: user.displayAvatarURL(128)
     },
     color: 0xf44336,
-    thumbnail: { url: 'https://dice.js.org/images/status/banUnban/ban.png' }
+    thumbnail: { url: "https://dice.js.org/images/status/banUnban/ban.png" }
   });
 
-  if (channel.guild.me.hasPermission('VIEW_AUDIT_LOG')) {
+  if (channel.guild.me.hasPermission("VIEW_AUDIT_LOG")) {
     // Hope that Discord has updated the audit log
     await wait(1000);
 
-    const auditLogs = await channel.guild.fetchAuditLogs({ type: 'MEMBER_BAN_ADD' });
+    const auditLogs = await channel.guild.fetchAuditLogs({
+      type: "MEMBER_BAN_ADD"
+    });
     const auditEntry = auditLogs.entries.first();
 
-    if (auditEntry.reason) embed.addField('Reason', auditEntry.reason);
+    if (auditEntry.reason) embed.addField("Reason", auditEntry.reason);
     embed.setTimestamp(auditEntry.createdAt);
     embed.setFooter(
       `Banned by ${auditEntry.executor.tag} (${auditEntry.executor.id})`,
       auditEntry.executor.displayAvatarURL(128)
     );
   } else {
-    embed.setFooter('Give me permissions to view the audit log and more information will appear');
+    embed.setFooter(
+      "Give me permissions to view the audit log and more information will appear"
+    );
     embed.setTimestamp(new Date());
   }
-
 
   channel.send({ embed });
 };

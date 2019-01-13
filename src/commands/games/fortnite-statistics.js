@@ -14,39 +14,49 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const rp = require('request-promise-native');
-const logger = require('../../util/logger').scope('command', 'fortnite statistics');
-const config = require('../../config');
-const { MessageEmbed } = require('discord.js');
-const platforms = ['pc', 'xbl', 'psn'];
+const { Command } = require("discord.js-commando");
+const rp = require("request-promise-native");
+const logger = require("../../util/logger").scope(
+  "command",
+  "fortnite statistics"
+);
+const config = require("../../config");
+const { MessageEmbed } = require("discord.js");
+const platforms = ["pc", "xbl", "psn"];
 
 module.exports = class FortniteStatisticsCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'fortnite-statistics',
-      group: 'games',
-      memberName: 'fortnite-statistics',
-      description: 'Get statistics of a Fortnite player.',
-      details: 'Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).',
-      aliases: ['fortnite-stats', 'fortnite'],
-      examples: ['fortnite-statistics pc Zaccubus', 'fortnite-stats pc "WBG Strafesh0t"'],
-      clientPermissions: ['EMBED_LINKS'],
+      name: "fortnite-statistics",
+      group: "games",
+      memberName: "fortnite-statistics",
+      description: "Get statistics of a Fortnite player.",
+      details:
+        "Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).",
+      aliases: ["fortnite-stats", "fortnite"],
+      examples: [
+        "fortnite-statistics pc Zaccubus",
+        'fortnite-stats pc "WBG Strafesh0t"'
+      ],
+      clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
         duration: 10
       },
-      args: [{
-        key: 'platform',
-        prompt: 'What platform do you want to search on?',
-        type: 'string',
-        parse: platform => platform.toLowerCase(),
-        oneOf: platforms
-      }, {
-        key: 'username',
-        prompt: 'What user do you want to look up?',
-        type: 'string'
-      }]
+      args: [
+        {
+          key: "platform",
+          prompt: "What platform do you want to search on?",
+          type: "string",
+          parse: platform => platform.toLowerCase(),
+          oneOf: platforms
+        },
+        {
+          key: "username",
+          prompt: "What user do you want to look up?",
+          type: "string"
+        }
+      ]
     });
   }
 
@@ -57,42 +67,59 @@ module.exports = class FortniteStatisticsCommand extends Command {
       const options = {
         uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,
         json: true,
-        headers: { 'TRN-Api-Key': config.fortniteTrackerNetworkToken }
+        headers: { "TRN-Api-Key": config.fortniteTrackerNetworkToken }
       };
 
       const stats = await rp(options).catch(error => {
         logger.error(error);
-        return msg.reply('There was an error with the API we use (https://api.fortnitetracker.com)');
+        return msg.reply(
+          "There was an error with the API we use (https://api.fortnitetracker.com)"
+        );
       });
 
-      if (stats.error === 'Player Not Found') {
-        return msg.reply('Player not found on that platform.');
+      if (stats.error === "Player Not Found") {
+        return msg.reply("Player not found on that platform.");
       }
 
-      logger.debug(`Result for ${username} on ${platform}:`, JSON.stringify(stats));
+      logger.debug(
+        `Result for ${username} on ${platform}:`,
+        JSON.stringify(stats)
+      );
       const embed = new MessageEmbed({
         title: stats.epicUserHandle,
-        url: `https://fortnitetracker.com/profile/${platform}/${encodeURIComponent(username)}`,
-        footer: { text: 'Information provided by the Tracker Network' }
+        url: `https://fortnitetracker.com/profile/${platform}/${encodeURIComponent(
+          username
+        )}`,
+        footer: { text: "Information provided by the Tracker Network" }
       });
 
       if (stats.lifeTimeStats[8] && stats.lifeTimeStats[9]) {
-        embed.addField('🏆 Wins', `${stats.lifeTimeStats[8].value} wins (${stats.lifeTimeStats[9].value})`);
+        embed.addField(
+          "🏆 Wins",
+          `${stats.lifeTimeStats[8].value} wins (${
+            stats.lifeTimeStats[9].value
+          })`
+        );
       }
 
       if (stats.lifeTimeStats[10] && stats.lifeTimeStats[11]) {
         embed.addField(
-          '💀 Kills',
-          `${stats.lifeTimeStats[10].value} kills. ${stats.lifeTimeStats[11].value} K/D ratio.`
+          "💀 Kills",
+          `${stats.lifeTimeStats[10].value} kills. ${
+            stats.lifeTimeStats[11].value
+          } K/D ratio.`
         );
       }
 
       if (stats.lifeTimeStats[7]) {
-        embed.addField('🎮 Matches Played', stats.lifeTimeStats[7].value.toString());
+        embed.addField(
+          "🎮 Matches Played",
+          stats.lifeTimeStats[7].value.toString()
+        );
       }
 
       if (stats.lifeTimeStats[6]) {
-        embed.addField('🔢 Score', stats.lifeTimeStats[6].value.toString());
+        embed.addField("🔢 Score", stats.lifeTimeStats[6].value.toString());
       }
 
       return msg.replyEmbed(embed);

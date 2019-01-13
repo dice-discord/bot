@@ -14,46 +14,49 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const logger = require('../../util/logger').scope('command', 'guild backdoor');
+const { Command } = require("discord.js-commando");
+const logger = require("../../util/logger").scope("command", "guild backdoor");
 
 module.exports = class GuildBackdoorCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'guild-backdoor',
-      aliases: ['backdoor', 'server-backdoor'],
-      group: 'util',
-      memberName: 'guild-backdoor',
-      description: 'Get an invite to a server.',
+      name: "guild-backdoor",
+      aliases: ["backdoor", "server-backdoor"],
+      group: "util",
+      memberName: "guild-backdoor",
+      description: "Get an invite to a server.",
       throttling: {
         usages: 2,
         duration: 3
       },
       ownerOnly: true,
-      args: [{
-        key: 'guild',
-        prompt: 'What server do you want to get a backdoor to?',
-        type: 'string'
-      }]
+      args: [
+        {
+          key: "guild",
+          prompt: "What server do you want to get a backdoor to?",
+          type: "string"
+        }
+      ]
     });
   }
 
   async run(msg, { guild }) {
-    if (!this.client.guilds.has(guild)) return msg.reply(`Not a guild ID or a guild ${this.client.user} is on.`);
+    if (!this.client.guilds.has(guild))
+      return msg.reply(`Not a guild ID or a guild ${this.client.user} is on.`);
 
     guild = this.client.guilds.get(guild);
 
     const invites = await guild.fetchInvites();
-    logger.debug('This guild\'s invites:', invites);
+    logger.debug("This guild's invites:", invites);
     if (invites.size > 0) {
       return msg.reply(invites.first().url);
     }
     for (const channel of guild.channels.values()) {
-      if (channel.permissionsFor(guild.me).has('CREATE_INSTANT_INVITE')) {
+      if (channel.permissionsFor(guild.me).has("CREATE_INSTANT_INVITE")) {
         return msg.reply((await channel.createInvite({ maxAge: 0 })).url);
       }
     }
 
-    return msg.reply('No existing invites or channels to invite you to.');
+    return msg.reply("No existing invites or channels to invite you to.");
   }
 };

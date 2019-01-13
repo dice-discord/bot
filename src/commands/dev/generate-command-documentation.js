@@ -14,57 +14,60 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const { stripIndents } = require('common-tags');
+const { Command } = require("discord.js-commando");
+const { stripIndents } = require("common-tags");
 
 module.exports = class GenerateCommandDocumentationCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'generate-command-documentation',
-      group: 'dev',
-      memberName: 'generate-command-documentation',
-      description: 'Creates a Markdown documentation page for a command.',
-      details: 'Only the bot owner(s) may use this command.',
+      name: "generate-command-documentation",
+      group: "dev",
+      memberName: "generate-command-documentation",
+      description: "Creates a Markdown documentation page for a command.",
+      details: "Only the bot owner(s) may use this command.",
       aliases: [
-        'command-documentation',
-        'make-command-documentation',
-        'generate-command-docs',
-        'command-docs',
-        'make-command-docs',
-        'generate-command-doc',
-        'gen-command-doc',
-        'gen-command-documentation',
-        'gen-command-docs',
-        'command-doc',
-        'make-command-doc',
-        'cmd-documentation',
-        'make-cmd-documentation',
-        'generate-cmd-docs',
-        'cmd-docs',
-        'make-cmd-docs',
-        'generate-cmd-doc',
-        'gen-cmd-doc',
-        'gen-cmd-documentation',
-        'gen-cmd-docs',
-        'cmd-doc',
-        'make-cmd-doc'
+        "command-documentation",
+        "make-command-documentation",
+        "generate-command-docs",
+        "command-docs",
+        "make-command-docs",
+        "generate-command-doc",
+        "gen-command-doc",
+        "gen-command-documentation",
+        "gen-command-docs",
+        "command-doc",
+        "make-command-doc",
+        "cmd-documentation",
+        "make-cmd-documentation",
+        "generate-cmd-docs",
+        "cmd-docs",
+        "make-cmd-docs",
+        "generate-cmd-doc",
+        "gen-cmd-doc",
+        "gen-cmd-documentation",
+        "gen-cmd-docs",
+        "cmd-doc",
+        "make-cmd-doc"
       ],
       throttling: {
         usages: 2,
         duration: 15
       },
-      args: [{
-        key: 'command',
-        prompt: 'What command do you want to generate documentation for?',
-        type: 'command'
-      }],
+      args: [
+        {
+          key: "command",
+          prompt: "What command do you want to generate documentation for?",
+          type: "command"
+        }
+      ],
       ownerOnly: true
     });
   }
 
   run(msg, { command }) {
-    const capitalizeString = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
-    const prettyTitle = capitalizeString(command.name.replace(/[-]/, ' '));
+    const capitalizeString = string =>
+      `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+    const prettyTitle = capitalizeString(command.name.replace(/[-]/, " "));
 
     let result = stripIndents`
 		title: ${prettyTitle}
@@ -96,7 +99,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 
 			## Aliases
 			
-			${aliases.join('\n')}`;
+			${aliases.join("\n")}`;
     }
 
     result = stripIndents`
@@ -106,7 +109,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 		
 		### Format
 		
-		\\\`${command.name}${command.format ? ` ${command.format}` : ''}\\\``;
+		\\\`${command.name}${command.format ? ` ${command.format}` : ""}\\\``;
 
     if (command.examples && command.examples.length > 0) {
       const examples = command.examples.map(example => `- \\\`${example}\\\``);
@@ -116,16 +119,22 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 
 			### Examples
 			
-			${examples.join('\n')}`;
+			${examples.join("\n")}`;
     }
 
-    if (command.argsCollector && command.argsCollector.args && command.argsCollector.args.length > 0) {
+    if (
+      command.argsCollector &&
+      command.argsCollector.args &&
+      command.argsCollector.args.length > 0
+    ) {
       const args = command.argsCollector.args.map(arg => {
-        const name = arg.label ? capitalizeString(arg.label) : capitalizeString(arg.key);
+        const name = arg.label
+          ? capitalizeString(arg.label)
+          : capitalizeString(arg.key);
         const type = capitalizeString(arg.type.id);
-        const required = arg.default ? 'No' : 'Yes';
-        const minimum = arg.min || '';
-        const maximum = arg.max || '';
+        const required = arg.default ? "No" : "Yes";
+        const minimum = arg.min || "";
+        const maximum = arg.max || "";
 
         return `| ${name} | ${type} | ${required} | ${minimum} | ${maximum} |`;
       });
@@ -137,7 +146,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 			
 			| Name  | Type | Required | Minimum | Maximum |
 			|-------|------|----------|---------|---------|
-			${args.join('\n')}`;
+			${args.join("\n")}`;
     }
 
     return msg.say(result, { split: true });

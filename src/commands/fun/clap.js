@@ -14,23 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const { Util } = require('discord.js');
+const { Command } = require("discord.js-commando");
+const { Util } = require("discord.js");
 
 module.exports = class ClapCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'clap',
-      group: 'fun',
-      memberName: 'clap',
-      description: 'Have the bot say a phrase you specify.',
-      examples: ['clap do you are have stupid'],
-      args: [{
-        key: 'phrase',
-        prompt: 'What do you want to have clappified?',
-        type: 'string',
-        parse: (val, msg) => Util.cleanContent(val, msg)
-      }],
+      name: "clap",
+      group: "fun",
+      memberName: "clap",
+      description: "Have the bot say a phrase you specify.",
+      examples: ["clap do you are have stupid"],
+      args: [
+        {
+          key: "phrase",
+          prompt: "What do you want to have clappified?",
+          type: "string",
+          parse: (val, msg) => Util.cleanContent(val, msg)
+        }
+      ],
       throttling: {
         usages: 2,
         duration: 6
@@ -39,6 +41,6 @@ module.exports = class ClapCommand extends Command {
   }
 
   run(msg, { phrase }) {
-    return msg.say(phrase.split(' ').join('👏'));
+    return msg.say(phrase.split(" ").join("👏"));
   }
 };

@@ -14,17 +14,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const { Util } = require('discord.js');
+const { Command } = require("discord.js-commando");
+const { Util } = require("discord.js");
 
 module.exports = class ListSelfRolesCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'list-self-roles',
-      aliases: ['self-role-list', 'self-roles-list', 'list-self-role', 'self-roles'],
-      group: 'selfroles',
-      memberName: 'list',
-      description: 'List all self-assigned roles from this server.',
+      name: "list-self-roles",
+      aliases: [
+        "self-role-list",
+        "self-roles-list",
+        "list-self-role",
+        "self-roles"
+      ],
+      group: "selfroles",
+      memberName: "list",
+      description: "List all self-assigned roles from this server.",
       guildOnly: true,
       throttling: {
         usages: 2,
@@ -35,11 +40,15 @@ module.exports = class ListSelfRolesCommand extends Command {
 
   async run(msg) {
     // Get all of this guild's selfroles
-    const selfRoles = await this.client.provider.get(msg.guild, 'selfRoles', []);
+    const selfRoles = await this.client.provider.get(
+      msg.guild,
+      "selfRoles",
+      []
+    );
 
     // If the selfroles array is empty
     if (selfRoles.length === 0) {
-      return msg.reply('No selfroles');
+      return msg.reply("No selfroles");
     }
 
     // List of role names
@@ -51,7 +60,7 @@ module.exports = class ListSelfRolesCommand extends Command {
         // Find the position of the non-existent role and delete it from the array
         selfRoles.splice(selfRoles.indexOf(id));
         // Set the array to our updated version
-        this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
+        this.client.provider.set(msg.guild, "selfRoles", selfRoles);
       } else if (selfRoles.includes(id) && msg.member.roles.has(id)) {
         // The role is a selfrole and the author has it
         roleList.push(`${guild.name} ▫`);
@@ -61,6 +70,10 @@ module.exports = class ListSelfRolesCommand extends Command {
       }
     }
 
-    return msg.reply(`A ▫ indicates a role you currently have\n${Util.escapeMarkdown(roleList.join('\n'))}`);
+    return msg.reply(
+      `A ▫ indicates a role you currently have\n${Util.escapeMarkdown(
+        Util.cleanContent(roleList.join("\n"), msg)
+      )}`
+    );
   }
 };

@@ -14,27 +14,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
+const { Command } = require("discord.js-commando");
 
 module.exports = class GetMinecraftHeadCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'get-minecraft-head',
-      group: 'minecraft',
-      memberName: 'get-head',
-      description: 'Shows an isometric view of a Minecraft user\'s head.',
-      aliases: ['get-mc-head'],
-      examples: ['get-minecraft-head Notch'],
-      clientPermissions: ['EMBED_LINKS'],
+      name: "get-minecraft-head",
+      group: "minecraft",
+      memberName: "get-head",
+      description: "Shows an isometric view of a Minecraft user's head.",
+      aliases: ["get-mc-head"],
+      examples: ["get-minecraft-head Notch"],
+      clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
         duration: 3
       },
-      args: [{
-        key: 'username',
-        prompt: 'What user do you want to look up?',
-        type: 'string'
-      }]
+      args: [
+        {
+          key: "username",
+          prompt: "What user do you want to look up?",
+          type: "string"
+        }
+      ]
     });
   }
 
@@ -46,7 +48,11 @@ module.exports = class GetMinecraftHeadCommand extends Command {
           // eslint-disable-next-line camelcase
           icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
         },
-        image: { url: `https://minotar.net/cube/${encodeURIComponent(username)}/100.png` }
+        image: {
+          url: `https://minotar.net/cube/${encodeURIComponent(
+            username
+          )}/100.png`
+        }
       }
     });
   }

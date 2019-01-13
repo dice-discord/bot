@@ -32,6 +32,7 @@
   "devDependencies": {
     "codecov": "^3.1.0",
     "eslint": "^5.10.0",
+    "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
     "prettier": "^1.15.3",
     "tap": "^12.1.1"
@@ -62,7 +63,7 @@
   "repository": "dice-discord/bot",
   "scripts": {
     "build": "docker build -t pizzafox/dice:latest .",
-    "lint": "eslint . && markdownlint -i node_modules .",
+    "lint": "eslint .",
     "start": "node src/index.js",
     "test": "tap -J -R spec test/*/*.js",
     "test:coverage": "tap -J --coverage --coverage-report=html test/*/*.js && codecov"

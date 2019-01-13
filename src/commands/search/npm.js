@@ -14,38 +14,41 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const { MessageEmbed, Util } = require('discord.js');
-const rp = require('request-promise-native');
-const logger = require('../../util/logger').scope('command', 'npm-search');
-const truncateText = require('../../util/truncateText');
+const { Command } = require("discord.js-commando");
+const { MessageEmbed, Util } = require("discord.js");
+const rp = require("request-promise-native");
+const logger = require("../../util/logger").scope("command", "npm-search");
+const truncateText = require("../../util/truncateText");
 
 module.exports = class NPMSearchCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'npm-search',
-      group: 'search',
-      memberName: 'npm',
-      description: 'Get information about an NPM package',
-      examples: ['npm-search ms', 'npm-search commando-provider-keyv'],
-      clientPermissions: ['EMBED_LINKS'],
-      aliases: ['npm'],
+      name: "npm-search",
+      group: "search",
+      memberName: "npm",
+      description: "Get information about an NPM package",
+      examples: ["npm-search ms", "npm-search commando-provider-keyv"],
+      clientPermissions: ["EMBED_LINKS"],
+      aliases: ["npm"],
       throttling: {
         usages: 2,
         duration: 10
       },
-      args: [{
-        key: 'pkg',
-        prompt: 'What package do you want to get information for?',
-        type: 'string',
-        label: 'package name'
-      }, {
-        key: 'full',
-        prompt: 'Do you want to show the full results?',
-        type: 'boolean',
-        label: 'show full results',
-        default: false
-      }]
+      args: [
+        {
+          key: "pkg",
+          prompt: "What package do you want to get information for?",
+          type: "string",
+          label: "package name"
+        },
+        {
+          key: "full",
+          prompt: "Do you want to show the full results?",
+          type: "boolean",
+          label: "show full results",
+          default: false
+        }
+      ]
     });
   }
 
@@ -61,31 +64,40 @@ module.exports = class NPMSearchCommand extends Command {
           title: truncateText(data.name, 256),
           color: 0xca3b3a,
           footer: {
-            text: 'NPM',
-            iconURL: 'https://avatars0.githubusercontent.com/u/6078720'
+            text: "NPM",
+            iconURL: "https://avatars0.githubusercontent.com/u/6078720"
           }
         });
 
         let { description } = data;
-        const version = data.versions[data['dist-tags'].latest];
-        const dependencies = version.dependencies ? Object.keys(version.dependencies).join(', ') : null;
+        const version = data.versions[data["dist-tags"].latest];
+        const dependencies = version.dependencies
+          ? Object.keys(version.dependencies).join(", ")
+          : null;
 
         if (full) description = data.readme;
         if (description) embed.setDescription(truncateText(description));
-        if (data['dist-tags'].latest) embed.addField('Latest Release', `v${data['dist-tags'].latest}`);
-        if (dependencies) embed.addField('Dependencies', this.clean(dependencies, 1024));
+        if (data["dist-tags"].latest)
+          embed.addField("Latest Release", `v${data["dist-tags"].latest}`);
+        if (dependencies)
+          embed.addField("Dependencies", this.clean(dependencies, 1024));
         if (data.homepage) embed.setURL(data.homepage);
-        if (data.keywords) embed.addField('Keywords', this.clean(data.keywords.join(', '), 1024));
-        if (data.author && data.author.name) embed.setAuthor(truncateText(data.author.name, 256));
+        if (data.keywords)
+          embed.addField(
+            "Keywords",
+            this.clean(data.keywords.join(", "), 1024)
+          );
+        if (data.author && data.author.name)
+          embed.setAuthor(truncateText(data.author.name, 256));
 
         return msg.replyEmbed(embed);
       })
       .catch(err => {
         if (err.statusCode === 404) {
-          return msg.reply('That package couldn\'t be found.');
+          return msg.reply("That package couldn't be found.");
         }
         logger.error(err);
-        return msg.reply('There was an error with NPM)');
+        return msg.reply("There was an error with NPM)");
       });
   }
 

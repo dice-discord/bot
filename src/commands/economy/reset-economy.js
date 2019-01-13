@@ -14,25 +14,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const logger = require('../../util/logger').scope('command', 'reset economy');
-const database = require('../../util/database');
+const { Command } = require("discord.js-commando");
+const logger = require("../../util/logger").scope("command", "reset economy");
+const database = require("../../util/database");
 
 module.exports = class ResetEconomyCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'reset-economy',
-      group: 'economy',
-      memberName: 'reset-economy',
-      description: 'Reset the entire economy.',
-      details: 'Only the bot owner(s) may use this command.',
-      aliases: ['destroy-eco', 'destroy-economy', 'economy-destroy', 'eco-destroy', 'reset-eco'],
-      args: [{
-        key: 'verification',
-        prompt: '⚠ **Are you absolutely sure you want to destroy all user profiles?** ⚠',
-        type: 'boolean',
-        default: false
-      }],
+      name: "reset-economy",
+      group: "economy",
+      memberName: "reset-economy",
+      description: "Reset the entire economy.",
+      details: "Only the bot owner(s) may use this command.",
+      aliases: [
+        "destroy-eco",
+        "destroy-economy",
+        "economy-destroy",
+        "eco-destroy",
+        "reset-eco"
+      ],
+      args: [
+        {
+          key: "verification",
+          prompt:
+            "⚠ **Are you absolutely sure you want to destroy all user profiles?** ⚠",
+          type: "boolean",
+          default: false
+        }
+      ],
       ownerOnly: true
     });
   }
@@ -41,11 +50,11 @@ module.exports = class ResetEconomyCommand extends Command {
     if (verification) {
       await database.resetEconomy();
 
-      logger.critical('Reset the economy');
+      logger.critical("Reset the economy");
 
-      return msg.reply('💥 Finished resetting the economy.');
+      return msg.reply("💥 Finished resetting the economy.");
     } else {
-      return msg.reply('Cancelled command (missing verification).');
+      return msg.reply("Cancelled command (missing verification).");
     }
   }
 };

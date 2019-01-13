@@ -13,21 +13,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const { Command } = require('discord.js-commando');
+const { Command } = require("discord.js-commando");
 
 module.exports = class ErrorCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'error',
-      group: 'dev',
-      memberName: 'error',
-      description: 'Throws an error.',
-      aliases: ['err'],
+      name: "error",
+      group: "dev",
+      memberName: "error",
+      description: "Throws an error.",
+      aliases: ["err"],
       ownerOnly: true
     });
   }
 
   run() {
-    throw new Error('This is an error');
+    throw new Error("This is an error");
   }
 };

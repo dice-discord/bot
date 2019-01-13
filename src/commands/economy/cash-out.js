@@ -14,26 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const config = require('../../config');
-const simpleFormat = require('../../util/simpleFormat');
-const database = require('../../util/database');
-const respond = require('../../util/simpleCommandResponse');
+const { Command } = require("discord.js-commando");
+const config = require("../../config");
+const simpleFormat = require("../../util/simpleFormat");
+const database = require("../../util/database");
+const respond = require("../../util/simpleCommandResponse");
 
 module.exports = class CashOutCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'cash-out',
-      group: 'economy',
-      memberName: 'cash-out',
-      description: 'Cash out money from the house.',
-      details: 'Only the bot owner(s) may use this command.',
-      examples: ['cash-out 500'],
+      name: "cash-out",
+      group: "economy",
+      memberName: "cash-out",
+      description: "Cash out money from the house.",
+      details: "Only the bot owner(s) may use this command.",
+      examples: ["cash-out 500"],
       args: [
         {
-          key: 'amount',
-          prompt: 'How many oats do you want to remove?',
-          type: 'float',
+          key: "amount",
+          prompt: "How many oats do you want to remove?",
+          type: "float",
           min: config.minCurrency,
           parse: amount => simpleFormat(amount)
         }
@@ -47,12 +47,18 @@ module.exports = class CashOutCommand extends Command {
   }
 
   async run(msg, { amount }) {
-    const beforeTransferHouseBalance = await database.balances.get(this.client.user.id);
+    const beforeTransferHouseBalance = await database.balances.get(
+      this.client.user.id
+    );
 
     // Amount checking
     if (amount > beforeTransferHouseBalance) {
       // eslint-disable-next-line max-len
-      return msg.reply(`Your amount must be less than \`${beforeTransferHouseBalance.toLocaleString()}\` ${config.currency.plural}. ${this.client.user} doesn't have that much.`);
+      return msg.reply(
+        `Your amount must be less than \`${beforeTransferHouseBalance.toLocaleString()}\` ${
+          config.currency.plural
+        }. ${this.client.user} doesn't have that much.`
+      );
     }
 
     // Round to whole number

@@ -14,21 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
+const { Command } = require("discord.js-commando");
 
 module.exports = class SankeyMATICGeneratorCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'sankeymatic-generator',
-      group: 'dev',
-      memberName: 'sankeymatic-generator',
-      description: 'Creates code for a SankeyMATIC diagram display server counts for each shard.',
-      details: 'Only the bot owner(s) may use this command.',
-      aliases: [
-        'sankeymatic',
-        'sankey',
-        'flow-chart'
-      ],
+      name: "sankeymatic-generator",
+      group: "dev",
+      memberName: "sankeymatic-generator",
+      description:
+        "Creates code for a SankeyMATIC diagram display server counts for each shard.",
+      details: "Only the bot owner(s) may use this command.",
+      aliases: ["sankeymatic", "sankey", "flow-chart"],
       throttling: {
         usages: 2,
         duration: 15
@@ -38,11 +35,15 @@ module.exports = class SankeyMATICGeneratorCommand extends Command {
   }
 
   async run(msg) {
-    const serverCounts = await this.client.shard.fetchClientValues('guilds.size');
-    let result = '';
+    const serverCounts = await this.client.shard.fetchClientValues(
+      "guilds.size"
+    );
+    let result = "";
 
     serverCounts.forEach(shardServerCount => {
-      result += `Shard ${serverCounts.indexOf(shardServerCount)} [${shardServerCount}] Server Count\n`;
+      result += `Shard ${serverCounts.indexOf(
+        shardServerCount
+      )} [${shardServerCount}] Server Count\n`;
     });
 
     return msg.say(result, { split: true });

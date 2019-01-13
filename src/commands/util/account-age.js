@@ -14,25 +14,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { formatDistance, formatRelative } = require('date-fns');
-const { Command } = require('discord.js-commando');
-const { stripIndents } = require('common-tags');
+const { formatDistance, formatRelative } = require("date-fns");
+const { Command } = require("discord.js-commando");
+const { stripIndents } = require("common-tags");
 
 module.exports = class AccountAgeCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'account-age',
-      group: 'util',
-      memberName: 'account-age',
-      description: 'Check when an account was created.',
-      aliases: ['age', 'account-created'],
-      examples: ['account-age', 'account-age @Dice'],
-      args: [{
-        key: 'user',
-        prompt: 'Who do you want to check?',
-        type: 'user',
-        default: ''
-      }],
+      name: "account-age",
+      group: "util",
+      memberName: "account-age",
+      description: "Check when an account was created.",
+      aliases: ["age", "account-created"],
+      examples: ["account-age", "account-age @Dice"],
+      args: [
+        {
+          key: "user",
+          prompt: "Who do you want to check?",
+          type: "user",
+          default: ""
+        }
+      ],
       throttling: {
         usages: 2,
         duration: 4

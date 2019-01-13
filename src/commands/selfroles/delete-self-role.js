@@ -14,33 +14,35 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const respond = require('../../util/simpleCommandResponse');
+const { Command } = require("discord.js-commando");
+const respond = require("../../util/simpleCommandResponse");
 
 module.exports = class DeleteSelfRoleCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'delete-self-role',
+      name: "delete-self-role",
       aliases: [
-        'self-role-delete',
-        'self-roles-delete',
-        'delete-self-roles',
-        'del-self-roles',
-        'self-role-del',
-        'self-roles-del',
-        'del-self-role'
+        "self-role-delete",
+        "self-roles-delete",
+        "delete-self-roles",
+        "del-self-roles",
+        "self-role-del",
+        "self-roles-del",
+        "del-self-role"
       ],
-      group: 'selfroles',
-      memberName: 'delete',
-      description: 'Delete a self-assigned role from this server.',
-      examples: ['delete-self-role @PUBG', 'delete-self-role Artists'],
-      userPermissions: ['MANAGE_ROLES'],
+      group: "selfroles",
+      memberName: "delete",
+      description: "Delete a self-assigned role from this server.",
+      examples: ["delete-self-role @PUBG", "delete-self-role Artists"],
+      userPermissions: ["MANAGE_ROLES"],
       guildOnly: true,
-      args: [{
-        key: 'role',
-        prompt: 'Which selfrole do you want to delete?',
-        type: 'role'
-      }],
+      args: [
+        {
+          key: "role",
+          prompt: "Which selfrole do you want to delete?",
+          type: "role"
+        }
+      ],
       throttling: {
         usages: 2,
         duration: 4
@@ -50,22 +52,29 @@ module.exports = class DeleteSelfRoleCommand extends Command {
 
   async run(msg, { role }) {
     // Get all of this guild's selfroles
-    const selfRoles = await this.client.provider.get(msg.guild, 'selfRoles', []);
+    const selfRoles = await this.client.provider.get(
+      msg.guild,
+      "selfRoles",
+      []
+    );
 
     // Check if the role isn't a self role
     if (!selfRoles.includes(role.id)) {
-      return msg.reply('That role isn\'t a self role.');
+      return msg.reply("That role isn't a self role.");
     }
 
     // Check if the author is able to delete the role
-    if (role.comparePositionTo(msg.member.roles.highest) >= 0 || !msg.member.hasPermission('ADMINISTRATOR')) {
-      return msg.reply('You don\'t have the permissions to delete that role.');
+    if (
+      role.comparePositionTo(msg.member.roles.highest) >= 0 ||
+      !msg.member.hasPermission("ADMINISTRATOR")
+    ) {
+      return msg.reply("You don't have the permissions to delete that role.");
     }
 
     // Find the position of the role and delete it from the array
     selfRoles.splice(selfRoles.indexOf(role.id));
     // Set the array to our updated version
-    await this.client.provider.set(msg.guild, 'selfRoles', selfRoles);
+    await this.client.provider.set(msg.guild, "selfRoles", selfRoles);
 
     // Respond to author with success
     respond(msg);

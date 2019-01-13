@@ -14,37 +14,50 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const respond = require('../../util/simpleCommandResponse');
+const { Command } = require("discord.js-commando");
+const respond = require("../../util/simpleCommandResponse");
 
 module.exports = class BanUserCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'ban-user',
-      aliases: ['ban', 'ban-member', 'hackban-user', 'hackban-member', 'hackban'],
-      group: 'mod',
-      memberName: 'ban-user',
-      description: 'Ban any user from your server.',
-      examples: ['ban @Zoop', 'ban 213041121700478976', 'ban Zoop Spamming messages'],
-      clientPermissions: ['BAN_MEMBERS'],
-      userPermissions: ['BAN_MEMBERS'],
+      name: "ban-user",
+      aliases: [
+        "ban",
+        "ban-member",
+        "hackban-user",
+        "hackban-member",
+        "hackban"
+      ],
+      group: "mod",
+      memberName: "ban-user",
+      description: "Ban any user from your server.",
+      examples: [
+        "ban @Zoop",
+        "ban 213041121700478976",
+        "ban Zoop Spamming messages"
+      ],
+      clientPermissions: ["BAN_MEMBERS"],
+      userPermissions: ["BAN_MEMBERS"],
       guildOnly: true,
       throttling: {
         usages: 3,
         duration: 6
       },
-      args: [{
-        key: 'user',
-        prompt: 'What user do you want to ban?',
-        type: 'user'
-      }, {
-        key: 'reason',
-        prompt: 'What is the reason for banning this user?',
-        type: 'string',
-        label: 'reason for ban',
-        default: '',
-        max: 400
-      }]
+      args: [
+        {
+          key: "user",
+          prompt: "What user do you want to ban?",
+          type: "user"
+        },
+        {
+          key: "reason",
+          prompt: "What is the reason for banning this user?",
+          type: "string",
+          label: "reason for ban",
+          default: "",
+          max: 400
+        }
+      ]
     });
   }
 
@@ -55,14 +68,16 @@ module.exports = class BanUserCommand extends Command {
       reason = `Requested by ${msg.author.tag}`;
     }
 
-    if ((await msg.guild.fetchBans()).has(user.id)) return msg.reply(`${user.tag} is already banned.`);
+    if ((await msg.guild.fetchBans()).has(user.id))
+      return msg.reply(`${user.tag} is already banned.`);
 
-    msg.guild.members.ban(user.id, { reason })
+    msg.guild.members
+      .ban(user.id, { reason })
       .then(() => {
         respond(msg);
         return null;
       })
-      .catch(() => msg.reply('Unable to ban that user'));
+      .catch(() => msg.reply("Unable to ban that user"));
     return null;
   }
 };

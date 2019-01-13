@@ -14,38 +14,52 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const logger = require('../../util/logger').scope('command', 'starbound server status');
-const { MessageEmbed } = require('discord.js');
-const ms = require('ms');
-const gamedig = require('gamedig');
+const { Command } = require("discord.js-commando");
+const logger = require("../../util/logger").scope(
+  "command",
+  "starbound server status"
+);
+const { MessageEmbed } = require("discord.js");
+const ms = require("ms");
+const gamedig = require("gamedig");
 
 module.exports = class StarboundServerStatusCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'starbound-server-status',
-      group: 'games',
-      memberName: 'starbound-server-status',
-      description: 'Get information about a Starbound server.',
-      aliases: ['starbound-server', 'starbound-server', 'starbound-status', 'starbound'],
-      examples: ['starbound-server-status sb.ilovebacons.com', 'starbound-server-status 31.214.128.254 11600'],
-      clientPermissions: ['EMBED_LINKS'],
+      name: "starbound-server-status",
+      group: "games",
+      memberName: "starbound-server-status",
+      description: "Get information about a Starbound server.",
+      aliases: [
+        "starbound-server",
+        "starbound-server",
+        "starbound-status",
+        "starbound"
+      ],
+      examples: [
+        "starbound-server-status sb.ilovebacons.com",
+        "starbound-server-status 31.214.128.254 11600"
+      ],
+      clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
         duration: 5
       },
-      args: [{
-        key: 'host',
-        prompt: 'What is the IP address or host you want to look up?',
-        type: 'string'
-      }, {
-        key: 'port',
-        prompt: 'What is the server\'s port?',
-        type: 'integer',
-        default: 21025,
-        max: 65535,
-        min: 1
-      }]
+      args: [
+        {
+          key: "host",
+          prompt: "What is the IP address or host you want to look up?",
+          type: "string"
+        },
+        {
+          key: "port",
+          prompt: "What is the server's port?",
+          type: "integer",
+          default: 21025,
+          max: 65535,
+          min: 1
+        }
+      ]
     });
   }
 
@@ -54,39 +68,50 @@ module.exports = class StarboundServerStatusCommand extends Command {
       msg.channel.startTyping();
       const options = {
         host,
-        type: 'starbound'
+        type: "starbound"
       };
 
       if (port) {
         options.port = port;
       }
 
-      gamedig.query(options)
+      gamedig
+        .query(options)
         .then(data => {
           const curr = data.raw.numplayers;
           const max = data.maxplayers;
 
-          return msg.replyEmbed(new MessageEmbed({
-            title: data.name,
-            thumbnail: { url: 'https://steamcdn-a.akamaihd.net/steam/apps/211820/header.jpg' },
-            footer: { text: `Took ${ms(data.query.duration)} to complete` },
-            fields: [{
-              name: 'IP Address',
-              value: `${data.query.address} (port ${data.query.port})`
-            }, {
-              name: 'Online Players',
-              value: `${curr}/${max} (${Math.round((curr / max) * 100)}%)`
-            }, {
-              name: 'Password Required',
-              value: data.password ? 'Yes' : 'No'
-            }]
-          }));
+          return msg.replyEmbed(
+            new MessageEmbed({
+              title: data.name,
+              thumbnail: {
+                url:
+                  "https://steamcdn-a.akamaihd.net/steam/apps/211820/header.jpg"
+              },
+              footer: { text: `Took ${ms(data.query.duration)} to complete` },
+              fields: [
+                {
+                  name: "IP Address",
+                  value: `${data.query.address} (port ${data.query.port})`
+                },
+                {
+                  name: "Online Players",
+                  value: `${curr}/${max} (${Math.round((curr / max) * 100)}%)`
+                },
+                {
+                  name: "Password Required",
+                  value: data.password ? "Yes" : "No"
+                }
+              ]
+            })
+          );
         })
         .catch(error => {
-          if (error === 'UDP Watchdog Timeout') return msg.reply('Server timed out, it\'s probably offline.');
+          if (error === "UDP Watchdog Timeout")
+            return msg.reply("Server timed out, it's probably offline.");
 
           logger.error(error);
-          return msg.reply('An unknown error occured.');
+          return msg.reply("An unknown error occured.");
         });
     } finally {
       msg.channel.stopTyping();

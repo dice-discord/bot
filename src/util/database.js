@@ -14,20 +14,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const config = require('../config');
-const simpleFormat = require('./simpleFormat');
-const { MongoClient } = require('mongodb');
-const Keyv = require('keyv');
-const logger = require('./logger').scope('database');
-const KeenTracking = require('keen-tracking');
-const ms = require('ms');
+const config = require("../config");
+const simpleFormat = require("./simpleFormat");
+const { MongoClient } = require("mongodb");
+const Keyv = require("keyv");
+const logger = require("./logger").scope("database");
+const KeenTracking = require("keen-tracking");
+const ms = require("ms");
 
-logger.start('Database loading');
+logger.start("Database loading");
 
 const none = data => data;
 
-const economy = new Keyv(config.backend, { serialize: none, deserialize: none, collection: 'economy' });
-const dailies = new Keyv(config.backend, { serialize: none, deserialize: none, collection: 'dailies' });
+const economy = new Keyv(config.backend, {
+  serialize: none,
+  deserialize: none,
+  collection: "economy"
+});
+const dailies = new Keyv(config.backend, {
+  serialize: none,
+  deserialize: none,
+  collection: "dailies"
+});
 
 // Set up Keen client
 const keenClient = new KeenTracking({
@@ -35,23 +43,26 @@ const keenClient = new KeenTracking({
   writeKey: config.keen.writeKey
 });
 
-keenClient.recordEvent('events', { title: 'Database loading' });
+keenClient.recordEvent("events", { title: "Database loading" });
 
 // Set up database variables
 const uri = config.mongoDBURI;
-if (typeof config.mongoDBURI === 'undefined') {
-  logger.error('mongoDB URI is undefined!');
+if (typeof config.mongoDBURI === "undefined") {
+  logger.error("mongoDB URI is undefined!");
 }
 
 const database = async () => {
-  logger.time('database');
+  logger.time("database");
   const client = new MongoClient(uri);
-  await client.connect(null, { useNewUrlParser: true });
-  logger.timeEnd('database');
-  logger.start('Connected to database server');
-  const db = client.db('dice');
+  await client.connect(
+    null,
+    { useNewUrlParser: true }
+  );
+  logger.timeEnd("database");
+  logger.start("Connected to database server");
+  const db = client.db("dice");
 
-  const economyCollection = db.collection('economy');
+  const economyCollection = db.collection("economy");
 
   const balances = {
     get: async id => {
@@ -66,16 +77,20 @@ const database = async () => {
         return userBalance;
       } else {
         // Set the default balance in the background to *slightly* increase performance
-        economy.set(id, defaultBal, ms('1 year'));
+        economy.set(id, defaultBal, ms("1 year"));
         return defaultBal;
       }
     },
     set: (id, newBalance) => {
-      logger.scope('balances', 'set').debug(`Set balance for ${id} to ${simpleFormat(newBalance)}`);
-      return economy.set(id, newBalance, ms('1 year'));
+      logger
+        .scope("balances", "set")
+        .debug(`Set balance for ${id} to ${simpleFormat(newBalance)}`);
+      return economy.set(id, newBalance, ms("1 year"));
     },
-    decrease: async (id, amount) => balances.set(id, await balances.get(id) - amount),
-    increase: async (id, amount) => balances.set(id, await balances.get(id) + amount)
+    decrease: async (id, amount) =>
+      balances.set(id, (await balances.get(id)) - amount),
+    increase: async (id, amount) =>
+      balances.set(id, (await balances.get(id)) + amount)
   };
   module.exports.balances = balances;
 
@@ -84,7 +99,8 @@ const database = async () => {
    * @async
    * @returns {boolean}
    */
-  const userExists = async requestedID => Boolean(await economy.get(requestedID));
+  const userExists = async requestedID =>
+    Boolean(await economy.get(requestedID));
   module.exports.userExists = userExists;
 
   /**
@@ -98,14 +114,14 @@ const database = async () => {
    * @returns {Array<Object>} Top ten data
    */
   const leaderboard = async () => {
-    logger.scope('database', 'leaderboard');
+    logger.scope("database", "leaderboard");
     const allProfiles = await economyCollection.find();
     const formattedBalances = await allProfiles
       .sort({ value: -1 })
       .limit(10)
       .toArray();
 
-    logger.debug('Top ten data formatted:', JSON.stringify(formattedBalances));
+    logger.debug("Top ten data formatted:", JSON.stringify(formattedBalances));
     return formattedBalances;
   };
   module.exports.leaderboard = leaderboard;
@@ -122,9 +138,11 @@ const database = async () => {
    * @returns {Promise} Promise from MongoDB
    */
   const setDailyUsed = (id, timestamp) => {
-    const setDailyUsedLogger = logger.scope('daily used', 'set');
-    setDailyUsedLogger.debug(`Set daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`);
-    return dailies.set(id, timestamp, ms('1 year'));
+    const setDailyUsedLogger = logger.scope("daily used", "set");
+    setDailyUsedLogger.debug(
+      `Set daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`
+    );
+    return dailies.set(id, timestamp, ms("1 year"));
   };
   module.exports.setDailyUsed = setDailyUsed;
 
@@ -134,6 +152,5 @@ const database = async () => {
   const getDailyUsed = requestedID => dailies.get(requestedID);
   module.exports.getDailyUsed = getDailyUsed;
 };
-
 
 database();

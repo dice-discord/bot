@@ -14,40 +14,44 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const rp = require('request-promise-native');
-const logger = require('../../util/logger').scope('command', 'bible');
-const truncateText = require('../../util/truncateText');
+const { Command } = require("discord.js-commando");
+const rp = require("request-promise-native");
+const logger = require("../../util/logger").scope("command", "bible");
+const truncateText = require("../../util/truncateText");
 
 module.exports = class BibleCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'bible',
-      group: 'search',
-      memberName: 'bible',
-      description: 'Get any bible verse from the World English Bible',
-      examples: ['bible john 3 16', 'bible jn 3 16'],
-      clientPermissions: ['EMBED_LINKS'],
+      name: "bible",
+      group: "search",
+      memberName: "bible",
+      description: "Get any bible verse from the World English Bible",
+      examples: ["bible john 3 16", "bible jn 3 16"],
+      clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
         duration: 4
       },
-      args: [{
-        key: 'book',
-        prompt: 'What book name do you want to get a verse from?',
-        type: 'string',
-        label: 'book name'
-      }, {
-        key: 'chapter',
-        prompt: 'Which chapter do you want to get a verse from?',
-        type: 'integer',
-        min: 1
-      }, {
-        key: 'verse',
-        prompt: 'Which verse do you want to get from the chapter?',
-        type: 'integer',
-        min: 1
-      }]
+      args: [
+        {
+          key: "book",
+          prompt: "What book name do you want to get a verse from?",
+          type: "string",
+          label: "book name"
+        },
+        {
+          key: "chapter",
+          prompt: "Which chapter do you want to get a verse from?",
+          type: "integer",
+          min: 1
+        },
+        {
+          key: "verse",
+          prompt: "Which verse do you want to get from the chapter?",
+          type: "integer",
+          min: 1
+        }
+      ]
     });
   }
 
@@ -66,8 +70,8 @@ module.exports = class BibleCommand extends Command {
           return msg.replyEmbed({
             title: data.reference,
             author: {
-              name: 'World English Bible',
-              url: 'https://bible-api.com/'
+              name: "World English Bible",
+              url: "https://bible-api.com/"
             },
             description: truncateText(data.text)
           });
@@ -75,9 +79,11 @@ module.exports = class BibleCommand extends Command {
         .catch(err => {
           logger.error(err);
           if (err.statusCode === 404) {
-            return msg.reply('That bible verse couldn\'t be found.');
+            return msg.reply("That bible verse couldn't be found.");
           }
-          return msg.reply('There was an error with the service to get bible verses we use (https://bible-api.com)');
+          return msg.reply(
+            "There was an error with the service to get bible verses we use (https://bible-api.com)"
+          );
         });
     } finally {
       msg.channel.stopTyping();

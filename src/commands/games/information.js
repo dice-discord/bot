@@ -14,28 +14,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const logger = require('../../util/logger').scope('command', 'information');
-const config = require('../../config');
-const simpleFormat = require('../../util/simpleFormat');
-const database = require('../../util/database');
+const { Command } = require("discord.js-commando");
+const logger = require("../../util/logger").scope("command", "information");
+const config = require("../../config");
+const simpleFormat = require("../../util/simpleFormat");
+const database = require("../../util/database");
 
 module.exports = class InformationCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'information',
-      group: 'games',
-      memberName: 'information',
-      description: 'Get information on a user.',
-      aliases: ['user-info', 'user-profile', 'profile', 'info', 'user-information'],
-      examples: ['info', 'information PizzaFox'],
-      clientPermissions: ['EMBED_LINKS'],
+      name: "information",
+      group: "games",
+      memberName: "information",
+      description: "Get information on a user.",
+      aliases: [
+        "user-info",
+        "user-profile",
+        "profile",
+        "info",
+        "user-information"
+      ],
+      examples: ["info", "information PizzaFox"],
+      clientPermissions: ["EMBED_LINKS"],
       args: [
         {
-          key: 'user',
-          prompt: 'Who\'s profile do you want to look up?',
-          type: 'user',
-          default: ''
+          key: "user",
+          prompt: "Who's profile do you want to look up?",
+          type: "user",
+          default: ""
         }
       ],
       throttling: {
@@ -53,7 +59,7 @@ module.exports = class InformationCommand extends Command {
 
       // Make sure the target user isn't a bot (excluding the client)
       if (user.bot && user.id !== this.client.user.id) {
-        return msg.reply('Bots can\'t play.');
+        return msg.reply("Bots can't play.");
       }
 
       const userBalance = await database.balances.get(user.id);
@@ -67,19 +73,21 @@ module.exports = class InformationCommand extends Command {
         startingBalance = config.newUserBalance;
       }
 
-      logger.note('Target user display URL:', userProfilePicture);
+      logger.note("Target user display URL:", userProfilePicture);
 
       return msg.replyEmbed({
         title: user.tag,
         thumbnail: { url: userProfilePicture },
         fields: [
           {
-            name: '💰 Total Profit',
-            value: `${simpleFormat(userBalance - startingBalance).toLocaleString()} ${config.currency.plural}`,
+            name: "💰 Total Profit",
+            value: `${simpleFormat(
+              userBalance - startingBalance
+            ).toLocaleString()} ${config.currency.plural}`,
             inline: true
           },
           {
-            name: '🏦 Balance',
+            name: "🏦 Balance",
             value: `${userBalance.toLocaleString()} ${config.currency.plural}`,
             inline: true
           }

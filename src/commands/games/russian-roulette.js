@@ -14,15 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
+const { Command } = require("discord.js-commando");
 
 module.exports = class RussianRouletteCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'russian-roulette',
-      group: 'games',
-      memberName: 'russian-roulette',
-      description: 'Play a game of Russian roulette.',
+      name: "russian-roulette",
+      group: "games",
+      memberName: "russian-roulette",
+      description: "Play a game of Russian roulette.",
       throttling: {
         usages: 1,
         duration: 2
@@ -35,9 +35,9 @@ module.exports = class RussianRouletteCommand extends Command {
     const randomNumber = Math.floor(Math.random() * 6);
 
     if (randomNumber === 0) {
-      return msg.reply('💥 *Bang.* You lose.');
+      return msg.reply("💥 *Bang.* You lose.");
     }
 
-    return msg.reply('🔫 *Click.* You survived.');
+    return msg.reply("🔫 *Click.* You survived.");
   }
 };

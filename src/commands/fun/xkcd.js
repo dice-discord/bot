@@ -14,30 +14,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const { MessageEmbed } = require('discord.js');
-const rp = require('request-promise-native');
-const logger = require('../../util/logger').scope('command', 'xkcd');
-const truncateText = require('../../util/truncateText');
+const { Command } = require("discord.js-commando");
+const { MessageEmbed } = require("discord.js");
+const rp = require("request-promise-native");
+const logger = require("../../util/logger").scope("command", "xkcd");
+const truncateText = require("../../util/truncateText");
 
 module.exports = class XKCDCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'xkcd',
-      group: 'fun',
-      memberName: 'xkcd',
-      description: 'Get an XKCD comic.',
-      details: 'Not specifying the comic to lookup will give you the most recent comic',
-      aliases: ['random-xkcd', 'xkcd-comic', 'random-xkcd-comic'],
-      examples: ['xkcd', 'xkcd 614'],
-      clientPermissions: ['EMBED_LINKS'],
-      args: [{
-        key: 'comic',
-        prompt: 'What comic number do you want see?',
-        type: 'integer',
-        default: 'latest',
-        min: 1
-      }],
+      name: "xkcd",
+      group: "fun",
+      memberName: "xkcd",
+      description: "Get an XKCD comic.",
+      details:
+        "Not specifying the comic to lookup will give you the most recent comic",
+      aliases: ["random-xkcd", "xkcd-comic", "random-xkcd-comic"],
+      examples: ["xkcd", "xkcd 614"],
+      clientPermissions: ["EMBED_LINKS"],
+      args: [
+        {
+          key: "comic",
+          prompt: "What comic number do you want see?",
+          type: "integer",
+          default: "latest",
+          min: 1
+        }
+      ],
       throttling: {
         usages: 2,
         duration: 6
@@ -53,22 +56,22 @@ module.exports = class XKCDCommand extends Command {
         uri: `https://xkcd.com/${comic}/info.0.json`,
         json: true
       };
-      if (comic === 'latest') {
-        options.uri = 'https://xkcd.com/info.0.json';
+      if (comic === "latest") {
+        options.uri = "https://xkcd.com/info.0.json";
       }
 
       const result = await rp(options).catch(err => {
         logger.error(err);
-        return msg.reply('There was an error with the XKCD website');
+        return msg.reply("There was an error with the XKCD website");
       });
 
       // Result embed
       const embed = new MessageEmbed({
         title: `${result.safe_title} (#${result.num})`,
         author: {
-          name: 'XKCD',
-          iconURL: 'https://i.imgur.com/AP0vVy5.png',
-          url: 'https://xkcd.com'
+          name: "XKCD",
+          iconURL: "https://i.imgur.com/AP0vVy5.png",
+          url: "https://xkcd.com"
         }
       });
 
@@ -76,17 +79,17 @@ module.exports = class XKCDCommand extends Command {
       if (result.img) {
         embed.setImage(result.img);
       } else {
-        return msg.reply('Couldn\'t find that comic');
+        return msg.reply("Couldn't find that comic");
       }
 
       // Alt text
       if (result.alt) {
-        embed.addField('Alt', truncateText(result.alt, 1024));
+        embed.addField("Alt", truncateText(result.alt, 1024));
       }
 
       // Transcript
       if (result.transcript) {
-        embed.addField('Transcript', truncateText(result.transcript, 1024));
+        embed.addField("Transcript", truncateText(result.transcript, 1024));
       }
 
       // Check if there's a link

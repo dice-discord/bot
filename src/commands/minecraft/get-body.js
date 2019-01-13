@@ -14,30 +14,35 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
-const { MessageEmbed } = require('discord.js');
-const logger = require('../../util/logger').scope('command', 'get minecraft body');
+const { Command } = require("discord.js-commando");
+const { MessageEmbed } = require("discord.js");
+const logger = require("../../util/logger").scope(
+  "command",
+  "get minecraft body"
+);
 
 module.exports = class GetMinecraftBodyCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'get-minecraft-body',
-      group: 'minecraft',
-      memberName: 'get-body',
-      description: 'Shows a Minecraft user\'s body.',
-      aliases: ['get-mc-body'],
-      examples: ['get-minecraft-body Notch'],
-      clientPermissions: ['EMBED_LINKS'],
+      name: "get-minecraft-body",
+      group: "minecraft",
+      memberName: "get-body",
+      description: "Shows a Minecraft user's body.",
+      aliases: ["get-mc-body"],
+      examples: ["get-minecraft-body Notch"],
+      clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
         duration: 3
       },
-      args: [{
-        key: 'user',
-        prompt: 'What is username you want to look up?',
-        type: 'string',
-        label: 'username'
-      }]
+      args: [
+        {
+          key: "user",
+          prompt: "What is username you want to look up?",
+          type: "string",
+          label: "username"
+        }
+      ]
     });
   }
 

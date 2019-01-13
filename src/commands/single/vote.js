@@ -14,15 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require('discord.js-commando');
+const { Command } = require("discord.js-commando");
 
 module.exports = class VoteCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'vote',
-      group: 'single',
-      memberName: 'vote',
-      description: 'Vote once per day and get double your daily.',
+      name: "vote",
+      group: "single",
+      memberName: "vote",
+      description: "Vote once per day and get double your daily.",
       throttling: {
         usages: 1,
         duration: 3
@@ -31,6 +31,6 @@ module.exports = class VoteCommand extends Command {
   }
 
   run(msg) {
-    msg.reply('🗳 https://discordbots.org/bot/388191157869477888/vote');
+    msg.reply("🗳 https://discordbots.org/bot/388191157869477888/vote");
   }
 };
