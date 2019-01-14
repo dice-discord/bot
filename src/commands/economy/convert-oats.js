@@ -97,7 +97,7 @@ module.exports = class ConvertOatsCommand extends Command {
           logger.debug("Response body from Discoin", response.body);
 
           msg.replyEmbed({
-            title: "💱 Conversion Successful",
+            title: "Conversion Successful",
             color: 0x4caf50,
             footer: {
               text: `${response.body.limitNow} Discoin remaining today`
@@ -105,13 +105,13 @@ module.exports = class ConvertOatsCommand extends Command {
             timestamp: new Date(response.body.timestamp * 1000),
             fields: [
               {
-                name: "💰 Amount",
+                name: "Amount",
                 value: `${amount} OAT ➡ ${
                   response.body.resultAmount
                 } ${currency}`
               },
               {
-                name: "🗒 Receipt",
+                name: "Receipt",
                 value: `\`${response.body.receipt}\``
               }
             ]
@@ -132,20 +132,20 @@ module.exports = class ConvertOatsCommand extends Command {
               switch (response.body.reason) {
                 case "verify required":
                   return msg.replyEmbed({
-                    title: "🆔 Verification Required",
+                    title: "Verification Required",
                     color: 0xff9800,
                     url: "http://discoin.sidetrip.xyz/verify"
                   });
                 case "per-user limit exceeded":
                   return msg.replyEmbed({
-                    title: "🕒 Daily Limit Reached",
+                    title: "Daily Limit Reached",
                     color: 0xf44336,
                     description:
                       "You have reached your daily limit for the convert command. Try again tomorrow."
                   });
                 case "total limit exceeded":
                   return msg.replyEmbed({
-                    title: "🕒 Bot Daily Limit Reached",
+                    title: "Bot Daily Limit Reached",
                     color: 0xf44336,
                     description: `${
                       this.client.user

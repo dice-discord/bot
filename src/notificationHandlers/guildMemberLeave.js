@@ -8,7 +8,7 @@ const { formatDistance } = require("date-fns");
  */
 module.exports = (channel, member) => {
   const embed = new MessageEmbed({
-    title: "Member left",
+    title: "Member Left",
     timestamp: new Date(),
     color: 0xf44336,
     thumbnail: {

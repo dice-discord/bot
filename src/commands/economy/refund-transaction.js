@@ -75,7 +75,7 @@ module.exports = class RefundTransactionCommand extends Command {
               );
 
               msg.replyEmbed({
-                title: "💱 Refund Successful",
+                title: "Refund Successful",
                 color: 0x4caf50,
                 timestamp: new Date(transactionResponse.body.processTime),
                 fields: [
