@@ -37,7 +37,6 @@ module.exports = class ListRolesCommand extends Command {
   run(msg) {
     const embed = new MessageEmbed({
       title: "All Roles",
-      timestamp: new Date(),
       description: msg.guild.roles
         .sort((role1, role2) => role2.position - role1.position)
         .array()

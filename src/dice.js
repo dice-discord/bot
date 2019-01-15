@@ -579,7 +579,7 @@ client
 
     if (channels.length > 0) {
       const embed = new MessageEmbed({
-        title: "Message deleted",
+        title: "Message Deleted",
         color: 0xf44336,
         timestamp: new Date(),
         footer: {
@@ -735,4 +735,4 @@ client
 
 // Log in the bot
 logger.time("login");
-client.login(config.discordToken);
+client.login(config.discordToken).catch(logger.error);

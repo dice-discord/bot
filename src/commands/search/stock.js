@@ -54,7 +54,6 @@ module.exports = class StockCommand extends Command {
           msg.replyEmbed({
             title: `${stock.name} (\`${stock.exchange}: ${stock.symbol}\`)`,
             url: `http://www.nasdaq.com/symbol/${stock.symbol}/real-time`,
-            timestamp: new Date(),
             author: {
               name: "Yahoo! Finance",
               iconURL: "https://i.imgur.com/LinLXni.png",
