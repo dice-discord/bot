@@ -62,7 +62,7 @@
   "name": "dice",
   "repository": "dice-discord/bot",
   "scripts": {
-    "build": "docker build -t pizzafox/dice:latest .",
+    "build": "docker build -t dicediscord/dice:latest .",
     "lint": "eslint .",
     "start": "node src/index.js",
     "test": "tap -J -R spec test/*/*.js",
