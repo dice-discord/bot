@@ -22,7 +22,8 @@ const config = require("./config");
 const sentry = require("@sentry/node");
 const manager = new ShardingManager("./src/dice.js", {
   token: config.discordToken,
-  respawn: process.env.NODE_ENV === "production"
+  respawn: process.env.NODE_ENV === "production",
+  totalShards: 5
 });
 
 logger.note(`Node.js version: ${process.version}`);
