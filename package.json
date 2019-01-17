@@ -2,7 +2,7 @@
   "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
   "dependencies": {
     "@keyv/mongo": "^1.1.0",
-    "@sentry/node": "^4.5.0",
+    "@sentry/node": "^4.5.2",
     "child-process-promise": "^2.2.1",
     "commando-provider-keyv": "^2.0.0",
     "common-tags": "^1.8.0",
