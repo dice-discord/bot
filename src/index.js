@@ -16,15 +16,11 @@ limitations under the License.
 
 require("dotenv").config();
 const logger = require("./util/logger").scope("shard manager");
-const { ShardingManager } = require("discord.js");
+const { ShardingManager, Util } = require("discord.js");
 const packageData = require("../package");
 const config = require("./config");
 const sentry = require("@sentry/node");
-const manager = new ShardingManager("./src/dice.js", {
-  token: config.discordToken,
-  respawn: process.env.NODE_ENV === "production",
-  totalShards: 5
-});
+const { join } = require("path");
 
 logger.note(`Node.js version: ${process.version}`);
 logger.note(`Dice version v${packageData.version}`);
@@ -37,6 +33,15 @@ if (config.sentryDSN) {
   });
 }
 
-manager
-  .on("shardCreate", shard => logger.start("Launched shard", shard.id))
-  .spawn(manager.totalShards, 10000);
+const manager = new ShardingManager(join(__dirname, "dice.js"), {
+  respawn: process.env.NODE_ENV === "production"
+});
+
+manager.on("shardCreate", shard => logger.start("Launched shard", shard.id));
+
+Util.fetchRecommendedShards(config.discordToken)
+  .then(recommended => {
+    // Use one extra shard to help with sudden increases to server count
+    manager.spawn(recommended + 1).catch(logger.error);
+  })
+  .catch(logger.error);
