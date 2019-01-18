@@ -685,9 +685,10 @@ client
     const houseBalance = await database.balances.get(client.user.id);
 
     const logOptions = {
-      prefix: `${msg.author.tag} (${msg.author.id})`,
-      message: `${cmd.group.name}:${cmd.memberName}`,
-      suffix: args ? JSON.stringify(args) : null
+      prefix: `${msg.author.tag} (${msg.author.id}) ${cmd.group.name}:${
+        cmd.memberName
+      }`,
+      message: args || null
     };
 
     keenClient.recordEvent("commands", {

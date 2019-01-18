@@ -84,7 +84,7 @@ const database = async () => {
     set: (id, newBalance) => {
       logger
         .scope("balances", "set")
-        .debug(`Set balance for ${id} to ${simpleFormat(newBalance)}`);
+        .debug({ prefix: id, message: simpleFormat(newBalance) });
       return economy.set(id, newBalance, ms("1 year"));
     },
     decrease: async (id, amount) =>
