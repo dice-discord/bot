@@ -19,7 +19,7 @@ const logger = require("../../util/logger").scope(
   "command",
   "garrys mod server status"
 );
-const srcdsHelper = require("../../util/srcdsHelper");
+const gameDigHelper = require("../../util/gameDigHelper");
 const gamedig = require("gamedig");
 
 module.exports = class GarrysModServerStatusCommand extends Command {
@@ -72,7 +72,7 @@ module.exports = class GarrysModServerStatusCommand extends Command {
       gamedig
         .query(options)
         .then(data => {
-          const embed = srcdsHelper(data);
+          const embed = gameDigHelper(data);
           embed.setThumbnail(
             "https://steamcdn-a.akamaihd.net/steam/apps/4000/header.jpg"
           );

@@ -19,7 +19,7 @@ const logger = require("../../util/logger").scope(
   "command",
   "rust server status"
 );
-const srcdsHelper = require("../../util/srcdsHelper");
+const gameDigHelper = require("../../util/gameDigHelper");
 const gamedig = require("gamedig");
 
 module.exports = class RustServerStatusCommand extends Command {
@@ -73,7 +73,7 @@ module.exports = class RustServerStatusCommand extends Command {
         .query(options)
         .then(data =>
           msg.replyEmbed(
-            srcdsHelper(data).setThumbnail(
+            gameDigHelper(data).setThumbnail(
               "https://steamcdn-a.akamaihd.net/steam/apps/252490/header.jpg"
             )
           )

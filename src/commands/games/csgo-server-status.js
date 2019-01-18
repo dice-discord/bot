@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const srcdsHelper = require("../../util/srcdsHelper");
+const gameDigHelper = require("../../util/gameDigHelper");
 const logger = require("../../util/logger").scope(
   "command",
   "csgo server status"
@@ -85,7 +85,7 @@ module.exports = class CSGOStatusCommand extends Command {
       gamedig
         .query(options)
         .then(data => {
-          const embed = srcdsHelper(data);
+          const embed = gameDigHelper(data);
           embed.setThumbnail(
             "https://steamcdn-a.akamaihd.net/steam/apps/730/header.jpg"
           );

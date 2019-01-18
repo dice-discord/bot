@@ -19,7 +19,7 @@ const logger = require("../../util/logger").scope(
   "command",
   "insurgency server status"
 );
-const srcdsHelper = require("../../util/srcdsHelper");
+const gameDigHelper = require("../../util/gameDigHelper");
 const gamedig = require("gamedig");
 
 module.exports = class InsurgencyServerStatusCommand extends Command {
@@ -73,7 +73,7 @@ module.exports = class InsurgencyServerStatusCommand extends Command {
         .query(options)
         .then(data =>
           msg.replyEmbed(
-            srcdsHelper(data)
+            gameDigHelper(data)
               .setThumbnail(
                 "https://steamcdn-a.akamaihd.net/steam/apps/222880/header.jpg"
               )
