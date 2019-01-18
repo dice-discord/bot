@@ -24,6 +24,7 @@ module.exports = class DevHelpCommand extends Command {
       group: "dev",
       memberName: "dev-help",
       description: "Get info to help developers fix bugs.",
+      aliases: ["shard", "developer-help", "debug"],
       hidden: true,
       throttling: {
         usages: 2,
@@ -37,15 +38,22 @@ module.exports = class DevHelpCommand extends Command {
       fields: [
         {
           name: "Shard",
-          value: `${this.client.shard.id}`
+          value: `${this.client.shard.id}/${this.client.shard.count}`
         },
         {
           name: "IDs",
           value: stripIndents`
-        Guild: ${msg.guild.id}
-        User: ${msg.author.id}
-        Message: ${msg.id}
+        Guild: \`${msg.guild ? msg.guild.id : "dm"}\`
+        Channel: \`${msg.channel.id}\`
+        User: \`${msg.author.id}\`
+        Message: \`${msg.id}\`
         `
+        },
+        {
+          name: "Timestamp",
+          value: stripIndents`
+          Message: \`${msg.createdTimestamp}\`
+          Current: \`${new Date().getTime()}\``
         }
       ]
     });
