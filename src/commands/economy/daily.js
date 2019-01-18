@@ -45,7 +45,7 @@ module.exports = class DailyCommand extends Command {
       // Initialize variables
       const oldTimestamp = await database.getDailyUsed(msg.author.id);
       const currentTimestamp = msg.createdTimestamp;
-      const dbl = new DBL(config.botListTokens["discordbots.org"]);
+      const dbl = new DBL(config.botListTokens.discordBotList);
       const dblData = await Promise.all([
         dbl.hasVoted(msg.author.id).catch(error => {
           logger.error("Error in discordbots.org vote checking", error);
