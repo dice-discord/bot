@@ -1413,10 +1413,10 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-gamedig@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/gamedig/-/gamedig-2.0.5.tgz#3b4e2adc061291c8e149d906afcc11a36848eef3"
-  integrity sha512-BxMhu3T7nJzYN0x1nJ/S8edwOaT9qW+o3rTTONV3XY8k2IXe4QgbfsD663fjfVToMTB1IvshZB2Cb5H0OUMFJQ==
+gamedig@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/gamedig/-/gamedig-2.0.7.tgz#7b3430977aa3617ca36895c0535a46d307307dff"
+  integrity sha512-GMLH576rfjPvJ112g6tzRYvm5iP5kB5b91nh+x2Xlx8uWJNkuncvqtMlkDuPvuv35xUyZMiW1dbgvsFy6Th2mg==
   dependencies:
     cheerio "^1.0.0-rc.2"
     compressjs "^1.0.2"
@@ -1425,6 +1425,7 @@ gamedig@^2.0.5:
     long "^2.4.0"
     minimist "^1.2.0"
     moment "^2.21.0"
+    punycode "^2.1.1"
     request "^2.88.0"
     request-promise "^4.2.2"
     varint "^4.0.1"
