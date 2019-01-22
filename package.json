@@ -35,7 +35,7 @@
     "eslint-config-prettier": "^3.6.0",
     "eslint-plugin-prettier": "^3.0.1",
     "prettier": "^1.16.0",
-    "tap": "^12.1.1"
+    "tap": "^12.1.2"
   },
   "email": "me@jonahsnider.ninja",
   "engines": {
