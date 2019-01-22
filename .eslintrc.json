@@ -1,28 +1,5 @@
 {
-  "env": {
-    "es6": true,
-    "node": true
-  },
   "extends": [
-    "plugin:prettier/recommended",
-    "eslint:recommended"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
-  "rules": {
-    "arrow-body-style": [
-      "error",
-      "as-needed"
-    ],
-    "dot-notation": "error",
-    "quotes": [
-      "error",
-      "double",
-      {
-        "allowTemplateLiterals": false,
-        "avoidEscape": true
-      }
-    ]
-  }
+    "@dice-discord"
+  ]
 }

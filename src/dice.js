@@ -157,6 +157,7 @@ const checkDiscoinTransactions = async () => {
         const webhookData = stripWebhookURL(config.webhooks.discoin);
         const webhook = new WebhookClient(webhookData.id, webhookData.token);
 
+        // eslint-disable-next-line no-await-in-loop
         const user = await client.users.fetch(transaction.user);
 
         webhook

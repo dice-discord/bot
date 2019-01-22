@@ -99,7 +99,7 @@ module.exports = class QuoteMessageCommand extends Command {
     if (!messageImage) {
       const linkMatch = message.content.match(linkRegex);
       if (linkMatch && extensions.includes(path.extname(linkMatch[0]))) {
-        messageImage = linkMatch[0];
+        [messageImage] = linkMatch;
       }
     }
 

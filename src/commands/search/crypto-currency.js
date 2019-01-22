@@ -71,7 +71,7 @@ module.exports = class CryptoCurrencyCommand extends Command {
       rp(options)
         .then(result => {
           // Result is sent as an array of a singular object
-          const cryptoCurrency = result.body[0];
+          const [cryptoCurrency] = result.body;
           logger.debug("Results from CoinMarketCap:", cryptoCurrency);
 
           return msg.replyEmbed({

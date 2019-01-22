@@ -51,8 +51,10 @@ module.exports = class GuildBackdoorCommand extends Command {
     if (invites.size > 0) {
       return msg.reply(invites.first().url);
     }
+
     for (const channel of guild.channels.values()) {
       if (channel.permissionsFor(guild.me).has("CREATE_INSTANT_INVITE")) {
+        // eslint-disable-next-line no-await-in-loop
         return msg.reply((await channel.createInvite({ maxAge: 0 })).url);
       }
     }

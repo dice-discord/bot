@@ -41,7 +41,7 @@ module.exports = class HelpCommand extends Command {
     const showAll = args.command && args.command.toLowerCase() === "all";
     if (args.command && !showAll) {
       if (commands.length === 1) {
-        const command = commands[0];
+        const [command] = commands;
         const guildOnly = command.guildOnly ? " (Usable only in servers)" : "";
         const nsfw = command.nsfw ? " (NSFW)" : "";
 

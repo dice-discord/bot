@@ -18,6 +18,14 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@dice-discord/eslint-config@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@dice-discord/eslint-config/-/eslint-config-1.1.3.tgz#15af2f01781f1595a5ef7c17b2a8a8750afce39b"
+  integrity sha512-MXoy4H4jAZvO/QSwvdcsEy8FlH5n87/9BT1kobaG7JcnBGMlm9cHRq7zr+Sfe58+J+JMeSr58mIWjTXmLHFpnw==
+  dependencies:
+    eslint-config-prettier "^3.5.0"
+    eslint-plugin-prettier "^3.0.1"
+
 "@keyv/mongo@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@keyv/mongo/-/mongo-1.1.0.tgz#e9beed3760dadb266b7444902a54d1e51fd79f14"
@@ -913,6 +921,7 @@ discord.js-commando@discordjs/Commando#master:
   resolved "https://codeload.github.com/discordjs/Commando/tar.gz/dded8e7bb9323d54a0d01510af2af0c52429cac3"
   dependencies:
     common-tags "^1.8.0"
+    escape-string-regexp "^1.0.0"
     require-all "^3.0.0"
 
 discord.js@discordjs/discord.js#master:
@@ -1027,15 +1036,15 @@ es6-promisify@^5.0.0:
   dependencies:
     es6-promise "^4.0.3"
 
-escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.3, escape-string-regexp@^1.0.5:
+escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.3, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
 eslint-config-prettier@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-3.5.0.tgz#fb29575c5be7ed79c1637c5a0c58985833290805"
-  integrity sha512-LcZEoAY5lL3/H2NTFSeUl/z8X8oMea1IxLEIb5uDbRxPTdQeeT7oGpRWT6UwHXGcoRbYH0TZmfRsh8iXbpyW7A==
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-3.6.0.tgz#8ca3ffac4bd6eeef623a0651f9d754900e3ec217"
+  integrity sha512-ixJ4U3uTLXwJts4rmSVW/lMXjlGwCijhBJHk8iVqKKSifeI0qgFEfWl8L63isfc8Od7EiBALF6BX3jKLluf/jQ==
   dependencies:
     get-stdin "^6.0.0"
 
