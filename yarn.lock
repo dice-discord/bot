@@ -1073,10 +1073,10 @@ eslint-visitor-keys@^1.0.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
   integrity sha512-qzm/XxIbxm/FHyH341ZrbnMUpe+5Bocte9xkmFMzPMjRaZMcXww+MpBptFvtU+79L362nqiLhekCxCxDPaUMBQ==
 
-eslint@^5.12.0:
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.12.0.tgz#fab3b908f60c52671fb14e996a450b96c743c859"
-  integrity sha512-LntwyPxtOHrsJdcSwyQKVtHofPHdv+4+mFwEe91r2V13vqpM8yLr7b1sW+Oo/yheOPkWYsYlYJCkzlFAt8KV7g==
+eslint@^5.12.1:
+  version "5.12.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.12.1.tgz#5ca9931fb9029d04e7be92b03ce3b58edfac7e3b"
+  integrity sha512-54NV+JkTpTu0d8+UYSA8mMKAG4XAsaOrozA9rCW7tgneg1mevcL7wIotPC+fZ0SkWwdhNqoXoxnQCTBp7UvTsg==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.5.3"
@@ -1422,10 +1422,10 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-gamedig@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/gamedig/-/gamedig-2.0.5.tgz#3b4e2adc061291c8e149d906afcc11a36848eef3"
-  integrity sha512-BxMhu3T7nJzYN0x1nJ/S8edwOaT9qW+o3rTTONV3XY8k2IXe4QgbfsD663fjfVToMTB1IvshZB2Cb5H0OUMFJQ==
+gamedig@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/gamedig/-/gamedig-2.0.7.tgz#7b3430977aa3617ca36895c0535a46d307307dff"
+  integrity sha512-GMLH576rfjPvJ112g6tzRYvm5iP5kB5b91nh+x2Xlx8uWJNkuncvqtMlkDuPvuv35xUyZMiW1dbgvsFy6Th2mg==
   dependencies:
     cheerio "^1.0.0-rc.2"
     compressjs "^1.0.2"
@@ -1434,6 +1434,7 @@ gamedig@^2.0.5:
     long "^2.4.0"
     minimist "^1.2.0"
     moment "^2.21.0"
+    punycode "^2.1.1"
     request "^2.88.0"
     request-promise "^4.2.2"
     varint "^4.0.1"
@@ -2856,10 +2857,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^1.15.3:
-  version "1.15.3"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.3.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
-  integrity sha512-gAU9AGAPMaKb3NNSUUuhhFAS7SCO4ALTN4nRIn6PJ075Qd28Yn2Ig2ahEJWdJwJmlEBTUfC7mMUSFy8MwsOCfg==
+prettier@^1.16.0:
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.0.tgz#104dd25f5ee3d0c9d0a6ce4bb40ced8481d51219"
+  integrity sha512-MCBCYeAuZfejUPdEpkleLWvpRBwLii/Sp5jQs0eb8Ul/drGIDjkL6tAU24tk6yCGf0KPV5rhPPPlczfBmN2pWQ==
 
 prism-media@amishshah/prism-media:
   version "0.3.1"
@@ -3589,10 +3590,10 @@ tap-parser@^7.0.0:
     js-yaml "^3.2.7"
     minipass "^2.2.0"
 
-tap@^12.1.1:
-  version "12.1.1"
-  resolved "https://registry.yarnpkg.com/tap/-/tap-12.1.1.tgz#e362237b78ac446027038b7326fee1e561519fa2"
-  integrity sha512-YPxCIzgrjCjdVt1F71snGLyebbAcbCs5uh74f5GPBkXFbcMgLjuDnopva+vgs9cqVv4mtSYBuxRS1/8C2ed7MQ==
+tap@^12.1.2:
+  version "12.1.2"
+  resolved "https://registry.yarnpkg.com/tap/-/tap-12.1.2.tgz#b6e6af4ded7be65813ceeb4d451c405b34fdfa53"
+  integrity sha512-bSxKjA6Pchgt7Ho1V/hbRvU9aoJgCTD9Gwxl1D4gw5NiV093Kbi+eXsOXpY8dNaXkLeE+YiMU142cOj2DojHUA==
   dependencies:
     bind-obj-methods "^2.0.0"
     bluebird "^3.5.3"

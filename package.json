@@ -11,7 +11,7 @@
     "discord.js": "discordjs/discord.js#master",
     "discord.js-commando": "discordjs/Commando#master",
     "dotenv": "^6.2.0",
-    "gamedig": "^2.0.5",
+    "gamedig": "^2.0.7",
     "hot-shots": "^6.1.1",
     "keen-tracking": "^4.0.17",
     "keyv": "^3.1.0",
@@ -32,9 +32,9 @@
   "devDependencies": {
     "@dice-discord/eslint-config": "^1.1.3",
     "codecov": "^3.1.0",
-    "eslint": "^5.12.0",
-    "prettier": "^1.15.3",
-    "tap": "^12.1.1"
+    "eslint": "^5.12.1",
+    "prettier": "^1.16.0",
+    "tap": "^12.1.2"
   },
   "email": "me@jonahsnider.ninja",
   "engines": {
