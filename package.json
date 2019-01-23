@@ -11,7 +11,7 @@
     "discord.js": "discordjs/discord.js#master",
     "discord.js-commando": "discordjs/Commando#master",
     "dotenv": "^6.2.0",
-    "gamedig": "^2.0.7",
+    "gamedig": "^2.0.8",
     "hot-shots": "^6.1.1",
     "keen-tracking": "^4.0.17",
     "keyv": "^3.1.0",
