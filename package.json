@@ -33,7 +33,7 @@
     "@dice-discord/eslint-config": "^1.1.3",
     "codecov": "^3.1.0",
     "eslint": "^5.12.1",
-    "prettier": "^1.16.0",
+    "prettier": "^1.16.1",
     "tap": "^12.1.4"
   },
   "email": "me@jonahsnider.ninja",
