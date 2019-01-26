@@ -16,6 +16,7 @@ limitations under the License.
 
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
+const truncateText = require("../../util/truncateText");
 
 module.exports = class ListRolesCommand extends Command {
   constructor(client) {
@@ -37,10 +38,12 @@ module.exports = class ListRolesCommand extends Command {
   run(msg) {
     const embed = new MessageEmbed({
       title: "All Roles",
-      description: msg.guild.roles
-        .sort((role1, role2) => role2.position - role1.position)
-        .array()
-        .join(", ")
+      description: truncateText(
+        msg.guild.roles
+          .sort((role1, role2) => role2.position - role1.position)
+          .array()
+          .join(", ")
+      )
     });
 
     return msg.replyEmbed(embed);
