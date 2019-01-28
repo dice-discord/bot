@@ -3049,10 +3049,10 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
-reported@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/reported/-/reported-1.1.4.tgz#64dab9263a51527a4acbe08ba8af83f51c4926e0"
-  integrity sha512-vPPNjqaB96JSmYQGbUOrV/e7bQCjYWWagkYl9fjKzJN6S6imPTEM0of6KU+mMMUVcS1+urzlG7nTcouV4mfycw==
+reported@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/reported/-/reported-1.2.0.tgz#6883f4c6bfdcf5a9ada4f363594da4b44aed9130"
+  integrity sha512-u+fRd52l4MTZDxnmKRQTgzm3ztvFJa/sLmfYpUq7ugq/ITKBq2cbLxrjs6/HIMjR7791y5uXdKlfaOZg8Ni4Vw==
   dependencies:
     axios "^0.18.0"
 
