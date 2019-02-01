@@ -49,7 +49,7 @@ module.exports = class BalanceCommand extends Command {
       let userBalance;
 
       // Bot checking
-      if (user.bot && user.id !== this.client.user.id) {
+      if (user && user.bot && user.id !== this.client.user.id) {
         return msg.reply("Bots can't play.");
       }
 
@@ -79,7 +79,7 @@ module.exports = class BalanceCommand extends Command {
       userBalance = await database.balances.get(msg.author.id);
 
       // We are looking up the message author's balance
-      if (houseBalance < userBalance && user.id !== this.client.user.id) {
+      if (houseBalance < userBalance) {
         // eslint-disable-next-line max-len
         return msg.reply(
           `🏦 You have a balance of \`${userBalance.toLocaleString()}\` ${
