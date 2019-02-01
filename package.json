@@ -9,7 +9,7 @@
     "date-fns": "^2.0.0-alpha.27",
     "dblapi.js": "^2.3.0",
     "discord.js": "discordjs/discord.js#master",
-    "discord.js-commando": "discordjs/Commando#master",
+    "discord.js-commando": "discordjs/Commando#336d59e1a45d9f13999fd880e423797e52eae927",
     "dotenv": "^6.2.0",
     "gamedig": "^2.0.8",
     "hot-shots": "^6.1.1",

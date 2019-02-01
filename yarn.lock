@@ -926,17 +926,15 @@ diff@^3.1.0:
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
   integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
 
-discord.js-commando@discordjs/Commando#master:
+discord.js-commando@discordjs/Commando#336d59e1a45d9f13999fd880e423797e52eae927:
   version "0.11.0-dev"
-  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/dded8e7bb9323d54a0d01510af2af0c52429cac3"
+  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/336d59e1a45d9f13999fd880e423797e52eae927"
   dependencies:
     common-tags "^1.8.0"
-    escape-string-regexp "^1.0.0"
     require-all "^3.0.0"
 
 discord.js@discordjs/discord.js#master:
   version "12.0.0-dev"
-  uid "3dff5058f0beae01cec0abe27e3a43c8fd7c60ce"
   resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/3dff5058f0beae01cec0abe27e3a43c8fd7c60ce"
   dependencies:
     form-data "^2.3.2"
@@ -1047,7 +1045,7 @@ es6-promisify@^5.0.0:
   dependencies:
     es6-promise "^4.0.3"
 
-escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.3, escape-string-regexp@^1.0.5:
+escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.3, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
