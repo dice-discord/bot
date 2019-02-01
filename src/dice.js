@@ -534,13 +534,11 @@ client
           .has("SEND_MESSAGES")
       ) {
         // The channel in the database exists on the server and permissions to send messages are there
-        if (oldMember && newMember) {
-          announceGuildMemberUpdate(
-            newMember.guild.channels.get(id),
-            oldMember,
-            newMember
-          );
-        }
+        announceGuildMemberUpdate(
+          newMember.guild.channels.get(id),
+          oldMember,
+          newMember
+        );
       } else {
         // Missing permissions so remove this channel from the provider
         channelSettings[3] = false;
