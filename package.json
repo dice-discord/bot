@@ -34,7 +34,7 @@
     "codecov": "^3.1.0",
     "eslint": "^5.12.1",
     "prettier": "^1.16.3",
-    "tap": "^12.4.0"
+    "tap": "^12.5.0"
   },
   "email": "me@jonahsnider.ninja",
   "engines": {
