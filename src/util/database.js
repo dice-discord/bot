@@ -20,6 +20,8 @@ const { MongoClient } = require("mongodb");
 const Keyv = require("keyv");
 const logger = require("./logger").scope("database");
 const KeenTracking = require("keen-tracking");
+
+// Note: We use ms to get 1 year in milliseconds, and we do that to have user profiles expire after a year of inactivity.
 const ms = require("ms");
 
 logger.start("Database loading");
