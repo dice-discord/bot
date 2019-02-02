@@ -70,12 +70,12 @@ const database = async () => {
         defaultBal = config.houseStartingBalance;
       }
 
-      if (userBalance) {
-        return userBalance;
-      } else {
+      if (typeof userBalance === "undefined") {
         // Set the default balance in the background to *slightly* increase performance
         economy.set(id, defaultBal, ms("1 year"));
         return defaultBal;
+      } else {
+        return userBalance;
       }
     },
     set: (id, newBalance) => {
