@@ -16,11 +16,13 @@ limitations under the License.
 
 require("dotenv").config();
 const logger = require("./util/logger").scope("shard manager");
+const rebootLogger = logger.scope("shard manager", "daily reboot");
 const { ShardingManager, Util } = require("discord.js");
 const packageData = require("../package");
 const config = require("./config");
 const sentry = require("@sentry/node");
 const { join } = require("path");
+const schedule = require("node-schedule");
 
 logger.note(`Node.js version: ${process.version}`);
 logger.note(`Dice version v${packageData.version}`);
@@ -45,3 +47,11 @@ Util.fetchRecommendedShards(config.discordToken)
     manager.spawn(recommended + 1).catch(logger.error);
   })
   .catch(logger.error);
+
+schedule.scheduleJob("10 0 * * *", () => {
+  manager.shards.forEach(async shard => {
+    rebootLogger.await(`Respawning shard #${shard.id}`);
+    await shard.respawn();
+    rebootLogger.complete(`Respawned shard #${shard.id}`);
+  });
+});

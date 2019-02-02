@@ -200,8 +200,8 @@ const userAccountBirthdayLogger = logger.scope(
   `shard ${client.shard.id}`,
   "user account birthday"
 );
-// Every day at 00:00:00 UTC
-schedule.scheduleJob("0 0 * * *", () => {
+// Every day at 00:10:00 UTC
+schedule.scheduleJob("10 0 * * *", () => {
   // Find a list of users whose accounts were made on this day of this month
   const now = new Date();
   userAccountBirthdayLogger.debug("It's currently", now);
