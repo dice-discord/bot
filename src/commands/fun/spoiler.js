@@ -40,11 +40,6 @@ module.exports = class SpoilerCommand extends Command {
   }
 
   run(msg, { phrase }) {
-    return msg.say(
-      phrase
-        .split("")
-        .map(val => `||${val}||`)
-        .join("")
-    );
+    return msg.say(phrase.replace(/./g, "||$&||"));
   }
 };
