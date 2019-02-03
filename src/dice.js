@@ -119,7 +119,8 @@ module.exports = class DiceCluster extends BaseCluster {
 
       // Default commands except the help command
       .registerDefaultCommands({
-        help: false
+        help: false,
+        unknownCommand: false
       })
 
       // Register custom argument types in the ./types directory

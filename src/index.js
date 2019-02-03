@@ -42,8 +42,7 @@ const sharder = new ShardingManager(join(__dirname, "dice"), {
   clientOptions: {
     commandPrefix: config.commandPrefix,
     owner: config.owners,
-    disableEveryone: true,
-    unknownCommandResponse: false
+    disableEveryone: true
   },
   shardCount: "auto"
 });
