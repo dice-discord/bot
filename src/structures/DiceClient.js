@@ -10,7 +10,10 @@ class DiceClient extends CommandoClient {
 
     this.db = database;
     this.blacklist = [];
-    this.stats = new StatsD();
+    this.stats = new StatsD({
+      protocol: "udp",
+      errorHandler: logger.scope("statsd").error
+    });
     this.config = config;
 
     this.stats.socket.on("error", error => {
