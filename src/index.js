@@ -16,14 +16,12 @@ limitations under the License.
 
 require("dotenv").config();
 const logger = require("./util/logger").scope("shard manager");
-const rebootLogger = logger.scope("shard manager", "daily reboot");
 const { ShardingManager } = require("kurasuta");
 const DiceClient = require("./structures/DiceClient");
 const packageData = require("../package");
 const config = require("./config");
 const sentry = require("@sentry/node");
 const { join } = require("path");
-const schedule = require("node-schedule");
 
 logger.note(`Node.js version: ${process.version}`);
 logger.note(`Dice version v${packageData.version}`);
@@ -46,8 +44,7 @@ const sharder = new ShardingManager(join(__dirname, "dice"), {
     owner: config.owners,
     disableEveryone: true,
     unknownCommandResponse: false
-  },
-  clusterCount: 1
+  }
 });
 
 sharder.on("shardCreate", shard => logger.start("Launched shard", shard.id));
@@ -61,11 +58,3 @@ sharder
     logger.fatal("Clusters not spawned");
     logger.error(err);
   });
-
-// schedule.scheduleJob("10 0 * * *", () => {
-//   sharder.shards.forEach(async shard => {
-//     rebootLogger.await(`Respawning shard #${shard.id}`);
-//     await shard.respawn();
-//     rebootLogger.complete(`Respawned shard #${shard.id}`);
-//   });
-// });
