@@ -6,7 +6,7 @@ module.exports = class UnknownCommandResponseCommand extends Command {
       name: "unknown-command-response",
       group: "util",
       memberName: "unknown-command-response",
-      description: "Set the unknown command response setting.",
+      description: "Enable or disable unknown command responses.",
       details: "If no setting is provided, the current setting will be shown.",
       examples: ["unknown-command-response on"],
       aliases: [
@@ -14,7 +14,13 @@ module.exports = class UnknownCommandResponseCommand extends Command {
         "unknown-cmd-response",
         "unknown-command-respond",
         "unknown-respond",
-        "unknown-cmd-respond"
+        "unknown-cmd-respond",
+        "set-unknown-command-response",
+        "set-unknown-response",
+        "set-unknown-cmd-response",
+        "set-unknown-command-respond",
+        "set-unknown-respond",
+        "set-unknown-cmd-respond"
       ],
       args: [
         {
