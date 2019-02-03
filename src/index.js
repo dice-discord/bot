@@ -44,7 +44,8 @@ const sharder = new ShardingManager(join(__dirname, "dice"), {
     owner: config.owners,
     disableEveryone: true,
     unknownCommandResponse: false
-  }
+  },
+  shardCount: "auto"
 });
 
 sharder.on("shardCreate", shard => logger.start("Launched shard", shard.id));
