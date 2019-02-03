@@ -17,7 +17,8 @@ limitations under the License.
 require("dotenv").config();
 const logger = require("./util/logger").scope("shard manager");
 const rebootLogger = logger.scope("shard manager", "daily reboot");
-const { ShardingManager, Util } = require("discord.js");
+const { ShardingManager } = require("kurasuta");
+const DiceClient = require("./structures/DiceClient");
 const packageData = require("../package");
 const config = require("./config");
 const sentry = require("@sentry/node");
@@ -35,23 +36,36 @@ if (config.sentryDSN) {
   });
 }
 
-const manager = new ShardingManager(join(__dirname, "dice.js"), {
-  respawn: process.env.NODE_ENV === "production"
+const sharder = new ShardingManager(join(__dirname, "dice"), {
+  token: config.discordToken,
+  respawn: process.env.NODE_ENV === "production",
+  development: process.env.NODE_ENV === "development",
+  client: DiceClient,
+  clientOptions: {
+    commandPrefix: config.commandPrefix,
+    owner: config.owners,
+    disableEveryone: true,
+    unknownCommandResponse: false
+  },
+  clusterCount: 1
 });
 
-manager.on("shardCreate", shard => logger.start("Launched shard", shard.id));
+sharder.on("shardCreate", shard => logger.start("Launched shard", shard.id));
 
-Util.fetchRecommendedShards(config.discordToken)
-  .then(recommended => {
-    // Use one extra shard to help with sudden increases to server count
-    manager.spawn(recommended + 1).catch(logger.error);
+sharder
+  .spawn()
+  .then(() => {
+    logger.success("Clusters spawned");
   })
-  .catch(logger.error);
-
-schedule.scheduleJob("10 0 * * *", () => {
-  manager.shards.forEach(async shard => {
-    rebootLogger.await(`Respawning shard #${shard.id}`);
-    await shard.respawn();
-    rebootLogger.complete(`Respawned shard #${shard.id}`);
+  .catch(err => {
+    logger.fatal("Clusters not spawned");
+    logger.error(err);
   });
-});
+
+// schedule.scheduleJob("10 0 * * *", () => {
+//   sharder.shards.forEach(async shard => {
+//     rebootLogger.await(`Respawning shard #${shard.id}`);
+//     await shard.respawn();
+//     rebootLogger.complete(`Respawned shard #${shard.id}`);
+//   });
+// });

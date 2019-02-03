@@ -1591,6 +1591,14 @@ keyv@^3.1.0:
   dependencies:
     json-buffer "3.0.0"
 
+kurasuta@^0.2.16:
+  version "0.2.16"
+  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-0.2.16.tgz#4795c289570f6a8a5f985c0f98121002a42a1727"
+  integrity sha512-7g8FVnEn5/AwSUgvyr/kXx6SYb1XeFzbnDFE6AzedHmM6r8gvcIrczyEXstn5EfKPML4ILm5PsZW2d3FJ4QSwA==
+  dependencies:
+    node-fetch "^2.3.0"
+    veza "^0.3.1"
+
 lcid@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
@@ -2985,6 +2993,11 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+veza@^0.3.1:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/veza/-/veza-0.3.3.tgz#544ec43584c6d1a5ccfbcb508374f15fb68290d3"
+  integrity sha512-uCjeVMfuv3C3LP+IxvMX/wZZU40u+CqHuYj2TTrGk79UGa8ZZe6efUKKl6gPE2Gn4Bk7Z3oEZv/ViLcJ3dpHFg==
 
 whatwg-fetch@^2.0.4:
   version "2.0.4"
