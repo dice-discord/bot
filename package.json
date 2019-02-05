@@ -11,7 +11,7 @@
     "discord.js": "Lewdcario/discord.js#master",
     "discord.js-commando": "discordjs/Commando#master",
     "dotenv": "^6.2.0",
-    "gamedig": "^2.0.9",
+    "gamedig": "^2.0.11",
     "hot-shots": "^6.1.1",
     "keen-tracking": "^4.1.0",
     "keyv": "^3.1.0",
