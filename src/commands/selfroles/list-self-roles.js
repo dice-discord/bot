@@ -21,12 +21,7 @@ module.exports = class ListSelfRolesCommand extends Command {
   constructor(client) {
     super(client, {
       name: "list-self-roles",
-      aliases: [
-        "self-role-list",
-        "self-roles-list",
-        "list-self-role",
-        "self-roles"
-      ],
+      aliases: ["self-role-list", "self-roles-list", "list-self-role", "self-roles"],
       group: "selfroles",
       memberName: "list",
       description: "List all self-assigned roles from this server.",
@@ -40,11 +35,7 @@ module.exports = class ListSelfRolesCommand extends Command {
 
   async run(msg) {
     // Get all of this guild's selfroles
-    const selfRoles = await this.client.provider.get(
-      msg.guild,
-      "selfRoles",
-      []
-    );
+    const selfRoles = await this.client.provider.get(msg.guild, "selfRoles", []);
 
     // If the selfroles array is empty
     if (selfRoles.length === 0) {
@@ -71,9 +62,7 @@ module.exports = class ListSelfRolesCommand extends Command {
     }
 
     return msg.reply(
-      `A ▫ indicates a role you currently have\n${Util.escapeMarkdown(
-        Util.cleanContent(roleList.join("\n"), msg)
-      )}`
+      `A ▫ indicates a role you currently have\n${Util.escapeMarkdown(Util.cleanContent(roleList.join("\n"), msg))}`
     );
   }
 };

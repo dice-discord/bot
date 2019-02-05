@@ -15,10 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const logger = require("../../util/logger").scope(
-  "command",
-  "garrys mod server status"
-);
+const logger = require("../../util/logger").scope("command", "garrys mod server status");
 const gameDigHelper = require("../../util/gameDigHelper");
 const gamedig = require("gamedig");
 
@@ -30,10 +27,7 @@ module.exports = class GarrysModServerStatusCommand extends Command {
       memberName: "garrys-mod-server-status",
       description: "Get information about a Garry's Mod server.",
       aliases: ["gmod-server", "garrys-mod-server", "gmod-status", "gmod"],
-      examples: [
-        "garrys-mod-server-status RP.SuperiorServers.co",
-        "garrys-mod-server-status 185.97.255.6 27016"
-      ],
+      examples: ["garrys-mod-server-status RP.SuperiorServers.co", "garrys-mod-server-status 185.97.255.6 27016"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
@@ -73,14 +67,11 @@ module.exports = class GarrysModServerStatusCommand extends Command {
         .query(options)
         .then(data => {
           const embed = gameDigHelper(data);
-          embed.setThumbnail(
-            "https://steamcdn-a.akamaihd.net/steam/apps/4000/header.jpg"
-          );
+          embed.setThumbnail("https://steamcdn-a.akamaihd.net/steam/apps/4000/header.jpg");
           return msg.replyEmbed(embed);
         })
         .catch(error => {
-          if (error === "UDP Watchdog Timeout")
-            return msg.reply("Server timed out, it's probably offline.");
+          if (error === "UDP Watchdog Timeout") return msg.reply("Server timed out, it's probably offline.");
 
           logger.error(error);
           return msg.reply("An unknown error occured.");

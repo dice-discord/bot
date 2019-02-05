@@ -15,10 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const logger = require("../../util/logger").scope(
-  "command",
-  "rust server status"
-);
+const logger = require("../../util/logger").scope("command", "rust server status");
 const gameDigHelper = require("../../util/gameDigHelper");
 const gamedig = require("gamedig");
 
@@ -30,10 +27,7 @@ module.exports = class RustServerStatusCommand extends Command {
       memberName: "rust-server-status",
       aliases: ["rust-server", "rust-status", "rust"],
       description: "Get information about a Rust Server",
-      examples: [
-        "rust-server-status 94.23.155.235",
-        "rust-server-status 151.80.111.180 28020"
-      ],
+      examples: ["rust-server-status 94.23.155.235", "rust-server-status 151.80.111.180 28020"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
@@ -73,14 +67,11 @@ module.exports = class RustServerStatusCommand extends Command {
         .query(options)
         .then(data =>
           msg.replyEmbed(
-            gameDigHelper(data).setThumbnail(
-              "https://steamcdn-a.akamaihd.net/steam/apps/252490/header.jpg"
-            )
+            gameDigHelper(data).setThumbnail("https://steamcdn-a.akamaihd.net/steam/apps/252490/header.jpg")
           )
         )
         .catch(error => {
-          if (error === "UDP Watchdog Timeout")
-            return msg.reply("Server timed out, it's probably offline.");
+          if (error === "UDP Watchdog Timeout") return msg.reply("Server timed out, it's probably offline.");
 
           logger.error(error);
           return msg.reply("An unknown error occured.");

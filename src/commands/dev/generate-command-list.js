@@ -52,12 +52,7 @@ module.exports = class GenerateCommandListCommand extends Command {
           grp =>
             `${grp.commands
               .filter(cmd => !cmd.ownerOnly)
-              .map(
-                cmd =>
-                  `|[\\\`${cmd.name}\\\`](${genCmdURL(cmd)})|${
-                    cmd.description
-                  }|${cmd.group.name}|`
-              )
+              .map(cmd => `|[\\\`${cmd.name}\\\`](${genCmdURL(cmd)})|${cmd.description}|${cmd.group.name}|`)
               .join("\n")}`
         ),
       { split: true }

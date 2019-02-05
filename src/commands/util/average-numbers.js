@@ -43,12 +43,9 @@ module.exports = class AverageNumbersCommand extends Command {
 
   run(msg, { numbers }) {
     // Argument checking
-    if (numbers.length < 2)
-      return msg.reply("Please provide 2 or more numbers.");
+    if (numbers.length < 2) return msg.reply("Please provide 2 or more numbers.");
 
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    return msg.reply(
-      `🔢 The average is ${numbers.reduce(reducer) / numbers.length}.`
-    );
+    return msg.reply(`🔢 The average is ${numbers.reduce(reducer) / numbers.length}.`);
   }
 };

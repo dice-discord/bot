@@ -33,9 +33,7 @@ module.exports = async (channel, user) => {
       auditEntry.executor.displayAvatarURL(128)
     );
   } else {
-    embed.setFooter(
-      "Give me permissions to view the audit log and more information will appear"
-    );
+    embed.setFooter("Give me permissions to view the audit log and more information will appear");
     embed.setTimestamp(new Date());
   }
 

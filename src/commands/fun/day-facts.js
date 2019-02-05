@@ -55,9 +55,7 @@ module.exports = class DayFactsCommand extends Command {
         .then(result => msg.reply(result))
         .catch(err => {
           logger.error(err);
-          return msg.reply(
-            "There was an error with the API we use (http://numbersapi.com)"
-          );
+          return msg.reply("There was an error with the API we use (http://numbersapi.com)");
         });
     } finally {
       msg.channel.stopTyping();

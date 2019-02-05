@@ -22,9 +22,7 @@ module.exports = (channel, oldMember, newMember) => {
       .setTitle("New Member Nickname")
       .addField("New nickname", Util.escapeMarkdown(newMember.nickname))
       .setColor("#4caf50")
-      .setThumbnail(
-        "https://dice.js.org/images/statuses/guildMemberUpdate/new.png"
-      );
+      .setThumbnail("https://dice.js.org/images/statuses/guildMemberUpdate/new.png");
     return channel.send(embed);
   } else if (!newMember.nickname && oldMember.nickname !== newMember.nickname) {
     // Reset nickname
@@ -32,9 +30,7 @@ module.exports = (channel, oldMember, newMember) => {
       .setTitle("Member Nickname Removed")
       .addField("Previous nickname", Util.escapeMarkdown(oldMember.nickname))
       .setColor("#f44336")
-      .setThumbnail(
-        "https://dice.js.org/images/statuses/guildMemberUpdate/removed.png"
-      );
+      .setThumbnail("https://dice.js.org/images/statuses/guildMemberUpdate/removed.png");
     return channel.send(embed);
   } else if (oldMember.nickname !== newMember.nickname) {
     // Nickname change
@@ -43,9 +39,7 @@ module.exports = (channel, oldMember, newMember) => {
       .addField("New nickname", Util.escapeMarkdown(newMember.nickname))
       .addField("Previous nickname", Util.escapeMarkdown(oldMember.nickname))
       .setColor("#ffc107")
-      .setThumbnail(
-        "https://dice.js.org/images/statuses/guildMemberUpdate/changed.png"
-      );
+      .setThumbnail("https://dice.js.org/images/statuses/guildMemberUpdate/changed.png");
     return channel.send(embed);
   }
 

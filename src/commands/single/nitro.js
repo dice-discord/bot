@@ -8,8 +8,7 @@ module.exports = class NitroCommand extends Command {
       aliases: ["discord-nitro", "nitro-message", "nitro-msg"],
       group: "single",
       memberName: "nitro",
-      description:
-        "This message can only be viewed by users with Discord Nitro.",
+      description: "This message can only be viewed by users with Discord Nitro.",
       clientPermissions: ["EMBED_LINKS"]
     });
   }

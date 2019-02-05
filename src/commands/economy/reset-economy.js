@@ -26,18 +26,11 @@ module.exports = class ResetEconomyCommand extends Command {
       memberName: "reset-economy",
       description: "Reset the entire economy.",
       details: "Only the bot owner(s) may use this command.",
-      aliases: [
-        "destroy-eco",
-        "destroy-economy",
-        "economy-destroy",
-        "eco-destroy",
-        "reset-eco"
-      ],
+      aliases: ["destroy-eco", "destroy-economy", "economy-destroy", "eco-destroy", "reset-eco"],
       args: [
         {
           key: "verification",
-          prompt:
-            "⚠ **Are you absolutely sure you want to destroy all user profiles?** ⚠",
+          prompt: "⚠ **Are you absolutely sure you want to destroy all user profiles?** ⚠",
           type: "boolean",
           default: false
         }

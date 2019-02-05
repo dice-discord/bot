@@ -60,9 +60,7 @@ module.exports = class QuoteMessageCommand extends Command {
         },
         {
           name: "Message",
-          value: `[Jump to](https://discordapp.com/channels/${
-            message.guild.id
-          }/${message.channel.id}/${message.id})`
+          value: `[Jump to](https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id})`
         }
       ]
     });
@@ -80,17 +78,12 @@ module.exports = class QuoteMessageCommand extends Command {
 
     // Embed (that may or may not exist) with an image in it
     const imageEmbed = message.embeds.find(
-      msgEmbed =>
-        msgEmbed.type === "rich" &&
-        msgEmbed.image &&
-        extensions.includes(path.extname(msgEmbed.image.url))
+      msgEmbed => msgEmbed.type === "rich" && msgEmbed.image && extensions.includes(path.extname(msgEmbed.image.url))
     );
     if (imageEmbed) messageImage = imageEmbed.image.url;
 
     // Uploaded image
-    const attachment = message.attachments.find(file =>
-      extensions.includes(path.extname(file.url))
-    );
+    const attachment = message.attachments.find(file => extensions.includes(path.extname(file.url)));
     if (attachment) {
       messageImage = attachment.url;
     }

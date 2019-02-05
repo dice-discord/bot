@@ -3,10 +3,7 @@ const announceGuildMemberLeave = require("../notificationHandlers/guildMemberLea
 module.exports = async member => {
   const { client } = member.client;
 
-  const guildSettings = await client.provider.get(
-    member.guild,
-    "notifications"
-  );
+  const guildSettings = await client.provider.get(member.guild, "notifications");
 
   for (const id in guildSettings) {
     const channelSettings = guildSettings[id];

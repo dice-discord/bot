@@ -6,8 +6,7 @@ module.exports = class UnknownCommandCommand extends Command {
       name: "unknown-command",
       group: "util",
       memberName: "unknown-command",
-      description:
-        "Displays help information for when an unknown command is used.",
+      description: "Displays help information for when an unknown command is used.",
       examples: ["unknown-command kickeverybodyever"],
       unknown: true,
       hidden: true
@@ -15,11 +14,7 @@ module.exports = class UnknownCommandCommand extends Command {
   }
 
   async run(msg) {
-    const unknownCommandResponse = await this.client.provider.get(
-      msg.guild,
-      "unknownCommandResponse",
-      false
-    );
+    const unknownCommandResponse = await this.client.provider.get(msg.guild, "unknownCommandResponse", false);
 
     if (unknownCommandResponse) {
       return msg.reply(

@@ -26,9 +26,7 @@ module.exports = class LeaderboardCommand extends Command {
       name: "leaderboard",
       group: "economy",
       memberName: "leaderboard",
-      description: `Shows a top ten leaderboard of who has the most ${
-        config.currency.plural
-      }.`,
+      description: `Shows a top ten leaderboard of who has the most ${config.currency.plural}.`,
       aliases: ["top-10", "top-ten", "chart", "top"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
@@ -44,10 +42,7 @@ module.exports = class LeaderboardCommand extends Command {
 
       const leaderboardArray = await database.leaderboard();
 
-      logger.debug(
-        "Contents of leaderboard array:",
-        JSON.stringify(leaderboardArray)
-      );
+      logger.debug("Contents of leaderboard array:", JSON.stringify(leaderboardArray));
       logger.debug("Leaderboard array length:", leaderboardArray.length);
 
       const userTagFromID = arrayPlace => {
@@ -77,9 +72,7 @@ module.exports = class LeaderboardCommand extends Command {
       leaderboardArray.forEach(user => users.push(user));
 
       const promises = [];
-      users.forEach(user =>
-        promises.push(userTagFromID(leaderboardArray.indexOf(user)))
-      );
+      users.forEach(user => promises.push(userTagFromID(leaderboardArray.indexOf(user))));
       const tags = await Promise.all(promises);
 
       const embed = new MessageEmbed({ title: "Top 10 Leaderboard" });
@@ -88,9 +81,7 @@ module.exports = class LeaderboardCommand extends Command {
         // eslint-disable-next-line max-len
         embed.addField(
           `#${i + 1} ${tags[i]}`,
-          `${leaderboardArray[i].value.value.toLocaleString()} ${
-            config.currency.plural
-          }`
+          `${leaderboardArray[i].value.value.toLocaleString()} ${config.currency.plural}`
         );
       }
 

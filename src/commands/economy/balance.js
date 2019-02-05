@@ -60,20 +60,14 @@ module.exports = class BalanceCommand extends Command {
         if (houseBalance < userBalance && user.id !== this.client.user.id) {
           // eslint-disable-next-line max-len
           return msg.reply(
-            `🏦 ${
-              user.tag
-            }'s account has a balance of \`${userBalance.toLocaleString()}\` ${
+            `🏦 ${user.tag}'s account has a balance of \`${userBalance.toLocaleString()}\` ${
               config.currency.plural
             }. That's more than ${this.client.user}!`
           );
         }
         // eslint-disable-next-line max-len
         return msg.reply(
-          `🏦 ${
-            user.tag
-          }'s account has a balance of \`${userBalance.toLocaleString()}\` ${
-            config.currency.plural
-          }.`
+          `🏦 ${user.tag}'s account has a balance of \`${userBalance.toLocaleString()}\` ${config.currency.plural}.`
         );
       }
       userBalance = await database.balances.get(msg.author.id);
@@ -82,16 +76,12 @@ module.exports = class BalanceCommand extends Command {
       if (houseBalance < userBalance) {
         // eslint-disable-next-line max-len
         return msg.reply(
-          `🏦 You have a balance of \`${userBalance.toLocaleString()}\` ${
-            config.currency.plural
-          }. That's more than ${this.client.user}!`
+          `🏦 You have a balance of \`${userBalance.toLocaleString()}\` ${config.currency.plural}. That's more than ${
+            this.client.user
+          }!`
         );
       }
-      return msg.reply(
-        `🏦 You have a balance of \`${userBalance.toLocaleString()}\` ${
-          config.currency.plural
-        }.`
-      );
+      return msg.reply(`🏦 You have a balance of \`${userBalance.toLocaleString()}\` ${config.currency.plural}.`);
     } finally {
       msg.channel.stopTyping();
     }

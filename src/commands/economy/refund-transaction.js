@@ -69,10 +69,7 @@ module.exports = class RefundTransactionCommand extends Command {
             body: { receipt }
           })
             .then(async transactionResponse => {
-              await database.balances.increase(
-                transactionResponse.body.user,
-                response.body.refundAmount
-              );
+              await database.balances.increase(transactionResponse.body.user, response.body.refundAmount);
 
               msg.replyEmbed({
                 title: "Refund Successful",
@@ -89,24 +86,18 @@ module.exports = class RefundTransactionCommand extends Command {
             .catch(transactionResponse => {
               switch (transactionResponse.statusCode) {
                 case 503:
-                  return msg.reply(
-                    "Discoin is currently unavailable. Try again later."
-                  );
+                  return msg.reply("Discoin is currently unavailable. Try again later.");
                 case 404:
                   return msg.reply("Transaction not found.");
                 default:
-                  return msg.reply(
-                    "An unknown error occured. Try again later."
-                  );
+                  return msg.reply("An unknown error occured. Try again later.");
               }
             });
         })
         .catch(response => {
           switch (response.statusCode) {
             case 503:
-              return msg.reply(
-                "Discoin is currently unavailable. Try again later."
-              );
+              return msg.reply("Discoin is currently unavailable. Try again later.");
             case 400:
               switch (response.body.reason) {
                 case "cannot refund a refund":

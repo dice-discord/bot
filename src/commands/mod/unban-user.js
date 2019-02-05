@@ -22,13 +22,7 @@ module.exports = class UnbanUserCommand extends Command {
   constructor(client) {
     super(client, {
       name: "unban-user",
-      aliases: [
-        "unban-member",
-        "unban",
-        "unhack-ban",
-        "unhack-ban-member",
-        "unhack-ban-user"
-      ],
+      aliases: ["unban-member", "unban", "unhack-ban", "unhack-ban-member", "unhack-ban-user"],
       group: "mod",
       memberName: "unban-user",
       description: "Unban a user from a server.",
@@ -63,17 +57,13 @@ module.exports = class UnbanUserCommand extends Command {
     try {
       msg.channel.startTyping();
 
-      reason = reason
-        ? `${reason} - Requested by ${msg.author.tag}`
-        : `Requested by ${msg.author.tag}`;
+      reason = reason ? `${reason} - Requested by ${msg.author.tag}` : `Requested by ${msg.author.tag}`;
 
       const guildBans = await msg.guild.fetchBans();
 
       // User is regular banned
       logger.debug(`Bans for ${msg.guild}: ${guildBans.array()}`);
-      logger.debug(
-        `Is ${user.tag} banned on ${msg.guild}: ${guildBans.has(user.id)}`
-      );
+      logger.debug(`Is ${user.tag} banned on ${msg.guild}: ${guildBans.has(user.id)}`);
       if (guildBans.has(user.id)) {
         // Unban the user on the guild
         msg.guild.members.unban(user, reason);

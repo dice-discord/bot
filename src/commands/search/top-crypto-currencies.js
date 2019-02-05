@@ -17,10 +17,7 @@ limitations under the License.
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 const { currencyCodes } = require("../../config");
-const logger = require("../../util/logger").scope(
-  "command",
-  "top crypto currencies"
-);
+const logger = require("../../util/logger").scope("command", "top crypto currencies");
 const rp = require("request-promise-native");
 
 module.exports = class TopCryptoCurrenciesCommand extends Command {
@@ -31,11 +28,7 @@ module.exports = class TopCryptoCurrenciesCommand extends Command {
       memberName: "top-crypto-currencies",
       description: "Get prices for the top crypto currencies.",
       aliases: ["top-crypto-currency", "top-cryptos", "top-crypto"],
-      examples: [
-        "top-crypto-currencies",
-        "top-crypto-currencies 5",
-        "top-crypto-currencies 10 AUD"
-      ],
+      examples: ["top-crypto-currencies", "top-crypto-currencies 5", "top-crypto-currencies 10 AUD"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
@@ -82,8 +75,7 @@ module.exports = class TopCryptoCurrenciesCommand extends Command {
         title: `Top ${limit} Crypto Currencies`,
         author: {
           name: "CoinMarketCap",
-          iconURL:
-            "https://pbs.twimg.com/profile_images/930670494927421441/GquNeyus_400x400.jpg",
+          iconURL: "https://pbs.twimg.com/profile_images/930670494927421441/GquNeyus_400x400.jpg",
           url: "https://coinmarketcap.com"
         }
       });

@@ -47,17 +47,15 @@ module.exports = class CashOutCommand extends Command {
   }
 
   async run(msg, { amount }) {
-    const beforeTransferHouseBalance = await database.balances.get(
-      this.client.user.id
-    );
+    const beforeTransferHouseBalance = await database.balances.get(this.client.user.id);
 
     // Amount checking
     if (amount > beforeTransferHouseBalance) {
       // eslint-disable-next-line max-len
       return msg.reply(
-        `Your amount must be less than \`${beforeTransferHouseBalance.toLocaleString()}\` ${
-          config.currency.plural
-        }. ${this.client.user} doesn't have that much.`
+        `Your amount must be less than \`${beforeTransferHouseBalance.toLocaleString()}\` ${config.currency.plural}. ${
+          this.client.user
+        } doesn't have that much.`
       );
     }
 

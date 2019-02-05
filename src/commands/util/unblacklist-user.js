@@ -14,10 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const logger = require("../../util/logger").scope(
-  "command",
-  "unblacklist user"
-);
+const logger = require("../../util/logger").scope("command", "unblacklist user");
 const { Command } = require("discord.js-commando");
 const respond = require("../../util/simpleCommandResponse");
 
@@ -49,8 +46,7 @@ module.exports = class UnblacklistUserCommand extends Command {
     const blacklist = await this.client.provider.get("global", "blacklist", []);
 
     // Check if the user is actually blacklisted
-    if (!blacklist.includes(user.id))
-      return msg.reply("That user isn't blacklisted.");
+    if (!blacklist.includes(user.id)) return msg.reply("That user isn't blacklisted.");
 
     // Find the user in the array and delete it
     logger.debug(`Blacklist item index: ${blacklist.indexOf(user.id)}`);

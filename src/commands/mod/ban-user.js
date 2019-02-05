@@ -21,21 +21,11 @@ module.exports = class BanUserCommand extends Command {
   constructor(client) {
     super(client, {
       name: "ban-user",
-      aliases: [
-        "ban",
-        "ban-member",
-        "hackban-user",
-        "hackban-member",
-        "hackban"
-      ],
+      aliases: ["ban", "ban-member", "hackban-user", "hackban-member", "hackban"],
       group: "mod",
       memberName: "ban-user",
       description: "Ban any user from your server.",
-      examples: [
-        "ban @Zoop",
-        "ban 213041121700478976",
-        "ban Zoop Spamming messages"
-      ],
+      examples: ["ban @Zoop", "ban 213041121700478976", "ban Zoop Spamming messages"],
       clientPermissions: ["BAN_MEMBERS"],
       userPermissions: ["BAN_MEMBERS"],
       guildOnly: true,
@@ -68,8 +58,7 @@ module.exports = class BanUserCommand extends Command {
       reason = `Requested by ${msg.author.tag}`;
     }
 
-    if ((await msg.guild.fetchBans()).has(user.id))
-      return msg.reply(`${user.tag} is already banned.`);
+    if ((await msg.guild.fetchBans()).has(user.id)) return msg.reply(`${user.tag} is already banned.`);
 
     msg.guild.members
       .ban(user.id, { reason })

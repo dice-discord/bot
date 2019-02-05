@@ -93,9 +93,7 @@ module.exports = class StockCommand extends Command {
           if (error === true) {
             return msg.reply("Unknown stock");
           }
-          return msg.reply(
-            `An unknown error occured with Yahoo Finance (\`${error}\`)`
-          );
+          return msg.reply(`An unknown error occured with Yahoo Finance (\`${error}\`)`);
         });
     } finally {
       msg.channel.stopTyping();

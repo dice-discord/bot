@@ -16,10 +16,7 @@ limitations under the License.
 
 const { Command } = require("discord.js-commando");
 const rp = require("request-promise-native");
-const logger = require("../../util/logger").scope(
-  "command",
-  "fortnite statistics"
-);
+const logger = require("../../util/logger").scope("command", "fortnite statistics");
 const config = require("../../config");
 const { MessageEmbed } = require("discord.js");
 const platforms = ["pc", "xbl", "psn"];
@@ -31,13 +28,9 @@ module.exports = class FortniteStatisticsCommand extends Command {
       group: "games",
       memberName: "fortnite-statistics",
       description: "Get statistics of a Fortnite player.",
-      details:
-        "Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).",
+      details: "Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).",
       aliases: ["fortnite-stats", "fortnite"],
-      examples: [
-        "fortnite-statistics pc Zaccubus",
-        'fortnite-stats pc "WBG Strafesh0t"'
-      ],
+      examples: ["fortnite-statistics pc Zaccubus", 'fortnite-stats pc "WBG Strafesh0t"'],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
@@ -72,50 +65,33 @@ module.exports = class FortniteStatisticsCommand extends Command {
 
       const stats = await rp(options).catch(error => {
         logger.error(error);
-        return msg.reply(
-          "There was an error with the API we use (https://api.fortnitetracker.com)"
-        );
+        return msg.reply("There was an error with the API we use (https://api.fortnitetracker.com)");
       });
 
       if (stats.error === "Player Not Found") {
         return msg.reply("Player not found on that platform.");
       }
 
-      logger.debug(
-        `Result for ${username} on ${platform}:`,
-        JSON.stringify(stats)
-      );
+      logger.debug(`Result for ${username} on ${platform}:`, JSON.stringify(stats));
       const embed = new MessageEmbed({
         title: stats.epicUserHandle,
-        url: `https://fortnitetracker.com/profile/${platform}/${encodeURIComponent(
-          username
-        )}`,
+        url: `https://fortnitetracker.com/profile/${platform}/${encodeURIComponent(username)}`,
         footer: { text: "Information provided by the Tracker Network" }
       });
 
       if (stats.lifeTimeStats[8] && stats.lifeTimeStats[9]) {
-        embed.addField(
-          "🏆 Wins",
-          `${stats.lifeTimeStats[8].value} wins (${
-            stats.lifeTimeStats[9].value
-          })`
-        );
+        embed.addField("🏆 Wins", `${stats.lifeTimeStats[8].value} wins (${stats.lifeTimeStats[9].value})`);
       }
 
       if (stats.lifeTimeStats[10] && stats.lifeTimeStats[11]) {
         embed.addField(
           "💀 Kills",
-          `${stats.lifeTimeStats[10].value} kills. ${
-            stats.lifeTimeStats[11].value
-          } K/D ratio.`
+          `${stats.lifeTimeStats[10].value} kills. ${stats.lifeTimeStats[11].value} K/D ratio.`
         );
       }
 
       if (stats.lifeTimeStats[7]) {
-        embed.addField(
-          "🎮 Matches Played",
-          stats.lifeTimeStats[7].value.toString()
-        );
+        embed.addField("🎮 Matches Played", stats.lifeTimeStats[7].value.toString());
       }
 
       if (stats.lifeTimeStats[6]) {

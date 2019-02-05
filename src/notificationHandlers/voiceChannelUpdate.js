@@ -18,58 +18,30 @@ module.exports = (channel, oldVoiceState, newVoiceState) => {
     }
   });
 
-  if (
-    oldVoiceState.channel &&
-    newVoiceState.channel &&
-    oldVoiceState.channel !== newVoiceState.channel
-  ) {
+  if (oldVoiceState.channel && newVoiceState.channel && oldVoiceState.channel !== newVoiceState.channel) {
     // Transfering from one voice channel to another
     embed
       .setTitle("Switched voice channels")
       .setColor(0xff9800)
-      .addField(
-        "Old voice channel",
-        Util.escapeMarkdown(oldVoiceState.channel.name)
-      )
-      .addField(
-        "New voice channel",
-        Util.escapeMarkdown(newVoiceState.channel.name)
-      )
-      .setThumbnail(
-        "https://dice.js.org/images/statuses/voiceChannel/transfer.png"
-      );
+      .addField("Old voice channel", Util.escapeMarkdown(oldVoiceState.channel.name))
+      .addField("New voice channel", Util.escapeMarkdown(newVoiceState.channel.name))
+      .setThumbnail("https://dice.js.org/images/statuses/voiceChannel/transfer.png");
     return channel.send(embed);
-  } else if (
-    newVoiceState.channel &&
-    newVoiceState.channel !== oldVoiceState.channel
-  ) {
+  } else if (newVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Connected to a voice channel
     embed
       .setTitle("Connected to a voice channel")
       .setColor(0x4caf50)
-      .addField(
-        "Voice channel",
-        Util.escapeMarkdown(newVoiceState.channel.name)
-      )
-      .setThumbnail(
-        "https://dice.js.org/images/statuses/voiceChannel/join.png"
-      );
+      .addField("Voice channel", Util.escapeMarkdown(newVoiceState.channel.name))
+      .setThumbnail("https://dice.js.org/images/statuses/voiceChannel/join.png");
     return channel.send(embed);
-  } else if (
-    oldVoiceState.channel &&
-    newVoiceState.channel !== oldVoiceState.channel
-  ) {
+  } else if (oldVoiceState.channel && newVoiceState.channel !== oldVoiceState.channel) {
     // Disconnected from a voice channel
     embed
       .setTitle("Disconnected from a voice channel")
       .setColor(0xf44336)
-      .addField(
-        "Voice channel",
-        Util.escapeMarkdown(oldVoiceState.channel.name)
-      )
-      .setThumbnail(
-        "https://dice.js.org/images/statuses/voiceChannel/leave.png"
-      );
+      .addField("Voice channel", Util.escapeMarkdown(oldVoiceState.channel.name))
+      .setThumbnail("https://dice.js.org/images/statuses/voiceChannel/leave.png");
     return channel.send(embed);
   }
 

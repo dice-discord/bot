@@ -26,8 +26,7 @@ module.exports = (multiplier, user) => {
   let { houseEdgePercentage } = config;
 
   // If they're a crown supporter, set it to the patron percentage
-  if (config.patrons[user.id] && config.patrons[user.id].crown === true)
-    houseEdgePercentage = 0;
+  if (config.patrons[user.id] && config.patrons[user.id].crown === true) houseEdgePercentage = 0;
 
   return (100 - houseEdgePercentage) / multiplier;
 };

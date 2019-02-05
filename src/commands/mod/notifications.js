@@ -35,10 +35,8 @@ module.exports = class NotificationsCommand extends Command {
       ],
       group: "mod",
       memberName: "notifications",
-      description:
-        "Check or set what notifications for server events are sent to a channel.",
-      details:
-        "Not specifying an event type to toggle will list the statuses of all events in the channel",
+      description: "Check or set what notifications for server events are sent to a channel.",
+      details: "Not specifying an event type to toggle will list the statuses of all events in the channel",
       userPermissions: ["MANAGE_GUILD"],
       clientPermissions: ["EMBED_LINKS"],
       examples: ["notifications 1", "notifications"],
@@ -62,19 +60,11 @@ module.exports = class NotificationsCommand extends Command {
 
   async run(msg, { notification }) {
     // Get this guild's settings
-    const guildSettings = await this.client.provider.get(
-      msg.guild.id,
-      "notifications",
-      {}
-    );
+    const guildSettings = await this.client.provider.get(msg.guild.id, "notifications", {});
 
     if (!guildSettings[msg.channel.id]) {
       // eslint-disable-next-line max-len
-      logger.debug(
-        `The channel ${
-          msg.channel.name
-        } does not have settings, will set them to the default`
-      );
+      logger.debug(`The channel ${msg.channel.name} does not have settings, will set them to the default`);
       // This channel doesn't have settings for it so set it to the default values (everything disabled)
       guildSettings[msg.channel.id] = [].fill(false, 0, 6);
     }
@@ -93,11 +83,7 @@ module.exports = class NotificationsCommand extends Command {
       guildSettings[msg.channel.id] = channelSettings;
 
       // Set the guild settings to our updated version
-      await this.client.provider.set(
-        msg.guild.id,
-        "notifications",
-        guildSettings
-      );
+      await this.client.provider.set(msg.guild.id, "notifications", guildSettings);
 
       // Respond to author with success
       respond(msg);
@@ -114,12 +100,8 @@ module.exports = class NotificationsCommand extends Command {
       // eslint-disable-next-line max-len
       const i = notifications.indexOf(item);
       embed.addField(
-        `${channelSettings[i] ? "Disable" : "Enable"} ${
-          item.label
-        } notifications`,
-        `Use ${msg.anyUsage(`notification ${i + 1}`)} to **${
-          channelSettings[i] ? "disable" : "enable"
-        }** this item`
+        `${channelSettings[i] ? "Disable" : "Enable"} ${item.label} notifications`,
+        `Use ${msg.anyUsage(`notification ${i + 1}`)} to **${channelSettings[i] ? "disable" : "enable"}** this item`
       );
     });
 

@@ -28,9 +28,7 @@ class RomanNumeralsType extends ArgumentType {
   validate(value) {
     value = this._parse(value);
 
-    return /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/.test(
-      value
-    );
+    return /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/.test(value);
   }
 
   parse(value) {

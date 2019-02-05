@@ -11,12 +11,7 @@ module.exports = class EvalOnAllShardsCommand extends Command {
   constructor(client) {
     super(client, {
       name: "eval-on-all-shards",
-      aliases: [
-        "shard-eval",
-        "shards-eval",
-        "eval-on-shards",
-        "eval-all-shards"
-      ],
+      aliases: ["shard-eval", "shards-eval", "eval-on-shards", "eval-all-shards"],
       group: "util",
       memberName: "eval-on-all-shards",
       description: "Executes JavaScript code on all shards.",
@@ -46,10 +41,7 @@ module.exports = class EvalOnAllShardsCommand extends Command {
       if (val instanceof Error) {
         msg.reply(`Callback error: \`${val}\``);
       } else {
-        const result = this.makeResultMessages(
-          val,
-          process.hrtime(this.hrStart)
-        );
+        const result = this.makeResultMessages(val, process.hrtime(this.hrStart));
         if (Array.isArray(result)) {
           for (const item of result) msg.reply(item);
         } else {
@@ -71,9 +63,7 @@ module.exports = class EvalOnAllShardsCommand extends Command {
 
     // Prepare for callback time and respond
     this.hrStart = process.hrtime();
-    return msg.reply(
-      this.makeResultMessages(this.lastResult, hrDiff, args.script)
-    );
+    return msg.reply(this.makeResultMessages(this.lastResult, hrDiff, args.script));
   }
 
   makeResultMessages(result, hrDiff, input = null) {
@@ -83,14 +73,9 @@ module.exports = class EvalOnAllShardsCommand extends Command {
       .replace(sensitivePattern, "--snip--");
     const split = inspected.split("\n");
     const last = inspected.length - 1;
-    const prependPart =
-      inspected[0] !== "{" && inspected[0] !== "[" && inspected[0] !== "'"
-        ? split[0]
-        : inspected[0];
+    const prependPart = inspected[0] !== "{" && inspected[0] !== "[" && inspected[0] !== "'" ? split[0] : inspected[0];
     const appendPart =
-      inspected[last] !== "}" &&
-      inspected[last] !== "]" &&
-      inspected[last] !== "'"
+      inspected[last] !== "}" && inspected[last] !== "]" && inspected[last] !== "'"
         ? split[split.length - 1]
         : inspected[last];
     const prepend = `\`\`\`javascript\n${prependPart}\n`;
@@ -111,8 +96,7 @@ module.exports = class EvalOnAllShardsCommand extends Command {
     }
     return discord.splitMessage(
       tags.stripIndents`
-				*Callback executed after ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ""}${hrDiff[1] /
-        1000000}ms.*
+				*Callback executed after ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ""}${hrDiff[1] / 1000000}ms.*
 				\`\`\`javascript
 				${inspected}
 				\`\`\`

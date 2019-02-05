@@ -3,10 +3,7 @@ const announceGuildMemberUpdate = require("../notificationHandlers/guildMemberUp
 module.exports = async (oldMember, newMember) => {
   const { client } = newMember;
 
-  const guildSettings = await client.provider.get(
-    newMember.guild,
-    "notifications"
-  );
+  const guildSettings = await client.provider.get(newMember.guild, "notifications");
 
   for (const id in guildSettings) {
     const channelSettings = guildSettings[id];
@@ -20,11 +17,7 @@ module.exports = async (oldMember, newMember) => {
         .has("SEND_MESSAGES")
     ) {
       // The channel in the database exists on the server and permissions to send messages are there
-      announceGuildMemberUpdate(
-        newMember.guild.channels.get(id),
-        oldMember,
-        newMember
-      );
+      announceGuildMemberUpdate(newMember.guild.channels.get(id), oldMember, newMember);
     } else {
       // Missing permissions so remove this channel from the provider
       channelSettings[3] = false;

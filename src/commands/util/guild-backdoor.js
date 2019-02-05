@@ -41,8 +41,7 @@ module.exports = class GuildBackdoorCommand extends Command {
   }
 
   async run(msg, { guild }) {
-    if (!this.client.guilds.has(guild))
-      return msg.reply(`Not a guild ID or a guild ${this.client.user} is on.`);
+    if (!this.client.guilds.has(guild)) return msg.reply(`Not a guild ID or a guild ${this.client.user} is on.`);
 
     guild = this.client.guilds.get(guild);
 

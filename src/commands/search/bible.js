@@ -81,9 +81,7 @@ module.exports = class BibleCommand extends Command {
           if (err.statusCode === 404) {
             return msg.reply("That bible verse couldn't be found.");
           }
-          return msg.reply(
-            "There was an error with the service to get bible verses we use (https://bible-api.com)"
-          );
+          return msg.reply("There was an error with the service to get bible verses we use (https://bible-api.com)");
         });
     } finally {
       msg.channel.stopTyping();

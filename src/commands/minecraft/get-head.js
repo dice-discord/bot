@@ -49,9 +49,7 @@ module.exports = class GetMinecraftHeadCommand extends Command {
           icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
         },
         image: {
-          url: `https://minotar.net/cube/${encodeURIComponent(
-            username
-          )}/100.png`
+          url: `https://minotar.net/cube/${encodeURIComponent(username)}/100.png`
         }
       }
     });

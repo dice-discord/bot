@@ -21,15 +21,7 @@ module.exports = class DeleteSelfRolesCommand extends Command {
   constructor(client) {
     super(client, {
       name: "delete-role",
-      aliases: [
-        "role-delete",
-        "roles-delete",
-        "delete-roles",
-        "del-roles",
-        "role-del",
-        "roles-del",
-        "del-role"
-      ],
+      aliases: ["role-delete", "roles-delete", "delete-roles", "del-roles", "role-del", "roles-del", "del-role"],
       group: "mod",
       memberName: "delete-role",
       description: "Delete a role from this server.",
@@ -52,10 +44,7 @@ module.exports = class DeleteSelfRolesCommand extends Command {
 
   run(msg, { role }) {
     // Check if the author is able to delete the role
-    if (
-      role.comparePositionTo(msg.member.roles.highest) >= 0 ||
-      !msg.member.hasPermission("ADMINISTRATOR")
-    ) {
+    if (role.comparePositionTo(msg.member.roles.highest) >= 0 || !msg.member.hasPermission("ADMINISTRATOR")) {
       return msg.reply("You don't have the permissions to delete that role.");
     }
 

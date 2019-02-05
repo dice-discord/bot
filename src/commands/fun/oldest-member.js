@@ -52,9 +52,7 @@ module.exports = class OldestMemberCommand extends Command {
     const { createdAt } = oldest;
     const age = formatDistance(createdAt, new Date());
     const date = formatRelative(createdAt, new Date());
-    return msg.reply(stripIndents`${
-      oldest.tag
-    } is the oldest member on this server.
+    return msg.reply(stripIndents`${oldest.tag} is the oldest member on this server.
     Their account is ${age} old (created ${date}).`);
   }
 };

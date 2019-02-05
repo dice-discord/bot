@@ -44,17 +44,8 @@ module.exports = class FeedbackCommand extends Command {
   run(msg, { userFeedback }) {
     const message = "Thanks for sending your feedback.";
     const messages = [];
-    if (
-      userFeedback.toLowerCase().includes("help") ||
-      userFeedback.toLowerCase().includes("support")
-    ) {
-      messages.push(
-        msg.reply(
-          `${message} If you need help with a problem use ${msg.anyUsage(
-            "support"
-          )}.`
-        )
-      );
+    if (userFeedback.toLowerCase().includes("help") || userFeedback.toLowerCase().includes("support")) {
+      messages.push(msg.reply(`${message} If you need help with a problem use ${msg.anyUsage("support")}.`));
     } else {
       messages.push(msg.reply(message));
     }

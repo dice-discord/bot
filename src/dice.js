@@ -64,13 +64,8 @@ module.exports = class DiceCluster extends BaseCluster {
     super(parameters);
 
     // Get the loggers running with accurate scopes
-    this.logger = require("./util/logger").scope(
-      `shard ${this.client.shard.id}`
-    );
-    this.webhookLogger = this.logger.scope(
-      `shard ${this.client.shard.id}`,
-      "webhook"
-    );
+    this.logger = require("./util/logger").scope(`shard ${this.client.shard.id}`);
+    this.webhookLogger = this.logger.scope(`shard ${this.client.shard.id}`, "webhook");
   }
   /**
    * @name reportError
@@ -131,10 +126,7 @@ module.exports = class DiceCluster extends BaseCluster {
   }
 
   scheduleBirthdayNotifications() {
-    const userAccountBirthdayLogger = this.logger.scope(
-      `shard ${this.client.shard.id}`,
-      "user account birthday"
-    );
+    const userAccountBirthdayLogger = this.logger.scope(`shard ${this.client.shard.id}`, "user account birthday");
     // Every day at 00:10:00 UTC
     schedule.scheduleJob("10 0 * * *", () => {
       // Find a list of users whose accounts were made on this day of this month
@@ -152,41 +144,31 @@ module.exports = class DiceCluster extends BaseCluster {
           .forEach(member => {
             userAccountBirthdayLogger.debug({
               prefix: `${member.user.tag} (${member.user.id})`,
-              message:
-                "Passed verification, their birthday is on this day of this month and they are human"
+              message: "Passed verification, their birthday is on this day of this month and they are human"
             });
 
-            this.client.provider
-              .get(member.guild, "notifications")
-              .then(guildSettings => {
-                for (const id in guildSettings) {
-                  const channelSettings = guildSettings[id];
+            this.client.provider.get(member.guild, "notifications").then(guildSettings => {
+              for (const id in guildSettings) {
+                const channelSettings = guildSettings[id];
 
-                  if (
-                    member.guild.channels.has(id) &&
-                    channelSettings[4] === true &&
-                    member.guild.channels
-                      .get(id)
-                      .permissionsFor(member.guild.me)
-                      .has("SEND_MESSAGES")
-                  ) {
-                    // The channel in the database exists on the server and permissions to send messages are there
-                    announceUserAccountBirthday(
-                      member.guild.channels.get(id),
-                      member.user
-                    );
-                  } else {
-                    // Missing permissions so remove this channel from the provider
-                    channelSettings[4] = false;
-                    guildSettings[id] = channelSettings;
-                    this.client.provider.set(
-                      member.guild,
-                      "notifications",
-                      guildSettings
-                    );
-                  }
+                if (
+                  member.guild.channels.has(id) &&
+                  channelSettings[4] === true &&
+                  member.guild.channels
+                    .get(id)
+                    .permissionsFor(member.guild.me)
+                    .has("SEND_MESSAGES")
+                ) {
+                  // The channel in the database exists on the server and permissions to send messages are there
+                  announceUserAccountBirthday(member.guild.channels.get(id), member.user);
+                } else {
+                  // Missing permissions so remove this channel from the provider
+                  channelSettings[4] = false;
+                  guildSettings[id] = channelSettings;
+                  this.client.provider.set(member.guild, "notifications", guildSettings);
                 }
-              });
+              }
+            });
           })
       );
     });
@@ -198,11 +180,7 @@ module.exports = class DiceCluster extends BaseCluster {
     this.scheduleBirthdayNotifications();
 
     this.client.setProvider(new KeyvProvider(keyv)).then(async () => {
-      const blacklist = await this.client.provider.get(
-        "global",
-        "blacklist",
-        []
-      );
+      const blacklist = await this.client.provider.get("global", "blacklist", []);
       this.client.blacklist = blacklist;
     });
 
@@ -210,12 +188,7 @@ module.exports = class DiceCluster extends BaseCluster {
       const { blacklist } = this.client;
 
       if (blacklist.includes(msg.author.id)) {
-        return [
-          "blacklisted",
-          msg.reply(
-            `You have been blacklisted from ${this.client.user.username}.`
-          )
-        ];
+        return ["blacklisted", msg.reply(`You have been blacklisted from ${this.client.user.username}.`)];
       }
       return false;
     });
@@ -248,16 +221,10 @@ module.exports = class DiceCluster extends BaseCluster {
         });
 
         // Only check for Discoin transactions and send bot stats if this is shard 0 and the production account
-        if (
-          this.client.shard.id === 0 &&
-          config.clientID === this.client.user.id
-        ) {
+        if (this.client.shard.id === 0 && config.clientID === this.client.user.id) {
           const botListLogger = this.logger.scope("bot list logger");
 
-          const batchBotList = new Batch(
-            config.botListTokens,
-            this.client.user.id
-          );
+          const batchBotList = new Batch(config.botListTokens, this.client.user.id);
           batchBotList.on("status", (botList, token) => {
             botListLogger.debug("About to send stats for:", botList);
             botListLogger.debug(`Token for ${botList}:`, token);
@@ -265,9 +232,7 @@ module.exports = class DiceCluster extends BaseCluster {
 
           const submitToBotLists = async () => {
             botListLogger.start("Sending stats to bot lists");
-            const shards = await this.client.shard.broadcastEval(
-              "this.guilds.size"
-            );
+            const shards = await this.client.shard.broadcastEval("this.guilds.size");
             batchBotList
               .submit({
                 serverCount: shards.reduce((prev, val) => prev + val, 0),
@@ -333,10 +298,7 @@ module.exports = class DiceCluster extends BaseCluster {
   }
 
   async checkDiscoinTransactions() {
-    const checkDiscoinTransactionsLogger = this.logger.scope(
-      `shard ${this.client.shard.id}`,
-      "discoin"
-    );
+    const checkDiscoinTransactionsLogger = this.logger.scope(`shard ${this.client.shard.id}`, "discoin");
     const transactions = await rp({
       json: true,
       method: "GET",
@@ -344,17 +306,11 @@ module.exports = class DiceCluster extends BaseCluster {
       headers: { Authorization: config.discoinToken }
     }).catch(error => checkDiscoinTransactionsLogger.error(error));
 
-    checkDiscoinTransactionsLogger.debug(
-      "All Discoin transactions:",
-      JSON.stringify(transactions)
-    );
+    checkDiscoinTransactionsLogger.debug("All Discoin transactions:", JSON.stringify(transactions));
 
     for (const transaction of transactions) {
       if (transaction.type !== "refund") {
-        checkDiscoinTransactionsLogger.debug(
-          "Discoin transaction fetched:",
-          JSON.stringify(transaction)
-        );
+        checkDiscoinTransactionsLogger.debug("Discoin transaction fetched:", JSON.stringify(transaction));
         database.balances.increase(transaction.user, transaction.amount);
 
         if (config.webhooks.discoin) {

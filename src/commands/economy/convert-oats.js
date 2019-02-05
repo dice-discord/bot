@@ -28,21 +28,13 @@ module.exports = class ConvertOatsCommand extends Command {
       memberName: "convert-oats",
       description: "Converts oats to another bot's currency.",
       details: "Use the `discoin-rates` command to see all currencies",
-      aliases: [
-        "convert",
-        "convert-currencies",
-        "exchange-oats",
-        "exchange",
-        "exchange-currencies",
-        "discoin"
-      ],
+      aliases: ["convert", "convert-currencies", "exchange-oats", "exchange", "exchange-currencies", "discoin"],
       examples: ["convert-oats 500 dts"],
       clientPermissions: ["EMBED_LINKS"],
       args: [
         {
           key: "amount",
-          prompt:
-            "How many oats do you want to convert to another Discoin currency?",
+          prompt: "How many oats do you want to convert to another Discoin currency?",
           type: "integer",
           min: config.minCurrency
         },
@@ -106,9 +98,7 @@ module.exports = class ConvertOatsCommand extends Command {
             fields: [
               {
                 name: "Amount",
-                value: `${amount} OAT ➡ ${
-                  response.body.resultAmount
-                } ${currency}`
+                value: `${amount} OAT ➡ ${response.body.resultAmount} ${currency}`
               },
               {
                 name: "Receipt",
@@ -120,14 +110,10 @@ module.exports = class ConvertOatsCommand extends Command {
         .catch(response => {
           switch (response.statusCode) {
             case 503:
-              return msg.reply(
-                "Discoin is currently unavailable. Try again later"
-              );
+              return msg.reply("Discoin is currently unavailable. Try again later");
             case 403:
               if (!response.body || !response.body.reason) {
-                return msg.reply(
-                  "A 403 error was sent by Discoin. They didn't say why."
-                );
+                return msg.reply("A 403 error was sent by Discoin. They didn't say why.");
               }
               switch (response.body.reason) {
                 case "verify required":
@@ -140,21 +126,16 @@ module.exports = class ConvertOatsCommand extends Command {
                   return msg.replyEmbed({
                     title: "Daily Limit Reached",
                     color: 0xf44336,
-                    description:
-                      "You have reached your daily limit for the convert command. Try again tomorrow."
+                    description: "You have reached your daily limit for the convert command. Try again tomorrow."
                   });
                 case "total limit exceeded":
                   return msg.replyEmbed({
                     title: "Bot Daily Limit Reached",
                     color: 0xf44336,
-                    description: `${
-                      this.client.user
-                    } has reached the daily total limit. Try again tomorrow.`
+                    description: `${this.client.user} has reached the daily total limit. Try again tomorrow.`
                   });
                 default:
-                  return msg.reply(
-                    "A 403 error was sent by Discoin. They didn't say why."
-                  );
+                  return msg.reply("A 403 error was sent by Discoin. They didn't say why.");
               }
             default:
               return msg.reply("An unknown error occured. Try again later.");

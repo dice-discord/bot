@@ -25,8 +25,7 @@ module.exports = class NumberFactsCommand extends Command {
       group: "fun",
       memberName: "number-facts",
       description: "Get a fact about a number.",
-      details:
-        "Not specifying the number to lookup will give you a random fact",
+      details: "Not specifying the number to lookup will give you a random fact",
       aliases: [
         "num-facts",
         "number-fact",
@@ -61,9 +60,7 @@ module.exports = class NumberFactsCommand extends Command {
         .then(result => msg.reply(result))
         .catch(error => {
           logger.error(error);
-          return msg.reply(
-            "There was an error with the API we use (http://numbersapi.com)"
-          );
+          return msg.reply("There was an error with the API we use (http://numbersapi.com)");
         });
     } finally {
       msg.channel.stopTyping();

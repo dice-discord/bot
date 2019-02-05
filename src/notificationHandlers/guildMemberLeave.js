@@ -27,10 +27,7 @@ module.exports = (channel, member) => {
     ]
   });
 
-  if (member.joinedAt)
-    embed.setFooter(
-      `Member for ${formatDistance(member.joinedAt, new Date())}`
-    );
+  if (member.joinedAt) embed.setFooter(`Member for ${formatDistance(member.joinedAt, new Date())}`);
 
   return channel.send(embed);
 };

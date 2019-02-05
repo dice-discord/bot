@@ -26,8 +26,7 @@ module.exports = class ColorCommand extends Command {
       group: "dev",
       memberName: "color",
       description: "Display and convert a color.",
-      details:
-        "Display and convert a color from and to hexadecimal, HSL, RGB, CMYK, and CSS name",
+      details: "Display and convert a color from and to hexadecimal, HSL, RGB, CMYK, and CSS name",
       examples: ["color blue", "color #deaded", "color hsl(210,50,50)"],
       clientPermissions: ["EMBED_LINKS"],
       args: [
@@ -51,13 +50,7 @@ module.exports = class ColorCommand extends Command {
       if (!color.startsWith("#") && color.length === 6) {
         // Hexadecimal missing the pound sign
         const testResult = parseColor(`#${color}`);
-        if (
-          !testResult.cmyk ||
-          !testResult.rgb ||
-          !testResult.hsv ||
-          !testResult.hsl ||
-          !testResult.hex
-        ) {
+        if (!testResult.cmyk || !testResult.rgb || !testResult.hsv || !testResult.hsl || !testResult.hex) {
           // Invalid hexadecimal
           return msg.reply("Invalid color.");
         }

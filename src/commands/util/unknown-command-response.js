@@ -35,24 +35,12 @@ module.exports = class UnknownCommandResponseCommand extends Command {
   }
 
   async run(msg, { updated }) {
-    const old = await this.client.provider.get(
-      msg.guild,
-      "unknownCommandResponse",
-      false
-    );
+    const old = await this.client.provider.get(msg.guild, "unknownCommandResponse", false);
 
     if (typeof updated === "boolean") {
-      await this.client.provider.set(
-        msg.guild,
-        "unknownCommandResponse",
-        updated
-      );
+      await this.client.provider.set(msg.guild, "unknownCommandResponse", updated);
 
-      return msg.reply(
-        `Set the unknown command response setting to ${
-          updated ? "" : "not"
-        } respond`
-      );
+      return msg.reply(`Set the unknown command response setting to ${updated ? "" : "not"} respond`);
     } else {
       return msg.reply(`Current setting is to ${old ? "" : "not "}respond.`);
     }

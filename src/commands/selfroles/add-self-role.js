@@ -44,11 +44,7 @@ module.exports = class AddSelfRoleCommand extends Command {
 
   async run(msg, { role }) {
     // Get all of this guild's selfroles
-    const selfRoles = await this.client.provider.get(
-      msg.guild,
-      "selfRoles",
-      []
-    );
+    const selfRoles = await this.client.provider.get(msg.guild, "selfRoles", []);
 
     // Check if the role is already a self role
     if (selfRoles.includes(role.id)) {
@@ -56,10 +52,7 @@ module.exports = class AddSelfRoleCommand extends Command {
     }
 
     // Check if the author is able to add the role
-    if (
-      role.comparePositionTo(msg.member.roles.highest) >= 0 &&
-      !msg.member.hasPermission("ADMINISTRATOR")
-    ) {
+    if (role.comparePositionTo(msg.member.roles.highest) >= 0 && !msg.member.hasPermission("ADMINISTRATOR")) {
       return msg.reply("You don't have the permissions to add that role.");
     }
 

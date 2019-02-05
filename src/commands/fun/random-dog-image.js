@@ -16,10 +16,7 @@ limitations under the License.
 
 const { Command } = require("discord.js-commando");
 const rp = require("request-promise-native");
-const logger = require("../../util/logger").scope(
-  "command",
-  "random dog image"
-);
+const logger = require("../../util/logger").scope("command", "random dog image");
 
 module.exports = class RandomDogImageCommand extends Command {
   constructor(client) {
@@ -58,9 +55,7 @@ module.exports = class RandomDogImageCommand extends Command {
         )
         .catch(error => {
           logger.error(error);
-          return msg.reply(
-            "There was an error with the API we use (http://dog.ceo/dog-api)"
-          );
+          return msg.reply("There was an error with the API we use (http://dog.ceo/dog-api)");
         });
     } finally {
       msg.channel.stopTyping();

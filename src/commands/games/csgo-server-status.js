@@ -16,10 +16,7 @@ limitations under the License.
 
 const { Command } = require("discord.js-commando");
 const gameDigHelper = require("../../util/gameDigHelper");
-const logger = require("../../util/logger").scope(
-  "command",
-  "csgo server status"
-);
+const logger = require("../../util/logger").scope("command", "csgo server status");
 const gamedig = require("gamedig");
 
 module.exports = class CSGOStatusCommand extends Command {
@@ -28,8 +25,7 @@ module.exports = class CSGOStatusCommand extends Command {
       name: "csgo-server-status",
       group: "games",
       memberName: "csgo-server-status",
-      description:
-        "Get information about a Counter-Strike Global Offensive server.",
+      description: "Get information about a Counter-Strike Global Offensive server.",
       aliases: [
         "csgo-server",
         "counter-strike-server",
@@ -43,10 +39,7 @@ module.exports = class CSGOStatusCommand extends Command {
         "counter-strike-global-offensive-status",
         "counter-strike-global-offensive"
       ],
-      examples: [
-        "csgo-server-status 74.91.123.188",
-        "csgo-server-status  Zombie.Mapeadores.com 27040"
-      ],
+      examples: ["csgo-server-status 74.91.123.188", "csgo-server-status  Zombie.Mapeadores.com 27040"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
@@ -86,14 +79,11 @@ module.exports = class CSGOStatusCommand extends Command {
         .query(options)
         .then(data => {
           const embed = gameDigHelper(data);
-          embed.setThumbnail(
-            "https://steamcdn-a.akamaihd.net/steam/apps/730/header.jpg"
-          );
+          embed.setThumbnail("https://steamcdn-a.akamaihd.net/steam/apps/730/header.jpg");
           return msg.replyEmbed(embed);
         })
         .catch(error => {
-          if (error === "UDP Watchdog Timeout")
-            return msg.reply("Server timed out, it's probably offline.");
+          if (error === "UDP Watchdog Timeout") return msg.reply("Server timed out, it's probably offline.");
 
           logger.error(error);
           return msg.reply("An unknown error occured.");

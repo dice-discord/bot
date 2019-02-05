@@ -69,14 +69,9 @@ module.exports = class DiceGameCommand extends Command {
         return msg.reply(
           `You are missing \`${(wager - authorBalance).toLocaleString()}\` ${
             config.currency.plural
-          }. Your balance is \`${authorBalance.toLocaleString()}\` ${
-            config.currency.plural
-          }.`
+          }. Your balance is \`${authorBalance.toLocaleString()}\` ${config.currency.plural}.`
         );
-      } else if (
-        wager * multiplier - wager >
-        (await database.balances.get(this.client.user.id))
-      ) {
+      } else if (wager * multiplier - wager > (await database.balances.get(this.client.user.id))) {
         return msg.reply("I couldn't pay you your winnings if you won.");
       }
 
@@ -116,9 +111,7 @@ module.exports = class DiceGameCommand extends Command {
           },
           {
             name: "🏦 Updated Balance",
-            value: `${(await database.balances.get(
-              msg.author.id
-            )).toLocaleString()} ${config.currency.plural}`,
+            value: `${(await database.balances.get(msg.author.id)).toLocaleString()} ${config.currency.plural}`,
             inline: true
           },
           {
@@ -137,17 +130,11 @@ module.exports = class DiceGameCommand extends Command {
       if (gameResult === true) {
         // Red color and loss message
         embed.setColor(0xf44334);
-        embed.setDescription(
-          `You lost \`${wager.toLocaleString()}\` ${config.currency.plural}.`
-        );
+        embed.setDescription(`You lost \`${wager.toLocaleString()}\` ${config.currency.plural}.`);
       } else {
         // Green color and win message
         embed.setColor(0x4caf50);
-        embed.setDescription(
-          `You made \`${profit.toLocaleString()}\` ${
-            config.currency.plural
-          } of profit!`
-        );
+        embed.setDescription(`You made \`${profit.toLocaleString()}\` ${config.currency.plural} of profit!`);
       }
 
       return msg.replyEmbed(embed);

@@ -38,9 +38,7 @@ module.exports = class StatisticsCommand extends Command {
     try {
       msg.channel.startTyping();
 
-      const serverCount = await this.client.shard.broadcastEval(
-        "this.guilds.size"
-      );
+      const serverCount = await this.client.shard.broadcastEval("this.guilds.size");
 
       return msg.replyEmbed({
         title: "Dice Statistics",
@@ -48,15 +46,11 @@ module.exports = class StatisticsCommand extends Command {
           {
             name: "👤 Total Number of Users",
             // Subtract one because of the Dice bot and for the Dice Dev bot
-            value: `${(
-              (await database.userCount()) - 2
-            ).toLocaleString()} users`
+            value: `${((await database.userCount()) - 2).toLocaleString()} users`
           },
           {
             name: "👥 Total Number of Servers",
-            value: `${serverCount
-              .reduce((prev, val) => prev + val, 0)
-              .toLocaleString()} servers`
+            value: `${serverCount.reduce((prev, val) => prev + val, 0).toLocaleString()} servers`
           }
         ]
       });

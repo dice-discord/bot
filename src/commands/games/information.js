@@ -27,13 +27,7 @@ module.exports = class InformationCommand extends Command {
       group: "games",
       memberName: "information",
       description: "Get information on a user.",
-      aliases: [
-        "user-info",
-        "user-profile",
-        "profile",
-        "info",
-        "user-information"
-      ],
+      aliases: ["user-info", "user-profile", "profile", "info", "user-information"],
       examples: ["info", "information PizzaFox"],
       clientPermissions: ["EMBED_LINKS"],
       args: [
@@ -81,9 +75,7 @@ module.exports = class InformationCommand extends Command {
         fields: [
           {
             name: "💰 Total Profit",
-            value: `${simpleFormat(
-              userBalance - startingBalance
-            ).toLocaleString()} ${config.currency.plural}`,
+            value: `${simpleFormat(userBalance - startingBalance).toLocaleString()} ${config.currency.plural}`,
             inline: true
           },
           {

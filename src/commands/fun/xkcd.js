@@ -27,8 +27,7 @@ module.exports = class XKCDCommand extends Command {
       group: "fun",
       memberName: "xkcd",
       description: "Get an XKCD comic.",
-      details:
-        "Not specifying the comic to lookup will give you the most recent comic",
+      details: "Not specifying the comic to lookup will give you the most recent comic",
       aliases: ["random-xkcd", "xkcd-comic", "random-xkcd-comic"],
       examples: ["xkcd", "xkcd 614"],
       clientPermissions: ["EMBED_LINKS"],

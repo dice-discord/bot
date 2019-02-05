@@ -3,10 +3,7 @@ const announceVoiceChannelUpdate = require("../notificationHandlers/voiceChannel
 module.exports = async (oldVoiceState, newVoiceState) => {
   const { client } = newVoiceState.guild;
 
-  const guildSettings = await client.provider.get(
-    newVoiceState.guild,
-    "notifications"
-  );
+  const guildSettings = await client.provider.get(newVoiceState.guild, "notifications");
 
   for (const id in guildSettings) {
     const channelSettings = guildSettings[id];
@@ -21,11 +18,7 @@ module.exports = async (oldVoiceState, newVoiceState) => {
     ) {
       // The channel in the database exists on the server and permissions to send messages are there
       if (oldVoiceState.channel || newVoiceState.channel) {
-        announceVoiceChannelUpdate(
-          newVoiceState.guild.channels.get(id),
-          oldVoiceState,
-          newVoiceState
-        );
+        announceVoiceChannelUpdate(newVoiceState.guild.channels.get(id), oldVoiceState, newVoiceState);
       }
     } else {
       // Missing permissions so remove this channel from the provider

@@ -4,8 +4,7 @@ const config = require("../config");
 const sensitiveTerms = [];
 
 if (config.discordToken) sensitiveTerms.push(config.discordToken);
-if (config.fortniteTrackerNetworkToken)
-  sensitiveTerms.push(config.fortniteTrackerNetworkToken);
+if (config.fortniteTrackerNetworkToken) sensitiveTerms.push(config.fortniteTrackerNetworkToken);
 if (config.discoinToken) sensitiveTerms.push(config.discoinToken);
 if (config.backend) sensitiveTerms.push(config.backend);
 if (config.mongoDBURI) sensitiveTerms.push(config.mongoDBURI);
@@ -15,8 +14,7 @@ if (config.webhooks.discoin) sensitiveTerms.push(config.webhooks.discoin);
 if (config.webhooks.updates) sensitiveTerms.push(config.webhooks.updates);
 for (const key in config.botListTokens) {
   if (config.botListTokens.hasOwnProperty(key)) {
-    if (typeof config.botListTokens[key] !== "undefined")
-      sensitiveTerms.push(config.botListTokens[key]);
+    if (typeof config.botListTokens[key] !== "undefined") sensitiveTerms.push(config.botListTokens[key]);
   }
 }
 

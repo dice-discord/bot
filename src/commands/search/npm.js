@@ -71,24 +71,15 @@ module.exports = class NPMSearchCommand extends Command {
 
         let { description } = data;
         const version = data.versions[data["dist-tags"].latest];
-        const dependencies = version.dependencies
-          ? Object.keys(version.dependencies).join(", ")
-          : null;
+        const dependencies = version.dependencies ? Object.keys(version.dependencies).join(", ") : null;
 
         if (full) description = data.readme;
         if (description) embed.setDescription(truncateText(description));
-        if (data["dist-tags"].latest)
-          embed.addField("Latest Release", `v${data["dist-tags"].latest}`);
-        if (dependencies)
-          embed.addField("Dependencies", this.clean(dependencies, 1024));
+        if (data["dist-tags"].latest) embed.addField("Latest Release", `v${data["dist-tags"].latest}`);
+        if (dependencies) embed.addField("Dependencies", this.clean(dependencies, 1024));
         if (data.homepage) embed.setURL(data.homepage);
-        if (data.keywords)
-          embed.addField(
-            "Keywords",
-            this.clean(data.keywords.join(", "), 1024)
-          );
-        if (data.author && data.author.name)
-          embed.setAuthor(truncateText(data.author.name, 256));
+        if (data.keywords) embed.addField("Keywords", this.clean(data.keywords.join(", "), 1024));
+        if (data.author && data.author.name) embed.setAuthor(truncateText(data.author.name, 256));
 
         return msg.replyEmbed(embed);
       })

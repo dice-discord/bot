@@ -81,15 +81,11 @@ const database = async () => {
       }
     },
     set: (id, newBalance) => {
-      logger
-        .scope("balances", "set")
-        .debug({ prefix: id, message: simpleFormat(newBalance) });
+      logger.scope("balances", "set").debug({ prefix: id, message: simpleFormat(newBalance) });
       return economy.set(id, newBalance, ms("1 year"));
     },
-    decrease: async (id, amount) =>
-      balances.set(id, (await balances.get(id)) - amount),
-    increase: async (id, amount) =>
-      balances.set(id, (await balances.get(id)) + amount)
+    decrease: async (id, amount) => balances.set(id, (await balances.get(id)) - amount),
+    increase: async (id, amount) => balances.set(id, (await balances.get(id)) + amount)
   };
   module.exports.balances = balances;
 
@@ -98,8 +94,7 @@ const database = async () => {
    * @async
    * @returns {boolean}
    */
-  const userExists = async requestedID =>
-    Boolean(await economy.get(requestedID));
+  const userExists = async requestedID => Boolean(await economy.get(requestedID));
   module.exports.userExists = userExists;
 
   /**
@@ -138,9 +133,7 @@ const database = async () => {
    */
   const setDailyUsed = (id, timestamp) => {
     const setDailyUsedLogger = logger.scope("daily used", "set");
-    setDailyUsedLogger.debug(
-      `Set daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`
-    );
+    setDailyUsedLogger.debug(`Set daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`);
     return dailies.set(id, timestamp, ms("1 year"));
   };
   module.exports.setDailyUsed = setDailyUsed;

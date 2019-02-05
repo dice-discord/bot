@@ -17,10 +17,7 @@ limitations under the License.
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 const rp = require("request-promise-native");
-const logger = require("../../util/logger").scope(
-  "command",
-  "overwatch statistics"
-);
+const logger = require("../../util/logger").scope("command", "overwatch statistics");
 const platforms = ["pc", "xbl", "psn"];
 const regions = ["us", "eu", "asia"];
 
@@ -31,15 +28,8 @@ module.exports = class OverwatchStatisticsCommand extends Command {
       group: "games",
       memberName: "overwatch-statistics",
       description: "Get statistics of an Overwatch player.",
-      details:
-        "Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).",
-      aliases: [
-        "overwatch-stats",
-        "overwatch",
-        "ow-statistics",
-        "ow-stats",
-        "ow"
-      ],
+      details: "Platforms are `pc` (PC), `xbl` (Xbox Live), and `psn` (PlayStation Network).",
+      aliases: ["overwatch-stats", "overwatch", "ow-statistics", "ow-stats", "ow"],
       examples: ["overwatch-statistics cats#11481 pc us"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
@@ -86,9 +76,7 @@ module.exports = class OverwatchStatisticsCommand extends Command {
       };
       const res = await rp(options).catch(err => {
         logger.error(err);
-        return msg.reply(
-          "There was an error with the API we use (https://ow-api.com)"
-        );
+        return msg.reply("There was an error with the API we use (https://ow-api.com)");
       });
 
       /* eslint-disable max-len */
@@ -97,15 +85,11 @@ module.exports = class OverwatchStatisticsCommand extends Command {
       } else if (res.error) {
         logger.error(new Error(res.error));
         return msg.reply(
-          `There was an error with the API we use (https://ow-api.com). The error that was sent: ${
-            res.error
-          }`
+          `There was an error with the API we use (https://ow-api.com). The error that was sent: ${res.error}`
         );
       }
 
-      logger.debug(
-        `Result for ${battletag} on ${platform}: ${JSON.stringify(res)}`
-      );
+      logger.debug(`Result for ${battletag} on ${platform}: ${JSON.stringify(res)}`);
 
       const embed = new MessageEmbed({
         author: {
@@ -121,16 +105,10 @@ module.exports = class OverwatchStatisticsCommand extends Command {
       }
 
       // Games won
-      if (
-        res.gamesWon &&
-        res.quickPlayStats.games.won &&
-        res.competitiveStats.games
-      ) {
+      if (res.gamesWon && res.quickPlayStats.games.won && res.competitiveStats.games) {
         embed.addField(
           "🏆 Games Won",
-          `${res.gamesWon} total wins (${
-            res.quickPlayStats.games.won
-          } from quick play and ${
+          `${res.gamesWon} total wins (${res.quickPlayStats.games.won} from quick play and ${
             res.competitiveStats.games.won
           } from competitive)`
         );
@@ -139,46 +117,28 @@ module.exports = class OverwatchStatisticsCommand extends Command {
       }
 
       // Average eliminations
-      if (
-        res.quickPlayStats.eliminationsAvg &&
-        res.competitiveStats.eliminationsAvg
-      ) {
+      if (res.quickPlayStats.eliminationsAvg && res.competitiveStats.eliminationsAvg) {
         embed.addField(
           "💀 Average Eliminations",
-          `${
-            res.quickPlayStats.eliminationsAvg
-          } eliminations from quick play and ${
+          `${res.quickPlayStats.eliminationsAvg} eliminations from quick play and ${
             res.competitiveStats.eliminationsAvg
           } from competitive`
         );
       } else if (res.quickPlayStats.eliminationsAvg) {
-        embed.addField(
-          "💀 Average Eliminations",
-          `${res.quickPlayStats.eliminationsAvg} eliminations from quick play`
-        );
+        embed.addField("💀 Average Eliminations", `${res.quickPlayStats.eliminationsAvg} eliminations from quick play`);
       }
 
       if (res.quickPlayStats) {
         // Games Played
-        if (
-          res.competitiveStats.games &&
-          res.quickPlayStats.games.played &&
-          res.competitiveStats.games.played
-        ) {
+        if (res.competitiveStats.games && res.quickPlayStats.games.played && res.competitiveStats.games.played) {
           embed.addField(
             "🎮 Games Played",
-            `${res.quickPlayStats.games.played +
-              res.competitiveStats.games.played} games played total (${
+            `${res.quickPlayStats.games.played + res.competitiveStats.games.played} games played total (${
               res.quickPlayStats.games.played
-            } from quick play and ${
-              res.competitiveStats.games.played
-            } from competitive)`
+            } from quick play and ${res.competitiveStats.games.played} from competitive)`
           );
         } else if (res.quickPlayStats.games.played) {
-          embed.addField(
-            "🎮 Games Played",
-            `${res.quickPlayStats.games.played} games played total`
-          );
+          embed.addField("🎮 Games Played", `${res.quickPlayStats.games.played} games played total`);
         }
 
         // Quick play medals
@@ -187,9 +147,7 @@ module.exports = class OverwatchStatisticsCommand extends Command {
             "🏅 Medals (Quick Play)",
             `${res.quickPlayStats.awards.medals} medals total.\n🥇 ${
               res.quickPlayStats.awards.medalsGold
-            } gold medals\n🥈 ${
-              res.quickPlayStats.awards.medalsSilver
-            } silver medals\n🥉 ${
+            } gold medals\n🥈 ${res.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${
               res.quickPlayStats.awards.medalsBronze
             } bronze medals`
           );
@@ -203,27 +161,19 @@ module.exports = class OverwatchStatisticsCommand extends Command {
             "🏅 Medals (Competitive)",
             `${res.competitiveStats.awards.medals} medals total.\n🥇 ${
               res.competitiveStats.awards.medalsGold
-            } gold medals\n🥈 ${
-              res.competitiveStats.awards.medalsSilver
-            } silver medals\n🥉 ${
+            } gold medals\n🥈 ${res.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${
               res.competitiveStats.awards.medalsBronze
             } bronze medals`
           );
         }
 
         // Cards
-        if (
-          res.competitiveStats.awards.cards &&
-          res.quickPlayStats.awards.cards
-        ) {
+        if (res.competitiveStats.awards.cards && res.quickPlayStats.awards.cards) {
           embed.addField(
             "🃏 Cards",
-            `${res.competitiveStats.awards.cards +
-              res.quickPlayStats.awards.cards} total cards (${
+            `${res.competitiveStats.awards.cards + res.quickPlayStats.awards.cards} total cards (${
               res.quickPlayStats.awards.cards
-            } from quick play, ${
-              res.competitiveStats.awards.cards
-            } from competitive)`,
+            } from quick play, ${res.competitiveStats.awards.cards} from competitive)`,
             true
           );
           /* eslint-enable max-len complexity */

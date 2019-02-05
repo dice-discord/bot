@@ -65,8 +65,7 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
   }
 
   run(msg, { command }) {
-    const capitalizeString = string =>
-      `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+    const capitalizeString = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
     const prettyTitle = capitalizeString(command.name.replace(/[-]/, " "));
 
     let result = stripIndents`
@@ -122,15 +121,9 @@ module.exports = class GenerateCommandDocumentationCommand extends Command {
 			${examples.join("\n")}`;
     }
 
-    if (
-      command.argsCollector &&
-      command.argsCollector.args &&
-      command.argsCollector.args.length > 0
-    ) {
+    if (command.argsCollector && command.argsCollector.args && command.argsCollector.args.length > 0) {
       const args = command.argsCollector.args.map(arg => {
-        const name = arg.label
-          ? capitalizeString(arg.label)
-          : capitalizeString(arg.key);
+        const name = arg.label ? capitalizeString(arg.label) : capitalizeString(arg.key);
         const type = capitalizeString(arg.type.id);
         const required = arg.default ? "No" : "Yes";
         const minimum = arg.min || "";

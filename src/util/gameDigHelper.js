@@ -39,9 +39,7 @@ module.exports = res => {
       },
       {
         name: "Online Players",
-        value: `${playerCount}/${maxPlayers} (${Math.round(
-          (playerCount / maxPlayers) * 100
-        )}%)`
+        value: `${playerCount}/${maxPlayers} (${Math.round((playerCount / maxPlayers) * 100)}%)`
       },
       {
         name: "Map",
@@ -55,10 +53,7 @@ module.exports = res => {
   });
 
   const unconfirmedValues = new Map([
-    [
-      res.raw.secure,
-      secure => embed.addField("VAC Secured", secure ? "Yes" : "No")
-    ],
+    [res.raw.secure, secure => embed.addField("VAC Secured", secure ? "Yes" : "No")],
     [res.raw.game, game => embed.addField("Game", Util.escapeMarkdown(game))]
   ]);
 

@@ -15,10 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const logger = require("../../util/logger").scope(
-  "command",
-  "7-days-to-die server status"
-);
+const logger = require("../../util/logger").scope("command", "7-days-to-die server status");
 const { MessageEmbed, Util } = require("discord.js");
 const ms = require("ms");
 const gamedig = require("gamedig");
@@ -88,8 +85,7 @@ module.exports = class SevenDaysToDieServerStatusCommand extends Command {
           const embed = new MessageEmbed({
             title: data.name,
             thumbnail: {
-              url:
-                "https://steamcdn-a.akamaihd.net/steam/apps/251570/header.jpg"
+              url: "https://steamcdn-a.akamaihd.net/steam/apps/251570/header.jpg"
             },
             footer: { text: `Took ${ms(data.query.duration)} to complete` },
             fields: [
@@ -120,8 +116,7 @@ module.exports = class SevenDaysToDieServerStatusCommand extends Command {
           return msg.replyEmbed(embed);
         })
         .catch(error => {
-          if (error === "UDP Watchdog Timeout")
-            return msg.reply("Server timed out, it's probably offline.");
+          if (error === "UDP Watchdog Timeout") return msg.reply("Server timed out, it's probably offline.");
 
           logger.error(error);
           return msg.reply("An unknown error occured.");

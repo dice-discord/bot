@@ -16,10 +16,7 @@ limitations under the License.
 
 const { Command } = require("discord.js-commando");
 const { currencyCodes } = require("../../config");
-const logger = require("../../util/logger").scope(
-  "command",
-  "crypto currency look up"
-);
+const logger = require("../../util/logger").scope("command", "crypto currency look up");
 const rp = require("request-promise-native");
 
 module.exports = class CryptoCurrencyCommand extends Command {
@@ -30,10 +27,7 @@ module.exports = class CryptoCurrencyCommand extends Command {
       memberName: "crypto-currency",
       description: "Look up a crypto currency.",
       aliases: ["crypto-currency", "crypto-look-up", "crypto"],
-      examples: [
-        "crypto-currency-look-up bitcoin",
-        "crypto-currency-look-up ethereum-classic aud"
-      ],
+      examples: ["crypto-currency-look-up bitcoin", "crypto-currency-look-up ethereum-classic aud"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
@@ -42,8 +36,7 @@ module.exports = class CryptoCurrencyCommand extends Command {
       args: [
         {
           key: "name",
-          prompt:
-            "What is the name of the crypto currency you want to look up?",
+          prompt: "What is the name of the crypto currency you want to look up?",
           type: "string"
         },
         {
@@ -85,16 +78,13 @@ module.exports = class CryptoCurrencyCommand extends Command {
             },
             author: {
               name: "CoinMarketCap",
-              iconURL:
-                "https://pbs.twimg.com/profile_images/930670494927421441/GquNeyus_400x400.jpg",
+              iconURL: "https://pbs.twimg.com/profile_images/930670494927421441/GquNeyus_400x400.jpg",
               url: "https://coinmarketcap.com"
             },
             fields: [
               {
                 name: `💰 Price (\`${currency.toUpperCase()}\`)`,
-                value: `${
-                  cryptoCurrency[`price_${currency}`]
-                } ${currency.toUpperCase()}`
+                value: `${cryptoCurrency[`price_${currency}`]} ${currency.toUpperCase()}`
               },
               {
                 name: "💰 Price (`BTC`)",
@@ -107,9 +97,7 @@ module.exports = class CryptoCurrencyCommand extends Command {
               {
                 name: "💹 Percentage Change",
                 // eslint-disable-next-line max-len
-                value: `Past hour: ${
-                  cryptoCurrency.percent_change_1h
-                }%\nPast day: ${
+                value: `Past hour: ${cryptoCurrency.percent_change_1h}%\nPast day: ${
                   cryptoCurrency.percent_change_24h
                 }%\nPast week: ${cryptoCurrency.percent_change_7d}%`
               }
@@ -120,11 +108,7 @@ module.exports = class CryptoCurrencyCommand extends Command {
           if (response.statusCode === 404) {
             return msg.reply("Unknown crypto currency");
           }
-          return msg.reply(
-            `An error occured with CoinMarketCap (code \`${
-              response.statusCode
-            }\`)`
-          );
+          return msg.reply(`An error occured with CoinMarketCap (code \`${response.statusCode}\`)`);
         });
     } finally {
       msg.channel.stopTyping();

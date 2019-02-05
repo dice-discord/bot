@@ -15,10 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const logger = require("../../util/logger").scope(
-  "command",
-  "starbound server status"
-);
+const logger = require("../../util/logger").scope("command", "starbound server status");
 const { MessageEmbed } = require("discord.js");
 const ms = require("ms");
 const gamedig = require("gamedig");
@@ -30,16 +27,8 @@ module.exports = class StarboundServerStatusCommand extends Command {
       group: "games",
       memberName: "starbound-server-status",
       description: "Get information about a Starbound server.",
-      aliases: [
-        "starbound-server",
-        "starbound-server",
-        "starbound-status",
-        "starbound"
-      ],
-      examples: [
-        "starbound-server-status sb.ilovebacons.com",
-        "starbound-server-status 31.214.128.254 11600"
-      ],
+      aliases: ["starbound-server", "starbound-server", "starbound-status", "starbound"],
+      examples: ["starbound-server-status sb.ilovebacons.com", "starbound-server-status 31.214.128.254 11600"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
@@ -85,8 +74,7 @@ module.exports = class StarboundServerStatusCommand extends Command {
             new MessageEmbed({
               title: data.name,
               thumbnail: {
-                url:
-                  "https://steamcdn-a.akamaihd.net/steam/apps/211820/header.jpg"
+                url: "https://steamcdn-a.akamaihd.net/steam/apps/211820/header.jpg"
               },
               footer: { text: `Took ${ms(data.query.duration)} to complete` },
               fields: [
@@ -107,8 +95,7 @@ module.exports = class StarboundServerStatusCommand extends Command {
           );
         })
         .catch(error => {
-          if (error === "UDP Watchdog Timeout")
-            return msg.reply("Server timed out, it's probably offline.");
+          if (error === "UDP Watchdog Timeout") return msg.reply("Server timed out, it's probably offline.");
 
           logger.error(error);
           return msg.reply("An unknown error occured.");

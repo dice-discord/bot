@@ -56,10 +56,6 @@ module.exports = class GameCalculatorCommand extends Command {
   }
 
   run(msg, { multiplier }) {
-    return msg.reply(
-      `🔢 Win Percentage: \`${simpleFormat(
-        winPercentage(multiplier, msg.author)
-      )}%\`.`
-    );
+    return msg.reply(`🔢 Win Percentage: \`${simpleFormat(winPercentage(multiplier, msg.author))}%\`.`);
   }
 };

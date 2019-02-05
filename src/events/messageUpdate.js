@@ -3,10 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = async (oldMsg, newMsg) => {
   const { client } = newMsg;
 
-  const guildSettings = await client.provider.get(
-    newMsg.guild,
-    "notifications"
-  );
+  const guildSettings = await client.provider.get(newMsg.guild, "notifications");
   const channels = [];
 
   for (const id in guildSettings) {
@@ -32,17 +29,14 @@ module.exports = async (oldMsg, newMsg) => {
   if (
     channels.length > 0 &&
     newMsg.editedAt &&
-    (oldMsg.content !== newMsg.content ||
-      oldMsg.embeds.length !== newMsg.embeds.length)
+    (oldMsg.content !== newMsg.content || oldMsg.embeds.length !== newMsg.embeds.length)
   ) {
     const embed = new MessageEmbed({
       title: `Message edited (${newMsg.id})`,
       color: 0xff9800,
       timestamp: newMsg.editedAt,
       footer: {
-        text: `Message history is hidden to protect ${
-          newMsg.author.tag
-        }'s privacy`
+        text: `Message history is hidden to protect ${newMsg.author.tag}'s privacy`
       },
       author: {
         name: `${newMsg.author.tag} (${newMsg.author.id})`,
@@ -56,9 +50,7 @@ module.exports = async (oldMsg, newMsg) => {
         },
         {
           name: "Message",
-          value: `[Jump to](https://discordapp.com/channels/${
-            newMsg.guild.id
-          }/${newMsg.channel.id}/${newMsg.id})`
+          value: `[Jump to](https://discordapp.com/channels/${newMsg.guild.id}/${newMsg.channel.id}/${newMsg.id})`
         }
       ]
     });

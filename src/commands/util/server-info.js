@@ -35,9 +35,7 @@ module.exports = class ServerInfoCommand extends Command {
   }
 
   run(msg) {
-    const [bots, humans] = msg.guild.members.partition(
-      member => member.user.bot
-    );
+    const [bots, humans] = msg.guild.members.partition(member => member.user.bot);
     const humanCount = humans.size;
     const botCount = bots.size;
     const totalCount = humanCount + botCount;

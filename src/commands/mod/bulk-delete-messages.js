@@ -63,9 +63,7 @@ module.exports = class BulkDeleteMessagesCommand extends Command {
       });
       msg.channel
         .bulkDelete(messagesToDelete, true)
-        .then(messages =>
-          msg.reply(`🗑 \`${messages.size}\` messages deleted.`)
-        );
+        .then(messages => msg.reply(`🗑 \`${messages.size}\` messages deleted.`));
     } finally {
       msg.channel.stopTyping();
     }
