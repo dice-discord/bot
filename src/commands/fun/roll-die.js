@@ -32,7 +32,8 @@ module.exports = class RollDieCommand extends Command {
           type: "integer",
           label: "number of die sides",
           default: 6,
-          min: 1
+          min: 1,
+          max: 100
         }
       ],
       throttling: {
