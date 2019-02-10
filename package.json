@@ -8,7 +8,7 @@
     "common-tags": "^1.8.0",
     "date-fns": "^2.0.0-alpha.27",
     "dblapi.js": "^2.3.0",
-    "discord.js": "discordjs/discord.js#master",
+    "discord.js": "discordjs/discord.js#793341dbb401f2956d60fd6b9f94a611cf539126",
     "discord.js-commando": "discordjs/Commando#master",
     "dotenv": "^6.2.0",
     "gamedig": "^2.0.12",
