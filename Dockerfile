@@ -5,13 +5,12 @@ LABEL maintainer "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)"
 # Create app directory
 WORKDIR /usr/src/dice
 
-# Install Yarn
-RUN apk update
-RUN apk add yarn
+# Install PNPM
+RUN npm -g i pnpm
 
 # Install app dependencies
-COPY package.json yarn.lock ./
-RUN yarn
+COPY package.json shrinkwrap.yaml ./
+RUN pnpm i
 
 # Bundle app source
 COPY . .
@@ -19,4 +18,4 @@ COPY . .
 # Initialize environment variables
 ENV NODE_ENV=production
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]
