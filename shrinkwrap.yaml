@@ -6,7 +6,7 @@ dependencies:
   common-tags: 1.8.0
   date-fns: 2.0.0-alpha.27
   dblapi.js: 2.3.0
-  discord.js: github.com/discordjs/discord.js/28db5273708af039ef6a5387273d4407d55f178c
+  discord.js: github.com/discordjs/discord.js/793341dbb401f2956d60fd6b9f94a611cf539126
   discord.js-commando: github.com/discordjs/Commando/3dfe6588918e683133bfaf2178f991a1f365ffd4
   dotenv: 6.2.0
   gamedig: 2.0.12
@@ -2553,7 +2553,6 @@ packages:
     dev: false
     name: prism-media
     resolution:
-      registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/amishshah/prism-media/tar.gz/1e336c9a20dd0928ef3bdc2075ab58d1521fb323'
     version: 0.3.1
   github.com/discordjs/Commando/3dfe6588918e683133bfaf2178f991a1f365ffd4:
@@ -2573,7 +2572,7 @@ packages:
       registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/discordjs/Commando/tar.gz/3dfe6588918e683133bfaf2178f991a1f365ffd4'
     version: 0.11.0-dev
-  github.com/discordjs/discord.js/28db5273708af039ef6a5387273d4407d55f178c:
+  github.com/discordjs/discord.js/793341dbb401f2956d60fd6b9f94a611cf539126:
     dependencies:
       form-data: 2.3.3
       node-fetch: 2.3.0
@@ -2594,8 +2593,7 @@ packages:
       sodium: ^2.0.3
       zlib-sync: ^0.1.4
     resolution:
-      registry: 'https://registry.npmjs.org/'
-      tarball: 'https://codeload.github.com/discordjs/discord.js/tar.gz/28db5273708af039ef6a5387273d4407d55f178c'
+      tarball: 'https://codeload.github.com/discordjs/discord.js/tar.gz/793341dbb401f2956d60fd6b9f94a611cf539126'
     version: 12.0.0-dev
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
@@ -2610,7 +2608,7 @@ specifiers:
   common-tags: ^1.8.0
   date-fns: ^2.0.0-alpha.27
   dblapi.js: ^2.3.0
-  discord.js: 'github:discordjs/discord.js#28db5273708af039ef6a5387273d4407d55f178c'
+  discord.js: 'github:discordjs/discord.js#793341dbb401f2956d60fd6b9f94a611cf539126'
   discord.js-commando: 'github:discordjs/Commando#master'
   dotenv: ^6.2.0
   eslint: ^5.12.1
