@@ -5,6 +5,13 @@ LABEL maintainer "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)"
 # Create app directory
 WORKDIR /usr/src/dice
 
+# Update system packages
+RUN apk update
+RUN apk upgrade
+
+# Install git
+RUN apk add --no-cache git
+
 # Install PNPM
 RUN npm -g i pnpm
 
