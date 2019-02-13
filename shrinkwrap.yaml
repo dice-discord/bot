@@ -2553,6 +2553,7 @@ packages:
     dev: false
     name: prism-media
     resolution:
+      registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/amishshah/prism-media/tar.gz/1e336c9a20dd0928ef3bdc2075ab58d1521fb323'
     version: 0.3.1
   github.com/discordjs/Commando/3dfe6588918e683133bfaf2178f991a1f365ffd4:
@@ -2593,6 +2594,7 @@ packages:
       sodium: ^2.0.3
       zlib-sync: ^0.1.4
     resolution:
+      registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/discordjs/discord.js/tar.gz/793341dbb401f2956d60fd6b9f94a611cf539126'
     version: 12.0.0-dev
 registry: 'https://registry.npmjs.org/'
