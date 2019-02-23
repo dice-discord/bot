@@ -19,11 +19,11 @@ jobs:
       script: pnpm run test:coverage
     # Name the "Release" stage
     - stage: "Release"
+      name: "Semantic release"
       script: skip
       node_js: lts/*
       deploy:
         provider: script
         skip_cleanup: true
-        name: "Semantic release"
         script:
           - pnpx semantic-release
