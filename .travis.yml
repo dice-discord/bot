@@ -27,3 +27,8 @@ jobs:
         skip_cleanup: true
         script:
           - pnpx semantic-release
+        on:
+        repo: dice-discord/bot
+        branches:
+          only:
+            - master
