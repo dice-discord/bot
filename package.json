@@ -62,6 +62,7 @@
   "license": "Apache-2.0",
   "main": "src/index.js",
   "name": "dice",
+  "private": true,
   "repository": "dice-discord/bot",
   "scripts": {
     "build": "docker build -t dicediscord/dice:latest .",
