@@ -5,7 +5,16 @@ before_install:
   - curl -L https://unpkg.com/@pnpm/self-installer | node
 install:
   - pnpm install
-script:
-  - npm run lint
-  - npm test
-  - npm run test:coverage
+jobs:
+  include:
+    - stage: tests
+      script: pnpm run lint
+      script: pnpm run test
+      script: pnpm run test:coverage
+    - stage: release
+      node_js: lts/*
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - pnpx semantic-release
