@@ -25,4 +25,4 @@ COPY . .
 # Initialize environment variables
 ENV NODE_ENV=production
 
-CMD [ "npm", "start" ]
+CMD [ "pnpm", "start" ]
