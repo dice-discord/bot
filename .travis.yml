@@ -5,17 +5,6 @@ before_install:
   - curl -L https://unpkg.com/@pnpm/self-installer | node
 install:
   - pnpm install
-script:
-  - pnpm run lint
-  - pnpm run test
-  - pnpm run test:coverage
-language: node_js
-node_js:
-  - "lts/*"
-before_install:
-  - curl -L https://unpkg.com/@pnpm/self-installer | node
-install:
-  - pnpm install
 jobs:
   include:
     # Name the first "Tests" job ("Unit tests")
@@ -37,7 +26,7 @@ jobs:
         script:
           - pnpx semantic-release
         on:
-        repo: dice-discord/reported
+        repo: dice-discord/bot
         branches:
           only:
             - master
