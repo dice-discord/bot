@@ -19,6 +19,7 @@ const { MessageEmbed } = require("discord.js");
 const database = require("../../util/database");
 const config = require("../../config");
 const logger = require("../../util/logger").scope("command", "leaderboard");
+const ms = require("ms");
 
 module.exports = class LeaderboardCommand extends Command {
   constructor(client) {
@@ -40,6 +41,7 @@ module.exports = class LeaderboardCommand extends Command {
     try {
       msg.channel.startTyping();
 
+      const start = new Date().getTime();
       const leaderboardArray = await database.leaderboard();
 
       logger.debug("Contents of leaderboard array:", JSON.stringify(leaderboardArray));
@@ -85,6 +87,8 @@ module.exports = class LeaderboardCommand extends Command {
         );
       }
 
+      const end = new Date().getTime();
+      embed.setFooter(`Took ${ms(end - start)}`);
       return msg.replyEmbed(embed);
     } finally {
       msg.channel.stopTyping();
