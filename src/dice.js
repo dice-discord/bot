@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 // Set up dependencies
+require("sqreen");
 const { BaseCluster } = require("kurasuta");
 const { FriendlyError } = require("discord.js-commando");
 const { WebhookClient } = require("discord.js");
