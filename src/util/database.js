@@ -64,13 +64,13 @@ const database = async () => {
   const economyCollection = db.collection("economy");
 
   const balances = {
+    /**
+     * @param {string} id User ID to get the balance for
+     * @returns {Promise<Number>} Promise resolving in the balance of the user
+     */
     get: async id => {
       const userBalance = await economy.get(id);
-      let defaultBal = config.newUserBalance;
-
-      if (id === config.clientID) {
-        defaultBal = config.houseStartingBalance;
-      }
+      const defaultBal = id === config.clientID ? config.houseStartingBalance : config.newUserBalance;
 
       if (typeof userBalance === "undefined") {
         // Set the default balance in the background to *slightly* increase performance
@@ -84,27 +84,25 @@ const database = async () => {
       logger.scope("balances", "set").debug({ prefix: id, message: simpleFormat(newBalance) });
       return economy.set(id, newBalance, ms("1 year"));
     },
-    decrease: async (id, amount) => balances.set(id, (await balances.get(id)) - amount),
+    decrease: async (id, amount) => this.balances.increase(id, -amount),
     increase: async (id, amount) => balances.set(id, (await balances.get(id)) + amount)
   };
   module.exports.balances = balances;
 
   /**
    * @param {string} requestedID Requested user ID
-   * @async
    * @returns {boolean}
    */
   const userExists = async requestedID => Boolean(await economy.get(requestedID));
   module.exports.userExists = userExists;
 
   /**
-   * This references the collection "balances", not the database
+   * Reset the economy
    */
   const resetEconomy = () => Promise.all([economy.clear(), dailies.clear()]);
   module.exports.resetEconomy = resetEconomy;
 
   /**
-   * @async
    * @returns {Array<Object>} Top ten data
    */
   const leaderboard = async () => {
