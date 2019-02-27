@@ -15,25 +15,35 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
+const { stripIndents } = require("common-tags");
+const Roll = require("roll");
+const roll = new Roll();
 
 module.exports = class RollDieCommand extends Command {
   constructor(client) {
     super(client, {
       name: "roll-die",
-      aliases: ["roll-dice", "die", "dice"],
+      aliases: ["roll-dice", "die", "dice", "roll"],
       group: "fun",
       memberName: "roll-die",
-      description: "Roll a die.",
-      examples: ["roll-die", "roll-die 20"],
+      description: "Roll a die with several customizations.",
+      details: stripIndents`
+      **Roll a single die**: \`d6\` (rolls a 6 sided die)
+      **Roll several dice**: \`4d6\` (rolls 4 \`d6\`s)
+      **Roll several sets of dice**: \`2d20+1d12\` (rolls 2 \`d20\`s and 1 \`d12\`)
+      **Roll a percentage**: \`d%\` (same as \`d100\`)
+      **Simple calculations**: \`2d6+2\` (add, subtract, multiply, or divide)
+      `,
+      examples: ["roll-die", "roll-die d20"],
       args: [
         {
-          key: "sides",
-          prompt: "How many sides do you want your die to have?",
-          type: "integer",
-          label: "number of die sides",
-          default: 6,
-          min: 1,
-          max: 100
+          key: "rolled",
+          prompt: "What do you want to roll?",
+          type: "string",
+          default: roll.roll("d6"),
+          label: "roll",
+          parse: val => roll.roll(val),
+          validate: val => roll.validate(val)
         }
       ],
       throttling: {
@@ -43,9 +53,7 @@ module.exports = class RollDieCommand extends Command {
     });
   }
 
-  run(msg, { sides }) {
-    const randomNumber = Math.floor(Math.random() * sides) + 1;
-
-    return msg.reply(`🎲 You rolled a ${randomNumber}.`, { split: true });
+  run(msg, { rolled }) {
+    return msg.reply(`You rolled ${rolled.result}${rolled.rolled.length > 1 ? `(${rolled.rolled.join(", ")})` : ""}.`);
   }
 };
