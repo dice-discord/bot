@@ -1,12 +1,12 @@
 dependencies:
   '@keyv/mongo': 1.1.0
-  '@sentry/node': 4.6.3
+  '@sentry/node': 4.6.4
   child-process-promise: 2.2.1
   commando-provider-keyv: 2.0.1
   common-tags: 1.8.0
   date-fns: 2.0.0-alpha.27
   dblapi.js: 2.3.0
-  discord.js: github.com/discordjs/discord.js/793341dbb401f2956d60fd6b9f94a611cf539126
+  discord.js: github.com/discordjs/discord.js/8230255c68b94d68a4e8ffc559a98d08d1a08a7c
   discord.js-commando: github.com/discordjs/Commando/3dfe6588918e683133bfaf2178f991a1f365ffd4
   dotenv: 6.2.0
   gamedig: 2.0.14
@@ -25,8 +25,8 @@ dependencies:
   roll: 1.2.0
   romanize: 1.1.1
   setimmediate: 1.0.5
-  signale: 1.3.0
-  sqreen: 1.29.2
+  signale: 1.4.0
+  sqreen: 1.29.3
   yahoo-stocks: 2.0.4
 devDependencies:
   '@dice-discord/eslint-config': 1.1.3
@@ -132,44 +132,44 @@ packages:
     dev: false
     resolution:
       integrity: sha512-SoILHI5E4TEZOE52UatgkpYBLxkSInvfVD0VMtgdsGFiotDckgV3d+QEHc+0arLhZV8gvUWrXxXQsKhZbEBnSg==
-  /@sentry/core/4.6.3:
+  /@sentry/core/4.6.4:
     dependencies:
-      '@sentry/hub': 4.6.3
-      '@sentry/minimal': 4.6.3
+      '@sentry/hub': 4.6.4
+      '@sentry/minimal': 4.6.4
       '@sentry/types': 4.5.3
-      '@sentry/utils': 4.6.3
+      '@sentry/utils': 4.6.4
       tslib: 1.9.3
     dev: false
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-FZ+P7+Z1efDAA4OPgLpTNZM0uRmvvSSZAdfKhmDXNO+Xq3gD8RsdirxGjJHhH2lXgcVLCX8g2+0RVjBKVzuKxw==
-  /@sentry/hub/4.6.3:
+      integrity: sha512-NGl2nkAaQ8dGqJAMS1Hb+7RyVjW4tmCbK6d7H/zKnOpBuU+qSW4XCm2NoGLLa8qb4SZUPIBRv6U0ByvEQlGtqw==
+  /@sentry/hub/4.6.4:
     dependencies:
       '@sentry/types': 4.5.3
-      '@sentry/utils': 4.6.3
+      '@sentry/utils': 4.6.4
       tslib: 1.9.3
     dev: false
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-WLs5XVErDW831o/Gpj2T8Ga+7ca7nHxZmHn08JRqHQz5TkJ7U74/KUAHYsifViaI7hAHKIywWbZpIwIh3X7+Lw==
-  /@sentry/minimal/4.6.3:
+      integrity: sha512-R3ACxUZbrAMP6vyIvt1k4bE3OIyg1CzbEhzknKljPrk1abVmJVP7W/X1vBysdRtI3m/9RjOSO7Lxx3XXqoHoQg==
+  /@sentry/minimal/4.6.4:
     dependencies:
-      '@sentry/hub': 4.6.3
+      '@sentry/hub': 4.6.4
       '@sentry/types': 4.5.3
       tslib: 1.9.3
     dev: false
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-8+K6Txme/XBlcLkLY6CjJYyEpvGVxPm/Vpxw/kerI6bYTc0uCps7e7G2lX3TxYz1O+iYPs685uN8o/v8D7+bDg==
-  /@sentry/node/4.6.3:
+      integrity: sha512-jZa9mfzDzJI98tg6uxFG3gdVLyz0nOHpLP9H8Kn/BelZ7WEG/ogB8PDi1hI9JvCTXAr8kV81mEecldADa9L9Yg==
+  /@sentry/node/4.6.4:
     dependencies:
-      '@sentry/core': 4.6.3
-      '@sentry/hub': 4.6.3
+      '@sentry/core': 4.6.4
+      '@sentry/hub': 4.6.4
       '@sentry/types': 4.5.3
-      '@sentry/utils': 4.6.3
+      '@sentry/utils': 4.6.4
       '@types/stack-trace': 0.0.29
       cookie: 0.3.1
       https-proxy-agent: 2.2.1
@@ -181,14 +181,14 @@ packages:
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-3dEPeUdWO4GX0XQkp9iGLEnBPSKweU9D1HxL8kf9L4XRiQA6VsjzsoZwTanlcSwIDgM0ldqPhIkLyQ7PHgpzxA==
+      integrity: sha512-nfaLB+cE0dddjWD0yI0nB/UqXkPw/6FKDRpB1NZ61amAM4QRXa4hRTdHvqjUovzV/5/pVMQYsOyCk0pNWMtMUQ==
   /@sentry/types/4.5.3:
     dev: false
     engines:
       node: '>=6'
     resolution:
       integrity: sha512-7ll1PAFNjrBNX9rzy3P2qAQrpQwHaDO3uKj735qsnGw34OtAS8Xr8WYrjI14f9fMPa/XIeWvMPb4GMic28V/ag==
-  /@sentry/utils/4.6.3:
+  /@sentry/utils/4.6.4:
     dependencies:
       '@sentry/types': 4.5.3
       tslib: 1.9.3
@@ -196,7 +196,7 @@ packages:
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-GNZjIErN99gqJfLMC1L4X4lzu3x1l562UGpuiv3iMQXoNCy8mpNeKtjizoocCGTLHmWB91m6wd2WTHH7P0POjA==
+      integrity: sha512-Tc5R46z7ve9Z+uU34ceDoEUR7skfQgXVIZqjbrTQphgm6EcMSNdRfkK3SJYZL5MNKiKhb7Tt/O3aPBy5bTZy6w==
   /@types/node/11.9.5:
     dev: false
     resolution:
@@ -1848,10 +1848,10 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-y8ec26+P1CKOE/Yh8rGiN8GyB7M=
-  /pako/1.0.8:
+  /pako/1.0.10:
     dev: false
     resolution:
-      integrity: sha512-6i0HVbUfcKaTv+EG8ZTr75az7GFXcLYk9UyLEg7Notv/Ma+z/UG3TCoz6GiNeOrn1E/e63I0X/Hpw18jHOTUnA==
+      integrity: sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
   /parent-module/1.0.0:
     dependencies:
       callsites: 3.0.0
@@ -2250,7 +2250,7 @@ packages:
     dev: true
     resolution:
       integrity: sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
-  /signale/1.3.0:
+  /signale/1.4.0:
     dependencies:
       chalk: 2.4.2
       figures: 2.0.0
@@ -2259,7 +2259,7 @@ packages:
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-TyFhsQ9wZDYDfsPqWMyjCxsDoMwfpsT0130Mce7wDiVCSDdtWSg83dOqoj8aGpGCs3n1YPcam6sT1OFPuGT/OQ==
+      integrity: sha512-iuh+gPf28RkltuJC7W5MRi6XAjTDCAPC/prJUpQoG4vIP3MJZ+GTydVnodXA7pwvTKb2cA0m9OFZW/cdWy/I/w==
   /slice-ansi/2.1.0:
     dependencies:
       ansi-styles: 3.2.1
@@ -2304,7 +2304,7 @@ packages:
     dev: true
     resolution:
       integrity: sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
-  /sqreen/1.29.2:
+  /sqreen/1.29.3:
     dependencies:
       cls-bluebird: 2.1.0
       commander: 2.19.0
@@ -2333,7 +2333,7 @@ packages:
       node: '>=4.0'
     hasBin: true
     resolution:
-      integrity: sha512-7Z5SZEBgQK4Ta4fuCsat6FkQNpNntrO95aMCjKbF8nOrwoG4DPgSaLZubp5+nrKwjlJQfI5a1C+kt6k8ku68Sw==
+      integrity: sha512-WNbt8pO2K7jI0k2u2JYWoTF//FwiJqG/Lfu04twjrjdj6wmHHVFfhlCwGlORXFJP5d29f0bEksf0GEarBkPSdw==
   /sshpk/1.16.1:
     dependencies:
       asn1: 0.2.4
@@ -2812,7 +2812,6 @@ packages:
       node-opus: ^0.3.1
       opusscript: ^0.0.6
     resolution:
-      registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/amishshah/prism-media/tar.gz/9f7970f3497b12a26fb00a9d98fb3fc0a412a9ee'
     version: 1.0.1
   github.com/discordjs/Commando/3dfe6588918e683133bfaf2178f991a1f365ffd4:
@@ -2829,14 +2828,13 @@ packages:
       discord.js: ^12.0.0
       sqlite: ^3.0.0
     resolution:
-      registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/discordjs/Commando/tar.gz/3dfe6588918e683133bfaf2178f991a1f365ffd4'
     version: 0.11.0-dev
-  github.com/discordjs/discord.js/793341dbb401f2956d60fd6b9f94a611cf539126:
+  github.com/discordjs/discord.js/8230255c68b94d68a4e8ffc559a98d08d1a08a7c:
     dependencies:
       form-data: 2.3.3
       node-fetch: 2.3.0
-      pako: 1.0.8
+      pako: 1.0.10
       prism-media: github.com/amishshah/prism-media/9f7970f3497b12a26fb00a9d98fb3fc0a412a9ee
       setimmediate: 1.0.5
       tweetnacl: 1.0.1
@@ -2853,8 +2851,7 @@ packages:
       sodium: ^2.0.3
       zlib-sync: ^0.1.4
     resolution:
-      registry: 'https://registry.npmjs.org/'
-      tarball: 'https://codeload.github.com/discordjs/discord.js/tar.gz/793341dbb401f2956d60fd6b9f94a611cf539126'
+      tarball: 'https://codeload.github.com/discordjs/discord.js/tar.gz/8230255c68b94d68a4e8ffc559a98d08d1a08a7c'
     version: 12.0.0-dev
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
@@ -2862,15 +2859,15 @@ shrinkwrapVersion: 3
 specifiers:
   '@dice-discord/eslint-config': ^1.1.3
   '@keyv/mongo': ^1.1.0
-  '@sentry/node': ^4.5.3
+  '@sentry/node': ^4.6.4
   child-process-promise: ^2.2.1
   codecov: ^3.2.0
-  commando-provider-keyv: ^2.0.0
+  commando-provider-keyv: ^2.0.1
   common-tags: ^1.8.0
   date-fns: ^2.0.0-alpha.27
   dblapi.js: ^2.3.0
-  discord.js: 'github:discordjs/discord.js#793341dbb401f2956d60fd6b9f94a611cf539126'
-  discord.js-commando: 'github:discordjs/Commando#master'
+  discord.js: 'github:discordjs/discord.js#8230255c68b94d68a4e8ffc559a98d08d1a08a7c'
+  discord.js-commando: 'github:discordjs/Commando'
   dotenv: ^6.2.0
   eslint: ^5.14.1
   eslint-config-prettier: ^4.0.0
@@ -2892,7 +2889,7 @@ specifiers:
   roll: ^1.2.0
   romanize: ^1.1.1
   setimmediate: ^1.0.5
-  signale: ^1.3.0
-  sqreen: ^1.29.2
+  signale: ^1.4.0
+  sqreen: ^1.29.3
   tap: ^12.5.3
   yahoo-stocks: ^2.0.4
