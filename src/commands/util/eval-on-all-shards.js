@@ -1,7 +1,7 @@
 const util = require("util");
 const discord = require("discord.js");
 const tags = require("common-tags");
-const {sensitivePattern} = require("../../util/sensitivePattern");
+const { sensitivePattern } = require("../../util/sensitivePattern");
 const { Command } = require("discord.js-commando");
 
 const nl = "!!NL!!";
