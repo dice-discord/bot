@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 const { Signale } = require("signale");
+const { sensitiveTerms } = require("./sensitivePattern");
 
 // This is the base logger that all other logger instances are built on
 const options = {
@@ -35,6 +36,7 @@ const options = {
 };
 
 const logger = new Signale(options);
+logger.addSecrets(sensitiveTerms);
 
 logger.start("Custom Signale logger started");
 

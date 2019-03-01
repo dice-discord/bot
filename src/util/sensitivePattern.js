@@ -13,12 +13,12 @@ if (config.sentryDSN) sensitiveTerms.push(config.sentryDSN);
 if (config.webhooks.discoin) sensitiveTerms.push(config.webhooks.discoin);
 if (config.webhooks.updates) sensitiveTerms.push(config.webhooks.updates);
 for (const key in config.botListTokens) {
-  if (config.botListTokens.hasOwnProperty(key)) {
-    if (typeof config.botListTokens[key] !== "undefined") sensitiveTerms.push(config.botListTokens[key]);
+  if (config.botListTokens.hasOwnProperty(key) && typeof config.botListTokens[key] !== "undefined") {
+    sensitiveTerms.push(config.botListTokens[key]);
   }
 }
 
 const escaped = sensitiveTerms.map(val => escapeRegex(val));
 const pattern = escaped.join("|");
 
-module.exports = new RegExp(pattern, "gi");
+module.exports = { sensitivePattern: new RegExp(pattern, "gi"), sensitiveTerms };
