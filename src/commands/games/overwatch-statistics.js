@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "overwatch statistics");
 const platforms = ["pc", "xbl", "psn"];
 const regions = ["us", "eu", "asia"];
@@ -65,120 +65,123 @@ module.exports = class OverwatchStatisticsCommand extends Command {
     });
   }
 
-  /* eslint-disable complexity */
   async run(msg, { battletag, platform, region }) {
     try {
       msg.channel.startTyping();
 
-      const options = {
-        uri: `https://ow-api.com/v1/stats/${platform}/${region}/${battletag}/profile`,
-        json: true
-      };
-      const res = await rp(options).catch(err => {
-        logger.error(err);
-        return msg.reply("There was an error with the API we use (https://ow-api.com)");
-      });
+      const stats = (await axios(`https://ow-api.com/v1/stats/${platform}/${region}/${battletag}/profile`).catch(
+        err => {
+          logger.error(err);
+          return msg.reply("There was an error with the API we use (https://ow-api.com)");
+        }
+      )).data;
 
-      /* eslint-disable max-len */
-      if (res.error === "The requested player was not found") {
+      if (stats.error === "The requested player was not found") {
         return msg.reply("That user couldn't be found.");
-      } else if (res.error) {
-        logger.error(new Error(res.error));
+      } else if (stats.error) {
+        logger.error(new Error(stats.error));
         return msg.reply(
-          `There was an error with the API we use (https://ow-api.com). The error that was sent: ${res.error}`
+          `There was an error with the API we use (https://ow-api.com). The error that was sent: ${stats.error}`
         );
       }
 
-      logger.debug(`Result for ${battletag} on ${platform}: ${JSON.stringify(res)}`);
+      logger.debug(`Result for ${battletag} on ${platform}: ${JSON.stringify(stats)}`);
 
       const embed = new MessageEmbed({
         author: {
-          name: res.name,
+          name: stats.name,
           url: "https://ow-api.com",
-          iconURL: res.icon
+          iconURL: stats.icon
         }
       });
 
       // Rating icon
-      if (res.ratingIcon) {
-        embed.setThumbnail(res.ratingIcon);
+      if (stats.ratingIcon) {
+        embed.setThumbnail(stats.ratingIcon);
       }
 
       // Games won
-      if (res.gamesWon && res.quickPlayStats.games.won && res.competitiveStats.games) {
+      if (stats.gamesWon && stats.quickPlayStats.games.won && stats.competitiveStats.games) {
         embed.addField(
-          "🏆 Games Won",
-          `${res.gamesWon} total wins (${res.quickPlayStats.games.won} from quick play and ${
-            res.competitiveStats.games.won
+          "Games Won",
+          `${stats.gamesWon} total wins (${stats.quickPlayStats.games.won} from quick play and ${
+            stats.competitiveStats.games.won
           } from competitive)`
         );
-      } else if (res.gamesWon && res.quickPlayStats.games.won) {
-        embed.addField("🏆 Games Won", `${res.gamesWon} total wins`);
+      } else if (stats.gamesWon) {
+        embed.addField("Games Won", `${stats.gamesWon} total wins`);
       }
 
       // Average eliminations
-      if (res.quickPlayStats.eliminationsAvg && res.competitiveStats.eliminationsAvg) {
+      if (stats.quickPlayStats && stats.quickPlayStats.eliminationsAvg && stats.competitiveStats.eliminationsAvg) {
         embed.addField(
-          "💀 Average Eliminations",
-          `${res.quickPlayStats.eliminationsAvg} eliminations from quick play and ${
-            res.competitiveStats.eliminationsAvg
+          "Average Eliminations",
+          `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play and ${
+            stats.competitiveStats.eliminationsAvg
           } from competitive`
         );
-      } else if (res.quickPlayStats.eliminationsAvg) {
-        embed.addField("💀 Average Eliminations", `${res.quickPlayStats.eliminationsAvg} eliminations from quick play`);
+      } else if (stats.quickPlayStats && stats.quickPlayStats.eliminationsAvg) {
+        embed.addField("Average Eliminations", `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play`);
       }
 
-      if (res.quickPlayStats) {
+      if (stats.quickPlayStats) {
         // Games Played
-        if (res.competitiveStats.games && res.quickPlayStats.games.played && res.competitiveStats.games.played) {
+        if (stats.competitiveStats.games && stats.quickPlayStats.games.played && stats.competitiveStats.games.played) {
           embed.addField(
-            "🎮 Games Played",
-            `${res.quickPlayStats.games.played + res.competitiveStats.games.played} games played total (${
-              res.quickPlayStats.games.played
-            } from quick play and ${res.competitiveStats.games.played} from competitive)`
+            "Games Played",
+            `${stats.quickPlayStats.games.played + stats.competitiveStats.games.played} games played total (${
+              stats.quickPlayStats.games.played
+            } from quick play and ${stats.competitiveStats.games.played} from competitive)`
           );
-        } else if (res.quickPlayStats.games.played) {
-          embed.addField("🎮 Games Played", `${res.quickPlayStats.games.played} games played total`);
+        } else if (stats.quickPlayStats.games && stats.quickPlayStats.games.played) {
+          embed.addField("Games Played", `${stats.quickPlayStats.games.played} games played total`);
         }
 
         // Quick play medals
-        if (res.quickPlayStats.awards.medals) {
+        if (stats.quickPlayStats.awards && stats.quickPlayStats.awards.medals) {
           embed.addField(
-            "🏅 Medals (Quick Play)",
-            `${res.quickPlayStats.awards.medals} medals total.\n🥇 ${
-              res.quickPlayStats.awards.medalsGold
-            } gold medals\n🥈 ${res.quickPlayStats.awards.medalsSilver} silver medals\n🥉 ${
-              res.quickPlayStats.awards.medalsBronze
+            "Medals (Quick Play)",
+            `${stats.quickPlayStats.awards.medals} medals total.\n${
+              stats.quickPlayStats.awards.medalsGold
+            } gold medals\n${stats.quickPlayStats.awards.medalsSilver} silver medals\n${
+              stats.quickPlayStats.awards.medalsBronze
             } bronze medals`
           );
         }
       }
 
-      if (res.competitiveStats.awards) {
+      if (stats.competitiveStats.awards) {
         // Competitive medals
-        if (res.competitiveStats.awards.medals) {
+        if (stats.competitiveStats.awards.medals) {
           embed.addField(
-            "🏅 Medals (Competitive)",
-            `${res.competitiveStats.awards.medals} medals total.\n🥇 ${
-              res.competitiveStats.awards.medalsGold
-            } gold medals\n🥈 ${res.competitiveStats.awards.medalsSilver} silver medals\n🥉 ${
-              res.competitiveStats.awards.medalsBronze
+            "Medals (Competitive)",
+            `${stats.competitiveStats.awards.medals} medals total.\n${
+              stats.competitiveStats.awards.medalsGold
+            } gold medals\n${stats.competitiveStats.awards.medalsSilver} silver medals\n${
+              stats.competitiveStats.awards.medalsBronze
             } bronze medals`
           );
         }
 
         // Cards
-        if (res.competitiveStats.awards.cards && res.quickPlayStats.awards.cards) {
+        if (stats.competitiveStats.awards.cards && stats.quickPlayStats.awards.cards) {
           embed.addField(
-            "🃏 Cards",
-            `${res.competitiveStats.awards.cards + res.quickPlayStats.awards.cards} total cards (${
-              res.quickPlayStats.awards.cards
-            } from quick play, ${res.competitiveStats.awards.cards} from competitive)`,
+            "Cards",
+            `${stats.competitiveStats.awards.cards + stats.quickPlayStats.awards.cards} total cards (${
+              stats.quickPlayStats.awards.cards
+            } from quick play, ${stats.competitiveStats.awards.cards} from competitive)`,
             true
           );
-          /* eslint-enable max-len complexity */
         }
       }
+
+      // Endorsement
+      embed.addField("Endorsements", stats.endorsement.toLocaleString(), true);
+      // Rating
+      embed.addField("Rating", stats.rating.toLocaleString(), true);
+      // Level
+      embed.addField("Level", stats.level.toLocaleString(), true);
+
       return msg.replyEmbed(embed);
     } finally {
       msg.channel.stopTyping();

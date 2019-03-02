@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "xkcd");
 const truncateText = require("../../util/truncateText");
 
@@ -51,18 +51,9 @@ module.exports = class XKCDCommand extends Command {
     try {
       msg.channel.startTyping();
 
-      const options = {
-        uri: `https://xkcd.com/${comic}/info.0.json`,
-        json: true
-      };
-      if (comic === "latest") {
-        options.uri = "https://xkcd.com/info.0.json";
-      }
+      const uri = `https://xkcd.com/${comic === "latest" ? "" : comic}/info.0.json`;
 
-      const result = await rp(options).catch(err => {
-        logger.error(err);
-        return msg.reply("There was an error with the XKCD website");
-      });
+      const result = (await axios.get(uri)).data;
 
       // Result embed
       const embed = new MessageEmbed({
@@ -92,11 +83,7 @@ module.exports = class XKCDCommand extends Command {
       }
 
       // Check if there's a link
-      if (result.link) {
-        embed.setURL(result.link);
-      } else {
-        embed.setURL(`https://xkcd.com/${result.num}`);
-      }
+      embed.setURL(result.link || `https://xkcd.com/${result.num}`);
 
       // Creation date
       if (result.day && result.month && result.year) {
@@ -104,6 +91,9 @@ module.exports = class XKCDCommand extends Command {
       }
 
       return msg.replyEmbed(embed);
+    } catch (error) {
+      logger.error(error);
+      return msg.reply("There was an error with the XKCD website");
     } finally {
       msg.channel.stopTyping();
     }

@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "fortnite statistics");
 const config = require("../../config");
 const { MessageEmbed } = require("discord.js");
@@ -57,22 +57,20 @@ module.exports = class FortniteStatisticsCommand extends Command {
     try {
       msg.channel.startTyping();
 
-      const options = {
-        uri: `https://api.fortnitetracker.com/v1/profile/${platform}/${username}`,
-        json: true,
-        headers: { "TRN-Api-Key": config.fortniteTrackerNetworkToken }
-      };
-
-      const stats = await rp(options).catch(error => {
-        logger.error(error);
-        return msg.reply("There was an error with the API we use (https://api.fortnitetracker.com)");
-      });
+      const stats = (await axios
+        .get(`https://api.fortnitetracker.com/v1/profile/${platform}/${username}`, {
+          headers: { "TRN-Api-Key": config.fortniteTrackerNetworkToken }
+        })
+        .catch(error => {
+          logger.error(error);
+          return msg.reply("There was an error with the API we use (https://api.fortnitetracker.com)");
+        })).data;
 
       if (stats.error === "Player Not Found") {
         return msg.reply("Player not found on that platform.");
       }
 
-      logger.debug(`Result for ${username} on ${platform}:`, JSON.stringify(stats));
+      logger.debug(`Result for ${username} on ${platform}:`, stats);
       const embed = new MessageEmbed({
         title: stats.epicUserHandle,
         url: `https://fortnitetracker.com/profile/${platform}/${encodeURIComponent(username)}`,

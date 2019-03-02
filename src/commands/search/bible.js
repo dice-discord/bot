@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "bible");
 const truncateText = require("../../util/truncateText");
 
@@ -59,13 +59,10 @@ module.exports = class BibleCommand extends Command {
     try {
       msg.channel.startTyping();
 
-      rp({
-        uri: `https://bible-api.com/${book} ${chapter}:${verse}`,
-        json: true,
-        resolveWithFullResponse: true
-      })
+      axios
+        .get(`https://bible-api.com/${book} ${chapter}:${verse}`)
         .then(response => {
-          const data = response.body;
+          const { data } = response;
 
           return msg.replyEmbed({
             title: data.reference,
@@ -78,7 +75,7 @@ module.exports = class BibleCommand extends Command {
         })
         .catch(err => {
           logger.error(err);
-          if (err.statusCode === 404) {
+          if (err.status === 404) {
             return msg.reply("That bible verse couldn't be found.");
           }
           return msg.reply("There was an error with the service to get bible verses we use (https://bible-api.com)");

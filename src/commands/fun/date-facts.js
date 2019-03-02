@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "date facts");
 
 module.exports = class DateFactsCommand extends Command {
@@ -53,23 +53,15 @@ module.exports = class DateFactsCommand extends Command {
     });
   }
 
-  run(msg, { month, day }) {
+  async run(msg, { month, day }) {
     try {
       msg.channel.startTyping();
 
-      const options = { uri: `http://numbersapi.com/${month}/${day}/date` };
-
-      // At least one of the values was left undefined
-      if (month === "random" || day === "random") {
-        options.uri = "http://numbersapi.com/random/date";
-      }
-
-      rp(options)
-        .then(result => msg.reply(result))
-        .catch(err => {
-          logger.error(err);
-          return msg.reply("There was an error with the API we use (http://numbersapi.com)");
-        });
+      const uri = `http://numbersapi.com/${month === "random" || day === "random" ? "random" : `${month}/${day}`}/date`;
+      return msg.reply((await axios.get(uri)).data);
+    } catch (error) {
+      logger.error(error);
+      return msg.reply("There was an error with the API we use (http://numbersapi.com)");
     } finally {
       msg.channel.stopTyping();
     }

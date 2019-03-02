@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 const logger = require("../../util/logger").scope("command", "discoin rates");
-const rp = require("request-promise-native");
+const axios = require("axios");
 
 module.exports = class DiscoinRatesCommand extends Command {
   constructor(client) {
@@ -39,11 +39,7 @@ module.exports = class DiscoinRatesCommand extends Command {
     try {
       msg.channel.startTyping();
 
-      const rates = await rp({
-        json: true,
-        method: "GET",
-        url: "http://discoin.sidetrip.xyz/rates.json"
-      });
+      const rates = (await axios.get("http://discoin.sidetrip.xyz/rates.json")).data;
 
       const embed = new MessageEmbed({
         title: "Discoin Conversion Rates",
