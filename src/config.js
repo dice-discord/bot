@@ -71,7 +71,7 @@ const config = {
   houseEdgePercentage: 1,
   houseStartingBalance: 750000,
   invites: {
-    bot: "http://dice.js.org/invite",
+    bot: "https://dice.js.org/invite",
     server: "https://discord.gg/NpUmRkj"
   },
   keen: {
