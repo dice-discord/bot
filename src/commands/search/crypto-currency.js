@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require("discord.js-commando");
 const { currencyCodes } = require("../../config");
 const logger = require("../../util/logger").scope("command", "crypto currency look up");
-const rp = require("request-promise-native");
+const axios = require("axios");
 
 module.exports = class CryptoCurrencyCommand extends Command {
   constructor(client) {
@@ -52,64 +52,57 @@ module.exports = class CryptoCurrencyCommand extends Command {
     });
   }
 
-  run(msg, { name, currency }) {
+  async run(msg, { name, currency }) {
     try {
       msg.channel.startTyping();
-      const options = {
-        uri: `https://api.coinmarketcap.com/v1/ticker/${name}/?convert=${currency}`,
-        json: true,
-        resolveWithFullResponse: true
-      };
+      const result = (await axios.get(`https://api.coinmarketcap.com/v1/ticker/${name}/?convert=${currency}`)).data;
+      // Result is sent as an array of a singular object
+      const [cryptoCurrency] = result;
+      logger.debug("Results from CoinMarketCap:", cryptoCurrency);
 
-      rp(options)
-        .then(result => {
-          // Result is sent as an array of a singular object
-          const [cryptoCurrency] = result.body;
-          logger.debug("Results from CoinMarketCap:", cryptoCurrency);
-
-          return msg.replyEmbed({
-            title: `${cryptoCurrency.name} (\`${cryptoCurrency.symbol}\`)`,
-            url: `https://coinmarketcap.com/currencies/${cryptoCurrency.id}`,
-            // Sets the color to green if the change is positive, red if otherwise
-            color: cryptoCurrency.percent_change_24h >= 0 ? 0x4caf50 : 0xf44334,
-            timestamp: new Date(cryptoCurrency.last_updated),
-            thumbnail: {
-              url: `http://cryptoicons.co/128/white/${cryptoCurrency.symbol.toLowerCase()}.png`
-            },
-            author: {
-              name: "CoinMarketCap",
-              iconURL: "https://pbs.twimg.com/profile_images/930670494927421441/GquNeyus_400x400.jpg",
-              url: "https://coinmarketcap.com"
-            },
-            fields: [
-              {
-                name: `💰 Price (\`${currency.toUpperCase()}\`)`,
-                value: `${cryptoCurrency[`price_${currency}`]} ${currency.toUpperCase()}`
-              },
-              {
-                name: "💰 Price (`BTC`)",
-                value: `${cryptoCurrency.price_btc} BTC`
-              },
-              {
-                name: "📊 Ranking",
-                value: `#${cryptoCurrency.rank}`
-              },
-              {
-                name: "💹 Percentage Change",
-                // eslint-disable-next-line max-len
-                value: `Past hour: ${cryptoCurrency.percent_change_1h}%\nPast day: ${
-                  cryptoCurrency.percent_change_24h
-                }%\nPast week: ${cryptoCurrency.percent_change_7d}%`
-              }
-            ]
-          });
-        })
-        .catch(response => {
-          if (response.statusCode === 404) {
-            return msg.reply("Unknown crypto currency");
+      return msg.replyEmbed({
+        title: `${cryptoCurrency.name} (\`${cryptoCurrency.symbol}\`)`,
+        url: `https://coinmarketcap.com/currencies/${cryptoCurrency.id}`,
+        // Sets the color to green if the change is positive, red if otherwise
+        color: cryptoCurrency.percent_change_24h >= 0 ? 0x4caf50 : 0xf44334,
+        timestamp: new Date(cryptoCurrency.last_updated),
+        thumbnail: {
+          url: `http://cryptoicons.co/128/white/${cryptoCurrency.symbol.toLowerCase()}.png`
+        },
+        author: {
+          name: "CoinMarketCap",
+          iconURL: "https://pbs.twimg.com/profile_images/991282814518743040/OEj1fTFp_400x400.jpg",
+          url: "https://coinmarketcap.com"
+        },
+        fields: [
+          {
+            name: `💰 Price (\`${currency.toUpperCase()}\`)`,
+            value: `${cryptoCurrency[`price_${currency}`]} ${currency.toUpperCase()}`
+          },
+          {
+            name: "💰 Price (`BTC`)",
+            value: `${cryptoCurrency.price_btc} BTC`
+          },
+          {
+            name: "📊 Ranking",
+            value: `#${cryptoCurrency.rank}`
+          },
+          {
+            name: "💹 Percentage Change",
+            // eslint-disable-next-line max-len
+            value: `Past hour: ${cryptoCurrency.percent_change_1h}%\nPast day: ${
+              cryptoCurrency.percent_change_24h
+            }%\nPast week: ${cryptoCurrency.percent_change_7d}%`
           }
-          return msg.reply(`An error occured with CoinMarketCap (code \`${response.statusCode}\`)`);
-        });
+        ]
+      });
+    } catch (error) {
+      const { response } = error;
+
+      if (response.data.error === "id not found") {
+        return msg.reply("Unknown crypto currency");
+      }
+      return msg.reply(`An error occured with CoinMarketCap: \`${response.data.error}\` (code \`${response.status}\`)`);
     } finally {
       msg.channel.stopTyping();
     }

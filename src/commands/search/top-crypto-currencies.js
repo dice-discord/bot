@@ -18,7 +18,7 @@ const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 const { currencyCodes } = require("../../config");
 const logger = require("../../util/logger").scope("command", "top crypto currencies");
-const rp = require("request-promise-native");
+const axios = require("axios");
 
 module.exports = class TopCryptoCurrenciesCommand extends Command {
   constructor(client) {
@@ -40,7 +40,7 @@ module.exports = class TopCryptoCurrenciesCommand extends Command {
           prompt: "How many items do you want to limit your results for?",
           type: "integer",
           default: 10,
-          min: 2,
+          min: 1,
           max: 25
         },
         {
@@ -59,23 +59,15 @@ module.exports = class TopCryptoCurrenciesCommand extends Command {
   async run(msg, { limit, currency }) {
     try {
       msg.channel.startTyping();
-      const options = {
-        uri: `https://api.coinmarketcap.com/v1/ticker/?convert=${currency}&limit=${limit}`,
-        json: true
-      };
+      const uri = `https://api.coinmarketcap.com/v1/ticker/?convert=${currency}&limit=${limit}`;
 
-      const results = await rp(options).catch(error => {
-        logger.error(error);
-        return msg.reply(`An error occured with CoinMarketCap (\`${error}\`)`);
-      });
-
-      logger.debug("Results from CoinMarketCap:", results);
+      const results = (await axios.get(uri)).data;
 
       const embed = new MessageEmbed({
         title: `Top ${limit} Crypto Currencies`,
         author: {
           name: "CoinMarketCap",
-          iconURL: "https://pbs.twimg.com/profile_images/930670494927421441/GquNeyus_400x400.jpg",
+          iconURL: "https://pbs.twimg.com/profile_images/991282814518743040/OEj1fTFp_400x400.jpg",
           url: "https://coinmarketcap.com"
         }
       });
@@ -88,6 +80,9 @@ module.exports = class TopCryptoCurrenciesCommand extends Command {
       });
 
       return msg.replyEmbed(embed);
+    } catch (error) {
+      logger.error(error);
+      return msg.reply("An error occured with CoinMarketCap");
     } finally {
       msg.channel.stopTyping();
     }

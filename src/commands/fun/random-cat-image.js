@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "random cat image");
 
 module.exports = class RandomCatImageCommand extends Command {
@@ -34,29 +34,21 @@ module.exports = class RandomCatImageCommand extends Command {
     });
   }
 
-  run(msg) {
+  async run(msg) {
     try {
       msg.channel.startTyping();
 
-      const options = {
-        uri: "http://aws.random.cat/meow",
-        json: true
-      };
-      rp(options)
-        .then(result =>
-          msg.replyEmbed({
-            author: {
-              name: "random.cat",
-              iconURL: "https://i.imgur.com/Ik0Gf0r.png",
-              url: "http://random.cat"
-            },
-            image: { url: result.file }
-          })
-        )
-        .catch(error => {
-          logger.error(error);
-          return msg.reply("There was an error with the API we use (http://random.cat)");
-        });
+      return msg.replyEmbed({
+        author: {
+          name: "random.cat",
+          iconURL: "https://i.imgur.com/Ik0Gf0r.png",
+          url: "http://random.cat"
+        },
+        image: { url: (await axios.get("http://aws.random.cat/meow")).data.file }
+      });
+    } catch (error) {
+      logger.error(error);
+      return msg.reply("There was an error with the API we use (http://random.cat)");
     } finally {
       msg.channel.stopTyping();
     }

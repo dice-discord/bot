@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "random dog image");
 
 module.exports = class RandomDogImageCommand extends Command {
@@ -34,29 +34,21 @@ module.exports = class RandomDogImageCommand extends Command {
     });
   }
 
-  run(msg) {
+  async run(msg) {
     try {
       msg.channel.startTyping();
 
-      const options = {
-        uri: "https://dog.ceo/api/breeds/image/random",
-        json: true
-      };
-      rp(options)
-        .then(result =>
-          msg.replyEmbed({
-            author: {
-              name: "dog.ceo",
-              iconURL: "https://dog.ceo/img/favicon.png",
-              url: "https://dog.ceo/dog-api/"
-            },
-            image: { url: result.message }
-          })
-        )
-        .catch(error => {
-          logger.error(error);
-          return msg.reply("There was an error with the API we use (http://dog.ceo/dog-api)");
-        });
+      return msg.replyEmbed({
+        author: {
+          name: "dog.ceo",
+          iconURL: "https://dog.ceo/img/favicon.png",
+          url: "https://dog.ceo/dog-api/"
+        },
+        image: { url: (await axios.get("https://dog.ceo/api/breeds/image/random")).data.message }
+      });
+    } catch (error) {
+      logger.error(error);
+      return msg.reply("There was an error with the API we use (http://dog.ceo/dog-api)");
     } finally {
       msg.channel.stopTyping();
     }

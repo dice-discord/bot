@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require("discord.js-commando");
 const config = require("../../config");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "convert oats");
 const database = require("../../util/database");
 
@@ -70,79 +70,74 @@ module.exports = class ConvertOatsCommand extends Command {
         );
       }
 
-      rp({
-        json: true,
+      const response = await axios({
         method: "POST",
-        url: "http://discoin.sidetrip.xyz/transaction",
         headers: { Authorization: config.discoinToken },
-        resolveWithFullResponse: true,
-        body: {
+        data: {
           user: msg.author.id,
           amount,
           exchangeTo: currency
-        }
-      })
-        .then(async response => {
-          // Remove oats from author
-          await database.balances.decrease(msg.author.id, amount);
+        },
+        url: "http://discoin.sidetrip.xyz/transaction"
+      });
+      // Remove oats from author
+      await database.balances.decrease(msg.author.id, amount);
 
-          logger.debug("Response body from Discoin", response.body);
+      logger.debug("Response data from Discoin", response.data);
 
-          msg.replyEmbed({
-            title: "Conversion Successful",
-            color: 0x4caf50,
-            footer: {
-              text: `${response.body.limitNow} Discoin remaining today`
-            },
-            timestamp: new Date(response.body.timestamp * 1000),
-            fields: [
-              {
-                name: "Amount",
-                value: `${amount} OAT ➡ ${response.body.resultAmount} ${currency}`
-              },
-              {
-                name: "Receipt",
-                value: `\`${response.body.receipt}\``
-              }
-            ]
-          });
-        })
-        .catch(response => {
-          switch (response.statusCode) {
-            case 503:
-              return msg.reply("Discoin is currently unavailable. Try again later");
-            case 403:
-              if (!response.body || !response.body.reason) {
-                return msg.reply("A 403 error was sent by Discoin. They didn't say why.");
-              }
-              switch (response.body.reason) {
-                case "verify required":
-                  return msg.replyEmbed({
-                    title: "Verification Required",
-                    color: 0xff9800,
-                    url: "http://discoin.sidetrip.xyz/verify"
-                  });
-                case "per-user limit exceeded":
-                  return msg.replyEmbed({
-                    title: "Daily Limit Reached",
-                    color: 0xf44336,
-                    description: "You have reached your daily limit for the convert command. Try again tomorrow."
-                  });
-                case "total limit exceeded":
-                  return msg.replyEmbed({
-                    title: "Bot Daily Limit Reached",
-                    color: 0xf44336,
-                    description: `${this.client.user} has reached the daily total limit. Try again tomorrow.`
-                  });
-                default:
-                  return msg.reply("A 403 error was sent by Discoin. They didn't say why.");
-              }
-            default:
-              return msg.reply("An unknown error occured. Try again later.");
+      return msg.replyEmbed({
+        title: "Conversion Successful",
+        color: 0x4caf50,
+        footer: {
+          text: `${response.data.limitNow} Discoin remaining today`
+        },
+        timestamp: new Date(response.data.timestamp * 1000),
+        fields: [
+          {
+            name: "Amount",
+            value: `${amount} OAT ➡ ${response.data.resultAmount} ${currency}`
+          },
+          {
+            name: "Receipt",
+            value: `\`${response.data.receipt}\``
           }
-        });
+        ]
+      });
+    } catch (error) {
+      logger.error(error);
 
-      return null;
+      switch (error.status) {
+        case 503:
+          return msg.reply("Discoin is currently unavailable. Try again later");
+        case 403:
+          if (!error.data || !error.data.reason) {
+            return msg.reply("A 403 error was sent by Discoin. They didn't say why.");
+          }
+          switch (error.data.reason) {
+            case "verify required":
+              return msg.replyEmbed({
+                title: "Verification Required",
+                color: 0xff9800,
+                url: "http://discoin.sidetrip.xyz/verify"
+              });
+            case "per-user limit exceeded":
+              return msg.replyEmbed({
+                title: "Daily Limit Reached",
+                color: 0xf44336,
+                description: "You have reached your daily limit for the convert command. Try again tomorrow."
+              });
+            case "total limit exceeded":
+              return msg.replyEmbed({
+                title: "Bot Daily Limit Reached",
+                color: 0xf44336,
+                description: `${this.client.user} has reached the daily total limit. Try again tomorrow.`
+              });
+            default:
+              return msg.reply("A 403 error was sent by Discoin. They didn't say why.");
+          }
+        default:
+          return msg.reply("An unknown error occured. Try again later.");
+      }
     } finally {
       msg.channel.stopTyping();
     }

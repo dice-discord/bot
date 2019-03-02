@@ -16,7 +16,7 @@ limitations under the License.
 
 const { Command } = require("discord.js-commando");
 const { MessageEmbed, Util } = require("discord.js");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "npm-search");
 const truncateText = require("../../util/truncateText");
 
@@ -52,44 +52,39 @@ module.exports = class NPMSearchCommand extends Command {
     });
   }
 
-  run(msg, { pkg, full }) {
-    rp({
-      uri: `https://registry.npmjs.com/${encodeURIComponent(pkg)}`,
-      json: true,
-      resolveWithFullResponse: true
-    })
-      .then(response => {
-        const data = response.body;
-        const embed = new MessageEmbed({
-          title: truncateText(data.name, 256),
-          color: 0xca3b3a,
-          footer: {
-            text: "NPM",
-            iconURL: "https://avatars0.githubusercontent.com/u/6078720"
-          }
-        });
+  async run(msg, { pkg, full }) {
+    try {
+      const { data } = await axios.get(`https://registry.npmjs.com/${encodeURIComponent(pkg)}`);
 
-        let { description } = data;
-        const version = data.versions[data["dist-tags"].latest];
-        const dependencies = version.dependencies ? Object.keys(version.dependencies).join(", ") : null;
-
-        if (full) description = data.readme;
-        if (description) embed.setDescription(truncateText(description));
-        if (data["dist-tags"].latest) embed.addField("Latest Release", `v${data["dist-tags"].latest}`);
-        if (dependencies) embed.addField("Dependencies", this.clean(dependencies, 1024));
-        if (data.homepage) embed.setURL(data.homepage);
-        if (data.keywords) embed.addField("Keywords", this.clean(data.keywords.join(", "), 1024));
-        if (data.author && data.author.name) embed.setAuthor(truncateText(data.author.name, 256));
-
-        return msg.replyEmbed(embed);
-      })
-      .catch(err => {
-        if (err.statusCode === 404) {
-          return msg.reply("That package couldn't be found.");
+      const embed = new MessageEmbed({
+        title: truncateText(data.name, 256),
+        color: 0xca3b3a,
+        url: data.homepage || `https://www.npmjs.com/package/${pkg}`,
+        footer: {
+          text: "NPM",
+          iconURL: "https://avatars0.githubusercontent.com/u/6078720"
         }
-        logger.error(err);
-        return msg.reply("There was an error with NPM)");
       });
+
+      let { description } = data;
+      const version = data.versions[data["dist-tags"].latest];
+      const dependencies = version.dependencies ? Object.keys(version.dependencies).join(", ") : null;
+
+      if (full) description = data.readme;
+      if (description) embed.setDescription(truncateText(description));
+      if (data["dist-tags"].latest) embed.addField("Latest Release", `v${data["dist-tags"].latest}`);
+      if (dependencies) embed.addField("Dependencies", this.clean(dependencies, 1024));
+      if (data.keywords) embed.addField("Keywords", this.clean(data.keywords.join(", "), 1024));
+      if (data.author && data.author.name) embed.setAuthor(truncateText(data.author.name, 256));
+
+      return msg.replyEmbed(embed);
+    } catch (err) {
+      if (err.status === 404) {
+        return msg.reply("That package couldn't be found.");
+      }
+      logger.error(err);
+      return msg.reply("There was an error with NPM)");
+    }
   }
 
   clean(string, max = 2048) {

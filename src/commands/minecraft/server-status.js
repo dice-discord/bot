@@ -1,7 +1,7 @@
 const { Command } = require("discord.js-commando");
 const { MessageEmbed } = require("discord.js");
 const logger = require("../../util/logger").scope("command", "minecraft server status");
-const rp = require("request-promise-native");
+const axios = require("axios");
 
 module.exports = class MinecraftServerStatusCommand extends Command {
   constructor(client) {
@@ -35,43 +35,32 @@ module.exports = class MinecraftServerStatusCommand extends Command {
     });
   }
 
-  run(msg, { ip, port }) {
-    const options = {
-      uri: `https://mcapi.us/server/status?ip=${ip}&port=${port}`,
-      json: true
-    };
+  async run(msg, { ip, port }) {
+    const res = (await axios(`https://mcapi.us/server/status?ip=${ip}&port=${port}`).catch(error => {
+      logger.error(error);
+      return msg.reply("An error occured.");
+    })).data;
 
-    rp(options)
-      .then(res => {
-        logger.debug(`Server status for ${ip}:${port}`, JSON.stringify(res));
-        if (res.status !== "success") {
-          return msg.reply("There was an error with your request.");
-        }
+    if (res.status !== "success") {
+      return msg.reply("There was an error with your request.");
+    }
 
-        const embed = new MessageEmbed({
-          title: ip,
-          timestamp: res.last_updated
-        });
+    const embed = new MessageEmbed({
+      title: ip,
+      timestamp: res.last_updated,
+      color: res.online ? 0x4caf50 : 0x607d8b
+    });
 
-        if (res.online === true) {
-          embed.addField("Server Status", "Currently online.", true);
-          embed.addField("Version", res.server.name, true);
-          embed.addField("Members", `${res.players.now}/${res.players.max}`, true);
-          embed.addField("Message of the Day (MotD)", `\`\`\`${res.motd}\`\`\``, true);
-          embed.setColor(0x4caf50);
-        } else {
-          if (res.last_online) {
-            embed.addField("Server Status", `Offline. Last seen ${new Date(res.last_online)}`, true);
-          } else {
-            embed.addField("Server Status", "Offline. Never seen online before.", true);
-          }
-          embed.setColor(0x607d8b);
-        }
-        return msg.reply(embed);
-      })
-      .catch(err => {
-        logger.error(`${err}`);
-        return msg.reply("An error occured.");
-      });
+    if (res.online) {
+      embed.addField("Server Status", "Currently online.", true);
+      embed.addField("Version", res.server.name, true);
+      embed.addField("Members", `${res.players.now}/${res.players.max}`, true);
+      embed.addField("Message of the Day (MotD)", `\`\`\`${res.motd}\`\`\``, true);
+    } else if (res.last_online) {
+      embed.addField("Server Status", `Offline. Last seen ${new Date(res.last_online)}`, true);
+    } else {
+      embed.addField("Server Status", "Offline. Never seen online before.", true);
+    }
+    return msg.reply(embed);
   }
 };

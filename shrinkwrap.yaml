@@ -1,17 +1,18 @@
 dependencies:
   '@keyv/mongo': 1.1.0
   '@sentry/node': 4.6.4
+  axios: 0.18.0
   child-process-promise: 2.2.1
   commando-provider-keyv: 2.0.1
   common-tags: 1.8.0
   date-fns: 2.0.0-alpha.27
   dblapi.js: 2.3.0
-  discord.js: github.com/discordjs/discord.js/8230255c68b94d68a4e8ffc559a98d08d1a08a7c
+  discord.js: github.com/discordjs/discord.js/28db5273708af039ef6a5387273d4407d55f178c
   discord.js-commando: github.com/discordjs/Commando/3dfe6588918e683133bfaf2178f991a1f365ffd4
   dotenv: 6.2.0
   gamedig: 2.0.14
   hot-shots: 6.1.1
-  keen-tracking: 4.2.1
+  keen-tracking: 4.2.3
   keyv: 3.1.0
   kurasuta: 0.2.16
   mongodb: 3.1.13
@@ -20,8 +21,6 @@ dependencies:
   node-schedule: 1.3.2
   parse-color: 1.0.0
   reported: 1.2.0
-  request: 2.88.0
-  request-promise-native: 1.0.7
   roll: 1.2.0
   romanize: 1.1.1
   setimmediate: 1.0.5
@@ -32,7 +31,7 @@ devDependencies:
   '@dice-discord/eslint-config': 1.1.3
   codecov: 3.2.0
   eslint: 5.14.1
-  eslint-config-prettier: 4.0.0
+  eslint-config-prettier: 4.1.0
   eslint-plugin-prettier: 3.0.1
   prettier: 1.16.4
   tap: 12.5.3
@@ -197,30 +196,30 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-Tc5R46z7ve9Z+uU34ceDoEUR7skfQgXVIZqjbrTQphgm6EcMSNdRfkK3SJYZL5MNKiKhb7Tt/O3aPBy5bTZy6w==
-  /@types/node/11.9.5:
+  /@types/node/11.10.0:
     dev: false
     resolution:
-      integrity: sha512-vVjM0SVzgaOUpflq4GYBvCpozes8OgIIS5gVXVka+OfK3hvnkC1i93U8WiY2OtNE4XUWyyy/86Kf6e0IHTQw1Q==
+      integrity: sha512-6Mb9+PPq9UzRpQrlPzZAbhEvodWDTnsIakddUAtSDpKYF6eu5zAdW31n8x7UZStvqGnDC7dCJnvU188ylv/Ytw==
   /@types/stack-trace/0.0.29:
     dev: false
     resolution:
       integrity: sha512-TgfOX+mGY/NyNxJLIbDWrO9DjGoVSW9+aB8H2yy1fy32jsvxijhmyJI9fDFgvz3YP4lvJaq9DzdR/M1bOgVc9g==
-  /acorn-jsx/5.0.1/acorn@6.1.0:
+  /acorn-jsx/5.0.1/acorn@6.1.1:
     dependencies:
-      acorn: 6.1.0
+      acorn: 6.1.1
     dev: true
     id: registry.npmjs.org/acorn-jsx/5.0.1
     peerDependencies:
       acorn: ^6.0.0
     resolution:
       integrity: sha512-HJ7CfNHrfJLlNTzIEUTj43LNWGkqpRLxm3YjAlcD0ACydk9XynzYsCBHxut+iqt+1aBXkx9UP/w/ZqMr13XIzg==
-  /acorn/6.1.0:
+  /acorn/6.1.1:
     dev: true
     engines:
       node: '>=0.4.0'
     hasBin: true
     resolution:
-      integrity: sha512-MW/FjM+IvU9CgBzjO3UIPCE2pyEwUsoFl+VGdczOPEdxfGFjuKny/gN54mOuX7Qxmb9Rg9MCn2oKiSUeW+pjrw==
+      integrity: sha512-jPTiwtOxaHNaAPg/dmrJ/beuzLRnXtB0kQPQ8JpotKJgTB6rX6c8mlf315941pyjBSaPg8NHXS9fhP4u17DpGA==
   /agent-base/4.2.1:
     dependencies:
       es6-promisify: 5.0.0
@@ -480,7 +479,7 @@ packages:
     dependencies:
       argv: 0.0.2
       ignore-walk: 3.0.1
-      js-yaml: 3.12.1
+      js-yaml: 3.12.2
       teeny-request: 3.11.3
       urlgrey: 0.4.4
     dev: true
@@ -578,7 +577,7 @@ packages:
   /coveralls/3.0.3:
     dependencies:
       growl: 1.10.5
-      js-yaml: 3.12.1
+      js-yaml: 3.12.2
       lcov-parse: 0.0.10
       log-driver: 1.2.7
       minimist: 1.2.0
@@ -819,7 +818,7 @@ packages:
       eslint: '>=3.14.1'
     resolution:
       integrity: sha512-ixJ4U3uTLXwJts4rmSVW/lMXjlGwCijhBJHk8iVqKKSifeI0qgFEfWl8L63isfc8Od7EiBALF6BX3jKLluf/jQ==
-  /eslint-config-prettier/4.0.0:
+  /eslint-config-prettier/4.1.0:
     dependencies:
       get-stdin: 6.0.0
     dev: true
@@ -827,7 +826,7 @@ packages:
     peerDependencies:
       eslint: '>=3.14.1'
     resolution:
-      integrity: sha512-kWuiJxzV5NwOwZcpyozTzDT5KJhBw292bbYro9Is7BWnbNMg15Gmpluc1CTetiCatF8DRkNvgPAOaSyg+bYr3g==
+      integrity: sha512-zILwX9/Ocz4SV2vX7ox85AsrAgXV3f2o2gpIicdMIOra48WYqgUnWNH/cR/iHtmD2Vb3dLSC3LiEJnS05Gkw7w==
   /eslint-plugin-prettier/3.0.1:
     dependencies:
       prettier-linter-helpers: 1.0.0
@@ -882,7 +881,7 @@ packages:
       import-fresh: 3.0.0
       imurmurhash: 0.1.4
       inquirer: 6.2.2
-      js-yaml: 3.12.1
+      js-yaml: 3.12.2
       json-stable-stringify-without-jsonify: 1.0.1
       levn: 0.3.0
       lodash: 4.17.11
@@ -904,16 +903,16 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-CyUMbmsjxedx8B0mr79mNOqetvkbij/zrXnFeK2zc3pGRn3/tibjiNAv/3UxFEyfMDjh+ZqTrJrEGBFiGfD5Og==
-  /esm/3.2.6:
+  /esm/3.2.8:
     dev: true
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-3wWjSurKSczMzYyHiBih3VVEQYCoZa6nfsqqcM2Tx6KBAQAeor0SZUfAol+zeVUtESLygayOi2ZcMfYZy7MCsg==
+      integrity: sha512-MkjjmAzuR3trRSCS3WFDGlLTOdhXuT6ERlo1BZwGwcPYXC+1YqunnTx9P0h1Ld/tMiZ1J3/AKhh45wup2DR1zQ==
   /espree/5.0.1:
     dependencies:
-      acorn: 6.1.0
-      acorn-jsx: /acorn-jsx/5.0.1/acorn@6.1.0
+      acorn: 6.1.1
+      acorn-jsx: /acorn-jsx/5.0.1/acorn@6.1.1
       eslint-visitor-keys: 1.0.0
     dev: true
     engines:
@@ -1197,7 +1196,7 @@ packages:
       domutils: 1.7.0
       entities: 1.1.2
       inherits: 2.0.3
-      readable-stream: 3.1.1
+      readable-stream: 3.2.0
     dev: false
     resolution:
       integrity: sha512-IgieNijUMbkDovyoKObU1DUhm1iwNYE/fuifEoEHfd1oZKZDaONBSkal7Y01shxsM49R4XaMdGez3WnF9UfiCQ==
@@ -1424,14 +1423,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
-  /js-yaml/3.12.1:
+  /js-yaml/3.12.2:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
     dev: true
     hasBin: true
     resolution:
-      integrity: sha512-um46hB9wNOKlwkHgiuyEVAybXBjwFUV0Z/RaHJblRd9DXltue9FTYvzCr9ErQrK9Adz5MU4gHWVaNUfdmrC8qA==
+      integrity: sha512-QHn/Lh/7HhZ/Twc7vJYQTkjuCa0kaCcDcjK5Zlk2rvnUpy7DxMJ23+Jc2dcyvltwQVg1nygAVlB2oRDFHoRS5Q==
   /jsbn/0.1.1:
     resolution:
       integrity: sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
@@ -1479,7 +1478,7 @@ packages:
     dev: false
     resolution:
       integrity: sha1-t4zMrTzWLvLjUZaYTZs3C+xrHOI=
-  /keen-tracking/4.2.1:
+  /keen-tracking/4.2.3:
     dependencies:
       component-emitter: 1.2.1
       js-cookie: 2.1.0
@@ -1488,7 +1487,7 @@ packages:
       whatwg-fetch: 2.0.4
     dev: false
     resolution:
-      integrity: sha512-Hv4qLi6Kb8VOJT95uBYVM3i7f36yCQr+uA7I1oAGaHcuHZeoyIg0ycxF7koaR89NXJzeuAbtxiu+6U7TSGzR+Q==
+      integrity: sha512-qPbjmDAPRmvfs3GvUrq/vIZRDFlrbVZcTPhUwetWf23yPsbcxX8KuF/Fg2IYQvsa0/7Nh/yq7XaPcPpPGrJhmQ==
   /keyv/3.1.0:
     dependencies:
       json-buffer: 3.0.0
@@ -1881,7 +1880,7 @@ packages:
       integrity: sha1-ZiON9fjnwMjKTNlw1KtqE3PrdbU=
   /parse5/3.0.3:
     dependencies:
-      '@types/node': 11.9.5
+      '@types/node': 11.10.0
     dev: false
     resolution:
       integrity: sha512-rgO9Zg5LLLkfJF9E6CCmXlSE4UVceloys8JrFqCcHloC3usd/kJCyPDwH2SOlzix2j3xaP9sUX3e8+kvkuleAA==
@@ -2018,7 +2017,7 @@ packages:
       util-deprecate: 1.0.2
     resolution:
       integrity: sha512-tQtKA9WIAhBF3+VLAseyMqZeBjW0AHJoxOtYqSUZNJxauErmLbVm2FW1y+J/YA9dUrAC39ITejlZWhVIwawkKw==
-  /readable-stream/3.1.1:
+  /readable-stream/3.2.0:
     dependencies:
       inherits: 2.0.3
       string_decoder: 1.2.0
@@ -2027,7 +2026,7 @@ packages:
     engines:
       node: '>= 6'
     resolution:
-      integrity: sha512-DkN66hPyqDhnIQ6Jcsvx9bFjhw214O4poMBcIMgPVpQvNy9a0e0Uhg5SqySyDKAmUlwt8LonTBz1ezOnM8pUdA==
+      integrity: sha512-RV20kLjdmpZuTF1INEb9IA3L68Nmi+Ri7ppZqo78wj//Pn62fCoJyV9zalccNzDD/OuJpMG4f+pfMl8+L6QdGw==
   /recursive-readdir/2.2.2:
     dependencies:
       minimatch: 3.0.4
@@ -2054,16 +2053,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-u+fRd52l4MTZDxnmKRQTgzm3ztvFJa/sLmfYpUq7ugq/ITKBq2cbLxrjs6/HIMjR7791y5uXdKlfaOZg8Ni4Vw==
-  /request-promise-core/1.1.2:
-    dependencies:
-      lodash: 4.17.11
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    peerDependencies:
-      request: ^2.34
-    resolution:
-      integrity: sha512-UHYyq1MO8GsefGEt7EprS8UrXsm1TxEvFUX1IMTuSLU2Rh7fTIdFtl8xD7JiEYiWU2dl+NYAjCTksTehQUxPag==
   /request-promise-core/1.1.2/request@2.88.0:
     dependencies:
       lodash: 4.17.11
@@ -2076,18 +2065,6 @@ packages:
       request: ^2.34
     resolution:
       integrity: sha512-UHYyq1MO8GsefGEt7EprS8UrXsm1TxEvFUX1IMTuSLU2Rh7fTIdFtl8xD7JiEYiWU2dl+NYAjCTksTehQUxPag==
-  /request-promise-native/1.0.7:
-    dependencies:
-      request-promise-core: 1.1.2
-      stealthy-require: 1.1.1
-      tough-cookie: 2.5.0
-    dev: false
-    engines:
-      node: '>=0.12.0'
-    peerDependencies:
-      request: ^2.34
-    resolution:
-      integrity: sha512-rIMnbBdgNViL37nZ1b3L/VfPOpSi0TqVDQPAvO6U14lMzOLrt5nilxCQqtDKhZeDiW0/hkCXGoQjhgJd/tCh6w==
   /request-promise/4.2.4/request@2.88.0:
     dependencies:
       bluebird: 3.5.3
@@ -2467,7 +2444,7 @@ packages:
       diff: 1.4.0
       escape-string-regexp: 1.0.5
       glob: 7.1.3
-      js-yaml: 3.12.1
+      js-yaml: 3.12.2
       tap-parser: 5.4.0
       unicode-length: 1.0.3
     dev: true
@@ -2479,7 +2456,7 @@ packages:
   /tap-parser/5.4.0:
     dependencies:
       events-to-array: 1.1.2
-      js-yaml: 3.12.1
+      js-yaml: 3.12.2
     dev: true
     hasBin: true
     optionalDependencies:
@@ -2489,7 +2466,7 @@ packages:
   /tap-parser/7.0.0:
     dependencies:
       events-to-array: 1.1.2
-      js-yaml: 3.12.1
+      js-yaml: 3.12.2
       minipass: 2.3.5
     dev: true
     hasBin: true
@@ -2504,13 +2481,13 @@ packages:
       color-support: 1.1.3
       coveralls: 3.0.3
       domain-browser: 1.2.0
-      esm: 3.2.6
+      esm: 3.2.8
       foreground-child: 1.5.6
       fs-exists-cached: 1.0.0
       function-loop: 1.0.1
       glob: 7.1.3
       isexe: 2.0.0
-      js-yaml: 3.12.1
+      js-yaml: 3.12.2
       minipass: 2.3.5
       mkdirp: 0.5.1
       nyc: 13.3.0
@@ -2828,9 +2805,10 @@ packages:
       discord.js: ^12.0.0
       sqlite: ^3.0.0
     resolution:
+      registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/discordjs/Commando/tar.gz/3dfe6588918e683133bfaf2178f991a1f365ffd4'
     version: 0.11.0-dev
-  github.com/discordjs/discord.js/8230255c68b94d68a4e8ffc559a98d08d1a08a7c:
+  github.com/discordjs/discord.js/28db5273708af039ef6a5387273d4407d55f178c:
     dependencies:
       form-data: 2.3.3
       node-fetch: 2.3.0
@@ -2851,7 +2829,7 @@ packages:
       sodium: ^2.0.3
       zlib-sync: ^0.1.4
     resolution:
-      tarball: 'https://codeload.github.com/discordjs/discord.js/tar.gz/8230255c68b94d68a4e8ffc559a98d08d1a08a7c'
+      tarball: 'https://codeload.github.com/discordjs/discord.js/tar.gz/28db5273708af039ef6a5387273d4407d55f178c'
     version: 12.0.0-dev
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
@@ -2860,13 +2838,14 @@ specifiers:
   '@dice-discord/eslint-config': ^1.1.3
   '@keyv/mongo': ^1.1.0
   '@sentry/node': ^4.6.4
+  axios: ^0.18.0
   child-process-promise: ^2.2.1
   codecov: ^3.2.0
   commando-provider-keyv: ^2.0.1
   common-tags: ^1.8.0
   date-fns: ^2.0.0-alpha.27
   dblapi.js: ^2.3.0
-  discord.js: 'github:discordjs/discord.js#8230255c68b94d68a4e8ffc559a98d08d1a08a7c'
+  discord.js: 'github:discordjs/discord.js#28db5273708af039ef6a5387273d4407d55f178c'
   discord.js-commando: 'github:discordjs/Commando'
   dotenv: ^6.2.0
   eslint: ^5.14.1
@@ -2884,8 +2863,6 @@ specifiers:
   parse-color: ^1.0.0
   prettier: ^1.16.3
   reported: ^1.2.0
-  request: ^2.88.0
-  request-promise-native: ^1.0.7
   roll: ^1.2.0
   romanize: ^1.1.1
   setimmediate: ^1.0.5

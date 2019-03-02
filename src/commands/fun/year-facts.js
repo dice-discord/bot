@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 const { Command } = require("discord.js-commando");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "year facts");
 
 module.exports = class YearFactsCommand extends Command {
@@ -43,18 +43,14 @@ module.exports = class YearFactsCommand extends Command {
     });
   }
 
-  run(msg, { year }) {
+  async run(msg, { year }) {
     try {
       msg.channel.startTyping();
 
-      const options = { uri: `http://numbersapi.com/${year}/year` };
-
-      rp(options)
-        .then(result => msg.reply(result))
-        .catch(err => {
-          logger.error(err);
-          return msg.reply("There was an error with the API we use (http://numbersapi.com)");
-        });
+      return msg.reply((await axios.get(`http://numbersapi.com/${year}/year`)).data);
+    } catch (error) {
+      logger.error(error);
+      return msg.reply("There was an error with the API we use (http://numbersapi.com)");
     } finally {
       msg.channel.stopTyping();
     }
