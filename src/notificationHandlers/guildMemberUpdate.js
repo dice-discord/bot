@@ -11,8 +11,7 @@ module.exports = (channel, oldMember, newMember) => {
     timestamp: new Date(),
     author: {
       name: `${newMember.user.tag} (${newMember.user.id})`,
-      // eslint-disable-next-line camelcase
-      icon_url: newMember.user.displayAvatarURL(128)
+      iconURL: newMember.user.displayAvatarURL(128)
     }
   });
 

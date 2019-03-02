@@ -16,8 +16,7 @@ module.exports = (channel, member) => {
     },
     author: {
       name: `${member.user.tag} (${member.user.id})`,
-      // eslint-disable-next-line camelcase
-      icon_url: member.user.displayAvatarURL(128)
+      iconURL: member.user.displayAvatarURL(128)
     },
     fields: [
       {

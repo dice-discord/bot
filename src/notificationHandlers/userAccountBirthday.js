@@ -18,8 +18,7 @@ module.exports = (channel, user) =>
       color: 0x4caf50,
       author: {
         name: `${user.tag} (${user.id})`,
-        // eslint-disable-next-line camelcase
-        icon_url: user.displayAvatarURL(128)
+        iconURL: user.displayAvatarURL(128)
       }
     }
   });

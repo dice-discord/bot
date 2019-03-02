@@ -57,8 +57,7 @@ module.exports = class GetMinecraftMiniMeCommand extends Command {
       author: {
         name: username,
         url: `http://minecraftskinavatar.com/customize?id=${encodeURIComponent(username)}&source=minecraft`,
-        // eslint-disable-next-line camelcase
-        icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
+        iconURL: `https://minotar.net/helm/${encodeURIComponent(username)}`
       },
       footer: { text: "Provided by minecraftskinavatar.com" }
     });

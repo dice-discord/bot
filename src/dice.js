@@ -327,8 +327,7 @@ module.exports = class DiceCluster extends BaseCluster {
                   author: {
                     name: `${user.tag} (${user.id})`,
                     url: "https://discordapp.com",
-                    // eslint-disable-next-line camelcase
-                    icon_url: user.displayAvatarURL(128)
+                    iconURL: user.displayAvatarURL(128)
                   },
                   url: "https://discoin.sidetrip.xyz/record",
                   timestamp: new Date(transaction.timestamp * 1000),

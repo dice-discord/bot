@@ -13,8 +13,7 @@ module.exports = (channel, oldVoiceState, newVoiceState) => {
     timestamp: new Date(),
     author: {
       name: `${user.tag} (${newVoiceState.id})`,
-      // eslint-disable-next-line camelcase
-      icon_url: user.displayAvatarURL(128)
+      iconURL: user.displayAvatarURL(128)
     }
   });
 

@@ -45,8 +45,7 @@ module.exports = class GetMinecraftSkinCommand extends Command {
       embed: {
         author: {
           name: username,
-          // eslint-disable-next-line camelcase
-          icon_url: `https://minotar.net/helm/${encodeURIComponent(username)}`
+          iconURL: `https://minotar.net/helm/${encodeURIComponent(username)}`
         },
         image: {
           url: `https://minotar.net/skin/${encodeURIComponent(username)}`

@@ -37,8 +37,7 @@ module.exports = async msg => {
       },
       author: {
         name: `${msg.author.tag} (${msg.author.id})`,
-        // eslint-disable-next-line camelcase
-        icon_url: msg.author.displayAvatarURL(128)
+        iconURL: msg.author.displayAvatarURL(128)
       },
       fields: [
         {
