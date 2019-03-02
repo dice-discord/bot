@@ -24,7 +24,7 @@ const KeyvProvider = require("commando-provider-keyv");
 const Keyv = require("keyv");
 const KeenTracking = require("keen-tracking");
 const database = require("./util/database");
-const rp = require("request-promise-native");
+const axios = require("axios");
 const sentry = require("@sentry/node");
 const config = require("./config");
 const schedule = require("node-schedule");
@@ -301,12 +301,9 @@ module.exports = class DiceCluster extends BaseCluster {
 
   async checkDiscoinTransactions() {
     const checkDiscoinTransactionsLogger = this.logger.scope(`shard ${this.client.shard.id}`, "discoin");
-    const transactions = await rp({
-      json: true,
-      method: "GET",
-      url: "http://discoin.sidetrip.xyz/transactions",
-      headers: { Authorization: config.discoinToken }
-    }).catch(error => checkDiscoinTransactionsLogger.error(error));
+    const transactions = (await axios
+      .get("http://discoin.sidetrip.xyz/transactions", { headers: { Authorization: config.discoinToken } })
+      .catch(error => checkDiscoinTransactionsLogger.error(error))).data;
 
     checkDiscoinTransactionsLogger.debug("All Discoin transactions:", JSON.stringify(transactions));
 
