@@ -7,7 +7,6 @@ install:
   - pnpm install
 jobs:
   include:
-    # Name the first "Tests" job ("Unit tests")
     - stage: "Tests"
       name: "Unit tests"
       script: pnpm run test
@@ -15,10 +14,8 @@ jobs:
       script: pnpm run test:coverage
     - name: "Lint"
       script: pnpm run lint
-    # Name the "Release" stage
     - stage: "Release"
       name: "Semantic release"
-      script: skip
       node_js: lts/*
       deploy:
         provider: script
