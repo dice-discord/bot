@@ -16,7 +16,7 @@ jobs:
       script: pnpm run lint
     - stage: "Release"
       name: "Semantic release"
-      node_js: lts/*
+      script: skip
       deploy:
         provider: script
         skip_cleanup: true
