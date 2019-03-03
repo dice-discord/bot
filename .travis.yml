@@ -16,6 +16,7 @@ jobs:
       script: pnpm run lint
     - stage: "Release"
       name: "Semantic release"
+      install: skip
       script: skip
       deploy:
         provider: script
