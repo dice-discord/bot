@@ -87,14 +87,13 @@ module.exports = class SimulateGameCommand extends Command {
       ]
     });
 
-    if (gameResult === true) {
+    if (gameResult) {
       // Red color and loss message
       embed.setColor(0xf44334);
       embed.setDescription(`You would have lost \`${wager.toLocaleString()}\` ${config.currency.plural}.`);
     } else {
       // Green color and win message
       embed.setColor(0x4caf50);
-      // eslint-disable-next-line max-len
       embed.setDescription(
         `Your profit would have been \`${simpleFormat(wager * multiplier - wager).toLocaleString()}\` ${
           config.currency.plural

@@ -63,7 +63,6 @@ module.exports = class NotificationsCommand extends Command {
     const guildSettings = await this.client.provider.get(msg.guild.id, "notifications", {});
 
     if (!guildSettings[msg.channel.id]) {
-      // eslint-disable-next-line max-len
       logger.debug(`The channel ${msg.channel.name} does not have settings, will set them to the default`);
       // This channel doesn't have settings for it so set it to the default values (everything disabled)
       guildSettings[msg.channel.id] = [].fill(false, 0, 6);
@@ -97,7 +96,6 @@ module.exports = class NotificationsCommand extends Command {
     });
 
     notifications.forEach(item => {
-      // eslint-disable-next-line max-len
       const i = notifications.indexOf(item);
       embed.addField(
         `${channelSettings[i] ? "Disable" : "Enable"} ${item.label} notifications`,

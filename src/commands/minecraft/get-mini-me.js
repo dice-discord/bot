@@ -24,7 +24,6 @@ module.exports = class GetMinecraftMiniMeCommand extends Command {
       name: "get-minecraft-mini-me",
       group: "minecraft",
       memberName: "get-mini-me",
-      // eslint-disable-next-line max-len
       description:
         "Shows a 'mini-me' of a Minecraft user's body with an option for a transparent background or gradient.",
       aliases: ["minecraft-mini-me", "mc-mini-me", "minecraft-mini", "mc-mini-me"],
@@ -63,12 +62,10 @@ module.exports = class GetMinecraftMiniMeCommand extends Command {
     });
 
     if (transparency) {
-      // eslint-disable-next-line max-len
       embed.setImage(
         `http://avatar.yourminecraftservers.com/avatar/trnsp/steve/tall/128/${encodeURIComponent(username)}.png`
       );
     } else {
-      // eslint-disable-next-line max-len
       embed.setImage(
         `http://avatar.yourminecraftservers.com/avatar/rad/steve/tall/128/${encodeURIComponent(username)}.png`
       );

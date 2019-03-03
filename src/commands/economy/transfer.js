@@ -56,7 +56,6 @@ module.exports = class TransferCommand extends Command {
 
       // Amount checking
       if (amount > (await database.balances.get(msg.author.id))) {
-        // eslint-disable-next-line max-len
         return msg.reply(
           `You need to have at least \`${amount.toLocaleString()}\` ${
             config.currency.plural

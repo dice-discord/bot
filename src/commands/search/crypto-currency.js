@@ -89,7 +89,6 @@ module.exports = class CryptoCurrencyCommand extends Command {
           },
           {
             name: "💹 Percentage Change",
-            // eslint-disable-next-line max-len
             value: `Past hour: ${cryptoCurrency.percent_change_1h}%\nPast day: ${
               cryptoCurrency.percent_change_24h
             }%\nPast week: ${cryptoCurrency.percent_change_7d}%`

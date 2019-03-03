@@ -28,7 +28,6 @@ module.exports = class DiceGameCommand extends Command {
       group: "games",
       memberName: "dice-game",
       description: "Bet a wager on a multiplier.",
-      // eslint-disable-next-line max-len
       details:
         "For each bet the outcome is randomly chosen between 1 and 100. It's up to you to guess a target that you think the outcome will exceed.",
       aliases: ["game", "play-game", "play-dice", "betting-game", "bet"],
@@ -65,7 +64,6 @@ module.exports = class DiceGameCommand extends Command {
 
       // Wager checking
       if (wager > authorBalance) {
-        // eslint-disable-next-line max-len
         return msg.reply(
           `You are missing \`${(wager - authorBalance).toLocaleString()}\` ${
             config.currency.plural

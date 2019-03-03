@@ -62,7 +62,6 @@ module.exports = class ConvertOatsCommand extends Command {
 
       // Amount checking
       if (amount > authorBalance) {
-        // eslint-disable-next-line max-len
         return msg.reply(
           `You need to have at least \`${amount.toLocaleString()}\` ${
             config.currency.plural

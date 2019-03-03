@@ -58,14 +58,13 @@ module.exports = class BalanceCommand extends Command {
 
         // Someone else's balance
         if (houseBalance < userBalance && user.id !== this.client.user.id) {
-          // eslint-disable-next-line max-len
           return msg.reply(
             `🏦 ${user.tag}'s account has a balance of \`${userBalance.toLocaleString()}\` ${
               config.currency.plural
             }. That's more than ${this.client.user}!`
           );
         }
-        // eslint-disable-next-line max-len
+
         return msg.reply(
           `🏦 ${user.tag}'s account has a balance of \`${userBalance.toLocaleString()}\` ${config.currency.plural}.`
         );
@@ -74,7 +73,6 @@ module.exports = class BalanceCommand extends Command {
 
       // We are looking up the message author's balance
       if (houseBalance < userBalance) {
-        // eslint-disable-next-line max-len
         return msg.reply(
           `🏦 You have a balance of \`${userBalance.toLocaleString()}\` ${config.currency.plural}. That's more than ${
             this.client.user

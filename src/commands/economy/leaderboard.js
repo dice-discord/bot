@@ -80,7 +80,6 @@ module.exports = class LeaderboardCommand extends Command {
       const embed = new MessageEmbed({ title: "Top 10 Leaderboard" });
 
       for (let i = 0; i < leaderboardArray.length; i++) {
-        // eslint-disable-next-line max-len
         embed.addField(
           `#${i + 1} ${tags[i]}`,
           `${leaderboardArray[i].value.value.toLocaleString()} ${config.currency.plural}`

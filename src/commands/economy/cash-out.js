@@ -51,7 +51,6 @@ module.exports = class CashOutCommand extends Command {
 
     // Amount checking
     if (amount > beforeTransferHouseBalance) {
-      // eslint-disable-next-line max-len
       return msg.reply(
         `Your amount must be less than \`${beforeTransferHouseBalance.toLocaleString()}\` ${config.currency.plural}. ${
           this.client.user

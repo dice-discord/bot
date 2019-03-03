@@ -48,7 +48,7 @@ module.exports = class BlacklistUsersCommand extends Command {
 
     if (users.length > 0) {
       let error = "";
-      // eslint-disable-next-line consistent-return
+
       users.forEach(user => {
         if (this.client.isOwner(user.id)) {
           return msg.reply(`All blacklisted users:\n${blacklist.join("\n")}`, {

@@ -48,7 +48,6 @@ module.exports = class DiscoinRatesCommand extends Command {
 
       rates.forEach(rate => {
         for (const bot in rate) {
-          // eslint-disable-next-line max-len
           embed.addField(
             bot,
             `Currency code: ${rate[bot].currencyCode}\nTo Discoin: ${rate[bot].toDiscoin}\nFrom Discoin: ${
