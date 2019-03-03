@@ -68,6 +68,7 @@
   "scripts": {
     "build": "docker build -t dicediscord/dice:latest .",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "start": "node src/index.js",
     "test": "tap -J -R spec test/*/*.js",
     "test:coverage": "tap -J --coverage --coverage-report=html test/*/*.js && codecov"
