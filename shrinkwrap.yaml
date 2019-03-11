@@ -7,7 +7,7 @@ dependencies:
   common-tags: 1.8.0
   date-fns: 2.0.0-alpha.27
   dblapi.js: 2.3.0
-  discord.js: github.com/discordjs/discord.js/28db5273708af039ef6a5387273d4407d55f178c
+  discord.js: github.com/pizzafox/discord.js/590aec05a7751250d0412d7466e0bb8e54e45982
   discord.js-commando: github.com/discordjs/Commando/3dfe6588918e683133bfaf2178f991a1f365ffd4
   dotenv: 6.2.0
   gamedig: 2.0.14
@@ -1945,6 +1945,15 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-ZzWuos7TI5CKUeQAtFd6Zhm2s6EpAD/ZLApIhsF9pRvRtM1RFo61dM/4MSRUA0SuLugA/zgrZD8m0BaY46Og7g==
+  /prism-media/1.0.1:
+    dev: false
+    peerDependencies:
+      ffmpeg-binaries: ^4.0.0
+      ffmpeg-static: ^2.4.0
+      node-opus: ^0.3.1
+      opusscript: ^0.0.6
+    resolution:
+      integrity: sha512-Unmeibfk7b8wiiQFPlCC0GgCRaAejSpe2ElgfDkMi9ZmsqzeTbUnmiLNjyqONeKK+HMYINYHOgJFox5l7FU7YA==
   /process-nextick-args/1.0.7:
     dev: false
     resolution:
@@ -2737,12 +2746,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-/lg70HAjtkUgWPVZhZcm+T4hkL8Zbtp1nFNOn3lRrxnlv50SRBv7cR7RqR+GMsd3hUXy9hWBo4CHTbFTcOYwig==
-  /ws/6.1.4:
+  /ws/6.2.0:
     dependencies:
       async-limiter: 1.0.0
     dev: false
     resolution:
-      integrity: sha512-eqZfL+NE/YQc1/ZynhojeV8q+H050oR8AZ2uIev7RU10svA9ZnJUddHcOUZTJLinZ9yEfdA2kSATS2qZK5fhJA==
+      integrity: sha512-deZYUNlt2O4buFCa3t5bKLf8A7FPP/TVjwOeVNpw818Ma5nk4MLXls2eoEGS39o8119QIYxTrTDoPQ5B/gTD6w==
   /xmlbuilder/0.3.1:
     dev: false
     engines:
@@ -2780,17 +2789,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-KOwXzwl0PtyrBW3dixsGJizHPDA=
-  github.com/amishshah/prism-media/9f7970f3497b12a26fb00a9d98fb3fc0a412a9ee:
-    dev: false
-    name: prism-media
-    peerDependencies:
-      ffmpeg-binaries: ^4.0.0
-      ffmpeg-static: ^2.4.0
-      node-opus: ^0.3.1
-      opusscript: ^0.0.6
-    resolution:
-      tarball: 'https://codeload.github.com/amishshah/prism-media/tar.gz/9f7970f3497b12a26fb00a9d98fb3fc0a412a9ee'
-    version: 1.0.1
   github.com/discordjs/Commando/3dfe6588918e683133bfaf2178f991a1f365ffd4:
     dependencies:
       common-tags: 1.8.0
@@ -2808,28 +2806,28 @@ packages:
       registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/discordjs/Commando/tar.gz/3dfe6588918e683133bfaf2178f991a1f365ffd4'
     version: 0.11.0-dev
-  github.com/discordjs/discord.js/28db5273708af039ef6a5387273d4407d55f178c:
+  github.com/pizzafox/discord.js/590aec05a7751250d0412d7466e0bb8e54e45982:
     dependencies:
       form-data: 2.3.3
       node-fetch: 2.3.0
       pako: 1.0.10
-      prism-media: github.com/amishshah/prism-media/9f7970f3497b12a26fb00a9d98fb3fc0a412a9ee
+      prism-media: 1.0.1
       setimmediate: 1.0.5
       tweetnacl: 1.0.1
-      ws: 6.1.4
+      ws: 6.2.0
     dev: false
     engines:
-      node: '>=8.0.0'
+      node: '>=10.0.0'
     name: discord.js
     peerDependencies:
-      '@discordjs/uws': ^10.149.0
-      bufferutil: ^4.0.0
+      '@discordjs/uws': ^11.149.1
+      bufferutil: ^4.0.1
       erlpack: discordapp/erlpack
-      libsodium-wrappers: ^0.7.3
-      sodium: ^2.0.3
+      libsodium-wrappers: ^0.7.4
+      sodium: ^3.0.2
       zlib-sync: ^0.1.4
     resolution:
-      tarball: 'https://codeload.github.com/discordjs/discord.js/tar.gz/28db5273708af039ef6a5387273d4407d55f178c'
+      tarball: 'https://codeload.github.com/pizzafox/discord.js/tar.gz/590aec05a7751250d0412d7466e0bb8e54e45982'
     version: 12.0.0-dev
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
@@ -2845,7 +2843,7 @@ specifiers:
   common-tags: ^1.8.0
   date-fns: ^2.0.0-alpha.27
   dblapi.js: ^2.3.0
-  discord.js: 'github:discordjs/discord.js#28db5273708af039ef6a5387273d4407d55f178c'
+  discord.js: 'github:pizzafox/discord.js#sharding-timeout-patch-1'
   discord.js-commando: 'github:discordjs/Commando'
   dotenv: ^6.2.0
   eslint: ^5.14.1
