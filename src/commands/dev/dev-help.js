@@ -34,11 +34,13 @@ module.exports = class DevHelpCommand extends Command {
   }
 
   run(msg) {
+    const { shard } = this.client;
+
     return msg.replyEmbed({
       fields: [
         {
           name: "Shard",
-          value: `${this.client.shard.id}/${this.client.shard.count}`
+          value: `${shard.id}/${shard.shardCount} (cluster count ${shard.clusterCount})`
         },
         {
           name: "IDs",
