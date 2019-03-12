@@ -18,11 +18,8 @@ jobs:
       script: pnpm run lint
     - stage: "Release"
       name: "Semantic release"
-      install: skip
       script: skip
       deploy:
         provider: script
         skip_cleanup: true
-        script:
-          - pnpm i -D @iteratec/semantic-release-docker
-          - pnpx semantic-release
+        script: pnpx semantic-release
