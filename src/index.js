@@ -45,8 +45,7 @@ const sharder = new ShardingManager(join(__dirname, "dice"), {
     commandPrefix: config.commandPrefix,
     owner: config.owners,
     disableEveryone: true
-  },
-  shardCount: "auto"
+  }
 });
 
 sharder.on("debug", logger.debug);
