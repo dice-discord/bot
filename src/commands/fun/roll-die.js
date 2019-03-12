@@ -26,7 +26,7 @@ module.exports = class RollDieCommand extends Command {
       aliases: ["roll-dice", "die", "dice", "roll"],
       group: "fun",
       memberName: "roll-die",
-      description: "Roll a die with several customizations.",
+      description: "Roll a die with dice notation.",
       details: stripIndents`
       **Roll a single die**: \`d6\` (rolls a 6 sided die)
       **Roll several dice**: \`4d6\` (rolls 4 \`d6\`s)
