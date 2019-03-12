@@ -22,6 +22,8 @@ const packageData = require("../package");
 const config = require("./config");
 const sentry = require("@sentry/node");
 const { join } = require("path");
+const stripWebhookURL = require("./util/stripWebhookURL");
+const { WebhookClient } = require("discord.js");
 
 logger.note(`Node.js version: ${process.version}`);
 logger.note(`Dice version v${packageData.version}`);
@@ -53,6 +55,31 @@ sharder
   .spawn()
   .then(() => {
     logger.success("Clusters spawned");
+
+    // Announce version being ready
+    if (config.webhooks.updates && this.client.user.id === config.clientID) {
+      const webhookData = stripWebhookURL(config.webhooks.updates);
+      const webhook = new WebhookClient(webhookData.id, webhookData.token);
+
+      webhook
+        .send({
+          embeds: [
+            {
+              color: 0x4caf50,
+              title: `${this.client.user.username} Ready`,
+              fields: [
+                {
+                  name: "Version",
+                  value: `v${packageData.version}`
+                }
+              ],
+              timestamp: new Date()
+            }
+          ]
+        })
+        .then(() => this.webhookLogger.debug("Sent ready webhook"))
+        .catch(this.webhookLogger.error);
+    }
   })
   .catch(err => {
     logger.fatal("Clusters not spawned");

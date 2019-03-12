@@ -22,7 +22,6 @@ const { WebhookClient } = require("discord.js");
 const path = require("path");
 const KeyvProvider = require("commando-provider-keyv");
 const Keyv = require("keyv");
-const KeenTracking = require("keen-tracking");
 const database = require("./util/database");
 const axios = require("axios");
 const sentry = require("@sentry/node");
@@ -44,12 +43,6 @@ if (config.sentryDSN) {
     environment: process.env.NODE_ENV || "development"
   });
 }
-
-// Set up Keen client
-const keenClient = new KeenTracking({
-  projectId: config.keen.projectID,
-  writeKey: config.keen.writeKey
-});
 
 // Store settings (like a server prefix) in a Keyv instance
 const copy = data => data;
@@ -220,12 +213,6 @@ module.exports = class DiceCluster extends BaseCluster {
         // Set game presence to the help command once loaded
         this.client.user.setActivity("for @Dice help", { type: "WATCHING" });
 
-        keenClient.recordEvent("events", {
-          title: "Ready",
-          tag: this.client.user.tag,
-          shard: this.client.shard.id
-        });
-
         // Only check for Discoin transactions and send bot stats if this is shard 0 and the production account
         if (this.client.shard.id === 0 && config.clientID === this.client.user.id) {
           const botListLogger = this.logger.scope("bot list logger");
@@ -256,35 +243,6 @@ module.exports = class DiceCluster extends BaseCluster {
           schedule.scheduleJob("*/30 * * * *", submitToBotLists);
 
           schedule.scheduleJob("/5 * * * *", this.checkDiscoinTransactions);
-        }
-
-        // All shards before this have been spawned and this shard started up successfully
-        if (
-          this.client.shard.id + 1 === this.client.shard.count &&
-          config.webhooks.updates &&
-          this.client.user.id === config.clientID
-        ) {
-          const webhookData = stripWebhookURL(config.webhooks.updates);
-          const webhook = new WebhookClient(webhookData.id, webhookData.token);
-
-          webhook
-            .send({
-              embeds: [
-                {
-                  color: 0x4caf50,
-                  title: `${this.client.user.username} Ready`,
-                  fields: [
-                    {
-                      name: "Version",
-                      value: `v${packageData.version}`
-                    }
-                  ],
-                  timestamp: new Date()
-                }
-              ]
-            })
-            .then(() => this.webhookLogger.debug("Sent ready webhook"))
-            .catch(this.webhookLogger.error);
         }
       })
       .on("guildMemberAdd", require("./events/guildMemberAdd"))
