@@ -195,7 +195,11 @@ module.exports = class DiceCluster extends BaseCluster {
     });
 
     this.client
-      .on("debug", this.logger.scope(`shard ${this.client.shard.id}`, "discord.js").debug)
+      .on("debug", (...toLog) => {
+        if (process.env.NODE_ENV === "development") {
+          this.logger.scope(`shard ${this.client.shard.id}`, "discord.js").debug(...toLog);
+        }
+      })
       .on("unhandledRejection", this.reportPromiseRejection)
       .on("error", this.reportError)
       .on("rejectionHandled", this.reportPromiseRejection)
