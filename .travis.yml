@@ -23,4 +23,6 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: pnpx semantic-release
+        script:
+          - pnpm i -D @iteratec/semantic-release-docker
+          - pnpx semantic-release
