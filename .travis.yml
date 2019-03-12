@@ -5,6 +5,8 @@ before_install:
   - curl -L https://unpkg.com/@pnpm/self-installer | node
 install:
   - pnpm install
+services:
+  - docker
 jobs:
   include:
     - stage: "Tests"
