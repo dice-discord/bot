@@ -21,16 +21,19 @@ const { sensitiveTerms } = require("./sensitivePattern");
 const options = {
   stream: process.stdout,
   scope: "logger",
+  logLevel: "info",
   types: {
     command: {
       badge: ">",
       color: "gray",
-      label: "command"
+      label: "command",
+      level: "info"
     },
     critical: {
       badge: "!!",
       color: "red",
-      label: "critical"
+      label: "critical",
+      level: "info"
     }
   }
 };
