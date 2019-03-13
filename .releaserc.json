@@ -13,7 +13,7 @@
     },
     "verifyConditions": {
       "path": "semantic-release-docker",
-      "registryUrl": "docker.io"
+      "registryUrl": "example.io"
     }
   }
 }
