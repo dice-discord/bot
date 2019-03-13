@@ -1,9 +1,9 @@
 const announceGuildMemberJoin = require("../notificationHandlers/guildMemberJoin");
 
 module.exports = async member => {
-  const { client } = member.client;
+  const { provider } = member.client;
 
-  const guildSettings = await client.provider.get(member.guild, "notifications");
+  const guildSettings = await provider.get(member.guild, "notifications");
 
   for (const id in guildSettings) {
     const channelSettings = guildSettings[id];
@@ -22,7 +22,7 @@ module.exports = async member => {
       // Missing permissions so remove this channel from the provider
       channelSettings[1] = false;
       guildSettings[id] = channelSettings;
-      client.provider.set(member.guild, "notifications", guildSettings);
+      provider.set(member.guild, "notifications", guildSettings);
     }
   }
 };
