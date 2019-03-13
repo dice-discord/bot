@@ -11,7 +11,7 @@
     "dblapi.js": "^2.3.0",
     "discord.js": "vladfrangu/discOwOd.js#internal-sharding-2.0",
     "discord.js-commando": "discordjs/Commando",
-    "dotenv": "^6.2.0",
+    "dotenv": "^7.0.0",
     "gamedig": "^2.0.14",
     "hot-shots": "^6.1.1",
     "keen-tracking": "^4.2.1",
