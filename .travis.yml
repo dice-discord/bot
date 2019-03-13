@@ -16,15 +16,8 @@ jobs:
       script: pnpm run test:coverage
     - name: "Lint"
       script: pnpm run lint
-    - stage: "Build"
-      name: "Build Docker Image"
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script: docker build -t dicediscord/bot .
-    - stage: "Release"
+    - stage: "Deploy"
       name: "Semantic Release"
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script: pnpx semantic-release
+      script:
+        - docker build -t dicediscord/bot .
+        - pnpx semantic-release
