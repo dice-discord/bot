@@ -16,7 +16,7 @@ RUN apk add --no-cache git
 RUN npm -g i pnpm
 
 # Install app dependencies
-COPY package.json shrinkwrap.yaml ./
+COPY package.json pnpm-lock.yaml ./
 RUN pnpm i
 
 # Bundle app source
