@@ -56,7 +56,7 @@ sharder
     logger.success("Clusters spawned");
 
     // Announce version being ready
-    if (config.webhooks.updates && this.client.user.id === config.clientID) {
+    if (config.webhooks.updates && process.env.NODE_ENV === "production") {
       const webhookData = stripWebhookURL(config.webhooks.updates);
       const webhook = new WebhookClient(webhookData.id, webhookData.token);
 
