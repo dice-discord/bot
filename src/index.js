@@ -65,7 +65,7 @@ sharder
           embeds: [
             {
               color: 0x4caf50,
-              title: `${this.client.user.username} Ready`,
+              title: "Ready",
               fields: [
                 {
                   name: "Version",
