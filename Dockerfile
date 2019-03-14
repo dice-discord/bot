@@ -9,8 +9,8 @@ WORKDIR /usr/src/dice
 RUN apk update
 RUN apk upgrade
 
-# Install git
-RUN apk add --no-cache git
+# Install git and curl
+RUN apk add --no-cache git curl
 
 # Install PNPM
 RUN curl -L https://unpkg.com/@pnpm/self-installer | node
