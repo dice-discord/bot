@@ -86,20 +86,6 @@ module.exports = class DiceCluster extends BaseCluster {
 
   configureRegistry(registry) {
     registry
-      // Registers your custom command groups
-      .registerGroups([
-        ["util", "Utility"],
-        ["mod", "Moderation"],
-        ["search", "Search"],
-        ["games", "Games"],
-        ["fun", "Fun"],
-        ["single", "Single response"],
-        ["selfroles", "Selfroles"],
-        ["minecraft", "Minecraft"],
-        ["economy", "Economy"],
-        ["dev", "Developer"]
-      ])
-
       // Command argument types
       .registerDefaultTypes()
 
@@ -114,6 +100,19 @@ module.exports = class DiceCluster extends BaseCluster {
 
       // Register custom argument types in the ./types directory
       .registerTypesIn(path.join(__dirname, "types"))
+
+      // Registers your custom command groups
+      .registerGroups([
+        ["mod", "Moderation"],
+        ["search", "Search"],
+        ["games", "Games"],
+        ["fun", "Fun"],
+        ["single", "Single response"],
+        ["selfroles", "Selfroles"],
+        ["minecraft", "Minecraft"],
+        ["economy", "Economy"],
+        ["dev", "Developer"]
+      ])
 
       // Registers all of the commands in the ./commands directory
       .registerCommandsIn(path.join(__dirname, "commands"));
