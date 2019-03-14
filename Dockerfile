@@ -13,7 +13,7 @@ RUN apk upgrade
 RUN apk add --no-cache git
 
 # Install PNPM
-RUN npm -g i pnpm
+RUN curl -L https://unpkg.com/@pnpm/self-installer | node
 
 # Install app dependencies
 COPY package.json pnpm-lock.yaml ./
