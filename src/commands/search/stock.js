@@ -61,27 +61,27 @@ module.exports = class StockCommand extends Command {
             },
             fields: [
               {
-                name: "💰 Price (`USD`)",
+                name: "Price (`USD`)",
                 value: `$${stock.currentPrice}`,
                 inline: true
               },
               {
-                name: "💰 High Price (`USD`)",
+                name: "High Price (`USD`)",
                 value: `$${stock.highPrice}`,
                 inline: true
               },
               {
-                name: "💰 Low Price (`USD`)",
+                name: "Low Price (`USD`)",
                 value: `$${stock.lowPrice}`,
                 inline: true
               },
               {
-                name: "💰 Mean Price (`USD`)",
+                name: "Mean Price (`USD`)",
                 value: `$${stock.meanPrice}`,
                 inline: true
               },
               {
-                name: "💰 Median Price (`USD`)",
+                name: "Median Price (`USD`)",
                 value: `$${stock.medianPrice}`,
                 inline: true
               }
