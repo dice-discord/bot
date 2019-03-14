@@ -7,9 +7,9 @@ dependencies:
   common-tags: 1.8.0
   date-fns: 2.0.0-alpha.27
   dblapi.js: 2.3.0
-  discord.js: github.com/vladfrangu/discOwOd.js/be3032fb0e7355ed072e1b9d0b76e9feff4dbbd6
+  discord.js: github.com/vladfrangu/discOwOd.js/8d52623c4cb0a17d941d8a7b64f0a9e04067baed
   discord.js-commando: github.com/discordjs/Commando/d07be22c26020d5f07379d34de238eb1198651fc
-  dotenv: 6.2.0
+  dotenv: 7.0.0
   gamedig: 2.0.14
   hot-shots: 6.1.1
   keen-tracking: 4.3.0
@@ -35,7 +35,7 @@ devDependencies:
   eslint-plugin-prettier: 3.0.1
   prettier: 1.16.4
   semantic-release: 15.13.3
-  semantic-release-docker: 2.1.0
+  semantic-release-docker: 2.2.0
   tap: 12.6.0
 lockfileVersion: 5
 packages:
@@ -152,7 +152,7 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
-  /@octokit/endpoint/3.1.3:
+  /@octokit/endpoint/3.2.3:
     dependencies:
       deepmerge: 3.2.0
       is-plain-object: 2.0.4
@@ -160,10 +160,10 @@ packages:
       url-template: 2.0.8
     dev: true
     resolution:
-      integrity: sha512-vAWzeoj9Lzpl3V3YkWKhGzmDUoMfKpyxJhpq74/ohMvmLXDoEuAGnApy/7TRi3OmnjyX2Lr+e9UGGAD0919ohA==
-  /@octokit/request/2.4.1:
+      integrity: sha512-yUPCt4vMIOclox13CUxzuKiPJIFo46b/6GhUnUTw5QySczN1L0DtSxgmIZrZV4SAb9EyAqrceoyrWoYVnfF2AA==
+  /@octokit/request/2.4.2:
     dependencies:
-      '@octokit/endpoint': 3.1.3
+      '@octokit/endpoint': 3.2.3
       deprecation: 1.0.1
       is-plain-object: 2.0.4
       node-fetch: 2.3.0
@@ -171,21 +171,23 @@ packages:
       universal-user-agent: 2.0.3
     dev: true
     resolution:
-      integrity: sha512-nN8W24ZXEpJQJoVgMsGZeK9FOzxkc39Xn9ykseUpPpPMNEDFSvqfkCeqqKrjUiXRm72ubGLWG1SOz0aJPcgGww==
-  /@octokit/rest/16.17.0:
+      integrity: sha512-lxVlYYvwGbKSHXfbPk5vxEA8w4zHOH1wobado4a9EfsyD3Cbhuhus1w0Ye9Ro0eMubGO8kNy5d+xNFisM3Tvaw==
+  /@octokit/rest/16.18.0:
     dependencies:
-      '@octokit/request': 2.4.1
+      '@octokit/request': 2.4.2
       before-after-hook: 1.4.0
       btoa-lite: 1.0.0
+      deprecation: 1.0.1
       lodash.get: 4.4.2
       lodash.set: 4.3.2
       lodash.uniq: 4.5.0
       octokit-pagination-methods: 1.1.0
+      once: 1.4.0
       universal-user-agent: 2.0.3
       url-template: 2.0.8
     dev: true
     resolution:
-      integrity: sha512-1RB7e4ptR/M+1Ik3Qn84pbppbSadBaCtpgFqgqsXn6s4ZVE6hqW9SOm6UW5yd3KT7ObVfdYUkhMlgR937oKyDw==
+      integrity: sha512-xRgcFk4og+9SrPLKYdKDCny8iqr+8VkvPucTQEVer6rBBRYVGdZ65/49IZXngErlRrTkuDni3bC7V8re4vvypA==
   /@semantic-release/commit-analyzer/6.1.0:
     dependencies:
       conventional-changelog-angular: 5.0.3
@@ -207,7 +209,7 @@ packages:
       integrity: sha512-9Tj/qn+y2j+sjCI3Jd+qseGtHjOAeg7dU2/lVcqIQ9TV3QDaDXDYXcoOHU+7o2Hwh8L8ymL4gfuO7KxDs3q2zg==
   /@semantic-release/github/5.2.10:
     dependencies:
-      '@octokit/rest': 16.17.0
+      '@octokit/rest': 16.18.0
       '@semantic-release/error': 2.2.0
       aggregate-error: 2.2.0
       bottleneck: 2.17.1
@@ -342,7 +344,7 @@ packages:
     dependencies:
       '@types/events': 3.0.0
       '@types/minimatch': 3.0.3
-      '@types/node': 11.11.1
+      '@types/node': 11.11.3
     dev: true
     resolution:
       integrity: sha512-1Bh06cbWJUHMC97acuD6UMG29nMt0Aqz1vF3guLfG+kHHJhy3AyohZFFxYk2f7Q1SQIrNwvncxAE0N/9s70F2w==
@@ -350,9 +352,9 @@ packages:
     dev: true
     resolution:
       integrity: sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
-  /@types/node/11.11.1:
+  /@types/node/11.11.3:
     resolution:
-      integrity: sha512-2azXFP9n4aA2QNLkKm/F9pzKxgYj1SMawZ5Eh9iC21RH3XNcFsivLVU2NhpMgQm7YobSByvIol4c42ZFusXFHQ==
+      integrity: sha512-wp6IOGu1lxsfnrD+5mX6qwSwWuqsdkKKxTN4aQc4wByHAKZJf9/D4KXPQ1POUjEbnCP5LMggB0OEFNY9OTsMqg==
   /@types/stack-trace/0.0.29:
     dev: false
     resolution:
@@ -1335,12 +1337,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-G3CK8JSknJoOfbyteQq6U52sEXc=
-  /dotenv/6.2.0:
+  /dotenv/7.0.0:
     dev: false
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
+      integrity: sha512-M3NhsLbV1i6HuGzBUH8vXrtxOk+tWmzWKDMbAVSUp3Zsjm7ywFeuwrUXhmhQyRK1q5B5GGy7hcXPbj3bnfZg2g==
   /duplexer2/0.1.4:
     dependencies:
       readable-stream: 2.3.6
@@ -1501,12 +1503,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-NTcm6vQ+PTgN3UBsALw5BMhgO6i5EpIjQF/Xb5tIh3sk9QhrFafujUOczGz4J24JBlzWclSB9Vmx8d+9Z6bFCg==
-  /esm/3.2.14:
+  /esm/3.2.16:
     dev: true
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-uQq8DK0HB0n2Ze9gshhxGQa60caKmwNH7tKxALAT6wxYGfQCdEMXA3MV3z1rh8TSmQIVFYbltm9Xe1ghusnCqw==
+      integrity: sha512-iACZMQvYFc66Y7QC+vD3oGA/fFsPA/IQwewRJ3K0gbMV52E59pdko02kF2TfVdtp5aHO62PHxL6fxtHJmhm3NQ==
   /espree/5.0.1:
     dependencies:
       acorn: 6.1.1
@@ -2826,16 +2828,16 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-+H0L3ibcWhAZE02SKMqmvYsErLo4EAVJxu5h3bHBBDvvjeWXtl92rGUSBYHL2++5Y+RSNgl8dYOAXcYe7lp1fA==
-  /mem/4.1.0:
+  /mem/4.2.0:
     dependencies:
       map-age-cleaner: 0.1.3
-      mimic-fn: 1.2.0
+      mimic-fn: 2.0.0
       p-is-promise: 2.0.0
     dev: true
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-I5u6Q1x7wxO0kdOpYBB28xueHADYps5uty/zg936CiG8NTe5sJL8EjrCuLneuDW3PlMdZBGDIn8BirEVdovZvg==
+      integrity: sha512-5fJxa68urlY0Ir8ijatKa3eRz5lwXnRCTvo9+TbTGAuTFJOwpGcY0X05moBd0nW45965Njt4CDI2GFQoG8DvqA==
   /memory-pager/1.5.0:
     dev: false
     optional: true
@@ -2908,6 +2910,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-jf84uxzwiuiIVKiOLpfYk7N46TSy8ubTonmneY9vrpHNAnp0QBt2BxWV9dO3/j+BoVAb+a5G6YDPW3M5HOdMWQ==
+  /mimic-fn/2.0.0:
+    dev: true
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-jbex9Yd/3lmICXwYT6gA/j2mNQGU48wCh/VzRd+/Y/PjYQtlg1gLMdZqvu9s/xH7qKvngxRObl56XZR609IMbA==
   /minimatch/3.0.4:
     dependencies:
       brace-expansion: 1.1.11
@@ -3371,7 +3379,7 @@ packages:
     dependencies:
       execa: 1.0.0
       lcid: 2.0.0
-      mem: 4.1.0
+      mem: 4.2.0
     dev: true
     engines:
       node: '>=6'
@@ -3528,7 +3536,7 @@ packages:
       integrity: sha1-ZiON9fjnwMjKTNlw1KtqE3PrdbU=
   /parse5/3.0.3:
     dependencies:
-      '@types/node': 11.11.1
+      '@types/node': 11.11.3
     dev: false
     resolution:
       integrity: sha512-rgO9Zg5LLLkfJF9E6CCmXlSE4UVceloys8JrFqCcHloC3usd/kJCyPDwH2SOlzix2j3xaP9sUX3e8+kvkuleAA==
@@ -4031,7 +4039,7 @@ packages:
     dev: false
     resolution:
       integrity: sha1-cA46NOsueSzjgHkccSgPNzGWXdw=
-  /semantic-release-docker/2.1.0:
+  /semantic-release-docker/2.2.0:
     dependencies:
       '@semantic-release/error': 2.2.0
       execa: 0.10.0
@@ -4041,7 +4049,7 @@ packages:
     peerDependencies:
       semantic-release: '>=11.0.0 <16.0.0'
     resolution:
-      integrity: sha512-jdXCfSuUVOH4GEYMyfmBTtH3VdJHEPUfhH4+1PI3rCplDbcfZ7pDmfuOySZhPlfkFHOJvOoVAHvXkdqOYoUxVg==
+      integrity: sha512-p5pZuyD05ax2OIJY3MTa9ekPbnR7hw3Pzv79sDELx4/MwHdkxjoLNsbNHnH4RNfgyRYGUfnS3R0CnYv3e713FQ==
   /semantic-release/15.13.3:
     dependencies:
       '@semantic-release/commit-analyzer': 6.1.0
@@ -4210,13 +4218,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-MjqsvNwyz1s0k81Goz/9vRBe9SZdB09Bdw+/zYyO+3CuPk6fouTaxscHkgtE8jKvf01kVfl8riHzERQ/kefaSA==
-  /source-map-support/0.5.10:
+  /source-map-support/0.5.11:
     dependencies:
       buffer-from: 1.1.1
       source-map: 0.6.1
     dev: true
     resolution:
-      integrity: sha512-YfQ3tQFTK/yzlGJuX8pTwa4tifQj4QS2Mj7UegOu8jAz59MqIiMGPXxQhVQiIMNzayuUSF/jEuVnfFF5JqybmQ==
+      integrity: sha512-//sajEx/fGL3iw6fltKMdPvy8kL3kJ2O3iuYlRoT3k9Kb4BjOoZ+BZzaNHeuaruSt+Kf3Zk9tnfAQg9/AJqUVQ==
   /source-map-url/0.4.0:
     dev: true
     resolution:
@@ -4542,7 +4550,7 @@ packages:
       color-support: 1.1.3
       coveralls: 3.0.3
       domain-browser: 1.2.0
-      esm: 3.2.14
+      esm: 3.2.16
       foreground-child: 1.5.6
       fs-exists-cached: 1.0.0
       function-loop: 1.0.1
@@ -4558,7 +4566,7 @@ packages:
       own-or-env: 1.0.1
       rimraf: 2.6.3
       signal-exit: 3.0.2
-      source-map-support: 0.5.10
+      source-map-support: 0.5.11
       stack-utils: 1.0.2
       tap-mocha-reporter: 3.0.9
       tap-parser: 7.0.0
@@ -4714,7 +4722,7 @@ packages:
       arg: 4.1.0
       diff: 3.5.0
       make-error: 1.3.5
-      source-map-support: 0.5.10
+      source-map-support: 0.5.11
       typescript: 3.3.3333
       yn: 3.0.0
     dev: true
@@ -5033,9 +5041,10 @@ packages:
       discord.js: ^12.0.0
       sqlite: ^3.0.0
     resolution:
+      registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/discordjs/Commando/tar.gz/d07be22c26020d5f07379d34de238eb1198651fc'
     version: 0.11.0-dev
-  github.com/vladfrangu/discOwOd.js/be3032fb0e7355ed072e1b9d0b76e9feff4dbbd6:
+  github.com/vladfrangu/discOwOd.js/8d52623c4cb0a17d941d8a7b64f0a9e04067baed:
     dependencies:
       form-data: 2.3.3
       node-fetch: 2.3.0
@@ -5056,7 +5065,7 @@ packages:
       sodium: ^3.0.2
       zlib-sync: ^0.1.4
     resolution:
-      tarball: 'https://codeload.github.com/vladfrangu/discOwOd.js/tar.gz/be3032fb0e7355ed072e1b9d0b76e9feff4dbbd6'
+      tarball: 'https://codeload.github.com/vladfrangu/discOwOd.js/tar.gz/8d52623c4cb0a17d941d8a7b64f0a9e04067baed'
     version: 12.0.0-dev
 specifiers:
   '@dice-discord/eslint-config': ^1.1.3
@@ -5071,7 +5080,7 @@ specifiers:
   dblapi.js: ^2.3.0
   discord.js: 'github:vladfrangu/discOwOd.js#internal-sharding-2.0'
   discord.js-commando: 'github:discordjs/Commando'
-  dotenv: ^6.2.0
+  dotenv: ^7.0.0
   eslint: ^5.14.1
   eslint-config-prettier: ^4.0.0
   eslint-plugin-prettier: ^3.0.1
