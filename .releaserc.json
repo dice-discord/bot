@@ -1,19 +1,14 @@
 {
   "plugins": [
-    "semantic-release-docker",
+    [
+      "semantic-release-docker",
+      {
+        "name": "dicediscord/bot"
+      }
+    ],
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/npm",
     "@semantic-release/github"
-  ],
-  "release": {
-    "publish": {
-      "name": "dicediscord/bot",
-      "path": "semantic-release-docker"
-    },
-    "verifyConditions": {
-      "path": "semantic-release-docker",
-      "registryUrl": "example.io"
-    }
-  }
+  ]
 }
