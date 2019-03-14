@@ -76,8 +76,8 @@ sharder
             }
           ]
         })
-        .then(() => this.webhookLogger.debug("Sent ready webhook"))
-        .catch(this.webhookLogger.error);
+        .then(() => logger.debug("Sent ready webhook"))
+        .catch(logger.error);
     }
   })
   .catch(err => {
