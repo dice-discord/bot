@@ -81,6 +81,6 @@ sharder
     }
   })
   .catch(err => {
-    logger.fatal("Clusters not spawned");
+    logger.fatal("An error occured when spawning clusters");
     logger.error(err);
   });
