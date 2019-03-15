@@ -172,20 +172,6 @@ module.exports = class DiceCluster extends BaseCluster {
 
     this.scheduleBirthdayNotifications();
 
-    this.client.setProvider(new KeyvProvider(keyv)).then(async () => {
-      const blacklist = await this.client.provider.get("global", "blacklist", []);
-      this.client.blacklist = blacklist;
-    });
-
-    this.client.dispatcher.addInhibitor(msg => {
-      const { blacklist } = this.client;
-
-      if (blacklist.includes(msg.author.id)) {
-        return ["blacklisted", msg.reply(`You have been blacklisted from ${this.client.user.username}.`)];
-      }
-      return false;
-    });
-
     this.client
       .on("debug", (...toLog) => {
         if (process.env.NODE_ENV === "development") {
@@ -211,6 +197,20 @@ module.exports = class DiceCluster extends BaseCluster {
 
         // Set game presence to the help command once loaded
         this.client.user.setActivity("for @Dice help", { type: "WATCHING" });
+
+        this.client.setProvider(new KeyvProvider(keyv)).then(async () => {
+          const blacklist = await this.client.provider.get("global", "blacklist", []);
+          this.client.blacklist = blacklist;
+        });
+
+        this.client.dispatcher.addInhibitor(msg => {
+          const { blacklist } = this.client;
+
+          if (blacklist.includes(msg.author.id)) {
+            return ["blacklisted", msg.reply(`You have been blacklisted from ${this.client.user.username}.`)];
+          }
+          return false;
+        });
 
         // Only check for Discoin transactions and send bot stats if this is shard 0 and the production account
         if (this.client.shard.id === 0 && config.clientID === this.client.user.id) {
