@@ -7,7 +7,7 @@ dependencies:
   common-tags: 1.8.0
   date-fns: 2.0.0-alpha.27
   dblapi.js: 2.3.0
-  discord.js: github.com/vladfrangu/discOwOd.js/8d52623c4cb0a17d941d8a7b64f0a9e04067baed
+  discord.js: github.com/vladfrangu/discOwOd.js/adadb33970dd0ee67566814627c2abb92ffcff36
   discord.js-commando: github.com/discordjs/Commando/d07be22c26020d5f07379d34de238eb1198651fc
   dotenv: 7.0.0
   gamedig: 2.0.14
@@ -5044,7 +5044,7 @@ packages:
       registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/discordjs/Commando/tar.gz/d07be22c26020d5f07379d34de238eb1198651fc'
     version: 0.11.0-dev
-  github.com/vladfrangu/discOwOd.js/8d52623c4cb0a17d941d8a7b64f0a9e04067baed:
+  github.com/vladfrangu/discOwOd.js/adadb33970dd0ee67566814627c2abb92ffcff36:
     dependencies:
       form-data: 2.3.3
       node-fetch: 2.3.0
@@ -5065,7 +5065,7 @@ packages:
       sodium: ^3.0.2
       zlib-sync: ^0.1.4
     resolution:
-      tarball: 'https://codeload.github.com/vladfrangu/discOwOd.js/tar.gz/8d52623c4cb0a17d941d8a7b64f0a9e04067baed'
+      tarball: 'https://codeload.github.com/vladfrangu/discOwOd.js/tar.gz/adadb33970dd0ee67566814627c2abb92ffcff36'
     version: 12.0.0-dev
 specifiers:
   '@dice-discord/eslint-config': ^1.1.3

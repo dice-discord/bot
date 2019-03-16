@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 require("dotenv").config();
+
 const logger = require("./util/logger").scope("shard manager");
 const { ShardingManager } = require("kurasuta");
 const DiceClient = require("./structures/DiceClient");
@@ -50,9 +51,12 @@ const sharder = new ShardingManager(join(__dirname, "dice"), {
 
 sharder.on("debug", logger.debug);
 
+let first = false;
 sharder
   .spawn()
   .then(() => {
+    if (!first) return;
+    first = true;
     logger.success("Clusters spawned");
 
     // Announce version being ready
