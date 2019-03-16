@@ -1,3 +1,11 @@
 {
-  "deepscan.enable": true
+  "deepscan.enable": true,
+  "cSpell.words": [
+    "dblapi",
+    "dicediscord",
+    "discordbot",
+    "discordjs",
+    "setimmediate",
+    "signale"
+  ]
 }
