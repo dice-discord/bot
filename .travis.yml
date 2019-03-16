@@ -16,8 +16,6 @@ jobs:
       script: pnpm run test:coverage
     - name: "Lint"
       script: pnpm run lint
-    - name: "Integration tests"
-      script: pnpm start
     - stage: "Deploy"
       name: "Semantic Release"
       script:

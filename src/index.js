@@ -79,9 +79,6 @@ sharder
         .then(() => logger.debug("Sent ready webhook"))
         .catch(logger.error);
     }
-
-    // Continuous integration tests
-    if (process.env.CI) process.exit(0);
   })
   .catch(err => {
     logger.fatal("An error occured when spawning clusters");
