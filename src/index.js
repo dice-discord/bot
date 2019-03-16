@@ -57,6 +57,7 @@ sharder
 
     // Announce version being ready
     if (config.webhooks.updates && process.env.NODE_ENV === "production") {
+      const webhookLogger = logger.scope("shard manager", "ready webhook");
       const webhookData = stripWebhookURL(config.webhooks.updates);
       const webhook = new WebhookClient(webhookData.id, webhookData.token);
 
@@ -76,8 +77,8 @@ sharder
             }
           ]
         })
-        .then(() => logger.debug("Sent ready webhook"))
-        .catch(logger.error);
+        .then(() => webhookLogger.debug("Sent ready webhook"))
+        .catch(webhookLogger.error);
     }
   })
   .catch(err => {
