@@ -1,9 +1,9 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = async msg => {
-  const { client } = msg;
+  const { provider } = msg.client;
 
-  const guildSettings = await client.provider.get(msg.guild, "notifications");
+  const guildSettings = await provider.get(msg.guild, "notifications");
   const channels = [];
 
   for (const id in guildSettings) {
@@ -23,7 +23,7 @@ module.exports = async msg => {
       // Missing permissions so remove this channel from the provider
       channelSettings[5] = false;
       guildSettings[id] = channelSettings;
-      client.provider.set(msg.guild, "notifications", guildSettings);
+      provider.set(msg.guild, "notifications", guildSettings);
     }
   }
 
