@@ -1,9 +1,9 @@
 const announceVoiceChannelUpdate = require("../notificationHandlers/voiceChannelUpdate");
 
 module.exports = async (oldVoiceState, newVoiceState) => {
-  const { client } = newVoiceState.guild;
+  const { provider } = newVoiceState.guild.client;
 
-  const guildSettings = await client.provider.get(newVoiceState.guild, "notifications");
+  const guildSettings = await provider.get(newVoiceState.guild, "notifications");
 
   for (const id in guildSettings) {
     const channelSettings = guildSettings[id];
@@ -24,7 +24,7 @@ module.exports = async (oldVoiceState, newVoiceState) => {
       // Missing permissions so remove this channel from the provider
       channelSettings[2] = false;
       guildSettings[id] = channelSettings;
-      client.provider.set(newVoiceState.guild, "notifications", guildSettings);
+      provider.set(newVoiceState.guild, "notifications", guildSettings);
     }
   }
 };
