@@ -14,8 +14,8 @@ dependencies:
   hot-shots: 6.1.1
   keen-tracking: 4.3.0
   keyv: 3.1.0
-  kurasuta: 0.2.16
-  mongodb: 3.1.13
+  kurasuta: 0.2.17
+  mongodb: 3.2.1
   ms: 2.1.1
   node-fetch: 2.3.0
   node-schedule: 1.3.2
@@ -83,17 +83,17 @@ packages:
     dev: true
     resolution:
       integrity: sha512-UFMC4ZeFC48Tpvj7C8UgLvtkaUuovQX+5xNWrsIoMG8o2z+XFKjKaN9iVmS84dPwVN00W4wPmqvYoZF3EGAsfw==
-  /@babel/parser/7.4.0:
+  /@babel/parser/7.4.2:
     dev: true
     engines:
       node: '>=6.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-ZmMhJfU/+SXXvy9ALjDZopa3T3EixQtQai89JRC48eM9OUwrxJjYjuM/0wmdl2AekytlzMVhPY8cYdLb13kpKQ==
+      integrity: sha512-9fJTDipQFvlfSVdD/JBtkiY0br9BtfvW2R8wo6CX/Ej2eMuV0gWPk1M67Mt3eggQvBqYW1FCEk8BN7WvGm/g5g==
   /@babel/template/7.4.0:
     dependencies:
       '@babel/code-frame': 7.0.0
-      '@babel/parser': 7.4.0
+      '@babel/parser': 7.4.2
       '@babel/types': 7.4.0
     dev: true
     resolution:
@@ -104,7 +104,7 @@ packages:
       '@babel/generator': 7.4.0
       '@babel/helper-function-name': 7.1.0
       '@babel/helper-split-export-declaration': 7.4.0
-      '@babel/parser': 7.4.0
+      '@babel/parser': 7.4.2
       '@babel/types': 7.4.0
       debug: 4.1.1
       globals: 11.11.0
@@ -344,7 +344,7 @@ packages:
     dependencies:
       '@types/events': 3.0.0
       '@types/minimatch': 3.0.3
-      '@types/node': 11.11.4
+      '@types/node': 11.11.5
     dev: true
     resolution:
       integrity: sha512-1Bh06cbWJUHMC97acuD6UMG29nMt0Aqz1vF3guLfG+kHHJhy3AyohZFFxYk2f7Q1SQIrNwvncxAE0N/9s70F2w==
@@ -352,9 +352,9 @@ packages:
     dev: true
     resolution:
       integrity: sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
-  /@types/node/11.11.4:
+  /@types/node/11.11.5:
     resolution:
-      integrity: sha512-02tIL+QIi/RW4E5xILdoAMjeJ9kYq5t5S2vciUdFPXv/ikFTb0zK8q9vXkg4+WAJuYXGiVT1H28AkD2C+IkXVw==
+      integrity: sha512-pz6wNe/XwyesgfVX7P6B0hY3TnTAYXk6KSTLdpQfbuq3be+hnMoCuFzE+yLTskPdBwmNiGRL2TAsnF09aRugvQ==
   /@types/stack-trace/0.0.29:
     dev: false
     resolution:
@@ -1491,12 +1491,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-vMGi0PjCHSokZxE0NLp2VneGw5sio7SSiDNgIUn2tC0XkWJRNOIoHIg3CliLVfXnJsiHxGAYrkw0PieAu8+KYQ==
-  /esm/3.2.18:
+  /esm/3.2.20:
     dev: true
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-1UENjnnI37UDp7KuOqKYjfqdaMim06eBWnDv37smaxTIzDl0ZWnlgoXwsVwD9+Lidw+q/f1gUf2diVMDCycoVw==
+      integrity: sha512-NA92qDA8C/qGX/xMinDGa3+cSPs4wQoFxskRrSnDo/9UloifhONFm4sl4G+JsyCqM007z2K+BfQlH5rMta4K1Q==
   /espree/5.0.1:
     dependencies:
       acorn: 6.1.1
@@ -1963,7 +1963,7 @@ packages:
       node: '>=0.4.7'
     hasBin: true
     optionalDependencies:
-      uglify-js: 3.5.0
+      uglify-js: 3.5.1
     resolution:
       integrity: sha512-3Zhi6C0euYZL5sM0Zcy7lInLXKQ+YLcF/olbN010mzGQ4XVm50JeyBnMqofHh696GrciGruC7kCcApPDJvVgwA==
   /har-schema/2.0.0:
@@ -2465,7 +2465,7 @@ packages:
   /istanbul-lib-instrument/3.1.0:
     dependencies:
       '@babel/generator': 7.4.0
-      '@babel/parser': 7.4.0
+      '@babel/parser': 7.4.2
       '@babel/template': 7.4.0
       '@babel/traverse': 7.4.0
       '@babel/types': 7.4.0
@@ -2616,15 +2616,15 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
-  /kurasuta/0.2.16:
+  /kurasuta/0.2.17:
     dependencies:
       node-fetch: 2.3.0
-      veza: 0.3.3
+      veza: 0.4.0
     dev: false
     peerDependencies:
       discord.js: discordjs/discord.js
     resolution:
-      integrity: sha512-7g8FVnEn5/AwSUgvyr/kXx6SYb1XeFzbnDFE6AzedHmM6r8gvcIrczyEXstn5EfKPML4ILm5PsZW2d3FJ4QSwA==
+      integrity: sha512-o0j+hTPR7lypNvGYk7Qvf4HKH8w/B9DrCGJxLBuqUjc38r//ftsD/zVCsOXcJeJIs+ik4of2RBf2ZKr39VI43A==
   /lcid/2.0.0:
     dependencies:
       invert-kv: 2.0.0
@@ -2973,7 +2973,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-IN57CX5/Q1bhDq6ShAR6gIv4koFsZP7L8WOK1S0lR0pVDQaScffSMV5jxubLsmZ7J+UdqmykKw4r9hG3XQEGgQ==
-  /mongodb-core/3.1.11:
+  /mongodb-core/3.2.1:
     dependencies:
       bson: 1.1.1
       require_optional: 1.0.1
@@ -2982,7 +2982,7 @@ packages:
     optionalDependencies:
       saslprep: 1.0.2
     resolution:
-      integrity: sha512-rD2US2s5qk/ckbiiGFHeu+yKYDXdJ1G87F6CG3YdaZpzdOm5zpoAZd/EKbPmFO6cQZ+XVXBXBJ660sSI0gc6qg==
+      integrity: sha512-vvnl5F6QhvFhi28umNx+Ymyb8wVQOhvEjU30JF3TjBBomS2tamJFK4eA0uwOa6FxLi9qCQWejbF66B0rb/UUiw==
   /mongodb/2.2.36:
     dependencies:
       es6-promise: 3.2.1
@@ -2993,15 +2993,15 @@ packages:
       node: '>=0.10.3'
     resolution:
       integrity: sha512-P2SBLQ8Z0PVx71ngoXwo12+FiSfbNfGOClAao03/bant5DgLNkOPAck5IaJcEk4gKlQhDEURzfR3xuBG1/B+IA==
-  /mongodb/3.1.13:
+  /mongodb/3.2.1:
     dependencies:
-      mongodb-core: 3.1.11
+      mongodb-core: 3.2.1
       safe-buffer: 5.1.2
     dev: false
     engines:
       node: '>=4'
     resolution:
-      integrity: sha512-sz2dhvBZQWf3LRNDhbd30KHVzdjZx9IKC0L+kSZ/gzYquCF5zPOgGqRz6sSCqYZtKP2ekB4nfLxhGtzGHnIKxA==
+      integrity: sha512-Vboj2WjyQYGMe8RQ7tmxdvtcdthyEu2f+gDdua7zbKu5JjDPZFDbgjjJEgnfcluog8Po+VguqXoPs9Zh+PAuKw==
   /mongojs/2.5.0:
     dependencies:
       each-series: 1.0.0
@@ -3528,7 +3528,7 @@ packages:
       integrity: sha1-ZiON9fjnwMjKTNlw1KtqE3PrdbU=
   /parse5/3.0.3:
     dependencies:
-      '@types/node': 11.11.4
+      '@types/node': 11.11.5
     dev: false
     resolution:
       integrity: sha512-rgO9Zg5LLLkfJF9E6CCmXlSE4UVceloys8JrFqCcHloC3usd/kJCyPDwH2SOlzix2j3xaP9sUX3e8+kvkuleAA==
@@ -4542,7 +4542,7 @@ packages:
       color-support: 1.1.3
       coveralls: 3.0.3
       domain-browser: 1.2.0
-      esm: 3.2.18
+      esm: 3.2.20
       foreground-child: 1.5.6
       fs-exists-cached: 1.0.0
       function-loop: 1.0.1
@@ -4759,7 +4759,7 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-jjOcCZvpkl2+z7JFn0yBOoLQyLoIkNZAs/fYJkUG6VKy6zLPHJGfQJYFHzibB6GJaF/8QrcECtlQ5cpvRHSMEA==
-  /uglify-js/3.5.0:
+  /uglify-js/3.5.1:
     dependencies:
       commander: 2.19.0
       source-map: 0.6.1
@@ -4769,7 +4769,7 @@ packages:
     hasBin: true
     optional: true
     resolution:
-      integrity: sha512-kY2sHdru6BcIDg+i1SCZ1bpPhZJ6yiE0bEKLEJDC4M/lDSMhr/zVJeuEzvHJGjAXJCizSzUVh9atREf2jnR7yQ==
+      integrity: sha512-kI+3c+KphOAKIikQsZoT2oDsVYH5qvhpTtFObfMCdhPAYnjSvmW4oTWMhvDD4jtAGHJwztlBXQgozGcq3Xw9oQ==
   /unicode-length/1.0.3:
     dependencies:
       punycode: 1.4.1
@@ -4863,10 +4863,10 @@ packages:
       '0': node >=0.6.0
     resolution:
       integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=
-  /veza/0.3.3:
+  /veza/0.4.0:
     dev: false
     resolution:
-      integrity: sha512-uCjeVMfuv3C3LP+IxvMX/wZZU40u+CqHuYj2TTrGk79UGa8ZZe6efUKKl6gPE2Gn4Bk7Z3oEZv/ViLcJ3dpHFg==
+      integrity: sha512-WIxsWppQ0yPv2NyxujZ8WjPl/rkqMIp+QdOkoJyKl2C+PGbiri/gDXumA9HjvRtnCTZJiMt3duhEhM/igLE8SQ==
   /whatwg-fetch/2.0.4:
     dev: false
     resolution:
@@ -5081,7 +5081,7 @@ specifiers:
   hot-shots: ^6.1.1
   keen-tracking: ^4.2.1
   keyv: ^3.1.0
-  kurasuta: ^0.2.16
+  kurasuta: ^0.2.17
   mongodb: ^3.1.13
   ms: ^2.1.1
   node-fetch: ^2.3.0
