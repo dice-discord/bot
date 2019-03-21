@@ -7,15 +7,28 @@ module.exports = class UnknownCommandCommand extends Command {
       group: "util",
       memberName: "unknown-command",
       description: "Displays help information for when an unknown command is used.",
-      examples: ["unknown-command kickeverybodyever"],
+      examples: ["unknown-command kick-everybody-ever"],
       unknown: true,
       hidden: true
     });
   }
 
   async run(msg) {
-    const unknownCommandResponse = await this.client.provider.get(msg.guild, "unknownCommandResponse", false);
+    if (msg.guild) {
+      const tags = await this.client.provider.get(msg.guild, "tags");
+      const args = { name: msg.content.split(msg.guild.commandPrefix)[1].toLowerCase() };
 
+      if (
+        msg.content.split(msg.guild.commandPrefix)[1] !== "undefined" &&
+        typeof tags !== "undefined" &&
+        tags.hasOwnProperty(args.name)
+      ) {
+        this.client.registry.resolveCommand("tags:get").run(msg, args);
+        return null;
+      }
+    }
+
+    const unknownCommandResponse = await this.client.provider.get(msg.guild, "unknownCommandResponse", false);
     if (unknownCommandResponse) {
       return msg.reply(
         `Unknown command. Use ${msg.anyUsage(

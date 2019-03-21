@@ -108,6 +108,7 @@ module.exports = class DiceCluster extends BaseCluster {
         ["games", "Games"],
         ["fun", "Fun"],
         ["single", "Single response"],
+        ["tags", "Tags"],
         ["selfroles", "Selfroles"],
         ["minecraft", "Minecraft"],
         ["economy", "Economy"],
