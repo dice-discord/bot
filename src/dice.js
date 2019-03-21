@@ -63,7 +63,7 @@ module.exports = class DiceCluster extends BaseCluster {
   }
   /**
    * @name reportError
-   * @param {Error} err The error that occured
+   * @param {Error} err The error that occurred
    */
   reportError(err) {
     // Log the error
@@ -74,8 +74,8 @@ module.exports = class DiceCluster extends BaseCluster {
 
   /**
    * @name reportPromiseRejection
-   * @param {Error} reason The error that occured
-   * @param {Promise} promise The error that occured
+   * @param {Error} reason The error that occurred
+   * @param {Promise} promise The error that occurred
    */
   reportPromiseRejection(reason, promise) {
     // Log the error and promise
