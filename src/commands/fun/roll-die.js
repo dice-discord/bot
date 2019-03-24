@@ -17,7 +17,7 @@ limitations under the License.
 const { Command } = require("discord.js-commando");
 const { stripIndents } = require("common-tags");
 const Roll = require("roll");
-const roll = new Roll();
+const staticRoll = new Roll();
 
 module.exports = class RollDieCommand extends Command {
   constructor(client) {
@@ -37,13 +37,11 @@ module.exports = class RollDieCommand extends Command {
       examples: ["roll-die", "roll-die d20"],
       args: [
         {
-          key: "rolled",
+          key: "roll",
           prompt: "What do you want to roll?",
           type: "string",
-          default: roll.roll("d6"),
-          label: "roll",
-          parse: val => roll.roll(val),
-          validate: val => roll.validate(val)
+          default: "d6",
+          validate: val => staticRoll.validate(val)
         }
       ],
       throttling: {
@@ -53,7 +51,10 @@ module.exports = class RollDieCommand extends Command {
     });
   }
 
-  run(msg, { rolled }) {
+  run(msg, { roll }) {
+    // Give it a pseudo-random seed for a bit more entropy
+    const rolled = new Roll(Math.random).roll(roll);
+
     return msg.reply(`You rolled ${rolled.result}${rolled.rolled.length > 1 ? `(${rolled.rolled.join(", ")})` : ""}.`);
   }
 };
