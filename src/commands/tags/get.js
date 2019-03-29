@@ -49,7 +49,7 @@ module.exports = class GetTagCommand extends Command {
     const tag = tags[name];
     return msg.reply(
       tags.hasOwnProperty(name)
-        ? `${tag.value} - Created by ${(await this.client.users.fetch(tag.author)).tag}`
+        ? tag.value
         : "That tag doesn't exist"
     );
   }
