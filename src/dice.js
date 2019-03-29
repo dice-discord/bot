@@ -24,7 +24,7 @@ const KeyvProvider = require("commando-provider-keyv");
 const Keyv = require("keyv");
 const database = require("./util/database");
 const axios = require("axios");
-const sentry = require("@sentry/node");
+const Sentry = require("@sentry/node");
 const config = require("./config");
 const schedule = require("node-schedule");
 const { Batch } = require("reported");
@@ -37,7 +37,7 @@ const announceUserAccountBirthday = require("./notificationHandlers/userAccountB
 
 // Use Sentry
 if (config.sentryDSN) {
-  sentry.init({
+  Sentry.init({
     dsn: config.sentryDSN,
     release: packageData.version,
     environment: process.env.NODE_ENV || "development"
@@ -69,7 +69,7 @@ module.exports = class DiceCluster extends BaseCluster {
     // Log the error
     this.logger.error(err);
     // Log the error on Sentry
-    sentry.captureException(err);
+    Sentry.captureException(err);
   }
 
   /**
@@ -81,7 +81,7 @@ module.exports = class DiceCluster extends BaseCluster {
     // Log the error and promise
     this.logger.error(reason, "at the promise", promise);
     // Log the error on Sentry
-    sentry.captureException(reason);
+    Sentry.captureException(reason);
   }
 
   configureRegistry(registry) {
@@ -185,11 +185,11 @@ module.exports = class DiceCluster extends BaseCluster {
       .on("uncaughtException", this.reportError)
       .on("warning", warning => {
         this.logger.warn(warning);
-        sentry.captureException(warning);
+        Sentry.captureException(warning);
       })
       .on("commandError", (command, error) => {
         if (error instanceof FriendlyError) return;
-        sentry.captureException(error);
+        Sentry.captureException(error);
         this.logger.error(error);
       })
       .on("ready", () => {
