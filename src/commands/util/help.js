@@ -1,6 +1,6 @@
 const { stripIndents, oneLine } = require("common-tags");
 const { MessageEmbed } = require("discord.js");
-const { util } = require("discord.js-commando");
+const { Command, util } = require("discord.js-commando");
 const SentryCommand = require("../../structures/SentryCommand");
 const { disambiguation } = util;
 const genCmdURL = require("../../util/genCmdURL");
