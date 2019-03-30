@@ -47,10 +47,6 @@ module.exports = class GetTagCommand extends Command {
     // Get the tags
     const tags = await this.client.provider.get(msg.guild, "tags", {});
     const tag = tags[name];
-    return msg.reply(
-      tags.hasOwnProperty(name)
-        ? tag.value
-        : "That tag doesn't exist"
-    );
+    return msg.say(tags.hasOwnProperty(name) ? tag.value : "That tag doesn't exist");
   }
 };
