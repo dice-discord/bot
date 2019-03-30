@@ -65,7 +65,7 @@ module.exports = class OverwatchStatisticsCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { battletag, platform, region }) {
+  async exec(msg, { battletag, platform, region }) {
     try {
       msg.channel.startTyping();
 

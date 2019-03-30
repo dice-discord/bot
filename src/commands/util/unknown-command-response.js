@@ -34,7 +34,7 @@ module.exports = class UnknownCommandResponseCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { updated }) {
+  async exec(msg, { updated }) {
     const old = await this.client.provider.get(msg.guild, "unknownCommandResponse", false);
 
     if (typeof updated === "boolean") {

@@ -13,7 +13,7 @@ module.exports = class NitroCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     const embed = {
       author: {
         name: "Discord Nitro",

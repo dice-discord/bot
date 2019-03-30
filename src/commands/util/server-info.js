@@ -34,7 +34,7 @@ module.exports = class ServerInfoCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     const [bots, humans] = msg.guild.members.partition(member => member.user.bot);
     const humanCount = humans.size;
     const botCount = bots.size;

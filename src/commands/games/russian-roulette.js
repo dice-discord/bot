@@ -30,7 +30,7 @@ module.exports = class RussianRouletteCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     // Round numbers
     const randomNumber = Math.floor(Math.random() * 6);
 

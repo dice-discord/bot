@@ -56,7 +56,7 @@ module.exports = class TopCryptoCurrenciesCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { limit, currency }) {
+  async exec(msg, { limit, currency }) {
     try {
       msg.channel.startTyping();
       const uri = `https://api.coinmarketcap.com/v1/ticker/?convert=${currency}&limit=${limit}`;

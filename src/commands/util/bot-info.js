@@ -36,7 +36,7 @@ module.exports = class BotInfoCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     try {
       msg.channel.startTyping();
       return msg.replyEmbed({

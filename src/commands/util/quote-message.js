@@ -46,7 +46,7 @@ module.exports = class QuoteMessageCommand extends SentryCommand {
     });
   }
 
-  run(msg, { message }) {
+  exec(msg, { message }) {
     const embed = new MessageEmbed({
       timestamp: message.createdAt,
       author: {

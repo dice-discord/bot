@@ -41,7 +41,7 @@ module.exports = class SayCommand extends SentryCommand {
     });
   }
 
-  run(msg, { phrase }) {
+  exec(msg, { phrase }) {
     if (msg.deletable) msg.delete();
     return msg.say(phrase);
   }

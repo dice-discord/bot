@@ -33,7 +33,7 @@ module.exports = class DevHelpCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     const { shard } = this.client;
 
     return msg.replyEmbed({

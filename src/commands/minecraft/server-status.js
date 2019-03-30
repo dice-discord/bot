@@ -35,7 +35,7 @@ module.exports = class MinecraftServerStatusCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { ip, port }) {
+  async exec(msg, { ip, port }) {
     const res = (await axios(`https://mcapi.us/server/status?ip=${ip}&port=${port}`).catch(error => {
       logger.error(error);
       return msg.reply("An error occured.");

@@ -53,7 +53,7 @@ module.exports = class FortniteStatisticsCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { platform, username }) {
+  async exec(msg, { platform, username }) {
     try {
       msg.channel.startTyping();
 

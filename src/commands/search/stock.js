@@ -44,7 +44,7 @@ module.exports = class StockCommand extends SentryCommand {
     });
   }
 
-  run(msg, { symbol }) {
+  exec(msg, { symbol }) {
     try {
       msg.channel.startTyping();
 

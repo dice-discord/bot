@@ -52,7 +52,7 @@ module.exports = class NPMSearchCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { pkg, full }) {
+  async exec(msg, { pkg, full }) {
     try {
       const { data } = await axios.get(`https://registry.npmjs.com/${encodeURIComponent(pkg)}`);
 

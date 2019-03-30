@@ -30,7 +30,7 @@ module.exports = class VoteCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     msg.reply("🗳 https://discordbots.org/bot/388191157869477888/vote");
   }
 };

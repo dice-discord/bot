@@ -43,7 +43,7 @@ module.exports = class GetTagCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { name }) {
+  async exec(msg, { name }) {
     // Get the tags
     const tags = await this.client.provider.get(msg.guild, "tags", {});
     const tag = tags[name];

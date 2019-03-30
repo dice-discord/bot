@@ -32,7 +32,7 @@ module.exports = class SupportCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     msg.reply("👋 https://discord.gg/NpUmRkj");
   }
 };

@@ -55,7 +55,7 @@ module.exports = class GameCalculatorCommand extends SentryCommand {
     });
   }
 
-  run(msg, { multiplier }) {
+  exec(msg, { multiplier }) {
     return msg.reply(`🔢 Win Percentage: \`${simpleFormat(winPercentage(multiplier, msg.author))}%\`.`);
   }
 };

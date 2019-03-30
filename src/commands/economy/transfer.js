@@ -50,7 +50,7 @@ module.exports = class TransferCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { user, amount }) {
+  async exec(msg, { user, amount }) {
     try {
       msg.channel.startTyping();
 

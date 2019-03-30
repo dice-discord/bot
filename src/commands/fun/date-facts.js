@@ -53,7 +53,7 @@ module.exports = class DateFactsCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { month, day }) {
+  async exec(msg, { month, day }) {
     try {
       msg.channel.startTyping();
 

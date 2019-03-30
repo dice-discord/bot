@@ -53,7 +53,7 @@ module.exports = class BulkDeleteMessagesCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { messageCount }) {
+  async exec(msg, { messageCount }) {
     try {
       msg.channel.startTyping();
 

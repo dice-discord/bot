@@ -64,7 +64,7 @@ module.exports = class GenerateCommandDocumentationCommand extends SentryCommand
     });
   }
 
-  run(msg, { command }) {
+  exec(msg, { command }) {
     const capitalizeString = string => `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
     const prettyTitle = capitalizeString(command.name.replace(/[-]/, " "));
 

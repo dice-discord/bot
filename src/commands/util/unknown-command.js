@@ -14,7 +14,7 @@ module.exports = class UnknownCommandCommand extends SentryCommand {
     });
   }
 
-  async run(msg, args) {
+  async exec(msg, args) {
     if (msg.guild) {
       const tags = await this.client.provider.get(msg.guild, "tags");
 
@@ -23,7 +23,7 @@ module.exports = class UnknownCommandCommand extends SentryCommand {
         typeof tags !== "undefined" &&
         tags.hasOwnProperty(args.toLowerCase())
       ) {
-        this.client.registry.resolveCommand("tags:get").run(msg, { name: args });
+        this.client.registry.resolveCommand("tags:get").exec(msg, { name: args });
         return null;
       }
     }

@@ -45,7 +45,7 @@ module.exports = class DayFactsCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { day }) {
+  async exec(msg, { day }) {
     try {
       msg.channel.startTyping();
 

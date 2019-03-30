@@ -46,7 +46,7 @@ module.exports = class CashOutCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { amount }) {
+  async exec(msg, { amount }) {
     const beforeTransferHouseBalance = await database.balances.get(this.client.user.id);
 
     // Amount checking

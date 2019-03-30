@@ -32,7 +32,7 @@ module.exports = class ListTagsCommand extends SentryCommand {
     });
   }
 
-  async run(msg) {
+  async exec(msg) {
     // Get all tags
     const tags = await this.client.provider.get(msg.guild, "tags", {});
     return msg.reply(

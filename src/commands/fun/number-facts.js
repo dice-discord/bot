@@ -51,7 +51,7 @@ module.exports = class NumberFactsCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { number }) {
+  async exec(msg, { number }) {
     try {
       msg.channel.startTyping();
 

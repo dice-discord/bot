@@ -47,7 +47,7 @@ module.exports = class XKCDCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { comic }) {
+  async exec(msg, { comic }) {
     try {
       msg.channel.startTyping();
 

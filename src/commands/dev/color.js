@@ -43,7 +43,7 @@ module.exports = class ColorCommand extends SentryCommand {
     });
   }
 
-  run(msg, { color }) {
+  exec(msg, { color }) {
     try {
       msg.channel.startTyping();
 

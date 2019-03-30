@@ -52,7 +52,7 @@ module.exports = class CryptoCurrencyCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { name, currency }) {
+  async exec(msg, { name, currency }) {
     try {
       msg.channel.startTyping();
       const result = (await axios.get(`https://api.coinmarketcap.com/v1/ticker/${name}/?convert=${currency}`)).data;

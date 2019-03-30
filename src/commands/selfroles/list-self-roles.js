@@ -33,7 +33,7 @@ module.exports = class ListSelfRolesCommand extends SentryCommand {
     });
   }
 
-  async run(msg) {
+  async exec(msg) {
     // Get all of this guild's selfroles
     const selfRoles = await this.client.provider.get(msg.guild, "selfRoles", []);
 

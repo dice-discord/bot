@@ -42,7 +42,7 @@ module.exports = class RoleInfoCommand extends SentryCommand {
     });
   }
 
-  run(msg, { emoji }) {
+  exec(msg, { emoji }) {
     const embed = new MessageEmbed({
       title: `${emoji.name} (${emoji.id})`,
       timestamp: emoji.createdAt,

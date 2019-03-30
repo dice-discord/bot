@@ -41,7 +41,7 @@ module.exports = class FeedbackCommand extends SentryCommand {
     });
   }
 
-  run(msg, { userFeedback }) {
+  exec(msg, { userFeedback }) {
     const message = "Thanks for sending your feedback.";
     const messages = [];
     if (userFeedback.toLowerCase().includes("help") || userFeedback.toLowerCase().includes("support")) {

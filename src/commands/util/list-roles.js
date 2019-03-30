@@ -35,7 +35,7 @@ module.exports = class ListRolesCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     const embed = new MessageEmbed({
       title: "All Roles",
       description: truncateText(

@@ -40,7 +40,7 @@ module.exports = class GetMinecraftFaceCommand extends SentryCommand {
     });
   }
 
-  run(msg, { username }) {
+  exec(msg, { username }) {
     return msg.reply({
       embed: {
         author: {

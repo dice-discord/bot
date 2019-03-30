@@ -33,7 +33,7 @@ module.exports = class DatabasePingCommand extends SentryCommand {
     });
   }
 
-  async run(msg) {
+  async exec(msg) {
     if (msg.editable) {
       await msg.edit("Pinging...");
       await database.balances.get(msg.author.id);

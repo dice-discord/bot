@@ -34,7 +34,7 @@ module.exports = class OldestMemberCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     const oldest = msg.guild.members
       .sort((member1, member2) => {
         const timestamp1 = member1.user.createdTimestamp;

@@ -42,7 +42,7 @@ module.exports = class BalanceCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { user }) {
+  async exec(msg, { user }) {
     try {
       msg.channel.startTyping();
       const houseBalance = await database.balances.get(this.client.user.id);

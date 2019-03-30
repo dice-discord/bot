@@ -33,7 +33,7 @@ module.exports = class SankeyMATICGeneratorCommand extends SentryCommand {
     });
   }
 
-  async run(msg) {
+  async exec(msg) {
     const serverCounts = await this.client.shard.fetchClientValues("guilds.size");
     let result = "";
 

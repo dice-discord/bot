@@ -42,7 +42,7 @@ module.exports = class DeleteSelfRolesCommand extends SentryCommand {
     });
   }
 
-  run(msg, { role }) {
+  exec(msg, { role }) {
     // Check if the author is able to delete the role
     if (role.comparePositionTo(msg.member.roles.highest) >= 0 || !msg.member.hasPermission("ADMINISTRATOR")) {
       return msg.reply("You don't have the permissions to delete that role.");

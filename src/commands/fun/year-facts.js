@@ -43,7 +43,7 @@ module.exports = class YearFactsCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { year }) {
+  async exec(msg, { year }) {
     try {
       msg.channel.startTyping();
 

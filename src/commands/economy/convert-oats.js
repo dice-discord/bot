@@ -54,7 +54,7 @@ module.exports = class ConvertOatsCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { amount, currency }) {
+  async exec(msg, { amount, currency }) {
     try {
       msg.channel.startTyping();
 

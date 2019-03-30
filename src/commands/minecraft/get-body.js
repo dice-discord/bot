@@ -43,7 +43,7 @@ module.exports = class GetMinecraftBodyCommand extends SentryCommand {
     });
   }
 
-  run(msg, { user }) {
+  exec(msg, { user }) {
     const embed = new MessageEmbed({
       author: { name: user },
       image: { url: `https://minotar.net/body/${encodeURIComponent(user)}` }

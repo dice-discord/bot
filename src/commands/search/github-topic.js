@@ -43,7 +43,7 @@ module.exports = class GitHubTopicCommand extends SentryCommand {
     });
   }
 
-  run(msg, { topic }) {
+  exec(msg, { topic }) {
     try {
       msg.channel.startTyping();
 

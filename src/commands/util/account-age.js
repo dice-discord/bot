@@ -42,7 +42,7 @@ module.exports = class AccountAgeCommand extends SentryCommand {
     });
   }
 
-  run(msg, { user }) {
+  exec(msg, { user }) {
     const target = user || msg.author;
     const { createdAt } = target;
     return msg.reply(stripIndents`${formatDistance(createdAt, new Date())} old.

@@ -42,7 +42,7 @@ module.exports = class RoleInfoCommand extends SentryCommand {
     });
   }
 
-  run(msg, { role }) {
+  exec(msg, { role }) {
     const embed = new MessageEmbed({
       title: `${role.name} (${role.id})`,
       timestamp: role.createdAt,

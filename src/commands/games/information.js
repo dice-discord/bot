@@ -45,7 +45,7 @@ module.exports = class InformationCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { user }) {
+  async exec(msg, { user }) {
     try {
       msg.channel.startTyping();
 

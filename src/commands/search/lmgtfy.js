@@ -41,7 +41,7 @@ module.exports = class LMGTFYCommand extends SentryCommand {
     });
   }
 
-  run(msg, { query }) {
+  exec(msg, { query }) {
     return msg.reply(`https://lmgtfy.com/?iie=1&q=${query}`);
   }
 };

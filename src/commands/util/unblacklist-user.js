@@ -41,7 +41,7 @@ module.exports = class UnblacklistUserCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { user }) {
+  async exec(msg, { user }) {
     // Get all blacklisted users
     const blacklist = await this.client.provider.get("global", "blacklist", []);
 

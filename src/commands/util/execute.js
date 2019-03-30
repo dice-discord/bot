@@ -30,7 +30,7 @@ module.exports = class ExecuteCommand extends SentryCommand {
     this.lastResult = null;
   }
 
-  async run(msg, args) {
+  async exec(msg, args) {
     // Run the code and measure its execution time
     let hrDiff;
     try {

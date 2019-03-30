@@ -42,7 +42,7 @@ module.exports = class GenerateCommandListCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     const { groups } = this.client.registry;
 
     msg.say(

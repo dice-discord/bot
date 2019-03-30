@@ -53,7 +53,7 @@ module.exports = class UnbanUserCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { user, reason }) {
+  async exec(msg, { user, reason }) {
     try {
       msg.channel.startTyping();
 

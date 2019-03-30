@@ -59,7 +59,7 @@ module.exports = class Base64Command extends SentryCommand {
     });
   }
 
-  run(msg, { mode, text }) {
+  exec(msg, { mode, text }) {
     return msg.reply(convert(text, mode), { split: true });
   }
 };

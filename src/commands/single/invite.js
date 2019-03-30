@@ -31,7 +31,7 @@ module.exports = class InviteCommand extends SentryCommand {
     });
   }
 
-  run(msg) {
+  exec(msg) {
     return msg.reply(`👋 ${config.invites.bot}`);
   }
 };

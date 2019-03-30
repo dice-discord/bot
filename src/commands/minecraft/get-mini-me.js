@@ -49,7 +49,7 @@ module.exports = class GetMinecraftMiniMeCommand extends SentryCommand {
     });
   }
 
-  run(msg, { username, transparency }) {
+  exec(msg, { username, transparency }) {
     logger.debug("Transparency value:", transparency);
 
     const embed = new MessageEmbed({

@@ -42,7 +42,7 @@ module.exports = class ChooseCommand extends SentryCommand {
     });
   }
 
-  run(msg, { options }) {
+  exec(msg, { options }) {
     // Argument checking
     if (options.length < 2) return msg.reply("Please provide 2 or more options.");
 

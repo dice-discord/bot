@@ -44,7 +44,7 @@ module.exports = class ResetDailyCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { user }) {
+  async exec(msg, { user }) {
     user = user || msg.author;
 
     // Permission checking

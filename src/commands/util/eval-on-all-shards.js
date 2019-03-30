@@ -30,7 +30,7 @@ module.exports = class EvalOnAllShardsCommand extends SentryCommand {
     this.lastResult = null;
   }
 
-  async run(msg, args) {
+  async exec(msg, args) {
     // Make a bunch of helpers
     /* eslint-disable no-unused-vars */
     const message = msg;

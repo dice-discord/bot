@@ -39,7 +39,7 @@ module.exports = class ResetEconomyCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { verification }) {
+  async exec(msg, { verification }) {
     if (verification) {
       await database.resetEconomy();
 

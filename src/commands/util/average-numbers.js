@@ -41,7 +41,7 @@ module.exports = class AverageNumbersCommand extends SentryCommand {
     });
   }
 
-  run(msg, { numbers }) {
+  exec(msg, { numbers }) {
     // Argument checking
     if (numbers.length < 2) return msg.reply("Please provide 2 or more numbers.");
 

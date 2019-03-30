@@ -58,7 +58,7 @@ module.exports = class NotificationsCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { notification }) {
+  async exec(msg, { notification }) {
     // Get this guild's settings
     const guildSettings = await this.client.provider.get(msg.guild.id, "notifications", {});
 

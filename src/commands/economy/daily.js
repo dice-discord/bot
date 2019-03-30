@@ -38,7 +38,7 @@ module.exports = class DailyCommand extends SentryCommand {
     });
   }
 
-  async run(msg) {
+  async exec(msg) {
     try {
       msg.channel.startTyping();
 

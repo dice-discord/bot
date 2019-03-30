@@ -55,7 +55,7 @@ module.exports = class BibleCommand extends SentryCommand {
     });
   }
 
-  run(msg, { book, chapter, verse }) {
+  exec(msg, { book, chapter, verse }) {
     try {
       msg.channel.startTyping();
 

@@ -30,7 +30,7 @@ module.exports = class HelpCommand extends SentryCommand {
     });
   }
 
-  async run(msg, args) {
+  async exec(msg, args) {
     const { groups } = this.client.registry;
     const commands = this.client.registry.findCommands(args.command, false, msg);
     const showAll = args.command && args.command.toLowerCase() === "all";

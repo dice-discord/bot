@@ -56,7 +56,7 @@ module.exports = class DiceGameCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { wager, multiplier }) {
+  async exec(msg, { wager, multiplier }) {
     try {
       msg.channel.startTyping();
 

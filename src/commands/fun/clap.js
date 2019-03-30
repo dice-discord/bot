@@ -40,7 +40,7 @@ module.exports = class ClapCommand extends SentryCommand {
     });
   }
 
-  run(msg, { phrase }) {
+  exec(msg, { phrase }) {
     return msg.say(phrase.split(" ").join("👏"));
   }
 };

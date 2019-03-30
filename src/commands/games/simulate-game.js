@@ -54,7 +54,7 @@ module.exports = class SimulateGameCommand extends SentryCommand {
     });
   }
 
-  run(msg, { wager, multiplier }) {
+  exec(msg, { wager, multiplier }) {
     // Round numbers to second decimal place
     const randomNumber = simpleFormat(Math.random() * config.maxMultiplier);
 

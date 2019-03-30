@@ -43,7 +43,7 @@ module.exports = class BlacklistUsersCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { users }) {
+  async exec(msg, { users }) {
     const blacklist = await this.client.provider.get("global", "blacklist", []);
 
     if (users.length > 0) {

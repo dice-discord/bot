@@ -52,7 +52,7 @@ module.exports = class StarboundServerStatusCommand extends SentryCommand {
     });
   }
 
-  run(msg, { host, port }) {
+  exec(msg, { host, port }) {
     try {
       msg.channel.startTyping();
       const options = {

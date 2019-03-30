@@ -52,7 +52,7 @@ module.exports = class SetBalanceCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { user, amount }) {
+  async exec(msg, { user, amount }) {
     try {
       msg.channel.startTyping();
       // Permission checking

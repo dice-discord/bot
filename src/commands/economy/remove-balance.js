@@ -52,7 +52,7 @@ module.exports = class RemoveBalanceCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { user, amount }) {
+  async exec(msg, { user, amount }) {
     // Permission checking
     if (user.bot === true && user.id !== this.client.user.id) {
       return msg.reply("You can't remove oats from bots.");

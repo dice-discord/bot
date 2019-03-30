@@ -39,7 +39,7 @@ module.exports = class SpoilerCommand extends SentryCommand {
     });
   }
 
-  run(msg, { phrase }) {
+  exec(msg, { phrase }) {
     return msg.say(phrase.replace(/./g, "||$&||"));
   }
 };

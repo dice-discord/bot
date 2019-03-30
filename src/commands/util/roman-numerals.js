@@ -36,7 +36,7 @@ module.exports = class RomanNumeralsCommand extends SentryCommand {
     });
   }
 
-  run(msg, { number }) {
+  exec(msg, { number }) {
     if (number === parseInt(number, 10)) {
       return msg.reply(romanize(number));
     }

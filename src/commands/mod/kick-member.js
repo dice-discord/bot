@@ -51,7 +51,7 @@ module.exports = class KickMemberCommand extends SentryCommand {
     });
   }
 
-  run(msg, { member, reason }) {
+  exec(msg, { member, reason }) {
     try {
       msg.channel.startTyping();
 

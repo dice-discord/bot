@@ -51,7 +51,7 @@ module.exports = class BanUserCommand extends SentryCommand {
     });
   }
 
-  async run(msg, { user, reason }) {
+  async exec(msg, { user, reason }) {
     if (reason) {
       reason = `${reason} - Requested by ${msg.author.tag}`;
     } else {
