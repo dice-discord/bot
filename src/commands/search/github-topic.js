@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "bible");
 const truncateText = require("../../util/truncateText");
 
-module.exports = class GitHubTopicCommand extends Command {
+module.exports = class GitHubTopicCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "github-topic-search",

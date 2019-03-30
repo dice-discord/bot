@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed } = require("discord.js");
 const truncateText = require("../../util/truncateText");
 
-module.exports = class ListRolesCommand extends Command {
+module.exports = class ListRolesCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "list-roles",

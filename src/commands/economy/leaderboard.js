@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed } = require("discord.js");
 const database = require("../../util/database");
 const config = require("../../config");
 const logger = require("../../util/logger").scope("command", "leaderboard");
 const ms = require("ms");
 
-module.exports = class LeaderboardCommand extends Command {
+module.exports = class LeaderboardCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "leaderboard",

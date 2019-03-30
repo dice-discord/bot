@@ -17,9 +17,9 @@ limitations under the License.
 const config = require("../../config");
 const winPercentage = require("../../util/winPercentage");
 const simpleFormat = require("../../util/simpleFormat");
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 
-module.exports = class GameCalculatorCommand extends Command {
+module.exports = class GameCalculatorCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "game-calculator",

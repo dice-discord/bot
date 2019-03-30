@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const config = require("../../config");
 const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "convert oats");
 const database = require("../../util/database");
 
-module.exports = class ConvertOatsCommand extends Command {
+module.exports = class ConvertOatsCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "convert-oats",

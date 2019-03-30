@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed } = require("discord.js");
 const { currencyCodes } = require("../../config");
 const logger = require("../../util/logger").scope("command", "top crypto currencies");
 const axios = require("axios");
 
-module.exports = class TopCryptoCurrenciesCommand extends Command {
+module.exports = class TopCryptoCurrenciesCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "top-crypto-currencies",

@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const logger = require("../../util/logger").scope("command", "starbound server status");
 const { MessageEmbed } = require("discord.js");
 const ms = require("ms");
 const gamedig = require("gamedig");
 
-module.exports = class StarboundServerStatusCommand extends Command {
+module.exports = class StarboundServerStatusCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "starbound-server-status",

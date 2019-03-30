@@ -1,7 +1,7 @@
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { stripIndents } = require("common-tags");
 
-module.exports = class NitroCommand extends Command {
+module.exports = class NitroCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "nitro",

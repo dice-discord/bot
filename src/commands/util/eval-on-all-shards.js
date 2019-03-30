@@ -2,12 +2,12 @@ const util = require("util");
 const discord = require("discord.js");
 const tags = require("common-tags");
 const { sensitivePattern } = require("../../util/sensitivePattern");
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 
 const nl = "!!NL!!";
 const nlPattern = new RegExp(nl, "g");
 
-module.exports = class EvalOnAllShardsCommand extends Command {
+module.exports = class EvalOnAllShardsCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "eval-on-all-shards",

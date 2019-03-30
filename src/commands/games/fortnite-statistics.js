@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "fortnite statistics");
 const config = require("../../config");
 const { MessageEmbed } = require("discord.js");
 const platforms = ["pc", "xbl", "psn"];
 
-module.exports = class FortniteStatisticsCommand extends Command {
+module.exports = class FortniteStatisticsCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "fortnite-statistics",

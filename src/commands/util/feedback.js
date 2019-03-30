@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const logger = require("../../util/logger").scope("command", "feedback");
 
-module.exports = class FeedbackCommand extends Command {
+module.exports = class FeedbackCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "feedback",

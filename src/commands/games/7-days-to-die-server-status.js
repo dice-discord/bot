@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const logger = require("../../util/logger").scope("command", "7-days-to-die server status");
 const { MessageEmbed, Util } = require("discord.js");
 const ms = require("ms");
 const gamedig = require("gamedig");
 
 // Can't use numbers in class names
-module.exports = class SevenDaysToDieServerStatusCommand extends Command {
+module.exports = class SevenDaysToDieServerStatusCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "7-days-to-die-server-status",

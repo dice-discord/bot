@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { Util } = require("discord.js");
 const respond = require("../../util/simpleCommandResponse");
 
-module.exports = class EditTagCommand extends Command {
+module.exports = class EditTagCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "edit-tag",

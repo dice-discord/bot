@@ -14,9 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 
-module.exports = class LMGTFYCommand extends Command {
+module.exports = class LMGTFYCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "lmgtfy",

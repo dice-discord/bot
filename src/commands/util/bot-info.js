@@ -15,12 +15,12 @@ limitations under the License.
 */
 
 const { formatDistance, subMilliseconds } = require("date-fns");
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { stripIndents, oneLine } = require("common-tags");
 const config = require("../../config");
 const packageData = require("../../../package");
 
-module.exports = class BotInfoCommand extends Command {
+module.exports = class BotInfoCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "bot-info",

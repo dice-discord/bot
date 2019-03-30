@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { stripIndents } = require("common-tags");
 
-module.exports = class DevHelpCommand extends Command {
+module.exports = class DevHelpCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "dev-help",

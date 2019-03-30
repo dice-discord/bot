@@ -1,9 +1,9 @@
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed } = require("discord.js");
 const logger = require("../../util/logger").scope("command", "minecraft server status");
 const axios = require("axios");
 
-module.exports = class MinecraftServerStatusCommand extends Command {
+module.exports = class MinecraftServerStatusCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "minecraft-server-status",

@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { stripIndents } = require("common-tags");
 const Roll = require("roll");
 const staticRoll = new Roll();
 
-module.exports = class RollDieCommand extends Command {
+module.exports = class RollDieCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "roll-die",

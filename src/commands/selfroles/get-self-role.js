@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const respond = require("../../util/simpleCommandResponse");
 
-module.exports = class GetSelfRoleCommand extends Command {
+module.exports = class GetSelfRoleCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "get-self-role",

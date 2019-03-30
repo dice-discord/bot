@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed } = require("discord.js");
 const logger = require("../../util/logger").scope("command", "get minecraft mini me");
 
-module.exports = class GetMinecraftMiniMeCommand extends Command {
+module.exports = class GetMinecraftMiniMeCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "get-minecraft-mini-me",

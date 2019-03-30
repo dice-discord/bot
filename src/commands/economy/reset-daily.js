@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const database = require("../../util/database");
 const respond = require("../../util/simpleCommandResponse");
 
-module.exports = class ResetDailyCommand extends Command {
+module.exports = class ResetDailyCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "reset-daily",

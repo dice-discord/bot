@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { Util } = require("discord.js");
 const parseColor = require("parse-color");
 
-module.exports = class ColorCommand extends Command {
+module.exports = class ColorCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "color",

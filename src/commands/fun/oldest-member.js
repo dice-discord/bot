@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { formatDistance, formatRelative } = require("date-fns");
 const { stripIndents } = require("common-tags");
 
-module.exports = class OldestMemberCommand extends Command {
+module.exports = class OldestMemberCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "oldest-member",

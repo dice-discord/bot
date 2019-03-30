@@ -1,6 +1,6 @@
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 
-module.exports = class UnknownCommandResponseCommand extends Command {
+module.exports = class UnknownCommandResponseCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "unknown-command-response",

@@ -1,10 +1,11 @@
 const { stripIndents, oneLine } = require("common-tags");
 const { MessageEmbed } = require("discord.js");
-const { Command, util } = require("discord.js-commando");
+const { util } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { disambiguation } = util;
 const genCmdURL = require("../../util/genCmdURL");
 
-module.exports = class HelpCommand extends Command {
+module.exports = class HelpCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "help",

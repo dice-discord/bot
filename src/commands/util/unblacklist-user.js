@@ -15,10 +15,10 @@ limitations under the License.
 */
 
 const logger = require("../../util/logger").scope("command", "unblacklist user");
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const respond = require("../../util/simpleCommandResponse");
 
-module.exports = class UnblacklistUserCommand extends Command {
+module.exports = class UnblacklistUserCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "unblacklist-user",

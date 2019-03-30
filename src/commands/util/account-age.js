@@ -15,10 +15,10 @@ limitations under the License.
 */
 
 const { formatDistance, formatRelative } = require("date-fns");
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { stripIndents } = require("common-tags");
 
-module.exports = class AccountAgeCommand extends Command {
+module.exports = class AccountAgeCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "account-age",

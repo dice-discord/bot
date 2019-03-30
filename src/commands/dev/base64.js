@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { Util } = require("discord.js");
 const modes = ["encode", "decode"];
 
@@ -32,7 +32,7 @@ const convert = (text, mode) => {
   return "Unknown mode";
 };
 
-module.exports = class Base64Command extends Command {
+module.exports = class Base64Command extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "base64",

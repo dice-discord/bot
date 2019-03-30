@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const gameDigHelper = require("../../util/gameDigHelper");
 const logger = require("../../util/logger").scope("command", "csgo server status");
 const gamedig = require("gamedig");
 
-module.exports = class CSGOStatusCommand extends Command {
+module.exports = class CSGOStatusCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "csgo-server-status",

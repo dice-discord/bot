@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed } = require("discord.js");
 const logger = require("../../util/logger").scope("command", "discoin rates");
 const axios = require("axios");
 
-module.exports = class DiscoinRatesCommand extends Command {
+module.exports = class DiscoinRatesCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "discoin-rates",

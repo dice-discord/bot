@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed } = require("discord.js");
 const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "overwatch statistics");
 const platforms = ["pc", "xbl", "psn"];
 const regions = ["us", "eu", "asia"];
 
-module.exports = class OverwatchStatisticsCommand extends Command {
+module.exports = class OverwatchStatisticsCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "overwatch-statistics",

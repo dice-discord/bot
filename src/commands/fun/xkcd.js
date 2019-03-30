@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed } = require("discord.js");
 const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "xkcd");
 const truncateText = require("../../util/truncateText");
 
-module.exports = class XKCDCommand extends Command {
+module.exports = class XKCDCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "xkcd",

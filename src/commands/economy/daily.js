@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const config = require("../../config");
 const database = require("../../util/database");
 const { formatDistance } = require("date-fns");
@@ -23,7 +23,7 @@ const DBL = require("dblapi.js");
 const { oneLine } = require("common-tags");
 const ms = require("ms");
 
-module.exports = class DailyCommand extends Command {
+module.exports = class DailyCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "daily",

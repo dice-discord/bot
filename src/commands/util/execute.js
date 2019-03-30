@@ -3,12 +3,12 @@ const discord = require("discord.js");
 const tags = require("common-tags");
 const { sensitivePattern } = require("../../util/sensitivePattern");
 const { exec } = require("child-process-promise");
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 
 const nl = "!!NL!!";
 const nlPattern = new RegExp(nl, "g");
 
-module.exports = class ExecuteCommand extends Command {
+module.exports = class ExecuteCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "execute",

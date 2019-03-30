@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed, Util } = require("discord.js");
 const axios = require("axios");
 const logger = require("../../util/logger").scope("command", "npm-search");
 const truncateText = require("../../util/truncateText");
 
-module.exports = class NPMSearchCommand extends Command {
+module.exports = class NPMSearchCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "npm-search",

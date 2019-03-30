@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const { Command } = require("discord.js-commando");
+const SentryCommand = require("../../structures/SentryCommand");
 const logger = require("../../util/logger").scope("command", "rust server status");
 const gameDigHelper = require("../../util/gameDigHelper");
 const gamedig = require("gamedig");
 
-module.exports = class RustServerStatusCommand extends Command {
+module.exports = class RustServerStatusCommand extends SentryCommand {
   constructor(client) {
     super(client, {
       name: "rust-server-status",
