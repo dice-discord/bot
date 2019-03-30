@@ -9,21 +9,21 @@ module.exports = class UnknownCommandCommand extends Command {
       description: "Displays help information for when an unknown command is used.",
       examples: ["unknown-command kick-everybody-ever"],
       unknown: true,
-      hidden: true
+      hidden: true,
+      argsType: "single"
     });
   }
 
-  async run(msg) {
+  async run(msg, args) {
     if (msg.guild) {
       const tags = await this.client.provider.get(msg.guild, "tags");
-      const args = { name: msg.content.split(msg.guild.commandPrefix)[1].toLowerCase() };
 
       if (
         msg.content.split(msg.guild.commandPrefix)[1] !== "undefined" &&
         typeof tags !== "undefined" &&
-        tags.hasOwnProperty(args.name)
+        tags.hasOwnProperty(args.toLowerCase())
       ) {
-        this.client.registry.resolveCommand("tags:get").run(msg, args);
+        this.client.registry.resolveCommand("tags:get").run(msg, { name: args });
         return null;
       }
     }
