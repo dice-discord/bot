@@ -40,7 +40,7 @@ module.exports = class DevHelpCommand extends Command {
       fields: [
         {
           name: "Shard",
-          value: `${shard.id}/${shard.shardCount} (cluster count ${shard.clusterCount})`
+          value: `${shard.id}/${shard.shardCount} (cluster ${Number(process.env.CLUSTER_ID)}/${shard.clusterCount})`
         },
         {
           name: "IDs",
