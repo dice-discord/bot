@@ -61,6 +61,7 @@ module.exports = class DiceCluster extends BaseCluster {
     this.logger = require("./util/logger").scope(`shard ${this.client.shard.id}`);
     this.webhookLogger = this.logger.scope(`shard ${this.client.shard.id}`, "webhook");
   }
+
   /**
    * @name reportError
    * @param {Error} err The error that occurred
