@@ -17,27 +17,13 @@ limitations under the License.
 const config = require("../config");
 const simpleFormat = require("./simpleFormat");
 const { MongoClient } = require("mongodb");
-const Keyv = require("keyv");
 const logger = require("./logger").scope("database");
 const KeenTracking = require("keen-tracking");
+const { Signale } = require("signale");
 
-// Note: We use ms to get 1 year in milliseconds, and we do that to have user profiles expire after a year of inactivity.
-const ms = require("ms");
+const transformLogger = new Signale({ scope: "transform" });
 
 logger.start("Database loading");
-
-const echo = data => data;
-
-const economy = new Keyv(config.backend, {
-  serialize: echo,
-  deserialize: echo,
-  collection: "economy"
-});
-const dailies = new Keyv(config.backend, {
-  serialize: echo,
-  deserialize: echo,
-  collection: "dailies"
-});
 
 // Set up Keen client
 const keenClient = new KeenTracking({
@@ -69,36 +55,34 @@ const database = async () => {
      * @returns {Promise<Number>} Promise resolving in the balance of the user
      */
     get: async id => {
-      const userBalance = await economy.get(id);
+      const result = await economyCollection.findOne({ key: `keyv:${id}` });
       const defaultBal = id === config.clientID ? config.houseStartingBalance : config.newUserBalance;
 
-      if (typeof userBalance === "undefined") {
-        await economy.set(id, defaultBal, ms("1 year"));
+      if (result === null) {
+        balances.set(id, defaultBal);
         return defaultBal;
       } else {
-        return userBalance;
+        return simpleFormat(result.value.value);
       }
     },
-    set: (id, newBalance) => {
-      logger.scope("balances", "set").debug({ prefix: id, message: simpleFormat(newBalance) });
-      return economy.set(id, newBalance, ms("1 year"));
-    },
+    set: (id, newBalance) =>
+      economyCollection.updateOne({ key: `keyv:${id}` }, { $set: { value: { value: newBalance } } }, { upsert: true }),
     decrease: async (id, amount) => this.balances.increase(id, -amount),
     increase: async (id, amount) => balances.set(id, (await balances.get(id)) + amount)
   };
   module.exports.balances = balances;
 
   /**
-   * @param {string} requestedID Requested user ID
+   * @param {string} id Requested user ID
    * @returns {boolean}
    */
-  const userExists = async requestedID => Boolean(await economy.get(requestedID));
+  const userExists = async id => Boolean((await economyCollection.findOne({ key: `keyv:${id}` })).value.value);
   module.exports.userExists = userExists;
 
   /**
    * Reset the economy
    */
-  const resetEconomy = () => Promise.all([economy.clear(), dailies.clear()]);
+  const resetEconomy = () => Promise.all([economyCollection.drop(), dailiesCollection.drop()]);
   module.exports.resetEconomy = resetEconomy;
 
   /**
@@ -130,14 +114,14 @@ const database = async () => {
   const setDailyUsed = (id, timestamp) => {
     const setDailyUsedLogger = logger.scope("daily used", "set");
     setDailyUsedLogger.debug(`Set daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`);
-    return dailies.set(id, timestamp, ms("1 year"));
+    return dailiesCollection.updateOne({ key: `keyv:${id}` }, { $set: { value: { value: timestamp } } });
   };
   module.exports.setDailyUsed = setDailyUsed;
 
   /**
-   * @param {string} requestedID Requested user ID
+   * @param {string} id Requested user ID
    */
-  const getDailyUsed = requestedID => dailies.get(requestedID);
+  const getDailyUsed = async id => (await dailiesCollection.findOne({ key: `keyv:${id}` })).value.value;
   module.exports.getDailyUsed = getDailyUsed;
 };
 
