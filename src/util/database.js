@@ -26,16 +26,16 @@ const ms = require("ms");
 
 logger.start("Database loading");
 
-const none = data => data;
+const echo = data => data;
 
 const economy = new Keyv(config.backend, {
-  serialize: none,
-  deserialize: none,
+  serialize: echo,
+  deserialize: echo,
   collection: "economy"
 });
 const dailies = new Keyv(config.backend, {
-  serialize: none,
-  deserialize: none,
+  serialize: echo,
+  deserialize: echo,
   collection: "dailies"
 });
 
@@ -55,11 +55,11 @@ if (typeof config.mongoDBURI === "undefined") {
 
 const database = async () => {
   logger.time("database");
-  const client = new MongoClient(uri);
-  await client.connect(null, { useNewUrlParser: true });
+  const mongo = new MongoClient(uri);
+  await mongo.connect(null, { useNewUrlParser: true });
   logger.timeEnd("database");
   logger.start("Connected to database server");
-  const db = client.db("dice");
+  const db = mongo.db("dice");
 
   const economyCollection = db.collection("economy");
 
@@ -73,8 +73,7 @@ const database = async () => {
       const defaultBal = id === config.clientID ? config.houseStartingBalance : config.newUserBalance;
 
       if (typeof userBalance === "undefined") {
-        // Set the default balance in the background to *slightly* increase performance
-        economy.set(id, defaultBal, ms("1 year"));
+        await economy.set(id, defaultBal, ms("1 year"));
         return defaultBal;
       } else {
         return userBalance;
@@ -127,7 +126,6 @@ const database = async () => {
   /**
    * @param {string} id Requested user ID
    * @param {number} timestamp Unix timestamp of when the daily was used
-   * @returns {Promise} Promise from MongoDB
    */
   const setDailyUsed = (id, timestamp) => {
     const setDailyUsedLogger = logger.scope("daily used", "set");
