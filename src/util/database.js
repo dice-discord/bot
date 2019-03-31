@@ -56,7 +56,7 @@ if (typeof config.mongoDBURI === "undefined") {
 const database = async () => {
   logger.time("database");
   const mongo = new MongoClient(uri);
-  await mongo.connect(null, { useNewUrlParser: true });
+  await mongo.connect();
   logger.timeEnd("database");
   logger.start("Connected to database server");
   const db = mongo.db("dice");
