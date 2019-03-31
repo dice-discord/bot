@@ -31,6 +31,7 @@ const { Batch } = require("reported");
 const stripWebhookURL = require("./util/stripWebhookURL");
 const packageData = require("../package");
 const ms = require("ms");
+const logger = require("./util/logger");
 
 // Notification handlers
 const announceUserAccountBirthday = require("./notificationHandlers/userAccountBirthday");
@@ -58,7 +59,7 @@ module.exports = class DiceCluster extends BaseCluster {
     super(parameters);
 
     // Get the loggers running with accurate scopes
-    this.logger = require("./util/logger").scope(`shard ${this.client.shard.id}`);
+    this.logger = logger.scope(`shard ${this.client.shard.id}`);
     this.webhookLogger = this.logger.scope(`shard ${this.client.shard.id}`, "webhook");
   }
 
