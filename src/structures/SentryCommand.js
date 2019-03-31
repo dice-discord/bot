@@ -23,7 +23,7 @@ class SentryCommand extends Command {
 
       scope.setTag("shard ID", message.client.shard.id);
       scope.setTag("cluster ID", Number(process.env.CLUSTER_ID));
-      scope.setTag("command group", message.command.group);
+      scope.setTag("command group", message.command.group.name);
       scope.setTag("command", message.command.memberName);
 
       scope.setExtra("guild ID", message.guild ? message.guild.id : "dm");
