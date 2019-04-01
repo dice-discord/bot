@@ -19,9 +19,6 @@ const simpleFormat = require("./simpleFormat");
 const { MongoClient } = require("mongodb");
 const logger = require("./logger").scope("database");
 const KeenTracking = require("keen-tracking");
-const { Signale } = require("signale");
-
-const transformLogger = new Signale({ scope: "transform" });
 
 logger.start("Database loading");
 
