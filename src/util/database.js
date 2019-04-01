@@ -45,6 +45,7 @@ const database = async () => {
   const db = mongo.db("dice");
 
   const economyCollection = db.collection("economy");
+  const dailiesCollection = db.collection("dailies");
 
   const balances = {
     /**
