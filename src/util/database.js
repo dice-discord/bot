@@ -65,8 +65,8 @@ const database = async () => {
         return simpleFormat(result.value.value);
       }
     },
-    set: (id, newBalance) =>
-      economyCollection.updateOne({ key: `keyv:${id}` }, { $set: { value: { value: newBalance } } }, { upsert: true }),
+    set: (id, balance) =>
+      economyCollection.updateOne({ key: `keyv:${id}` }, { $set: { value: { value: balance } } }, { upsert: true }),
     decrease: async (id, amount) => this.balances.increase(id, -amount),
     increase: async (id, amount) => balances.set(id, (await balances.get(id)) + amount)
   };
@@ -90,8 +90,8 @@ const database = async () => {
    */
   const leaderboard = async () => {
     logger.scope("database", "leaderboard");
-    const allProfiles = await economyCollection.find();
-    const formattedBalances = await allProfiles
+    const formattedBalances = await economyCollection
+      .find()
       .sort({ value: -1 })
       .limit(10)
       .toArray();
@@ -104,7 +104,7 @@ const database = async () => {
   /**
    * @returns {Promise<number>} User count
    */
-  const userCount = () => economyCollection.countDocuments({});
+  const userCount = () => economyCollection.countDocuments();
   module.exports.userCount = userCount;
 
   /**
