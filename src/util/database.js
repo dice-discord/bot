@@ -56,16 +56,16 @@ const database = async () => {
       const result = await economyCollection.findOne({ key: `keyv:${id}` });
       const defaultBal = id === config.clientID ? config.houseStartingBalance : config.newUserBalance;
 
-      if (result === null) {
+      if (result && typeof result.value.value !== "undefined") {
+        return simpleFormat(result.value.value);
+      } else {
         await balances.set(id, defaultBal);
         return defaultBal;
-      } else {
-        return simpleFormat(result.value.value);
       }
     },
     set: (id, balance) =>
       economyCollection.updateOne({ key: `keyv:${id}` }, { $set: { value: { value: balance } } }, { upsert: true }),
-    decrease: async (id, amount) => this.balances.increase(id, -amount),
+    decrease: async (id, amount) => balances.set(id, (await balances.get(id)) - amount),
     increase: async (id, amount) => balances.set(id, (await balances.get(id)) + amount)
   };
   module.exports.balances = balances;
