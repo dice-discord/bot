@@ -56,7 +56,7 @@ const database = async () => {
       const result = await economyCollection.findOne({ key: `keyv:${id}` });
       const defaultBal = id === config.clientID ? config.houseStartingBalance : config.newUserBalance;
 
-      if (result && typeof result.value.value !== "undefined") {
+      if (result && result.value && typeof result.value.value !== "undefined") {
         return simpleFormat(result.value.value);
       } else {
         await balances.set(id, defaultBal);
