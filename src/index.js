@@ -51,14 +51,17 @@ const sharder = new ShardingManager(join(__dirname, "dice"), {
 
 sharder.on("debug", logger.debug);
 
+let first = true;
 sharder
   .spawn()
   .then(() => {
+    if (!first) return;
+    first = false;
     logger.success("Clusters spawned");
 
+    const webhookLogger = logger.scope("shard manager", "ready webhook");
     // Announce version being ready
     if (config.webhooks.updates && process.env.NODE_ENV === "production") {
-      const webhookLogger = logger.scope("shard manager", "ready webhook");
       const webhookData = stripWebhookURL(config.webhooks.updates);
       const webhook = new WebhookClient(webhookData.id, webhookData.token);
 
@@ -80,6 +83,8 @@ sharder
         })
         .then(() => webhookLogger.debug("Sent ready webhook"))
         .catch(webhookLogger.error);
+    } else {
+      webhookLogger.debug("Skipping sending ready webhook");
     }
   })
   .catch(err => {
