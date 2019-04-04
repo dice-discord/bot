@@ -119,7 +119,11 @@ const database = async () => {
   /**
    * @param {string} id Requested user ID
    */
-  const getDailyUsed = async id => (await dailiesCollection.findOne({ key: `keyv:${id}` })).value.value;
+  const getDailyUsed = async id => {
+    const result = await dailiesCollection.findOne({ key: `keyv:${id}` });
+
+    return result && result.value && typeof result.value.value !== "undefined" ? result.value.value : 0;
+  };
   module.exports.getDailyUsed = getDailyUsed;
 };
 
