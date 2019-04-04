@@ -57,7 +57,7 @@ const database = async () => {
       const defaultBal = id === config.clientID ? config.houseStartingBalance : config.newUserBalance;
 
       if (result === null) {
-        balances.set(id, defaultBal);
+        await balances.set(id, defaultBal);
         return defaultBal;
       } else {
         return simpleFormat(result.value.value);
