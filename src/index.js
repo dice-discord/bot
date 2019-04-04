@@ -51,12 +51,9 @@ const sharder = new ShardingManager(join(__dirname, "dice"), {
 
 sharder.on("debug", logger.debug);
 
-let first = false;
 sharder
   .spawn()
   .then(() => {
-    if (!first) return;
-    first = true;
     logger.success("Clusters spawned");
 
     // Announce version being ready

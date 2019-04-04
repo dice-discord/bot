@@ -36,7 +36,7 @@ class SentryCommand extends Command {
       });
     });
 
-    this.exec(message, args, fromPattern);
+    return await this.exec(message, args, fromPattern);
   }
 
   /**
