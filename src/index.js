@@ -49,45 +49,39 @@ const sharder = new ShardingManager(join(__dirname, "dice"), {
   }
 });
 
-sharder.on("debug", logger.debug);
+sharder.on("debug", logger.debug).on("ready", () => {
+  logger.success("Clusters spawned");
 
-let first = true;
-sharder
-  .spawn()
-  .then(() => {
-    if (!first) return;
-    first = false;
-    logger.success("Clusters spawned");
+  const webhookLogger = logger.scope("shard manager", "ready webhook");
+  // Announce version being ready
+  if (config.webhooks.updates && process.env.NODE_ENV === "production") {
+    const webhookData = stripWebhookURL(config.webhooks.updates);
+    const webhook = new WebhookClient(webhookData.id, webhookData.token);
 
-    const webhookLogger = logger.scope("shard manager", "ready webhook");
-    // Announce version being ready
-    if (config.webhooks.updates && process.env.NODE_ENV === "production") {
-      const webhookData = stripWebhookURL(config.webhooks.updates);
-      const webhook = new WebhookClient(webhookData.id, webhookData.token);
+    webhook
+      .send({
+        embeds: [
+          {
+            color: 0x4caf50,
+            title: "Ready",
+            fields: [
+              {
+                name: "Version",
+                value: `v${packageData.version}`
+              }
+            ],
+            timestamp: new Date()
+          }
+        ]
+      })
+      .then(() => webhookLogger.debug("Sent ready webhook"))
+      .catch(webhookLogger.error);
+  } else {
+    webhookLogger.debug("Skipping sending ready webhook");
+  }
+});
 
-      webhook
-        .send({
-          embeds: [
-            {
-              color: 0x4caf50,
-              title: "Ready",
-              fields: [
-                {
-                  name: "Version",
-                  value: `v${packageData.version}`
-                }
-              ],
-              timestamp: new Date()
-            }
-          ]
-        })
-        .then(() => webhookLogger.debug("Sent ready webhook"))
-        .catch(webhookLogger.error);
-    } else {
-      webhookLogger.debug("Skipping sending ready webhook");
-    }
-  })
-  .catch(err => {
-    logger.fatal("An error occurred when spawning clusters");
-    logger.error(err);
-  });
+sharder.spawn().catch(err => {
+  logger.fatal("An error occurred when spawning clusters");
+  logger.error(err);
+});
