@@ -17,7 +17,7 @@ module.exports = async (cmd, promise, msg, args) => {
   const houseBalance = await database.balances.get(client.user.id);
 
   const logOptions = {
-    prefix: `${msg.author.tag} (${msg.author.id}) ${cmd.group.name}:${cmd.memberName}`,
+    prefix: `${msg.author.tag} (${msg.author.id}) ${cmd.group.id}:${cmd.memberName}`,
     message: args || null
   };
 
