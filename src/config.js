@@ -64,7 +64,7 @@ const config = {
     "twd",
     "zar"
   ],
-  discoinCurrencyCodes: ["dts", "elt", "kek", "rbn"],
+  discoinCurrencyCodes: ["dts", "elt", "kek", "rbn", "pic"],
   discoinToken: process.env.DISCOIN_TOKEN,
   discordToken: process.env.DISCORD_TOKEN,
   fortniteTrackerNetworkToken: process.env.FORTNITE_TRACKER_NETWORK_TOKEN,

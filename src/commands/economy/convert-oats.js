@@ -43,7 +43,7 @@ module.exports = class ConvertOatsCommand extends SentryCommand {
           prompt: "What currency do you want to convert your oats to?",
           type: "string",
           label: "currency to convert to",
-          oneOf: config.discoinCurrencyCodes,
+          oneOf: config.discoinCurrencyCodes.map(cur => cur.toUpperCase()),
           parse: value => value.toUpperCase()
         }
       ],
