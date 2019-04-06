@@ -25,7 +25,7 @@ module.exports = class GetMinecraftBodyCommand extends SentryCommand {
       group: "minecraft",
       memberName: "get-body",
       description: "Shows a Minecraft user's body.",
-      aliases: ["get-mc-body"],
+      aliases: ["get-mc-body", "mc-body"],
       examples: ["get-minecraft-body Notch"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {

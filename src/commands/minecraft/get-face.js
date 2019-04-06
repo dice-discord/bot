@@ -23,7 +23,7 @@ module.exports = class GetMinecraftFaceCommand extends SentryCommand {
       group: "minecraft",
       memberName: "get-face",
       description: "Shows a front view of a Minecraft user's face.",
-      aliases: ["get-mc-face"],
+      aliases: ["get-mc-face", "mc-face"],
       examples: ["get-minecraft-face Notch"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {

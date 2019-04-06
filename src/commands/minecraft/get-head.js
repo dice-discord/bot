@@ -23,7 +23,7 @@ module.exports = class GetMinecraftHeadCommand extends SentryCommand {
       group: "minecraft",
       memberName: "get-head",
       description: "Shows an isometric view of a Minecraft user's head.",
-      aliases: ["get-mc-head"],
+      aliases: ["get-mc-head", "mc-head"],
       examples: ["get-minecraft-head Notch"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {

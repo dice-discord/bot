@@ -23,7 +23,7 @@ module.exports = class GetMinecraftSkinCommand extends SentryCommand {
       group: "minecraft",
       memberName: "get-skin",
       description: "Get the skin of a Minecraft user.",
-      aliases: ["get-mc-skin"],
+      aliases: ["get-mc-skin", "mc-skin"],
       examples: ["get-minecraft-face Notch"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {

@@ -27,7 +27,8 @@ module.exports = class BulkDeleteMessagesCommand extends SentryCommand {
         "delete-messages",
         "messages-prune",
         "messages-bulk-delete",
-        "bulk-delete"
+        "bulk-delete",
+        "prune-messages"
       ],
       group: "mod",
       memberName: "bulk-delete-messages",
