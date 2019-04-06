@@ -28,8 +28,9 @@ module.exports = class DiceGameCommand extends SentryCommand {
       group: "games",
       memberName: "dice-game",
       description: "Bet a wager on a multiplier.",
-      details:
-        "For each bet the outcome is randomly chosen between 1 and 100. It's up to you to guess a target that you think the outcome will exceed.",
+      details: `For each bet the outcome is randomly chosen between 1 and 100. It's up to you to guess a target that you think the outcome will exceed. If you lose, your ${
+        config.currency.plural
+      } are given to ${client.user.username}. If you win they're taken from ${client.user.username}`,
       aliases: ["game", "play-game", "play-dice", "betting-game", "bet"],
       examples: ["dice-game 250 4"],
       clientPermissions: ["EMBED_LINKS"],

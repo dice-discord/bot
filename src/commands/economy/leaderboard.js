@@ -28,6 +28,9 @@ module.exports = class LeaderboardCommand extends SentryCommand {
       group: "economy",
       memberName: "leaderboard",
       description: `Shows a top ten leaderboard of who has the most ${config.currency.plural}.`,
+      details: `When you collect dailies or lose a game against ${client.user.username}, it will keep your ${
+        config.currency.plural
+      }. Try to gain enough to beat it!`,
       aliases: ["top-10", "top-ten", "chart", "top"],
       clientPermissions: ["EMBED_LINKS"],
       throttling: {

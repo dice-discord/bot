@@ -30,6 +30,9 @@ module.exports = class DailyCommand extends SentryCommand {
       group: "economy",
       memberName: "daily",
       description: `Collect your daily ${config.currency.plural}.`,
+      details: `When you collect your dailies ${client.user.username} will get the same amount of ${
+        config.currency.plural
+      } as you.`,
       aliases: ["dailies"],
       throttling: {
         usages: 1,
