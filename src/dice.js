@@ -33,7 +33,10 @@ const packageData = require("../package");
 const ms = require("ms");
 
 const DBL = require("dblapi.js");
-const dbl = new DBL(config.botListTokens.discordBotList, { webhookPort: 5000, webhookAuth: "dblWebhookVerification" });
+const dbl = new DBL(config.botListTokens.discordBotList, {
+  webhookPort: 5000,
+  webhookAuth: config.dblWebhookVerification
+});
 
 let logger = require("./util/logger");
 let webhookLogger;
