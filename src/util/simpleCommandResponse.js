@@ -22,7 +22,7 @@ const { emoji } = require("../config");
  * @param {Message} message Message to respond to
  */
 module.exports = message => {
-  const clientPermissions = message.channel.permissionsFor(message.guild.me);
+  const clientPermissions = message.guild ? message.channel.permissionsFor(message.guild.me) : new Map();
   switch (message.channel.type) {
     case "text":
       if (
