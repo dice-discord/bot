@@ -326,6 +326,8 @@ module.exports = class DiceCluster extends BaseCluster {
   }
 
   handleVotes() {
+    const voteLogger = logger.scope(`shard ${this.client.shard.id}`, "vote logger");
+
     dbl.webhook.on("vote", async vote => {
       let payout = 1000;
       if (vote.isWeekend) payout *= 2;
@@ -334,17 +336,22 @@ module.exports = class DiceCluster extends BaseCluster {
         this.client.users.fetch(vote.user),
         database.balances.increase(vote.user, payout),
         database.balances.increase(this.client.user.id, payout)
-      ]);
+      ]).catch(voteLogger.error);
 
-      (await this.client.users.fetch(vote.user)).send({
-        embed: {
-          title: "Voting Reward",
-          color: 0x4caf50,
-          description: `Thanks for voting on Discord Bot List. You received ${payout.toLocaleString()} ${
-            config.currency.plural
-          }.${vote.isWeekend ? " You got double for voting during the weekend." : ""}`
-        }
-      });
+      voteLogger.debug(`Received vote from ${vote.user} for ${payout}`);
+
+      (await this.client.users.fetch(vote.user))
+        .send({
+          embed: {
+            title: "Voting Reward",
+            color: 0x4caf50,
+            description: `Thanks for voting on Discord Bot List. You received ${payout.toLocaleString()} ${
+              config.currency.plural
+            }.${vote.isWeekend ? " You got double for voting during the weekend." : ""}`
+          }
+        })
+        .then(() => voteLogger.debug(`Sent the notification message to ${vote.user}`))
+        .catch(voteLogger.error);
     });
   }
 };
