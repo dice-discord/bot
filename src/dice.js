@@ -31,7 +31,8 @@ const { Batch } = require("reported");
 const stripWebhookURL = require("./util/stripWebhookURL");
 const packageData = require("../package");
 const ms = require("ms");
-const logger = require("./util/logger");
+let logger = require("./util/logger");
+let webhookLogger;
 
 // Notification handlers
 const announceUserAccountBirthday = require("./notificationHandlers/userAccountBirthday");
@@ -55,12 +56,12 @@ const keyv = new Keyv(config.backend, {
 });
 
 module.exports = class DiceCluster extends BaseCluster {
-  constructor(parameters) {
-    super(parameters);
+  constructor(shardingManager) {
+    super(shardingManager);
 
     // Get the loggers running with accurate scopes
-    this.logger = logger.scope(`shard ${this.client.shard.id}`);
-    this.webhookLogger = this.logger.scope(`shard ${this.client.shard.id}`, "webhook");
+    logger = logger.scope(`shard ${this.client.shard.id}`);
+    webhookLogger = logger.scope(`shard ${this.client.shard.id}`, "webhook");
   }
 
   /**
@@ -69,7 +70,7 @@ module.exports = class DiceCluster extends BaseCluster {
    */
   reportError(err) {
     // Log the error
-    this.logger.error(err);
+    logger.error(err);
     // Log the error on Sentry
     Sentry.captureException(err);
   }
@@ -81,7 +82,7 @@ module.exports = class DiceCluster extends BaseCluster {
    */
   reportPromiseRejection(reason, promise) {
     // Log the error and promise
-    this.logger.error(reason, "at the promise", promise);
+    logger.error(reason, "at the promise", promise);
     // Log the error on Sentry
     Sentry.captureException(reason);
   }
@@ -122,7 +123,7 @@ module.exports = class DiceCluster extends BaseCluster {
   }
 
   scheduleBirthdayNotifications() {
-    const userAccountBirthdayLogger = this.logger.scope(`shard ${this.client.shard.id}`, "user account birthday");
+    const userAccountBirthdayLogger = logger.scope(`shard ${this.client.shard.id}`, "user account birthday");
     // Every day at 00:10:00 UTC
     schedule.scheduleJob("10 0 * * *", () => {
       // Find a list of users whose accounts were made on this day of this month
@@ -178,7 +179,7 @@ module.exports = class DiceCluster extends BaseCluster {
     this.client
       .on("debug", (...toLog) => {
         if (process.env.NODE_ENV === "development") {
-          this.logger.scope(`shard ${this.client.shard.id}`, "discord.js").debug(...toLog);
+          logger.scope(`shard ${this.client.shard.id}`, "discord.js").debug(...toLog);
         }
       })
       .on("unhandledRejection", this.reportPromiseRejection)
@@ -186,17 +187,17 @@ module.exports = class DiceCluster extends BaseCluster {
       .on("rejectionHandled", this.reportPromiseRejection)
       .on("uncaughtException", this.reportError)
       .on("warning", warning => {
-        this.logger.warn(warning);
+        logger.warn(warning);
         Sentry.captureException(warning);
       })
       .on("commandError", (command, error) => {
         if (error instanceof FriendlyError) return;
         Sentry.captureException(error);
-        this.logger.error(error);
+        logger.error(error);
       })
       .on("ready", () => {
-        this.logger.timeEnd("login");
-        this.logger.info(`Logged in as ${this.client.user.tag}!`);
+        logger.timeEnd("login");
+        logger.info(`Logged in as ${this.client.user.tag}!`);
 
         // Set game presence to the help command once loaded
         this.client.user.setActivity("for @Dice help", { type: "WATCHING" });
@@ -217,7 +218,7 @@ module.exports = class DiceCluster extends BaseCluster {
 
         // Only check for Discoin transactions and send bot stats if this is shard 0 and the production account
         if (this.client.shard.id === 0 && config.clientID === this.client.user.id) {
-          const botListLogger = this.logger.scope("bot list logger");
+          const botListLogger = logger.scope("bot list logger");
 
           const batchBotList = new Batch(config.botListTokens, this.client.user.id);
           batchBotList.on("status", (botList, token) => {
@@ -259,12 +260,12 @@ module.exports = class DiceCluster extends BaseCluster {
       .on("commandRun", require("./events/commandRun"));
 
     // Log in the bot
-    this.logger.time("login");
-    this.client.login(config.discordToken).catch(this.logger.error);
+    logger.time("login");
+    this.client.login(config.discordToken).catch(logger.error);
   }
 
   async checkDiscoinTransactions() {
-    const checkDiscoinTransactionsLogger = this.logger.scope(`shard ${this.client.shard.id}`, "discoin");
+    const checkDiscoinTransactionsLogger = logger.scope(`shard ${this.client.shard.id}`, "discoin");
     const transactions = (await axios
       .get("http://discoin.sidetrip.xyz/transactions", { headers: { Authorization: config.discoinToken } })
       .catch(error => checkDiscoinTransactionsLogger.error(error))).data;
@@ -311,8 +312,8 @@ module.exports = class DiceCluster extends BaseCluster {
                 }
               ]
             })
-            .then(() => this.webhookLogger.debug("Sent Discoin webhook"))
-            .catch(this.webhookLogger.error);
+            .then(() => webhookLogger.debug("Sent Discoin webhook"))
+            .catch(webhookLogger.error);
         }
       }
     }
