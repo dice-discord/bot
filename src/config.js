@@ -64,6 +64,7 @@ const config = {
     "twd",
     "zar"
   ],
+  dblWebhookVerification: process.env.DBL_WEBHOOK_VERIFICATION,
   discoinCurrencyCodes: ["dts", "elt", "kek", "rbn", "pic"],
   discoinToken: process.env.DISCOIN_TOKEN,
   discordToken: process.env.DISCORD_TOKEN,

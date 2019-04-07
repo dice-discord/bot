@@ -31,6 +31,10 @@ const { Batch } = require("reported");
 const stripWebhookURL = require("./util/stripWebhookURL");
 const packageData = require("../package");
 const ms = require("ms");
+
+const DBL = require("dblapi.js");
+const dbl = new DBL(config.botListTokens.discordBotList, { webhookPort: 5000, webhookAuth: "dblWebhookVerification" });
+
 let logger = require("./util/logger");
 let webhookLogger;
 
@@ -176,6 +180,8 @@ module.exports = class DiceCluster extends BaseCluster {
 
     this.scheduleBirthdayNotifications();
 
+    this.handleVotes();
+
     this.client
       .on("debug", (...toLog) => {
         if (process.env.NODE_ENV === "development") {
@@ -317,5 +323,28 @@ module.exports = class DiceCluster extends BaseCluster {
         }
       }
     }
+  }
+
+  handleVotes() {
+    dbl.webhook.on("vote", async vote => {
+      let payout = 1000;
+      if (vote.isWeekend) payout *= 2;
+
+      await Promise.all([
+        this.client.users.fetch(vote.user),
+        database.balances.increase(vote.user, payout),
+        database.balances.increase(this.client.user.id, payout)
+      ]);
+
+      (await this.client.users.fetch(vote.user)).send({
+        embed: {
+          title: "Voting Reward",
+          color: 0x4caf50,
+          description: `Thanks for voting on Discord Bot List. You received ${payout.toLocaleString()} ${
+            config.currency.plural
+          }.${vote.isWeekend ? " You got double for voting during the weekend." : ""}`
+        }
+      });
+    });
   }
 };
