@@ -6,6 +6,8 @@ services:
     image: dicediscord/bot
     restart: always
     env_file: .env
+    ports:
+      - 5000:5000
   watchtower:
     image: v2tec/watchtower
     restart: always
