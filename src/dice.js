@@ -34,8 +34,7 @@ const ms = require("ms");
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.botListTokens.discordBotList, {
-  webhookPort: 5000,
-  webhookAuth: config.dblWebhookVerification
+  webhookPort: 5000
 });
 
 let logger = require("./util/logger");
@@ -332,16 +331,34 @@ module.exports = class DiceCluster extends BaseCluster {
     const voteLogger = logger.scope(`shard ${this.client.shard.id}`, "vote logger");
 
     dbl.webhook.on("vote", async vote => {
+      const isWeekend = await dbl.isWeekend();
+      const hasVoted = await dbl.hasVoted(vote.user);
+
+      const msg = "Incorrect info received from DBL voting webhook";
+
+      if (!hasVoted || vote.isWeekend !== isWeekend) {
+        if (!hasVoted) return logger.warn(`${msg}, user did not vote`);
+        if (isWeekend && !vote.isWeekend) {
+          return logger.warn(`${msg}, webhook did not say it was the weekend`);
+        } else if (!isWeekend && vote.isWeekend) {
+          return logger.warn(`${msg}, webhook said it was the weekend`);
+        }
+      }
+
       let payout = 1000;
-      if (vote.isWeekend) payout *= 2;
+      if (isWeekend) payout *= 2;
 
-      await Promise.all([
-        this.client.users.fetch(vote.user),
-        database.balances.increase(vote.user, payout),
-        database.balances.increase(this.client.user.id, payout)
-      ]).catch(voteLogger.error);
+      if (vote.type === "test") {
+        voteLogger.debug(`Received test webhook for ${vote.user}`);
+      } else {
+        voteLogger.debug(`Received vote from ${vote.user} for ${payout}`);
 
-      voteLogger.debug(`Received vote from ${vote.user} for ${payout}`);
+        await Promise.all([
+          this.client.users.fetch(vote.user),
+          database.balances.increase(vote.user, payout),
+          database.balances.increase(this.client.user.id, payout)
+        ]).catch(voteLogger.error);
+      }
 
       (await this.client.users.fetch(vote.user))
         .send({
