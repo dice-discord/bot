@@ -273,7 +273,7 @@ module.exports = class DiceCluster extends BaseCluster {
   }
 
   async checkDiscoinTransactions() {
-    const checkDiscoinTransactionsLogger = logger.scope("discoin");
+    const checkDiscoinTransactionsLogger = logger.scope(`shard ${this.client.shard.id}`, "discoin");
     const transactions = (await axios
       .get("http://discoin.sidetrip.xyz/transactions", { headers: { Authorization: config.discoinToken } })
       .catch(error => checkDiscoinTransactionsLogger.error(error))).data;
@@ -283,7 +283,8 @@ module.exports = class DiceCluster extends BaseCluster {
     for (const transaction of transactions) {
       if (transaction.type !== "refund") {
         checkDiscoinTransactionsLogger.debug("Discoin transaction fetched:", JSON.stringify(transaction));
-        database.balances.increase(transaction.user, transaction.amount);
+        // eslint-disable-next-line no-await-in-loop
+        await database.balances.increase(transaction.user, transaction.amount);
 
         if (config.webhooks.discoin) {
           const webhookData = stripWebhookURL(config.webhooks.discoin);
@@ -291,6 +292,26 @@ module.exports = class DiceCluster extends BaseCluster {
 
           // eslint-disable-next-line no-await-in-loop
           const user = await this.client.users.fetch(transaction.user);
+          user.send({
+            embed: {
+              title: "Discoin Conversion Received",
+              url: "https://discoin.sidetrip.xyz/record",
+              timestamp: new Date(transaction.timestamp * 1000),
+              thumbnail: {
+                url: "https://avatars2.githubusercontent.com/u/30993376"
+              },
+              fields: [
+                {
+                  name: "Amount",
+                  value: `${transaction.source} ➡ ${transaction.amount} OAT`
+                },
+                {
+                  name: "Receipt",
+                  value: `\`${transaction.receipt}\``
+                }
+              ]
+            }
+          });
 
           webhook
             .send({
