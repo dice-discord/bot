@@ -226,6 +226,7 @@ module.exports = class DiceCluster extends BaseCluster {
 
         // Only check for Discoin transactions and send bot stats if this is shard 0 and the production account
         if (this.client.shard.id === 0 && config.clientID === this.client.user.id) {
+          logger.debug("Going to check Discoin transactions and send bot list stats");
           const botListLogger = logger.scope("bot list logger");
 
           const batchBotList = new Batch(config.botListTokens, this.client.user.id);
@@ -254,6 +255,8 @@ module.exports = class DiceCluster extends BaseCluster {
           schedule.scheduleJob("*/30 * * * *", submitToBotLists);
 
           schedule.scheduleJob("/5 * * * *", this.checkDiscoinTransactions);
+        } else {
+          logger.debug("Not going to check Discoin transactions and send bot list stats");
         }
       })
       .on("guildMemberAdd", require("./events/guildMemberAdd"))
@@ -278,11 +281,11 @@ module.exports = class DiceCluster extends BaseCluster {
       .get("http://discoin.sidetrip.xyz/transactions", { headers: { Authorization: config.discoinToken } })
       .catch(error => checkDiscoinTransactionsLogger.error(error))).data;
 
-    checkDiscoinTransactionsLogger.debug("All Discoin transactions:", JSON.stringify(transactions));
+    checkDiscoinTransactionsLogger.debug("All Discoin transactions:", transactions);
 
     for (const transaction of transactions) {
       if (transaction.type !== "refund") {
-        checkDiscoinTransactionsLogger.debug("Discoin transaction fetched:", JSON.stringify(transaction));
+        checkDiscoinTransactionsLogger.debug("Discoin transaction fetched:", transaction);
         // eslint-disable-next-line no-await-in-loop
         await database.balances.increase(transaction.user, transaction.amount);
 
