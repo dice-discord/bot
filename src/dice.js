@@ -277,6 +277,9 @@ module.exports = class DiceCluster extends BaseCluster {
 
   async checkDiscoinTransactions() {
     const checkDiscoinTransactionsLogger = logger.scope("discoin");
+
+    checkDiscoinTransactionsLogger.debug("Checking Discoin transactions");
+
     const transactions = (await axios
       .get("http://discoin.sidetrip.xyz/transactions", { headers: { Authorization: config.discoinToken } })
       .catch(error => checkDiscoinTransactionsLogger.error(error))).data;
