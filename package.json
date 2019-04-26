@@ -40,7 +40,7 @@
     "prettier": "^1.16.4",
     "semantic-release": "^15.13.3",
     "semantic-release-docker": "^2.2.0",
-    "tap": "^12.6.1"
+    "tap": "^13.0.0"
   },
   "email": "me@jonahsnider.ninja",
   "engines": {
