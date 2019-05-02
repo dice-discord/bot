@@ -61,9 +61,7 @@ module.exports = class MarkovChainCommand extends SentryCommand {
 
     markov
       .generateAsync()
-      .then(generated =>
-        msg.say(`${Util.cleanContent(generated.string)} (created from ${generated.refs.length})`)
-      )
+      .then(generated => msg.say(`${Util.cleanContent(generated.string)} (created from ${generated.refs.length})`))
       .catch(err => {
         if (/Failed to build a sentence after \d+ tries/.test(err.message)) {
           return msg.reply("Unable to build a message. Try providing a larger sample set.");
