@@ -39,7 +39,7 @@ Dice ideally is run on a server with at least 2GB of RAM that is dedicated to Di
 docker-compose up
 ```
 
-> Copyright 2018 Jonah Snider
+> Copyright 2019 Jonah Snider
 >
 > Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 > You may obtain a copy of the License at
