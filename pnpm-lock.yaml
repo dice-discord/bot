@@ -15,6 +15,7 @@ dependencies:
   keen-tracking: 4.4.0
   keyv: 3.1.0
   kurasuta: 0.2.18
+  markov-strings: 2.0.2
   mongodb: 3.2.3
   ms: 2.1.1
   node-fetch: 2.3.0
@@ -2815,6 +2816,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-LqxwVH3P/rqKX4EKGz7+c2G9r98WeM/SW34ybhgNGhUQNKtf1GmmSkJ6cDGJ/t6tiyae49qRkpyTw2B9HOrgUA==
+  /markov-strings/2.0.2:
+    dependencies:
+      lodash: 4.17.11
+    dev: false
+    engines:
+      node: '>=8.0.0'
+    resolution:
+      integrity: sha512-21UmgQpdVUztX9AD5VY6F+m1E4HtVPbIojODFNgX15pk0A1l2oaNET3bZXWOi0IOxZUHts/cU51oA/5tfN05WA==
   /mem/4.3.0:
     dependencies:
       map-age-cleaner: 0.1.3
@@ -5079,6 +5088,7 @@ specifiers:
   keen-tracking: ^4.4.0
   keyv: ^3.1.0
   kurasuta: ^0.2.18
+  markov-strings: ^2.0.2
   mongodb: ^3.2.3
   ms: ^2.1.1
   node-fetch: ^2.3.0
