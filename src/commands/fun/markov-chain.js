@@ -46,9 +46,13 @@ module.exports = class MarkovChainCommand extends SentryCommand {
   }
 
   async exec(msg, { inputCount }) {
-    const messages = [...(await msg.channel.messages.fetch({ limit: inputCount })).values()].map(val => val.content);
+    const rawMessages = await msg.channel.messages.fetch({ limit: inputCount });
+    rawMessages.delete(msg.id);
+    const messages = [...rawMessages.values()].map(val => val.content);
 
-    const markov = new Markov(messages);
+    const markov = new Markov(messages, {
+      stateSize: 1
+    });
 
     await markov.buildCorpusAsync().catch(err => {
       logger.error(err);
@@ -57,9 +61,9 @@ module.exports = class MarkovChainCommand extends SentryCommand {
 
     markov
       .generateAsync()
-      .then(generated => {
-        return msg.say(Util.cleanContent(generated.string));
-      })
+      .then(generated =>
+        msg.say(`${Util.cleanContent(generated.string)} (created from ${generated.refs.length})`)
+      )
       .catch(err => {
         if (/Failed to build a sentence after \d+ tries/.test(err.message)) {
           return msg.reply("Unable to build a message. Try providing a larger sample set.");
