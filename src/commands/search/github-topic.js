@@ -28,7 +28,7 @@ module.exports = class GitHubTopicCommand extends SentryCommand {
       description: "Look up a topic from GitHub",
       examples: ["github-topic-search discord.js"],
       clientPermissions: ["EMBED_LINKS"],
-      aliases: ["github-topic"],
+      aliases: ["github-topic", "gh-topic-search", "gh-topic"],
       throttling: {
         usages: 1,
         duration: 10
