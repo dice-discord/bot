@@ -54,16 +54,12 @@ module.exports = class DateFactsCommand extends SentryCommand {
   }
 
   async exec(msg, { month, day }) {
-    try {
-      msg.channel.startTyping();
+    const uri = `http://numbersapi.com/${month === "random" || day === "random" ? "random" : `${month}/${day}`}/date`;
 
-      const uri = `http://numbersapi.com/${month === "random" || day === "random" ? "random" : `${month}/${day}`}/date`;
-      return msg.reply((await axios.get(uri)).data);
-    } catch (error) {
+    const fact = await axios.get(uri).catch(error => {
       logger.error(error);
       return msg.reply("There was an error with the API we use (http://numbersapi.com)");
-    } finally {
-      msg.channel.stopTyping();
-    }
+    });
+    return msg.reply(fact.data);
   }
 };

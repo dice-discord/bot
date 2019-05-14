@@ -44,15 +44,10 @@ module.exports = class YearFactsCommand extends SentryCommand {
   }
 
   async exec(msg, { year }) {
-    try {
-      msg.channel.startTyping();
-
-      return msg.reply((await axios.get(`http://numbersapi.com/${year}/year`)).data);
-    } catch (error) {
+    const fact = await axios.get(`http://numbersapi.com/${year}/year`).catch(error => {
       logger.error(error);
       return msg.reply("There was an error with the API we use (http://numbersapi.com)");
-    } finally {
-      msg.channel.stopTyping();
-    }
+    });
+    return msg.reply(fact.data);
   }
 };
