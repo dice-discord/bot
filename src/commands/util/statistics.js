@@ -44,12 +44,12 @@ module.exports = class StatisticsCommand extends SentryCommand {
         title: "Dice Statistics",
         fields: [
           {
-            name: "👤 Total Number of Users",
+            name: "Total Number of Users",
             // Subtract one because of the Dice bot and for the Dice Dev bot
             value: `${((await database.userCount()) - 2).toLocaleString()} users`
           },
           {
-            name: "👥 Total Number of Servers",
+            name: "Total Number of Servers",
             value: `${serverCount.reduce((prev, val) => prev + val, 0).toLocaleString()} servers`
           }
         ]
