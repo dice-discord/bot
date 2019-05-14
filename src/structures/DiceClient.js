@@ -33,7 +33,7 @@ class DiceClient extends CommandoClient {
     this.config = config;
 
     this.stats.socket.on("error", error => {
-      logger.error("Error in socket: ", error);
+      logger.error("Error in socket:", error);
     });
   }
 }
