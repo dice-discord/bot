@@ -17,6 +17,7 @@ limitations under the License.
 const { Command } = require("discord.js-commando");
 const Sentry = require("@sentry/node");
 const database = require("../../src/util/database");
+const logCommandToKeen = require("../../src/util/logCommandToKeen");
 
 class SentryCommand extends Command {
   /**
@@ -45,14 +46,16 @@ class SentryCommand extends Command {
       scope.setExtra("guild ID", message.guild ? message.guild.id : "dm");
       scope.setExtra("channel ID", message.channel.id);
       scope.setExtra("message ID", message.id);
-      if (args) scope.setExtra("arguments", args);
+      scope.setExtra("arguments", args || {});
 
-      database.balances.get(id).then(balance => {
+      database.balances.get(id, false).then(balance => {
         scope.setExtra("user balance", balance);
       });
     });
 
-    return await this.exec(message, args, fromPattern);
+    const promise = this.exec(message, args, fromPattern);
+    promise.then(() => logCommandToKeen(message, args));
+    return promise;
   }
 
   /**

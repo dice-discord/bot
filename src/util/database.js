@@ -50,23 +50,51 @@ const database = async () => {
   const balances = {
     /**
      * @param {string} id User ID to get the balance for
+     * @param {Boolean} setDefault Whether or not to set the user's balance to the default
      * @returns {Promise<Number>} Promise resolving in the balance of the user
      */
-    get: async id => {
+    get: async (id, setDefault = true) => {
+      const getBalanceLogger = logger.scope("balances", "get");
       const result = await economyCollection.findOne({ key: `keyv:${id}` });
       const defaultBal = id === config.clientID ? config.houseStartingBalance : config.newUserBalance;
 
       if (result && result.value && typeof result.value.value !== "undefined") {
-        return simpleFormat(result.value.value);
+        const bal = simpleFormat(result.value.value);
+
+        getBalanceLogger.debug({ prefix: id, message: bal });
+
+        return bal;
       } else {
-        await balances.set(id, defaultBal);
+        getBalanceLogger.debug({ prefix: id, message: "default" });
+
+        if (setDefault) await balances.set(id, defaultBal);
+
         return defaultBal;
       }
     },
-    set: (id, balance) =>
-      economyCollection.updateOne({ key: `keyv:${id}` }, { $set: { value: { value: balance } } }, { upsert: true }),
-    decrease: async (id, amount) => balances.set(id, (await balances.get(id)) - amount),
-    increase: async (id, amount) => balances.set(id, (await balances.get(id)) + amount)
+    set: (id, balance) => {
+      const setBalanceLogger = logger.scope("balances", "set");
+
+      setBalanceLogger.debug({ prefix: id, message: balance });
+
+      return economyCollection.findOneAndUpdate(
+        { key: `keyv:${id}` },
+        { $set: { value: { value: balance } } },
+        { upsert: true }
+      );
+    },
+    decrease: async (id, amount) => {
+      const decreaseBalanceLogger = logger.scope("balances", "decrease");
+
+      decreaseBalanceLogger.debug({ prefix: id, message: amount });
+      return balances.set(id, (await balances.get(id)) - amount);
+    },
+    increase: async (id, amount) => {
+      const increaseBalanceLogger = logger.scope("balances", "decrease");
+
+      increaseBalanceLogger.debug({ prefix: id, message: amount });
+      return balances.set(id, (await balances.get(id)) + amount);
+    }
   };
   module.exports.balances = balances;
 
@@ -87,14 +115,14 @@ const database = async () => {
    * @returns {Array<Object>} Top ten data
    */
   const leaderboard = async () => {
-    logger.scope("database", "leaderboard");
+    const leaderboardLogger = logger.scope("database", "leaderboard");
     const formattedBalances = await economyCollection
       .find()
       .sort({ value: -1 })
       .limit(10)
       .toArray();
 
-    logger.debug("Top ten data formatted:", JSON.stringify(formattedBalances));
+    leaderboardLogger.debug("Top ten data formatted:", JSON.stringify(formattedBalances));
     return formattedBalances;
   };
   module.exports.leaderboard = leaderboard;
@@ -112,7 +140,7 @@ const database = async () => {
   const setDailyUsed = (id, timestamp) => {
     const setDailyUsedLogger = logger.scope("daily used", "set");
     setDailyUsedLogger.debug(`Set daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`);
-    return dailiesCollection.updateOne({ key: `keyv:${id}` }, { $set: { value: { value: timestamp } } });
+    return dailiesCollection.findOneAndUpdate({ key: `keyv:${id}` }, { $set: { value: { value: timestamp } } });
   };
   module.exports.setDailyUsed = setDailyUsed;
 
