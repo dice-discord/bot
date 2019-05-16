@@ -35,6 +35,10 @@ module.exports = class HelpCommand extends SentryCommand {
 			`,
       examples: ["help", "help prefix"],
       guarded: true,
+      throttling: {
+        usages: 2,
+        duration: 6
+      },
       args: [
         {
           key: "command",
