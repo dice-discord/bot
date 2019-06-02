@@ -55,6 +55,6 @@ module.exports = class RollDieCommand extends SentryCommand {
     // Give it a pseudo-random seed for a bit more entropy
     const rolled = new Roll(Math.random).roll(roll);
 
-    return msg.reply(`You rolled ${rolled.result}${rolled.rolled.length > 1 ? `(${rolled.rolled.join(", ")})` : ""}.`);
+    return msg.reply(`You rolled ${rolled.result}${rolled.rolled.length > 1 ? ` (${rolled.rolled.join(", ")})` : ""}.`);
   }
 };
