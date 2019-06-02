@@ -53,9 +53,8 @@ class SentryCommand extends Command {
       });
     });
 
-    const promise = this.exec(message, args, fromPattern);
-    promise.then(() => logCommandToKeen(message, args));
-    return promise;
+    logCommandToKeen(message, args);
+    return this.exec(message, args, fromPattern);
   }
 
   /**
