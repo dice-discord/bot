@@ -1,4 +1,4 @@
-FROM node:12.3.1-alpine
+FROM node:10.16.0-alpine
 
 LABEL maintainer "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)"
 
