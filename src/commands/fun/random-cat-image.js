@@ -42,9 +42,9 @@ module.exports = class RandomCatImageCommand extends SentryCommand {
         author: {
           name: "random.cat",
           iconURL: "https://i.imgur.com/Ik0Gf0r.png",
-          url: "http://random.cat"
+          url: "https://random.cat"
         },
-        image: { url: (await axios.get("http://aws.random.cat/meow")).data.file }
+        image: { url: (await axios.get("https://aws.random.cat/meow")).data.file }
       });
     } catch (error) {
       logger.error(error);
