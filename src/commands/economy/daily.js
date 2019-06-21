@@ -49,7 +49,6 @@ module.exports = class DailyCommand extends SentryCommand {
 
       // 23 hours because it's better for users to have some wiggle room
       const fullDay = ms("23 hours");
-      const waitDuration = formatDistance(currentTimestamp + fullDay, new Date());
 
       let payout = 1000;
       let note;
@@ -89,6 +88,8 @@ module.exports = class DailyCommand extends SentryCommand {
         return msg.reply(`${message}\n${note}`);
       }
       // Daily collected in a day or less (so, recently)
+      const waitDuration = formatDistance(oldTimestamp + fullDay, currentTimestamp);
+
       return msg.reply(`You must wait ${waitDuration} before collecting your daily ${config.currency.plural}.`);
     } finally {
       msg.channel.stopTyping();
