@@ -114,7 +114,7 @@ const config = {
       name: "messageUpdate"
     }
   ],
-  owners: ["210024244766179329", "208970190547976202"],
+  owners: ["210024244766179329"],
   patrons: {
     userID: {
       basic: true,
