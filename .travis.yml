@@ -15,7 +15,7 @@ jobs:
     - name: "Submit test coverage"
       script: pnpm run test:coverage
     - name: "Lint"
-      script: pnpm run lint
+      script: pnpm run lint:fix
     - stage: "Deploy"
       name: "Semantic Release"
       script:
