@@ -50,9 +50,7 @@ module.exports = class DiscoinRatesCommand extends SentryCommand {
         for (const bot in rate) {
           embed.addField(
             bot,
-            `Currency code: ${rate[bot].currencyCode}\nTo Discoin: ${rate[bot].toDiscoin}\nFrom Discoin: ${
-              rate[bot].fromDiscoin
-            }`
+            `Currency code: ${rate[bot].currencyCode}\nTo Discoin: ${rate[bot].toDiscoin}\nFrom Discoin: ${rate[bot].fromDiscoin}`
           );
         }
       });

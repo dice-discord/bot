@@ -89,9 +89,7 @@ module.exports = class CryptoCurrencyCommand extends SentryCommand {
           },
           {
             name: "💹 Percentage Change",
-            value: `Past hour: ${cryptoCurrency.percent_change_1h}%\nPast day: ${
-              cryptoCurrency.percent_change_24h
-            }%\nPast week: ${cryptoCurrency.percent_change_7d}%`
+            value: `Past hour: ${cryptoCurrency.percent_change_1h}%\nPast day: ${cryptoCurrency.percent_change_24h}%\nPast week: ${cryptoCurrency.percent_change_7d}%`
           }
         ]
       });

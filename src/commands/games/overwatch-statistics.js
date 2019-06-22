@@ -104,9 +104,7 @@ module.exports = class OverwatchStatisticsCommand extends SentryCommand {
       if (stats.gamesWon && stats.quickPlayStats.games.won && stats.competitiveStats.games) {
         embed.addField(
           "Games Won",
-          `${stats.gamesWon} total wins (${stats.quickPlayStats.games.won} from quick play and ${
-            stats.competitiveStats.games.won
-          } from competitive)`
+          `${stats.gamesWon} total wins (${stats.quickPlayStats.games.won} from quick play and ${stats.competitiveStats.games.won} from competitive)`
         );
       } else if (stats.gamesWon) {
         embed.addField("Games Won", `${stats.gamesWon} total wins`);
@@ -116,9 +114,7 @@ module.exports = class OverwatchStatisticsCommand extends SentryCommand {
       if (stats.quickPlayStats && stats.quickPlayStats.eliminationsAvg && stats.competitiveStats.eliminationsAvg) {
         embed.addField(
           "Average Eliminations",
-          `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play and ${
-            stats.competitiveStats.eliminationsAvg
-          } from competitive`
+          `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play and ${stats.competitiveStats.eliminationsAvg} from competitive`
         );
       } else if (stats.quickPlayStats && stats.quickPlayStats.eliminationsAvg) {
         embed.addField("Average Eliminations", `${stats.quickPlayStats.eliminationsAvg} eliminations from quick play`);
@@ -141,11 +137,7 @@ module.exports = class OverwatchStatisticsCommand extends SentryCommand {
         if (stats.quickPlayStats.awards && stats.quickPlayStats.awards.medals) {
           embed.addField(
             "Medals (Quick Play)",
-            `${stats.quickPlayStats.awards.medals} medals total.\n${
-              stats.quickPlayStats.awards.medalsGold
-            } gold medals\n${stats.quickPlayStats.awards.medalsSilver} silver medals\n${
-              stats.quickPlayStats.awards.medalsBronze
-            } bronze medals`
+            `${stats.quickPlayStats.awards.medals} medals total.\n${stats.quickPlayStats.awards.medalsGold} gold medals\n${stats.quickPlayStats.awards.medalsSilver} silver medals\n${stats.quickPlayStats.awards.medalsBronze} bronze medals`
           );
         }
       }
@@ -155,11 +147,7 @@ module.exports = class OverwatchStatisticsCommand extends SentryCommand {
         if (stats.competitiveStats.awards.medals) {
           embed.addField(
             "Medals (Competitive)",
-            `${stats.competitiveStats.awards.medals} medals total.\n${
-              stats.competitiveStats.awards.medalsGold
-            } gold medals\n${stats.competitiveStats.awards.medalsSilver} silver medals\n${
-              stats.competitiveStats.awards.medalsBronze
-            } bronze medals`
+            `${stats.competitiveStats.awards.medals} medals total.\n${stats.competitiveStats.awards.medalsGold} gold medals\n${stats.competitiveStats.awards.medalsSilver} silver medals\n${stats.competitiveStats.awards.medalsBronze} bronze medals`
           );
         }
 
