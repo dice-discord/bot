@@ -149,8 +149,6 @@ const database = async () => {
    */
   const getDailyUsed = async id => {
     const result = await dailiesCollection.findOne({ key: `keyv:${id}` });
-    console.log(`[AAAAAA] search query: { key: \`keyv:${id}\` }`)
-    console.log(`[AAAAAA] getting daily for ${id}. result: ${result}`);
 
     return result && result.value && typeof result.value.value !== "undefined" ? result.value.value : 0;
   };
