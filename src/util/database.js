@@ -139,8 +139,8 @@ const database = async () => {
    */
   const setDailyUsed = (id, timestamp) => {
     const setDailyUsedLogger = logger.scope("daily used", "set");
-    setDailyUsedLogger.debug(`Set daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`);
-    return dailiesCollection.findOneAndUpdate({ key: `keyv:${id}` }, { $set: { value: { value: timestamp } } });
+    setDailyUsedLogger.debug(`Setting daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`);
+    return dailiesCollection.findOneAndUpdate({ key: `keyv:${id}` }, { $set: { value: { value: timestamp } } }, { upsert: true });
   };
   module.exports.setDailyUsed = setDailyUsed;
 
@@ -149,6 +149,8 @@ const database = async () => {
    */
   const getDailyUsed = async id => {
     const result = await dailiesCollection.findOne({ key: `keyv:${id}` });
+    console.log(`[AAAAAA] search query: { key: \`keyv:${id}\` }`)
+    console.log(`[AAAAAA] getting daily for ${id}. result: ${result}`);
 
     return result && result.value && typeof result.value.value !== "undefined" ? result.value.value : 0;
   };
