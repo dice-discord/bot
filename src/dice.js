@@ -254,7 +254,7 @@ module.exports = class DiceCluster extends BaseCluster {
           submitToBotLists();
           schedule.scheduleJob("*/30 * * * *", submitToBotLists);
 
-          schedule.scheduleJob("/5 * * * *", this.checkDiscoinTransactions);
+          schedule.scheduleJob("*/5 * * * *", this.checkDiscoinTransactions);
         } else {
           logger.debug("Not going to check Discoin transactions and send bot list stats");
         }
