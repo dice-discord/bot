@@ -112,14 +112,14 @@ const database = async () => {
   module.exports.resetEconomy = resetEconomy;
 
   /**
-   * @returns {Array<Object>} Top ten data
+   * @returns {Array<Object>} The wealthiest users in the database
    */
-  const leaderboard = async () => {
+  const leaderboard = async limit => {
     const leaderboardLogger = logger.scope("database", "leaderboard");
     const formattedBalances = await economyCollection
       .find()
       .sort({ value: -1 })
-      .limit(10)
+      .limit(limit)
       .toArray();
 
     leaderboardLogger.debug("Top ten data formatted:", JSON.stringify(formattedBalances));
@@ -140,7 +140,11 @@ const database = async () => {
   const setDailyUsed = (id, timestamp) => {
     const setDailyUsedLogger = logger.scope("daily used", "set");
     setDailyUsedLogger.debug(`Setting daily timestamp for ${id} to ${new Date(timestamp)} (${timestamp})`);
-    return dailiesCollection.findOneAndUpdate({ key: `keyv:${id}` }, { $set: { value: { value: timestamp } } }, { upsert: true });
+    return dailiesCollection.findOneAndUpdate(
+      { key: `keyv:${id}` },
+      { $set: { value: { value: timestamp } } },
+      { upsert: true }
+    );
   };
   module.exports.setDailyUsed = setDailyUsed;
 

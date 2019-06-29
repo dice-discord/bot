@@ -20,6 +20,7 @@ const database = require("../../util/database");
 const config = require("../../config");
 const logger = require("../../util/logger").scope("command", "leaderboard");
 const ms = require("ms");
+const { stripIndents } = require("common-tags");
 
 module.exports = class LeaderboardCommand extends SentryCommand {
   constructor(client) {
@@ -34,16 +35,26 @@ module.exports = class LeaderboardCommand extends SentryCommand {
       throttling: {
         usages: 1,
         duration: 5
-      }
+      },
+      args: [
+        {
+          key: "limit",
+          prompt: "How many users do you want to limit your results for?",
+          type: "integer",
+          default: 10,
+          min: 1,
+          max: 50
+        }
+      ]
     });
   }
 
-  async exec(msg) {
+  async exec(msg, { limit }) {
     try {
       msg.channel.startTyping();
 
       const start = new Date().getTime();
-      const leaderboardArray = await database.leaderboard();
+      const leaderboardArray = await database.leaderboard(limit);
 
       logger.debug("Contents of leaderboard array:", JSON.stringify(leaderboardArray));
       logger.debug("Leaderboard array length:", leaderboardArray.length);
@@ -78,13 +89,31 @@ module.exports = class LeaderboardCommand extends SentryCommand {
       users.forEach(user => promises.push(userTagFromID(leaderboardArray.indexOf(user))));
       const tags = await Promise.all(promises);
 
-      const embed = new MessageEmbed({ title: "Top 10 Leaderboard" });
+      const embed = new MessageEmbed({ title: `Top ${limit} Leaderboard` });
 
-      for (let i = 0; i < leaderboardArray.length; i++) {
-        embed.addField(
-          `#${i + 1} ${tags[i]}`,
-          `${leaderboardArray[i].value.value.toLocaleString()} ${config.currency.plural}`
-        );
+      if (limit <= 10) {
+        // Use an embed if there are 10 or less items
+        for (let i = 0; i < leaderboardArray.length; i++) {
+          embed.addField(
+            `#${i + 1} ${tags[i]}`,
+            `${leaderboardArray[i].value.value.toLocaleString()} ${config.currency.plural}`
+          );
+        }
+      } else {
+        // Use a code block if there are more than 10 items
+        embed.setDescription(stripIndents`
+        \`\`\`markdown
+        ${leaderboardArray
+          .map((doc, index) => {
+            const balance = doc.value.value.toLocaleString();
+            const userTag = tags[index];
+            // The 2 here is the length of the string ". "
+            const paddedNumber = `${index + 1}. `.padEnd(limit.toString().length + 2);
+            return `${paddedNumber}${userTag} - ${balance} ${config.currency.plural}`;
+          })
+          .join("\n")}
+        \`\`\`
+        `);
       }
 
       const end = new Date().getTime();
