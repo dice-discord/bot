@@ -34,7 +34,7 @@
   },
   "description": "A general purpose utility bot, with an economy, games, and lots of other features.",
   "devDependencies": {
-    "@dice-discord/eslint-config": "^1.2.1",
+    "@dice-discord/eslint-config": "^3.0.0",
     "codecov": "^3.3.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.0.0",
