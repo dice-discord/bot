@@ -20,6 +20,7 @@ const tags = require("common-tags");
 const { sensitivePattern } = require("../../util/sensitivePattern");
 const { exec } = require("child-process-promise");
 const SentryCommand = require("../../structures/SentryCommand");
+const ms = require("ms");
 
 const nl = "\n";
 const nlPattern = new RegExp(nl, "g");
@@ -69,7 +70,7 @@ module.exports = class ExecuteCommand extends SentryCommand {
     }
   }
 
-  makeResultMessages(result, hrDiff, input = null) {
+  makeResultMessages(result, hrDiff) {
     const inspected = util
       .inspect(result, { depth: 0 })
       .replace(nlPattern, "\n")
@@ -83,27 +84,15 @@ module.exports = class ExecuteCommand extends SentryCommand {
         : inspected[last];
     const prepend = `\`\`\`bash\n${prependPart}\n`;
     const append = `\n${appendPart}\n\`\`\``;
-    if (input) {
-      return discord.splitMessage(
-        tags.stripIndents`
-				*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ""}${hrDiff[1] / 1000000}ms.*
+    return discord.splitMessage(
+      tags.stripIndents`
+				*Executed in ${ms(hrDiff[1] / 1000000)}.*
 				\`\`\`bash
 				${discord.Util.escapeMarkdown(inspected)}
 				\`\`\`
 			`,
-        { maxLength: 1900, prepend, append }
-      );
-    } else {
-      return discord.splitMessage(
-        tags.stripIndents`
-				*Callback executed after ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ""}${hrDiff[1] / 1000000}ms.*
-				\`\`\`bash
-				${inspected}
-				\`\`\`
-			`,
-        { maxLength: 1900, prepend, append }
-      );
-    }
+      { maxLength: 1900, prepend, append }
+    );
   }
 
   get sensitivePattern() {
