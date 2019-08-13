@@ -92,3 +92,6 @@ typings/
 .history
 
 # End of https://www.gitignore.io/api/node,visualstudiocode
+
+# Google Cloud Stackdriver Profiler service account JSON file
+googleCloudServiceAccount.json

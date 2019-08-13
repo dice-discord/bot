@@ -40,6 +40,26 @@ if (config.sentryDSN) {
   });
 }
 
+if (process.env.NODE_ENV === "production") {
+  const profiler = require("@google-cloud/profiler");
+  const { existsSync, join } = require("fs");
+
+  if (existsSync(join("..", "googleCloudServiceAccount.json"))) {
+    logger.note("Using Stackdriver");
+    profiler.start({
+      projectID: "dice-discord",
+      serviceContext: {
+        service: "profiler",
+        version: packageData.version
+      }
+    });
+  } else {
+    logger.note("No Google Cloud service account file was detected, not using Stackdriver");
+  }
+} else {
+  logger.note("Not in production, not using Stackdriver");
+}
+
 const sharder = new ShardingManager(join(__dirname, "dice"), {
   token: config.discordToken,
   respawn: process.env.NODE_ENV === "production",

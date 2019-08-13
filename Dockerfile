@@ -9,8 +9,8 @@ WORKDIR /usr/src/dice
 RUN apk update
 RUN apk upgrade
 
-# Install git and curl
-RUN apk add --no-cache git curl
+# Install git, curl, and certificates for the Stackdriver Profiler
+RUN apk add --no-cache git curl ca-certificates
 
 # Install PNPM
 RUN curl -L https://unpkg.com/@pnpm/self-installer | node
@@ -23,6 +23,6 @@ RUN pnpm i
 COPY . .
 
 # Initialize environment variables
-ENV NODE_ENV=production
+ENV NODE_ENV=production GOOGLE_APPLICATION_CREDENTIALS=/usr/src/dice/googleCloudServiceAccount.json
 
 CMD [ "pnpm", "start" ]

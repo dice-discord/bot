@@ -6,6 +6,8 @@ services:
     image: dicediscord/bot
     restart: always
     env_file: .env
+    volumes:
+      - ./googleCloudServiceAccount.json:/usr/src/dice/googleCloudServiceAccount.json
     ports:
       - 5000:5000
   watchtower:
