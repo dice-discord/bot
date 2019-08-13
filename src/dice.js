@@ -21,6 +21,8 @@ const packageData = require("../package");
 let logger = require("./util/logger");
 
 if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+  const profiler = require("@google-cloud/profiler");
+
   profiler.start({
     projectID: "dice-discord",
     serviceContext: {
@@ -49,7 +51,6 @@ const DBL = require("dblapi.js");
 const dbl = new DBL(config.botListTokens.discordBotList, {
   webhookPort: 5000
 });
-
 
 let webhookLogger;
 
