@@ -17,7 +17,7 @@ RUN curl -L https://unpkg.com/@pnpm/self-installer | node
 
 # Install app dependencies
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm i
+RUN pnpm install --production
 
 # Bundle app source
 COPY . .
