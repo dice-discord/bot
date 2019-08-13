@@ -42,7 +42,7 @@ if (config.sentryDSN) {
 
 if (process.env.NODE_ENV === "production") {
   const profiler = require("@google-cloud/profiler");
-  const { existsSync, join } = require("fs");
+  const { existsSync } = require("fs");
 
   if (existsSync(join("..", "googleCloudServiceAccount.json"))) {
     logger.note("Using Stackdriver");
