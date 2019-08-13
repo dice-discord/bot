@@ -7,7 +7,7 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - ./googleCloudServiceAccount.json:/usr/src/dice/googleCloudServiceAccount.json
+      - ./googleCloudServiceAccount.json:/usr/src/dice/googleCloudServiceAccount.json:ro
     ports:
       - 5000:5000
   watchtower:
