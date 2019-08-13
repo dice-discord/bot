@@ -16,6 +16,20 @@ limitations under the License.
 
 // Set up dependencies
 require("sqreen");
+
+const packageData = require("../package");
+let logger = require("./util/logger");
+
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+  profiler.start({
+    projectID: "dice-discord",
+    serviceContext: {
+      service: "shard",
+      version: packageData.version
+    }
+  });
+}
+
 const { BaseCluster } = require("kurasuta");
 const { FriendlyError } = require("discord.js-commando");
 const { WebhookClient } = require("discord.js");
@@ -29,7 +43,6 @@ const config = require("./config");
 const schedule = require("node-schedule");
 const { Batch } = require("reported");
 const stripWebhookURL = require("./util/stripWebhookURL");
-const packageData = require("../package");
 const ms = require("ms");
 
 const DBL = require("dblapi.js");
@@ -37,7 +50,7 @@ const dbl = new DBL(config.botListTokens.discordBotList, {
   webhookPort: 5000
 });
 
-let logger = require("./util/logger");
+
 let webhookLogger;
 
 // Notification handlers

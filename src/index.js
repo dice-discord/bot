@@ -48,7 +48,7 @@ if (process.env.NODE_ENV === "production") {
     profiler.start({
       projectID: "dice-discord",
       serviceContext: {
-        service: "profiler",
+        service: "bot",
         version: packageData.version
       }
     });
