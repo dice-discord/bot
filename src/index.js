@@ -42,9 +42,8 @@ if (config.sentryDSN) {
 
 if (process.env.NODE_ENV === "production") {
   const profiler = require("@google-cloud/profiler");
-  const { existsSync } = require("fs");
 
-  if (existsSync("../googleCloudServiceAccount.json")) {
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     logger.note("Using Stackdriver");
     profiler.start({
       projectID: "dice-discord",
@@ -54,10 +53,10 @@ if (process.env.NODE_ENV === "production") {
       }
     });
   } else {
-    logger.note("No Google Cloud service account file was detected, not using Stackdriver");
+    logger.debug("No Google Cloud environment variable was found, not using Stackdriver");
   }
 } else {
-  logger.note("Not in production, not using Stackdriver");
+  logger.debug("Not in production, not using Stackdriver");
 }
 
 const sharder = new ShardingManager(join(__dirname, "dice"), {
