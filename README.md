@@ -29,7 +29,7 @@ Basically all contributions to Dice are welcome. Clone the repository and make a
 
 #### Editing
 
-When a commit is made Docker Hub automatically builds the image to `dice-discord/bot`. The officially hosted version of Dice auto updates to `dice-discord/bot` every 5 minutes.
+When a commit is made Travis CI automatically builds the image to `dice-discord/bot`. The officially hosted version of Dice auto updates to `dice-discord/bot` every 5 minutes.
 
 #### Running
 
