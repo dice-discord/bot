@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === "production") {
   const profiler = require("@google-cloud/profiler");
   const { existsSync } = require("fs");
 
-  if (existsSync(join("..", "googleCloudServiceAccount.json"))) {
+  if (existsSync("../googleCloudServiceAccount.json")) {
     logger.note("Using Stackdriver");
     profiler.start({
       projectID: "dice-discord",
