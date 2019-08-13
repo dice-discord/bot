@@ -23,6 +23,7 @@ let logger = require("./util/logger");
 if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
   const profiler = require("@google-cloud/profiler");
 
+  logger.pending("Starting Stackdriver Profiler");
   profiler.start({
     projectID: "dice-discord",
     serviceContext: {
