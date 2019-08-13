@@ -21,7 +21,7 @@ const { sensitivePattern } = require("../../util/sensitivePattern");
 const { exec } = require("child-process-promise");
 const SentryCommand = require("../../structures/SentryCommand");
 
-const nl = "!!NL!!";
+const nl = "\n";
 const nlPattern = new RegExp(nl, "g");
 
 module.exports = class ExecuteCommand extends SentryCommand {
@@ -61,9 +61,9 @@ module.exports = class ExecuteCommand extends SentryCommand {
 
     // Prepare for callback time and respond
     this.hrStart = process.hrtime();
-    const result = this.makeResultMessages(discord.Util.escapeMarkdown(this.lastResult), hrDiff, args.command);
+    const result = this.makeResultMessages(this.lastResult, hrDiff, args.command);
     if (Array.isArray(result)) {
-      return result.map(item => msg.reply(discord.Util.escapeMarkdown(item), { split: true }));
+      return result.map(item => msg.reply(item, { split: true }));
     } else {
       return msg.reply(result, { split: true });
     }
@@ -88,7 +88,7 @@ module.exports = class ExecuteCommand extends SentryCommand {
         tags.stripIndents`
 				*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ""}${hrDiff[1] / 1000000}ms.*
 				\`\`\`bash
-				${inspected}
+				${discord.Util.escapeMarkdown(inspected)}
 				\`\`\`
 			`,
         { maxLength: 1900, prepend, append }
