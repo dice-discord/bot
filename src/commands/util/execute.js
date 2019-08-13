@@ -61,11 +61,11 @@ module.exports = class ExecuteCommand extends SentryCommand {
 
     // Prepare for callback time and respond
     this.hrStart = process.hrtime();
-    const result = this.makeResultMessages(this.lastResult, hrDiff, args.command);
+    const result = this.makeResultMessages(discord.Util.escapeMarkdown(this.lastResult), hrDiff, args.command);
     if (Array.isArray(result)) {
       return result.map(item => msg.reply(discord.Util.escapeMarkdown(item), { split: true }));
     } else {
-      return msg.reply(discord.Util.escapeMarkdown(result), { split: true });
+      return msg.reply(result, { split: true });
     }
   }
 
