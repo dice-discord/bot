@@ -21,16 +21,18 @@ const packageData = require("../package");
 let logger = require("./util/logger");
 
 if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-  const profiler = require("@google-cloud/profiler");
+  if (process.env.NODE_ENV === "production") {
+    const profiler = require("@google-cloud/profiler");
 
-  logger.pending("Starting Stackdriver Profiler");
-  profiler.start({
-    projectID: "dice-discord",
-    serviceContext: {
-      service: "shard",
-      version: packageData.version
-    }
-  });
+    logger.pending("Starting Stackdriver Profiler");
+    profiler.start({
+      projectID: "dice-discord",
+      serviceContext: {
+        service: "shard",
+        version: packageData.version
+      }
+    });
+  }
 }
 
 const { BaseCluster } = require("kurasuta");

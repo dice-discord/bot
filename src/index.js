@@ -40,6 +40,19 @@ if (config.sentryDSN) {
   });
 }
 
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+  const debugAgent = require("@google-cloud/debug-agent");
+
+  debugAgent.start({
+    projectId: "dice-discord",
+    keyFilename: join(__dirname, "..", "googleCloudServiceAccount.json"),
+    serviceContext: {
+      service: "bot",
+      version: packageData.version
+    }
+  });
+}
+
 if (process.env.NODE_ENV === "production") {
   const profiler = require("@google-cloud/profiler");
 

@@ -1,6 +1,7 @@
 {
   "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
   "dependencies": {
+    "@google-cloud/debug-agent": "^4.0.1",
     "@google-cloud/profiler": "^2.0.2",
     "@keyv/mongo": "^1.1.0",
     "@sentry/node": "^5.0.5",
@@ -82,5 +83,5 @@
     "displayDate": true,
     "displayTimestamp": true
   },
-  "version": "3.33.9"
+  "version": "3.34.0"
 }
