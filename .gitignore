@@ -95,3 +95,6 @@ typings/
 
 # Google Cloud Stackdriver Profiler service account JSON file
 googleCloudServiceAccount.json
+
+# Stackdriver Debugger source context file
+source-context.json
