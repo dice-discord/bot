@@ -7,9 +7,6 @@ install:
   - pnpm install
 services:
   - docker
-cache:
-  directories:
-    - "$HOME/google-cloud-sdk/"
 jobs:
   include:
     - stage: "Tests"
