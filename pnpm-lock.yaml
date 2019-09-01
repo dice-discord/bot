@@ -7,7 +7,7 @@ dependencies:
   child-process-promise: 2.2.1
   commando-provider-keyv: 2.0.1_62246ff0e1a66a5138e8d5c0a54438b3
   common-tags: 1.8.0
-  date-fns: 2.0.0-beta.4
+  date-fns: 2.0.1
   dblapi.js: 2.3.0
   discord.js: github.com/discordjs/discord.js/f79f0243438a89c4d8a910461800b1adff2fe6e5
   discord.js-commando: github.com/discordjs/Commando/47a3806ec67bcc6af7c3488e590d64fdd23fb19f_discord.js@12.0.0-dev
@@ -16,7 +16,7 @@ dependencies:
   hot-shots: 6.3.0
   keen-tracking: 4.4.1
   keyv: 3.1.0
-  kurasuta: 0.2.18_discord.js@12.0.0-dev
+  kurasuta: 1.0.0
   log-process-errors: 5.0.2
   markov-strings: 2.0.4
   mongodb: 3.2.7
@@ -1039,6 +1039,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-Phlt0plgpIIBOGTT/ehfFnbNlfsDEiqmzE2KRXoX1bLIlir4X/MR+zSyBEkL05ffWgnRSf/DXv+WrUAVr93/ow==
+  /binarytf/2.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-CS0MvijAFAHBBw4LgIHBP7wzdW3KWEB0KeMjblK0rHOyyhnkoMu3puW7uhJXlnS5WDn5M2XQFaQBtw00FwRfcA==
   /bind-obj-methods/2.0.0:
     dev: true
     resolution:
@@ -1606,11 +1610,10 @@ packages:
       node: '>=0.10'
     resolution:
       integrity: sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
-  /date-fns/2.0.0-beta.4:
+  /date-fns/2.0.1:
     dev: false
-    requiresBuild: true
     resolution:
-      integrity: sha512-xekjYm7ZDBuzePM/GBodhi3hW3P8dd2RbuIOLBjet2E6EGFR82wHTTXCSGuDEoapqlDvsx88ymRsq85lbM7dDw==
+      integrity: sha512-C14oTzTZy8DH1Eq8N78owrCWvf3+cnJw88BTK/N3DYWVxDJuJzPaNdplzYxDYuuXXGvqBcO4Vy5SOrwAooXSWw==
   /dateformat/3.0.3:
     dev: true
     resolution:
@@ -2330,6 +2333,16 @@ packages:
       node: '>= 0.12'
     resolution:
       integrity: sha512-WXieX3G/8side6VIqx44ablyULoGruSde5PNTxoUyo5CeyAMX6nVWUd0rgist/EuX655cjhUhTo1Fo3tRYqbcA==
+  /form-data/2.5.1:
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      mime-types: 2.1.24
+    dev: false
+    engines:
+      node: '>= 0.12'
+    resolution:
+      integrity: sha512-m21N3WOmEEURgk6B9GLOE4RuWOFf28Lhh9qGYeNlGq4VDXUlJy2th2slBNU8Gp8EzloYZOibZJ7t5ecIrFSjVA==
   /from2/2.3.0:
     dependencies:
       inherits: 2.0.4
@@ -3308,16 +3321,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-9ykJ/46SN/9KPM/sichzQ7OvXyGDYKGTaDlKMGCAlg2UK8KRy4jb0d8sFc+0Tt0YYnThq8X2RZgCg74RPxgcVA==
-  /kurasuta/0.2.18_discord.js@12.0.0-dev:
+  /kurasuta/1.0.0:
     dependencies:
-      discord.js: github.com/discordjs/discord.js/f79f0243438a89c4d8a910461800b1adff2fe6e5
+      discord.js: github.com/discordjs/discord.js/45af62a621ccf41dd26d4f76dabb947abaa55c03
       node-fetch: 2.6.0
-      veza: 0.4.0
+      veza: 1.1.0
     dev: false
-    peerDependencies:
-      discord.js: discordjs/discord.js
     resolution:
-      integrity: sha512-qQtiF6k4iPPqY0lPAFDve8P2qrHxFl8CLft6xVhoLLhHq047USHJDqtID3lN93u4UTg3TJ5yO6MB3WFdxHnhfA==
+      integrity: sha512-rxYYWOpsUC8AH4TfZIbXzqauaNp1VWORQb48toejNjItNTO0/OJZaWltUR4P2nhmYpHaaavnNGWOyAzvYRylAw==
   /lcov-parse/0.0.10:
     dev: true
     resolution:
@@ -4491,6 +4502,14 @@ packages:
         optional: true
     resolution:
       integrity: sha512-KCu3SlT1EtS0lvF74NGLSTzr5jrkRajE9n+S2jnUvvdiN5SpjsGj0/HgR1QK9+985Yv8cxjwZnpFRaj+SimDGA==
+  /prism-media/1.1.0:
+    dev: false
+    peerDependencies:
+      ffmpeg-static: ^2.4.0
+      node-opus: ^0.3.1
+      opusscript: ^0.0.6
+    resolution:
+      integrity: sha512-W+oxjRyjtd7hw3pefNZuc7YEZ6VICORJvVNfCPs0+7CsJ43CqMjGAYGjPL3hQ82vw03EVra+CiX4zisqOBUUGw==
   /private/0.1.8:
     dev: true
     engines:
@@ -5823,10 +5842,12 @@ packages:
       '0': node >=0.6.0
     resolution:
       integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=
-  /veza/0.4.0:
+  /veza/1.1.0:
+    dependencies:
+      binarytf: 2.0.0
     dev: false
     resolution:
-      integrity: sha512-WIxsWppQ0yPv2NyxujZ8WjPl/rkqMIp+QdOkoJyKl2C+PGbiri/gDXumA9HjvRtnCTZJiMt3duhEhM/igLE8SQ==
+      integrity: sha512-JxDVZZXwFJ+FxsX+kPdsjRK9XZdwayEYzPsPLxpZjzzgncWphjvMlzn8ioVAgeonZ/Aa7vEZOb4Hp13ergwybA==
   /vlq/0.2.3:
     dev: true
     resolution:
@@ -6033,6 +6054,31 @@ packages:
       registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/discordjs/Commando/tar.gz/47a3806ec67bcc6af7c3488e590d64fdd23fb19f'
     version: 0.11.0-dev
+  github.com/discordjs/discord.js/45af62a621ccf41dd26d4f76dabb947abaa55c03:
+    dependencies:
+      abort-controller: 3.0.0
+      form-data: 2.5.1
+      node-fetch: 2.6.0
+      pako: 1.0.10
+      prism-media: 1.1.0
+      setimmediate: 1.0.5
+      tweetnacl: 1.0.1
+      ws: 6.2.1
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    name: discord.js
+    peerDependencies:
+      '@discordjs/uws': ^11.149.1
+      bufferutil: ^4.0.1
+      erlpack: discordapp/erlpack
+      libsodium-wrappers: ^0.7.4
+      sodium: ^3.0.2
+      zlib-sync: ^0.1.4
+      zucc: ^0.1.0
+    resolution:
+      tarball: 'https://codeload.github.com/discordjs/discord.js/tar.gz/45af62a621ccf41dd26d4f76dabb947abaa55c03'
+    version: 12.0.0-dev
   github.com/discordjs/discord.js/f79f0243438a89c4d8a910461800b1adff2fe6e5:
     dependencies:
       form-data: 2.5.0
@@ -6069,7 +6115,7 @@ specifiers:
   codecov: ^3.3.0
   commando-provider-keyv: ^2.0.1
   common-tags: ^1.8.0
-  date-fns: ^2.0.0-alpha.27
+  date-fns: ^2.0.1
   dblapi.js: ^2.3.0
   discord.js: 'github:discordjs/discord.js#f79f0243438a89c4d8a910461800b1adff2fe6e5'
   discord.js-commando: 'github:discordjs/Commando'
@@ -6081,7 +6127,7 @@ specifiers:
   hot-shots: ^6.1.1
   keen-tracking: ^4.4.0
   keyv: ^3.1.0
-  kurasuta: ^0.2.18
+  kurasuta: ^1.0.0
   log-process-errors: ^5.0.0
   markov-strings: ^2.0.2
   mongodb: ^3.2.3
