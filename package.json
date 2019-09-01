@@ -18,7 +18,7 @@
     "hot-shots": "^6.1.1",
     "keen-tracking": "^4.4.0",
     "keyv": "^3.1.0",
-    "kurasuta": "^0.2.18",
+    "kurasuta": "^1.0.0",
     "log-process-errors": "^5.0.0",
     "markov-strings": "^2.0.2",
     "mongodb": "^3.2.3",
