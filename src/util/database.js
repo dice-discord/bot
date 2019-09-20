@@ -18,18 +18,20 @@ const config = require("../config");
 const simpleFormat = require("./simpleFormat");
 const { MongoClient } = require("mongodb");
 const logger = require("./logger").scope("database");
-const KeenTracking = require("keen-tracking");
 
-logger.start("Database loading");
+if (config.keen.projectID && config.keen.writeKey) {
+  const KeenTracking = require("keen-tracking");
 
-// Set up Keen client
-const keenClient = new KeenTracking({
-  projectId: config.keen.projectID,
-  writeKey: config.keen.writeKey
-});
+  logger.start("Database loading");
 
-keenClient.recordEvent("events", { title: "Database loading" });
+  // Set up Keen client
+  const keenClient = new KeenTracking({
+    projectId: config.keen.projectID,
+    writeKey: config.keen.writeKey
+  });
 
+  keenClient.recordEvent("events", { title: "Database loading" });
+}
 // Set up database variables
 const uri = config.mongoDBURI;
 if (typeof config.mongoDBURI === "undefined") {

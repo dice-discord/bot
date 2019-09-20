@@ -19,6 +19,7 @@ const database = require("../util/database");
 const StatsD = require("hot-shots");
 const logger = require("../util/logger");
 const config = require("../config");
+const KeenTracking = require("keen-tracking");
 
 class DiceClient extends CommandoClient {
   constructor(options) {
@@ -35,6 +36,13 @@ class DiceClient extends CommandoClient {
     this.stats.socket.on("error", error => {
       logger.error("Error in socket:", error);
     });
+
+    if (config.keen.projectID && config.keen.writeKey) {
+      this.keen = new KeenTracking({
+        projectId: config.keen.projectID,
+        writeKey: config.keen.writeKey
+      });
+    }
   }
 }
 
