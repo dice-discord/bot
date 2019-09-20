@@ -19,11 +19,5 @@ jobs:
     - stage: "Deploy"
       name: "Semantic Release"
       script:
-        # Installs Google Cloud CLI
-        - curl https://sdk.cloud.google.com | bash
-        # Add gcloud to $PATH
-        - source /home/travis/google-cloud-sdk/path.bash.inc
-        # Generate revision ID for Stackdriver Debug
-        - gcloud debug source gen-repo-info-file --output-directory=src
         - docker build -t dicediscord/bot .
         - pnpx semantic-release
