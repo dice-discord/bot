@@ -32,7 +32,8 @@
     "setimmediate": "^1.0.5",
     "signale": "^1.4.0",
     "sqreen": "^1.29.5",
-    "yahoo-stocks": "^2.0.4"
+    "yahoo-stocks": "^2.0.4",
+    "snyk": "^1.230.5"
   },
   "description": "A general purpose utility bot, with an economy, games, and lots of other features.",
   "devDependencies": {
@@ -77,11 +78,14 @@
     "lint:fix": "eslint . --fix",
     "start": "node src/index.js",
     "test": "tap -J -R spec test/*/*.js",
-    "test:coverage": "tap -J --coverage --coverage-report=html test/*/*.js && codecov"
+    "test:coverage": "tap -J --coverage --coverage-report=html test/*/*.js && codecov",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "signale": {
     "displayDate": true,
     "displayTimestamp": true
   },
-  "version": "3.34.1"
+  "version": "3.34.1",
+  "snyk": true
 }
