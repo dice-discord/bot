@@ -1,5 +1,5 @@
 {
-  "author": "Jonah Snider <me@jonahsnider.ninja> (jonahsnider.ninja)",
+  "author": "Jonah Snider <jonah@jonah.pw> (jonah.pw)",
   "dependencies": {
     "@google-cloud/debug-agent": "^4.0.1",
     "@google-cloud/profiler": "^3.0.0",
