@@ -65,7 +65,7 @@ const config = {
     "zar"
   ],
   dblWebhookVerification: process.env.DBL_WEBHOOK_VERIFICATION,
-  discoinCurrencyCodes: ["dts", "elt", "kek", "rbn", "pic", "pbc", "mmb"],
+  discoinCurrencyCodes: ["elt", "kek", "rbn", "pic", "dts", "mmb", "tkn"],
   discoinToken: process.env.DISCOIN_TOKEN,
   discordToken: process.env.DISCORD_TOKEN,
   fortniteTrackerNetworkToken: process.env.FORTNITE_TRACKER_NETWORK_TOKEN,
