@@ -46,7 +46,7 @@
     "semantic-release-docker": "^2.2.0",
     "tap": "^14.0.0"
   },
-  "email": "me@jonahsnider.ninja",
+  "email": "jonah@jonah.pw",
   "engines": {
     "node": "10.x.x"
   },
