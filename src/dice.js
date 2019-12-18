@@ -271,9 +271,9 @@ module.exports = class DiceCluster extends BaseCluster {
           submitToBotLists();
           schedule.scheduleJob("*/30 * * * *", submitToBotLists);
 
-          schedule.scheduleJob("*/5 * * * *", this.checkDiscoinTransactions);
+          // schedule.scheduleJob("*/5 * * * *", this.checkDiscoinTransactions);
         } else {
-          logger.debug("Not going to check Discoin transactions and send bot list stats");
+          logger.debug("Not going to send bot list stats");
         }
       })
       .on("guildMemberAdd", require("./events/guildMemberAdd"))
@@ -297,9 +297,11 @@ module.exports = class DiceCluster extends BaseCluster {
 
     checkDiscoinTransactionsLogger.debug("Checking Discoin transactions");
 
-    const transactions = (await axios
-      .get("http://discoin.sidetrip.xyz/transactions", { headers: { Authorization: config.discoinToken } })
-      .catch(error => checkDiscoinTransactionsLogger.error(error))).data;
+    const transactions = (
+      await axios
+        .get("http://discoin.sidetrip.xyz/transactions", { headers: { Authorization: config.discoinToken } })
+        .catch(error => checkDiscoinTransactionsLogger.error(error))
+    ).data;
 
     checkDiscoinTransactionsLogger.debug("All Discoin transactions:", transactions);
 
