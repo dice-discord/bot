@@ -13,7 +13,7 @@ jobs:
     - name: "Submit test coverage"
       script: yarn run test:coverage
     - name: "Lint"
-      script: yarn run lint:fix
+      script: yarn run lint
     - stage: "Deploy"
       name: "Semantic Release"
       script:
