@@ -1,4 +1,4 @@
-FROM node:10.18.0-alpine
+FROM node:12.14.0-alpine
 
 LABEL maintainer "Jonah Snider <jonah@jonah.pw> (jonah.pw)"
 
@@ -10,14 +10,11 @@ RUN apk update
 RUN apk upgrade
 
 # Install git, curl, and certificates for the Stackdriver Profiler
-RUN apk add --no-cache git curl ca-certificates
-
-# Install PNPM
-RUN curl -L https://unpkg.com/@pnpm/self-installer | node
+RUN apk add --no-cache git curl ca-certificates yarn
 
 # Install app dependencies
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --production
+COPY package.json yarn.lock ./
+RUN yarn install --production
 
 # Bundle app source
 COPY . .
@@ -25,4 +22,4 @@ COPY . .
 # Initialize environment variables
 ENV NODE_ENV=production GOOGLE_APPLICATION_CREDENTIALS=/usr/src/dice/googleCloudServiceAccount.json
 
-CMD [ "pnpm", "start" ]
+CMD [ "yarn", "start" ]

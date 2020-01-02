@@ -1,23 +1,21 @@
 language: node_js
 node_js:
   - "lts/*"
-before_install:
-  - curl -L https://unpkg.com/@pnpm/self-installer | node
 install:
-  - pnpm install
+  - yarn install
 services:
   - docker
 jobs:
   include:
     - stage: "Tests"
       name: "Unit tests"
-      script: pnpm run test
+      script: yarn run test
     - name: "Submit test coverage"
-      script: pnpm run test:coverage
+      script: yarn run test:coverage
     - name: "Lint"
-      script: pnpm run lint:fix
+      script: yarn run lint:fix
     - stage: "Deploy"
       name: "Semantic Release"
       script:
         - docker build -t dicediscord/bot .
-        - pnpx semantic-release
+        - yarn run semantic-release
