@@ -47,7 +47,7 @@ module.exports = class DeleteTagCommand extends SentryCommand {
   async exec(msg, { name }) {
     // Get the tags
     const tags = await this.client.provider.get(msg.guild, "tags", {});
-    if (!tags.hasOwnProperty(name)) return msg.reply("That tag doesn't exist.");
+    if (!Object.hasOwnProperty.call(tags, name)) return msg.reply("That tag doesn't exist.");
 
     const tag = tags[name];
     if (tag.author === msg.author.id || msg.member.permissions.has("MANAGE_MESSAGES")) {

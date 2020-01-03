@@ -54,7 +54,7 @@ module.exports = class EditTagCommand extends SentryCommand {
   async exec(msg, { name, value }) {
     // Get the tags
     const tags = await this.client.provider.get(msg.guild, "tags", {});
-    if (!tags.hasOwnProperty(name)) return msg.reply("That tag doesn't exists.");
+    if (!Object.hasOwnProperty.call(tags, name)) return msg.reply("That tag doesn't exists.");
 
     const tag = tags[name];
     if (tag.author === msg.author.id || msg.member.permissions.has("MANAGE_MESSAGES")) {

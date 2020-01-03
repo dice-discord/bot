@@ -54,7 +54,7 @@ module.exports = class CreateTagCommand extends SentryCommand {
   async exec(msg, { name, value }) {
     // Get the tags
     const tags = await this.client.provider.get(msg.guild, "tags", {});
-    if (tags.hasOwnProperty(name)) return msg.reply("That tag already exists.");
+    if (Object.hasOwnProperty.call(tags, name)) return msg.reply("That tag already exists.");
 
     // Set the tag with the name to the value
     tags[name] = { value, author: msg.author.id };

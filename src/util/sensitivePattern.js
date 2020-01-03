@@ -33,7 +33,7 @@ if (config.webhooks) {
 if (process.env.SQREEN_TOKEN) sensitiveTerms.push(process.env.SQREEN_TOKEN);
 if (config.botListTokens) {
   for (const key in config.botListTokens) {
-    if (config.botListTokens.hasOwnProperty(key) && typeof config.botListTokens[key] !== "undefined") {
+    if (Object.hasOwnProperty.call(config.botListTokens, key) && typeof config.botListTokens[key] !== "undefined") {
       sensitiveTerms.push(config.botListTokens[key]);
     }
   }

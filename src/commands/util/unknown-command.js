@@ -37,7 +37,7 @@ module.exports = class UnknownCommandCommand extends SentryCommand {
       if (
         msg.content.split(msg.guild.commandPrefix)[1] !== "undefined" &&
         typeof tags !== "undefined" &&
-        tags.hasOwnProperty(args.toLowerCase())
+        Object.hasOwnProperty.call(tags, args.toLowerCase())
       ) {
         this.client.registry.resolveCommand("tags:get").exec(msg, { name: args });
         return null;
