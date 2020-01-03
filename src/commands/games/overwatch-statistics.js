@@ -69,12 +69,12 @@ module.exports = class OverwatchStatisticsCommand extends SentryCommand {
     try {
       msg.channel.startTyping();
 
-      const stats = (await axios(`https://ow-api.com/v1/stats/${platform}/${region}/${battletag}/profile`).catch(
-        err => {
+      const stats = (
+        await axios(`https://ow-api.com/v1/stats/${platform}/${region}/${battletag}/profile`).catch(err => {
           logger.error(err);
           return msg.reply("There was an error with the API we use (https://ow-api.com)");
-        }
-      )).data;
+        })
+      ).data;
 
       if (stats.error === "The requested player was not found") {
         return msg.reply("That user couldn't be found.");

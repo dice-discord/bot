@@ -57,14 +57,16 @@ module.exports = class FortniteStatisticsCommand extends SentryCommand {
     try {
       msg.channel.startTyping();
 
-      const stats = (await axios
-        .get(`https://api.fortnitetracker.com/v1/profile/${platform}/${username}`, {
-          headers: { "TRN-Api-Key": config.fortniteTrackerNetworkToken }
-        })
-        .catch(error => {
-          logger.error(error);
-          return msg.reply("There was an error with the API we use (https://api.fortnitetracker.com)");
-        })).data;
+      const stats = (
+        await axios
+          .get(`https://api.fortnitetracker.com/v1/profile/${platform}/${username}`, {
+            headers: { "TRN-Api-Key": config.fortniteTrackerNetworkToken }
+          })
+          .catch(error => {
+            logger.error(error);
+            return msg.reply("There was an error with the API we use (https://api.fortnitetracker.com)");
+          })
+      ).data;
 
       if (stats.error === "Player Not Found") {
         return msg.reply("Player not found on that platform.");
