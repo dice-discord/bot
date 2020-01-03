@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Jonah Snider
+Copyright 2020 Jonah Snider
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ limitations under the License.
 const SentryCommand = require("../../structures/SentryCommand");
 const { MessageEmbed } = require("discord.js");
 const logger = require("../../util/logger").scope("command", "discoin rates");
-const axios = require("axios");
+const { stripIndents } = require("common-tags");
+const Discoin = require("@discoin/scambio").default;
 
 module.exports = class DiscoinRatesCommand extends SentryCommand {
   constructor(client) {
@@ -30,7 +31,7 @@ module.exports = class DiscoinRatesCommand extends SentryCommand {
       clientPermissions: ["EMBED_LINKS"],
       throttling: {
         usages: 1,
-        duration: 5
+        duration: 10
       }
     });
   }
@@ -39,20 +40,23 @@ module.exports = class DiscoinRatesCommand extends SentryCommand {
     try {
       msg.channel.startTyping();
 
-      const rates = (await axios.get("http://discoin.sidetrip.xyz/rates.json")).data;
+      const currencies = await Discoin.currencies.getMany();
 
       const embed = new MessageEmbed({
         title: "Discoin Conversion Rates",
-        url: "http://discoin.sidetrip.xyz"
+        url: "https://dash.discoin.zws.im/#/currencies"
       });
 
-      rates.forEach(rate => {
-        for (const bot in rate) {
-          embed.addField(
-            bot,
-            `Currency code: ${rate[bot].currencyCode}\nTo Discoin: ${rate[bot].toDiscoin}\nFrom Discoin: ${rate[bot].fromDiscoin}`
-          );
-        }
+      const oatsCurrency = currencies.find(currency => currency.id === "OAT");
+
+      currencies.forEach(currency => {
+        embed.addField(
+          currency.name,
+          stripIndents`
+            Currency code: ${currency.id}
+            Value in Discoin D$: ${currency.value.toLocaleString()}
+            Value in oats: ${(currency.value / oatsCurrency.value).toLocaleString()}`
+        );
       });
 
       return msg.replyEmbed(embed);

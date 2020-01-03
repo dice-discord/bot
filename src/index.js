@@ -19,6 +19,8 @@ logProcessErrors();
 
 require("dotenv").config();
 
+require("sqreen");
+
 const logger = require("./util/logger").scope("shard manager");
 const { ShardingManager } = require("kurasuta");
 const DiceClient = require("./structures/DiceClient");

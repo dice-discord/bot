@@ -37,25 +37,20 @@ if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
 
 const { BaseCluster } = require("kurasuta");
 const { FriendlyError } = require("discord.js-commando");
-const { WebhookClient } = require("discord.js");
 const path = require("path");
 const KeyvProvider = require("commando-provider-keyv");
 const Keyv = require("keyv");
 const database = require("./util/database");
-const axios = require("axios");
 const Sentry = require("@sentry/node");
 const config = require("./config");
 const schedule = require("node-schedule");
 const { Batch } = require("reported");
-const stripWebhookURL = require("./util/stripWebhookURL");
 const ms = require("ms");
-
+const discoin = require("./util/discoin");
 const DBL = require("dblapi.js");
 const dbl = new DBL(config.botListTokens.discordBotList, {
   webhookPort: 5000
 });
-
-let webhookLogger;
 
 // Notification handlers
 const announceUserAccountBirthday = require("./notificationHandlers/userAccountBirthday");
@@ -84,7 +79,7 @@ module.exports = class DiceCluster extends BaseCluster {
 
     // Get the loggers running with accurate scopes
     logger = logger.scope(`shard ${this.client.shard.id}`);
-    webhookLogger = logger.scope(`shard ${this.client.shard.id}`, "webhook");
+    this.discoin = discoin;
   }
 
   /**
@@ -271,7 +266,7 @@ module.exports = class DiceCluster extends BaseCluster {
           submitToBotLists();
           schedule.scheduleJob("*/30 * * * *", submitToBotLists);
 
-          // schedule.scheduleJob("*/5 * * * *", this.checkDiscoinTransactions);
+          schedule.scheduleJob("*/1 * * * *", () => this.checkDiscoinTransactions(this.client.users));
         } else {
           logger.debug("Not going to send bot list stats");
         }
@@ -292,85 +287,57 @@ module.exports = class DiceCluster extends BaseCluster {
     this.client.login(config.discordToken).catch(logger.error);
   }
 
-  async checkDiscoinTransactions() {
+  async checkDiscoinTransactions(userStore) {
     const checkDiscoinTransactionsLogger = logger.scope("discoin");
 
     checkDiscoinTransactionsLogger.debug("Checking Discoin transactions");
 
-    const transactions = (
-      await axios
-        .get("http://discoin.sidetrip.xyz/transactions", { headers: { Authorization: config.discoinToken } })
-        .catch(error => checkDiscoinTransactionsLogger.error(error))
-    ).data;
+    const transactions = await discoin.transactions.getMany(discoin.commonQueries.UNHANDLED_TRANSACTIONS);
 
     checkDiscoinTransactionsLogger.debug("All Discoin transactions:", transactions);
 
-    for (const transaction of transactions) {
-      if (transaction.type !== "refund") {
-        checkDiscoinTransactionsLogger.debug("Discoin transaction fetched:", transaction);
-        // eslint-disable-next-line no-await-in-loop
-        await database.balances.increase(transaction.user, transaction.amount);
+    transactions.forEach(async transaction => {
+      checkDiscoinTransactionsLogger.debug("Discoin transaction fetched:", transaction);
+      // eslint-disable-next-line no-await-in-loop
+      await database.balances.increase(transaction.user, transaction.payout);
+      try {
+        await transaction.update({ handled: true });
+      } catch (error) {
+        checkDiscoinTransactionsLogger.error(
+          `Error while paying out a user for transaction ID ${transaction.id}`,
+          error
+        );
 
-        if (config.webhooks.discoin) {
-          const webhookData = stripWebhookURL(config.webhooks.discoin);
-          const webhook = new WebhookClient(webhookData.id, webhookData.token);
-
-          // eslint-disable-next-line no-await-in-loop
-          const user = await this.client.users.fetch(transaction.user);
-          user.send({
-            embed: {
-              title: "Discoin Conversion Received",
-              url: "https://discoin.sidetrip.xyz/record",
-              timestamp: new Date(transaction.timestamp * 1000),
-              thumbnail: {
-                url: "https://avatars2.githubusercontent.com/u/30993376"
-              },
-              fields: [
-                {
-                  name: "Amount",
-                  value: `${transaction.source} ➡ ${transaction.amount} OAT`
-                },
-                {
-                  name: "Receipt",
-                  value: `\`${transaction.receipt}\``
-                }
-              ]
-            }
-          });
-
-          webhook
-            .send({
-              embeds: [
-                {
-                  title: "Discoin Conversion Received",
-                  author: {
-                    name: `${user.tag} (${user.id})`,
-                    url: "https://discordapp.com",
-                    iconURL: user.displayAvatarURL(128)
-                  },
-                  url: "https://discoin.sidetrip.xyz/record",
-                  timestamp: new Date(transaction.timestamp * 1000),
-                  thumbnail: {
-                    url: "https://avatars2.githubusercontent.com/u/30993376"
-                  },
-                  fields: [
-                    {
-                      name: "Amount",
-                      value: `${transaction.source} ➡ ${transaction.amount} OAT`
-                    },
-                    {
-                      name: "Receipt",
-                      value: `\`${transaction.receipt}\``
-                    }
-                  ]
-                }
-              ]
-            })
-            .then(() => webhookLogger.debug("Sent Discoin webhook"))
-            .catch(webhookLogger.error);
-        }
+        // If it wasn't marked as handled don't pay them, keep transactions atomic
+        await database.balances.remove(transaction.user, transaction.payout);
       }
-    }
+
+      checkDiscoinTransactionsLogger.debug("this", this);
+      checkDiscoinTransactionsLogger.debug("this.client", this.client);
+      checkDiscoinTransactionsLogger.debug("userStore", userStore);
+      const user = await userStore.fetch(transaction.user);
+
+      return user.send({
+        embed: {
+          title: "Discoin Conversion Received",
+          url: `https://dash.discoin.zws.im/#/transactions/${transaction.id}`,
+          timestamp: transaction.timestamp,
+          thumbnail: {
+            url: "https://avatars2.githubusercontent.com/u/30993376"
+          },
+          fields: [
+            {
+              name: "Amount",
+              value: `${transaction.amount} ${transaction.from.id} ➡ ${transaction.payout} OAT`
+            },
+            {
+              name: "Transaction ID",
+              value: `[\`${transaction.id}\`](https://dash.discoin.zws.im/#/transactions/${transaction.id})`
+            }
+          ]
+        }
+      });
+    });
   }
 
   handleVotes() {

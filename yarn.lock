@@ -184,10 +184,10 @@
     eslint-config-prettier "^6.0.0"
     eslint-plugin-prettier "^3.0.1"
 
-"@discoin/scambio@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-1.0.2.tgz#2605c52217c4664a6fc1588752b0c0c6705883a4"
-  integrity sha512-16PmfmzmpriLPQV4CnIXMcCGK7+F5PcC507irQ5gNQriffqDu/YkLp95SP+1jTnLUGP2NKfNCUMgKube/TD/wg==
+"@discoin/scambio@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-1.0.5.tgz#e6a0eaf23b4dd02a8816259d795ab2df988f2d7b"
+  integrity sha512-je54QPcvRUeAQ243pR9oQ5keyZhXY4V2VLp/LEE9Yw7ERVh2v8KPIJwuH3sCUd+UoMDxTn4kRNjQRKb1lG+TTw==
   dependencies:
     node-fetch "^2.6.0"
 
@@ -2005,14 +2005,13 @@ discord.js@discordjs/discord.js:
   version "12.0.0-dev"
   resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/f79f0243438a89c4d8a910461800b1adff2fe6e5"
   dependencies:
-    "@discordjs/collection" "^0.1.1"
-    abort-controller "^3.0.0"
     form-data "^2.3.3"
     node-fetch "^2.3.0"
+    pako "^1.0.8"
     prism-media "^1.0.0"
     setimmediate "^1.0.5"
     tweetnacl "^1.0.1"
-    ws "^7.2.0"
+    ws "^6.1.3"
 
 doctrine@^3.0.0:
   version "3.0.0"
@@ -2680,17 +2679,17 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.1.tgz#69e57caa8f0eacbc281d2e2cb458d46fdb449e08"
   integrity sha512-a1hQMktqW9Nmqr5aktAux3JMNqaucxGcjtjWnZLHX7yyPCmlSV3M54nGYbqT8K+0GhF3NBgmJCc3ma+WOgX8Jg==
 
-flow-parser@^0.114.0:
-  version "0.114.0"
-  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.114.0.tgz#c4cc7201f456c5fdfbb3bf3ea29282bd0386add6"
-  integrity sha512-Qt9HT3v507bCerJfp4FX4N5E7ysinBzxjpK1rL7bJ/Bw12puF6lva2MAIXYS1d83bV7BT/F7EDk+faJQY5MpRA==
+flow-parser@^0.115.0:
+  version "0.115.0"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.115.0.tgz#224351123a7e20cad27baf4b71c1e338593d7eef"
+  integrity sha512-iasokPUPxp4ojhMaxN215jgp9VFliai+2YVLW3gXN5Yhb/t+QC7Z/CaKBwrrWqainfnl9SH+gr3mSGoq+IXWLQ==
 
 flow-remove-types@^2.112.0:
-  version "2.114.0"
-  resolved "https://registry.yarnpkg.com/flow-remove-types/-/flow-remove-types-2.114.0.tgz#693038a1217c8e922afe0612bade53d085d0a8d8"
-  integrity sha512-ckon8RO7tFcVGW3Ll0jAWgULVrNa/cEN0JXp2I7XmzWT/GCQghSb+0312NjtAb+y3W9iXpPxkVMI86+SDU0E0Q==
+  version "2.115.0"
+  resolved "https://registry.yarnpkg.com/flow-remove-types/-/flow-remove-types-2.115.0.tgz#9a6d65d69f1000edaa610ce7bfe3de7a86d36ca3"
+  integrity sha512-7yf0sQEV/KwXnt/Zs0D40eJORIMQLNztTUBGqb5GvOIIiOStcw8y/yi03Jw0VOwiI7GVqFoONtsCVawQvCrteg==
   dependencies:
-    flow-parser "^0.114.0"
+    flow-parser "^0.115.0"
     pirates "^3.0.2"
     vlq "^0.2.1"
 

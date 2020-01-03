@@ -40,7 +40,7 @@ if (typeof config.mongoDBURI === "undefined") {
 
 const database = async () => {
   logger.time("database");
-  const mongo = new MongoClient(uri);
+  const mongo = new MongoClient(uri, { useUnifiedTopology: true });
   await mongo.connect();
   logger.timeEnd("database");
   logger.start("Connected to database server");

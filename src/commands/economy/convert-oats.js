@@ -16,9 +16,10 @@ limitations under the License.
 
 const SentryCommand = require("../../structures/SentryCommand");
 const config = require("../../config");
-const axios = require("axios");
+const discoin = require("../../util/discoin");
 const logger = require("../../util/logger").scope("command", "convert oats");
 const database = require("../../util/database");
+const Discoin = require("@discoin/scambio").default;
 
 module.exports = class ConvertOatsCommand extends SentryCommand {
   constructor(client) {
@@ -43,7 +44,6 @@ module.exports = class ConvertOatsCommand extends SentryCommand {
           prompt: "What currency do you want to convert your oats to?",
           type: "string",
           label: "currency to convert to",
-          oneOf: config.discoinCurrencyCodes,
           parse: value => value.toUpperCase()
         }
       ],
@@ -69,74 +69,40 @@ module.exports = class ConvertOatsCommand extends SentryCommand {
         );
       }
 
-      const response = await axios({
-        method: "POST",
-        headers: { Authorization: config.discoinToken },
-        data: {
-          user: msg.author.id,
-          amount,
-          exchangeTo: currency
-        },
-        url: "http://discoin.sidetrip.xyz/transaction"
-      });
+      try {
+        await Discoin.currencies.getOne(currency);
+      } catch (error) {
+        return msg.reply("An error occurred. Are you sure that currency exists");
+      }
+
+      const transaction = await discoin.transactions
+        .create({ to: currency, amount, user: msg.author.id })
+        .catch(() => msg.reply("An error occurred. Maybe Discoin is offline? Try checking their support server."));
+
       // Remove oats from author
       await database.balances.decrease(msg.author.id, amount);
 
-      logger.debug("Response data from Discoin", response.data);
-
       return msg.replyEmbed({
         title: "Conversion Successful",
+        url: `https://dash.discoin.zws.im/#/transactions/${transaction.id}/show`,
         color: 0x4caf50,
-        footer: {
-          text: `${response.data.limitNow} Discoin remaining today`
-        },
-        timestamp: new Date(response.data.timestamp * 1000),
+        timestamp: transaction.timestamp,
+        description: `You should be paid in around 5 minutes. If you aren't paid within 10 minutes try contacting the creator of ${transaction.to.name}`,
         fields: [
           {
-            name: "Amount",
-            value: `${amount} OAT ➡ ${response.data.resultAmount} ${currency}`
+            name: "Payout",
+            value: `${amount} OAT ➡ ${transaction.payout} ${transaction.to.id}`
           },
           {
             name: "Receipt",
-            value: `\`${response.data.receipt}\``
+            value: `[\`${transaction.id}\`](https://dash.discoin.zws.im/#/transactions/${transaction.id}/show)`
           }
         ]
       });
     } catch (error) {
       logger.error(error);
 
-      switch (error.status) {
-        case 503:
-          return msg.reply("Discoin is currently unavailable. Try again later");
-        case 403:
-          if (!error.data || !error.data.reason) {
-            return msg.reply("A 403 error was sent by Discoin. They didn't say why.");
-          }
-          switch (error.data.reason) {
-            case "verify required":
-              return msg.replyEmbed({
-                title: "Verification Required",
-                color: 0xff9800,
-                url: "http://discoin.sidetrip.xyz/verify"
-              });
-            case "per-user limit exceeded":
-              return msg.replyEmbed({
-                title: "Daily Limit Reached",
-                color: 0xf44336,
-                description: "You have reached your daily limit for the convert command. Try again tomorrow."
-              });
-            case "total limit exceeded":
-              return msg.replyEmbed({
-                title: "Bot Daily Limit Reached",
-                color: 0xf44336,
-                description: `${this.client.user} has reached the daily total limit. Try again tomorrow.`
-              });
-            default:
-              return msg.reply("A 403 error was sent by Discoin. They didn't say why.");
-          }
-        default:
-          return msg.reply("An unknown error occured. Try again later.");
-      }
+      return msg.reply("An unknown error occured. Try again later.");
     } finally {
       msg.channel.stopTyping();
     }
