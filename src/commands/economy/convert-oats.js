@@ -94,7 +94,7 @@ module.exports = class ConvertOatsCommand extends SentryCommand {
             value: `${amount} OAT ➡ ${transaction.payout} ${transaction.to.id}`
           },
           {
-            name: "Receipt",
+            name: "Transaction ID",
             value: `[\`${transaction.id}\`](https://dash.discoin.zws.im/#/transactions/${transaction.id}/show)`
           }
         ]

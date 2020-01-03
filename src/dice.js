@@ -312,9 +312,6 @@ module.exports = class DiceCluster extends BaseCluster {
         await database.balances.remove(transaction.user, transaction.payout);
       }
 
-      checkDiscoinTransactionsLogger.debug("this", this);
-      checkDiscoinTransactionsLogger.debug("this.client", this.client);
-      checkDiscoinTransactionsLogger.debug("userStore", userStore);
       const user = await userStore.fetch(transaction.user);
 
       return user.send({
