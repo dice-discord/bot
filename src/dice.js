@@ -292,49 +292,53 @@ module.exports = class DiceCluster extends BaseCluster {
 
     checkDiscoinTransactionsLogger.debug("Checking Discoin transactions");
 
-    const transactions = await discoin.transactions.getMany(discoin.commonQueries.UNHANDLED_TRANSACTIONS);
+    try {
+      const transactions = await discoin.transactions.getMany(discoin.commonQueries.UNHANDLED_TRANSACTIONS);
 
-    checkDiscoinTransactionsLogger.debug("All Discoin transactions:", transactions);
+      checkDiscoinTransactionsLogger.debug("All Discoin transactions:", transactions);
 
-    transactions.forEach(async transaction => {
-      checkDiscoinTransactionsLogger.debug("Discoin transaction fetched:", transaction);
-      // eslint-disable-next-line no-await-in-loop
-      await database.balances.increase(transaction.user, transaction.payout);
-      try {
-        await transaction.update({ handled: true });
-      } catch (error) {
-        checkDiscoinTransactionsLogger.error(
-          `Error while paying out a user for transaction ID ${transaction.id}`,
-          error
-        );
+      transactions.forEach(async transaction => {
+        checkDiscoinTransactionsLogger.debug("Discoin transaction fetched:", transaction);
+        // eslint-disable-next-line no-await-in-loop
+        await database.balances.increase(transaction.user, transaction.payout);
+        try {
+          await transaction.update({ handled: true });
+        } catch (error) {
+          checkDiscoinTransactionsLogger.error(
+            `Error while paying out a user for transaction ID ${transaction.id}`,
+            error
+          );
 
-        // If it wasn't marked as handled don't pay them, keep transactions atomic
-        await database.balances.remove(transaction.user, transaction.payout);
-      }
-
-      const user = await userStore.fetch(transaction.user);
-
-      return user.send({
-        embed: {
-          title: "Discoin Conversion Received",
-          url: `https://dash.discoin.zws.im/#/transactions/${transaction.id}`,
-          timestamp: transaction.timestamp,
-          thumbnail: {
-            url: "https://avatars2.githubusercontent.com/u/30993376"
-          },
-          fields: [
-            {
-              name: "Amount",
-              value: `${transaction.amount} ${transaction.from.id} ➡ ${transaction.payout} OAT`
-            },
-            {
-              name: "Transaction ID",
-              value: `[\`${transaction.id}\`](https://dash.discoin.zws.im/#/transactions/${transaction.id})`
-            }
-          ]
+          // If it wasn't marked as handled don't pay them, keep transactions atomic
+          await database.balances.remove(transaction.user, transaction.payout);
         }
+
+        const user = await userStore.fetch(transaction.user);
+
+        return user.send({
+          embed: {
+            title: "Discoin Conversion Received",
+            url: `https://dash.discoin.zws.im/#/transactions/${transaction.id}`,
+            timestamp: transaction.timestamp,
+            thumbnail: {
+              url: "https://avatars2.githubusercontent.com/u/30993376"
+            },
+            fields: [
+              {
+                name: "Amount",
+                value: `${transaction.amount} ${transaction.from.id} ➡ ${transaction.payout} OAT`
+              },
+              {
+                name: "Transaction ID",
+                value: `[\`${transaction.id}\`](https://dash.discoin.zws.im/#/transactions/${transaction.id})`
+              }
+            ]
+          }
+        });
       });
-    });
+    } catch (error) {
+      return checkDiscoinTransactionsLogger.error("Error while fetching Discoin transactions", error);
+    }
   }
 
   handleVotes() {
