@@ -6565,10 +6565,10 @@ sq-native@0.8.0:
   dependencies:
     node-pre-gyp "^0.13.0"
 
-sqreen@^1.38.1:
-  version "1.38.1"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.38.1.tgz#8688a5a33fc453dd7c75823f5fedb6c0f88b9f28"
-  integrity sha512-R2mND8wwY0PpFo+nfYlttS3VAuhyGJ7CLBGqqgJtKyvlzbl8AmqBAnZrKDEh36VBU3xCx9SKbKfcdKZRinr43w==
+sqreen@^1.38.2:
+  version "1.38.2"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.38.2.tgz#9f414a478c74c35c7800dff29f80af4bdf217be8"
+  integrity sha512-x7gjWEvnseCDipvR8tTyhUKe8pzoVgVmM3P1uuOQ9940EoM486E+Jc5KNUmr91fODuiTEjOdzj1/qH0YLfpr6w==
   dependencies:
     async-listener "^0.6.0"
     async-lock "^1.2.2"
