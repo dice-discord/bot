@@ -33,7 +33,7 @@
     "romanize": "^1.1.1",
     "setimmediate": "^1.0.5",
     "signale": "^1.4.0",
-    "sqreen": "^1.38.1",
+    "sqreen": "^1.38.2",
     "yahoo-stocks": "^2.0.4"
   },
   "description": "A general purpose utility bot, with an economy, games, and lots of other features.",
