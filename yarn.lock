@@ -184,10 +184,10 @@
     eslint-config-prettier "^6.0.0"
     eslint-plugin-prettier "^3.0.1"
 
-"@discoin/scambio@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-1.0.6.tgz#4f008a8d0672e426d35133a1e8899854020ccae3"
-  integrity sha512-3dLMgGp6X1g56qbRrymcuFRUDRbuqBOh6eKgLOWorV3biPcsFx0UGMn9Wxt2UDMADlHp3kvFaOotQ/m1tXWxhg==
+"@discoin/scambio@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-1.0.7.tgz#fe76b2a6b5d75ce2ad4e71f418356bf6adb11beb"
+  integrity sha512-A799L4Ihiq0HjR8gU+RN6/fOHrti1JGHV6qMepehRa9Pk64Y7HIqwwPJ24SvIfStj3Z+k8TI6ou5ukiSyomuMw==
   dependencies:
     node-fetch "^2.6.0"
 
