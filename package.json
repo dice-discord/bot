@@ -1,7 +1,7 @@
 {
   "author": "Jonah Snider <jonah@jonah.pw> (jonah.pw)",
   "dependencies": {
-    "@discoin/scambio": "^1.0.7",
+    "@discoin/scambio": "^2.0.0",
     "@google-cloud/debug-agent": "^4.2.1",
     "@google-cloud/profiler": "^3.0.1",
     "@keyv/mongo": "^1.1.0",

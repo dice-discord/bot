@@ -184,11 +184,13 @@
     eslint-config-prettier "^6.0.0"
     eslint-plugin-prettier "^3.0.1"
 
-"@discoin/scambio@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-1.0.7.tgz#fe76b2a6b5d75ce2ad4e71f418356bf6adb11beb"
-  integrity sha512-A799L4Ihiq0HjR8gU+RN6/fOHrti1JGHV6qMepehRa9Pk64Y7HIqwwPJ24SvIfStj3Z+k8TI6ou5ukiSyomuMw==
+"@discoin/scambio@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.0.0.tgz#e295af35bdacf5663e4dd2608c2143607854d092"
+  integrity sha512-kaW7uUmFnJ0V4UAEC0TMQfVd/dxnUxWyOLI5LPEEURw/dcrkAQUzRC7DgpgU3iZ/yAjrkq7/xByY1y3HEo4dTw==
   dependencies:
+    ky "^0.16.1"
+    ky-universal "^0.3.0"
     node-fetch "^2.6.0"
 
 "@discordjs/collection@^0.1.1":
@@ -3896,6 +3898,19 @@ kurasuta@^1.1.6:
     discord.js discordjs/discord.js
     node-fetch "^2.6.0"
     veza "^1.1.0"
+
+ky-universal@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/ky-universal/-/ky-universal-0.3.0.tgz#3fcbb0dd03da39b5f05100d9362a630d5e1d402e"
+  integrity sha512-CM4Bgb2zZZpsprcjI6DNYTaH3oGHXL2u7BU4DK+lfCuC4snkt9/WRpMYeKbBbXscvKkeqBwzzjFX2WwmKY5K/A==
+  dependencies:
+    abort-controller "^3.0.0"
+    node-fetch "^2.6.0"
+
+ky@^0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.16.1.tgz#1b7e14b1a964525b270fca5faf3bbf9e47ac8c8a"
+  integrity sha512-olhyGihJ8XOxP8dhdXXDFu1FfowsmkQznI33KNTl4Woa3T/UDBEV/FR8Y8Pe1cJ3ofVnlflcXRUE8a3Phwr3Og==
 
 latest-version@^3.0.0:
   version "3.1.0"
