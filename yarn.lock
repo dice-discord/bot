@@ -184,10 +184,10 @@
     eslint-config-prettier "^6.0.0"
     eslint-plugin-prettier "^3.0.1"
 
-"@discoin/scambio@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.0.1.tgz#b05ae24779f64dab09f36a4c840fda0e23a0f061"
-  integrity sha512-DwTrVKoj+a+f7qlMe+k5TY5O50APhALKxEIUymkuJpFpY2Sj929oZNJAkdM1zqI1gstjrrbpIa5aT3VATh8gzQ==
+"@discoin/scambio@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.0.2.tgz#acfcabade52a8cb79af418f77401723a74bde954"
+  integrity sha512-9RkUbk7I22rNKI9i+aBtKq5BVwKbPcExa4oM8PdO+I6zrPRSqJNmXqeGz6dZaiLEgY4nKCNviBZa98oMOCZhRQ==
   dependencies:
     ky "^0.16.1"
     ky-universal "^0.3.0"
