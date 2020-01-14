@@ -46,7 +46,7 @@
     "prettier": "^1.19.1",
     "semantic-release": "^15.14.0",
     "semantic-release-docker": "^2.2.0",
-    "tap": "^14.10.5"
+    "tap": "^14.10.6"
   },
   "email": "jonah@jonah.pw",
   "engines": {
