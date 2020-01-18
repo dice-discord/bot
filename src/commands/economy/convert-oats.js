@@ -91,7 +91,7 @@ module.exports = class ConvertOatsCommand extends SentryCommand {
         fields: [
           {
             name: "Payout",
-            value: `${amount} OAT ➡ ${transaction.payout} ${transaction.to.id}`
+            value: `${amount.toLocaleString()} OAT ➡ ${transaction.payout.toLocaleString()} ${transaction.to.id}`
           },
           {
             name: "Transaction ID",
