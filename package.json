@@ -16,7 +16,7 @@
     "discord.js-commando": "github:discordjs/Commando",
     "dotenv": "^8.2.0",
     "gamedig": "^2.0.20",
-    "hot-shots": "^6.8.5",
+    "hot-shots": "^6.8.6",
     "keen-tracking": "^4.4.1",
     "keyv": "^4.0.0",
     "kurasuta": "^1.1.6",
