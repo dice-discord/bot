@@ -55,7 +55,8 @@ module.exports = class DiscoinRatesCommand extends SentryCommand {
           stripIndents`
             Currency code: ${currency.id}
             Value in Discoin D$: ${currency.value.toLocaleString()}
-            Value in oats: ${(currency.value / oatsCurrency.value).toLocaleString()}`
+            Value in oats: ${(currency.value / oatsCurrency.value).toLocaleString()}`,
+          true
         );
       });
 
