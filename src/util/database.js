@@ -85,17 +85,25 @@ const database = async () => {
         { upsert: true }
       );
     },
-    decrease: async (id, amount) => {
+    decrease: (id, amount) => {
       const decreaseBalanceLogger = logger.scope("balances", "decrease");
 
       decreaseBalanceLogger.debug({ prefix: id, message: amount });
-      return balances.set(id, (await balances.get(id)) - amount);
+      return economyCollection.findOneAndUpdate(
+        { key: `keyv:${id}` },
+        { $inc: { value: { value: -amount } } },
+        { upsert: true }
+      );
     },
-    increase: async (id, amount) => {
+    increase: (id, amount) => {
       const increaseBalanceLogger = logger.scope("balances", "decrease");
 
       increaseBalanceLogger.debug({ prefix: id, message: amount });
-      return balances.set(id, (await balances.get(id)) + amount);
+      return economyCollection.findOneAndUpdate(
+        { key: `keyv:${id}` },
+        { $inc: { value: { value: amount } } },
+        { upsert: true }
+      );
     }
   };
   module.exports.balances = balances;
