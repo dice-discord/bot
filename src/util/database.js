@@ -91,7 +91,7 @@ const database = async () => {
       decreaseBalanceLogger.debug({ prefix: id, message: amount });
       return economyCollection.findOneAndUpdate(
         { key: `keyv:${id}` },
-        { $inc: { value: { value: -amount } } },
+        { $inc: { "value.value": -amount } },
         { upsert: true }
       );
     },
@@ -101,7 +101,7 @@ const database = async () => {
       increaseBalanceLogger.debug({ prefix: id, message: amount });
       return economyCollection.findOneAndUpdate(
         { key: `keyv:${id}` },
-        { $inc: { value: { value: amount } } },
+        { $inc: { "value.value": amount } },
         { upsert: true }
       );
     }
