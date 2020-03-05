@@ -197,6 +197,11 @@
   resolved "https://registry.yarnpkg.com/@discordjs/collection/-/collection-0.1.3.tgz#af9b1c22ccb2ee5c0cad1e1bd2bc3d82a817b05f"
   integrity sha512-4ek19SmNcPI92942RkuBrZrBK8hg7nG+ae/skkNNDeOaUG+XvxTPkv/jPZVgXwVPDkU5EFsewsI+0n4dTwFvgA==
 
+"@discordjs/collection@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@discordjs/collection/-/collection-0.1.5.tgz#1781c620b4c88d619bd0373a1548e5a6025e3d3a"
+  integrity sha512-CU1q0UXQUpFNzNB7gufgoisDHP7n+T3tkqTsp3MNUkVJ5+hS3BCvME8uCXAUFlz+6T2FbTCu75A+yQ7HMKqRKw==
+
 "@google-cloud/common@^2.0.0", "@google-cloud/common@^2.1.2":
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-2.2.5.tgz#6b8667dd0d01784f815ad9a0b779391bdaa58043"
@@ -1517,7 +1522,7 @@ columnify@~1.5.4:
     strip-ansi "^3.0.0"
     wcwidth "^1.0.0"
 
-combined-stream@^1.0.6, combined-stream@~1.0.6:
+combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
@@ -1992,19 +1997,19 @@ dir-glob@^3.0.0, dir-glob@^3.0.1:
     common-tags "^1.8.0"
     require-all "^3.0.0"
 
-"discord.js@github:discordjs/discord.js#21d37ed0cc71b227be0feadc4ffbcd522ca4f00e":
-  version "12.0.0-dev"
-  uid "21d37ed0cc71b227be0feadc4ffbcd522ca4f00e"
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/21d37ed0cc71b227be0feadc4ffbcd522ca4f00e"
+discord.js@^12.0.1:
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-12.0.1.tgz#58574c0c9acc598095f943d6b14da4725d37b8b9"
+  integrity sha512-lUlrkAWSb5YTB1WpSZHjeUXxGlHK8VDjrlHLEP4lJj+etFAellURpmRYl29OPJ/7arQWB879pP4rvhhzpdOF7w==
   dependencies:
-    "@discordjs/collection" "^0.1.1"
+    "@discordjs/collection" "^0.1.5"
     abort-controller "^3.0.0"
-    form-data "^2.3.3"
-    node-fetch "^2.3.0"
-    prism-media "^1.0.0"
+    form-data "^3.0.0"
+    node-fetch "^2.6.0"
+    prism-media "^1.2.0"
     setimmediate "^1.0.5"
-    tweetnacl "^1.0.1"
-    ws "^7.2.0"
+    tweetnacl "^1.0.3"
+    ws "^7.2.1"
 
 "discord.js@github:discordjs/discord.js#f79f0243438a89c4d8a910461800b1adff2fe6e5":
   version "12.0.0-dev"
@@ -2734,6 +2739,15 @@ form-data@^2.3.3:
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.6"
+    mime-types "^2.1.12"
+
+form-data@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.0.tgz#31b7e39c85f1355b7139ee0c647cf0de7f83c682"
+  integrity sha512-CKMFDglpbMi6PyN+brwB9Q/GOw0eAnsrEZDgcsH5Krhz5Od/haKHAX0NmQfha2zPPz0JpWzA7GJHGSnvCRLWsg==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
 form-data@~2.3.2:
@@ -3904,12 +3918,12 @@ keyv@^4.0.0:
   dependencies:
     json-buffer "3.0.1"
 
-kurasuta@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-1.1.7.tgz#8c5c864347bbb6d21a1a7531017aa79d73e555ab"
-  integrity sha512-NOqUp+L7l3qR3qCiP9NuqvjmoGSJrwo24lcos5kqNCiQZZM7/u2rlvIFOmT/JiHqZCbSPZTTWjpfqVcLne369g==
+kurasuta@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-2.0.0.tgz#aa881633afe3971bec99714a350bcbb7813a937b"
+  integrity sha512-EohkqDKs+Nkm5vpJCzdU09N2ONPCTjdSxr2eFra3jTi6wtIKBHSLdUyhnP/S3LprN9d9Lo+1qpg5tRgrGwdMTw==
   dependencies:
-    discord.js "github:discordjs/discord.js#21d37ed0cc71b227be0feadc4ffbcd522ca4f00e"
+    discord.js "^12.0.1"
     node-fetch "^2.6.0"
     veza "^1.1.0"
 
@@ -5625,6 +5639,11 @@ prism-media@^1.0.0:
   resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-1.1.0.tgz#64fd9abf64719d627b99360bfbe1a81d3ac0c593"
   integrity sha512-W+oxjRyjtd7hw3pefNZuc7YEZ6VICORJvVNfCPs0+7CsJ43CqMjGAYGjPL3hQ82vw03EVra+CiX4zisqOBUUGw==
 
+prism-media@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-1.2.1.tgz#168f323712bcaacb1d70ae613bf9d9dc44cf43d4"
+  integrity sha512-R3EbKwJiYlTvGwcG1DpUt+06DsxOGS5W4AMEHT7oVOjG93MjpdhGX1whHyjnqknylLMupKAsKMEXcTNRbPe6Vw==
+
 process-nextick-args@~1.0.6:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
@@ -7217,6 +7236,11 @@ tweetnacl@^1.0.1:
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.1.tgz#2594d42da73cd036bd0d2a54683dd35a6b55ca17"
   integrity sha512-kcoMoKTPYnoeS50tzoqjPY3Uv9axeuuFAZY9M/9zFnhoVvRfxz9K29IMPD7jGmt2c8SW7i3gT9WqDl2+nV7p4A==
 
+tweetnacl@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.3.tgz#ac0af71680458d8a6378d0d0d050ab1407d35596"
+  integrity sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==
+
 type-check@~0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.3.2.tgz#5884cab512cf1d355e3fb784f30804b2b520db72"
@@ -7586,7 +7610,7 @@ write@1.0.3:
   dependencies:
     mkdirp "^0.5.1"
 
-ws@^7.2.0:
+ws@^7.2.0, ws@^7.2.1:
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.2.1.tgz#03ed52423cd744084b2cf42ed197c8b65a936b8e"
   integrity sha512-sucePNSafamSKoOqoNfBd8V0StlkzJKL2ZAhGQinCfNQ+oacw+Pk7lcdAElecBF2VkLNZRiIb5Oi1Q5lVUVt2A==
