@@ -20,7 +20,7 @@
     "keen-tracking": "^4.4.1",
     "keyv": "^4.0.0",
     "kurasuta": "^1.1.7",
-    "log-process-errors": "^6.0.0",
+    "log-process-errors": "^6.0.1",
     "markov-strings": "^2.1.0",
     "mongodb": "^3.5.5",
     "ms": "^2.1.2",
