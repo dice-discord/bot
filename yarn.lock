@@ -4407,12 +4407,12 @@ marked@^0.8.0:
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.8.0.tgz#ec5c0c9b93878dc52dd54be8d0e524097bd81a99"
   integrity sha512-MyUe+T/Pw4TZufHkzAfDj6HarCBWia2y27/bhuYkTaiUnfDYFnCP3KUN+9oM7Wi6JA2rymtVYbQu3spE0GCmxQ==
 
-markov-strings@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/markov-strings/-/markov-strings-2.1.0.tgz#f870baa0bec7d7437940e31d27c30a8fa6c96a3c"
-  integrity sha512-bJDOilLc7fUllWmGj0kZ6sJ0vAnP4IOkZ/KfYSduhKmKwW3iljvs8ffn2JsozZysmYvNkLPZLIAeoytfV7Cz9w==
+markov-strings@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/markov-strings/-/markov-strings-2.1.1.tgz#ddc9845523097cbb231718cfa41e2f90fb864696"
+  integrity sha512-J7R+iFRcON6kgjkg+F+dz1F5i/z5Ky+QalTyjsg1+p2AtUoqktyGfw4O6r8n51CNB++3QdJrKXhNjVfcf5xCMg==
   dependencies:
-    lodash "^4.17.14"
+    lodash "^4.17.15"
 
 meant@~1.0.1:
   version "1.0.1"
