@@ -982,7 +982,7 @@ axios@^0.18.0:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
 
-axios@^0.19.2:
+axios@^0.19.0, axios@^0.19.2:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
   integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
@@ -1449,6 +1449,13 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
+
+code@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/code/-/code-4.1.0.tgz#209ad11d05af8a0c1c7aaf694d9fa4d2c7d95b85"
+  integrity sha1-IJrRHQWvigwceq9pTZ+k0sfZW4U=
+  dependencies:
+    hoek "4.x.x"
 
 codecov@^3.6.5:
   version "3.6.5"
@@ -3123,6 +3130,11 @@ hasha@^3.0.0:
   integrity sha1-UqMvq4Vp1BymmmH/GiFPjrfIvTk=
   dependencies:
     is-stream "^1.0.1"
+
+hoek@4.x.x:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
+  integrity sha512-QLg82fGkfnJ/4iy1xZ81/9SIJiq1NGFUMGs6ParyjBZr6jW2Ufj/snDqTHixNlHdPNwN2RLVD0Pi3igeK9+JfA==
 
 hook-std@^2.0.0:
   version "2.0.0"
@@ -6611,10 +6623,18 @@ sq-native@0.8.0:
   dependencies:
     node-pre-gyp "^0.13.0"
 
-sqreen@^1.38.4:
-  version "1.38.4"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.38.4.tgz#df564cad91d530f9bf0a9bee2888cb3de1f3b8e1"
-  integrity sha512-3S/Ic/E+DeMx+IUytT/x/k9uzAonUGDiVRIVJVumjzTKcMvEc4qQtL49FPbWXXeHUzakvLcle3bB6eUuaVNQjA==
+sqreen-sdk@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/sqreen-sdk/-/sqreen-sdk-0.6.3.tgz#0a08ab1fabb6136bf7152beb9f863ce763a73c87"
+  integrity sha512-Se6VpQCAvi20eRbv9Qcq4EnyKV4wkO5lHb7inYEcIo5wkHy/rdGNZ6G6DPeEY7SczZz1gxhLa5UTnXsjcF6mFg==
+  dependencies:
+    axios "^0.19.0"
+    code "^4.1.0"
+
+sqreen@^1.40.0:
+  version "1.40.0"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.40.0.tgz#f561f8028d80ef23d5571a2bf616852539fd1a0a"
+  integrity sha512-1tjyBqZoY55IxlHgkBqVNI2rU0FPaoix45LsPIqGyP1mpRs2u8FI7YcBvDmaI5oJP6SYmnOCXMMx0THP4sAYmw==
   dependencies:
     async-listener "^0.6.0"
     async-lock "^1.2.2"
@@ -6635,6 +6655,7 @@ sqreen@^1.38.4:
     recursive-readdir "^2.1.0"
     semver "^5.2.0"
     shimmer "^1.2.0"
+    sqreen-sdk "^0.6.3"
     uuid "^3.1.0"
     winston "^2.2.0"
     zxcvbn "^4.4.2"
