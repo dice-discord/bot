@@ -1998,7 +1998,8 @@ dir-glob@^3.0.0, dir-glob@^3.0.1:
 
 "discord.js-commando@github:discordjs/Commando":
   version "0.11.0-dev"
-  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/4beeec829ed25fc2c6ec0896edf7e0ac4d8bfcf0"
+  uid bdbd84e2a978322f3af12c21e729eb7b7cd4a3dc
+  resolved "https://codeload.github.com/discordjs/Commando/tar.gz/bdbd84e2a978322f3af12c21e729eb7b7cd4a3dc"
   dependencies:
     common-tags "^1.8.0"
     require-all "^3.0.0"
