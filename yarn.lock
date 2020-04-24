@@ -1537,10 +1537,10 @@ commander@~2.8.1:
   dependencies:
     graceful-readlink ">= 1.0.0"
 
-commando-provider-keyv@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/commando-provider-keyv/-/commando-provider-keyv-2.0.1.tgz#2f31c21c31096a939ee859fac107aba97e8cc61c"
-  integrity sha512-J5XBwTyqmFSDwxhYo53tJj0eX5Z2o8vvMDYTN0+fDU0/+xikgKnKQKYn7e2LbG1Z5FcLs+rfVHlXh+sctuib3g==
+commando-provider-keyv@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/commando-provider-keyv/-/commando-provider-keyv-2.1.0.tgz#7530494376701be85325dd1d4595398dd4e3b18f"
+  integrity sha512-qxs+7WJy+2B7KzH7aBCY8NEgEUGmvbIvRwhBAXfFwhMzNd2DLr/nGyy+iUJ0MCBTYLSSLvea1tii9fLrlCj7ZQ==
 
 common-tags@^1.8.0:
   version "1.8.0"
