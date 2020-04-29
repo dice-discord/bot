@@ -23,16 +23,9 @@
 			}
 		],
 		[
-			"@iteratec/semantic-release-docker",
+			"semantic-release-docker",
 			{
-				"prepare": {
-					"imageName": "dice-discord/bot",
-					"path": "@iteratec/semantic-release-docker"
-				},
-				"publish": {
-					"path": "@iteratec/semantic-release-docker"
-				},
-				"verifyConfig": ["@iteratec/semantic-release-docker"]
+				"name": "dicediscord/bot"
 			}
 		]
 	]

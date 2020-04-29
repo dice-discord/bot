@@ -26,11 +26,11 @@
 		"quick-lru": "5.1.0",
 		"raw-body": "2.4.1",
 		"roll": "1.2.0",
+		"semantic-release-docker": "^2.2.0",
 		"signale": "1.4.0"
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.3.3",
-		"@iteratec/semantic-release-docker": "1.0.5",
 		"@prisma/cli": "2.0.0-beta.3",
 		"@types/cron": "1.7.2",
 		"@types/mongodb": "3.5.14",
