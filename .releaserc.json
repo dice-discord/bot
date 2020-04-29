@@ -1,24 +1,24 @@
 {
-  "plugins": [
-    [
-      "semantic-release-docker",
-      {
-        "name": "dicediscord/bot"
-      }
-    ],
-    [
-      "@semantic-release/commit-analyzer",
-      {
-        "preset": "angular",
-        "releaseRules": [
-          {
-            "release": "patch",
-            "type": "refactor"
-          }
-        ]
-      }
-    ],
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/github"
-  ]
+	"plugins": [
+		[
+			"semantic-release-docker",
+			{
+				"name": "dicediscord/bot"
+			}
+		],
+		[
+			"@semantic-release/commit-analyzer",
+			{
+				"preset": "angular",
+				"releaseRules": [
+					{
+						"release": "patch",
+						"type": "refactor"
+					}
+				]
+			}
+		],
+		"@semantic-release/release-notes-generator",
+		"@semantic-release/github"
+	]
 }
