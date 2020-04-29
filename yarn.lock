@@ -1035,6 +1035,15 @@ bin-links@^1.1.2, bin-links@^1.1.6:
     npm-normalize-package-bin "^1.0.0"
     write-file-atomic "^2.3.0"
 
+binary-downloader@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/binary-downloader/-/binary-downloader-0.1.1.tgz#e6b8d848dda343e6417cb32153f1fcea897510d2"
+  integrity sha512-0q0x6so3VzH49QdsSO9nFa7XcE/guL5yMP3ClNfPiXyMSnX7TeFRa3Sm6yTb/Hms4SpUFC4c85u6I+/9fyOxBw==
+  dependencies:
+    detect-libc "^1.0.3"
+    semver "^6.3.0"
+    tar "^4.4.13"
+
 binary-extensions@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.0.0.tgz#23c0df14f6a88077f5f986c0d167ec03c3d5537c"
@@ -1961,7 +1970,7 @@ detect-indent@~5.0.0:
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-5.0.0.tgz#3871cc0a6a002e8c3e5b3cf7f336264675f06b9d"
   integrity sha1-OHHMCmoALow+Wzz38zYmRnXwa50=
 
-detect-libc@^1.0.2:
+detect-libc@^1.0.2, detect-libc@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
   integrity sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
@@ -6624,12 +6633,12 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sq-native@0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/sq-native/-/sq-native-0.8.0.tgz#2f831c0d10346ad68aa46b80056227042bf44cf9"
-  integrity sha512-gVBC/Ze7JPJXgBd6kFvWYc9WvuhnaKxbR2Q7w0TSMNk+P6GWVx4yOlfsNJ0NcWZQTWSooTwwB/x1vlFldKzzvw==
+sq-native@0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/sq-native/-/sq-native-0.9.1.tgz#72addb912d894446f5832acb57b033da91e02001"
+  integrity sha512-MOOWvIl9NnccFp81STwRPMO/VEFHwTNS3Sz+hXo/rZuusEBkBziXfvkM1ukxz0qie7THwKm/EFVwjd52ICrriw==
   dependencies:
-    node-pre-gyp "^0.13.0"
+    binary-downloader "0.1.1"
 
 sqreen-sdk@^0.6.3:
   version "0.6.3"
@@ -6639,10 +6648,10 @@ sqreen-sdk@^0.6.3:
     axios "^0.19.0"
     code "^4.1.0"
 
-sqreen@1.40.1:
-  version "1.40.1"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.40.1.tgz#eed22fd42eaab5583b6904ad0e4a336e310ab57a"
-  integrity sha512-AntteFMvupUlDr+Ol/m4JuZPscIvFdCfv/KiFNArITYC451s9VnYsun/ZjcnIjBvIZ50WM7Tl44MpL4XKJN2kA==
+sqreen@1.41.0:
+  version "1.41.0"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.41.0.tgz#f4caee5f9d7027db19e1eb3a32bd089a563d404c"
+  integrity sha512-HaL4UHifQCECLG/lFHS4Dxp6o7IC84SB9PCsi3SNRRIJMzW1bxqLvksdwtvHS/KfGFi6OY7hTBKJbsQW58D90Q==
   dependencies:
     async-listener "^0.6.0"
     async-lock "^1.2.2"
@@ -6668,7 +6677,7 @@ sqreen@1.40.1:
     winston "^2.2.0"
     zxcvbn "^4.4.2"
   optionalDependencies:
-    sq-native "0.8.0"
+    sq-native "0.9.1"
 
 sshpk@^1.7.0:
   version "1.16.1"
