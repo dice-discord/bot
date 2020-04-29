@@ -141,6 +141,9 @@ jobs:
         run: yarn install
         env:
           POSTGRES_URI: ${{ secrets.POSTGRES_URI }}
+        # Pull the image to reuse layers
+      - name: Pull Docker image
+        run: docker pull dicediscord/bot
       - name: Build Docker image
         run: docker build -t dicediscord/bot .
       - name: Deploy
