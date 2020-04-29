@@ -1,34 +1,100 @@
 version: '3.7'
-volumes:
-  portainer_data:
+networks:
+  backend:
+    driver: bridge
+    name: backend
+  frontend:
+    driver: bridge
+    name: frontend
 services:
+  # The Discord bot
   bot:
     image: dicediscord/bot
-    restart: always
-    env_file: .env
+    restart: unless-stopped
+    env_file: bot.env
+    expose:
+      - '5000'
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    networks:
+      - backend
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.bot.rule=Path(`/bot`) || PathPrefix(`/bot/`)'
+      - 'traefik.http.routers.bot.entrypoints=web'
+      - 'traefik.http.services.bot.loadbalancer.server.port=5000'
+  postgres:
+    image: postgres:12.2-alpine
+    restart: unless-stopped
     volumes:
-      - ./googleCloudServiceAccount.json:/usr/src/dice/googleCloudServiceAccount.json:ro
+      - dice-postgres-storage
+    networks:
+      - backend
+    env_file: postgres.env
     ports:
-      - 5000:5000
+      - '5432:5432'
+  # Autoupdate images
   watchtower:
     image: v2tec/watchtower
-    restart: always
+    restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-  dd-agent:
-    image: datadog/agent
-    restart: always
+    networks:
+      - backend
+  # Grafana dashboards
+  grafana:
+    image: grafana/grafana
+    restart: unless-stopped
+    env_file: grafana.env
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /proc/:/host/proc/:ro
-      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
-      - /opt/datadog-agent-conf.d:/conf.d:ro
-    env_file: .env
-  portainer:
-    image: portainer/portainer
-    restart: always
+      - dice-grafana-storage:/var/lib/grafana
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - influxdb
+    expose:
+      - '3000'
+    links:
+      - influxdb
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.grafana.rule=Path(`/grafana`) || PathPrefix(`/grafana/`)'
+      - 'traefik.http.routers.grafana.entrypoints=web'
+      - 'traefik.http.middlewares.grafana-compress.compress=true'
+      - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+  # InfluxDB time-series database
+  influxdb:
+    image: influxdb:1.8.0-alpine
+    restart: unless-stopped
+    env_file: influxdb.env
+    expose:
+      - '8086'
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+      - dice-influxdb-storage:/var/lib/influxdb
+    networks:
+      - backend
+  # Reverse proxy and load balancer
+  traefik:
+    image: traefik:2.2.0
+    restart: unless-stopped
     ports:
-      - 9000:9000
+      - '80:80'
+      - '8080:8080'
+      - '443:443'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    command:
+      ['--api.insecure=false', '--api.dashboard=true', '--providers.docker=true', '--providers.docker.exposedbydefault=false', '--entrypoints.web.address=:80']
+    networks:
+      - frontend
+      - backend
+volumes:
+  dice-grafana-storage:
+    external: true
+  dice-influxdb-storage:
+    external: true
+  dice-postgres-storage:
+    external: true

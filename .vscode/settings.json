@@ -1,13 +1,6 @@
 {
-  "deepscan.enable": true,
-  "cSpell.words": [
-    "dblapi",
-    "dicediscord",
-    "discoin",
-    "discordbot",
-    "discordjs",
-    "selfroles",
-    "setimmediate",
-    "signale"
-  ]
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": false
+	},
+	"typescript.tsdk": "node_modules\\typescript\\lib"
 }
