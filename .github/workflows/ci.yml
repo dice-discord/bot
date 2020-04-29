@@ -116,6 +116,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    # Don't run this job if we aren't on master branch
+    # `semantic-release` will do this automatically, but this saves us the time of building the image prior to that
+    if: ${{ github.ref  == 'refs/heads/master' }}
+
     needs: [build, lint, lint-dockerfile, style]
 
     steps:
