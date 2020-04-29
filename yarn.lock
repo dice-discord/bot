@@ -382,10 +382,10 @@
   resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.0.0-beta.3.tgz#54ac441bd538aade10acb07912b6751698c766df"
   integrity sha512-VZxeTLLMenhkAyaY4tvTqChcW6QtUkiVvZj7N6A2vi6HsM1Tnf0fIZsiH1h3e/LEnaaDGIUC8F4Gkh2SeyeyCg==
 
-"@prisma/client@2.0.0-beta.3":
-  version "2.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-beta.3.tgz#a1b2cce4744973481d2891fcb919ab099f118952"
-  integrity sha512-itwRDl9PS8pD9InbHFeh1m3kyMibpZbkMHx9/Q7lNVaxvBJeJjNlVFmclL9AIFMDAUhD+KtspqkBwUHKgJpd7g==
+"@prisma/client@2.0.0-previewnull-1":
+  version "2.0.0-previewnull-1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-previewnull-1.tgz#190f33b1ab1fcf6404143fcc8ecbf1a8675e4500"
+  integrity sha512-glIyw5+4fyXABnvhPErG6X7IrepBj88N+0QsEXksB/NERHo8R97vHNpQvq0sAxAaK61mjiuaypZ3CyjxcC1XhA==
 
 "@semantic-release/commit-analyzer@^8.0.0":
   version "8.0.1"

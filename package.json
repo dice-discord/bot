@@ -9,7 +9,7 @@
 	},
 	"dependencies": {
 		"@discoin/scambio": "2.0.6",
-		"@prisma/client": "2.0.0-beta.3",
+		"@prisma/client": "2.0.0-previewnull-1",
 		"@sentry/node": "5.15.5",
 		"cron": "1.8.2",
 		"date-fns": "2.12.0",
