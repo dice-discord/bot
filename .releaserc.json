@@ -19,8 +19,7 @@
 			{
 				"org": "dice",
 				"project": "bot",
-				"repositoryUrl": "https://github.com/dice-discord/bot",
-				"tagsUrl": "https://github.com/dice-discord/bot/releases/tag/"
+				"repositoryUrl": "https://github.com/dice-discord/bot"
 			}
 		],
 		[
