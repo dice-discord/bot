@@ -1,12 +1,6 @@
 {
 	"plugins": [
 		[
-			"semantic-release-docker",
-			{
-				"name": "dicediscord/bot"
-			}
-		],
-		[
 			"@semantic-release/commit-analyzer",
 			{
 				"preset": "angular",
@@ -19,6 +13,31 @@
 			}
 		],
 		"@semantic-release/release-notes-generator",
-		"@semantic-release/github"
+		"@semantic-release/github",
+		[
+			"@eclass/semantic-release-sentry-releases",
+			{
+				"org": "dice",
+				"project": "bot",
+				"repositoryUrl": "https://github.com/dice-discord/bot",
+				"tagsUrl": "https://github.com/dice-discord/bot/releases/tag/"
+			}
+		],
+		[
+			"@iteratec/semantic-release-docker",
+			{
+				"prepare": {
+					"imageName": "dice-discord/bot",
+					"path": "@iteratec/semantic-release-docker"
+				},
+				"publish": {
+					"path": "@iteratec/semantic-release-docker"
+				},
+				"verifyConfig": ["@iteratec/semantic-release-docker"]
+			},
+			{
+				"name": "dicediscord/bot"
+			}
+		]
 	]
 }

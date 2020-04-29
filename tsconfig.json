@@ -2,11 +2,13 @@
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": false,
+		"inlineSourceMap": true,
+		"inlineSources": true,
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"outDir": "tsc_output",
 		"resolveJsonModule": true,
-		"sourceMap": true,
+		"sourceRoot": "/",
 		"strict": true,
 		"target": "es2019"
 	},
