@@ -184,13 +184,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@discoin/scambio@2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.0.6.tgz#d0fb9238a2c18d83d25b8ddc61797efded227f51"
-  integrity sha512-9kzBKFCWe2JUe+ZRl4khId+kq+pDCSVjWF4aTdkOthkzz9dlRCqGkCkq9Tpm1XePTpSpQ9p4yaOparkJlwMP3Q==
+"@discoin/scambio@2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.0.7.tgz#6a83c505065c32d6bfb725599f089b3be6d098dc"
+  integrity sha512-mnk/lR3tLlSHdUkmz+DRjbBLIyXGi7l4QyaXlrTmD2q9IGvnQ70NNkH38VBS1Lr4ktm2ERyKAkwx86WrKJjaXg==
   dependencies:
     ky "^0.19.0"
-    ky-universal "^0.5.0"
+    ky-universal "^0.6.0"
 
 "@discordjs/collection@^0.1.5":
   version "0.1.5"
@@ -4502,10 +4502,10 @@ kurasuta@2.1.0:
     node-fetch "^2.6.0"
     veza "^1.1.0"
 
-ky-universal@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/ky-universal/-/ky-universal-0.5.0.tgz#16d5fe881fb98e54732a4f0b7d531d44cbf701cb"
-  integrity sha512-O+0wjCua5i45lYBZrBy8TyRDRVodtsmzVC/MlE5FN7ZMFu/Icz7ekbZ85sdFw0F/JwGhXZTaKjXq9IgUGwGedQ==
+ky-universal@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/ky-universal/-/ky-universal-0.6.0.tgz#a91c265c80c38f750e65bbc6d72df16f5b58691f"
+  integrity sha512-GvKOzAO5Ec4LiI2jCYRib/7FJwirI3xUFcxUQi9SY3kPZflLY8N289UlsYekwg7gtiLPeU1abYnTFA9N6IO9ig==
   dependencies:
     abort-controller "^3.0.0"
     node-fetch "^2.6.0"
