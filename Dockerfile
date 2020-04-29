@@ -18,7 +18,7 @@ RUN apt-get -qq update && \
 # Prisma needs to have a schema present because of the postinstall script that generates the SDK
 COPY package.json yarn.lock schema.prisma ./
 
-RUN yarn install --production=true
+RUN yarn install  --ignore-engines --production=true
 
 ### BUILDER STAGE ###
 FROM node:13.13.0-buster-slim AS builder
@@ -39,7 +39,7 @@ COPY package.json yarn.lock schema.prisma ./
 COPY --from=installer /usr/src/installer/node_modules node_modules
 
 # Install the other devdependencies
-RUN yarn install --production=false
+RUN yarn install  --ignore-engines --production=false
 
 # Copy build configurations
 COPY tsconfig.json ./
