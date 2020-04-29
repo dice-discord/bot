@@ -1,9 +1,8 @@
-renovate.json
-.dependabot
 .github
 .vscode
 migrations
 node_modules
+renovate.json
 tsc_output
 .editorconfig
 *.env
