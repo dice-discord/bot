@@ -1,49 +1,74 @@
 # Dice
 
-![Status](https://discordbots.org/api/widget/status/388191157869477888.png)
-[![Known Vulnerabilities](https://snyk.io/test/github/dice-discord/bot/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dice-discord/bot?targetFile=package.json)
+[![Build Status](https://github.com/dice-discord/bot/workflows/CI/badge.svg)](https://github.com/dice-discord/bot/actions)
+[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
+[![codecov](https://codecov.io/gh/dice-discord/bot/branch/master/graph/badge.svg)](https://codecov.io/gh/dice-discord/bot)
 
-A general purpose utility bot, with an economy, games, and lots of other features.
+A total rewrite of the [Dice Discord bot](https://github.com/dice-discord/bot) in TypeScript using the [Akairo framework](https://discord-akairo.github.io/#/).
 
-## [Invite to Your Server](https://dice.js.org/invite)
+## Developers
 
-## Features
+### File naming scheme
 
-- Moderators can disable commands on their server
-- `99.9%` uptime
-- Utility (account age, choose, random dog/cat image)
-- Economy (transfer, dailies, games, leaderboard)
-- Games (Fortnite stats, Overwatch stats, betting game, russian roulette)
-- Moderation (ban, hackban, bulk delete messages, selfroles, unban)
-- Customizable prefix
+#### Commands
 
-## Detailed Status
+Commands should be under their category's subfolder (ex. `commands/admin` for the `admin` category).
 
-[![Discord Bots](https://discordbots.org/api/widget/388191157869477888.svg)](https://discordbots.org/bot/388191157869477888)
+Command filenames should exactly match their ID.
 
-## Contributing
+#### Listeners
 
-Basically all contributions to Dice are welcome. Clone the repository and make a pull request or contact a maintainer with change requests.
+Commands should be under their category's subfolder (ex. `listeners/client` for the `client` category).
+The category should exactly match their emitter name.
 
-### Docker
+Listener filenames should exactly match their event name (ex. `commandStarted.ts` for the `commandStarted` event).
 
-#### Editing
+#### Inhibitors
 
-When a commit is made Travis CI automatically builds the image to `dice-discord/bot`. The officially hosted version of Dice auto updates to `dice-discord/bot` every 5 minutes.
+Inhibitor filenames should exactly match their ID.
 
-#### Running
+### Prequisites
 
-Dice ideally is run on a server with at least 2GB of RAM that is dedicated to Dice. Every 5 minutes it downloads and runs the latest version of the image provided. Run the following command when in a directory with the `docker-compose.yml` file. Make sure you fill out the environment variables in a `.env` file. An example of one can be found in the `.env.example` file.
+This project uses [Node.js](https://nodejs.org) 12 to run.
 
-```bash
-docker-compose up
+This project uses [Yarn](https://yarnpkg.com) to install dependencies, although you can use another package manager like [npm](https://www.npmjs.com) or [pnpm](https://pnpm.js.org).
+
+```sh
+yarn install
+# or `npm install`
+# or `pnpm install`
 ```
 
-> Copyright 2019 Jonah Snider
->
-> Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
-> You may obtain a copy of the License at
->
-> [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
->
-> Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+### Building
+
+Run the `build` script to compile the TypeScript into the `tsc_output` folder.
+This will compile the `src` and the `test` directory, so be careful not to upload the whole folder as a published package.
+
+### Style
+
+This project uses [Prettier](https://prettier.io) and [XO](https://github.com/xojs/xo).
+
+You can run Prettier in the project with this command:
+
+```sh
+yarn run style
+```
+
+You can run XO with this command:
+
+```sh
+yarn run lint
+```
+
+Note that XO will also error if you have TypeScript errors, not just if your formatting is incorrect.
+
+### Linting
+
+This project uses [XO](https://github.com/xojs/xo) (which uses [ESLint](https://eslint.org) and some plugins internally) to perform static analysis on the TypeScript.
+It reports things like unused variables or not following code conventions.
+
+```sh
+yarn run lint
+```
+
+Note that XO will also error if you have incorrect formatting, not just if your TypeScript code has errors.

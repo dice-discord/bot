@@ -1,0 +1,283 @@
+import {Client as DiscoinClient} from '@discoin/scambio';
+import {Transaction} from '@discoin/scambio/tsc_output/src/structures/transactions';
+import {PrismaClient} from '@prisma/client';
+import {init as initSentry} from '@sentry/node';
+import {CronJob} from 'cron';
+import {formatDistanceToNow} from 'date-fns';
+import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
+import {Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
+import {join} from 'path';
+import {defaultPrefix, discoin, owners, runningInProduction, sentryDSN} from '../config';
+import {commandArgumentPrompts, Notifications, defaults, topGGWebhookPort} from '../constants';
+import {simpleFormat} from '../util/format';
+import {baseLogger} from '../util/logger';
+import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
+import {DiceUser} from './DiceUser';
+import {GuildSettingsCache} from './GuildSettingsCache';
+import * as pkg from '../../package.json';
+import {TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents, TopGGVote} from './TopGgVoteWebhookHandler';
+
+declare module 'discord-akairo' {
+	interface AkairoClient {
+		commandHandler: CommandHandler;
+		inhibitorHandler: InhibitorHandler;
+		listenerHandler: ListenerHandler;
+		guildSettingsCache: GuildSettingsCache;
+		prisma: PrismaClient;
+		birthdayNotificationJob: CronJob;
+		discoinJob: CronJob;
+		discoin?: DiscoinClient;
+	}
+}
+
+const birthdayLogger = baseLogger.scope('client');
+const discoinLogger = baseLogger.scope('discoin');
+const handleVoteLogger = baseLogger.scope('top.gg vote handler');
+
+/** The maximum number of guild settings to cache at once. */
+const maxGuildSettingsCache = 1500;
+
+export class DiceClient extends AkairoClient {
+	prisma = new PrismaClient();
+	topGG: TopGGVoteWebhookHandler;
+	// Arrow function is required here, or else the `this` context will be that of the cron job
+	// See https://www.npmjs.com/package/cron#gotchas
+	birthdayNotificationJob = new CronJob('30 0 * * *', async () => this.notifyUserBirthdays());
+	discoinJob = new CronJob('* * * * *', async () => this.processDiscoinTransactions());
+
+	constructor() {
+		super(
+			{
+				ownerID: owners
+			},
+			{
+				disableMentions: 'everyone',
+				messageCacheMaxSize: 1000
+			}
+		);
+
+		if (sentryDSN) {
+			initSentry({dsn: sentryDSN, debug: !runningInProduction, environment: runningInProduction ? 'production' : 'development', release: pkg.version});
+		}
+
+		if (typeof discoin.token === 'string') {
+			this.discoin = new DiscoinClient(discoin.token, discoin.currencyID);
+		}
+
+		this.guildSettingsCache = new GuildSettingsCache(this.prisma, maxGuildSettingsCache);
+
+		this.commandHandler = new CommandHandler(this, {
+			directory: join(__dirname, '..', 'commands'),
+			prefix: async (message: Message) => {
+				if (message.guild) {
+					const guild = await this.guildSettingsCache.get(message.guild.id);
+
+					return guild?.prefix ?? defaultPrefix;
+				}
+
+				return defaultPrefix;
+			},
+			argumentDefaults: {
+				prompt: {
+					timeout: commandArgumentPrompts.timeout,
+					cancel: commandArgumentPrompts.cancel,
+					ended: commandArgumentPrompts.ended,
+					modifyStart: (_message, string) => commandArgumentPrompts.modify.start(string),
+					modifyRetry: (_message, string) => commandArgumentPrompts.modify.retry(string),
+					optional: false
+				}
+			},
+			aliasReplacement: /-/g,
+			handleEdits: true,
+			commandUtil: true
+		});
+
+		this.inhibitorHandler = new InhibitorHandler(this, {
+			directory: join(__dirname, '..', 'inhibitors')
+		});
+
+		this.listenerHandler = new ListenerHandler(this, {
+			directory: join(__dirname, '..', 'listeners')
+		});
+
+		this.topGG = new TopGGVoteWebhookHandler({client: this});
+	}
+
+	async init(): Promise<this> {
+		this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
+		this.commandHandler.useListenerHandler(this.listenerHandler);
+
+		this.listenerHandler.setEmitters({
+			commandHandler: this.commandHandler,
+			inhibitorHandler: this.inhibitorHandler,
+			listenerHandler: this.listenerHandler
+		});
+
+		this.commandHandler.loadAll();
+		this.inhibitorHandler.loadAll();
+		this.listenerHandler.loadAll();
+
+		await this.prisma.connect();
+
+		this.birthdayNotificationJob.start();
+
+		if (runningInProduction && this.shard?.id === 0) {
+			this.discoinJob.start();
+		}
+
+		this.topGG.on(TopGGVoteWebhookHandlerEvents.Vote, this.handleVote);
+		this.topGG.server.listen(topGGWebhookPort);
+
+		return this;
+	}
+
+	/**
+	 * Send notifications about user birthdays to all channels that have it enabled.
+	 * This should be run once each day.
+	 */
+	async notifyUserBirthdays(): Promise<void> {
+		birthdayLogger.time('birthday notifications');
+		const now = new Date();
+
+		const guilds = await this.prisma.notificationSettings.findMany({
+			where: {id: Notifications.UserAccountBirthday},
+			select: {channels: true, guildId: true}
+		});
+
+		// Normalize our data for processing
+		// This also makes schema changes really easy to adapt to
+		const queue: Array<{id: Snowflake; channels: Snowflake[]}> = guilds.map(guild => ({id: guild.guildId, channels: guild.channels}));
+
+		const notificationCache = new Map<Snowflake, MessageEmbed>();
+
+		queue.forEach(entry => {
+			const guild = this.guilds.cache.get(entry.id);
+
+			if (guild) {
+				const notifications = guild.members.cache
+					.filter(member => !member.user.bot && todayIsUsersBirthday(now, member.user))
+					.map(member => {
+						const cached = notificationCache.get(member.user.id);
+
+						if (cached) {
+							return cached;
+						}
+
+						const embed = generateUserBirthdayNotification(member.user);
+
+						notificationCache.set(member.user.id, embed);
+						return embed;
+					});
+
+				entry.channels.forEach(async channelID => {
+					if (await channelCanBeNotified(Notifications.UserAccountBirthday, guild, channelID)) {
+						const channel = guild.channels.cache.get(channelID) as TextChannel;
+
+						return notifications.forEach(async notification => channel.send(notification));
+					}
+				});
+			}
+		});
+
+		birthdayLogger.timeEnd('birthday notifications');
+	}
+
+	/**
+	 * Process all unhandled Discoin transactions
+	 */
+	async processDiscoinTransactions(): Promise<void> {
+		if (!this.discoin) {
+			return discoinLogger.warn('Attempted processing transactions when no Discoin client exists');
+		}
+
+		let transactions: Transaction[];
+
+		try {
+			const data = await this.discoin.transactions.getMany(this.discoin.commonQueries.UNHANDLED_TRANSACTIONS);
+			transactions = Array.isArray(data) ? data : data.data;
+		} catch (error) {
+			return discoinLogger.error('An error occured while getting all unhandled transactions from the Discoin API', error);
+		}
+
+		transactions.forEach(async transaction => this.handleDiscoinTransaction(transaction));
+	}
+
+	/**
+	 * Handles a single Discoin transaction by paying the user and notifying them about it.
+	 * @param transaction Transaction to handle
+	 * @returns The message notifying the user or `undefined` if the user wasn't notified
+	 */
+	async handleDiscoinTransaction(transaction: Transaction): Promise<Message | undefined> {
+		const user = new DiceUser(transaction.user, this);
+
+		const updatedBalance = await user.incrementBalance(simpleFormat(transaction.amount));
+
+		try {
+			await transaction.update({handled: true});
+		} catch (error) {
+			discoinLogger.error(`Error while marking transaction ${transaction.id} as handled`, error);
+			// If it wasn't marked as handled don't pay them, keep transactions atomic
+			await user.incrementBalance(simpleFormat(-transaction.amount));
+
+			return;
+		}
+
+		const discordUser = await this.users.fetch(transaction.user);
+
+		return discordUser.send(
+			new MessageEmbed({
+				title: 'Discoin Conversion Received',
+				url: `https://dash.discoin.zws.im/#/transactions/${transaction.id}`,
+				timestamp: transaction.timestamp,
+				footer: {text: `Took ${formatDistanceToNow(transaction.timestamp, {includeSeconds: true})} to process this transaction`},
+				thumbnail: {
+					url: 'https://avatars2.githubusercontent.com/u/30993376'
+				},
+				description: `Your updated balance is now ${updatedBalance.toLocaleString()} oat${updatedBalance === 1 ? '' : 's'}`,
+				fields: [
+					{
+						name: 'Amount',
+						value: `${transaction.amount} ${transaction.from.id} ➡ ${transaction.payout} OAT`
+					},
+					{
+						name: 'Transaction ID',
+						value: `[\`${transaction.id}\`](https://dash.discoin.zws.im/#/transactions/${transaction.id})`
+					}
+				]
+			})
+		);
+	}
+
+	/**
+	 * Handle a top.gg vote by rewarding a user and notifying them.
+	 * @param vote The vote to handle
+	 * @returns The user's updated balance
+	 */
+	async handleVote(vote: TopGGVote): Promise<number> {
+		const voter = new DiceUser(vote.user);
+
+		const reward = vote.weekend ? defaults.vote.weekend : defaults.vote.base;
+		const updatedBalance = await voter.incrementBalance(reward);
+		try {
+			const user = await this.users.fetch(vote.user);
+			await user.send(
+				[
+					'Thank you for voting on top.gg',
+					`You have been given ${reward.toLocaleString()} oats as a reward`,
+					`Your updated balance is ${updatedBalance.toLocaleString()}`
+				].join('\n')
+			);
+		} catch (error) {
+			handleVoteLogger.error(`Unable to notify ${vote.user} about their voting rewards`, error);
+		}
+
+		return updatedBalance;
+	}
+
+	async destroy(): Promise<void> {
+		this.topGG.server.close();
+		await this.prisma.disconnect();
+
+		super.destroy();
+	}
+}
