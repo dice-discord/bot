@@ -46,7 +46,7 @@ export const sentryDSN = process.env.SENTRY_DSN;
  */
 export const discoin = {
 	token: process.env.DISCOIN_TOKEN,
-	currencyID: 'CRINGE' // 'OAT'
+	currencyID: 'OAT'
 };
 
 /** Webhook used for when the bot becomes ready in production mode. */
