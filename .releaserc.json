@@ -33,9 +33,6 @@
 					"path": "@iteratec/semantic-release-docker"
 				},
 				"verifyConfig": ["@iteratec/semantic-release-docker"]
-			},
-			{
-				"name": "dicediscord/bot"
 			}
 		]
 	]
