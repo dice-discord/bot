@@ -3,7 +3,7 @@
   "dependencies": {
     "@discoin/scambio": "2.0.6",
     "@google-cloud/debug-agent": "4.2.2",
-    "@google-cloud/profiler": "3.0.1",
+    "@google-cloud/profiler": "4.0.0",
     "@keyv/mongo": "1.1.0",
     "@sentry/node": "5.15.5",
     "axios": "0.19.2",
