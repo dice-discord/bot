@@ -153,7 +153,7 @@ jobs:
       - name: Deploy
         run: yarn run deploy
         env:
-          DOCKER_REGISTRY_USER: dicediscordbot
-          DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          DOCKER_USERNAME: dicediscordbot
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
