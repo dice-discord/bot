@@ -31,7 +31,7 @@
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.3.3",
 		"@iteratec/semantic-release-docker": "1.0.5",
-		"@prisma/cli": "2.0.0-beta.3",
+		"@prisma/cli": "2.0.0-preview025",
 		"@types/cron": "1.7.2",
 		"@types/mongodb": "3.5.14",
 		"@types/ms": "0.7.31",
