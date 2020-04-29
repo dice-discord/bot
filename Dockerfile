@@ -11,8 +11,8 @@ WORKDIR /usr/src/installer
 
 ENV NODE_ENV=production
 
-RUN apt-get -qy update && \
-	apt-get --no-install-recommends -qy install openssl=1.1.1d-0+deb10u3 && \
+RUN apt-get -qq update && \
+	apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 && \
 	rm -rf /var/lib/apt/lists/*
 
 # Prisma needs to have a schema present because of the postinstall script that generates the SDK
@@ -28,8 +28,8 @@ WORKDIR /usr/src/builder
 
 ENV NODE_ENV=production
 
-RUN apt-get -qy update && \
-	apt-get --no-install-recommends -qy install openssl=1.1.1d-0+deb10u3 && \
+RUN apt-get -qq update && \
+	apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 && \
 	rm -rf /var/lib/apt/lists/*
 
 # Install dependencies and copy Prisma schema
@@ -65,7 +65,7 @@ ENV NODE_ENV=production
 # Top.gg webhook port
 EXPOSE 5000
 
-RUN apt-get -qy update && apt-get --no-install-recommends -qy install openssl=1.1.1d-0+deb10u3 && rm -rf /var/lib/apt/lists/*
+RUN apt-get -qq update && apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 COPY --from=installer /usr/src/installer/node_modules ./node_modules
