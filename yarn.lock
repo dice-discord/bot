@@ -206,7 +206,7 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@eclass/semantic-release-sentry-releases@^2.3.3":
+"@eclass/semantic-release-sentry-releases@2.3.3":
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.3.3.tgz#4a9a24e9beb8fda635fa75eaee05b756f5bfdaa2"
   integrity sha512-QcfHEOPoo94urdmRgcjaxqlwE0928sJn6+s1sfKCPOb+68vJgRcjzDNccfy5SJaB2Z1EjyVzYCjQFTdOVwXjew==
@@ -239,7 +239,7 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
-"@iteratec/semantic-release-docker@^1.0.5":
+"@iteratec/semantic-release-docker@1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@iteratec/semantic-release-docker/-/semantic-release-docker-1.0.5.tgz#53b80357f82d6f1c73483b8645fbb2a2493290a6"
   integrity sha512-UvkNYcN1nthwYlY8kHU4S7p/QOLfAM9NtD5AzZi6b291NXgNwFqrlWJP7jZam5t8dV8eE8t+rVYZS8H9HvErYQ==
@@ -7050,7 +7050,7 @@ saslprep@^1.0.0:
   dependencies:
     sparse-bitfield "^3.0.3"
 
-semantic-release@^17.0.7:
+semantic-release@17.0.7:
   version "17.0.7"
   resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-17.0.7.tgz#03792bf6e1a9ad2353dfd0da6a5d5511fa672b06"
   integrity sha512-F6FzJI1yiGavzCTXir4yPthK/iozZPJ4myUYndiHhSHbmOcCSJ2m7V+P6sFwVpDpQKQp1Q31M68sTJ/Q/27Bow==
