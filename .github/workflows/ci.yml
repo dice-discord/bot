@@ -138,7 +138,7 @@ jobs:
         run: yarn install
         env:
           POSTGRES_URI: ${{ secrets.POSTGRES_URI }}
-      - name: Check style with Prettier
+      - name: Check style with Prisma CLI
         run: yarn run prisma format && git diff --exit-code -s schema.prisma
   deploy:
     name: Deploy
