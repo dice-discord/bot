@@ -9,7 +9,7 @@
 	},
 	"dependencies": {
 		"@discoin/scambio": "2.0.7",
-		"@prisma/client": "2.0.0-beta.3",
+		"@prisma/client": "2.0.0-beta.4",
 		"@sentry/node": "5.15.5",
 		"cron": "1.8.2",
 		"date-fns": "2.12.0",
@@ -31,7 +31,7 @@
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.3.3",
-		"@prisma/cli": "2.0.0-beta.3",
+		"@prisma/cli": "2.0.0-beta.4",
 		"@types/cron": "1.7.2",
 		"@types/mongodb": "3.5.14",
 		"@types/ms": "0.7.31",
