@@ -16,6 +16,7 @@ import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import * as pkg from '../../package.json';
 import {TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents, TopGGVote} from './TopGgVoteWebhookHandler';
+import {ClientOptions} from 'discord.js';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -45,14 +46,19 @@ export class DiceClient extends AkairoClient {
 	birthdayNotificationJob = new CronJob('30 0 * * *', async () => this.notifyUserBirthdays());
 	discoinJob = new CronJob('* * * * *', async () => this.processDiscoinTransactions());
 
-	constructor() {
+	/**
+	 * Create a new DiceClient.
+	 * @param clientOptions Discord.js client options passed in by Kurasuta
+	 */
+	constructor(clientOptions: ClientOptions) {
 		super(
 			{
 				ownerID: owners
 			},
 			{
 				disableMentions: 'everyone',
-				messageCacheMaxSize: 1000
+				messageCacheMaxSize: 1000,
+				...clientOptions
 			}
 		);
 
