@@ -65,7 +65,7 @@ export class DiceClient extends AkairoClient {
 		);
 
 		if (sentryDSN) {
-			initSentry({dsn: sentryDSN, debug: !runningInProduction, environment: runningInProduction ? 'production' : 'development', release: pkg.version});
+			initSentry({dsn: sentryDSN, debug: !runningInProduction, environment: runningInProduction ? 'production' : 'development', release: `bot-${pkg.version}`});
 		}
 
 		if (typeof discoin.token === 'string') {
