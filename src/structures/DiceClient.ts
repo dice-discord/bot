@@ -53,7 +53,7 @@ export class DiceClient extends AkairoClient {
 	 * Create a new DiceClient.
 	 * @param clientOptions Discord.js client options passed in by Kurasuta
 	 */
-	constructor(clientOptions: ClientOptions) {
+	constructor(clientOptions: ClientOptions = {}) {
 		super(
 			{
 				ownerID: owners
