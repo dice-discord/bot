@@ -14,7 +14,7 @@ jobs:
       - name: Setup Node.js for use with Actions
         uses: actions/setup-node@v1
         with:
-          node-version: '13.13.0'
+          node-version: '12.16.3'
       - name: Install Yarn
         run: curl -o- -L https://yarnpkg.com/install.sh | bash
       - name: Get yarn cache
@@ -49,7 +49,7 @@ jobs:
       - name: Setup Node.js for use with Actions
         uses: actions/setup-node@v1
         with:
-          node-version: '13.13.0'
+          node-version: '12.16.3'
       - name: Install Yarn
         run: curl -o- -L https://yarnpkg.com/install.sh | bash
       - name: Get yarn cache
@@ -91,7 +91,7 @@ jobs:
       - name: Setup Node.js for use with Actions
         uses: actions/setup-node@v1
         with:
-          node-version: '13.13.0'
+          node-version: '12.16.3'
       - name: Install Yarn
         run: curl -o- -L https://yarnpkg.com/install.sh | bash
       - name: Get yarn cache
@@ -121,7 +121,7 @@ jobs:
       - name: Setup Node.js for use with Actions
         uses: actions/setup-node@v1
         with:
-          node-version: '13.13.0'
+          node-version: '12.16.3'
       - name: Install Yarn
         run: curl -o- -L https://yarnpkg.com/install.sh | bash
       - name: Get yarn cache
@@ -157,7 +157,7 @@ jobs:
       - name: Setup Node.js for use with Actions
         uses: actions/setup-node@v1
         with:
-          node-version: '13.13.0'
+          node-version: '12.16.3'
       - name: Install Yarn
         run: curl -o- -L https://yarnpkg.com/install.sh | bash
       - name: Get yarn cache
