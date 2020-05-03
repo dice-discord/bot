@@ -85,3 +85,12 @@ export const maxEmbedFields = 25;
 
 /** Port to listen for top.gg webhooks on. */
 export const topGGWebhookPort = 5000;
+
+/**
+ * Exit codes used for the process.
+ */
+export const enum ExitCodes {
+	Success,
+	Error,
+	LoginError
+}

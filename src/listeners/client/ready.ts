@@ -5,6 +5,7 @@ import {MessageEmbed, WebhookClient} from 'discord.js';
 import {code} from 'discord-md-tags';
 import * as pkg from '../../../package.json';
 import {captureException} from '@sentry/node';
+import {ExitCodes} from '../../constants';
 
 const embed = new MessageEmbed({
 	title: 'Ready',
@@ -68,8 +69,8 @@ export default class ReadyListener extends DiceListener {
 
 		if (runningInCI) {
 			this.logger.complete('CI environment detected, gracefully exiting as part of test');
-			this.logger.info('This behavior is triggered because the CI environment variable was defined');
-			return process.exit(0);
+			this.logger.info('This behavior is triggered because the `CI` environment variable was defined');
+			return process.exit(ExitCodes.Success);
 		}
 	}
 }
