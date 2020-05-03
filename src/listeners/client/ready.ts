@@ -1,6 +1,6 @@
 import {baseLogger} from '../../util/logger';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
-import {runningInProduction, readyWebhook} from '../../config';
+import {runningInProduction, readyWebhook, runningInCI} from '../../config';
 import {MessageEmbed, WebhookClient} from 'discord.js';
 import {code} from 'discord-md-tags';
 import * as pkg from '../../../package.json';
@@ -64,6 +64,12 @@ export default class ReadyListener extends DiceListener {
 			}
 		}
 
-		return this.logger.start('Ready');
+		this.logger.start('Ready');
+
+		if (runningInCI) {
+			this.logger.complete('CI environment detected, gracefully exiting as part of test');
+			this.logger.info('This behavior is triggered because the CI environment variable was defined');
+			return process.exit(0);
+		}
 	}
 }

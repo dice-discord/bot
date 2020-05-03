@@ -149,7 +149,7 @@ jobs:
     # `semantic-release` will do this automatically, but this saves us the time of building the image prior to that
     if: ${{ github.ref  == 'refs/heads/master' }}
 
-    needs: [build, lint, lint-dockerfile]
+    needs: [build, lint, lint-dockerfile, e2e-test]
 
     steps:
       - name: Checkout git repository
@@ -186,3 +186,39 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+  e2e-test:
+    name: E2E test
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 6
+
+    if: ${{ github.ref  == 'refs/heads/master' }}
+
+    steps:
+      - name: Checkout git repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js for use with Actions
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.16.3'
+      - name: Install Yarn
+        run: curl -o- -L https://yarnpkg.com/install.sh | bash
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies with Yarn
+        run: yarn install
+        env:
+          POSTGRES_URI: ${{ secrets.POSTGRES_URI }}
+      - name: Compile TypeScript
+        run: yarn run build
+      - name: Start lite client
+        run: node tsc_output/src/lite.js
