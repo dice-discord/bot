@@ -206,15 +206,6 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@eclass/semantic-release-sentry-releases@2.3.3":
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.3.3.tgz#4a9a24e9beb8fda635fa75eaee05b756f5bfdaa2"
-  integrity sha512-QcfHEOPoo94urdmRgcjaxqlwE0928sJn6+s1sfKCPOb+68vJgRcjzDNccfy5SJaB2Z1EjyVzYCjQFTdOVwXjew==
-  dependencies:
-    "@semantic-release/error" "^2.1.0"
-    "@sentry/cli" "1.52.3"
-    aggregate-error "^3.0.1"
-
 "@iarna/cli@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@iarna/cli/-/cli-1.2.0.tgz#0f7af5e851afe895104583c4ca07377a8094d641"
@@ -476,17 +467,6 @@
     "@sentry/types" "5.15.5"
     "@sentry/utils" "5.15.5"
     tslib "^1.9.3"
-
-"@sentry/cli@1.52.3":
-  version "1.52.3"
-  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.52.3.tgz#270ed167c7dae2f85eb4622ad3a4ec12ab67e6d2"
-  integrity sha512-QOSIg5hxAEa6v6H7oEeF6A/Rpa0wloMhbu0Qed6zHv3lyoqf0Z34Kq2jCXdqGsOE3IzkO+3CNy81F6361j5TKg==
-  dependencies:
-    https-proxy-agent "^5.0.0"
-    mkdirp "^0.5.5"
-    node-fetch "^2.6.0"
-    progress "^2.0.3"
-    proxy-from-env "^1.1.0"
 
 "@sentry/core@5.15.5":
   version "5.15.5"
@@ -820,7 +800,7 @@ agentkeepalive@^3.4.1:
   dependencies:
     humanize-ms "^1.2.1"
 
-aggregate-error@^3.0.0, aggregate-error@^3.0.1:
+aggregate-error@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/aggregate-error/-/aggregate-error-3.0.1.tgz#db2fe7246e536f40d9b5442a39e117d7dd6a24e0"
   integrity sha512-quoaXsZ9/BLNae5yiNoUz+Nhkwz83GhWwtYFglcjEQB2NDHCIpApbqXxIFnm4Pq/Nvhrsq5sYJFyohrrxnTGAA==
@@ -5202,7 +5182,7 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
-mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.4, mkdirp@^0.5.5, mkdirp@~0.5.0:
+mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.4, mkdirp@~0.5.0:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.5.tgz#d91cefd62d1436ca0f41620e251288d420099def"
   integrity sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
@@ -6313,7 +6293,7 @@ process@^0.11.10:
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
 
-progress@^2.0.0, progress@^2.0.3:
+progress@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
@@ -6354,11 +6334,6 @@ protoduck@^5.0.1:
   integrity sha512-WxoCeDCoCBY55BMvj4cAEjdVUFGRWed9ZxPlqTKYyw1nDDTQ4pqmnIMAGfJlg7Dx35uB/M+PHJPTmGOvaCaPTg==
   dependencies:
     genfun "^5.0.0"
-
-proxy-from-env@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
-  integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
 
 prr@~1.0.1:
   version "1.0.1"

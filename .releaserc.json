@@ -15,14 +15,6 @@
 		"@semantic-release/release-notes-generator",
 		"@semantic-release/github",
 		[
-			"@eclass/semantic-release-sentry-releases",
-			{
-				"org": "dice",
-				"project": "bot",
-				"repositoryUrl": "https://github.com/dice-discord/bot"
-			}
-		],
-		[
 			"semantic-release-docker",
 			{
 				"name": "dicediscord/bot"

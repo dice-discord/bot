@@ -30,7 +30,6 @@
 		"signale": "1.4.0"
 	},
 	"devDependencies": {
-		"@eclass/semantic-release-sentry-releases": "2.3.3",
 		"@prisma/cli": "2.0.0-beta.4",
 		"@types/cron": "1.7.2",
 		"@types/mongodb": "3.5.14",
