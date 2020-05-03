@@ -11,6 +11,7 @@ client.init().catch(error => {
 	logger.fatal('Failed to initialize client', error);
 
 	if (runningInCI) {
+		// eslint-disable-next-line unicorn/no-process-exit
 		process.exit(ExitCodes.Error);
 	}
 });
@@ -18,6 +19,7 @@ client.login(discordToken).catch(error => {
 	logger.fatal('Failed to login client', error);
 
 	if (runningInCI) {
+		// eslint-disable-next-line unicorn/no-process-exit
 		process.exit(ExitCodes.LoginError);
 	}
 });
