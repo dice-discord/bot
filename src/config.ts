@@ -15,21 +15,6 @@ export const owners: Snowflake[] = [Admins.PizzaFox, Admins.Chronomly, Admins.Ok
 /** Discord bot token. */
 export const discordToken = process.env.DISCORD_TOKEN;
 
-// Discord tokens are separated by `.`s into 3 base64-encoded parts.
-// 1. Bot ID
-// 2. Token creation time
-// 3. HMAC
-// Parts 2 and 3 are sensitive information
-const disassembledToken = discordToken?.split('.') ?? [];
-
-/** An array of sensitive strings (ex. API keys) that shouldn't be shown in logs or in messages. */
-export const secrets: string[] = [];
-
-// Only mark the secret parts of a Discord token as secrets
-if (disassembledToken.length === 3) {
-	secrets.push(disassembledToken[1], disassembledToken[2]);
-}
-
 /**
  * The default prefix to use for commands.
  */
@@ -57,3 +42,27 @@ export const readyWebhook: Partial<WebhookConfig> = {
 
 /** Plaintext password used for veryifying request authenticity from top.gg. */
 export const topGGWebhookPassword = process.env.TOP_GG_WEBHOOK_PASSWORD;
+
+// Discord tokens are separated by `.`s into 3 base64-encoded parts.
+// 1. Bot ID
+// 2. Token creation time
+// 3. HMAC
+// Parts 2 and 3 are sensitive information
+const disassembledToken = discordToken?.split('.') ?? [];
+
+/** An array of sensitive strings (ex. API keys) that shouldn't be shown in logs or in messages. */
+export const secrets: string[] = [];
+
+// Only mark the secret parts of a Discord token as secrets
+if (disassembledToken.length === 3) {
+	secrets.push(disassembledToken[1], disassembledToken[2]);
+}
+
+/** The PostgreSQL database URI in a URL object, if it's present in the environment. */
+export const postgresURI = process.env.POSTGRES_URI ? new URL(process.env.POSTGRES_URI) : undefined;
+
+[discoin.token, topGGWebhookPassword, sentryDSN, postgresURI?.password].forEach(secret => {
+	if (secret) {
+		secrets.push(secret);
+	}
+});
