@@ -5,18 +5,17 @@ import {init as initSentry} from '@sentry/node';
 import {CronJob} from 'cron';
 import {formatDistanceToNow} from 'date-fns';
 import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
-import {Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
+import {ClientOptions, Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
 import {join} from 'path';
+import * as pkg from '../../package.json';
 import {defaultPrefix, discoin, owners, runningInProduction, sentryDSN} from '../config';
-import {commandArgumentPrompts, Notifications, defaults, topGGWebhookPort} from '../constants';
+import {commandArgumentPrompts, defaults, Notifications, topGGWebhookPort} from '../constants';
 import {simpleFormat} from '../util/format';
 import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
-import * as pkg from '../../package.json';
-import {TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents, TopGGVote} from './TopGgVoteWebhookHandler';
-import {ClientOptions} from 'discord.js';
+import {TopGGVote, TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents} from './TopGgVoteWebhookHandler';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
