@@ -38,6 +38,9 @@ const handleVoteLogger = baseLogger.scope('top.gg vote handler');
 /** The maximum number of guild settings to cache at once. */
 const maxGuildSettingsCache = 1500;
 
+/**
+ * An extended Akairo client with several additions.
+ */
 export class DiceClient extends AkairoClient {
 	prisma = new PrismaClient();
 	topGG: TopGGVoteWebhookHandler;
