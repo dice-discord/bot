@@ -222,3 +222,7 @@ jobs:
         run: yarn run build
       - name: Start lite client
         run: node tsc_output/src/lite.js
+        env:
+          POSTGRES_URI: ${{ secrets.POSTGRES_URI }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          NODE_ENV: development
