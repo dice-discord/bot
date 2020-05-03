@@ -70,6 +70,7 @@ export default class ReadyListener extends DiceListener {
 		if (runningInCI) {
 			this.logger.complete('CI environment detected, gracefully exiting as part of test');
 			this.logger.info('This behavior is triggered because the `CI` environment variable was defined');
+			// eslint-disable-next-line unicorn/no-process-exit
 			return process.exit(ExitCodes.Success);
 		}
 	}
