@@ -16,6 +16,7 @@ import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirt
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents} from './TopGgVoteWebhookHandler';
+import {bold} from 'discord-md-tags';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -273,8 +274,8 @@ export class DiceClient extends AkairoClient {
 			await user.send(
 				[
 					'Thank you for voting on top.gg',
-					`You have been given ${reward.toLocaleString()} oats as a reward`,
-					`Your updated balance is ${updatedBalance.toLocaleString()}`
+					`You have been given ${bold`${reward.toLocaleString()}`} oats as a reward`,
+					`Your updated balance is ${bold`${updatedBalance.toLocaleString()}`}`
 				].join('\n')
 			);
 		} catch (error) {
