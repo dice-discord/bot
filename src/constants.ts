@@ -1,11 +1,7 @@
 /** Utility structure to organize admin user IDs. */
 export enum Admins {
 	/** `PizzaFox#0075` on Discord. */
-	PizzaFox = '210024244766179329',
-	/** `Chronomly#8108` on Discord. */
-	Chronomly = '251383432331001856',
-	/** `okthx#0581` on Discord. */
-	Okthx = '208970190547976202'
+	PizzaFox = '210024244766179329'
 }
 
 /** Colors in numberic format, mostly for use in message embeds. */

@@ -13,7 +13,7 @@ export const runningInProduction = process.env.NODE_ENV === 'production';
 export const runningInCI = process.env.CI !== undefined;
 
 /** Array of Discord user IDs for owners of the bot. */
-export const owners: Snowflake[] = [Admins.PizzaFox, Admins.Chronomly, Admins.Okthx];
+export const owners: Snowflake[] = [Admins.PizzaFox];
 
 /** Discord bot token. */
 export const discordToken = process.env.DISCORD_TOKEN;
