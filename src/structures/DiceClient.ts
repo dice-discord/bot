@@ -232,7 +232,7 @@ export class DiceClient extends AkairoClient {
 
 		const discordUser = await this.users.fetch(transaction.user);
 
-		const dashboardLink = `https://dash.discoin.zws.im/#/transactions/${transaction.id}/show`
+		const dashboardLink = `https://dash.discoin.zws.im/#/transactions/${transaction.id}/show`;
 
 		return discordUser.send(
 			new MessageEmbed({
