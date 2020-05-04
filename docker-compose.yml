@@ -29,7 +29,7 @@ services:
     image: postgres:12.2-alpine
     restart: unless-stopped
     volumes:
-      - dice-postgres-storage
+      - dice-postgres-storage:/var/lib/postgresql/data
     networks:
       - backend
     env_file: postgres.env
