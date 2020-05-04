@@ -60,11 +60,11 @@ export class TopGGVoteWebhookHandler extends EventEmitter {
 			this.logger.warn('Client object that was provided to config does not have a `user` property');
 		}
 
-		this.server = serve(this.handle);
+		this.server = serve((request: IncomingMessage, response: ServerResponse) => this.handle(request, response));
 	}
 
 	/** Handle a request. */
-	private async handle(request: IncomingMessage, response: ServerResponse): Promise<void> {
+	async handle(request: IncomingMessage, response: ServerResponse): Promise<void> {
 		if (!this._config.client.user) {
 			throw new TypeError('Client object that was provided to config does not have a `user` property');
 		}
