@@ -17,7 +17,7 @@ interface TopGGVoteWebhook {
 	bot: Snowflake;
 	/** ID of the user who voted. */
 	user: Snowflake;
-	/** The type of the vote (should always be `upvote` except when using the test button it's "test`). */
+	/** The type of the vote (should always be `upvote` except when using the test button it's `test`). */
 	type: EventType;
 	/** Whether the weekend multiplier is in effect, meaning users votes count as two. */
 	isWeekend: boolean;
