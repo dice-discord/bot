@@ -14,6 +14,13 @@
 		],
 		"@semantic-release/release-notes-generator",
 		"@semantic-release/github",
+		["@semantic-release/exec", {"prepareCmd": "docker pull dicediscord/bot"}],
+		[
+			"@semantic-release/exec",
+			{
+				"prepareCmd": "docker build -t dicediscord/bot ."
+			}
+		],
 		[
 			"semantic-release-docker",
 			{
