@@ -267,8 +267,9 @@ export class DiceClient extends AkairoClient {
 	async handleVote(vote: TopGGVote): Promise<number> {
 		const voter = new DiceUser(vote.user, this);
 
-		const reward = vote.weekend ? defaults.vote.weekend : defaults.vote.base;
+		const reward = defaults.vote[vote.weekend ? 'weekend' : 'base'];
 		const updatedBalance = await voter.incrementBalance(reward);
+
 		try {
 			const user = await this.users.fetch(vote.user);
 			await user.send(
