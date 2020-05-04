@@ -60,7 +60,7 @@ export class TopGGVoteWebhookHandler extends EventEmitter {
 			this.logger.warn('Client object that was provided to config does not have a `user` property');
 		}
 
-		this.server = serve((request: IncomingMessage, response: ServerResponse) => this.handle(request, response));
+		this.server = serve(async (request: IncomingMessage, response: ServerResponse) => this.handle(request, response));
 	}
 
 	/** Handle a request. */
