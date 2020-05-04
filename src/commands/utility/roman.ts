@@ -89,7 +89,7 @@ export default class RomanCommand extends DiceCommand {
 	public static decimalToRoman(number: number): string | RomanNumeralCharacter {
 		if (number % 1 !== 0) {
 			throw new RangeError('Invalid decimal number provided, expected integer');
-		} else if (number <= 1) {
+		} else if (number < 1) {
 			throw new RangeError('Invalid decimal number provided, expected integer above 0');
 		}
 
