@@ -19,7 +19,6 @@ const conversion: Record<RomanNumeralCharacter, number> = {
 
 // TODO: Remove the double character values (ex. `XC`) and rewrite the algorithm to properly output them
 /** Roman numeral conversion table with helper values (ex. `IV = 4`) */
-
 const unsortedExtraConversion: Record<ExtraRomanNumeralCharacter, number> = {...conversion, CM: 900, CD: 400, XC: 90, XL: 40, IX: 9, IV: 4};
 
 // This sorts by value descending to counteract the spread operator ruining the order of elements from above
