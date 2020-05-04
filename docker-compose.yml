@@ -87,7 +87,7 @@ services:
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     command:
-      ['--api.insecure=false', '--api.dashboard=true', '--providers.docker=true', '--providers.docker.exposedbydefault=false', '--entrypoints.web.address=:80']
+      ['--api.insecure=true', '--api.dashboard=true', '--providers.docker=true', '--providers.docker.exposedbydefault=false', '--entrypoints.web.address=:80']
     networks:
       - frontend
       - backend
