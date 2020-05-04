@@ -5,20 +5,29 @@ export default class SpoilerCommand extends DiceCommand {
 	constructor() {
 		super('spoiler', {
 			aliases: ['spoilerify'],
-			description: {content: 'Make every character in a text a ||spoiler||.'},
+			description: {
+				content: 'Make every character in a text a ||spoiler||.',
+				examples: ['hello', 'hello --codeblock', 'hello -c', 'hello'],
+				usage: '<content> [--codeblock]'
+			},
 			category: DiceCommandCategories.Fun,
 			args: [
 				{
 					id: 'content',
-					match: 'content',
+					match: 'rest',
 					type: ArgumentType.String,
 					prompt: {start: 'What do you want to turn into a spoiler?'}
+				},
+				{
+					id: 'codeblock',
+					match: 'flag',
+					flag: ['--codeblock', '-c']
 				}
 			]
 		});
 	}
 
-	async exec(message: Message, {content}: {content: string}): Promise<Message | undefined> {
+	async exec(message: Message, {content, codeblock}: {content: string; codeblock: boolean}): Promise<Message | undefined> {
 		return message.util?.send(
 			Util.cleanContent(
 				Util.escapeSpoiler(content)
@@ -26,7 +35,8 @@ export default class SpoilerCommand extends DiceCommand {
 					.map(char => `||${char}||`)
 					.join(''),
 				message
-			)
+			),
+			{code: codeblock ? 'markdown' : false}
 		);
 	}
 }
