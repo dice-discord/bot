@@ -15,14 +15,21 @@ export default class DevHelpCommand extends DiceCommand {
 	async exec(message: Message): Promise<Message | undefined> {
 		const {shard} = this.client;
 
+		/** This shard's ID. This is a mostly meaningless number since Kurasuta has no real concept of shards, only the clusters that manage them. */
 		const shardID = message.guild ? findShardIDByGuildID(message.guild.id, shard?.shardCount) : 0;
+		/** This cluster's ID. */
+		const clusterID = Number(process.env.CLUSTER_ID ?? 0);
+		/** The total number of clusters. */
+		const clusterCount = shard?.clusterCount ?? 0;
+		/** The shards this cluster is responsible for managing. */
+		const responsibleShards = process.env.CLUSTER_SHARDS?.split(',').join(', ') ?? shardID;
 
 		return message.util?.send(
 			new MessageEmbed({
 				fields: [
 					{
 						name: 'Shard',
-						value: `${shardID}/${shard?.shardCount ?? 0} (cluster ${Number(process.env.CLUSTER_ID ?? 0)}/${shard?.clusterCount ?? 0})`
+						value: `${shardID}/${shard?.shardCount ?? 0} (cluster ${clusterID}/${clusterCount}, handling ${responsibleShards})`
 					},
 					{
 						name: 'IDs',
