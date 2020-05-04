@@ -38,11 +38,11 @@ export default class ReadyListener extends DiceListener {
 		});
 
 		if (!this.scopedWithClusterID && this.client.shard?.id !== undefined) {
-			this.logger = baseLogger.scope('client', `cluster ${this.client.shard?.id}`);
+			this.logger = baseLogger.scope('client', `cluster ${this.client.shard.id}`);
 			this.scopedWithClusterID = true;
 		}
 
-		if (runningInProduction) {
+		if (runningInProduction && this.client.shard?.id === 0) {
 			if (readyWebhook.id !== undefined && readyWebhook.token !== undefined) {
 				const webhookClient = new WebhookClient(readyWebhook.id, readyWebhook.token);
 
