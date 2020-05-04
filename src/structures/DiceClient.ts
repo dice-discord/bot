@@ -9,7 +9,7 @@ import {ClientOptions, Message, MessageEmbed, Snowflake, TextChannel} from 'disc
 import {join} from 'path';
 import * as pkg from '../../package.json';
 import {defaultPrefix, discoin, owners, runningInProduction, sentryDSN} from '../config';
-import {commandArgumentPrompts, defaults, Notifications, topGGWebhookPort} from '../constants';
+import {commandArgumentPrompts, defaults, Notifications, topGGWebhookPort, presence} from '../constants';
 import {simpleFormat} from '../util/format';
 import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
@@ -61,6 +61,7 @@ export class DiceClient extends AkairoClient {
 			{
 				disableMentions: 'everyone',
 				messageCacheMaxSize: 1000,
+				presence,
 				...clientOptions
 			}
 		);

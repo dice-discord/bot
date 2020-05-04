@@ -1,3 +1,5 @@
+import {PresenceData} from 'discord.js';
+
 /** Utility structure to organize admin user IDs. */
 export enum Admins {
 	/** `PizzaFox#0075` on Discord. */
@@ -90,3 +92,6 @@ export const enum ExitCodes {
 	Error,
 	LoginError
 }
+
+/** Presence data to use with the client on login. */
+export const presence: PresenceData = {activity: {name: 'for @Dice help', type: 'WATCHING'}};
