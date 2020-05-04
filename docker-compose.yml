@@ -63,7 +63,7 @@ services:
       - 'traefik.enable=true'
       - 'traefik.http.routers.grafana.rule=Path(`/grafana`) || PathPrefix(`/grafana/`)'
       - 'traefik.http.routers.grafana.entrypoints=web'
-      - 'traefik.http.middlewares.grafana-compress.compress=true'
+      - 'traefik.http.middlewares.grafana_compress.compress=true'
       - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
   # InfluxDB time-series database
   influxdb:
