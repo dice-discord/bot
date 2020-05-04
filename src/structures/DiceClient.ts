@@ -232,10 +232,12 @@ export class DiceClient extends AkairoClient {
 
 		const discordUser = await this.users.fetch(transaction.user);
 
+		const dashboardLink = `https://dash.discoin.zws.im/#/transactions/${transaction.id}/show`
+
 		return discordUser.send(
 			new MessageEmbed({
 				title: 'Discoin Conversion Received',
-				url: `https://dash.discoin.zws.im/#/transactions/${transaction.id}`,
+				url: dashboardLink,
 				timestamp: transaction.timestamp,
 				footer: {text: `Took ${formatDistanceToNow(transaction.timestamp, {includeSeconds: true})} to process this transaction`},
 				thumbnail: {
@@ -249,7 +251,7 @@ export class DiceClient extends AkairoClient {
 					},
 					{
 						name: 'Transaction ID',
-						value: `[\`${transaction.id}\`](https://dash.discoin.zws.im/#/transactions/${transaction.id})`
+						value: `[\`${transaction.id}\`](${dashboardLink})`
 					}
 				]
 			})
