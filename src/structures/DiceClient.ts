@@ -13,6 +13,7 @@ import {defaultPrefix, discoin, owners, runningInProduction, sentryDSN} from '..
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
 import {simpleFormat} from '../util/format';
+import {RewriteFrames} from '@sentry/integrations';
 import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
 import {DiceUser} from './DiceUser';
@@ -68,7 +69,13 @@ export class DiceClient extends AkairoClient {
 		);
 
 		if (sentryDSN) {
-			initSentry({dsn: sentryDSN, debug: !runningInProduction, environment: runningInProduction ? 'production' : 'development', release: `bot-${pkg.version}`});
+			initSentry({
+				dsn: sentryDSN,
+				debug: !runningInProduction,
+				environment: runningInProduction ? 'production' : 'development',
+				release: `bot-${pkg.version}`,
+				integrations: [new RewriteFrames({root: global.__rootdir__})]
+			});
 		}
 
 		if (typeof discoin.token === 'string') {
