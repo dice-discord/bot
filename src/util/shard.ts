@@ -13,7 +13,8 @@ import {ShardClientUtil} from 'kurasuta';
 export function findShardIDByGuildID(guildID: Snowflake, shardCount: bigint): number {
 	const calculated = (BigInt(guildID) >> BigInt(22)) % shardCount;
 
-	if (calculated <= 0 && calculated < shardCount) {
+	// `calculated` should fit within [0, shardCount)
+	if (calculated < 0 && calculated < shardCount) {
 		return Number(calculated);
 	}
 
