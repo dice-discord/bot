@@ -4,11 +4,11 @@ import {ShardClientUtil} from 'kurasuta';
 /**
  * Find the shard ID that is handling a guild by the guild ID.
  * Uses the formula provided by Discord.
- * @param shardCount The total number of shards running (default 1)
  * @param guildID The string form of the guild ID
+ * @param shardCount The total number of shards running
  * @returns The shard ID responsible for the provided guild ID
- * @example findShardIDByGuildID(6, '388366947689168897');
- * @see https://discordapp.com/developers/docs/topics/gateway#sharding-sharding-formula Formula for determining shard ID
+ * @example findShardIDByGuildID('388366947689168897', 6);
+ * @see https://discord.com/developers/docs/topics/gateway#sharding-sharding-formula Formula for determining shard ID
  */
 export function findShardIDByGuildID(guildID: Snowflake, shardCount: number): number {
 	for (let shard = 0; shard < shardCount; shard++) {
@@ -19,7 +19,7 @@ export function findShardIDByGuildID(guildID: Snowflake, shardCount: number): nu
 		}
 	}
 
-	throw new Error('Shard count is incorrect or bot is not on this guild');
+	throw new Error(`Shard count is incorrect or bot is not on the guild ${guildID}`);
 }
 
 const responsibleShards = process.env.CLUSTER_SHARDS?.split(',').map(shard => Number.parseInt(shard, 10));
