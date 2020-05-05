@@ -315,7 +315,7 @@ export class DiceClient extends AkairoClient {
 			(count, id) => {
 				const shard = findShardIDByGuildID(id);
 
-				count[shard] = count[shard] + 1;
+				count[shard]++;
 				return count;
 			},
 			[0]

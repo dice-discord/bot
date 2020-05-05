@@ -1,9 +1,8 @@
+import {captureException} from '@sentry/node';
 import {Argument} from 'discord-akairo';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
-import {sentryDSN} from '../../config';
-import {captureException} from '@sentry/node';
 
 export interface GetTagCommandArgs {
 	id: string;

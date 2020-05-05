@@ -16,18 +16,18 @@ type UserTypeResolver = (message: Message, phrase: string) => User | undefined;
 export async function resolver(message: Message, phrase: string | null): Promise<User | null> {
 	if (phrase === null) {
 		return null;
-	} else {
-		const client = <DiceClient>message.client;
-		const userTypeResolver: UserTypeResolver = client.commandHandler.resolver.type(AkairoArgumentType.User);
-
-		const resolved = userTypeResolver(message, phrase);
-
-		if (resolved) {
-			return resolved;
-		}
-
-		const fetched: User | null = await client.users.fetch(phrase);
-
-		return fetched ?? resolved;
 	}
+
+	const client = message.client as DiceClient;
+	const userTypeResolver: UserTypeResolver = client.commandHandler.resolver.type(AkairoArgumentType.User);
+
+	const resolved = userTypeResolver(message, phrase);
+
+	if (resolved) {
+		return resolved;
+	}
+
+	const fetched: User | null = await client.users.fetch(phrase);
+
+	return fetched ?? resolved;
 }

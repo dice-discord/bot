@@ -35,4 +35,4 @@ export function getClusterCount(shard: ShardClientUtil): number {
 }
 
 /** This cluster's ID. */
-export const clusterID = process.env.CLUSTER_ID === undefined ? 0 : parseInt(process.env.CLUSTER_ID, 10);
+export const clusterID = process.env.CLUSTER_ID === undefined ? 0 : Number.parseInt(process.env.CLUSTER_ID, 10);
