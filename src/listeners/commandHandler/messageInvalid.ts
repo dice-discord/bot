@@ -12,16 +12,21 @@ export default class MessageInvalidListener extends DiceListener {
 	}
 
 	public async exec(message: Message): Promise<void> {
-		if (message.guild && message.util?.parsed?.prefix) {
-			if (!message.util?.parsed?.alias || !message.util?.parsed?.afterPrefix) {
-				return;
-			}
+		// Someone attempted to run a regular command but it didn't exist
 
-			const command = this.client.commandHandler.modules.get('get-tag')!;
-			return this.client.commandHandler.runCommand(message, command, {
-				noError: true,
-				...(await command.parse(message, message.util?.parsed?.afterPrefix))
-			} as GetTagCommandArgs);
+		if (message.guild && typeof message.util?.parsed?.prefix === 'string' && message.util?.parsed?.prefix !== `<@!${message.client.user!.id}>`) {
+			// They are on a guild and specified a prefix that wasn't an @mention @$$evaluate message.util.parsed.alias
+
+			if (typeof message.util?.parsed?.afterPrefix === 'string') {
+				// The command had something after the prefix (ex. `$$this-is-afterPrefix`)
+
+				const command = this.client.commandHandler.modules.get('get-tag')!;
+
+				return this.client.commandHandler.runCommand(message, command, {
+					noError: true,
+					...(await command.parse(message, message.util?.parsed?.afterPrefix))
+				} as GetTagCommandArgs);
+			}
 		}
 	}
 }
