@@ -1,5 +1,6 @@
 import {Message, User} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {typeName as anyUser} from '../../types/anyUser';
 
 export default class GenerateTokenCommand extends DiceCommand {
 	constructor() {
@@ -14,7 +15,7 @@ export default class GenerateTokenCommand extends DiceCommand {
 			args: [
 				{
 					id: 'user',
-					type: ArgumentType.User,
+					type: anyUser,
 					match: 'content',
 					prompt: {start: 'Whose token would you like to generate?', retry: 'Invalid user, please try again'}
 				}

@@ -1,5 +1,5 @@
 import {Message, Permissions, MessageEmbed} from 'discord.js';
-import {DiceCommand, DiceCommandCategories, ArgumentType} from '../../structures/DiceCommand';
+import {DiceCommand, DiceCommandCategories, AkairoArgumentType} from '../../structures/DiceCommand';
 import {Argument} from 'discord-akairo';
 import {truncateText} from '../../util/format';
 import got from 'got';
@@ -30,7 +30,7 @@ export default class XKCDCommand extends DiceCommand {
 			args: [
 				{
 					id: 'issue',
-					type: Argument.range(ArgumentType.Integer, 1, 5_000_000),
+					type: Argument.range(AkairoArgumentType.Integer, 1, 5_000_000),
 					match: 'content',
 					default: 'latest',
 					prompt: {optional: true, retry: 'Invalid issue number, please try again'}

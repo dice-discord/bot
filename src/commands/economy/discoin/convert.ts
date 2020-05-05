@@ -2,7 +2,7 @@ import Discoin from '@discoin/scambio';
 import {Transaction} from '@discoin/scambio/tsc_output/src/structures/transactions';
 import {Argument} from 'discord-akairo';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../../structures/DiceCommand';
 import {DiceUser} from '../../../structures/DiceUser';
 import {simpleFormat} from '../../../util/format';
 
@@ -21,7 +21,7 @@ export default class ConvertCommand extends DiceCommand {
 			args: [
 				{
 					id: 'amount',
-					type: Argument.range(ArgumentType.Number, range.min, range.max, true),
+					type: Argument.range(AkairoArgumentType.Number, range.min, range.max, true),
 					match: 'phrase',
 					prompt: {
 						start: 'How many oats do you want to convert to another Discoin currency?',
@@ -30,7 +30,7 @@ export default class ConvertCommand extends DiceCommand {
 				},
 				{
 					id: 'currency',
-					type: Argument.validate(ArgumentType.Uppercase, (message, phrase) => phrase.length === discoinCurrencyCodeLength),
+					type: Argument.validate(AkairoArgumentType.Uppercase, (message, phrase) => phrase.length === discoinCurrencyCodeLength),
 					match: 'rest',
 					prompt: {start: 'Which currency do you want to convert to?', retry: 'Invalid currency provided, please provide a 3 letter currency code'}
 				}

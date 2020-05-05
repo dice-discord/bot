@@ -1,6 +1,6 @@
 import {bold} from 'discord-md-tags';
 import {Message, Permissions, Role} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 
 export default class GetSelfRoleCommand extends DiceCommand {
@@ -14,7 +14,7 @@ export default class GetSelfRoleCommand extends DiceCommand {
 			args: [
 				{
 					id: 'role',
-					type: ArgumentType.Role,
+					type: AkairoArgumentType.Role,
 					prompt: {retry: 'Invalid role provided, please try again', start: 'What selfrole would you like to remove from yourself?'}
 				}
 			]

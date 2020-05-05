@@ -1,7 +1,7 @@
 import {Message, Permissions, Util} from 'discord.js';
 import {Argument} from 'discord-akairo';
 import {defaultPrefix} from '../../config';
-import {DiceCommand, DiceCommandCategories, ArgumentType} from '../../structures/DiceCommand';
+import {DiceCommand, DiceCommandCategories, AkairoArgumentType} from '../../structures/DiceCommand';
 import {captureException} from '@sentry/node';
 
 export default class PrefixCommand extends DiceCommand {
@@ -18,7 +18,7 @@ export default class PrefixCommand extends DiceCommand {
 				{
 					id: 'prefix',
 					match: 'text',
-					type: Argument.validate(ArgumentType.String, (message, phrase) => phrase.length <= 10),
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 10),
 					// An Akairo bug will display the `otherwise` message every time if prefix arg is not provided
 					// https://discordapp.com/channels/305153029567676426/387777801412935691/677012630531080192
 					// otherwise: 'The provided prefix was too long',

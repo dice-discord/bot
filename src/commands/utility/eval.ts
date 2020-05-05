@@ -1,6 +1,6 @@
 import * as util from 'util';
 import {Message, Util} from 'discord.js';
-import {DiceCommand, DiceCommandCategories, ArgumentType} from '../../structures/DiceCommand';
+import {DiceCommand, DiceCommandCategories, AkairoArgumentType} from '../../structures/DiceCommand';
 import {secrets} from '../../config';
 import ms = require('pretty-ms');
 import {italic, codeblock} from 'discord-md-tags';
@@ -33,7 +33,7 @@ export default class EvalCommand extends DiceCommand {
 				{
 					id: 'script',
 					match: 'content',
-					type: ArgumentType.String
+					type: AkairoArgumentType.String
 				}
 			]
 		});

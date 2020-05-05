@@ -1,7 +1,7 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, Permissions} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 
 export default class EditTagCommand extends DiceCommand {
@@ -28,7 +28,7 @@ export default class EditTagCommand extends DiceCommand {
 			args: [
 				{
 					id: 'id',
-					type: Argument.validate(ArgumentType.String, (message, phrase) => phrase.length <= 50),
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 50),
 					prompt: {start: 'Which tag do you want to edit?', retry: 'Invalid ID provided, please provide an ID that’s less than 50 characters'},
 					match: 'phrase'
 				},
@@ -36,7 +36,7 @@ export default class EditTagCommand extends DiceCommand {
 					id: 'content',
 					match: 'rest',
 					prompt: {start: 'What content should the updated tag have?', retry: 'Please keep your tag content below 1,800 characters'},
-					type: Argument.validate(ArgumentType.String, (message, phrase) => phrase.length <= 1800)
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 1800)
 				}
 			]
 		});

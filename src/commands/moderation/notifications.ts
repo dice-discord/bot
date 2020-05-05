@@ -2,7 +2,7 @@ import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, MessageEmbed, Permissions, TextChannel, Snowflake} from 'discord.js';
 import {notifications as globalNotifications, Notifications} from '../../constants';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 
 const notificationIDs = Object.keys(globalNotifications) as Notifications[];
@@ -23,7 +23,7 @@ export default class NotificationsCommand extends DiceCommand {
 			args: [
 				{
 					id: 'notification',
-					type: Argument.range(ArgumentType.Integer, 1, notificationIDs.length, true),
+					type: Argument.range(AkairoArgumentType.Integer, 1, notificationIDs.length, true),
 					match: 'content',
 					prompt: {
 						optional: true,

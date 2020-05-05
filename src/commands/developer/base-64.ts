@@ -1,5 +1,5 @@
 import {Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
 export default class Base64Command extends DiceCommand {
 	constructor() {
@@ -14,7 +14,7 @@ export default class Base64Command extends DiceCommand {
 			args: [
 				{
 					id: 'content',
-					type: ArgumentType.String,
+					type: AkairoArgumentType.String,
 					match: 'rest',
 					prompt: {start: 'What text would you like to decode or encode?'}
 				},

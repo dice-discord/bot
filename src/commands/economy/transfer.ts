@@ -1,9 +1,10 @@
 import {Argument} from 'discord-akairo';
-import {Message, User, Util} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {simpleFormat} from '../../util/format';
 import {bold} from 'discord-md-tags';
+import {Message, User, Util} from 'discord.js';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
+import {typeName as anyUser} from '../../types/anyUser';
+import {simpleFormat} from '../../util/format';
 
 export default class TransferCommand extends DiceCommand {
 	constructor() {
@@ -18,7 +19,7 @@ export default class TransferCommand extends DiceCommand {
 			args: [
 				{
 					id: 'user',
-					type: ArgumentType.User,
+					type: anyUser,
 					match: 'rest',
 					prompt: {start: 'Who would you like to transfer oats to?', retry: 'Invalid user, please try again'},
 					unordered: true
@@ -26,7 +27,7 @@ export default class TransferCommand extends DiceCommand {
 				{
 					id: 'amount',
 					match: 'phrase',
-					type: Argument.range(ArgumentType.Number, 1, Number.MAX_SAFE_INTEGER),
+					type: Argument.range(AkairoArgumentType.Number, 1, Number.MAX_SAFE_INTEGER),
 					prompt: {start: 'How many oats would you like to transfer?', retry: 'Invalid amount, please try again'},
 					unordered: true
 				}

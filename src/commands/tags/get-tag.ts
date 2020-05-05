@@ -1,7 +1,9 @@
 import {Argument} from 'discord-akairo';
 import {Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
+import {sentryDSN} from '../../config';
+import {captureException} from '@sentry/node';
 
 export interface GetTagCommandArgs {
 	id: string;
@@ -22,7 +24,7 @@ export default class GetTagCommand extends DiceCommand {
 			args: [
 				{
 					id: 'id',
-					type: Argument.validate(ArgumentType.String, (message, phrase) => phrase.length <= 50),
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 50),
 					prompt: {start: 'What is the ID of the tag you want to get?', retry: 'Invalid ID provided, please provide an ID that’s less than 50 characters'},
 					match: 'content'
 				}
@@ -32,6 +34,10 @@ export default class GetTagCommand extends DiceCommand {
 
 	// `noError` is intentionally not listed in the args array in the constructor
 	async exec(message: Message, args: GetTagCommandArgs): Promise<Message | undefined> {
+		if (!args.id) {
+			captureException(new RangeError(`args.id was ${args.id} and would have caused a Prisma error`));
+		}
+
 		const tag = await this.client.prisma.tag.findOne({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}, select: {content: true}});
 
 		if (tag) {

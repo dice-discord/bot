@@ -2,7 +2,7 @@ import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
 import {Colors} from '../../constants';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
 import {simpleFormat} from '../../util/format';
 
@@ -41,13 +41,13 @@ export default class DiceGameCommand extends DiceCommand {
 			args: [
 				{
 					id: 'wager',
-					type: Argument.range(ArgumentType.Integer, minimumWager, Infinity),
+					type: Argument.range(AkairoArgumentType.Integer, minimumWager, Infinity),
 					match: 'phrase',
 					prompt: {start: 'How many oats do you want to wager?', retry: `Please provide a value greater than ${minimumWager.toLocaleString()}`}
 				},
 				{
 					id: 'multiplier',
-					type: Argument.range(ArgumentType.Number, 1.01, 100, true),
+					type: Argument.range(AkairoArgumentType.Number, 1.01, 100, true),
 					prompt: {
 						start: 'How much do you want to multiply your wager by?',
 						retry: `Please provide a value between ${multipliers.min.toLocaleString()} and ${multipliers.max.toLocaleString()}`

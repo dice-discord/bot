@@ -1,7 +1,7 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Collection, Message, Permissions} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
 export default class PruneCommand extends DiceCommand {
 	constructor() {
@@ -27,7 +27,7 @@ export default class PruneCommand extends DiceCommand {
 			args: [
 				{
 					id: 'amount',
-					type: Argument.range(ArgumentType.Integer, 1, 100, true),
+					type: Argument.range(AkairoArgumentType.Integer, 1, 100, true),
 					prompt: {
 						start: 'How many messages do you want to delete?',
 						retry: `Invalid amount provided, please provide a number from 1-100`

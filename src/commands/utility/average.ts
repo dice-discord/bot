@@ -1,5 +1,5 @@
 import {Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
 export default class AverageCommand extends DiceCommand {
 	constructor() {
@@ -11,7 +11,7 @@ export default class AverageCommand extends DiceCommand {
 				{
 					id: 'numbers',
 					match: 'separate',
-					type: ArgumentType.Number,
+					type: AkairoArgumentType.Number,
 					prompt: {start: 'What numbers should be averaged?', retry: 'Invalid numbers provided, please try again'}
 				}
 			]

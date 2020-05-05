@@ -1,6 +1,6 @@
 import {Argument} from 'discord-akairo';
 import {Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
 /** A valid character from a Roman numeral. */
 type RomanNumeralCharacter = 'M' | 'D' | 'C' | 'L' | 'X' | 'V' | 'I';
@@ -36,7 +36,7 @@ export default class RomanCommand extends DiceCommand {
 				{
 					id: 'value',
 					match: 'content',
-					type: Argument.union(ArgumentType.Integer, ArgumentType.Uppercase),
+					type: Argument.union(AkairoArgumentType.Integer, AkairoArgumentType.Uppercase),
 					otherwise: ['Invalid value provided', 'Please provide Roman numerals or a whole number to convert'].join('\n'),
 					prompt: {start: 'What number would you like to convert?'}
 				}

@@ -17,7 +17,7 @@ export const enum DiceCommandCategories {
 /**
  * The type that the argument should be cast to.
  */
-export const enum ArgumentType {
+export const enum AkairoArgumentType {
 	/** Does not cast to any type. */
 	String = 'string',
 	/** Makes the input lowercase. */

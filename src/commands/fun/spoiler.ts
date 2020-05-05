@@ -1,5 +1,5 @@
 import {Message, Util} from 'discord.js';
-import {DiceCommand, DiceCommandCategories, ArgumentType} from '../../structures/DiceCommand';
+import {DiceCommand, DiceCommandCategories, AkairoArgumentType} from '../../structures/DiceCommand';
 
 export default class SpoilerCommand extends DiceCommand {
 	constructor() {
@@ -15,7 +15,7 @@ export default class SpoilerCommand extends DiceCommand {
 				{
 					id: 'content',
 					match: 'rest',
-					type: ArgumentType.String,
+					type: AkairoArgumentType.String,
 					prompt: {start: 'What do you want to turn into a spoiler?'}
 				},
 				{

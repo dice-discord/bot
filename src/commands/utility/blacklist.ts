@@ -1,5 +1,6 @@
 import {Message, User} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {typeName as anyUser} from '../../types/anyUser';
 
 export default class BlacklistCommand extends DiceCommand {
 	constructor() {
@@ -16,13 +17,13 @@ export default class BlacklistCommand extends DiceCommand {
 				{
 					id: 'user',
 					match: 'phrase',
-					type: ArgumentType.User,
+					type: anyUser,
 					prompt: {start: 'Who do you want to blacklist?', retry: 'Invalid user, please try again'}
 				},
 				{
 					id: 'reason',
 					match: 'rest',
-					type: ArgumentType.String,
+					type: AkairoArgumentType.String,
 					prompt: {optional: true, start: 'Why do you want to blacklist them?'}
 				}
 			]

@@ -1,6 +1,6 @@
 import {bold} from 'discord-md-tags';
 import {Message, Permissions, Role} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 
 export default class DeleteSelfRoleCommand extends DiceCommand {
@@ -12,7 +12,7 @@ export default class DeleteSelfRoleCommand extends DiceCommand {
 			channel: 'guild',
 			userPermissions: [Permissions.FLAGS.MANAGE_ROLES],
 			args: [
-				{id: 'role', type: ArgumentType.Role, prompt: {retry: 'Invalid role provided, please try again', start: 'What selfrole would you like to remove?'}}
+				{id: 'role', type: AkairoArgumentType.Role, prompt: {retry: 'Invalid role provided, please try again', start: 'What selfrole would you like to remove?'}}
 			]
 		});
 	}

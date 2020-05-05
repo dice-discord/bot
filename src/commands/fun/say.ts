@@ -1,6 +1,6 @@
 import {captureException} from '@sentry/node';
 import {Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
 export default class SayCommand extends DiceCommand {
 	constructor() {
@@ -13,7 +13,7 @@ export default class SayCommand extends DiceCommand {
 				{
 					id: 'content',
 					match: 'content',
-					type: ArgumentType.String,
+					type: AkairoArgumentType.String,
 					prompt: {start: 'What do you want me to say?'}
 				}
 			]

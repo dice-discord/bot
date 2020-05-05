@@ -5,18 +5,19 @@ import {init as initSentry} from '@sentry/node';
 import {CronJob} from 'cron';
 import {formatDistanceToNow} from 'date-fns';
 import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
+import {bold} from 'discord-md-tags';
 import {ClientOptions, Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
 import {join} from 'path';
 import * as pkg from '../../package.json';
 import {defaultPrefix, discoin, owners, runningInProduction, sentryDSN} from '../config';
-import {commandArgumentPrompts, defaults, Notifications, topGGWebhookPort, presence} from '../constants';
+import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
+import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
 import {simpleFormat} from '../util/format';
 import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents} from './TopGgVoteWebhookHandler';
-import {bold} from 'discord-md-tags';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -109,6 +110,8 @@ export class DiceClient extends AkairoClient {
 		this.listenerHandler = new ListenerHandler(this, {
 			directory: join(__dirname, '..', 'listeners')
 		});
+
+		this.commandHandler.resolver.addType(anyUserTypeName, anyUserTypeResolver);
 
 		this.topGG = new TopGGVoteWebhookHandler({client: this});
 	}

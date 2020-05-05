@@ -1,6 +1,6 @@
 import {Argument, Command, Inhibitor, Listener} from 'discord-akairo';
 import {Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceListener} from '../../structures/DiceListener';
 import {startTimer} from '../../util/timer';
 import ms = require('pretty-ms');
@@ -26,9 +26,9 @@ export default class UnloadCommand extends DiceCommand {
 					id: 'module',
 					type: Argument.union(
 						// Commands have their ID as an alias, so no need to add the command type in here
-						ArgumentType.CommandAlias,
-						ArgumentType.Listener,
-						ArgumentType.Inhibitor
+						AkairoArgumentType.CommandAlias,
+						AkairoArgumentType.Listener,
+						AkairoArgumentType.Inhibitor
 					),
 					match: 'content',
 					prompt: {start: 'Which module do you want to unload?', retry: 'Invalid module provided, try again'}

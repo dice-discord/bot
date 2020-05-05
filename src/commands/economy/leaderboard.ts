@@ -2,7 +2,7 @@ import {Argument} from 'discord-akairo';
 import {codeblock} from 'discord-md-tags';
 import {Message, MessageEmbed} from 'discord.js';
 import {maxEmbedFields} from '../../constants';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {startTimer} from '../../util/timer';
 import ms = require('pretty-ms');
 
@@ -26,7 +26,7 @@ export default class LeaderboardCommand extends DiceCommand {
 				{
 					id: 'amount',
 					match: 'content',
-					type: Argument.range(ArgumentType.Integer, 1, maxEmbedFields, true),
+					type: Argument.range(AkairoArgumentType.Integer, 1, maxEmbedFields, true),
 					default: 10,
 					prompt: {optional: true, retry: 'Invalid amount, please try again'}
 				}

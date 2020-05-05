@@ -1,7 +1,8 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, Permissions, User} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {typeName as anyUser} from '../../types/anyUser';
 import {clean} from '../../util/format';
 
 export default class BanCommand extends DiceCommand {
@@ -27,7 +28,7 @@ export default class BanCommand extends DiceCommand {
 			args: [
 				{
 					id: 'user',
-					type: ArgumentType.User,
+					type: anyUser,
 					prompt: {
 						start: 'Who would you like to unban?',
 						retry: `Invalid user provided, please try again`
@@ -35,7 +36,7 @@ export default class BanCommand extends DiceCommand {
 				},
 				{
 					id: 'reason',
-					type: Argument.validate(ArgumentType.String, (message, phrase) => phrase.length <= 400),
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 400),
 					match: 'rest',
 					prompt: {
 						optional: true,

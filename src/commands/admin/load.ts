@@ -3,7 +3,7 @@ import {code, codeblock} from 'discord-md-tags';
 import {Message} from 'discord.js';
 import {join} from 'path';
 import {runningInProduction} from '../../config';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {startTimer} from '../../util/timer';
 import ms = require('pretty-ms');
 
@@ -28,7 +28,7 @@ export default class LoadCommand extends DiceCommand {
 			args: [
 				{
 					id: 'module',
-					type: ArgumentType.String,
+					type: AkairoArgumentType.String,
 					match: 'rest',
 					prompt: {start: 'What module do you want to load?'}
 				},

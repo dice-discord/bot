@@ -1,7 +1,7 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, Permissions} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 
 export default class DeleteTagCommand extends DiceCommand {
@@ -14,7 +14,7 @@ export default class DeleteTagCommand extends DiceCommand {
 			args: [
 				{
 					id: 'id',
-					type: Argument.validate(ArgumentType.String, (message, phrase) => phrase.length <= 50),
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 50),
 					prompt: {retry: 'Invalid tag provided, please try again', start: 'Which tag do you like to delete?'}
 				}
 			]

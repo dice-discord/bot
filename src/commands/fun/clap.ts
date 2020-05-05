@@ -1,5 +1,5 @@
 import {Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 
 export default class ClapCommand extends DiceCommand {
@@ -12,7 +12,7 @@ export default class ClapCommand extends DiceCommand {
 				{
 					id: 'content',
 					match: 'content',
-					type: ArgumentType.String,
+					type: AkairoArgumentType.String,
 					prompt: {start: 'What do you want to clapify?'}
 				}
 			]

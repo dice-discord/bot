@@ -1,5 +1,5 @@
 import {GuildEmoji, Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 import {bold, code} from 'discord-md-tags';
 
@@ -13,7 +13,7 @@ export default class EmojiCommand extends DiceCommand {
 			args: [
 				{
 					id: 'emoji',
-					type: ArgumentType.Emoji,
+					type: AkairoArgumentType.Emoji,
 					match: 'content',
 					prompt: {start: 'Which custom emoji do you want to view?', retry: 'Invalid custom emoji provided, please try again'}
 				}

@@ -1,7 +1,8 @@
 import {bold} from 'discord-md-tags';
 import {Message, User} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
+import {typeName as anyUser} from '../../types/anyUser';
 
 export default class BalanceCommand extends DiceCommand {
 	constructor() {
@@ -17,7 +18,7 @@ export default class BalanceCommand extends DiceCommand {
 				{
 					id: 'user',
 					match: 'content',
-					type: ArgumentType.User,
+					type: anyUser,
 					prompt: {optional: true, retry: 'Invalid user, please try again'}
 				}
 			]

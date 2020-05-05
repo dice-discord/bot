@@ -1,6 +1,7 @@
-import {Message, User} from 'discord.js';
 import {formatDistance, formatRelative} from 'date-fns';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {Message, User} from 'discord.js';
+import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {typeName as anyUser} from '../../types/anyUser';
 import {capitalizeFirstCharacter} from '../../util/format';
 
 export default class AgeCommand extends DiceCommand {
@@ -17,7 +18,7 @@ export default class AgeCommand extends DiceCommand {
 				{
 					id: 'user',
 					match: 'content',
-					type: ArgumentType.User,
+					type: anyUser,
 					prompt: {optional: true, retry: 'Invalid user, please try again'}
 				}
 			]

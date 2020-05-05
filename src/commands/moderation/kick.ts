@@ -1,7 +1,7 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {GuildMember, Message, Permissions} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 import {manageable} from '../../util/permissions';
 
@@ -21,7 +21,7 @@ export default class KickCommand extends DiceCommand {
 			args: [
 				{
 					id: 'member',
-					type: ArgumentType.Member,
+					type: AkairoArgumentType.Member,
 					prompt: {
 						start: 'Who would you like to kick?',
 						retry: `Invalid member provided, please try again`
@@ -29,7 +29,7 @@ export default class KickCommand extends DiceCommand {
 				},
 				{
 					id: 'reason',
-					type: Argument.validate(ArgumentType.String, (message, phrase) => phrase.length <= 400),
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 400),
 					match: 'rest',
 					prompt: {
 						optional: true,

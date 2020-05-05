@@ -1,5 +1,5 @@
 import {Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import Roll = require('roll');
 import {Argument} from 'discord-akairo';
 
@@ -18,7 +18,7 @@ export default class RollCommand extends DiceCommand {
 					id: 'roll',
 					match: 'content',
 					default: 'd6',
-					type: Argument.validate(ArgumentType.String, (message, phrase) => Roll.prototype.validate(phrase)),
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => Roll.prototype.validate(phrase)),
 					prompt: {optional: true, retry: 'Invalid dice notation, please try again', start: 'What do you want to roll?'}
 				}
 			]

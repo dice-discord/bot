@@ -1,5 +1,5 @@
 import {Message} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 
 export default class ChooseCommand extends DiceCommand {
@@ -12,7 +12,7 @@ export default class ChooseCommand extends DiceCommand {
 				{
 					id: 'items',
 					match: 'separate',
-					type: ArgumentType.Lowercase,
+					type: AkairoArgumentType.Lowercase,
 					prompt: {start: 'What items should I choose from?'}
 				}
 			]

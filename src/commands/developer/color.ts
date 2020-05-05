@@ -1,6 +1,6 @@
 import {Argument} from 'discord-akairo';
 import {Message, MessageEmbed, Permissions, Util} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import * as parseColor from 'parse-color';
 
 export default class ColorCommand extends DiceCommand {
@@ -17,7 +17,7 @@ export default class ColorCommand extends DiceCommand {
 			args: [
 				{
 					id: 'color',
-					type: Argument.validate(ArgumentType.String, (message, phrase) => {
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => {
 						if (!phrase.startsWith('#') && phrase.length === 6) {
 							// Hexadecimal missing the pound sign
 							const testResult = parseColor(`#${phrase}`);

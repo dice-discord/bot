@@ -1,5 +1,5 @@
 import {Message, MessageEmbed, Permissions} from 'discord.js';
-import {ArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {capitalizeFirstCharacter} from '../../util/format';
 import {codeblock, code} from 'discord-md-tags';
 import {PrefixSupplier} from 'discord-akairo';
@@ -17,7 +17,7 @@ export default class HelpCommand extends DiceCommand {
 			args: [
 				{
 					id: 'command',
-					type: ArgumentType.CommandAlias,
+					type: AkairoArgumentType.CommandAlias,
 					prompt: {optional: true, retry: 'Invalid command provided, please try again'}
 				}
 			]
