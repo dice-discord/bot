@@ -36,6 +36,6 @@ export default class ShardSankeyCommand extends DiceCommand {
 			})
 		];
 
-		return message.util?.send(lines.join('\n'), {code: 'json'});
+		return message.util?.send(lines.join('\n'), {code: true});
 	}
 }
