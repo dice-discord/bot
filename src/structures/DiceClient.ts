@@ -19,6 +19,7 @@ import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirt
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents} from './TopGgVoteWebhookHandler';
+import {findShardIDByGuildID} from '../util/shard';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -302,5 +303,22 @@ export class DiceClient extends AkairoClient {
 		await this.prisma.disconnect();
 
 		super.destroy();
+	}
+
+	/**
+	 * Returns the number of guilds that this cluster is responsible for.
+	 */
+	responsibleGuildCount(): number[] {
+		const guildIDs = this.guilds.cache.keyArray();
+
+		return guildIDs.reduce(
+			(count, id) => {
+				const shard = findShardIDByGuildID(id);
+
+				count[shard] = count[shard] + 1;
+				return count;
+			},
+			[0]
+		);
 	}
 }
