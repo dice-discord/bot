@@ -17,7 +17,7 @@ export default class ShardSankeyCommand extends DiceCommand {
 		/**
 		 * @example [{ '0': 999 }]
 		 */
-		const clusters: Array<{[shardID: number]: number}> = await shard!.broadcastEval(`this.responsibleGuildCount()`);
+		const clusters: Array<{[shardID: number]: number}> = (await shard?.broadcastEval(`this.responsibleGuildCount()`)) ?? [{'0': this.client.guilds.cache.size}];
 
 		const totalServerCount = clusters.flatMap(cluster => Object.values(cluster)).reduce((a, b) => a + b);
 
