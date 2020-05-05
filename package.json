@@ -34,7 +34,7 @@
 		"@semantic-release/exec": "5.0.0",
 		"@types/cron": "1.7.2",
 		"@types/ms": "0.7.31",
-		"@types/node": "12.12.37",
+		"@types/node": "12.12.38",
 		"@types/parse-color": "1.0.0",
 		"@types/roll": "1.2.0",
 		"@types/signale": "1.4.1",
