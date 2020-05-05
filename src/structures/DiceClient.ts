@@ -13,7 +13,6 @@ import {defaultPrefix, discoin, owners, runningInProduction, sentryDSN} from '..
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
 import {simpleFormat} from '../util/format';
-import {RewriteFrames} from '@sentry/integrations';
 import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
 import {DiceUser} from './DiceUser';

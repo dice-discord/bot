@@ -1,13 +1,3 @@
-declare global {
-	namespace NodeJS {
-		interface Global {
-			__rootdir__: string;
-		}
-	}
-}
-
-global.__rootdir__ = __dirname || process.cwd();
-
 import {ShardingManager} from 'kurasuta';
 import {join} from 'path';
 import {discordToken, runningInProduction} from './config';
