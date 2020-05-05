@@ -19,6 +19,7 @@ import {findShardIDByGuildID} from '../util/shard';
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents} from './TopGgVoteWebhookHandler';
+import {DiceCluster} from './DiceCluster';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -46,6 +47,8 @@ const maxGuildSettingsCache = 1500;
 export class DiceClient extends AkairoClient {
 	prisma = new PrismaClient();
 	topGG: TopGGVoteWebhookHandler;
+	/** The cluster that spawned this client. */
+	cluster?: DiceCluster;
 	// Arrow function is required here, or else the `this` context will be that of the cron job
 	// See https://www.npmjs.com/package/cron#gotchas
 	birthdayNotificationJob = new CronJob('30 0 * * *', async () => this.notifyUserBirthdays());

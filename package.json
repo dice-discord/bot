@@ -9,6 +9,8 @@
 	},
 	"dependencies": {
 		"@discoin/scambio": "2.0.7",
+		"@google-cloud/debug-agent": "4.2.2",
+		"@google-cloud/profiler": "4.0.0",
 		"@prisma/client": "2.0.0-beta.4",
 		"@sentry/node": "5.15.5",
 		"cron": "1.8.2",
@@ -68,7 +70,7 @@
 		"start": "node tsc_output/src/index.js",
 		"style": "prettier --ignore-path .gitignore --check ."
 	},
-	"version": "4.4.5",
+	"version": "4.5.0",
 	"xo": {
 		"prettier": true,
 		"rules": {

@@ -69,3 +69,6 @@ export const postgresURI = process.env.POSTGRES_URI ? new URL(process.env.POSTGR
 		secrets.push(secret);
 	}
 });
+
+/** Absolute path to a Google Cloud Platform service account. */
+export const googleApplicationCredentials = process.env.GOOGLE_APPLICATION_CREDENTIALS;

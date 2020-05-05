@@ -7,6 +7,7 @@ declare namespace NodeJS {
 		READY_WEBHOOK_TOKEN?: string;
 		TOP_GG_WEBHOOK_PASSWORD?: string;
 		POSTGRES_URI?: string;
+		GOOGLE_APPLICATION_CREDENTIALS?: string;
 		/** Always set to `true` on GitHub Actions. */
 		CI?: 'true';
 	}

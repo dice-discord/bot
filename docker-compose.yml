@@ -25,6 +25,8 @@ services:
       - 'traefik.http.routers.bot.rule=Path(`/bot`) || PathPrefix(`/bot/`)'
       - 'traefik.http.routers.bot.entrypoints=web'
       - 'traefik.http.services.bot.loadbalancer.server.port=5000'
+    volumes:
+      - ./googleCloudServiceAccount.json:/usr/src/dice/googleCloudServiceAccount.json:ro
   postgres:
     image: postgres:12.2-alpine
     restart: unless-stopped
