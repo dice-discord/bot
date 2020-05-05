@@ -314,7 +314,7 @@ export class DiceClient extends AkairoClient {
 		const count: {[shardID: number]: number} = {};
 
 		guildIDs.forEach(id => {
-			const shard = findShardIDByGuildID(id);
+			const shard = findShardIDByGuildID(id, this.shard!.shardCount);
 
 			count[shard] = (count[shard] ?? 0) + 1;
 		});
