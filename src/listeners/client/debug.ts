@@ -20,7 +20,7 @@ export default class DebugListener extends DiceListener {
 	 */
 	exec(info: string): void {
 		if (!this.scopedWithClusterID && this.client?.shard?.id !== undefined) {
-			this.logger = this.logger.scope('discord.js', `cluster ${this.client.shard?.id}`);
+			this.logger = this.logger.scope('discord.js', `cluster ${this.client.shard.id}`);
 			this.scopedWithClusterID = true;
 		}
 
