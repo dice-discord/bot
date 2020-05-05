@@ -14,11 +14,11 @@ export function findShardIDByGuildID(guildID: Snowflake, shardCount: bigint): nu
 	const calculated = (BigInt(guildID) >> BigInt(22)) % shardCount;
 
 	// `calculated` should fit within [0, shardCount)
-	if (calculated < 0 && calculated < shardCount) {
+	if (calculated >= 0 && calculated < shardCount) {
 		return Number(calculated);
 	}
 
-	throw new Error(`Shard count is incorrect or bot is not on the guild ${guildID}`);
+	throw new Error(`Shard count is incorrect or bot is not on the guild ${guildID}, calculated ${calculated}`);
 }
 
 const responsibleShards = process.env.CLUSTER_SHARDS?.split(',').map(shard => Number.parseInt(shard, 10));
