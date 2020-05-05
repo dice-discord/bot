@@ -71,10 +71,6 @@
 	},
 	"version": "4.3.2",
 	"xo": {
-		"ignores": [
-			"src/migrate.ts",
-			"src/the_big_migration.ts"
-		],
 		"prettier": true,
 		"rules": {
 			"@typescript-eslint/prefer-readonly-parameter-types": [
