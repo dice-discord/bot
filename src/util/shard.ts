@@ -11,12 +11,12 @@ import {ShardClientUtil} from 'kurasuta';
  * @see https://discord.com/developers/docs/topics/gateway#sharding-sharding-formula Formula for determining shard ID
  */
 export function findShardIDByGuildID(guildID: Snowflake, shardCount: number): number {
-	for (let shard = 0; shard < shardCount; shard++) {
-		// @ts-ignore
-		// Guild ID is a string of an integer
-		if ((guildID >> 22) % shardCount === shard) {
-			return shard;
-		}
+	// Guild ID is a string of an integer
+	// @ts-ignore
+	const calculated = (BigInt(guildID) >> 22n) % BigInt(shardCount);
+
+	if (0 <= calculated && calculated < shardCount) {
+		return Number(calculated);
 	}
 
 	throw new Error(`Shard count is incorrect or bot is not on the guild ${guildID}`);
