@@ -10,7 +10,7 @@
 	"dependencies": {
 		"@discoin/scambio": "2.0.7",
 		"@prisma/client": "2.0.0-beta.4",
-		"@sentry/integrations": "^5.15.5",
+		"@sentry/integrations": "5.15.5",
 		"@sentry/node": "5.15.5",
 		"cron": "1.8.2",
 		"date-fns": "2.12.0",
