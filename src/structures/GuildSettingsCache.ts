@@ -2,7 +2,7 @@ import * as QuickLRU from 'quick-lru';
 import {Guild, PrismaClient} from '@prisma/client';
 import {Guild as DiscordGuild, GuildResolvable, Snowflake} from 'discord.js';
 
-type CachedGuild = Pick<Guild, 'prefix'>
+type CachedGuild = Pick<Guild, 'prefix'>;
 
 /**
  * A read-only cache for guild settings.
