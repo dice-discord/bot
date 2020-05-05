@@ -2,13 +2,15 @@ import * as QuickLRU from 'quick-lru';
 import {Guild, PrismaClient} from '@prisma/client';
 import {Guild as DiscordGuild, GuildResolvable, Snowflake} from 'discord.js';
 
+type CachedGuild = Pick<Guild, 'prefix'>
+
 /**
  * A read-only cache for guild settings.
  * Primarily used for quickly retrieving custom prefixes.
  */
 export class GuildSettingsCache {
 	private readonly prisma: PrismaClient;
-	private readonly _cache: QuickLRU<Snowflake, Guild>;
+	private readonly _cache: QuickLRU<Snowflake, CachedGuild>;
 
 	constructor(prisma: PrismaClient, maxSize = 1000) {
 		this._cache = new QuickLRU({maxSize});
@@ -40,7 +42,7 @@ export class GuildSettingsCache {
 	 *
 	 * @returns The retrieved guild, if it exists
 	 */
-	async get(guild: GuildResolvable): Promise<Guild | undefined> {
+	async get(guild: GuildResolvable): Promise<CachedGuild | undefined> {
 		const id = GuildSettingsCache.getGuildID(guild);
 
 		if (this._cache.has(id)) {
@@ -56,10 +58,10 @@ export class GuildSettingsCache {
 	 *
 	 * @return The retrieved guild, if it exists
 	 */
-	async cache(guild: GuildResolvable): Promise<Guild | undefined> {
+	async cache(guild: GuildResolvable): Promise<CachedGuild | undefined> {
 		const id = GuildSettingsCache.getGuildID(guild);
 
-		const fetchedGuild = await this.prisma.guild.findOne({where: {id}});
+		const fetchedGuild = await this.prisma.guild.findOne({where: {id}, select: {prefix: true}});
 
 		if (fetchedGuild) {
 			this._cache.set(id, fetchedGuild);
@@ -67,7 +69,7 @@ export class GuildSettingsCache {
 		}
 	}
 
-	async refresh(guild: GuildResolvable): Promise<Guild | undefined> {
+	async refresh(guild: GuildResolvable): Promise<CachedGuild | undefined> {
 		const id = GuildSettingsCache.getGuildID(guild);
 
 		// Delete the old item
