@@ -27,7 +27,11 @@ export async function resolver(message: Message, phrase: string | null): Promise
 		return resolved;
 	}
 
-	const fetched: User | null = await client.users.fetch(phrase);
+	let fetched: User | null = null;
 
-	return fetched ?? resolved;
+	try {
+		fetched = await client.users.fetch(phrase);
+	} catch (error) {}
+
+	return fetched ?? resolved ?? null;
 }
