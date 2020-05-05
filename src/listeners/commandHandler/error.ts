@@ -1,4 +1,4 @@
-import {addBreadcrumb, captureException, setContext, Severity, configureScope} from '@sentry/node';
+import {addBreadcrumb, captureException, configureScope, setContext, Severity} from '@sentry/node';
 import {code} from 'discord-md-tags';
 import {Message} from 'discord.js';
 import {DiceCommand} from '../../structures/DiceCommand';
@@ -75,12 +75,15 @@ export default class ErrorListener extends DiceListener {
 
 		this.logger.error(error);
 
-		return message.util?.send(
-			[
-				'An unexpected error occurred while running this command',
-				'An error report about this incident was recorded',
-				`To report this to a developer give them the code ${code`${message.id}-${exceptionID}`}`
-			].join('\n')
-		);
+		if (message.channel.type === 'dm' || message.guild?.me?.permissionsIn(message.channel).has('SEND_MESSAGES')) {
+			// Send the message if we have permissions
+			return message.util?.send(
+				[
+					'An unexpected error occurred while running this command',
+					'An error report about this incident was recorded',
+					`To report this to a developer give them the code ${code`${message.id}-${exceptionID}`}`
+				].join('\n')
+			);
+		}
 	}
 }
