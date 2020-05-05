@@ -15,7 +15,7 @@ export function findShardIDByGuildID(guildID: Snowflake, shardCount: number): nu
 	// @ts-ignore
 	const calculated = (BigInt(guildID) >> 22n) % BigInt(shardCount);
 
-	if (0 <= calculated && calculated < shardCount) {
+	if (calculated <= 0 && calculated < shardCount) {
 		return Number(calculated);
 	}
 
