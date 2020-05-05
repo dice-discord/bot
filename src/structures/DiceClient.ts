@@ -308,17 +308,17 @@ export class DiceClient extends AkairoClient {
 	/**
 	 * Returns the number of guilds that this cluster is responsible for.
 	 */
-	responsibleGuildCount(): number[] {
+	responsibleGuildCount(): {[shardID: number]: number} {
 		const guildIDs = this.guilds.cache.keyArray();
 
-		return guildIDs.reduce(
-			(count, id) => {
-				const shard = findShardIDByGuildID(id);
+		const count: {[shardID: number]: number} = {};
 
-				count[shard]++;
-				return count;
-			},
-			[0]
-		);
+		guildIDs.forEach(id => {
+			const shard = findShardIDByGuildID(id);
+
+			count[shard] = (count[shard] ?? 0) + 1;
+		});
+
+		return count;
 	}
 }

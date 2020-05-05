@@ -14,19 +14,25 @@ export default class ShardSankeyCommand extends DiceCommand {
 	async exec(message: Message): Promise<Message | undefined> {
 		const {shard} = this.client as DiceClient;
 
-		const clusters: number[][] = await shard!.broadcastEval(`this.responsibleGuildCount()`);
+		/**
+		 * @example [{ '0': 999 }]
+		 */
+		const clusters: Array<{[shardID: number]: number}> = await shard!.broadcastEval(`this.responsibleGuildCount()`);
 
-		const totalServerCount = clusters.flat().reduce((a: number, b: number) => a + b, 0);
+		const totalServerCount = clusters.flatMap(cluster => Object.values(cluster)).reduce((a, b) => a + b);
 
-		const lines = [
+		const lines: string[] = [
 			`Dice [${totalServerCount}] Clusters`,
 			...clusters.map((cluster, clusterID) => {
-				const clusterServerCount = cluster.reduce((a: number, b: number) => a + b, 0);
+				const clusterServerCount = Object.values(cluster).reduce((a, b) => a + b, 0);
 
-				return [
-					`Clusters [${clusterServerCount}] Cluster ${clusterID}`,
-					cluster.map((shard, shardID) => `Cluster ${clusterID} [${shard}] Shard ${shardID}`).join('\n')
-				].join('\n');
+				const clusterLines = [`Clusters [${clusterServerCount}] Cluster ${clusterID}`];
+
+				for (const [shardID, shardGuildCount] of Object.entries(cluster)) {
+					clusterLines.push(`Cluster ${clusterID} [${shardGuildCount}] Shard ${shardID}`);
+				}
+
+				return clusterLines.join('\n');
 			})
 		];
 
