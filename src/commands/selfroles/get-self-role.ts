@@ -12,7 +12,9 @@ export default class GetSelfRoleCommand extends DiceCommand {
 			category: DiceCommandCategories.Selfroles,
 			channel: 'guild',
 			clientPermissions: [Permissions.FLAGS.MANAGE_ROLES],
-			args: [{id: 'role', type: AkairoArgumentType.Role, prompt: {retry: 'Invalid role provided, please try again', start: 'What selfrole would you like to get?'}}]
+			args: [
+				{id: 'role', type: AkairoArgumentType.Role, prompt: {retry: 'Invalid role provided, please try again', start: 'What selfrole would you like to get?'}}
+			]
 		});
 	}
 

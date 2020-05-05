@@ -12,7 +12,11 @@ export default class DeleteSelfRoleCommand extends DiceCommand {
 			channel: 'guild',
 			userPermissions: [Permissions.FLAGS.MANAGE_ROLES],
 			args: [
-				{id: 'role', type: AkairoArgumentType.Role, prompt: {retry: 'Invalid role provided, please try again', start: 'What selfrole would you like to remove?'}}
+				{
+					id: 'role',
+					type: AkairoArgumentType.Role,
+					prompt: {retry: 'Invalid role provided, please try again', start: 'What selfrole would you like to remove?'}
+				}
 			]
 		});
 	}
