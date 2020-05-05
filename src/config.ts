@@ -64,7 +64,7 @@ if (disassembledToken.length === 3) {
 /** The PostgreSQL database URI in a URL object, if it's present in the environment. */
 export const postgresURI = process.env.POSTGRES_URI ? new URL(process.env.POSTGRES_URI) : undefined;
 
-[discoin.token, topGGWebhookPassword, sentryDSN, postgresURI?.password].forEach(secret => {
+[discoin.token, topGGWebhookPassword, sentryDSN, postgresURI?.password, readyWebhook.token].forEach(secret => {
 	if (secret) {
 		secrets.push(secret);
 	}
