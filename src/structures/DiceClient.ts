@@ -15,10 +15,10 @@ import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../t
 import {simpleFormat} from '../util/format';
 import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
+import {findShardIDByGuildID} from '../util/shard';
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents} from './TopGgVoteWebhookHandler';
-import {findShardIDByGuildID} from '../util/shard';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -73,8 +73,7 @@ export class DiceClient extends AkairoClient {
 				dsn: sentryDSN,
 				debug: !runningInProduction,
 				environment: runningInProduction ? 'production' : 'development',
-				release: `bot-${pkg.version}`,
-				integrations: [new RewriteFrames({root: global.__rootdir__})]
+				release: `bot-${pkg.version}`
 			});
 		}
 
