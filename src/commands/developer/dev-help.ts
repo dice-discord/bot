@@ -16,7 +16,7 @@ export default class DevHelpCommand extends DiceCommand {
 		const {shard} = this.client;
 
 		/** This shard's ID. This is a mostly meaningless number since Kurasuta has no real concept of shards, only the clusters that manage them. */
-		const shardID = message.guild ? findShardIDByGuildID(message.guild.id, shard!.shardCount) : 0;
+		const shardID = message.guild ? findShardIDByGuildID(message.guild.id, BigInt(shard!.shardCount)) : 0;
 
 		const clusterCount = this.client.shard === null ? 1 : getClusterCount(this.client.shard);
 		const responsibleShards: string = this.client.shard === null ? '0' : getResponsibleShards(this.client.shard).join(', ');

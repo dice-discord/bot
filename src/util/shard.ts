@@ -10,10 +10,8 @@ import {ShardClientUtil} from 'kurasuta';
  * @example findShardIDByGuildID('388366947689168897', 6);
  * @see https://discord.com/developers/docs/topics/gateway#sharding-sharding-formula Formula for determining shard ID
  */
-export function findShardIDByGuildID(guildID: Snowflake, shardCount: number): number {
-	// Guild ID is a string of an integer
-	// @ts-ignore
-	const calculated = (BigInt(guildID) >> 22n) % BigInt(shardCount);
+export function findShardIDByGuildID(guildID: Snowflake, shardCount: bigint): number {
+	const calculated = (BigInt(guildID) >> BigInt(22)) % shardCount;
 
 	if (calculated <= 0 && calculated < shardCount) {
 		return Number(calculated);
