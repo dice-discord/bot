@@ -1,6 +1,6 @@
 import {Message, MessageEmbed} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {findShardIDByGuildID} from '../../util/shard';
+import {findShardIDByGuildID, clusterID, getClusterCount, getResponsibleShards} from '../../util/shard';
 import {code} from 'discord-md-tags';
 
 export default class DevHelpCommand extends DiceCommand {
@@ -17,12 +17,9 @@ export default class DevHelpCommand extends DiceCommand {
 
 		/** This shard's ID. This is a mostly meaningless number since Kurasuta has no real concept of shards, only the clusters that manage them. */
 		const shardID = message.guild ? findShardIDByGuildID(message.guild.id, shard?.shardCount) : 0;
-		/** This cluster's ID. */
-		const clusterID = Number(process.env.CLUSTER_ID ?? 0);
-		/** The total number of clusters. */
-		const clusterCount = shard?.clusterCount ?? 0;
-		/** The shards this cluster is responsible for managing. */
-		const responsibleShards = process.env.CLUSTER_SHARDS?.split(',').join(', ') ?? shardID;
+
+		const clusterCount = getClusterCount(this.client.shard!);
+		const responsibleShards = getResponsibleShards(this.client.shard!).join(', ');
 
 		return message.util?.send(
 			new MessageEmbed({

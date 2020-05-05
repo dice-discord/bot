@@ -1,4 +1,5 @@
 import {Snowflake} from 'discord.js';
+import {ShardClientUtil} from 'kurasuta';
 
 /**
  * Find the shard ID that is handling a guild by the guild ID.
@@ -20,3 +21,18 @@ export function findShardIDByGuildID(guildID: Snowflake, shardCount = 1): number
 
 	throw new Error('Shard count is incorrect or bot is not on this guild');
 }
+
+const responsibleShards = process.env.CLUSTER_SHARDS?.split(',').map(shard => Number.parseInt(shard, 10));
+
+/** The shards this cluster is responsible for managing. */
+export function getResponsibleShards(shard: ShardClientUtil): number[] {
+	return responsibleShards ?? [shard.id];
+}
+
+/** The total number of clusters. */
+export function getClusterCount(shard: ShardClientUtil): number {
+	return shard?.clusterCount ?? 0;
+}
+
+/** This cluster's ID. */
+export const clusterID = process.env.CLUSTER_ID === undefined ? 0 : parseInt(process.env.CLUSTER_ID, 10);
