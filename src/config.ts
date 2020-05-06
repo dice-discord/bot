@@ -4,7 +4,7 @@ import {promises as fs} from 'fs';
 import {join} from 'path';
 import {WebhookConfig} from '../types/discord';
 import {GoogleServiceAccount} from '../types/google';
-import escapeStringRegExp from 'escape-string-regexp';
+import escapeStringRegExp = require('escape-string-regexp');
 import {Admins} from './constants';
 
 dotenv.config({path: join(__dirname, '..', 'bot.env')});
