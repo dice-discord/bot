@@ -56,7 +56,7 @@ jobs:
           POSTGRES_URI: ${{ secrets.POSTGRES_URI }}
       - name: Lint with XO
         run: yarn run xo
-  test:
+  unit-test:
     name: Run tests
 
     runs-on: ubuntu-latest
@@ -151,7 +151,7 @@ jobs:
     # `semantic-release` will do this automatically, but this saves us the time of building the image prior to that
     if: ${{ github.ref  == 'refs/heads/master' }}
 
-    needs: [build, lint, lint-dockerfile, e2e-test]
+    needs: [build, lint, lint-dockerfile, e2e-test, unit-test]
 
     steps:
       - name: Checkout git repository
