@@ -13,7 +13,7 @@
 		"@google-cloud/profiler": "4.0.0",
 		"@prisma/client": "2.0.0-beta.4",
 		"@sentry/node": "5.15.5",
-		"bufferutil": "^4.0.1",
+		"bufferutil": "4.0.1",
 		"cron": "1.8.2",
 		"date-fns": "2.12.0",
 		"delay": "4.3.0",
@@ -33,8 +33,8 @@
 		"roll": "1.2.0",
 		"semantic-release-docker": "2.2.0",
 		"signale": "1.4.0",
-		"utf-8-validate": "^5.0.2",
-		"zlib-sync": "^0.1.6"
+		"utf-8-validate": "5.0.2",
+		"zlib-sync": "0.1.6"
 	},
 	"devDependencies": {
 		"@prisma/cli": "2.0.0-beta.4",
