@@ -57,7 +57,7 @@ jobs:
       - name: Lint with XO
         run: yarn run xo
   unit-test:
-    name: Run tests
+    name: Unit tests
 
     runs-on: ubuntu-latest
 
