@@ -6,6 +6,7 @@ import {WebhookConfig} from '../types/discord';
 import {GoogleServiceAccount} from '../types/google';
 import escapeStringRegExp = require('escape-string-regexp');
 import {Admins} from './constants';
+import {baseLogger} from './util/logger';
 
 dotenv.config({path: join(__dirname, '..', 'bot.env')});
 
@@ -77,5 +78,8 @@ export const postgresURI = process.env.POSTGRES_URI ? new URL(process.env.POSTGR
 });
 
 if (googleAppCredentials) {
-	fs.readFile(googleAppCredentials).then(file => secrets.push(escapeStringRegExp((JSON.parse(file.toString()) as GoogleServiceAccount).private_key)));
+	fs.readFile(googleAppCredentials)
+		// eslint-disable-next-line promise/prefer-await-to-then
+		.then(file => secrets.push(escapeStringRegExp((JSON.parse(file.toString()) as GoogleServiceAccount).private_key)))
+		.catch(error => baseLogger.scope('config').error('Failed to load GCP service account JSON', error));
 }

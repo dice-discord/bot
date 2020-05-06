@@ -79,6 +79,7 @@ export default class EvalCommand extends DiceCommand {
 			// eslint-disable-next-line no-return-await
 			return await message.util?.send([`Error while evaluating:`, codeblock('javascript')`${String(error)}`].join('\n'));
 		}
+
 		this._times.end = process.hrtime.bigint();
 		this._times.diff = this._times.end - this._times.start;
 

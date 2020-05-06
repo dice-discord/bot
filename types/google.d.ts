@@ -1,6 +1,7 @@
 /**
  * A Google Cloud Platform service account.
  */
+/* eslint-disable camelcase */
 export interface GoogleServiceAccount {
 	type: string;
 	project_id: string;
@@ -13,3 +14,4 @@ export interface GoogleServiceAccount {
 	auth_provider_x509_cert_url: string;
 	client_x509_cert_url: string;
 }
+/* eslint-enable camelcase */
