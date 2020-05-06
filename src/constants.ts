@@ -95,6 +95,3 @@ export const enum ExitCodes {
 
 /** Presence data to use with the client on login. */
 export const presence: PresenceData = {activity: {name: 'for @Dice help', type: 'WATCHING'}};
-
-/** The Google Cloud project ID to use. */
-export const googleProjectId = 'dice-discord';

@@ -8,7 +8,6 @@ import {discordToken, googleAppCredentials, runningInProduction} from './config'
 import {DiceClient} from './structures/DiceClient';
 import {baseLogger} from './util/logger';
 import {registerSharderEvents} from './util/register-sharder-events';
-import {googleProjectId} from './constants';
 
 const logger = baseLogger.scope('sharder');
 
@@ -16,7 +15,6 @@ if (googleAppCredentials) {
 	const serviceContext = {version: pkg?.version ?? process.env.npm_package_version, service: 'shard-manager'};
 
 	startProfiler({
-		projectId: googleProjectId,
 		serviceContext
 	})
 		// eslint-disable-next-line promise/prefer-await-to-then
