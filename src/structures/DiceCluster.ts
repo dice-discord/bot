@@ -3,7 +3,7 @@ import {start as startProfiler} from '@google-cloud/profiler';
 import {captureException} from '@sentry/node';
 import {BaseCluster, ShardingManager} from 'kurasuta';
 import pkg from '../../package.json';
-import {discordToken, googleApplicationCredentials} from '../config';
+import {discordToken, googleAppCredentials} from '../config';
 import {baseLogger} from '../util/logger';
 import {DiceClient} from './DiceClient';
 
@@ -16,17 +16,23 @@ export class DiceCluster extends BaseCluster {
 		super(...args);
 
 		this.logger = baseLogger.scope('cluster', this.id.toString());
-		if (googleApplicationCredentials) {
+		this.client.cluster = this;
+	}
+
+	async launch(): Promise<void> {
+		if (googleAppCredentials) {
 			const serviceContext = {version: pkg.version, service: 'cluster'};
 
-			startProfiler({
-				serviceContext
-			})
-				.then(() => this.logger.success('Started Google Cloud Profiler'))
-				.catch(error => {
-					this.logger.error('Failed to initialize Google Cloud Profiler', error);
-					captureException(error);
+			try {
+				await startProfiler({
+					serviceContext
 				});
+			} catch (error) {
+				this.logger.error('Failed to initialize Google Cloud Profiler', error);
+				captureException(error);
+			}
+
+			this.logger.success('Started Google Cloud Profiler');
 
 			try {
 				startDebugAgent({
@@ -36,17 +42,15 @@ export class DiceCluster extends BaseCluster {
 				this.logger.error('Failed to initialize Google Cloud Debug Agent', error);
 				captureException(error);
 			}
+
 			this.logger.success('Started Google Cloud Debug Agent');
 		}
 
-		this.client.cluster = this;
-	}
-
-	launch(): void {
 		this.client.init().catch(error => {
 			this.logger.fatal('Failed to initialize client', error);
 			throw error;
 		});
+
 		this.client.login(discordToken).catch(error => {
 			this.logger.fatal('Failed to login client', error);
 			throw error;

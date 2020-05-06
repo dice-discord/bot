@@ -4,18 +4,25 @@ import {captureException} from '@sentry/node';
 import {ShardingManager} from 'kurasuta';
 import {join} from 'path';
 import pkg from '../package.json';
-import {discordToken, googleApplicationCredentials, runningInProduction} from './config';
+import {discordToken, googleAppCredentials, runningInProduction} from './config';
 import {DiceClient} from './structures/DiceClient';
 import {baseLogger} from './util/logger';
 import {registerSharderEvents} from './util/register-sharder-events';
 
 const logger = baseLogger.scope('sharder');
 
-if (googleApplicationCredentials) {
+if (googleAppCredentials) {
 	const serviceContext = {version: pkg.version, service: 'shard-manager'};
+
 	startProfiler({
 		serviceContext
-	});
+	})
+		// eslint-disable-next-line promise/prefer-await-to-then
+		.then(() => logger.success('Started Google Cloud Profiler'))
+		.catch(error => {
+			logger.error('Failed to initialize Google Cloud Profiler', error);
+			captureException(error);
+		});
 
 	try {
 		startDebugAgent({
