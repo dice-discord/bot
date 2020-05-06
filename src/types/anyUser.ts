@@ -31,7 +31,7 @@ export async function resolver(message: Message, phrase: string | null): Promise
 
 	try {
 		fetched = await client.users.fetch(phrase);
-	} catch (_error) {}
+	} catch (_) {}
 
 	return fetched ?? resolved ?? null;
 }
