@@ -7,7 +7,7 @@ import {GoogleServiceAccount} from '../types/google';
 import escapeStringRegExp = require('escape-string-regexp');
 import {Admins} from './constants';
 import {baseLogger} from './util/logger';
-import * as pkg from '../package.json'
+import * as pkg from '../package.json';
 
 dotenv.config({path: join(__dirname, '..', 'bot.env')});
 
