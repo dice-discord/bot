@@ -28,6 +28,11 @@ export default class RollCommand extends DiceCommand {
 	async exec(message: Message, {roll}: {roll: string}): Promise<Message | undefined> {
 		const rolled = new Roll().roll(roll);
 
+		if (rolled.rolled.length > 200 || rolled.result > 1_000_000) {
+			// If the roll had a large number of dice or was very large, don't display all the info
+			return message.util?.send(rolled.result.toLocaleString(), {split: true});
+		}
+
 		return message.util?.send(
 			[rolled.result.toLocaleString(), rolled.rolled.length > 1 ? ` (${rolled.rolled.map(value => value.toLocaleString()).join(', ')})` : ''].join(''),
 			{split: true}
