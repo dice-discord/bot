@@ -7,6 +7,7 @@ import {GoogleServiceAccount} from '../types/google';
 import escapeStringRegExp = require('escape-string-regexp');
 import {Admins} from './constants';
 import {baseLogger} from './util/logger';
+import * as pkg from '../package.json'
 
 dotenv.config({path: join(__dirname, '..', 'bot.env')});
 
@@ -52,6 +53,12 @@ export const topGGWebhookPassword = process.env.TOP_GG_WEBHOOK_PASSWORD;
 
 /** Absolute path to a Google Cloud Platform service account. */
 export const googleAppCredentials = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+
+// A base config to use for Google Cloud libraries
+export const googleBaseConfig = {
+	projectId: 'dice-discord',
+	serviceContext: {version: pkg?.version ?? process.env.npm_package_version}
+};
 
 // Discord tokens are separated by `.`s into 3 base64-encoded parts.
 // 1. Bot ID

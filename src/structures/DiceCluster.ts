@@ -2,8 +2,7 @@ import {start as startDebugAgent} from '@google-cloud/debug-agent';
 import {start as startProfiler} from '@google-cloud/profiler';
 import {captureException} from '@sentry/node';
 import {BaseCluster, ShardingManager} from 'kurasuta';
-import pkg from '../../package.json';
-import {discordToken, googleAppCredentials} from '../config';
+import {discordToken, googleAppCredentials, googleBaseConfig} from '../config';
 import {baseLogger} from '../util/logger';
 import {DiceClient} from './DiceClient';
 
@@ -21,12 +20,10 @@ export class DiceCluster extends BaseCluster {
 
 	async launch(): Promise<void> {
 		if (googleAppCredentials) {
-			const serviceContext = {version: pkg.version, service: 'cluster'};
+			const googleConfig = {...googleBaseConfig, serviceContext: {service: 'cluster'}};
 
 			try {
-				await startProfiler({
-					serviceContext
-				});
+				await startProfiler(googleConfig);
 			} catch (error) {
 				this.logger.error('Failed to initialize Google Cloud Profiler', error);
 				captureException(error);
@@ -35,9 +32,7 @@ export class DiceCluster extends BaseCluster {
 			this.logger.success('Started Google Cloud Profiler');
 
 			try {
-				startDebugAgent({
-					serviceContext
-				});
+				startDebugAgent(googleConfig);
 			} catch (error) {
 				this.logger.error('Failed to initialize Google Cloud Debug Agent', error);
 				captureException(error);
