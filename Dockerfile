@@ -65,7 +65,9 @@ ENV NODE_ENV=production
 # Top.gg webhook port
 EXPOSE 5000
 
-RUN apt-get -qq update && apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 && rm -rf /var/lib/apt/lists/*
+RUN apt-get -qq update && \
+	apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 && \
+	rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 COPY --from=installer /usr/src/installer/node_modules ./node_modules
