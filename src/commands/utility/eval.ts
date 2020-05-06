@@ -5,6 +5,7 @@ import {secrets} from '../../config';
 import ms = require('pretty-ms');
 import {italic, codeblock} from 'discord-md-tags';
 import {captureException} from '@sentry/node';
+import {nsInMs} from '../../constants';
 
 const NL = '!!NL!!';
 const NL_PATTERN = new RegExp(NL, 'g');
@@ -70,16 +71,16 @@ export default class EvalCommand extends DiceCommand {
 		/* eslint-enable @typescript-eslint/no-unused-vars */
 		// #endregion
 
+		this._times.start = process.hrtime.bigint();
 		try {
-			this._times.start = process.hrtime.bigint();
 			// eslint-disable-next-line no-eval
 			this.lastResult = eval(args.script);
-			this._times.end = process.hrtime.bigint();
-			this._times.diff = this._times.end - this._times.start;
 		} catch (error) {
 			// eslint-disable-next-line no-return-await
-			return await message.util?.send(`Error while evaluating: \`${String(error)}\``);
+			return await message.util?.send([`Error while evaluating:`, codeblock('javascript')`${String(error)}`].join('\n'));
 		}
+		this._times.end = process.hrtime.bigint();
+		this._times.diff = this._times.end - this._times.start;
 
 		this._times.start = process.hrtime.bigint();
 		const results = this._result(this.lastResult ?? '[no result]', this._times.diff, args.script);
@@ -103,7 +104,7 @@ export default class EvalCommand extends DiceCommand {
 		const prepend = `\`\`\`javascript\n${prependPart}\n`;
 		const append = `\n${appendPart}\n\`\`\``;
 		if (input) {
-			return Util.splitMessage([italic`Executed in ${ms(Number(executionTimeNanoseconds) / 1_000_000)}.`, codeblock('javascript')`${inspected}`].join('\n'), {
+			return Util.splitMessage([italic`Executed in ${ms(Number(executionTimeNanoseconds) / nsInMs)}.`, codeblock('javascript')`${inspected}`].join('\n'), {
 				maxLength: 1900,
 				prepend,
 				append
@@ -111,7 +112,7 @@ export default class EvalCommand extends DiceCommand {
 		}
 
 		return Util.splitMessage(
-			[italic`Callback executed after ${ms(Number(executionTimeNanoseconds) / 1_000_000)}.`, codeblock('javascript')`${inspected}`].join('\n'),
+			[italic`Callback executed after ${ms(Number(executionTimeNanoseconds) / nsInMs)}.`, codeblock('javascript')`${inspected}`].join('\n'),
 			{
 				maxLength: 1900,
 				prepend,
