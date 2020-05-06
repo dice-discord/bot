@@ -26,7 +26,6 @@ if (googleAppCredentials) {
 
 	try {
 		startDebugAgent({
-			projectId: googleProjectId,
 			serviceContext
 		});
 	} catch (error) {

@@ -36,7 +36,6 @@ export class DiceCluster extends BaseCluster {
 
 			try {
 				startDebugAgent({
-					projectId: googleProjectId,
 					serviceContext
 				});
 			} catch (error) {
