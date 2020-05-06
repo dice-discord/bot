@@ -4,6 +4,7 @@ import {captureException} from '@sentry/node';
 import {BaseCluster, ShardingManager} from 'kurasuta';
 import pkg from '../../package.json';
 import {discordToken, googleAppCredentials} from '../config';
+import {googleProjectId} from '../constants';
 import {baseLogger} from '../util/logger';
 import {DiceClient} from './DiceClient';
 
@@ -25,6 +26,7 @@ export class DiceCluster extends BaseCluster {
 
 			try {
 				await startProfiler({
+					projectId: googleProjectId,
 					serviceContext
 				});
 			} catch (error) {
@@ -36,6 +38,7 @@ export class DiceCluster extends BaseCluster {
 
 			try {
 				startDebugAgent({
+					projectId: googleProjectId,
 					serviceContext
 				});
 			} catch (error) {
