@@ -1,8 +1,11 @@
 import {Snowflake} from 'discord.js';
+import * as dotenv from 'dotenv';
+import {promises as fs} from 'fs';
 import {join} from 'path';
 import {WebhookConfig} from '../types/discord';
+import {GoogleServiceAccount} from '../types/google';
+import escapeStringRegExp from 'escape-string-regexp';
 import {Admins} from './constants';
-import * as dotenv from 'dotenv';
 
 dotenv.config({path: join(__dirname, '..', 'bot.env')});
 
@@ -46,6 +49,9 @@ export const readyWebhook: Partial<WebhookConfig> = {
 /** Plaintext password used for veryifying request authenticity from top.gg. */
 export const topGGWebhookPassword = process.env.TOP_GG_WEBHOOK_PASSWORD;
 
+/** Absolute path to a Google Cloud Platform service account. */
+export const googleAppCredentials = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+
 // Discord tokens are separated by `.`s into 3 base64-encoded parts.
 // 1. Bot ID
 // 2. Token creation time
@@ -66,9 +72,10 @@ export const postgresURI = process.env.POSTGRES_URI ? new URL(process.env.POSTGR
 
 [discoin.token, topGGWebhookPassword, sentryDSN, postgresURI?.password, readyWebhook.token].forEach(secret => {
 	if (secret) {
-		secrets.push(secret);
+		secrets.push(escapeStringRegExp(secret));
 	}
 });
 
-/** Absolute path to a Google Cloud Platform service account. */
-export const googleAppCredentials = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+if (googleAppCredentials) {
+	fs.readFile(googleAppCredentials).then(file => secrets.push(escapeStringRegExp((JSON.parse(file.toString()) as GoogleServiceAccount).private_key)));
+}

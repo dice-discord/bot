@@ -20,6 +20,7 @@
 		"discord-md-tags": "0.0.6",
 		"discord.js": "12.2.0",
 		"dotenv": "8.2.0",
+		"escape-string-regexp": "^4.0.0",
 		"got": "11.1.0",
 		"kurasuta": "2.1.0",
 		"micri": "4.1.2",
