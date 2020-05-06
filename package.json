@@ -36,17 +36,21 @@
 		"@prisma/cli": "2.0.0-beta.4",
 		"@semantic-release/exec": "5.0.0",
 		"@types/cron": "1.7.2",
+		"@types/jest": "^25.2.1",
 		"@types/ms": "0.7.31",
 		"@types/node": "12.12.38",
 		"@types/parse-color": "1.0.0",
 		"@types/roll": "1.2.0",
 		"@types/signale": "1.4.1",
 		"@types/ws": "7.2.4",
+		"eslint-plugin-jest": "^23.9.0",
+		"jest": "^26.0.1",
 		"nyc": "15.0.1",
 		"prettier": "2.0.4",
 		"rimraf": "3.0.2",
 		"semantic-release": "17.0.7",
 		"source-map-support": "0.5.19",
+		"ts-jest": "^25.4.0",
 		"ts-node": "8.10.1",
 		"typescript": "3.8.3",
 		"xo": "0.30.0"
@@ -69,10 +73,17 @@
 		"postinstall": "prisma generate",
 		"prebuild": "rimraf -rf tsc_output",
 		"start": "node tsc_output/src/index.js",
-		"style": "prettier --ignore-path .gitignore --check ."
+		"style": "prettier --ignore-path .gitignore --check .",
+		"test": "jest"
 	},
 	"version": "4.5.6",
 	"xo": {
+		"extends": [
+			"plugin:jest/recommended"
+		],
+		"plugins": [
+			"jest"
+		],
 		"prettier": true,
 		"rules": {
 			"@typescript-eslint/prefer-readonly-parameter-types": [
