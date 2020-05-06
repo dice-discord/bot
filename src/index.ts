@@ -11,7 +11,7 @@ import {registerSharderEvents} from './util/register-sharder-events';
 const logger = baseLogger.scope('sharder');
 
 if (googleAppCredentials) {
-	const googleConfig = {...googleBaseConfig, serviceContext: {service: 'shard-manager'}};
+	const googleConfig = {...googleBaseConfig, serviceContext: {service: 'bot'}};
 
 	startProfiler(googleConfig)
 		// eslint-disable-next-line promise/prefer-await-to-then

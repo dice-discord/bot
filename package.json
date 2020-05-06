@@ -71,7 +71,7 @@
 		"start": "node tsc_output/src/index.js",
 		"style": "prettier --ignore-path .gitignore --check ."
 	},
-	"version": "4.5.4",
+	"version": "4.5.5",
 	"xo": {
 		"prettier": true,
 		"rules": {
