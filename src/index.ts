@@ -23,6 +23,7 @@ if (googleAppCredentials) {
 
 	try {
 		startDebugAgent(googleConfig);
+		logger.success('Started Google Cloud Debug Agent');
 	} catch (error) {
 		logger.error('Failed to initialize Google Cloud Debug Agent', error);
 		captureException(error);
