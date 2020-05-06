@@ -36,7 +36,7 @@ export default class BotInfoCommand extends DiceCommand {
 					},
 					{
 						name: 'Support team',
-						value: 'PizzaFox#0075, okthx#0581, Chronomly#8108 and Jdender~#2316',
+						value: 'PizzaFox#0075',
 						inline: true
 					}
 				]
