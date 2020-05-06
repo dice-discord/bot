@@ -1,105 +1,105 @@
 {
-  "author": {
-    "email": "jonah@jonah.pw",
-    "name": "Jonah Snider",
-    "url": "https://jonah.pw"
-  },
-  "bugs": {
-    "url": "https://github.com/dice-discord/bot/issues"
-  },
-  "dependencies": {
-    "@discoin/scambio": "2.0.7",
-    "@google-cloud/debug-agent": "4.2.2",
-    "@google-cloud/profiler": "4.0.0",
-    "@prisma/client": "2.0.0-beta.4",
-    "@sentry/node": "5.15.5",
-    "cron": "1.8.2",
-    "date-fns": "2.12.0",
-    "delay": "4.3.0",
-    "discord-akairo": "8.0.0",
-    "discord-md-tags": "0.0.6",
-    "discord.js": "12.2.0",
-    "dotenv": "8.2.0",
-    "escape-string-regexp": "4.0.0",
-    "got": "11.1.0",
-    "kurasuta": "2.1.0",
-    "micri": "4.1.2",
-    "parse-color": "1.0.0",
-    "pretty-ms": "7.0.0",
-    "quick-lru": "5.1.0",
-    "raw-body": "2.4.1",
-    "roll": "1.2.0",
-    "semantic-release-docker": "2.2.0",
-    "signale": "1.4.0"
-  },
-  "devDependencies": {
-    "@prisma/cli": "2.0.0-beta.4",
-    "@semantic-release/exec": "5.0.0",
-    "@types/cron": "1.7.2",
-    "@types/jest": "^25.2.1",
-    "@types/ms": "0.7.31",
-    "@types/node": "12.12.38",
-    "@types/parse-color": "1.0.0",
-    "@types/roll": "1.2.0",
-    "@types/signale": "1.4.1",
-    "@types/ws": "7.2.4",
-    "jest": "^26.0.1",
-    "nyc": "15.0.1",
-    "prettier": "2.0.4",
-    "rimraf": "3.0.2",
-    "semantic-release": "17.0.7",
-    "source-map-support": "0.5.19",
-    "ts-jest": "^25.4.0",
-    "ts-node": "8.10.1",
-    "typescript": "3.8.3",
-    "xo": "0.30.0"
-  },
-  "engines": {
-    "node": "12"
-  },
-  "license": "Apache-2.0",
-  "main": "./tsc_output/src/index.js",
-  "name": "dice",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dice-discord/bot.git"
-  },
-  "scripts": {
-    "build": "tsc",
-    "deploy": "semantic-release",
-    "lint": "xo",
-    "postinstall": "prisma generate",
-    "prebuild": "rimraf -rf tsc_output",
-    "start": "node tsc_output/src/index.js",
-    "style": "prettier --ignore-path .gitignore --check .",
-    "test": "jest"
-  },
-  "version": "4.5.6",
-  "xo": {
-    "prettier": true,
-    "rules": {
-      "@typescript-eslint/prefer-readonly-parameter-types": [
-        "off"
-      ],
-      "camelcase": [
-        "error",
-        {
-          "allow": [
-            "id_guildId"
-          ]
-        }
-      ],
-      "unicorn/filename-case": [
-        "error",
-        {
-          "cases": {
-            "camelCase": true,
-            "kebabCase": true,
-            "pascalCase": true
-          }
-        }
-      ]
-    }
-  }
+	"author": {
+		"email": "jonah@jonah.pw",
+		"name": "Jonah Snider",
+		"url": "https://jonah.pw"
+	},
+	"bugs": {
+		"url": "https://github.com/dice-discord/bot/issues"
+	},
+	"dependencies": {
+		"@discoin/scambio": "2.0.7",
+		"@google-cloud/debug-agent": "4.2.2",
+		"@google-cloud/profiler": "4.0.0",
+		"@prisma/client": "2.0.0-beta.4",
+		"@sentry/node": "5.15.5",
+		"cron": "1.8.2",
+		"date-fns": "2.12.0",
+		"delay": "4.3.0",
+		"discord-akairo": "8.0.0",
+		"discord-md-tags": "0.0.6",
+		"discord.js": "12.2.0",
+		"dotenv": "8.2.0",
+		"escape-string-regexp": "4.0.0",
+		"got": "11.1.0",
+		"kurasuta": "2.1.0",
+		"micri": "4.1.2",
+		"parse-color": "1.0.0",
+		"pretty-ms": "7.0.0",
+		"quick-lru": "5.1.0",
+		"raw-body": "2.4.1",
+		"roll": "1.2.0",
+		"semantic-release-docker": "2.2.0",
+		"signale": "1.4.0"
+	},
+	"devDependencies": {
+		"@prisma/cli": "2.0.0-beta.4",
+		"@semantic-release/exec": "5.0.0",
+		"@types/cron": "1.7.2",
+		"@types/jest": "^25.2.1",
+		"@types/ms": "0.7.31",
+		"@types/node": "12.12.38",
+		"@types/parse-color": "1.0.0",
+		"@types/roll": "1.2.0",
+		"@types/signale": "1.4.1",
+		"@types/ws": "7.2.4",
+		"jest": "^26.0.1",
+		"nyc": "15.0.1",
+		"prettier": "2.0.4",
+		"rimraf": "3.0.2",
+		"semantic-release": "17.0.7",
+		"source-map-support": "0.5.19",
+		"ts-jest": "^25.4.0",
+		"ts-node": "8.10.1",
+		"typescript": "3.8.3",
+		"xo": "0.30.0"
+	},
+	"engines": {
+		"node": "12"
+	},
+	"license": "Apache-2.0",
+	"main": "./tsc_output/src/index.js",
+	"name": "dice",
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dice-discord/bot.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"deploy": "semantic-release",
+		"lint": "xo",
+		"postinstall": "prisma generate",
+		"prebuild": "rimraf -rf tsc_output",
+		"start": "node tsc_output/src/index.js",
+		"style": "prettier --ignore-path .gitignore --check .",
+		"test": "jest"
+	},
+	"version": "4.5.6",
+	"xo": {
+		"prettier": true,
+		"rules": {
+			"@typescript-eslint/prefer-readonly-parameter-types": [
+				"off"
+			],
+			"camelcase": [
+				"error",
+				{
+					"allow": [
+						"id_guildId"
+					]
+				}
+			],
+			"unicorn/filename-case": [
+				"error",
+				{
+					"cases": {
+						"camelCase": true,
+						"kebabCase": true,
+						"pascalCase": true
+					}
+				}
+			]
+		}
+	}
 }
