@@ -4,16 +4,12 @@
 # All images use Debian Buster since the Prisma query engine (made with Rust) can't be compiled for Alpine Linux
 # See prisma/prisma#702 https://github.com/prisma/prisma/issues/702
 ###
-FROM node:12.16.3-buster-slim AS installer
+FROM node:12.16.3-buster AS installer
 
 # Create app directory
 WORKDIR /usr/src/installer
 
 ENV NODE_ENV=production
-
-RUN apt-get -qq update && \
-	apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 python3.7=3.7.3-2+deb10u1 && \
-	rm -rf /var/lib/apt/lists/*
 
 # Prisma needs to have a schema present because of the postinstall script that generates the SDK
 COPY package.json yarn.lock schema.prisma ./
@@ -21,16 +17,12 @@ COPY package.json yarn.lock schema.prisma ./
 RUN yarn install --production=true
 
 ### BUILDER STAGE ###
-FROM node:12.16.3-buster-slim AS builder
+FROM node:12.16.3-buster AS builder
 
 # Create app directory
 WORKDIR /usr/src/builder
 
 ENV NODE_ENV=production
-
-RUN apt-get -qq update && \
-	apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 python3.7=3.7.3-2+deb10u1 && \
-	rm -rf /var/lib/apt/lists/*
 
 # Install dependencies and copy Prisma schema
 COPY package.json yarn.lock schema.prisma ./
@@ -54,7 +46,7 @@ COPY src ./src
 RUN yarn run build
 
 ### BOT STAGE ###
-FROM node:12.16.3-buster-slim AS bot
+FROM node:12.16.3-buster AS bot
 
 LABEL maintainer 'Jonah Snider <jonah@jonah.pw> (jonah.pw)'
 
@@ -64,10 +56,6 @@ ENV NODE_ENV=production
 
 # Top.gg webhook port
 EXPOSE 5000
-
-RUN apt-get -qq update && \
-	apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 && \
-	rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 COPY --from=installer /usr/src/installer/node_modules ./node_modules
