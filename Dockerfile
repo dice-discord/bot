@@ -29,7 +29,7 @@ WORKDIR /usr/src/builder
 ENV NODE_ENV=production
 
 RUN apt-get -qq update && \
-	apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 && \
+	apt-get --no-install-recommends -qqy install openssl=1.1.1d-0+deb10u3 python3.7=3.7.3-2+deb10u1 && \
 	rm -rf /var/lib/apt/lists/*
 
 # Install dependencies and copy Prisma schema
