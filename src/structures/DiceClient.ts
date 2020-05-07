@@ -65,10 +65,10 @@ export class DiceClient extends AkairoClient {
 			},
 			{
 				disableMentions: 'everyone',
-				// Cache n<40 messages per channel
-				messageCacheMaxSize: 40,
-				// Cache messages for 45 minutes (60s * 45)
-				messageCacheLifetime: 60 * 45,
+				// Cache n<20 messages per channel
+				messageCacheMaxSize: 20,
+				// Cache messages for 15 minutes (60s * 15)
+				messageCacheLifetime: 60 * 15,
 				// Remove messages that are past lifetime every 1 minute
 				messageSweepInterval: 60,
 				ws: {
