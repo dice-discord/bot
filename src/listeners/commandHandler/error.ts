@@ -73,7 +73,7 @@ export default class ErrorListener extends DiceListener {
 
 		const exceptionID = captureException(error);
 
-		this.logger.error(error);
+		this.logger.error('Error while running command:', error);
 
 		if (message.channel.type === 'dm' || message.guild?.me?.permissionsIn(message.channel).has('SEND_MESSAGES')) {
 			// Send the message if we have permissions
