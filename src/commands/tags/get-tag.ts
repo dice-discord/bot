@@ -1,11 +1,10 @@
-import {captureException} from '@sentry/node';
 import {Argument} from 'discord-akairo';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
 
 export interface GetTagCommandArgs {
-	id: string;
+	id?: string;
 	noError?: boolean;
 }
 
@@ -33,8 +32,8 @@ export default class GetTagCommand extends DiceCommand {
 
 	// `noError` is intentionally not listed in the args array in the constructor
 	async exec(message: Message, args: GetTagCommandArgs): Promise<Message | undefined> {
-		if (!args.id) {
-			captureException(new RangeError(`args.id was ${args.id} and would have caused a Prisma error`));
+		if (args.id === undefined) {
+			return;
 		}
 
 		const tag = await this.client.prisma.tag.findOne({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}, select: {content: true}});
