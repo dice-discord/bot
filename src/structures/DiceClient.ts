@@ -6,7 +6,7 @@ import {CronJob} from 'cron';
 import {formatDistanceToNow} from 'date-fns';
 import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
-import {ClientOptions, Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
+import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
 import {join} from 'path';
 import * as pkg from '../../package.json';
 import {defaultPrefix, discoin, owners, runningInProduction, sentryDSN} from '../config';
@@ -16,11 +16,10 @@ import {simpleFormat} from '../util/format';
 import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
 import {findShardIDByGuildID} from '../util/shard';
+import {DiceCluster} from './DiceCluster';
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents} from './TopGgVoteWebhookHandler';
-import {DiceCluster} from './DiceCluster';
-import {Intents} from 'discord.js';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
