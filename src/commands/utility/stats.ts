@@ -14,7 +14,6 @@ export default class StatsCommand extends DiceCommand {
 	async exec(message: Message): Promise<Message | undefined> {
 		let serverCount = this.client.guilds.cache.size;
 
-		// Typings say `shard` can be undefined, although this should never happen
 		if (this.client.shard) {
 			const shardServerCounts = await (this.client.shard.broadcastEval('this.guilds.cache.size') as Promise<number[]>);
 
