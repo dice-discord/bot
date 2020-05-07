@@ -45,4 +45,7 @@ const sharder = new ShardingManager(join(__dirname, 'structures', 'DiceCluster')
 
 registerSharderEvents(sharder, logger);
 
-sharder.spawn().catch(logger.fatal);
+sharder.spawn().catch(error => {
+	logger.fatal(error);
+	throw error;
+});
