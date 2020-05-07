@@ -20,6 +20,7 @@ import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents} from './TopGgVoteWebhookHandler';
 import {DiceCluster} from './DiceCluster';
+import {Intents} from 'discord.js';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -65,7 +66,22 @@ export class DiceClient extends AkairoClient {
 			},
 			{
 				disableMentions: 'everyone',
-				messageCacheMaxSize: 1000,
+				// Cache n<40 messages per channel
+				messageCacheMaxSize: 40,
+				// Cache messages for 45 minutes (60s * 45)
+				messageCacheLifetime: 60 * 45,
+				// Remove messages that are past lifetime every 1 minute
+				messageSweepInterval: 60,
+				ws: {
+					intents: [
+						Intents.FLAGS.GUILDS,
+						Intents.FLAGS.GUILD_MEMBERS,
+						Intents.FLAGS.GUILD_BANS,
+						Intents.FLAGS.GUILD_VOICE_STATES,
+						Intents.FLAGS.GUILD_MESSAGES,
+						Intents.FLAGS.DIRECT_MESSAGES
+					]
+				},
 				presence,
 				...clientOptions
 			}
