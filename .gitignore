@@ -197,3 +197,6 @@ tsc_output
 
 # Google Cloud service account
 googleCloudServiceAccount.json
+
+# Sqreen
+sqreen.json

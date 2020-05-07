@@ -1,3 +1,6 @@
+// Sqreen must be imported first
+import 'sqreen';
+
 import {start as startDebugAgent} from '@google-cloud/debug-agent';
 import {start as startProfiler} from '@google-cloud/profiler';
 import {captureException} from '@sentry/node';
