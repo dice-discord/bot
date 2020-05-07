@@ -2,8 +2,9 @@ import {Signale} from 'signale';
 import {secrets} from '../config';
 import * as signale from 'signale';
 
-const options = {
+const options: signale.SignaleOptions<'command'> | undefined = {
 	secrets,
+	config: {displayDate: true, displayTimestamp: true},
 	types: {
 		command: {
 			badge: '💬',
