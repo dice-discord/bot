@@ -43,39 +43,39 @@ test('romanToDecimal', () => {
 
 test('decimalToRoman', () => {
 	// 1-9
-	expect(RomanCommand.decimalToRoman(1)).toBe('I')
-	expect(RomanCommand.decimalToRoman(2)).toBe('II')
-	expect(RomanCommand.decimalToRoman(3)).toBe('III')
-	expect(RomanCommand.decimalToRoman(4)).toBe('IV')
-	expect(RomanCommand.decimalToRoman(5)).toBe('V')
-	expect(RomanCommand.decimalToRoman(6)).toBe('VI')
-	expect(RomanCommand.decimalToRoman(7)).toBe('VII')
-	expect(RomanCommand.decimalToRoman(8)).toBe('VIII')
-	expect(RomanCommand.decimalToRoman(9)).toBe('IX')
+	expect(RomanCommand.decimalToRoman(1)).toBe('I');
+	expect(RomanCommand.decimalToRoman(2)).toBe('II');
+	expect(RomanCommand.decimalToRoman(3)).toBe('III');
+	expect(RomanCommand.decimalToRoman(4)).toBe('IV');
+	expect(RomanCommand.decimalToRoman(5)).toBe('V');
+	expect(RomanCommand.decimalToRoman(6)).toBe('VI');
+	expect(RomanCommand.decimalToRoman(7)).toBe('VII');
+	expect(RomanCommand.decimalToRoman(8)).toBe('VIII');
+	expect(RomanCommand.decimalToRoman(9)).toBe('IX');
 
 	// Multiples of 10, from 10 to 90
-	expect(RomanCommand.decimalToRoman(10)).toBe('X')
-	expect(RomanCommand.decimalToRoman(20)).toBe('XX')
-	expect(RomanCommand.decimalToRoman(30)).toBe('XXX')
-	expect(RomanCommand.decimalToRoman(40)).toBe('XL')
-	expect(RomanCommand.decimalToRoman(50)).toBe('L')
-	expect(RomanCommand.decimalToRoman(60)).toBe('LX')
-	expect(RomanCommand.decimalToRoman(70)).toBe('LXX')
-	expect(RomanCommand.decimalToRoman(80)).toBe('LXXX')
-	expect(RomanCommand.decimalToRoman(90)).toBe('XC')
+	expect(RomanCommand.decimalToRoman(10)).toBe('X');
+	expect(RomanCommand.decimalToRoman(20)).toBe('XX');
+	expect(RomanCommand.decimalToRoman(30)).toBe('XXX');
+	expect(RomanCommand.decimalToRoman(40)).toBe('XL');
+	expect(RomanCommand.decimalToRoman(50)).toBe('L');
+	expect(RomanCommand.decimalToRoman(60)).toBe('LX');
+	expect(RomanCommand.decimalToRoman(70)).toBe('LXX');
+	expect(RomanCommand.decimalToRoman(80)).toBe('LXXX');
+	expect(RomanCommand.decimalToRoman(90)).toBe('XC');
 
 	// Multiples of 100, 100 to 900
-	expect(RomanCommand.decimalToRoman(100)).toBe('C')
-	expect(RomanCommand.decimalToRoman(200)).toBe('CC')
-	expect(RomanCommand.decimalToRoman(300)).toBe('CCC')
-	expect(RomanCommand.decimalToRoman(400)).toBe('CD')
-	expect(RomanCommand.decimalToRoman(500)).toBe('D')
-	expect(RomanCommand.decimalToRoman(600)).toBe('DC')
-	expect(RomanCommand.decimalToRoman(700)).toBe('DCC')
-	expect(RomanCommand.decimalToRoman(800)).toBe('DCCC')
-	expect(RomanCommand.decimalToRoman(900)).toBe('CM')
+	expect(RomanCommand.decimalToRoman(100)).toBe('C');
+	expect(RomanCommand.decimalToRoman(200)).toBe('CC');
+	expect(RomanCommand.decimalToRoman(300)).toBe('CCC');
+	expect(RomanCommand.decimalToRoman(400)).toBe('CD');
+	expect(RomanCommand.decimalToRoman(500)).toBe('D');
+	expect(RomanCommand.decimalToRoman(600)).toBe('DC');
+	expect(RomanCommand.decimalToRoman(700)).toBe('DCC');
+	expect(RomanCommand.decimalToRoman(800)).toBe('DCCC');
+	expect(RomanCommand.decimalToRoman(900)).toBe('CM');
 
-	expect(RomanCommand.decimalToRoman(1000)).toBe('M')
-	expect(RomanCommand.decimalToRoman(2000)).toBe('MM')
-	expect(RomanCommand.decimalToRoman(3000)).toBe('MMM')
+	expect(RomanCommand.decimalToRoman(1000)).toBe('M');
+	expect(RomanCommand.decimalToRoman(2000)).toBe('MM');
+	expect(RomanCommand.decimalToRoman(3000)).toBe('MMM');
 });
