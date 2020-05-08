@@ -1,7 +1,8 @@
 import {Client as DiscoinClient} from '@discoin/scambio';
 import {Transaction} from '@discoin/scambio/tsc_output/src/structures/transactions';
+import {start as startProfiler} from '@google-cloud/profiler';
 import {PrismaClient} from '@prisma/client';
-import {init as initSentry} from '@sentry/node';
+import {captureException, init as initSentry} from '@sentry/node';
 import {CronJob} from 'cron';
 import {formatDistanceToNow} from 'date-fns';
 import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
@@ -9,7 +10,7 @@ import {bold} from 'discord-md-tags';
 import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
 import {join} from 'path';
 import * as pkg from '../../package.json';
-import {defaultPrefix, discoin, owners, runningInProduction, sentryDSN} from '../config';
+import {defaultPrefix, discoin, googleBaseConfig, owners, runningInProduction, sentryDSN} from '../config';
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
 import {simpleFormat} from '../util/format';
@@ -19,7 +20,7 @@ import {findShardIDByGuildID} from '../util/shard';
 import {DiceCluster} from './DiceCluster';
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
-import {TopGGVote, TopGGVoteWebhookHandler, TopGGVoteWebhookHandlerEvents} from './TopGgVoteWebhookHandler';
+import {TopGGVote, TopGGVoteWebhookHandler} from './TopGgVoteWebhookHandler';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -53,6 +54,7 @@ export class DiceClient extends AkairoClient {
 	// See https://www.npmjs.com/package/cron#gotchas
 	birthdayNotificationJob = new CronJob('30 0 * * *', async () => this.notifyUserBirthdays());
 	discoinJob = new CronJob('* * * * *', async () => this.processDiscoinTransactions());
+	logger?: typeof baseLogger;
 
 	/**
 	 * Create a new DiceClient.
@@ -95,6 +97,18 @@ export class DiceClient extends AkairoClient {
 				release: `bot-${pkg.version}`
 			});
 		}
+
+		this.logger = baseLogger.scope('client', this.shard?.id.toString() ?? '0');
+
+		const googleConfig = {...googleBaseConfig, serviceContext: {service: 'bot'}};
+
+		startProfiler(googleConfig)
+			// eslint-disable-next-line promise/prefer-await-to-then
+			.then(() => this.logger?.success('Started Google Cloud Profiler'))
+			.catch(error => {
+				this.logger?.error('Failed to initialize Google Cloud Profiler', error);
+				captureException(error);
+			});
 
 		if (typeof discoin.token === 'string') {
 			this.discoin = new DiscoinClient(discoin.token, discoin.currencyID);

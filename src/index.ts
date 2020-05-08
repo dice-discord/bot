@@ -3,7 +3,6 @@
 import 'sqreen';
 
 import {start as startDebugAgent} from '@google-cloud/debug-agent';
-import {start as startProfiler} from '@google-cloud/profiler';
 import {captureException} from '@sentry/node';
 import {ShardingManager} from 'kurasuta';
 import {join} from 'path';
@@ -16,14 +15,6 @@ const logger = baseLogger.scope('sharder');
 
 if (googleAppCredentials) {
 	const googleConfig = {...googleBaseConfig, serviceContext: {service: 'bot'}};
-
-	startProfiler(googleConfig)
-		// eslint-disable-next-line promise/prefer-await-to-then
-		.then(() => logger.success('Started Google Cloud Profiler'))
-		.catch(error => {
-			logger.error('Failed to initialize Google Cloud Profiler', error);
-			captureException(error);
-		});
 
 	try {
 		startDebugAgent(googleConfig);
