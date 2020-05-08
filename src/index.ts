@@ -1,5 +1,5 @@
-// eslint-disable-next-line import/no-unassigned-import
 // Sqreen must be imported first
+// eslint-disable-next-line import/no-unassigned-import
 import 'sqreen';
 
 import {start as startDebugAgent} from '@google-cloud/debug-agent';
