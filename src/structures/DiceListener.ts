@@ -3,7 +3,8 @@ import {DiceClient} from './DiceClient';
 
 export const enum DiceListenerCategories {
 	Client = 'client',
-	CommandHandler = 'commandHandler'
+	CommandHandler = 'commandHandler',
+	Prisma = 'prisma'
 }
 
 interface DiceListenerOptions extends ListenerOptions {

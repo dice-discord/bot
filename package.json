@@ -81,7 +81,7 @@
 		"style": "prettier --ignore-path .gitignore --check .",
 		"test": "jest"
 	},
-	"version": "4.6.1",
+	"version": "4.7.0",
 	"xo": {
 		"extends": [
 			"plugin:jest/recommended"

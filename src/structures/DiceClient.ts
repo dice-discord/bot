@@ -8,6 +8,7 @@ import {formatDistanceToNow} from 'date-fns';
 import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
+import {EventEmitter} from 'events';
 import {join} from 'path';
 import * as pkg from '../../package.json';
 import {defaultPrefix, discoin, googleBaseConfig, owners, runningInProduction, sentryDSN} from '../config';
@@ -46,7 +47,12 @@ const maxGuildSettingsCache = 1500;
  * An extended Akairo client with several additions.
  */
 export class DiceClient extends AkairoClient {
-	prisma = new PrismaClient();
+	prisma = new PrismaClient({
+		log: [
+			{emit: 'event', level: 'warn'},
+			{emit: 'event', level: 'info'}
+		]
+	});
 	topGG: TopGGVoteWebhookHandler;
 	/** The cluster that spawned this client. */
 	cluster?: DiceCluster;
@@ -162,7 +168,8 @@ export class DiceClient extends AkairoClient {
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			inhibitorHandler: this.inhibitorHandler,
-			listenerHandler: this.listenerHandler
+			listenerHandler: this.listenerHandler,
+			prisma: (this.prisma as unknown) as EventEmitter
 		});
 
 		this.commandHandler.loadAll();
