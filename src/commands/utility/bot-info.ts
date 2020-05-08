@@ -15,6 +15,16 @@ export default class BotInfoCommand extends DiceCommand {
 	}
 
 	async exec(message: Message): Promise<Message | undefined> {
+		let heapUsed = 0;
+
+		if (this.client.shard) {
+			const allHeapUsed = (await this.client.shard.broadcastEval('process.memoryUsage().heapUsed')) as number[];
+
+			heapUsed = allHeapUsed.reduce((a, b) => a + b);
+		} else {
+			heapUsed = process.memoryUsage().heapUsed;
+		}
+
 		return message.util?.send(
 			new MessageEmbed({
 				title: 'Dice',
@@ -31,7 +41,7 @@ export default class BotInfoCommand extends DiceCommand {
 					},
 					{
 						name: 'RAM usage',
-						value: `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} megabytes`,
+						value: `${(heapUsed / 1024 / 1024).toFixed(2)} megabytes`,
 						inline: true
 					},
 					{
