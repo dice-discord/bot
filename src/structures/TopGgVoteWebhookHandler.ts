@@ -33,10 +33,6 @@ interface Config {
 	client: Client;
 }
 
-export const enum TopGGVoteWebhookHandlerEvents {
-	Vote = 'vote'
-}
-
 export interface TopGGVote {
 	/** ID of the user who voted */
 	user: Snowflake;
@@ -63,6 +59,11 @@ export class TopGGVoteWebhookHandler extends EventEmitter {
 		this.server = serve(async (request: IncomingMessage, response: ServerResponse) => this.handle(request, response));
 	}
 
+	public on(event: 'vote', listener: (data: TopGGVote) => any): this;
+	public on(event: any, listener: (...args: any[]) => void): this {
+		return super.on(event, listener);
+	}
+
 	/** Handle a request. */
 	async handle(request: IncomingMessage, response: ServerResponse): Promise<void> {
 		if (!this._config.client.user) {
@@ -84,7 +85,7 @@ export class TopGGVoteWebhookHandler extends EventEmitter {
 					};
 
 					if (body.type === 'upvote') {
-						this.emit(TopGGVoteWebhookHandlerEvents.Vote, data);
+						this.emit('vote', data);
 					} else {
 						statusCode = 204;
 						this.logger.debug('Test vote event from top.gg received:', data);
