@@ -210,4 +210,5 @@ jobs:
         env:
           POSTGRES_URI: ${{ secrets.POSTGRES_URI }}
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          SQREEN_TOKEN: ${{ secrets.SQREEN_TOKEN }}
           NODE_ENV: development
