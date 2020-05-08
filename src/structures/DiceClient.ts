@@ -1,3 +1,7 @@
+// Sqreen must be imported first
+// eslint-disable-next-line import/no-unassigned-import
+import 'sqreen';
+
 import {Client as DiscoinClient} from '@discoin/scambio';
 import {Transaction} from '@discoin/scambio/tsc_output/src/structures/transactions';
 import {start as startProfiler} from '@google-cloud/profiler';
