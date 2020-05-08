@@ -1,7 +1,7 @@
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {baseLogger} from '../../util/logger';
 
-const excludedEvents = /(Sending a heartbeat|Latency of)/i;
+const excludedEvents = /(sending a heartbeat|latency of)/i;
 
 export default class DebugListener extends DiceListener {
 	logger: typeof baseLogger;
