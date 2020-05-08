@@ -7,7 +7,7 @@ import {CronJob} from 'cron';
 import {formatDistanceToNow} from 'date-fns';
 import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
-import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
+import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
 import {join} from 'path';
 import * as pkg from '../../package.json';
 import {defaultPrefix, discoin, googleBaseConfig, owners, runningInProduction, sentryDSN} from '../config';
@@ -100,7 +100,7 @@ export class DiceClient extends AkairoClient {
 
 		this.logger = baseLogger.scope('client', this.shard?.id.toString() ?? '0');
 
-		const googleConfig = {...googleBaseConfig, serviceContext: {service: 'bot'}};
+		const googleConfig = Util.mergeDefault(googleBaseConfig, {serviceContext: {service: 'bot'}});
 
 		startProfiler(googleConfig)
 			// eslint-disable-next-line promise/prefer-await-to-then

@@ -1,9 +1,10 @@
-// Sqreen must be imported first
 // eslint-disable-next-line import/no-unassigned-import
+// Sqreen must be imported first
 import 'sqreen';
 
 import {start as startDebugAgent} from '@google-cloud/debug-agent';
 import {captureException} from '@sentry/node';
+import {Util} from 'discord.js';
 import {ShardingManager} from 'kurasuta';
 import {join} from 'path';
 import {discordToken, googleAppCredentials, googleBaseConfig, runningInProduction} from './config';
@@ -14,7 +15,7 @@ import {registerSharderEvents} from './util/register-sharder-events';
 const logger = baseLogger.scope('sharder');
 
 if (googleAppCredentials) {
-	const googleConfig = {...googleBaseConfig, serviceContext: {service: 'bot'}};
+	const googleConfig = Util.mergeDefault(googleBaseConfig, {serviceContext: {service: 'bot'}});
 
 	try {
 		startDebugAgent(googleConfig);
