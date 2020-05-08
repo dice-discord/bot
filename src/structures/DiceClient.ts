@@ -57,6 +57,7 @@ export class DiceClient extends AkairoClient {
 			{emit: 'event', level: 'info'}
 		]
 	});
+
 	/** Top.gg webhook handler microservice. */
 	topGG: TopGGVoteWebhookHandler;
 	/** The cluster that spawned this client. */
