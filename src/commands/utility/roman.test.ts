@@ -1,6 +1,8 @@
 import RomanCommand from './roman';
 
 test('romanToDecimal', () => {
+	expect(RomanCommand.romanToDecimal('invalid')).toThrowError(RangeError);
+
 	// 1-9
 	expect(RomanCommand.romanToDecimal('I')).toBe(1);
 	expect(RomanCommand.romanToDecimal('II')).toBe(2);
@@ -42,6 +44,9 @@ test('romanToDecimal', () => {
 });
 
 test('decimalToRoman', () => {
+	expect(RomanCommand.decimalToRoman(1.25)).toThrowError(RangeError);
+	expect(RomanCommand.decimalToRoman(-1)).toThrowError(RangeError);
+
 	// 1-9
 	expect(RomanCommand.decimalToRoman(1)).toBe('I');
 	expect(RomanCommand.decimalToRoman(2)).toBe('II');
