@@ -3,7 +3,9 @@ import {PresenceData} from 'discord.js';
 /** Utility structure to organize admin user IDs. */
 export enum Admins {
 	/** `PizzaFox#0075` on Discord. */
-	PizzaFox = '210024244766179329'
+	PizzaFox = '210024244766179329',
+	/** `OverCoder#3696` on Discord. */
+	OverCoder = '151319592453537793'
 }
 
 /** Colors in numberic format, mostly for use in message embeds. */
