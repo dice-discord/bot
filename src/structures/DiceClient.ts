@@ -20,7 +20,7 @@ import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../t
 import {simpleFormat} from '../util/format';
 import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
-import {findShardIDByGuildID} from '../util/shard';
+import {findShardIDByGuildID, clusterID} from '../util/shard';
 import {DiceCluster} from './DiceCluster';
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
@@ -111,7 +111,7 @@ export class DiceClient extends AkairoClient {
 		}
 
 		this.logger = baseLogger.scope('client', this.shard?.id.toString() ?? '0');
-		prismaLogger = baseLogger.scope('prisma', `client ${this.shard?.id.toString() ?? '0'}`);
+		prismaLogger = baseLogger.scope(`cluster ${clusterID}`, 'prisma');
 
 		const googleConfig = Util.mergeDefault(googleBaseConfig, {serviceContext: {service: 'bot'}});
 
