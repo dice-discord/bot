@@ -2,6 +2,7 @@
 // eslint-disable-next-line import/no-unassigned-import
 import 'sqreen';
 
+import {start as startProfiler} from '@google-cloud/profiler';
 import {start as startDebugAgent} from '@google-cloud/debug-agent';
 import {captureException} from '@sentry/node';
 import {Util} from 'discord.js';
@@ -15,7 +16,15 @@ import {registerSharderEvents} from './util/register-sharder-events';
 const logger = baseLogger.scope('sharder');
 
 if (googleAppCredentials) {
-	const googleConfig = Util.mergeDefault(googleBaseConfig, {serviceContext: {service: 'bot'}});
+	const googleConfig = Util.mergeDefault(googleBaseConfig, {serviceContext: {service: 'sharder'}});
+
+	startProfiler(googleConfig)
+		// eslint-disable-next-line promise/prefer-await-to-then
+		.then(() => logger.success('Started Google Cloud Profiler'))
+		.catch(error => {
+			logger.error('Failed to initialize Google Cloud Profiler', error);
+			captureException(error);
+		});
 
 	try {
 		startDebugAgent(googleConfig);
