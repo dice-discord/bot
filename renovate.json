@@ -1,4 +1,15 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["@pizzafox"]
+	"extends": ["@pizzafox"],
+	"packageRules": [
+		{
+			"automerge": true,
+			"updateTypes": ["patch", "pin", "digest"]
+		},
+		{
+			"depTypeList": ["devDependencies"],
+			"updateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true
+		}
+	]
 }
