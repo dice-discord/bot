@@ -1,7 +1,5 @@
 // Sqreen must be imported first
 // eslint-disable-next-line import/no-unassigned-import
-import 'sqreen';
-
 import {Client as DiscoinClient} from '@discoin/scambio';
 import {Transaction} from '@discoin/scambio/tsc_output/src/structures/transactions';
 import {start as startProfiler} from '@google-cloud/profiler';
@@ -12,8 +10,8 @@ import {formatDistanceToNow} from 'date-fns';
 import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
-import {EventEmitter} from 'events';
 import {join} from 'path';
+import 'sqreen';
 import * as pkg from '../../package.json';
 import {defaultPrefix, discoin, googleBaseConfig, owners, runningInProduction, sentryDSN} from '../config';
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
