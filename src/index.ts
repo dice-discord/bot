@@ -15,7 +15,7 @@ import {registerSharderEvents} from './util/register-sharder-events';
 const logger = baseLogger.scope('sharder');
 
 if (googleAppCredentials) {
-	const googleConfig = Util.mergeDefault(googleBaseConfig, {serviceContext: {service: 'sharder'}});
+	const googleConfig = Util.mergeDefault(googleBaseConfig, {serviceContext: {service: 'bot'}});
 
 	try {
 		startDebugAgent(googleConfig);
