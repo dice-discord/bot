@@ -2,7 +2,6 @@
 // eslint-disable-next-line import/no-unassigned-import
 import 'sqreen';
 
-import {start as startProfiler} from '@google-cloud/profiler';
 import {start as startDebugAgent} from '@google-cloud/debug-agent';
 import {captureException} from '@sentry/node';
 import {Util} from 'discord.js';
