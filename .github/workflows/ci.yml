@@ -79,7 +79,7 @@ jobs:
         env:
           POSTGRES_URI: ${{ secrets.POSTGRES_URI }}
       - name: Run tests
-        run: yarn test
+        run: yarn test --coverage
       - name: Upload coverage
         uses: codecov/codecov-action@v1
   lint-dockerfile:
