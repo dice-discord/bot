@@ -43,6 +43,7 @@ declare module 'discord-akairo' {
 const birthdayLogger = baseLogger.scope('client');
 const discoinLogger = baseLogger.scope('discoin');
 const handleVoteLogger = baseLogger.scope('top.gg vote handler');
+let prismaLogger = baseLogger.scope('prisma');
 
 /** The maximum number of guild settings to cache at once. */
 const maxGuildSettingsCache = 1500;
@@ -111,6 +112,7 @@ export class DiceClient extends AkairoClient {
 		}
 
 		this.logger = baseLogger.scope('client', this.shard?.id.toString() ?? '0');
+		prismaLogger = baseLogger.scope('prisma', `client ${this.shard?.id.toString() ?? '0'}`);
 
 		const googleConfig = Util.mergeDefault(googleBaseConfig, {serviceContext: {service: 'bot'}});
 
@@ -174,13 +176,15 @@ export class DiceClient extends AkairoClient {
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			inhibitorHandler: this.inhibitorHandler,
-			listenerHandler: this.listenerHandler,
-			prisma: (this.prisma as unknown) as EventEmitter
+			listenerHandler: this.listenerHandler
 		});
 
 		this.commandHandler.loadAll();
 		this.inhibitorHandler.loadAll();
 		this.listenerHandler.loadAll();
+
+		this.prisma.on('info', event => prismaLogger.info(event));
+		this.prisma.on('warn', event => prismaLogger.warn(event));
 
 		await this.prisma.connect();
 
