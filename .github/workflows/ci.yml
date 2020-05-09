@@ -211,5 +211,5 @@ jobs:
           POSTGRES_URI: ${{ secrets.POSTGRES_URI }}
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SQREEN_TOKEN: ${{ secrets.SQREEN_TOKEN }}
-          SQREEN_APP_NAME: Dice 
+          SQREEN_APP_NAME: Dice
           NODE_ENV: development
