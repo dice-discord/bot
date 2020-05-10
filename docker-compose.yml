@@ -22,8 +22,10 @@ services:
       - backend
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.bot.rule=Path(`/bot`) || PathPrefix(`/bot/`)'
-      - 'traefik.http.routers.bot.entrypoints=web'
+      - 'traefik.http.routers.bot.rule=Host(`dice.jonah.pw`) && Path(`/bot`) || PathPrefix(`/bot/`)'
+      - 'traefik.http.routers.bot.entrypoints=web,websecure'
+      - traefik.http.routers.bot.tls=true
+      - traefik.http.routers.bot.tls.certresolver=cert_resolver
       - 'traefik.http.services.bot.loadbalancer.server.port=5000'
     volumes:
       - ./googleCloudServiceAccount.json:/usr/src/dice/googleCloudServiceAccount.json:ro
@@ -64,7 +66,9 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.grafana.rule=Path(`/grafana`) || PathPrefix(`/grafana/`)'
-      - 'traefik.http.routers.grafana.entrypoints=web'
+      - 'traefik.http.routers.grafana.entrypoints=web,websecure'
+      - traefik.http.routers.grafana.tls=true
+      - traefik.http.routers.grafana.tls.certresolver=cert_resolver
       - 'traefik.http.middlewares.grafana_compress.compress=true'
       - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
   # InfluxDB time-series database
@@ -88,11 +92,33 @@ services:
       - '443:443'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './acme:/acme'
     command:
-      ['--api.insecure=true', '--api.dashboard=true', '--providers.docker=true', '--providers.docker.exposedbydefault=false', '--entrypoints.web.address=:80']
+      [
+        '--api.insecure=true',
+        '--api.dashboard=true',
+        '--providers.docker=true',
+        '--providers.docker.exposedbydefault=false',
+        '--entrypoints.web.address=:80',
+        '--entrypoints.websecure.address=:443',
+        '--certificatesresolvers.cert_resolver.acme.email=dice.ssl@jonah.pw',
+        '--certificatesresolvers.cert_resolver.acme.storage=acme.json',
+        '--certificatesresolvers.cert_resolver.acme.httpchallenge.entrypoint=web',
+      ]
     networks:
       - frontend
       - backend
+  metabase:
+    image: metabase/metabase
+    restart: unless-stopped
+    env_file: metabase.env
+    networks:
+      - frontend
+      - backend
+    ports:
+      - '3001:3000'
+    depends_on:
+      - postgres
 volumes:
   dice-grafana-storage:
     external: true
