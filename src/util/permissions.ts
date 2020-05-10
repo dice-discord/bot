@@ -12,6 +12,6 @@ export function manageable(user: GuildMember, target: GuildMember): boolean {
 		target.user.id === user.guild.ownerID ||
 		target.user.id === user.user.id ||
 		user.user.id !== user.guild.ownerID ||
-		user.roles.highest.comparePositionTo(target.roles.highest) < 0
+		user.roles.highest.comparePositionTo(target.roles.highest) > 0
 	);
 }
