@@ -2452,13 +2452,6 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-code@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/code/-/code-4.1.0.tgz#209ad11d05af8a0c1c7aaf694d9fa4d2c7d95b85"
-  integrity sha1-IJrRHQWvigwceq9pTZ+k0sfZW4U=
-  dependencies:
-    hoek "4.x.x"
-
 coffeescript@^2.0.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/coffeescript/-/coffeescript-2.5.1.tgz#b2442a1f2c806139669534a54adc35010559d16a"
@@ -4699,11 +4692,6 @@ hmac-drbg@^1.0.0:
     hash.js "^1.0.3"
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
-
-hoek@4.x.x:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
-  integrity sha512-QLg82fGkfnJ/4iy1xZ81/9SIJiq1NGFUMGs6ParyjBZr6jW2Ufj/snDqTHixNlHdPNwN2RLVD0Pi3igeK9+JfA==
 
 hook-std@^2.0.0:
   version "2.0.0"
@@ -9234,18 +9222,17 @@ sq-native@0.9.1:
   dependencies:
     binary-downloader "0.1.1"
 
-sqreen-sdk@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/sqreen-sdk/-/sqreen-sdk-0.6.3.tgz#0a08ab1fabb6136bf7152beb9f863ce763a73c87"
-  integrity sha512-Se6VpQCAvi20eRbv9Qcq4EnyKV4wkO5lHb7inYEcIo5wkHy/rdGNZ6G6DPeEY7SczZz1gxhLa5UTnXsjcF6mFg==
+sqreen-sdk@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/sqreen-sdk/-/sqreen-sdk-0.7.0.tgz#5e7f0f1eade92044f288c667b39359389fca6042"
+  integrity sha512-jgw5Cojkq6UfHEqtDUt0QGuyFxIkuOceiVbtwA/NwZNqZzuuLZM4R6aO76Do3mCrPFHj7ocUOx6gMc2r1Kl14A==
   dependencies:
     axios "^0.19.0"
-    code "^4.1.0"
 
-sqreen@1.41.0:
-  version "1.41.0"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.41.0.tgz#f4caee5f9d7027db19e1eb3a32bd089a563d404c"
-  integrity sha512-HaL4UHifQCECLG/lFHS4Dxp6o7IC84SB9PCsi3SNRRIJMzW1bxqLvksdwtvHS/KfGFi6OY7hTBKJbsQW58D90Q==
+sqreen@1.41.1:
+  version "1.41.1"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.41.1.tgz#9423711a3764a30b3cd5e2cfc751da6d9fbd5220"
+  integrity sha512-7opB9SqO0t85C8Ocl/b0cBLrX6F6bxCRyadOHZDtINAPVREeU4lxqb3CLweVTE+EOeE0BOLyNc/lJk/k4hR4Rw==
   dependencies:
     async-listener "^0.6.0"
     async-lock "^1.2.2"
@@ -9266,7 +9253,7 @@ sqreen@1.41.0:
     recursive-readdir "^2.1.0"
     semver "^5.2.0"
     shimmer "^1.2.0"
-    sqreen-sdk "^0.6.3"
+    sqreen-sdk "^0.7.0"
     uuid "^3.1.0"
     winston "^2.2.0"
     zxcvbn "^4.4.2"
