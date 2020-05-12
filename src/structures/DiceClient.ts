@@ -13,10 +13,11 @@ import * as pkg from '../../package.json';
 import {defaultPrefix, discoin, googleBaseConfig, owners, runningInProduction, sentryDSN} from '../config';
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
+import {resolver as minecraftUserTypeResolver, typeName as minecraftUserTypeName} from '../types/minecraftUser';
 import {simpleFormat} from '../util/format';
 import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
-import {findShardIDByGuildID, clusterID} from '../util/shard';
+import {clusterID, findShardIDByGuildID} from '../util/shard';
 import {DiceCluster} from './DiceCluster';
 import {DiceUser} from './DiceUser';
 import {GuildSettingsCache} from './GuildSettingsCache';
@@ -41,7 +42,7 @@ const handleVoteLogger = baseLogger.scope('top.gg vote handler');
 let prismaLogger = baseLogger.scope('prisma');
 
 /** The maximum number of guild settings to cache at once. */
-const maxGuildSettingsCache = 1500;
+const maxGuildSettingsCache = 100;
 
 /**
  * An extended Akairo client with several additions.
@@ -84,12 +85,12 @@ export class DiceClient extends AkairoClient {
 				ws: {
 					intents: [
 						Intents.FLAGS.GUILDS,
-						// This is a privileged intent:
-						// Intents.FLAGS.GUILD_MEMBERS,
 						Intents.FLAGS.GUILD_BANS,
 						Intents.FLAGS.GUILD_VOICE_STATES,
 						Intents.FLAGS.GUILD_MESSAGES,
-						Intents.FLAGS.DIRECT_MESSAGES
+						Intents.FLAGS.DIRECT_MESSAGES,
+						// This is a privileged intent:
+						Intents.FLAGS.GUILD_MEMBERS
 					]
 				},
 				presence,
@@ -160,6 +161,7 @@ export class DiceClient extends AkairoClient {
 		});
 
 		this.commandHandler.resolver.addType(anyUserTypeName, anyUserTypeResolver);
+		this.commandHandler.resolver.addType(minecraftUserTypeName, minecraftUserTypeResolver);
 
 		this.topGG = new TopGGVoteWebhookHandler({client: this});
 	}
