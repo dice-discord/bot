@@ -2,6 +2,7 @@ import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import Roll = require('roll');
 import {Argument} from 'discord-akairo';
+import {bold} from 'discord-md-tags';
 
 export default class RollCommand extends DiceCommand {
 	constructor() {
@@ -18,7 +19,13 @@ export default class RollCommand extends DiceCommand {
 					id: 'roll',
 					match: 'content',
 					default: 'd6',
-					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => Roll.prototype.validate(phrase)),
+					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => {
+						if (phrase.length > 300) {
+							return false;
+						}
+
+						return Roll.prototype.validate(phrase);
+					}),
 					prompt: {optional: true, retry: 'Invalid dice notation, please try again', start: 'What do you want to roll?'}
 				}
 			]
@@ -34,7 +41,7 @@ export default class RollCommand extends DiceCommand {
 		}
 
 		return message.util?.send(
-			[rolled.result.toLocaleString(), rolled.rolled.length > 1 ? ` (${rolled.rolled.map(value => value.toLocaleString()).join(', ')})` : ''].join(''),
+			[bold`${rolled.result.toLocaleString()}`, rolled.rolled.length > 1 ? ` (${rolled.rolled.map(value => value.toLocaleString()).join(', ')})` : ''].join(''),
 			{split: true}
 		);
 	}
