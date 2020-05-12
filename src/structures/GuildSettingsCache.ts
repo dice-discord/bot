@@ -11,7 +11,7 @@ export class GuildSettingsCache {
 	private readonly prisma: PrismaClient;
 	private readonly _cache: Map<Snowflake, CachedGuild>;
 
-	constructor(prisma: PrismaClient, maxSize = 1000) {
+	constructor(prisma: PrismaClient) {
 		this._cache = new Map();
 		this.prisma = prisma;
 	}

@@ -41,9 +41,6 @@ const discoinLogger = baseLogger.scope('discoin');
 const handleVoteLogger = baseLogger.scope('top.gg vote handler');
 let prismaLogger = baseLogger.scope('prisma');
 
-/** The maximum number of guild settings to cache at once. */
-const maxGuildSettingsCache = 100;
-
 /**
  * An extended Akairo client with several additions.
  */
@@ -124,7 +121,7 @@ export class DiceClient extends AkairoClient {
 			this.discoin = new DiscoinClient(discoin.token, discoin.currencyID);
 		}
 
-		this.guildSettingsCache = new GuildSettingsCache(this.prisma, maxGuildSettingsCache);
+		this.guildSettingsCache = new GuildSettingsCache(this.prisma);
 
 		this.commandHandler = new CommandHandler(this, {
 			directory: join(__dirname, '..', 'commands'),
