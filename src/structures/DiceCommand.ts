@@ -11,7 +11,8 @@ export const enum DiceCommandCategories {
 	Selfroles = 'selfroles',
 	Tags = 'tags',
 	Moderation = 'moderation',
-	Single = 'single response'
+	Single = 'single response',
+	Minecraft = 'minecraft'
 }
 
 /**
