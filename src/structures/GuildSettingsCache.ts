@@ -1,4 +1,3 @@
-import * as QuickLRU from 'quick-lru';
 import {Guild, PrismaClient} from '@prisma/client';
 import {Guild as DiscordGuild, GuildResolvable, Snowflake} from 'discord.js';
 
@@ -10,10 +9,10 @@ type CachedGuild = Pick<Guild, 'prefix'>;
  */
 export class GuildSettingsCache {
 	private readonly prisma: PrismaClient;
-	private readonly _cache: QuickLRU<Snowflake, CachedGuild>;
+	private readonly _cache: Map<Snowflake, CachedGuild>;
 
 	constructor(prisma: PrismaClient, maxSize = 1000) {
-		this._cache = new QuickLRU({maxSize});
+		this._cache = new Map();
 		this.prisma = prisma;
 	}
 
