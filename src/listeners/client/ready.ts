@@ -42,7 +42,7 @@ export default class ReadyListener extends DiceListener {
 			this.scopedWithClusterID = true;
 		}
 
-		this.client.influxUtil?.recordDiscordStats();
+		this.client.influxUtil?.recordDiscordStats().catch(error => this.logger.error('Failed to report InfluxDB Discord stats', error));
 
 		if (runningInProduction && this.client.shard?.id === 0) {
 			if (readyWebhook.id !== undefined && readyWebhook.token !== undefined) {
