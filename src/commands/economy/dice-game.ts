@@ -60,7 +60,7 @@ export default class DiceGameCommand extends DiceCommand {
 
 	async exec(message: Message, args: {wager: number; multiplier: number}): Promise<Message | undefined> {
 		args.wager = simpleFormat(args.wager);
-		args.multiplier = simpleFormat(args.multiplier / 100);
+		args.multiplier = simpleFormat(args.multiplier);
 
 		const author = new DiceUser(message.author);
 		const dice = new DiceUser(this.client.user!);
@@ -84,7 +84,7 @@ export default class DiceGameCommand extends DiceCommand {
 		/** Whether or not the author won this round. */
 		const authorWon = randomNumber < winPercentage(args.multiplier);
 		/** The revenue the author would make if they won the game. */
-		const revenue = args.wager * (args.multiplier + 1);
+		const revenue = args.wager * args.multiplier;
 		/** The profit the author would make if they won the game. */
 		const profit = revenue - args.wager;
 
@@ -94,7 +94,7 @@ export default class DiceGameCommand extends DiceCommand {
 		}
 
 		const embed = new MessageEmbed({
-			title: bold`${args.wager.toLocaleString()} × ${args.multiplier * 100}`,
+			title: bold`${args.wager.toLocaleString()} × ${args.multiplier}`,
 			color: authorWon ? Colors.Success : Colors.Error
 		});
 
