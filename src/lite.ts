@@ -1,6 +1,6 @@
 import {DiceClient} from './structures/DiceClient';
 import {discordToken, runningInCI} from './config';
-import {baseLogger} from './util/logger';
+import {baseLogger} from './logging/logger';
 import {ExitCodes} from './constants';
 
 const logger = baseLogger.scope('lite');

@@ -1,5 +1,5 @@
 import {ShardingManager, SharderEvents} from 'kurasuta';
-import {baseLogger} from './logger';
+import {baseLogger} from '../logging/logger';
 
 export function registerSharderEvents(sharder: ShardingManager, logger?: typeof baseLogger): ShardingManager {
 	const usedLogger = logger ?? baseLogger.scope('sharder');

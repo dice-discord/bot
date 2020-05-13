@@ -1,16 +1,14 @@
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {baseLogger} from '../../logging/logger';
 
-const excludedEvents = /(sending a heartbeat|latency of)/i;
-
-export default class DebugListener extends DiceListener {
+export default class ErrorListener extends DiceListener {
 	logger: typeof baseLogger;
 	private scopedWithClusterID = false;
 
 	constructor() {
-		super('debug', {
+		super('error', {
 			emitter: 'client',
-			event: 'debug',
+			event: 'error',
 			category: DiceListenerCategories.Client
 		});
 
@@ -18,18 +16,14 @@ export default class DebugListener extends DiceListener {
 	}
 
 	/**
-	 * @param info The debug information
+	 * @param error The error encountered
 	 */
-	exec(info: string): void {
-		if (excludedEvents.test(info)) {
-			return;
-		}
-
+	exec(error: Error): void {
 		if (!this.scopedWithClusterID && this.client?.shard?.id !== undefined) {
 			this.logger = this.logger.scope('discord.js', `cluster ${this.client.shard.id}`);
 			this.scopedWithClusterID = true;
 		}
 
-		return this.logger.debug(info);
+		return this.logger.error(error);
 	}
 }

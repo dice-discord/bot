@@ -3,7 +3,7 @@ import {code} from 'discord-md-tags';
 import {Message} from 'discord.js';
 import {DiceCommand} from '../../structures/DiceCommand';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
-import {baseLogger} from '../../util/logger';
+import {baseLogger} from '../../logging/logger';
 
 export default class ErrorListener extends DiceListener {
 	logger: typeof baseLogger = baseLogger.scope('commands');

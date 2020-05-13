@@ -1,6 +1,6 @@
 import {inspect} from 'util';
 import {Message} from 'discord.js';
-import {baseLogger} from '../../util/logger';
+import {baseLogger} from '../../logging/logger';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {DiceCommand} from '../../structures/DiceCommand';
 

@@ -6,7 +6,7 @@ import {WebhookConfig} from '../types/discord';
 import {GoogleServiceAccount} from '../types/google';
 import escapeStringRegExp = require('escape-string-regexp');
 import {Admins} from './constants';
-import {baseLogger} from './util/logger';
+import {baseLogger} from './logging/logger';
 import * as pkg from '../package.json';
 
 dotenv.config({path: join(__dirname, '..', 'bot.env')});
@@ -60,6 +60,9 @@ export const googleBaseConfig = {
 	serviceContext: {version: pkg?.version ?? process.env.npm_package_version}
 };
 
+/** The InfluxDB DSN. */
+export const influxDSN = process.env.INFLUXDB_DSN;
+
 // Discord tokens are separated by `.`s into 3 base64-encoded parts.
 // 1. Bot ID
 // 2. Token creation time
@@ -78,7 +81,10 @@ if (disassembledToken.length === 3) {
 /** The PostgreSQL database URI in a URL object, if it's present in the environment. */
 export const postgresURI = process.env.POSTGRES_URI ? new URL(process.env.POSTGRES_URI) : undefined;
 
-[discoin.token, topGGWebhookPassword, sentryDSN, postgresURI?.password, readyWebhook.token].forEach(secret => {
+/** The InfluxDB DSN in a URL object, if it's present in the environment. */
+const influxURL = influxDSN ? new URL(influxDSN) : undefined;
+
+[discoin.token, topGGWebhookPassword, sentryDSN, postgresURI?.password, influxURL?.password, readyWebhook.token].forEach(secret => {
 	if (secret) {
 		secrets.push(escapeStringRegExp(secret));
 	}

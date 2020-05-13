@@ -1,4 +1,4 @@
-import {baseLogger} from '../../util/logger';
+import {baseLogger} from '../../logging/logger';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {runningInProduction, readyWebhook, runningInCI} from '../../config';
 import {MessageEmbed, WebhookClient} from 'discord.js';

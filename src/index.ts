@@ -5,7 +5,7 @@ import {ShardingManager} from 'kurasuta';
 import {join} from 'path';
 import {discordToken, googleAppCredentials, googleBaseConfig, runningInProduction} from './config';
 import {DiceClient} from './structures/DiceClient';
-import {baseLogger} from './util/logger';
+import {baseLogger} from './logging/logger';
 import {registerSharderEvents} from './util/register-sharder-events';
 
 const logger = baseLogger.scope('sharder');

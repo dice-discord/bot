@@ -14,18 +14,15 @@ services:
     env_file: bot.env
     expose:
       - '5000'
-    depends_on:
-      - postgres
     links:
       - postgres
+      - influxdb
     networks:
       - backend
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.bot.rule=Host(`dice.jonah.pw`) && Path(`/bot`) || PathPrefix(`/bot/`)'
-      - 'traefik.http.routers.bot.entrypoints=web,websecure'
-      - traefik.http.routers.bot.tls=true
-      - traefik.http.routers.bot.tls.certresolver=cert_resolver
+      - 'traefik.http.routers.bot.entrypoints=web'
       - 'traefik.http.services.bot.loadbalancer.server.port=5000'
     volumes:
       - ./googleCloudServiceAccount.json:/usr/src/dice/googleCloudServiceAccount.json:ro
@@ -57,8 +54,6 @@ services:
     networks:
       - frontend
       - backend
-    depends_on:
-      - influxdb
     expose:
       - '3000'
     links:
@@ -66,10 +61,7 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.grafana.rule=Path(`/grafana`) || PathPrefix(`/grafana/`)'
-      - 'traefik.http.routers.grafana.entrypoints=web,websecure'
-      - traefik.http.routers.grafana.tls=true
-      - traefik.http.routers.grafana.tls.certresolver=cert_resolver
-      - 'traefik.http.middlewares.grafana_compress.compress=true'
+      - 'traefik.http.routers.grafana.entrypoints=web'
       - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
   # InfluxDB time-series database
   influxdb:
@@ -101,12 +93,31 @@ services:
         '--providers.docker.exposedbydefault=false',
         '--entrypoints.web.address=:80',
         '--entrypoints.websecure.address=:443',
-        '--certificatesresolvers.cert_resolver.acme.email=dice.ssl@jonah.pw',
-        '--certificatesresolvers.cert_resolver.acme.storage=acme.json',
-        '--certificatesresolvers.cert_resolver.acme.httpchallenge.entrypoint=web',
       ]
     networks:
       - frontend
+      - backend
+  telegraf:
+    image: telegraf:1.14.1-alpine
+    restart: unless-stopped
+    env_file: telegraf.env
+    environment:
+      - HOST_PROC=/host/proc
+    expose:
+      # StatsD
+      - '8125'
+      # UDP
+      - '8092'
+      # TCP
+      - '8094'
+    volumes:
+      - '/proc:/host/proc:ro'
+      - /var/run/docker.sock:/var/run/docker.sock
+      - './telegraf.conf:/etc/telegraf/telegraf.conf:ro'
+    links:
+      - postgres
+      - influxdb
+    networks:
       - backend
   metabase:
     image: metabase/metabase
@@ -117,7 +128,7 @@ services:
       - backend
     ports:
       - '3001:3000'
-    depends_on:
+    links:
       - postgres
 volumes:
   dice-grafana-storage:

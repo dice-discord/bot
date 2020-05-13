@@ -1,6 +1,6 @@
 import {Command, CommandOptions} from 'discord-akairo';
 import {Collection, Message} from 'discord.js';
-import {baseLogger} from '../util/logger';
+import {baseLogger} from '../logging/logger';
 
 export const enum DiceCommandCategories {
 	Util = 'utility',

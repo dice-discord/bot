@@ -2,7 +2,7 @@ import {PrismaClient} from '@prisma/client';
 import {Guild, MessageEmbed, Permissions, Snowflake, TextChannel, User} from 'discord.js';
 import {Notifications} from '../constants';
 import {DiceClient} from '../structures/DiceClient';
-import {baseLogger} from './logger';
+import {baseLogger} from '../logging/logger';
 
 const logger = baseLogger.scope('util', 'notifications');
 

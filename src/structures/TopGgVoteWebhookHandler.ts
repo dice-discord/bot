@@ -2,7 +2,7 @@ import {Client, Snowflake} from 'discord.js';
 import {EventEmitter} from 'events';
 import {IncomingMessage, ServerResponse} from 'http';
 import {json, send, Server, serve} from 'micri';
-import {baseLogger} from '../util/logger';
+import {baseLogger} from '../logging/logger';
 import {topGGWebhookPassword} from '../config';
 
 type EventType = 'upvote' | 'test';

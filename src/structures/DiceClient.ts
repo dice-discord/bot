@@ -10,16 +10,17 @@ import {bold} from 'discord-md-tags';
 import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
 import {join} from 'path';
 import * as pkg from '../../package.json';
-import {defaultPrefix, discoin, googleBaseConfig, owners, runningInProduction, sentryDSN} from '../config';
+import {defaultPrefix, discoin, googleBaseConfig, influxDSN, owners, runningInProduction, sentryDSN} from '../config';
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
+import {baseLogger} from '../logging/logger';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
 import {resolver as minecraftUserTypeResolver, typeName as minecraftUserTypeName} from '../types/minecraftUser';
 import {simpleFormat} from '../util/format';
-import {baseLogger} from '../util/logger';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
 import {clusterID, findShardIDByGuildID} from '../util/shard';
 import {DiceCluster} from './DiceCluster';
 import {DiceUser} from './DiceUser';
+import {DiscordInfluxUtil} from './DiscordInfluxUtil';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler} from './TopGgVoteWebhookHandler';
 
@@ -51,6 +52,9 @@ export class DiceClient extends AkairoClient {
 			{emit: 'event', level: 'info'}
 		]
 	});
+
+	/** The InfluxDB util for this client. */
+	influxUtil?: DiscordInfluxUtil;
 
 	/** Top.gg webhook handler microservice. */
 	topGG: TopGGVoteWebhookHandler;
@@ -116,6 +120,10 @@ export class DiceClient extends AkairoClient {
 				this.logger?.error('Failed to initialize Google Cloud Profiler', error);
 				captureException(error);
 			});
+
+		if (influxDSN) {
+			this.influxUtil = new DiscordInfluxUtil(influxDSN, this);
+		}
 
 		if (typeof discoin.token === 'string') {
 			this.discoin = new DiscoinClient(discoin.token, discoin.currencyID);

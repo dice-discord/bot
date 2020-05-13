@@ -1,6 +1,6 @@
 import {BaseCluster, ShardingManager} from 'kurasuta';
 import {discordToken} from '../config';
-import {baseLogger} from '../util/logger';
+import {baseLogger} from '../logging/logger';
 import {DiceClient} from './DiceClient';
 
 export class DiceCluster extends BaseCluster {
