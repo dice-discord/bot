@@ -26,7 +26,7 @@
 		"got": "11.1.3",
 		"influx": "5.5.1",
 		"kurasuta": "2.1.0",
-		"micri": "4.1.2",
+		"micri": "4.2.0",
 		"parse-color": "1.0.0",
 		"pretty-ms": "7.0.0",
 		"raw-body": "2.4.1",
