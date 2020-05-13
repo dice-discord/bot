@@ -9,7 +9,7 @@ export default class ErrorListener extends DiceListener {
 	logger: typeof baseLogger = baseLogger.scope('commands');
 
 	constructor() {
-		super('error', {
+		super('commandError', {
 			emitter: 'commandHandler',
 			event: 'error',
 			category: DiceListenerCategories.CommandHandler

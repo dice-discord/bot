@@ -6,7 +6,7 @@ export default class ErrorListener extends DiceListener {
 	private scopedWithClusterID = false;
 
 	constructor() {
-		super('error', {
+		super('clientError', {
 			emitter: 'client',
 			event: 'error',
 			category: DiceListenerCategories.Client
