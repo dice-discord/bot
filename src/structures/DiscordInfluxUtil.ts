@@ -54,7 +54,7 @@ export class DiscordInfluxUtil {
 	 */
 	async recordDiscordStats(): Promise<void> {
 		const fields: DiscordSchema = {
-			guild_count: this.client.channels.cache.size as Integer,
+			guild_count: this.client.guilds.cache.size as Integer,
 			user_count: this.client.users.cache.size as Integer,
 			channel_count: this.client.channels.cache.size as Integer
 		};
