@@ -1,11 +1,12 @@
 import {Util, Message} from 'discord.js';
 
 /**
- * Round a number to 2 decimal places.
+ * Round a number to n digit sof precision after the decimal point.
  * @param value Value to format
+ * @param precision Number of digits of precision after the decimal point
  */
-export function simpleFormat(value: number): number {
-	return Number.parseFloat(value.toFixed(2));
+export function simpleFormat(value: number, precision = 2): number {
+	return Number.parseFloat(value.toFixed(precision));
 }
 
 /**
