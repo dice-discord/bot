@@ -11,9 +11,9 @@ export default class GuildCreateListener extends DiceListener {
 	}
 
 	/**
-	 * @param guild The created guild
+	 * @param _guild The created guild
 	 */
-	async exec(guild: Guild): Promise<void | undefined> {
+	async exec(_guild: Guild): Promise<void | undefined> {
 		return this.client.influxUtil?.recordDiscordStats();
 	}
 }

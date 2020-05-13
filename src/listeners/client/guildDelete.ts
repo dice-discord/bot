@@ -11,9 +11,9 @@ export default class GuildDeleteListener extends DiceListener {
 	}
 
 	/**
-	 * @param guild The guild that was deleted
+	 * @param _guild The guild that was deleted
 	 */
-	async exec(guild: Guild): Promise<void | undefined> {
+	async exec(_guild: Guild): Promise<void | undefined> {
 		return this.client.influxUtil?.recordDiscordStats();
 	}
 }

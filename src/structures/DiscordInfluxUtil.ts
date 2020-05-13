@@ -2,6 +2,8 @@ import {AkairoClient} from 'discord-akairo';
 import {FieldType, InfluxDB} from 'influx';
 import {Integer} from '../../types/opaque';
 
+/* eslint-disable camelcase */
+
 /** Measurements recorded on InfluxDB. */
 type SchemaMeasurements = 'discord';
 
@@ -36,6 +38,7 @@ export class DiscordInfluxUtil {
 
 		this.influx.addSchema({
 			measurement: 'discord' as SchemaMeasurements,
+			// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 			fields: {
 				guild_count: FieldType.INTEGER,
 				user_count: FieldType.INTEGER,
@@ -49,14 +52,14 @@ export class DiscordInfluxUtil {
 	 * Records a measurement to the `discord` schema
 	 */
 	async recordDiscordStats(): Promise<void> {
-		return this.influx.writeMeasurement('discord' as SchemaMeasurements, [
-			{
-				fields: {
-					guild_count: this.client.channels.cache.size as Integer,
-					user_count: this.client.users.cache.size as Integer,
-					channel_count: this.client.channels.cache.size as Integer
-				} as DiscordSchema
-			}
-		]);
+		const fields: DiscordSchema = {
+			guild_count: this.client.channels.cache.size as Integer,
+			user_count: this.client.users.cache.size as Integer,
+			channel_count: this.client.channels.cache.size as Integer
+		};
+
+		return this.influx.writeMeasurement('discord' as SchemaMeasurements, [{fields}]);
 	}
 }
+
+/* eslint-enable camelcase */
