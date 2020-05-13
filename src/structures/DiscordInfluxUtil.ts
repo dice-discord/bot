@@ -1,6 +1,7 @@
 import {AkairoClient} from 'discord-akairo';
 import {FieldType, InfluxDB} from 'influx';
 import {Integer} from '../../types/opaque';
+import {clusterID} from '../util/shard';
 
 /* eslint-disable camelcase */
 
@@ -58,7 +59,9 @@ export class DiscordInfluxUtil {
 			channel_count: this.client.channels.cache.size as Integer
 		};
 
-		return this.influx.writeMeasurement('discord' as SchemaMeasurements, [{fields}]);
+		const tags: Record<DiscordSchemaTags, string> = {cluster_id: clusterID.toString()};
+
+		return this.influx.writeMeasurement('discord' as SchemaMeasurements, [{tags, fields}]);
 	}
 }
 
