@@ -24,7 +24,7 @@ export const multipliers = {
  * @returns The likelihood that that multiplier would have succeeded, ranging from [0, 1]
  */
 export function winPercentage(multiplier: number): number {
-	return (1 - houseEdgePercentage) / (multiplier * 100);
+	return simpleFormat((1 - houseEdgePercentage) / multiplier, 4);
 }
 
 export default class DiceGameCommand extends DiceCommand {
@@ -99,7 +99,7 @@ export default class DiceGameCommand extends DiceCommand {
 		});
 
 		const summary = [
-			`You had a ${bold`${winPercentage(args.multiplier) * 100}%`} chance of winning that wager`,
+			`You had a ${bold`${simpleFormat(winPercentage(args.multiplier) * 100)}%`} chance of winning that wager`,
 			`Your updated balance is ${bold`${authorBalance.toLocaleString()}`}`
 		];
 
