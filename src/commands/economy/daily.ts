@@ -33,15 +33,12 @@ export default class DailyCommand extends DiceCommand {
 
 		if (!user.dailyUsed || user.dailyUsed.getTime() + cooldown < now.getTime()) {
 			const botUser = new DiceUser(this.client.user!);
-			const [updatedBalance] = await Promise.all([
-				helperUser.incrementBalance(dailyAmount),
-				botUser.incrementBalance(dailyAmount),
-				this.client.prisma.user.upsert({
-					where: {id: message.author.id},
-					create: {id: message.author.id, dailyUsed: now},
-					update: {dailyUsed: now}
-				})
-			]);
+			const [updatedBalance] = await Promise.all([helperUser.incrementBalance(dailyAmount), botUser.incrementBalance(dailyAmount)]);
+
+			await this.client.prisma.user.update({
+				where: {id: message.author.id},
+				data: {dailyUsed: now}
+			});
 
 			return message.util?.send(
 				[`You were paid ${bold`${dailyAmount.toLocaleString()}`} oats`, `Your balance is now ${bold`${updatedBalance.toLocaleString()} oats`}`].join('\n')
