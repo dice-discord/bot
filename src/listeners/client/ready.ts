@@ -42,6 +42,8 @@ export default class ReadyListener extends DiceListener {
 			this.scopedWithClusterID = true;
 		}
 
+		this.client.influxUtil?.recordDiscordStats();
+
 		if (runningInProduction && this.client.shard?.id === 0) {
 			if (readyWebhook.id !== undefined && readyWebhook.token !== undefined) {
 				const webhookClient = new WebhookClient(readyWebhook.id, readyWebhook.token);
