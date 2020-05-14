@@ -133,6 +133,7 @@ export class DiceCommand extends Command {
 		usage?: string;
 		examples?: string[];
 	};
+
 	client!: DiceClient;
 
 	constructor(id: string, options: DiceCommandOptions) {

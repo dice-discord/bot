@@ -12,7 +12,7 @@ export default class ShardSankeyCommand extends DiceCommand {
 	}
 
 	async exec(message: Message): Promise<Message | undefined> {
-		const {shard} = this.client as DiceClient;
+		const {shard} = this.client;
 
 		/**
 		 * @example [{ '0': 999 }]
