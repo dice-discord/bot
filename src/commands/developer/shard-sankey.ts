@@ -1,5 +1,4 @@
 import {Message} from 'discord.js';
-import {DiceClient} from '../../structures/DiceClient';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
 export default class ShardSankeyCommand extends DiceCommand {
