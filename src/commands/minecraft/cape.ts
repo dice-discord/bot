@@ -1,30 +1,29 @@
 import {Message, Permissions} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {Size} from '../../types/crafatar';
 import {crafatarArgs, downloadImage, genericErrorMessage} from '../../util/crafatar';
 import {MinecraftAccount} from '../../util/player-db';
 
-export default class AvatarCommand extends DiceCommand {
+export default class capeCommand extends DiceCommand {
 	constructor() {
-		super('avatar', {
-			aliases: ['get-face', 'get-mc-face', 'get-minecraft-face', 'mc-avatar', 'minecraft-avatar'],
+		super('cape', {
+			aliases: ['get-cape', 'get-mc-cape', 'get-minecraft-cape', 'mc-cape', 'minecraft-cape'],
 			description: {
-				content: 'Get an avatar image of a Minecraft user (via Crafatar).',
-				usage: '<player> [size:<size>] [--overlay]',
-				examples: ['notch', 'notch size:200', 'notch --overlay', 'notch size:32 --overlay']
+				content: "Get a Minecraft user's cape (via Crafatar).",
+				usage: '<player>',
+				examples: ['notch']
 			},
 			category: DiceCommandCategories.Minecraft,
 			clientPermissions: [Permissions.FLAGS.ATTACH_FILES],
 			typing: true,
-			args: [crafatarArgs.player, crafatarArgs.size, crafatarArgs.overlay]
+			args: [crafatarArgs.player]
 		});
 	}
 
-	async exec(message: Message, args: {player: MinecraftAccount; overlay: boolean | null; size: Size | null}): Promise<Message | undefined> {
+	async exec(message: Message, args: {player: MinecraftAccount}): Promise<Message | undefined> {
 		let image: Buffer;
 
 		try {
-			image = await downloadImage({imageType: 'avatar', playerUUID: args.player.id, size: args.size ?? undefined, overlay: args.overlay ?? false});
+			image = await downloadImage({imageType: 'cape', playerUUID: args.player.id});
 		} catch (error) {
 			this.logger.error(error);
 

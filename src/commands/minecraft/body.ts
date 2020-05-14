@@ -1,30 +1,30 @@
 import {Message, Permissions} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {Size} from '../../types/crafatar';
+import {Scale} from '../../types/crafatar';
 import {crafatarArgs, downloadImage, genericErrorMessage} from '../../util/crafatar';
 import {MinecraftAccount} from '../../util/player-db';
 
-export default class AvatarCommand extends DiceCommand {
+export default class BodyCommand extends DiceCommand {
 	constructor() {
-		super('avatar', {
-			aliases: ['get-face', 'get-mc-face', 'get-minecraft-face', 'mc-avatar', 'minecraft-avatar'],
+		super('body', {
+			aliases: ['get-body', 'get-mc-body', 'get-minecraft-body', 'mc-body', 'minecraft-body'],
 			description: {
-				content: 'Get an avatar image of a Minecraft user (via Crafatar).',
-				usage: '<player> [size:<size>] [--overlay]',
-				examples: ['notch', 'notch size:200', 'notch --overlay', 'notch size:32 --overlay']
+				content: "Get an image of a Minecraft user's body (via Crafatar).",
+				usage: '<player> [scale:<scale>] [--overlay]',
+				examples: ['notch', 'notch scale:5', 'notch --overlay', 'notch scale:10 --overlay']
 			},
 			category: DiceCommandCategories.Minecraft,
 			clientPermissions: [Permissions.FLAGS.ATTACH_FILES],
 			typing: true,
-			args: [crafatarArgs.player, crafatarArgs.size, crafatarArgs.overlay]
+			args: [crafatarArgs.player, crafatarArgs.scale, crafatarArgs.overlay]
 		});
 	}
 
-	async exec(message: Message, args: {player: MinecraftAccount; overlay: boolean | null; size: Size | null}): Promise<Message | undefined> {
+	async exec(message: Message, args: {player: MinecraftAccount; scale: Scale | null; overlay: boolean | null}): Promise<Message | undefined> {
 		let image: Buffer;
 
 		try {
-			image = await downloadImage({imageType: 'avatar', playerUUID: args.player.id, size: args.size ?? undefined, overlay: args.overlay ?? false});
+			image = await downloadImage({imageType: 'body', playerUUID: args.player.id, overlay: args.overlay ?? false});
 		} catch (error) {
 			this.logger.error(error);
 
