@@ -11,7 +11,7 @@ const response = new MessageEmbed({
 		url: 'https://cdn.discordapp.com/emojis/314068430611415041.png'
 	},
 	color: 0x8395d3,
-	description: [`This message can only be viewed by users with Discord Nitro.`, `[Lift off with Discord Nitro today](https://discordapp.com/nitro).`].join('\n')
+	description: ['This message can only be viewed by users with Discord Nitro.', '[Lift off with Discord Nitro today](https://discordapp.com/nitro).'].join('\n')
 });
 
 export default class NitroCommand extends SingleResponseCommand {
