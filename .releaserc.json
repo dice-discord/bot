@@ -26,6 +26,7 @@
 			{
 				"name": "dicediscord/bot"
 			}
-		]
+		],
+		"@eclass/semantic-release-sentry-releases"
 	]
 }

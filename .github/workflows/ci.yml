@@ -178,7 +178,10 @@ jobs:
           DOCKER_USERNAME: dicediscordbot
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Sentry release semantic-release plugin
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_PROJECT: bot
+          SENTRY_ORG: dice
   e2e-test:
     name: E2E test
 

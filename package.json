@@ -37,6 +37,7 @@
 		"zlib-sync": "0.1.6"
 	},
 	"devDependencies": {
+		"@eclass/semantic-release-sentry-releases": "2.3.3",
 		"@prisma/cli": "2.0.0-beta.4",
 		"@semantic-release/exec": "5.0.0",
 		"@types/cron": "1.7.2",
@@ -81,7 +82,7 @@
 		"style": "prettier --ignore-path .gitignore --check .",
 		"test": "jest"
 	},
-	"version": "4.9.7",
+	"version": "4.10.0",
 	"xo": {
 		"extends": [
 			"plugin:jest/recommended"
