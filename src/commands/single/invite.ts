@@ -1,6 +1,6 @@
 import SingleResponseCommand from '../../structures/SingleResponseCommand';
 
-export default class SupportCommand extends SingleResponseCommand {
+export default class InviteCommand extends SingleResponseCommand {
 	constructor() {
 		super('invite', {
 			description: 'An invite link to add Dice to a server.',
