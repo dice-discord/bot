@@ -1,6 +1,7 @@
 import {Command, CommandOptions} from 'discord-akairo';
 import {Collection, Message} from 'discord.js';
 import {baseLogger} from '../logging/logger';
+import {DiceClient} from './DiceClient';
 
 export const enum DiceCommandCategories {
 	Util = 'utility',
@@ -132,6 +133,7 @@ export class DiceCommand extends Command {
 		usage?: string;
 		examples?: string[];
 	};
+	client!: DiceClient;
 
 	constructor(id: string, options: DiceCommandOptions) {
 		const logger = baseLogger.scope('commands', id);
