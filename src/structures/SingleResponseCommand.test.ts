@@ -18,8 +18,10 @@ test('SingleResponseCommand', () => {
 	const testCommand = new TestCommand();
 	const mockResponseFn = jest.fn();
 
+	/* eslint-disable @typescript-eslint/no-floating-promises */
 	// @ts-ignore
 	testCommand.exec({util: {send: mockResponseFn}});
+	/* eslint-enable @typescript-eslint/no-floating-promises */
 	expect(mockResponseFn).toBeCalledWith(response);
 
 	expect(testCommand.aliases).toEqual(expect.arrayContaining(aliases));
