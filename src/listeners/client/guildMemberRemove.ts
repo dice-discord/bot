@@ -29,7 +29,7 @@ export default class GuildMemberRemoveListener extends DiceListener {
 			fields: [
 				{
 					name: 'Number of Server Members',
-					value: `${bold`${member.guild.members.cache.size.toLocaleString()}`} members`
+					value: `${bold`${member.guild.memberCount.toLocaleString()}`} members`
 				}
 			]
 		});
