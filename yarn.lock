@@ -364,13 +364,13 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@eclass/semantic-release-sentry-releases@2.4.1":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.4.1.tgz#1050441471b559c1d84c2332f4ff0e278986b9d5"
-  integrity sha512-denj9gVsNfL9BFlrFmuf2P+XUff5/Aj1FDi/L7nerWRHfUCJmqoD7l7tkLAzrSFkDG8owME7egBlta+vmW/ibQ==
+"@eclass/semantic-release-sentry-releases@2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.4.2.tgz#8d8929b9cf53cf96020300be2d01997ebd18e7f5"
+  integrity sha512-3hErRyXQ5Jm/CASqgsyZ7pFoiFdVhZBlv/DJ6mVxMVCus0VPwIJxMEx4rQaNqfLiYQBvAf69iX/PSLMlkJ6OoA==
   dependencies:
     "@semantic-release/error" "^2.1.0"
-    "@sentry/cli" "1.52.4"
+    "@sentry/cli" "1.53.0"
     aggregate-error "^3.0.1"
 
 "@google-cloud/common@^2.0.0":
@@ -964,10 +964,10 @@
     "@sentry/utils" "5.15.5"
     tslib "^1.9.3"
 
-"@sentry/cli@1.52.4":
-  version "1.52.4"
-  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.52.4.tgz#c2c29099c5e43e371ac2ef4f1df64955ec1bede7"
-  integrity sha512-kZZwHOam+sAhOW+2pPl80J2fvUyP0tONPw0i4I1ryiNLHVkKMsQMi+Wv2pBI+e9Biz28ITqWOf+I7Npk80juLA==
+"@sentry/cli@1.53.0":
+  version "1.53.0"
+  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.53.0.tgz#f675d1b0955b94b0cb809d752ff272c4a341d306"
+  integrity sha512-FgVR+AqPd1elj/HGTCg4FcQDVmIGwKGtaHDzHi2ipph9EOVYm6Ce0xYcHxYgKZuVyQMyg+zD5ZK3yHrB1AYlnw==
   dependencies:
     https-proxy-agent "^5.0.0"
     mkdirp "^0.5.5"
