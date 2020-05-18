@@ -7,7 +7,7 @@ import {AkairoArgumentType} from '../structures/DiceCommand';
 import {Scale, Size} from '../types/crafatar';
 
 /** Base URL for API requests. */
-const baseURL = 'https://crafatar.com/avatars';
+const baseURL = 'https://crafatar.com';
 
 /**
  * Options for an image from Crafatar.
