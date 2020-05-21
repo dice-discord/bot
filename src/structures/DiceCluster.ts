@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-unassigned-import
+import 'sqreen';
 import {BaseCluster, ShardingManager} from 'kurasuta';
 import {discordToken} from '../config';
 import {baseLogger} from '../logging/logger';
