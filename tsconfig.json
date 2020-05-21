@@ -3,12 +3,11 @@
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": false,
 		"inlineSources": true,
+		"inlineSourceMap": true,
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"outDir": "tsc_output",
 		"resolveJsonModule": true,
-		"sourceMap": true,
-		"sourceRoot": "/",
 		"strict": true,
 		"target": "es2019"
 	},
