@@ -44,7 +44,7 @@
 		"@types/cron": "1.7.2",
 		"@types/jest": "25.2.3",
 		"@types/ms": "0.7.31",
-		"@types/node": "12.12.39",
+		"@types/node": "12.12.41",
 		"@types/parse-color": "1.0.0",
 		"@types/roll": "1.2.0",
 		"@types/signale": "1.4.1",
@@ -58,7 +58,7 @@
 		"source-map-support": "0.5.19",
 		"ts-jest": "26.0.0",
 		"ts-node": "8.10.1",
-		"type-fest": "0.13.1",
+		"type-fest": "0.14.0",
 		"typescript": "3.8.3",
 		"xo": "0.30.0"
 	},
