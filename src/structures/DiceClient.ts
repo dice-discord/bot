@@ -15,6 +15,7 @@ import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookP
 import {baseLogger} from '../logging/logger';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
 import {resolver as minecraftUserTypeResolver, typeName as minecraftUserTypeName} from '../types/minecraftUser';
+import {options as commandHandlerOptions} from '../util/commandHandler';
 import {simpleFormat} from '../util/format';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
 import {clusterID, findShardIDByGuildID} from '../util/shard';
@@ -132,7 +133,6 @@ export class DiceClient extends AkairoClient {
 		this.guildSettingsCache = new GuildSettingsCache(this.prisma);
 
 		this.commandHandler = new CommandHandler(this, {
-			directory: join(__dirname, '..', 'commands'),
 			prefix: async (message: Message) => {
 				if (message.guild) {
 					const guild = await this.guildSettingsCache.get(message.guild.id);
@@ -152,9 +152,7 @@ export class DiceClient extends AkairoClient {
 					optional: false
 				}
 			},
-			aliasReplacement: /-/g,
-			handleEdits: true,
-			commandUtil: true
+			...commandHandlerOptions
 		});
 
 		this.inhibitorHandler = new InhibitorHandler(this, {
