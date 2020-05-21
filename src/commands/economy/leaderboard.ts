@@ -45,14 +45,16 @@ export default class LeaderboardCommand extends DiceCommand {
 		if (top.length <= maxFieldsBeforeCodeblock) {
 			top.forEach((user, index) => embed.addField(`#${index + 1} ${users[index].tag}`, user.balance.toLocaleString()));
 		} else {
-			embed.setDescription(
-				codeblock('markdown')`${top.map((user, index) => {
+			const leaderboard: string = top
+				.map((user, index) => {
 					const balance = user.balance.toLocaleString();
 					const userTag = users[index].tag;
 					const paddedNumber = `${index + 1}. `.padEnd(args.amount.toString().length + '. '.length);
 					return `${paddedNumber}${userTag} - ${balance}`;
-				})}`
-			);
+				})
+				.join('\n');
+
+			embed.setDescription(codeblock('markdown')`${leaderboard}`);
 		}
 
 		embed.setFooter(`Took ${ms(endTimer())}`);
