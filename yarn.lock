@@ -9271,7 +9271,7 @@ sqreen-sdk@^0.7.0:
   dependencies:
     axios "^0.19.0"
 
-sqreen@^1.41.3:
+sqreen@1.41.3:
   version "1.41.3"
   resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.41.3.tgz#a05eab0d46620cdb5846890cd9c5f1d3b5e93a92"
   integrity sha512-sSAgX4uuhdBvhAZI7eyf82kIbAum+FYGh5/ubLvd6X+T7fgRKaouMV9wITo6Wr7p4/Ltbq0eNfR67ExAz9b1Lw==
