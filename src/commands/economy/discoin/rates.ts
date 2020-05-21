@@ -26,7 +26,7 @@ export default class RatesCommand extends DiceCommand {
 	constructor() {
 		super('rates', {
 			aliases: ['discoin-rates', 'conversion-rates', 'convert-rates'],
-			description: {content: 'Lists the conversion rates for Discoin currencies.'},
+			description: {content: 'Lists the conversion rates for Discoin currencies.', examples: [''], usage: ''},
 			category: DiceCommandCategories.Economy,
 			clientPermissions: [Permissions.FLAGS.EMBED_LINKS],
 			typing: true

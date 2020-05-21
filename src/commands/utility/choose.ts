@@ -6,7 +6,7 @@ export default class ChooseCommand extends DiceCommand {
 	constructor() {
 		super('choose', {
 			aliases: ['pick', 'select'],
-			description: {content: 'Choose an item from a list you provide.'},
+			description: {content: 'Choose an item from a list you provide.', examples: ['red green blue'], usage: '<...items>'},
 			category: DiceCommandCategories.Util,
 			args: [
 				{

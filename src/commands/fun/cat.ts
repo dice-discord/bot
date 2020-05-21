@@ -12,7 +12,7 @@ export default class CatCommand extends DiceCommand {
 	constructor() {
 		super('cat', {
 			aliases: ['random-cat-image', 'random-cat', 'cat-image'],
-			description: {content: 'Get a picture of a random cat.'},
+			description: {content: 'Get a picture of a random cat.', examples: [''], usage: ''},
 			category: DiceCommandCategories.Fun,
 			clientPermissions: [Permissions.FLAGS.EMBED_LINKS],
 			typing: true

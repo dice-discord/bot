@@ -10,7 +10,7 @@ export default class GenerateTokenCommand extends DiceCommand {
 			description: {
 				content: 'Generate the Discord token for an account.',
 				usage: '<user>',
-				examples: ['', 'Dice', '@Dice', '388191157869477888']
+				examples: ['Dice', '@Dice', '388191157869477888']
 			},
 			args: [
 				{

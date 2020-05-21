@@ -122,16 +122,16 @@ export interface DiceCommandOptions extends CommandOptions {
 	category: DiceCommandCategories;
 	description: {
 		content: string;
-		usage?: string;
-		examples?: string[];
+		usage: string;
+		examples: string[];
 	};
 }
 
 export class DiceCommand extends Command {
 	description!: {
 		content: string;
-		usage?: string;
-		examples?: string[];
+		usage: string;
+		examples: string[];
 	};
 
 	client!: DiceClient;

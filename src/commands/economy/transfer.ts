@@ -14,7 +14,7 @@ export default class TransferCommand extends DiceCommand {
 			description: {
 				content: 'Send money to a user.',
 				usage: '<user> <amount>',
-				examples: ['', 'Dice', '@Dice', '388191157869477888']
+				examples: ['Dice 100', '@Dice 100', '388191157869477888 100']
 			},
 			args: [
 				{

@@ -7,7 +7,7 @@ export default class EmojiCommand extends DiceCommand {
 	constructor() {
 		super('emoji', {
 			aliases: ['custom-emoji'],
-			description: {content: 'View info about a custom emoji.', usage: '<emoji>'},
+			description: {content: 'View info about a custom emoji.', usage: '<emoji>', examples: ['thonk']},
 			category: DiceCommandCategories.Util,
 			channel: 'guild',
 			args: [

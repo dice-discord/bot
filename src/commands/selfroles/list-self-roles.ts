@@ -7,7 +7,7 @@ export default class ListSelfRolesCommand extends DiceCommand {
 	constructor() {
 		super('list-self-roles', {
 			aliases: ['self-roles-list'],
-			description: {content: 'List all self-assigned roles from this server.'},
+			description: {content: 'List all self-assigned roles from this server.', examples: [''], usage: ''},
 			category: DiceCommandCategories.Selfroles,
 			channel: 'guild'
 		});

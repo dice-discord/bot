@@ -5,7 +5,11 @@ export default class ShardSankeyCommand extends DiceCommand {
 	constructor() {
 		super('shard-sankey', {
 			aliases: ['sankey', 'sankey-shard', 'cluster-sankey', 'sankey-cluster'],
-			description: {content: 'Generate SankeyMatic compatible notation to show a breakdown of what clusters are managing which shards.'},
+			description: {
+				content: 'Generate SankeyMatic compatible notation to show a breakdown of what clusters are managing which shards.',
+				examples: [''],
+				usage: ''
+			},
 			category: DiceCommandCategories.Developer
 		});
 	}

@@ -8,7 +8,7 @@ export default class DBPingCommand extends DiceCommand {
 	constructor() {
 		super('db-ping', {
 			aliases: ['database-ping'],
-			description: {content: 'Checks how long it takes to perform a database query.'},
+			description: {content: 'Checks how long it takes to perform a database query.', examples: [''], usage: ''},
 			category: DiceCommandCategories.Util
 		});
 	}

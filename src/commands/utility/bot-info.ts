@@ -8,7 +8,7 @@ export default class BotInfoCommand extends DiceCommand {
 	constructor() {
 		super('bot-info', {
 			aliases: ['uptime', 'version', 'bot', 'memory', 'ram', 'memory-usage', 'ram-usage', 'patrons', 'supporters'],
-			description: {content: 'Information about the bot.'},
+			description: {content: 'Information about the bot.', examples: [''], usage: ''},
 			category: DiceCommandCategories.Util,
 			clientPermissions: [Permissions.FLAGS.EMBED_LINKS]
 		});

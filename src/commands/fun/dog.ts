@@ -13,7 +13,7 @@ export default class DogCommand extends DiceCommand {
 	constructor() {
 		super('dog', {
 			aliases: ['random-dog-image', 'random-dog', 'dog-image'],
-			description: {content: 'Get a picture of a random dog.'},
+			description: {content: 'Get a picture of a random dog.', examples: [''], usage: ''},
 			category: DiceCommandCategories.Fun,
 			clientPermissions: [Permissions.FLAGS.EMBED_LINKS],
 			typing: true

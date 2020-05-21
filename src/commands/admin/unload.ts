@@ -18,7 +18,7 @@ export default class UnloadCommand extends DiceCommand {
 				'remove-listener',
 				'remove-inhibitor'
 			],
-			description: {content: 'Unload a module (command, listener, or inhibitor).'},
+			description: {content: 'Unload a module (command, listener, or inhibitor).', examples: ['help', 'clientError'], usage: '<module>'},
 			category: DiceCommandCategories.Admin,
 			ownerOnly: true,
 			args: [

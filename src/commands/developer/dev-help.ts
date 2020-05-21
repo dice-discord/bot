@@ -7,7 +7,7 @@ export default class DevHelpCommand extends DiceCommand {
 	constructor() {
 		super('dev-help', {
 			aliases: ['shard', 'developer-help', 'debug'],
-			description: {content: 'Get info to help developers fix bugs.'},
+			description: {content: 'Get info to help developers fix bugs.', examples: [''], usage: ''},
 			category: DiceCommandCategories.Developer
 		});
 	}

@@ -16,7 +16,8 @@ export default class DailyCommand extends DiceCommand {
 			category: DiceCommandCategories.Economy,
 			description: {
 				content: 'Collect daily oats.',
-				usage: ''
+				usage: '',
+				examples: ['']
 			},
 			typing: true
 		});

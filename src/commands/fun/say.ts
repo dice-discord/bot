@@ -6,7 +6,7 @@ export default class SayCommand extends DiceCommand {
 	constructor() {
 		super('say', {
 			aliases: ['echo'],
-			description: {content: 'Have the bot say a message.'},
+			description: {content: 'Have the bot say a message.', examples: ['hello'], usage: '<content>'},
 			category: DiceCommandCategories.Fun,
 			ownerOnly: true,
 			args: [

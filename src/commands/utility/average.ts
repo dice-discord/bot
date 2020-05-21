@@ -5,7 +5,7 @@ export default class AverageCommand extends DiceCommand {
 	constructor() {
 		super('average', {
 			aliases: ['average-numbers', 'avg-numbers', 'avg', 'mean'],
-			description: {content: 'Get the mean of a set of numbers.'},
+			description: {content: 'Get the mean of a set of numbers.', examples: ['192 168 1 1'], usage: '<...numbers>'},
 			category: DiceCommandCategories.Util,
 			args: [
 				{

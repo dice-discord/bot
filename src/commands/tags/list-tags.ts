@@ -6,7 +6,7 @@ export default class ListTagsCommand extends DiceCommand {
 	constructor() {
 		super('list-tags', {
 			aliases: ['tags-list', 'all-tags', 'tags-all', 'tags-ls', 'ls-tags'],
-			description: {content: 'List all tags from this server.'},
+			description: {content: 'List all tags from this server.', examples: [''], usage: ''},
 			category: DiceCommandCategories.Tags,
 			channel: 'guild'
 		});

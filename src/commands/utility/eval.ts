@@ -25,7 +25,8 @@ export default class EvalCommand extends DiceCommand {
 		super('eval', {
 			description: {
 				content: 'Evaluate a script',
-				usage: '<script>'
+				usage: '<script>',
+				examples: ['console.log(1)']
 			},
 			category: DiceCommandCategories.Util,
 			ownerOnly: true,

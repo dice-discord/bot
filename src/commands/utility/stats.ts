@@ -6,7 +6,7 @@ export default class StatsCommand extends DiceCommand {
 	constructor() {
 		super('stats', {
 			aliases: ['statistics'],
-			description: {content: 'See bot statistics'},
+			description: {content: 'See bot statistics', examples: [''], usage: ''},
 			category: DiceCommandCategories.Util,
 			typing: true
 		});

@@ -6,7 +6,7 @@ export default class ClapCommand extends DiceCommand {
 	constructor() {
 		super('clap', {
 			aliases: ['clapify'],
-			description: {content: 'Talk👏like👏this.'},
+			description: {content: 'Talk👏like👏this.', examples: ['i am annoying'], usage: '<content>'},
 			category: DiceCommandCategories.Fun,
 			args: [
 				{
