@@ -15,7 +15,7 @@ export default class ConvertCommand extends DiceCommand {
 		super('convert', {
 			aliases: ['convert-oats', 'convert-currencies', 'exchange-oats', 'exchange', 'exchange-currencies'],
 			description: {content: 'Converts oats to another currency on the Discoin network.', usage: '<amount> <currency>', examples: ['500 dts']},
-			category: DiceCommandCategories.Util,
+			category: DiceCommandCategories.Economy,
 			clientPermissions: [Permissions.FLAGS.EMBED_LINKS],
 			typing: true,
 			args: [
