@@ -279,14 +279,14 @@ export class DiceClient extends AkairoClient {
 	async handleDiscoinTransaction(transaction: Transaction): Promise<Message | undefined> {
 		const user = new DiceUser(transaction.user, this);
 
-		const updatedBalance = await user.incrementBalance(simpleFormat(transaction.amount));
+		const updatedBalance = await user.incrementBalance(simpleFormat(transaction.payout));
 
 		try {
 			await transaction.update({handled: true});
 		} catch (error) {
 			discoinLogger.error(`Error while marking transaction ${transaction.id} as handled`, error);
 			// If it wasn't marked as handled don't pay them, keep transactions atomic
-			await user.incrementBalance(simpleFormat(-transaction.amount));
+			await user.incrementBalance(simpleFormat(-transaction.payout));
 
 			return;
 		}
