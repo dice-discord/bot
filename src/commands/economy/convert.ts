@@ -6,7 +6,7 @@ import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../stru
 import {DiceUser} from '../../structures/DiceUser';
 import {simpleFormat} from '../../util/format';
 
-const range = {min: 1, max: 1_000};
+const range = {min: 1, max: 1_000_000};
 /** The length of a Discoin currency code. */
 const discoinCurrencyCodeLength = 3;
 
