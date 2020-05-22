@@ -48,33 +48,33 @@ const docs = generateDocs(commandHandler);
 
 const baseDirectory = joinPaths(__dirname, '..', 'command_docs');
 mkdir(baseDirectory)
-	.then(() => {
+	.then(async () => {
 		/** Promises for creating the documentation folders before writing the doc files. */
 		const createFolders = docs.keyArray().map(async categoryID => mkdir(joinPaths(baseDirectory, categoryID)));
 
-		Promise.all(createFolders)
-			.then(async () => {
-				const writeOperations: Array<Promise<void>> = docs
-					.mapValues((category, categoryID) =>
-						category.mapValues(async (commandDocs, commandID) => writeFile(joinPaths(baseDirectory, categoryID, `${commandID}.md`), commandDocs, {})).array()
-					)
-					.array()
-					.flat(Infinity);
+		try {
+			await Promise.all(createFolders);
+		} catch (error) {
+			logger.fatal(error);
+			return crash(ExitCode.FSMkdirError);
+		}
 
-				try {
-					await Promise.all(writeOperations);
-				} catch (error) {
-					logger.fatal(error);
-					return crash(ExitCode.FSWriteError);
-				}
+		const writeOperations: Array<Promise<void>> = docs
+			.mapValues((category, categoryID) =>
+				category.mapValues(async (commandDocs, commandID) => writeFile(joinPaths(baseDirectory, categoryID, `${commandID}.md`), commandDocs, {})).array()
+			)
+			.array()
+			.flat(Infinity);
 
-				logger.success(`Generated ${writeOperations.length.toLocaleString()} documentation files`);
-				return process.exit(ExitCode.Success);
-			})
-			.catch(error => {
-				logger.fatal(error);
-				return crash(ExitCode.FSMkdirError);
-			});
+		try {
+			await Promise.all(writeOperations);
+		} catch (error) {
+			logger.fatal(error);
+			return crash(ExitCode.FSWriteError);
+		}
+
+		logger.success(`Generated ${writeOperations.length.toLocaleString()} documentation files`);
+		return process.exit(ExitCode.Success);
 	})
 	.catch(error => {
 		logger.fatal(error);
