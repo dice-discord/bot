@@ -11,7 +11,7 @@ export default class AgeCommand extends DiceCommand {
 			category: DiceCommandCategories.Util,
 			description: {
 				content: 'See how old a user account is.',
-				usage: '<user>',
+				usage: '[user]',
 				examples: ['', 'Dice', '@Dice', '388191157869477888']
 			},
 			args: [

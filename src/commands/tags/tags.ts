@@ -5,7 +5,7 @@ export default class TagsCommand extends DiceCommand {
 	public constructor() {
 		super('tags', {
 			description: {
-				content: 'Commands for tags on servers',
+				content: 'Commands for tags on servers.',
 				usage: '<method> <…arguments>',
 				examples: ['add ip 127.0.0.1', 'delete ip', 'get ip', 'list']
 			},

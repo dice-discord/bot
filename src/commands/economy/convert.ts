@@ -2,9 +2,9 @@ import Discoin from '@discoin/scambio';
 import {Transaction} from '@discoin/scambio/tsc_output/src/structures/transactions';
 import {Argument} from 'discord-akairo';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
-import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../../structures/DiceCommand';
-import {DiceUser} from '../../../structures/DiceUser';
-import {simpleFormat} from '../../../util/format';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {DiceUser} from '../../structures/DiceUser';
+import {simpleFormat} from '../../util/format';
 
 const range = {min: 1, max: 1_000};
 /** The length of a Discoin currency code. */

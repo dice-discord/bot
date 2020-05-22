@@ -1,8 +1,8 @@
 import {Client as Discoin} from '@discoin/scambio';
 import {Currency} from '@discoin/scambio/tsc_output/src/types/discoin';
 import {Message, Permissions} from 'discord.js';
-import {DiceCommand, DiceCommandCategories} from '../../../structures/DiceCommand';
-import {formatTable, maxColumnLength} from '../../../util/format';
+import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {formatTable, maxColumnLength} from '../../util/format';
 
 /**
  * Sorts currencies by value descending, but puts oats before everything else.
