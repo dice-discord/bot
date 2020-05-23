@@ -12,7 +12,7 @@ export default class KickCommand extends DiceCommand {
 			category: DiceCommandCategories.Moderation,
 			description: {
 				content: 'Kick a member from your server.',
-				usage: '<member> [reason}',
+				usage: '<member> [reason]',
 				examples: ['@Dice', 'Dice', '388191157869477888', '@Dice Spamming', 'Dice Spamming', '388191157869477888 Spamming']
 			},
 			userPermissions: [Permissions.FLAGS.KICK_MEMBERS],
