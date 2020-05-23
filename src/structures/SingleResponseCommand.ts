@@ -14,7 +14,7 @@ export default class SingleResponseCommand extends DiceCommand {
 		super(id, {
 			aliases: options.aliases,
 			category: DiceCommandCategories.Single,
-			description: {content: options.description, examples: [''], usage: 'Responds with the same thing every time'},
+			description: {content: options.description, examples: [''], usage: ''},
 			clientPermissions: options.response instanceof MessageEmbed ? [Permissions.FLAGS.EMBED_LINKS] : undefined
 		});
 
