@@ -5,6 +5,7 @@ import * as pkg from '../../package.json';
 import {typeName as minecraftUser} from '../types/minecraftUser';
 import {AkairoArgumentType} from '../structures/DiceCommand';
 import {Scale, Size} from '../types/crafatar';
+import {userAgent} from '../constants';
 
 /** Base URL for API requests. */
 const baseURL = 'https://crafatar.com';
@@ -76,7 +77,7 @@ export function downloadImage(options: Partial<CrafatarOptions> & Pick<CrafatarO
 	}
 
 	const request = got(`${baseURL}/${endpoint}/${options.playerUUID}`, {
-		headers: {'User-Agent': `Dice Discord bot / v${version ?? '0.0.0-development'} dice.js.org`}
+		headers: {'User-Agent': userAgent}
 	});
 
 	return request.buffer();

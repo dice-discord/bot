@@ -1,4 +1,6 @@
 import {PresenceData} from 'discord.js';
+import {PackageJson} from 'type-fest';
+import * as pkg from '../package.json';
 
 /** Utility structure to organize admin user IDs. */
 export enum Admins {
@@ -97,3 +99,8 @@ export const enum ExitCodes {
 
 /** Presence data to use with the client on login. */
 export const presence: PresenceData = {activity: {name: 'for @Dice help', type: 'WATCHING'}};
+
+const {version} = pkg as PackageJson;
+
+/** User agent to use in HTTP requests. */
+export const userAgent = `Dice Discord bot / v${version ?? '0.0.0-development'} dice.js.org`;
