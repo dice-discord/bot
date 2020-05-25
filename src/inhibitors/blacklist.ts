@@ -13,6 +13,10 @@ export default class BlacklistInhibitor extends DiceInhibitor {
 			return false;
 		}
 
+		if (this.client.nfl?.cache.has(id)) {
+			return true;
+		}
+
 		const user = await this.client.prisma.user.findOne({
 			where: {id},
 			select: {blacklistReason: true}

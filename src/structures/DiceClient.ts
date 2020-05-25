@@ -10,7 +10,7 @@ import {bold} from 'discord-md-tags';
 import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
 import {join} from 'path';
 import * as pkg from '../../package.json';
-import {defaultPrefix, discoin, googleBaseConfig, influxDSN, owners, runningInProduction, sentryDSN} from '../config';
+import {defaultPrefix, discoin, googleBaseConfig, influxDSN, owners, runningInProduction, sentryDSN, nflApiToken} from '../config';
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
 import {baseLogger} from '../logging/logger';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
@@ -24,6 +24,7 @@ import {DiceUser} from './DiceUser';
 import {DiscordInfluxUtil} from './DiscordInfluxUtil';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler} from './TopGgVoteWebhookHandler';
+import {NoFlyList} from './NoFlyList';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -66,6 +67,7 @@ export class DiceClient extends AkairoClient {
 	birthdayNotificationJob = new CronJob('30 0 * * *', async () => this.notifyUserBirthdays());
 	discoinJob = new CronJob('* * * * *', async () => this.processDiscoinTransactions());
 	logger?: typeof baseLogger;
+	nfl?: NoFlyList;
 
 	/**
 	 * Create a new DiceClient.
@@ -128,6 +130,10 @@ export class DiceClient extends AkairoClient {
 
 		if (typeof discoin.token === 'string') {
 			this.discoin = new DiscoinClient(discoin.token, discoin.currencyID);
+		}
+
+		if (nflApiToken) {
+			this.nfl = new NoFlyList(nflApiToken);
 		}
 
 		this.guildSettingsCache = new GuildSettingsCache(this.prisma);

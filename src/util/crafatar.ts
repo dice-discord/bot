@@ -49,8 +49,6 @@ const subpaths: Record<CrafatarImageType, string> = {
 	cape: 'capes'
 };
 
-const {version} = pkg as PackageJson;
-
 /**
  * Download an image from Crafatar.
  * @param options Options to use with Crafatar

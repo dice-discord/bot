@@ -70,6 +70,9 @@ export const influxDSN = process.env.INFLUXDB_DSN;
 // Parts 2 and 3 are sensitive information
 const disassembledToken = discordToken?.split('.') ?? [];
 
+/** Token for the no-fly-list (NFL) API. */
+export const nflApiToken = process.env.NFL_API_TOKEN;
+
 /** An array of sensitive strings (ex. API keys) that shouldn't be shown in logs or in messages. */
 export const secrets: string[] = [];
 
@@ -84,7 +87,7 @@ export const postgresURI = process.env.POSTGRES_URI ? new URL(process.env.POSTGR
 /** The InfluxDB DSN in a URL object, if it's present in the environment. */
 const influxURL = influxDSN ? new URL(influxDSN) : undefined;
 
-[discoin.token, topGGWebhookPassword, sentryDSN, postgresURI?.password, influxURL?.password, readyWebhook.token].forEach(secret => {
+[discoin.token, topGGWebhookPassword, sentryDSN, postgresURI?.password, influxURL?.password, readyWebhook.token, nflApiToken].forEach(secret => {
 	if (secret) {
 		secrets.push(escapeStringRegExp(secret));
 	}

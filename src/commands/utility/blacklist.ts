@@ -31,6 +31,12 @@ export default class BlacklistCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {user: User; reason?: 'remove' | string}): Promise<Message | undefined> {
+		const nflUser = await this.client.nfl?.fetch(args.user.id);
+
+		if (nflUser) {
+			return message.util?.send(`${args.user.tag} is already blacklisted`);
+		}
+
 		const user = await this.client.prisma.user.findOne({where: {id: args.user.id}, select: {blacklistReason: true}});
 
 		if (typeof user?.blacklistReason === 'string') {
