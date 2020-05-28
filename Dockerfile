@@ -4,7 +4,7 @@
 # All images use Debian Buster since the Prisma query engine (made with Rust) can't be compiled for Alpine Linux
 # See prisma/prisma#702 https://github.com/prisma/prisma/issues/702
 ###
-FROM node:12.16.3-buster AS installer
+FROM node:12.17.0-buster AS installer
 
 # Create app directory
 WORKDIR /usr/src/installer
@@ -17,7 +17,7 @@ COPY package.json yarn.lock schema.prisma ./
 RUN yarn install --production=true
 
 ### BUILDER STAGE ###
-FROM node:12.16.3-buster AS builder
+FROM node:12.17.0-buster AS builder
 
 # Create app directory
 WORKDIR /usr/src/builder
@@ -46,7 +46,7 @@ COPY src ./src
 RUN yarn run build
 
 ### BOT STAGE ###
-FROM node:12.16.3-buster AS bot
+FROM node:12.17.0-buster AS bot
 
 LABEL maintainer 'Jonah Snider <jonah@jonah.pw> (jonah.pw)'
 
