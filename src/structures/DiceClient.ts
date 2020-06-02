@@ -140,10 +140,14 @@ export class DiceClient extends AkairoClient {
 
 		this.commandHandler = new CommandHandler(this, {
 			prefix: async (message: Message) => {
-				if (message.guild) {
-					const guild = await this.guildSettingsCache.get(message.guild.id);
+				try {
+					if (message.guild) {
+						const guild = await this.guildSettingsCache.get(message.guild.id);
 
-					return guild?.prefix ?? defaultPrefix;
+						return guild?.prefix ?? defaultPrefix;
+					}
+				} catch (error) {
+					(this.logger ?? baseLogger).error(error);
 				}
 
 				return defaultPrefix;
