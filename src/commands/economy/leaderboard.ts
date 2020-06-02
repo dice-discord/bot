@@ -36,7 +36,7 @@ export default class LeaderboardCommand extends DiceCommand {
 
 	async exec(message: Message, args: {amount: number}): Promise<Message | undefined> {
 		const endTimer = startTimer();
-		const top = await this.client.prisma.user.findMany({orderBy: {balance: 'desc'}, first: args.amount});
+		const top = await this.client.prisma.user.findMany({orderBy: {balance: 'desc'}, take: args.amount});
 
 		const embed = new MessageEmbed({title: `Top ${top.length.toLocaleString()} leaderboard`});
 
