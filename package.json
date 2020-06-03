@@ -60,7 +60,7 @@
 		"ts-node": "8.10.2",
 		"type-fest": "0.15.0",
 		"typescript": "3.8.3",
-		"xo": "0.30.0"
+		"xo": "0.32.0"
 	},
 	"engines": {
 		"node": "12"
