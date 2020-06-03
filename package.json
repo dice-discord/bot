@@ -59,7 +59,7 @@
 		"ts-jest": "26.1.0",
 		"ts-node": "8.10.2",
 		"type-fest": "0.15.0",
-		"typescript": "3.8.3",
+		"typescript": "3.9.3",
 		"xo": "0.32.0"
 	},
 	"engines": {
