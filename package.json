@@ -8,7 +8,7 @@
 		"url": "https://github.com/dice-discord/bot/issues"
 	},
 	"dependencies": {
-		"@discoin/scambio": "2.0.7",
+		"@discoin/scambio": "2.0.8",
 		"@google-cloud/debug-agent": "5.0.0",
 		"@google-cloud/profiler": "4.0.0",
 		"@prisma/client": "2.0.0-beta.8",
