@@ -792,15 +792,17 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@prisma/cli@2.0.0-beta.7":
-  version "2.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.0.0-beta.7.tgz#3184dd350b24d5eeee86a20408d366e5ce564d5a"
-  integrity sha512-Cjz7h3lfG3mFb9KMSEISe1/lgtvsMgq4EViqBJuysTj6BTDNbVMx+rSQTOdY9+8xJFGUkWszE+aAyHRFEcKgAA==
+"@prisma/cli@2.0.0-beta.8":
+  version "2.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.0.0-beta.8.tgz#18356d5464040339c9c01cdf9a4241c1bccc5dea"
+  integrity sha512-l1bHUmPzjdOF87MzIkcE55AkGLDKV2apmS2D9ZuYM+7hWWMk7lcJjjquDr9RAtSDMN8nuvYQcXnFFg7JP4DUxw==
 
-"@prisma/client@2.0.0-beta.7":
-  version "2.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-beta.7.tgz#0546b0ef8cdd8489bb648f22b554414085852726"
-  integrity sha512-sJg5fK8tgf9GsQ/doWqMyhwvq34eWCvyDnsO9CtgK8m7qSvBgHKA/ivfrkDKQWPpuzhm1kJlzs9wctqEadE6Yw==
+"@prisma/client@2.0.0-beta.8":
+  version "2.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-beta.8.tgz#1f2effb3b377fab4453fef894a04cc16bf46ef8f"
+  integrity sha512-MOUYJ5IRsmufhEoBs+sBNlmkxkUcsE0ONY/RcvQ+F1svU8iKeGi7UNFUxKwzYCe15mmAfvhh/ZaJ34/tUkpBeQ==
+  dependencies:
+    pkg-up "^3.1.0"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -8027,6 +8029,13 @@ pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   integrity sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
   dependencies:
     find-up "^4.0.0"
+
+pkg-up@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/pkg-up/-/pkg-up-3.1.0.tgz#100ec235cc150e4fd42519412596a28512a0def5"
+  integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
+  dependencies:
+    find-up "^3.0.0"
 
 plur@^3.0.1:
   version "3.1.1"
