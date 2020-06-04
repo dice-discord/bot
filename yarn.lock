@@ -373,21 +373,6 @@
     "@sentry/cli" "1.53.0"
     aggregate-error "^3.0.1"
 
-"@google-cloud/common@^2.0.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-2.4.0.tgz#2783b7de8435024a31453510f2dab5a6a91a4c82"
-  integrity sha512-zWFjBS35eI9leAHhjfeOYlK5Plcuj/77EzstnrJIZbKgF/nkqjcQuGiMCpzCwOfPyUbz8ZaEOYgbHa759AKbjg==
-  dependencies:
-    "@google-cloud/projectify" "^1.0.0"
-    "@google-cloud/promisify" "^1.0.0"
-    arrify "^2.0.0"
-    duplexify "^3.6.0"
-    ent "^2.2.0"
-    extend "^3.0.2"
-    google-auth-library "^5.5.0"
-    retry-request "^4.0.0"
-    teeny-request "^6.0.0"
-
 "@google-cloud/common@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-3.0.0.tgz#de930825c9fd220e0bfe0e3fe68d4971d7b88ff2"
@@ -403,20 +388,18 @@
     retry-request "^4.1.1"
     teeny-request "^6.0.3"
 
-"@google-cloud/debug-agent@4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@google-cloud/debug-agent/-/debug-agent-4.2.2.tgz#6a518725bf4d24b7e2c2057486b7ed812eee80bd"
-  integrity sha512-Zx1Jf7QQ18KLFKoGQw+x2JtB5ERuXbFE0u9Qz6SiO0A/IqsD8PBU7/Rfh0/I0o1+vpvrkqx3bN/8jCNYfntEwA==
+"@google-cloud/debug-agent@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/debug-agent/-/debug-agent-5.0.0.tgz#d3039dcab1deb1eb702ab8c12227f073018abe57"
+  integrity sha512-iCBS2JmXHLGs1AGnGpfWr9IStY/iR5eNTpKaugORd5Cn2yD5tcm/rjK8dr7FKW9qh1yu4KY4eMhaUbVu8Owr1A==
   dependencies:
-    "@google-cloud/common" "^2.0.0"
-    "@sindresorhus/is" "^1.0.0"
+    "@google-cloud/common" "^3.0.0"
     acorn "^7.0.0"
     coffeescript "^2.0.0"
     console-log-level "^1.4.0"
     extend "^3.0.2"
     findit2 "^2.2.3"
-    gcp-metadata "^3.0.0"
-    lodash.pickby "^4.6.0"
+    gcp-metadata "^4.0.0"
     p-limit "^2.2.0"
     semver "^7.0.0"
     source-map "^0.6.1"
@@ -441,20 +424,10 @@
     semver "^7.0.0"
     teeny-request "^6.0.3"
 
-"@google-cloud/projectify@^1.0.0":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@google-cloud/projectify/-/projectify-1.0.4.tgz#28daabebba6579ed998edcadf1a8f3be17f3b5f0"
-  integrity sha512-ZdzQUN02eRsmTKfBj9FDL0KNDIFNjBn/d6tHQmA/+FImH5DO6ZV8E7FzxMgAUiVAUq41RFAkb25p1oHOZ8psfg==
-
 "@google-cloud/projectify@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/projectify/-/projectify-2.0.0.tgz#0cf938ff97520c238e7279f8e3de3b04e63fff0b"
   integrity sha512-7wZ+m4N3Imtb5afOPfqNFyj9cKrlfVQ+t5YRxLS7tUpn8Pn/i7QuVubZRTXllaWjO4T5t/gm/r2x7oy5ajjvFQ==
-
-"@google-cloud/promisify@^1.0.0":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@google-cloud/promisify/-/promisify-1.0.4.tgz#ce86ffa94f9cfafa2e68f7b3e4a7fad194189723"
-  integrity sha512-VccZDcOql77obTnFh0TbNED/6ZbbmHDf8UMNnzO1d5g9V0Htfm4k5cllY8P1tJsRKC3zWYGRLaViiupcgVjBoQ==
 
 "@google-cloud/promisify@^2.0.0":
   version "2.0.0"
@@ -1038,11 +1011,6 @@
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
-
-"@sindresorhus/is@^1.0.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-1.2.0.tgz#63ce3638cb85231f3704164c90a18ef816da3fb7"
-  integrity sha512-mwhXGkRV5dlvQc4EgPDxDxO6WuMBVymGFd1CA+2Y+z5dG9MNspoQ+AWjl/Ld1MnpCL8AKbosZlDVohqcIwuWsw==
 
 "@sindresorhus/is@^2.1.1":
   version "2.1.1"
@@ -4305,7 +4273,7 @@ gaxios@^3.0.0:
     is-stream "^2.0.0"
     node-fetch "^2.3.0"
 
-gcp-metadata@^3.0.0, gcp-metadata@^3.4.0:
+gcp-metadata@^3.4.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/gcp-metadata/-/gcp-metadata-3.5.0.tgz#6d28343f65a6bbf8449886a0c0e4a71c77577055"
   integrity sha512-ZQf+DLZ5aKcRpLzYUyBS3yo3N0JSa82lNDO8rj3nMSlovLcz2riKFBsYgDzeXcv75oo5eqB2lx+B14UvPoCRnA==
@@ -4505,7 +4473,7 @@ globby@^9.0.0:
     pify "^4.0.1"
     slash "^2.0.0"
 
-google-auth-library@^5.10.1, google-auth-library@^5.5.0:
+google-auth-library@^5.10.1:
   version "5.10.1"
   resolved "https://registry.yarnpkg.com/google-auth-library/-/google-auth-library-5.10.1.tgz#504ec75487ad140e68dd577c21affa363c87ddff"
   integrity sha512-rOlaok5vlpV9rSiUu5EpR0vVpc+PhN62oF4RyX/6++DG1VsaulAFEMlDYBLjJDDPI6OcNOCGAKy9UVB/3NIDXg==
@@ -6478,11 +6446,6 @@ lodash.memoize@4.x:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
-
-lodash.pickby@^4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
-  integrity sha1-feoh2MGNdwOifHBMFdO4SmfjOv8=
 
 lodash.sortby@^4.7.0:
   version "4.7.0"
@@ -8753,7 +8716,7 @@ ret@~0.1.10:
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
 
-retry-request@^4.0.0, retry-request@^4.1.1:
+retry-request@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/retry-request/-/retry-request-4.1.1.tgz#f676d0db0de7a6f122c048626ce7ce12101d2bd8"
   integrity sha512-BINDzVtLI2BDukjWmjAIRZ0oglnCAkpP2vQjM3jdLhmT62h0xnQgciPwBRDAvHqpkPT2Wo1XuUyLyn6nbGrZQQ==
@@ -9653,7 +9616,7 @@ tar@^4.4.10, tar@^4.4.12, tar@^4.4.13, tar@^4.4.2:
     safe-buffer "^5.1.2"
     yallist "^3.0.3"
 
-teeny-request@^6.0.0, teeny-request@^6.0.3:
+teeny-request@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/teeny-request/-/teeny-request-6.0.3.tgz#b617f9d5b7ba95c76a3f257f6ba2342b70228b1f"
   integrity sha512-TZG/dfd2r6yeji19es1cUIwAlVD8y+/svB1kAC2Y0bjEyysrfbO8EZvJBRwIE6WkwmUoB7uvWLwTIhJbMXZ1Dw==
