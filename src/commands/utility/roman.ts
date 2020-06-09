@@ -1,6 +1,7 @@
 import {Argument} from 'discord-akairo';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {ParsedValuePredicate} from 'discord-akairo';
 
 /** A valid character from a Roman numeral. */
 type RomanNumeralCharacter = 'M' | 'D' | 'C' | 'L' | 'X' | 'V' | 'I';
@@ -26,6 +27,15 @@ const extraConversion = Object.fromEntries(
 	(Object.entries(unsortedExtraConversion) as Array<[ExtraRomanNumeralCharacter, number]>).sort((a, b) => (a[1] <= b[1] ? 1 : -1))
 );
 
+/** Regular expression for Roman numerals. Case sensitive. */
+export const romanRegExp = /^[MDCLXVI]+$/;
+
+/**
+ * Check if the argument value is a valid decimal or Roman numeral (case-insensitive).
+ */
+export const validator: ParsedValuePredicate = (message: Message, phrase: string, value: number | string): boolean =>
+	typeof value === 'string' ? romanRegExp.test(phrase.toUpperCase()) : true;
+
 export default class RomanCommand extends DiceCommand {
 	constructor() {
 		super('roman', {
@@ -36,7 +46,7 @@ export default class RomanCommand extends DiceCommand {
 				{
 					id: 'value',
 					match: 'content',
-					type: Argument.union(AkairoArgumentType.Integer, AkairoArgumentType.Uppercase),
+					type: Argument.validate(Argument.union(AkairoArgumentType.Integer, AkairoArgumentType.Uppercase), validator),
 					otherwise: ['Invalid value provided', 'Please provide Roman numerals or a whole number to convert'].join('\n'),
 					prompt: {start: 'What number would you like to convert?'}
 				}
@@ -51,7 +61,7 @@ export default class RomanCommand extends DiceCommand {
 	 * @example romanToDecimal('XIV');
 	 */
 	public static romanToDecimal(roman: string | RomanNumeralCharacter): number {
-		const romanNumeralsRegExp = /^[MDCLXVI]+$/g;
+		const romanNumeralsRegExp = romanRegExp;
 
 		if (!romanNumeralsRegExp.test(roman)) {
 			throw new RangeError(`Invalid Roman numerals provided, should match regular expression ${romanNumeralsRegExp.source}`);
