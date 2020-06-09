@@ -1,7 +1,6 @@
-import {Argument} from 'discord-akairo';
+import {Argument, ParsedValuePredicate} from 'discord-akairo';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {ParsedValuePredicate} from 'discord-akairo';
 
 /** A valid character from a Roman numeral. */
 type RomanNumeralCharacter = 'M' | 'D' | 'C' | 'L' | 'X' | 'V' | 'I';
