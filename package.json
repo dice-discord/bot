@@ -79,7 +79,7 @@
 		"docs": "node tsc_output/src/docs",
 		"lint": "xo",
 		"postinstall": "prisma generate",
-		"prebuild": "rimraf -rf tsc_output",
+		"prebuild": "rimraf -rf tsc_output/**.js",
 		"predocs": "rimraf tsc_output/command_docs",
 		"start": "node tsc_output/src/index.js",
 		"style": "prettier --ignore-path .gitignore --check .",
