@@ -35,7 +35,8 @@
 		"signale": "1.4.0",
 		"sqreen": "1.43.0",
 		"utf-8-validate": "5.0.2",
-		"zlib-sync": "0.1.6"
+		"zlib-sync": "0.1.6",
+		"snyk": "^1.337.0"
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.4.2",
@@ -83,7 +84,9 @@
 		"predocs": "rimraf tsc_output/command_docs",
 		"start": "node tsc_output/src/index.js",
 		"style": "prettier --ignore-path .gitignore --check .",
-		"test": "jest"
+		"test": "jest",
+		"snyk-protect": "snyk protect",
+		"prepublish": "npm run snyk-protect"
 	},
 	"version": "4.11.2",
 	"xo": {
@@ -117,5 +120,6 @@
 				}
 			]
 		}
-	}
+	},
+	"snyk": true
 }
