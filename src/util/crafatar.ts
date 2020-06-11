@@ -89,7 +89,7 @@ export const crafatarArgs: Record<'player' | 'size' | 'overlay' | 'scale', Argum
 	},
 	size: {
 		id: 'size',
-		type: Argument.range(AkairoArgumentType.Integer, 1, 512),
+		type: Argument.range(AkairoArgumentType.Integer, 1, 512, true),
 		match: 'option',
 		flag: 'size:',
 		prompt: {retry: 'Invalid size provided, please provide the number of pixels from 1-512', optional: true},
@@ -104,7 +104,7 @@ export const crafatarArgs: Record<'player' | 'size' | 'overlay' | 'scale', Argum
 	},
 	scale: {
 		id: 'scale',
-		type: Argument.range(AkairoArgumentType.Integer, 1, 10),
+		type: Argument.range(AkairoArgumentType.Integer, 1, 10, true),
 		match: 'option',
 		flag: 'scale:',
 		prompt: {retry: 'Invalid scale value provided, please provide a whole number from 1-10', optional: true},

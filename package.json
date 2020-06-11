@@ -33,17 +33,18 @@
 		"roll": "1.2.0",
 		"semantic-release-docker": "2.2.0",
 		"signale": "1.4.0",
-		"sqreen": "1.41.3",
+		"sqreen": "1.43.0",
 		"utf-8-validate": "5.0.2",
-		"zlib-sync": "0.1.6"
+		"zlib-sync": "0.1.7",
+		"snyk": "1.338.0"
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.4.2",
 		"@prisma/cli": "2.0.0",
 		"@semantic-release/exec": "5.0.0",
 		"@types/cron": "1.7.2",
-		"@types/jest": "25.2.3",
-		"@types/node": "12.12.45",
+		"@types/jest": "26.0.0",
+		"@types/node": "12.12.47",
 		"@types/parse-color": "1.0.0",
 		"@types/roll": "1.2.0",
 		"@types/signale": "1.4.1",
@@ -78,13 +79,15 @@
 		"docs": "node tsc_output/src/docs",
 		"lint": "xo",
 		"postinstall": "prisma generate",
-		"prebuild": "rimraf -rf tsc_output",
+		"prebuild": "rimraf -rf tsc_output/**.js",
 		"predocs": "rimraf tsc_output/command_docs",
 		"start": "node tsc_output/src/index.js",
 		"style": "prettier --ignore-path .gitignore --check .",
-		"test": "jest"
+		"test": "jest",
+		"snyk-protect": "snyk protect",
+		"prepublish": "npm run snyk-protect"
 	},
-	"version": "4.11.1",
+	"version": "4.11.2",
 	"xo": {
 		"extends": [
 			"plugin:jest/recommended"
@@ -116,5 +119,6 @@
 				}
 			]
 		}
-	}
+	},
+	"snyk": true
 }
