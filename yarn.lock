@@ -3499,10 +3499,10 @@ discord-akairo@8.0.0:
   resolved "https://registry.yarnpkg.com/discord-akairo/-/discord-akairo-8.0.0.tgz#74cc7924007b13b1cba90d35e942534132ccd8b0"
   integrity sha512-Cc1f8f3GFIhgHxg3TOSSfHD1Nt8haPGcmvoQeqlBKhDFwtWoPL+THBVVLaMUBDCzni7X4g6teM5PPvVocwlfZQ==
 
-discord-md-tags@0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/discord-md-tags/-/discord-md-tags-0.0.6.tgz#74da8f05a02f90ad6b097219d345adf7eab81849"
-  integrity sha512-W3wiKU+JX0NnDSQbFUcTVorO0hnIRdSStVzz+hXdrMfbV2PrGXeEUh+d25HVtwe8660mZYEyTwapBGprhuL5uw==
+discord-md-tags@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/discord-md-tags/-/discord-md-tags-1.0.0.tgz#53eda7c909f3ba4d85bbaa998910664fdd07585e"
+  integrity sha512-EcaAryPk3G+fdHhIq5P3NamxHOneV2GOyWygA0RyZtHCm+ty1z5Rf/9/3ZzZJBhYnRxUDYw+tMHsD612zLw7qA==
 
 discord.js@12.2.0, discord.js@^12.2.0:
   version "12.2.0"
