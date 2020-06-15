@@ -5581,10 +5581,10 @@ inflight@^1.0.4, inflight@~1.0.6:
     once "^1.3.0"
     wrappy "1"
 
-influx@5.5.1:
-  version "5.5.1"
-  resolved "https://registry.yarnpkg.com/influx/-/influx-5.5.1.tgz#2e7a3e5b9284894981d94c9fd96ee7ff9f9304a9"
-  integrity sha512-06kWkvKZzdk7ONBi+MydTTVcpziIfzIKcTUqXpK0Uc0KoSVye0umQYDwDPJvMJtBjiS6L2eadXI7YsnNvOxbQw==
+influx@5.5.2:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/influx/-/influx-5.5.2.tgz#4bd8614120b8d2d8fb55753e213d08e7e9f867ec"
+  integrity sha512-N/UxWa/N2rf3fRyBjqlRobtTbIMOBR+yQIoX0Wme3d3qBxgYWfhTVKC7ph6245ZGbLyW1x4OEyKohgP4SddkTA==
 
 inherits@2, inherits@2.0.4, inherits@^2.0.1, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.1, inherits@~2.0.3:
   version "2.0.4"
