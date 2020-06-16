@@ -770,10 +770,10 @@
   resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.0.1.tgz#ae67f3485c7c843c7de34926bd3e85379ee2e511"
   integrity sha512-AXSvuXzmI8CfTk3MOgiDMAFCqw+r2QKV64WHJ2B6Z0Mpb+PihsdD6BCteWDu2GlGwNNluNDYKlfLkXxgvzH2mw==
 
-"@prisma/client@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0.tgz#755ca8be2f2be5446fc44e92e58f782b7416b890"
-  integrity sha512-3Ejs4qmyM0bsLdZbKZWrngYLZMupbHRScBmPdikupTCFraq8I9aLb5CuSCsROf1C8tWwWcDaH6RdIS7I+EiESQ==
+"@prisma/client@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.1.tgz#f0e9a52424c92511e8bd87b7358802001400c849"
+  integrity sha512-9TaIp72H/mhTkkUUQ3bE+1NTWfwJcanAdfUt6dDH0G57r1suTyz0YUbhCOH4hJrtCADumIi9bvGw+wAk1CstaA==
   dependencies:
     pkg-up "^3.1.0"
 
