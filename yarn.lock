@@ -10541,10 +10541,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sq-ecosystem@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/sq-ecosystem/-/sq-ecosystem-0.4.0.tgz#26d5c402b2d7e7ea454c31f9104482880a182123"
-  integrity sha512-lMPjn7i/3u5RL+em2Kwjb6gK40c1JIEa5giFW7EFMpa6Cujtw7wIANUJaNgyTjDIy8sGxFXCpNK9lMtdwiP9fg==
+sq-ecosystem@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/sq-ecosystem/-/sq-ecosystem-0.6.0.tgz#8c6140c12e235bfea1a85139683708b9f769a0af"
+  integrity sha512-Y1fb977HxQ7NeGxCUvOT+9u+44fxM9SPbkixSEoc64w8PiklMb1F6dMu5AQIvtK92x8kQgdb2OzfPAWeS/yMhA==
   dependencies:
     code "^4.1.0"
     lab "^14.3.4"
@@ -10567,10 +10567,10 @@ sqreen-sdk@^0.7.0:
   dependencies:
     axios "^0.19.0"
 
-sqreen@1.44.0:
-  version "1.44.0"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.44.0.tgz#cf86e493b5b5e895a4fc84493a0be544120c61a5"
-  integrity sha512-68/rK26t+u3C6oXRG6bOzaAiPfWgmVR9tuuT97rWKJDlR2GTRWzWeIi7TyFgmS6mitwlgRcic2gAYHB+oXR62A==
+sqreen@1.45.0:
+  version "1.45.0"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.45.0.tgz#935e1453268275f1c1891d1a6b68c2c540a6f363"
+  integrity sha512-WXigx6xzbkZyQ0azdD0UyEi6diifHWmzTzGj7VunjUNCwTHzslII6YewcfOUDuCkW3nU+eptC9u9clrLUpAYOA==
   dependencies:
     async-listener "^0.6.0"
     async-lock "^1.2.2"
@@ -10591,10 +10591,10 @@ sqreen@1.44.0:
     recursive-readdir "^2.1.0"
     semver "^5.2.0"
     shimmer "^1.2.0"
-    sq-ecosystem "^0.4.0"
+    sq-ecosystem "^0.6.0"
     sqreen-sdk "^0.7.0"
     uuid "^3.1.0"
-    winston "^2.2.0"
+    winston "^2.4.4"
     zxcvbn "^4.4.2"
   optionalDependencies:
     sq-native "0.9.1"
@@ -11785,10 +11785,10 @@ windows-release@^3.1.0:
   dependencies:
     execa "^1.0.0"
 
-winston@^2.2.0:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.4.tgz#a01e4d1d0a103cf4eada6fc1f886b3110d71c34b"
-  integrity sha512-NBo2Pepn4hK4V01UfcWcDlmiVTs7VTB1h7bgnB0rgP146bYhMxX0ypCz3lBOfNxCO4Zuek7yeT+y/zM1OfMw4Q==
+winston@^2.4.4:
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.5.tgz#f2e431d56154c4ea765545fc1003bd340c95b59a"
+  integrity sha512-TWoamHt5yYvsMarGlGEQE59SbJHqGsZV8/lwC+iCcGeAe0vUaOh+Lv6SYM17ouzC/a/LB1/hz/7sxFBtlu1l4A==
   dependencies:
     async "~1.0.0"
     colors "1.0.x"
