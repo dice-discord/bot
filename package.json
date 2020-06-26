@@ -40,7 +40,7 @@
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.4.2",
-		"@prisma/cli": "2.1.2",
+		"@prisma/cli": "2.1.3",
 		"@semantic-release/exec": "5.0.0",
 		"@types/cron": "1.7.2",
 		"@types/jest": "26.0.3",
