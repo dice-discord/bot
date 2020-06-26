@@ -765,10 +765,10 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@prisma/cli@2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.1.1.tgz#f06f5529dc2cdfef16586bdc44bd184a758cbc83"
-  integrity sha512-QtGZ7KgfeIGVT/SGHI+WoZfvKRiyZ/euafjRGEE2pU/OzT+snSt2gNAjra0JdH5j8onfktZYmdkkgKu+dW9e2w==
+"@prisma/cli@2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.1.2.tgz#fc9c0755ae74f628227e49be812f443444537de0"
+  integrity sha512-IOTfCeqZbcZZU7ey9KYALlJBhT/90HbOAY4LqmNxUtKI4DwBD1eXqA/6WSQA+9U7uO/gwbISLHCdROdKyZLAmg==
 
 "@prisma/client@2.1.1":
   version "2.1.1"
