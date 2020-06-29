@@ -48,7 +48,7 @@
 		"@types/parse-color": "1.0.0",
 		"@types/roll": "1.2.0",
 		"@types/signale": "1.4.1",
-		"@types/ws": "7.2.4",
+		"@types/ws": "7.2.6",
 		"eslint-plugin-jest": "23.17.1",
 		"jest": "26.1.0",
 		"nyc": "15.1.0",
