@@ -36,7 +36,7 @@
 		"sqreen": "1.45.0",
 		"utf-8-validate": "5.0.2",
 		"zlib-sync": "0.1.7",
-		"snyk": "1.349.0"
+		"snyk": "1.354.0"
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.4.2",
