@@ -49,7 +49,7 @@
 		"@types/roll": "1.2.0",
 		"@types/signale": "1.4.1",
 		"@types/ws": "7.2.6",
-		"eslint-plugin-jest": "23.17.1",
+		"eslint-plugin-jest": "23.18.0",
 		"jest": "26.1.0",
 		"nyc": "15.1.0",
 		"prettier": "2.0.4",
