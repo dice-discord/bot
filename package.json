@@ -12,7 +12,7 @@
 		"@google-cloud/debug-agent": "5.1.1",
 		"@google-cloud/profiler": "4.0.0",
 		"@prisma/client": "2.2.0",
-		"@sentry/node": "5.19.0",
+		"@sentry/node": "5.19.1",
 		"bufferutil": "4.0.1",
 		"cron": "1.8.2",
 		"date-fns": "2.14.0",
