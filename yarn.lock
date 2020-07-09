@@ -10084,10 +10084,10 @@ snyk-config@^3.0.0:
     lodash.merge "^4.6.2"
     nconf "^0.10.0"
 
-snyk-docker-plugin@3.13.0:
-  version "3.13.0"
-  resolved "https://registry.yarnpkg.com/snyk-docker-plugin/-/snyk-docker-plugin-3.13.0.tgz#2b599a7b520a691822090a6b5eb03b9f13fe65ff"
-  integrity sha512-sOfl0VOog8LxRvl/GUX2lNxXDY0EqgRq32nqPieG9Cq9e1f5h6EU3d8CmxyFo+MaHOOP7vTdaN8TUe2uuJ2Ysw==
+snyk-docker-plugin@3.13.1:
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/snyk-docker-plugin/-/snyk-docker-plugin-3.13.1.tgz#d7befe89dce13a597ce0528595b9a9e0981348f4"
+  integrity sha512-4GEZ8Rx+1K33i0SuMRO03T+n8jAosLae4iuo1TZu9ugkxdQzbBStzVFz2N6x1s0GI/psWQNOWSLKfzFJYMOctw==
   dependencies:
     "@snyk/rpm-parser" "^2.0.0"
     "@snyk/snyk-docker-pull" "^3.1.3"
@@ -10187,10 +10187,10 @@ snyk-nodejs-lockfile-parser@1.22.0:
     tslib "^1.9.3"
     uuid "^3.3.2"
 
-snyk-nodejs-lockfile-parser@1.26.1:
-  version "1.26.1"
-  resolved "https://registry.yarnpkg.com/snyk-nodejs-lockfile-parser/-/snyk-nodejs-lockfile-parser-1.26.1.tgz#77a7888884204633da285bf8f802fde87327a2ee"
-  integrity sha512-mTNScSs2u2u0L8wX5S588lfnrKAOlQqjWeo4y1dIuuSoS9Dh8k57ddxhUI40++84rUB5+E4HSBirpmC6wz14/A==
+snyk-nodejs-lockfile-parser@1.26.2:
+  version "1.26.2"
+  resolved "https://registry.yarnpkg.com/snyk-nodejs-lockfile-parser/-/snyk-nodejs-lockfile-parser-1.26.2.tgz#c713f1ddd27c6ba93e1643245411d7fdeb994e95"
+  integrity sha512-FwyVEoDCXt5yBT8/NqQLLOcN61AMUZgTCMl6WYGeWx6H+FZdmTFtv5tVUBJCpRYl5uIg019eL5+EsuDK9jZUiA==
   dependencies:
     "@snyk/graphlib" "2.1.9-patch"
     "@yarnpkg/core" "^2.0.0-rc.29"
@@ -10318,10 +10318,10 @@ snyk-try-require@1.3.1, snyk-try-require@^1.1.1, snyk-try-require@^1.3.1:
     lru-cache "^4.0.0"
     then-fs "^2.0.0"
 
-snyk@1.361.0:
-  version "1.361.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.361.0.tgz#0129c822a484966820bd52ed6736470988679278"
-  integrity sha512-ct4GqYo6Q8CIVi6PnCRDaAoCEXGWvH3OTa9rLb23FfszUn6A/UnkdtFHxJmtLA1V4qlUWsFLzb5Gw2A0l8NKXA==
+snyk@1.361.2:
+  version "1.361.2"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.361.2.tgz#f3f7832434d4ee2dde7f1e7903f75b4a2ece428e"
+  integrity sha512-lWm8BpHizVmKCpbxeTzLiL1JhDRTjH4S95TJAkXt4XE4XxRTJuKC8HgiF8gB3fXoun26yB7Bd7m42EhnDa4rdw==
   dependencies:
     "@snyk/cli-interface" "2.8.0"
     "@snyk/dep-graph" "1.18.3"
@@ -10346,12 +10346,12 @@ snyk@1.361.0:
     proxy-from-env "^1.0.0"
     semver "^6.0.0"
     snyk-config "3.1.0"
-    snyk-docker-plugin "3.13.0"
+    snyk-docker-plugin "3.13.1"
     snyk-go-plugin "1.14.2"
     snyk-gradle-plugin "3.5.1"
     snyk-module "3.1.0"
     snyk-mvn-plugin "2.17.1"
-    snyk-nodejs-lockfile-parser "1.26.1"
+    snyk-nodejs-lockfile-parser "1.26.2"
     snyk-nuget-plugin "1.18.1"
     snyk-php-plugin "1.9.0"
     snyk-policy "1.14.1"
