@@ -25,6 +25,7 @@ import {DiscordInfluxUtil} from './DiscordInfluxUtil';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {TopGGVote, TopGGVoteWebhookHandler} from './TopGgVoteWebhookHandler';
 import {NoFlyList} from './NoFlyList';
+import {convert} from 'convert';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -83,9 +84,9 @@ export class DiceClient extends AkairoClient {
 				// Cache n<20 messages per channel
 				messageCacheMaxSize: 20,
 				// Cache messages for 15 minutes (60s * 15)
-				messageCacheLifetime: 60 * 15,
+				messageCacheLifetime: convert(15).from('minutes').to('seconds'),
 				// Remove messages that are past lifetime every 1 minute
-				messageSweepInterval: 60,
+				messageSweepInterval: convert(1).from('minute').to('seconds'),
 				ws: {
 					intents: [
 						Intents.FLAGS.GUILDS,
@@ -111,18 +112,20 @@ export class DiceClient extends AkairoClient {
 			});
 		}
 
-		this.logger = baseLogger.scope('client', this.shard?.id.toString() ?? '0');
+		this.logger = baseLogger.scope(`cluster ${clusterID}`);
 		prismaLogger = baseLogger.scope(`cluster ${clusterID}`, 'prisma');
 
 		const googleConfig = Util.mergeDefault(googleBaseConfig, {serviceContext: {service: 'bot'}});
 
-		startProfiler(googleConfig)
-			// eslint-disable-next-line promise/prefer-await-to-then
-			.then(() => this.logger?.success('Started Google Cloud Profiler'))
-			.catch(error => {
-				this.logger?.error('Failed to initialize Google Cloud Profiler', error);
-				captureException(error);
-			});
+		if (runningInProduction) {
+			startProfiler(googleConfig)
+				// eslint-disable-next-line promise/prefer-await-to-then
+				.then(() => this.logger?.success('Started Google Cloud Profiler'))
+				.catch(error => {
+					this.logger?.error('Failed to start Google Cloud Profiler', error);
+					captureException(error);
+				});
+		}
 
 		if (influxDSN) {
 			this.influxUtil = new DiscordInfluxUtil(influxDSN, this);

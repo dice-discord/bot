@@ -5,9 +5,9 @@ import {Message} from 'discord.js';
 import {dailyAmount} from '../../constants';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
+import {convert} from 'convert';
 
-// 22 hours:     ms     s    m    h
-const cooldown = 1000 * 60 * 60 * 22;
+const cooldown = convert(22).from('hours').to('milliseconds');
 
 export default class DailyCommand extends DiceCommand {
 	constructor() {
@@ -25,7 +25,7 @@ export default class DailyCommand extends DiceCommand {
 
 	async exec(message: Message): Promise<Message | undefined> {
 		const helperUser = new DiceUser(message.author);
-		const user: Partial<User> = {
+		const user: Partial<Pick<User, 'dailyUsed'>> & Pick<User, 'balance'> = {
 			dailyUsed: (await this.client.prisma.user.findOne({where: {id: message.author.id}, select: {dailyUsed: true}}))?.dailyUsed,
 			balance: await helperUser.getBalance()
 		};
@@ -34,12 +34,12 @@ export default class DailyCommand extends DiceCommand {
 
 		if (!user.dailyUsed || user.dailyUsed.getTime() + cooldown < now.getTime()) {
 			const botUser = new DiceUser(this.client.user!);
-			const [updatedBalance] = await Promise.all([helperUser.incrementBalance(dailyAmount), botUser.incrementBalance(dailyAmount)]);
 
-			await this.client.prisma.user.update({
-				where: {id: message.author.id},
-				data: {dailyUsed: now}
-			});
+			const [{balance: updatedBalance}] = await this.client.prisma.transaction([
+				(await helperUser.incrementBalanceWithPrisma(500))(),
+				(await botUser.incrementBalanceWithPrisma(500))(),
+				this.client.prisma.user.update({where: {id: message.author.id}, data: {dailyUsed: now}})
+			]);
 
 			return message.util?.send(
 				[`You were paid ${bold`${dailyAmount.toLocaleString()}`} oats`, `Your balance is now ${bold`${updatedBalance.toLocaleString()} oats`}`].join('\n')

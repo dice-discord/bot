@@ -56,7 +56,10 @@ export default class TransferCommand extends DiceCommand {
 
 		const recipient = new DiceUser(args.user);
 
-		const [updatedAuthorBalance] = await Promise.all([authorUser.incrementBalance(-args.amount), recipient.incrementBalance(args.amount)]);
+		const [{balance: updatedAuthorBalance}] = await this.client.prisma.transaction([
+			(await authorUser.incrementBalanceWithPrisma(-args.amount))(),
+			(await recipient.incrementBalanceWithPrisma(args.amount))()
+		]);
 
 		return message.util?.send(
 			[

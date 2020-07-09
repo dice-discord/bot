@@ -1,7 +1,7 @@
 import {PrismaClient} from '@prisma/client';
 import {Snowflake, UserResolvable} from 'discord.js';
-import {DiceClient} from './DiceClient';
 import {defaults} from '../constants';
+import {DiceClient} from './DiceClient';
 
 /**
  * Provides helper functions for handling users in the database.
@@ -54,15 +54,24 @@ export class DiceUser {
 	 * @returns This user's updated balance
 	 */
 	async incrementBalance(amount: number): Promise<number> {
-		const currentBalance = await this.getBalance();
-
-		const updatedUser = await this.prisma.user.upsert({
-			where: {id: this.id},
-			create: {id: this.id, balance: currentBalance + amount},
-			update: {balance: currentBalance + amount},
-			select: {balance: true}
-		});
+		const updatedUser = await (await this.incrementBalanceWithPrisma(amount))();
 
 		return updatedUser.balance;
+	}
+
+	/**
+	 * This is identical {@link DiceUser#incrementBalance | `incrementBalance`} method but returns the Prisma write operation for use in Prisma's transaction system.
+	 * @param amount The amount to increment the balance by. This number can be negative.
+	 * @returns The Prisma write operation to the user
+	 */
+	async incrementBalanceWithPrisma(amount: number) {
+		const currentBalance = await this.getBalance();
+		return () =>
+			this.prisma.user.upsert({
+				where: {id: this.id},
+				create: {id: this.id, balance: currentBalance + amount},
+				update: {balance: currentBalance + amount},
+				select: {balance: true}
+			});
 	}
 }

@@ -3,6 +3,7 @@ import {Message, MessageEmbed, Permissions} from 'discord.js';
 import {Colors} from '../../constants';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import * as pkg from '../../../package.json';
+import {convert} from 'convert';
 
 export default class BotInfoCommand extends DiceCommand {
 	constructor() {
@@ -41,7 +42,7 @@ export default class BotInfoCommand extends DiceCommand {
 					},
 					{
 						name: 'RAM usage',
-						value: `${(heapUsed / 1024 / 1024).toFixed(2)} megabytes`,
+						value: `${convert(heapUsed).from('bytes').to('megabytes').toFixed(2)} megabytes`,
 						inline: true
 					},
 					{

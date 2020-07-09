@@ -14,6 +14,7 @@
 		"@prisma/client": "2.2.0",
 		"@sentry/node": "5.19.1",
 		"bufferutil": "4.0.1",
+		"convert": "0.7.0-canary",
 		"cron": "1.8.2",
 		"date-fns": "2.14.0",
 		"delay": "4.3.0",
@@ -33,10 +34,10 @@
 		"roll": "1.2.0",
 		"semantic-release-docker": "2.2.0",
 		"signale": "1.4.0",
+		"snyk": "1.361.2",
 		"sqreen": "1.46.0",
 		"utf-8-validate": "5.0.2",
-		"zlib-sync": "0.1.7",
-		"snyk": "1.361.2"
+		"zlib-sync": "0.1.7"
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.4.4",

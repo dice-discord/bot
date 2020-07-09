@@ -78,7 +78,10 @@ export default class DiceGameCommand extends DiceCommand {
 		}
 
 		// Take away the players wager
-		[authorBalance] = await Promise.all([author.incrementBalance(-args.wager), dice.incrementBalance(args.wager)]);
+		[{balance: authorBalance}] = await this.client.prisma.transaction([
+			(await author.incrementBalanceWithPrisma(-args.wager))(),
+			(await dice.incrementBalanceWithPrisma(args.wager))()
+		]);
 
 		const randomNumber = simpleFormat(Math.random());
 		/** Whether or not the author won this round. */
@@ -90,7 +93,10 @@ export default class DiceGameCommand extends DiceCommand {
 
 		if (authorWon) {
 			// Pay the author their winnings from Dice if they won
-			[authorBalance] = await Promise.all([author.incrementBalance(revenue), dice.incrementBalance(-revenue)]);
+			[{balance: authorBalance}] = await this.client.prisma.transaction([
+				(await author.incrementBalanceWithPrisma(revenue))(),
+				(await dice.incrementBalanceWithPrisma(-revenue))()
+			]);
 		}
 
 		const embed = new MessageEmbed({
