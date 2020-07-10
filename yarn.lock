@@ -388,10 +388,10 @@
     retry-request "^4.1.1"
     teeny-request "^6.0.3"
 
-"@google-cloud/debug-agent@5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@google-cloud/debug-agent/-/debug-agent-5.1.1.tgz#31b5ce0695a421bc85845298210a94ed24c5c909"
-  integrity sha512-ktsaOvUGJvyFRxsJ59kDK+MYESCd6XU63hJCvgVsMx4Cv7k7WS2QBGra0uKYXvbPPmFkj3IVe9HLavu/CmParA==
+"@google-cloud/debug-agent@5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@google-cloud/debug-agent/-/debug-agent-5.1.2.tgz#48a9e6acbd9b32259a0eb8ea92ef8e168bfc8974"
+  integrity sha512-fdsTF99abIOFNv8gMPTMaz6/UjW0t8Wk77jgaSnx3wMfBXoPP8mIemXaLYKiyMj9N/TuIDIJ3zdK1C9RoreIPQ==
   dependencies:
     "@google-cloud/common" "^3.0.0"
     acorn "^7.0.0"
@@ -7129,6 +7129,11 @@ lodash.escaperegexp@^4.1.2:
   resolved "https://registry.yarnpkg.com/lodash.escaperegexp/-/lodash.escaperegexp-4.1.2.tgz#64762c48618082518ac3df4ccf5d5886dae20347"
   integrity sha1-ZHYsSGGAglGKw99Mz11YhtriA0c=
 
+lodash.flatmap@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.flatmap/-/lodash.flatmap-4.5.0.tgz#ef8cbf408f6e48268663345305c6acc0b778702e"
+  integrity sha1-74y/QI9uSCaGYzRTBcaswLd4cC4=
+
 lodash.flatten@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
@@ -10152,16 +10157,17 @@ snyk-nodejs-lockfile-parser@1.22.0:
     tslib "^1.9.3"
     uuid "^3.3.2"
 
-snyk-nodejs-lockfile-parser@1.26.2:
-  version "1.26.2"
-  resolved "https://registry.yarnpkg.com/snyk-nodejs-lockfile-parser/-/snyk-nodejs-lockfile-parser-1.26.2.tgz#c713f1ddd27c6ba93e1643245411d7fdeb994e95"
-  integrity sha512-FwyVEoDCXt5yBT8/NqQLLOcN61AMUZgTCMl6WYGeWx6H+FZdmTFtv5tVUBJCpRYl5uIg019eL5+EsuDK9jZUiA==
+snyk-nodejs-lockfile-parser@1.26.3:
+  version "1.26.3"
+  resolved "https://registry.yarnpkg.com/snyk-nodejs-lockfile-parser/-/snyk-nodejs-lockfile-parser-1.26.3.tgz#3c530b1ead4f419a12bc0811dbbe820d6ff51342"
+  integrity sha512-mBQ6vhnXAeyMxlnl9amjJWpA+/3qqXwM8Sj/P+9uH2TByOFLxdGzMNQFcl3q/H2yUdcs/epVdXJp09A2dK2glA==
   dependencies:
     "@snyk/graphlib" "2.1.9-patch"
     "@yarnpkg/core" "^2.0.0-rc.29"
     "@yarnpkg/lockfile" "^1.1.0"
     event-loop-spinner "^2.0.0"
     lodash.clonedeep "^4.5.0"
+    lodash.flatmap "^4.5.0"
     lodash.isempty "^4.4.0"
     lodash.set "^4.3.2"
     lodash.topairs "^4.3.0"
@@ -10283,10 +10289,10 @@ snyk-try-require@1.3.1, snyk-try-require@^1.1.1, snyk-try-require@^1.3.1:
     lru-cache "^4.0.0"
     then-fs "^2.0.0"
 
-snyk@1.361.2:
-  version "1.361.2"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.361.2.tgz#f3f7832434d4ee2dde7f1e7903f75b4a2ece428e"
-  integrity sha512-lWm8BpHizVmKCpbxeTzLiL1JhDRTjH4S95TJAkXt4XE4XxRTJuKC8HgiF8gB3fXoun26yB7Bd7m42EhnDa4rdw==
+snyk@1.361.3:
+  version "1.361.3"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.361.3.tgz#d649a0afe594b053c7a66a0d82aee2f8893a959f"
+  integrity sha512-93SxV9WD+pN/9bGRizfoiYwfKHy5mDyTCdOYtWcVbTFMi7Gf+I4Q5YprunHBTeJLLh0+qsD6l77QBo9GiYyiaA==
   dependencies:
     "@snyk/cli-interface" "2.8.0"
     "@snyk/dep-graph" "1.18.3"
@@ -10316,7 +10322,7 @@ snyk@1.361.2:
     snyk-gradle-plugin "3.5.1"
     snyk-module "3.1.0"
     snyk-mvn-plugin "2.17.1"
-    snyk-nodejs-lockfile-parser "1.26.2"
+    snyk-nodejs-lockfile-parser "1.26.3"
     snyk-nuget-plugin "1.18.1"
     snyk-php-plugin "1.9.0"
     snyk-policy "1.14.1"
