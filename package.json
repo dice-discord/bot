@@ -82,12 +82,13 @@
 		"postinstall": "prisma generate",
 		"prebuild": "rimraf -rf tsc_output/**.js",
 		"predocs": "rimraf tsc_output/command_docs",
+		"prepublish": "npm run snyk-protect",
+		"snyk-protect": "snyk protect",
 		"start": "node tsc_output/src/index.js",
 		"style": "prettier --ignore-path .gitignore --check .",
-		"test": "jest",
-		"snyk-protect": "snyk protect",
-		"prepublish": "npm run snyk-protect"
+		"test": "jest"
 	},
+	"snyk": true,
 	"version": "4.12.1",
 	"xo": {
 		"extends": [
@@ -120,6 +121,5 @@
 				}
 			]
 		}
-	},
-	"snyk": true
+	}
 }
