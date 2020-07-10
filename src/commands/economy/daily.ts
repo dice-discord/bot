@@ -36,8 +36,8 @@ export default class DailyCommand extends DiceCommand {
 			const botUser = new DiceUser(this.client.user!);
 
 			const [{balance: updatedBalance}] = await this.client.prisma.transaction([
-				(await helperUser.incrementBalanceWithPrisma(500))(),
-				(await botUser.incrementBalanceWithPrisma(500))(),
+				(await helperUser.incrementBalanceWithPrisma(dailyAmount))(),
+				(await botUser.incrementBalanceWithPrisma(dailyAmount))(),
 				this.client.prisma.user.update({where: {id: message.author.id}, data: {dailyUsed: now}})
 			]);
 
