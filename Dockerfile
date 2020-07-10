@@ -12,7 +12,7 @@ WORKDIR /usr/src/installer
 ENV NODE_ENV=production
 
 # Prisma needs to have a schema present because of the postinstall script that generates the SDK
-COPY package.json yarn.lock schema.prisma ./
+COPY package.json yarn.lock schema.prisma .snyk ./
 
 RUN yarn install --production=true
 
@@ -25,7 +25,7 @@ WORKDIR /usr/src/builder
 ENV NODE_ENV=production
 
 # Install dependencies and copy Prisma schema
-COPY package.json yarn.lock schema.prisma ./
+COPY package.json yarn.lock schema.prisma .snyk ./
 
 # Copy dependencies that were installed before
 COPY --from=installer /usr/src/installer/node_modules node_modules
