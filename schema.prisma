@@ -4,8 +4,8 @@ datasource postgres {
 }
 
 generator client {
-  provider             = "prisma-client-js"
-  experimentalFeatures = ["transactionApi"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["transactionApi"]
 }
 
 model User {
