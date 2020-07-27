@@ -40,7 +40,7 @@
 		"zlib-sync": "0.1.7"
 	},
 	"devDependencies": {
-		"@eclass/semantic-release-sentry-releases": "2.4.4",
+		"@eclass/semantic-release-sentry-releases": "2.4.5",
 		"@prisma/cli": "2.3.0",
 		"@semantic-release/exec": "5.0.0",
 		"@types/cron": "1.7.2",
