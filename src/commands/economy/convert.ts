@@ -83,7 +83,7 @@ export default class ConvertCommand extends DiceCommand {
 				url: `https://dash.discoin.zws.im/#/transactions/${transaction.id}/show`,
 				color: 0x4caf50,
 				timestamp: transaction.timestamp,
-				description: `You should be paid in around 5 minutes. If you aren’t paid within 10 minutes try contacting the creator of ${transaction.to.name}.`,
+				description: `You should be paid in around 5 minutes. If you aren't paid within 10 minutes try contacting the creator of ${transaction.to.name}.`,
 				fields: [
 					{
 						name: 'Payout',

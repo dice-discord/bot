@@ -58,6 +58,6 @@ export default class PruneCommand extends DiceCommand {
 			return message.util?.send(`${bold`${deletedMessages.size}`} messages were deleted`);
 		}
 
-		return message.util?.send('You don’t have permissions to delete messages in this channel');
+		return message.util?.send("You don't have permissions to delete messages in this channel");
 	}
 }

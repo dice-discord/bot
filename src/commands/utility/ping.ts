@@ -7,7 +7,7 @@ export default class PingCommand extends DiceCommand {
 	constructor() {
 		super('ping', {
 			aliases: ['heartbeat'],
-			description: {content: 'Checks the bot’s ping to the Discord server.', examples: [''], usage: ''},
+			description: {content: "Checks the bot's ping to the Discord server.", examples: [''], usage: ''},
 			category: DiceCommandCategories.Util
 		});
 	}

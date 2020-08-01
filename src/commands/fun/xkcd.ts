@@ -67,7 +67,7 @@ export default class XKCDCommand extends DiceCommand {
 		if (body.img) {
 			embed.setImage(body.img);
 		} else {
-			return message.util?.send('Couldn’t find that comic');
+			return message.util?.send("Couldn't find that comic");
 		}
 
 		// Alt text

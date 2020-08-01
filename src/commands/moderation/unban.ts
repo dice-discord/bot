@@ -67,6 +67,6 @@ export default class BanCommand extends DiceCommand {
 			return message.util?.send(`${bold`${clean(args.user.tag, message)}`} was unbanned`);
 		}
 
-		return message.util?.send('That user isn’t banned');
+		return message.util?.send("That user isn't banned");
 	}
 }

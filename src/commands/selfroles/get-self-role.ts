@@ -44,7 +44,7 @@ export default class GetSelfRoleCommand extends DiceCommand {
 				return message.util?.send(`You were given the ${bold`${clean(args.role.name, message)}`} role`);
 			}
 
-			return message.util?.send('That role isn’t a selfrole');
+			return message.util?.send("That role isn't a selfrole");
 		}
 
 		return message.util?.send('No selfroles');

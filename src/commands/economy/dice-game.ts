@@ -74,7 +74,7 @@ export default class DiceGameCommand extends DiceCommand {
 		}
 
 		if (diceBalance < args.wager * args.multiplier - args.wager) {
-			return message.util?.send('I couldn’t pay your winnings if you won');
+			return message.util?.send("I couldn't pay your winnings if you won");
 		}
 
 		// Take away the players wager

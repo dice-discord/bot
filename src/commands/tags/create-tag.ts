@@ -9,7 +9,7 @@ export default class CreateTagCommand extends DiceCommand {
 		super('create-tag', {
 			aliases: ['add-tag', 'tag-create', 'tag-add', 'make-tag', 'tag-make', 'new-tag', 'tag-new'],
 			description: {
-				content: 'Add a tag to a server’s tags.',
+				content: "Add a tag to a server's tags.",
 				usage: '<id> <content>',
 				examples: ['help If you need help, look for someone with a purple name']
 			},
@@ -19,7 +19,7 @@ export default class CreateTagCommand extends DiceCommand {
 				{
 					id: 'id',
 					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 50),
-					prompt: {start: 'What ID should the new tag have?', retry: 'Invalid ID provided, please provide an ID that’s less than 50 characters'},
+					prompt: {start: 'What ID should the new tag have?', retry: "Invalid ID provided, please provide an ID that's less than 50 characters"},
 					match: 'phrase'
 				},
 				{

@@ -37,7 +37,7 @@ export default class TransferCommand extends DiceCommand {
 
 	async exec(message: Message, args: {user: User; amount: number}): Promise<Message | undefined> {
 		if (args.user?.bot && args.user?.id !== this.client.user!.id) {
-			return message.util?.send('You can’t send oats to bots');
+			return message.util?.send("You can't send oats to bots");
 		}
 
 		args.amount = simpleFormat(args.amount);

@@ -8,7 +8,7 @@ export default class DeleteTagCommand extends DiceCommand {
 	constructor() {
 		super('delete-tag', {
 			aliases: ['tag-delete', 'tags-delete', 'delete-tags', 'del-tags', 'tag-del', 'tags-del', 'del-tag', 'rm-tag', 'rm-tags', 'tags-rm', 'tag-rm'],
-			description: {content: 'Remove a role from this server’s selfroles.', usage: '<id>', examples: ['help']},
+			description: {content: "Remove a role from this server's selfroles.", usage: '<id>', examples: ['help']},
 			category: DiceCommandCategories.Tags,
 			channel: 'guild',
 			args: [
@@ -28,17 +28,17 @@ export default class DeleteTagCommand extends DiceCommand {
 			if (tag.author === message.author.id || message.member!.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
 				// You created this tag or you have manage messages permissions
 				await this.client.prisma.tag.delete({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}, select: {id: true}});
-				return message.util?.send(`Deleted ${bold`${clean(args.id, message)}`} from this server’s tags`);
+				return message.util?.send(`Deleted ${bold`${clean(args.id, message)}`} from this server's tags`);
 			}
 
 			return message.util?.send(
 				[
-					'You don’t have permission to delete that tag',
+					"You don't have permission to delete that tag",
 					`Only its author (${clean((await this.client.users.fetch(tag.author)).tag, message)}) or someone with manage messages permissions can delete it`
 				].join('\n')
 			);
 		}
 
-		return message.util?.send('That tag doesn’t exist');
+		return message.util?.send("That tag doesn't exist");
 	}
 }

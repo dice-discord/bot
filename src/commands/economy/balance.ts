@@ -27,14 +27,14 @@ export default class BalanceCommand extends DiceCommand {
 
 	async exec(message: Message, args: {user?: User}): Promise<Message | undefined> {
 		if (args.user?.bot && args.user?.id !== this.client.user!.id) {
-			return message.util?.send('You can’t check the balance of bots');
+			return message.util?.send("You can't check the balance of bots");
 		}
 
 		const user = new DiceUser(args.user ?? message.author);
 		const balance = await user.getBalance();
 
 		return message.util?.send(
-			`${args.user?.tag ? `${args.user.tag}’s` : 'Your'} account has a balance of ${bold`${balance.toLocaleString()}`} oat${balance === 1 ? '' : 's'}`
+			`${args.user?.tag ? `${args.user.tag}'s` : 'Your'} account has a balance of ${bold`${balance.toLocaleString()}`} oat${balance === 1 ? '' : 's'}`
 		);
 	}
 }

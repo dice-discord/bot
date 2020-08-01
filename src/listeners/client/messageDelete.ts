@@ -18,7 +18,7 @@ export default class MessageDeleteListener extends DiceListener {
 			color: Colors.Error,
 			timestamp: new Date(),
 			footer: {
-				text: `Message content is hidden to protect ${message.author.tag}’s privacy`
+				text: `Message content is hidden to protect ${message.author.tag}'s privacy`
 			},
 			author: {
 				name: `${message.author.tag} (${message.author.id})`,

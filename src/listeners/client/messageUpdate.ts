@@ -19,7 +19,7 @@ export default class MessageUpdateListener extends DiceListener {
 				color: 0xff9800,
 				timestamp: message.editedAt!,
 				footer: {
-					text: `Message history is hidden to protect ${message.author.tag}’s privacy`
+					text: `Message history is hidden to protect ${message.author.tag}'s privacy`
 				},
 				author: {
 					name: `${message.author.tag} (${message.author.id})`,

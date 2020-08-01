@@ -42,7 +42,7 @@ export default class ToggleNSFWCommand extends DiceCommand {
 			await args.channel.setNSFW(!args.channel.nsfw);
 		} catch (error) {
 			this.logger.error(error);
-			return message.util?.send(`An error occurred while changing ${channelName}'s NSFW setting`);
+			return await message.util?.send(`An error occurred while changing ${channelName}'s NSFW setting`);
 		}
 
 		return message.util?.send(`${channelName} was set to ${args.channel.nsfw ? '' : 'not '}NSFW`);

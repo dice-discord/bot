@@ -22,14 +22,14 @@ export default class EditTagCommand extends DiceCommand {
 				'tag-update',
 				'tags-update'
 			],
-			description: {content: 'Edit an existing tag from a server’s tags.', usage: '<id> <content>', examples: ['help New content']},
+			description: {content: "Edit an existing tag from a server's tags.", usage: '<id> <content>', examples: ['help New content']},
 			category: DiceCommandCategories.Tags,
 			channel: 'guild',
 			args: [
 				{
 					id: 'id',
 					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 50),
-					prompt: {start: 'Which tag do you want to edit?', retry: 'Invalid ID provided, please provide an ID that’s less than 50 characters'},
+					prompt: {start: 'Which tag do you want to edit?', retry: "Invalid ID provided, please provide an ID that's less than 50 characters"},
 					match: 'phrase'
 				},
 				{
@@ -59,12 +59,12 @@ export default class EditTagCommand extends DiceCommand {
 
 			return message.util?.send(
 				[
-					'You don’t have permission to edit that tag',
+					"You don't have permission to edit that tag",
 					`Only its author (${clean((await this.client.users.fetch(tag.author)).tag, message)}) or someone with manage messages permissions can edit it`
 				].join('\n')
 			);
 		}
 
-		return message.util?.send('That tag doesn’t exist');
+		return message.util?.send("That tag doesn't exist");
 	}
 }

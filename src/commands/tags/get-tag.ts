@@ -13,7 +13,7 @@ export default class GetTagCommand extends DiceCommand {
 		super('get-tag', {
 			aliases: ['read-tag', 'tag-get', 'tag'],
 			description: {
-				content: 'Get a tag from a server’s tags.',
+				content: "Get a tag from a server's tags.",
 				usage: '<id>',
 				examples: ['help']
 			},
@@ -23,7 +23,7 @@ export default class GetTagCommand extends DiceCommand {
 				{
 					id: 'id',
 					type: Argument.validate(AkairoArgumentType.String, (message, phrase) => phrase.length <= 50),
-					prompt: {start: 'What is the ID of the tag you want to get?', retry: 'Invalid ID provided, please provide an ID that’s less than 50 characters'},
+					prompt: {start: 'What is the ID of the tag you want to get?', retry: "Invalid ID provided, please provide an ID that's less than 50 characters"},
 					match: 'content'
 				}
 			]
@@ -45,7 +45,7 @@ export default class GetTagCommand extends DiceCommand {
 		// This is defined when the command is triggered by a `messageInvalid` event
 		// ex. `$$tag-name` would provide the args {id: 'tag-name', noError: true}
 		if (!args.noError) {
-			return message.util?.send('That tag doesn’t exist');
+			return message.util?.send("That tag doesn't exist");
 		}
 	}
 }

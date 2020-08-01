@@ -48,7 +48,7 @@ export default class KickCommand extends DiceCommand {
 		}
 
 		if (!manageable(message.member!, args.member)) {
-			return message.util?.send('You don’t have permissions to kick that member');
+			return message.util?.send("You don't have permissions to kick that member");
 		}
 
 		if (args.member.kickable) {
@@ -63,6 +63,6 @@ export default class KickCommand extends DiceCommand {
 		}
 
 		// Member not kickable
-		return message.util?.send('I can’t kick that member');
+		return message.util?.send("I can't kick that member");
 	}
 }

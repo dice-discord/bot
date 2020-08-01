@@ -92,7 +92,7 @@ export function generateUserBirthdayNotification(user: User): MessageEmbed {
 			url: 'https://dice.js.org/images/statuses/birthday/cake.png'
 		},
 		description: [
-			`It’s the Discord account birthday of ${user.tag}.`,
+			`It's the Discord account birthday of ${user.tag}.`,
 			`On this day in ${user.createdAt.getFullYear()} they created their Discord account.`
 		].join('\n'),
 		timestamp: new Date(),

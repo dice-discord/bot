@@ -59,12 +59,12 @@ export default class BanCommand extends DiceCommand {
 		if (guildMember) {
 			if (!guildMember.bannable) {
 				// User is on this server and is not bannable
-				return message.util?.send('I can’t ban that member');
+				return message.util?.send("I can't ban that member");
 			}
 
 			// Taken from discord.js `GuildMember.manageable https://github.com/discordjs/discord.js/blob/4ec01ddef56272f6bed23dd0eced8ea9851127b7/src/structures/GuildMember.js#L216-L222`
 			if (manageable(message.member!, guildMember)) {
-				return message.util?.send('You don’t have permissions to ban that member');
+				return message.util?.send("You don't have permissions to ban that member");
 			}
 		}
 
