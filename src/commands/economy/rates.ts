@@ -34,7 +34,7 @@ export default class RatesCommand extends DiceCommand {
 	}
 
 	async exec(message: Message): Promise<Message | undefined> {
-		let currencies: Currency[] = [];
+		const currencies: Currency[] = [];
 
 		try {
 			const bots = await Discoin.bots.getMany();
