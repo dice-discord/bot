@@ -15,7 +15,7 @@ dotenv.config({path: join(__dirname, '..', 'bot.env')});
 export const runningInProduction = process.env.NODE_ENV === 'production';
 
 /** Whether or not the bot is running in a CI environment. */
-export const runningInCI = process.env.CI !== undefined;
+export const runningInCI = Boolean(process.env.CI);
 
 /** Array of Discord user IDs for owners of the bot. */
 export const owners: Snowflake[] = [Admins.PizzaFox, Admins.OverCoder];
