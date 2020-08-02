@@ -132,7 +132,7 @@ export class DiceClient extends AkairoClient {
 		}
 
 		if (typeof discoin.token === 'string') {
-			this.discoin = new DiscoinClient(discoin.token, discoin.currencyID);
+			this.discoin = new DiscoinClient(discoin.token, [discoin.currencyID]);
 		}
 
 		if (nflApiToken) {

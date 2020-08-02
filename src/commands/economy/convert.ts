@@ -66,7 +66,7 @@ export default class ConvertCommand extends DiceCommand {
 		let transaction: Transaction;
 
 		try {
-			transaction = await this.client.discoin.transactions.create({amount, to: currency, user: message.author.id});
+			transaction = await this.client.discoin.transactions.create({amount, to: currency, user: message.author.id, from: 'OAT'});
 		} catch (error) {
 			this.logger.error(error);
 			// eslint-disable-next-line no-return-await
@@ -83,7 +83,7 @@ export default class ConvertCommand extends DiceCommand {
 				url: `https://dash.discoin.zws.im/#/transactions/${transaction.id}/show`,
 				color: 0x4caf50,
 				timestamp: transaction.timestamp,
-				description: `You should be paid in around 5 minutes. If you aren't paid within 10 minutes try contacting the creator of ${transaction.to.name}.`,
+				description: `You should be paid in around 5 minutes. If you aren't paid within 10 minutes try contacting the creator of ${transaction.to.bot.name}.`,
 				fields: [
 					{
 						name: 'Payout',
