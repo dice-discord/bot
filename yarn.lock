@@ -342,10 +342,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@discoin/scambio@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.1.0.tgz#4da5b8cc193700dbf77ac77606399cdf0e194280"
-  integrity sha512-v8dGPWIxKVi64wGaXyoN6IZb1HFQjMig3Uf9rqQ9Y+J7dnpyD/PJ4ZDOF4e5onGcioWWgZ4483sealvvef/E7w==
+"@discoin/scambio@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.1.1.tgz#03163103e5db80c62b2147e81b340484721fa58b"
+  integrity sha512-ZTCTJdPH5bckiYkh8+r0vCbMCXMPDjEcn+cz2/vYDt837iFT5eWEGyNIKqRoM2A6tyXE6o7qazhmVqs7ITILsw==
   dependencies:
     ky "^0.23.0"
     ky-universal "^0.8.0"
