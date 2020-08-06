@@ -44,7 +44,7 @@
 		"@prisma/cli": "2.3.0",
 		"@semantic-release/exec": "5.0.0",
 		"@types/cron": "1.7.2",
-		"@types/jest": "26.0.8",
+		"@types/jest": "26.0.9",
 		"@types/node": "12.12.53",
 		"@types/parse-color": "1.0.0",
 		"@types/roll": "1.2.0",
