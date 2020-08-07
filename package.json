@@ -24,7 +24,7 @@
 		"dotenv": "8.2.0",
 		"erlpack": "discordapp/erlpack",
 		"escape-string-regexp": "4.0.0",
-		"got": "11.5.1",
+		"got": "11.5.2",
 		"influx": "5.6.2",
 		"kurasuta": "2.1.0",
 		"micri": "4.2.0",
