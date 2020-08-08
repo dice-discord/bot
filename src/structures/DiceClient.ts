@@ -196,10 +196,10 @@ export class DiceClient extends AkairoClient {
 		this.inhibitorHandler.loadAll();
 		this.listenerHandler.loadAll();
 
-		this.prisma.on('info', event => prismaLogger.info(event));
-		this.prisma.on('warn', event => prismaLogger.warn(event));
+		this.prisma.$on('info', event => prismaLogger.info(event));
+		this.prisma.$on('warn', event => prismaLogger.warn(event));
 
-		await this.prisma.connect();
+		await this.prisma.$connect();
 
 		this.birthdayNotificationJob.start();
 
