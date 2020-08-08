@@ -8,10 +8,10 @@
 		"url": "https://github.com/dice-discord/bot/issues"
 	},
 	"dependencies": {
-		"@discoin/scambio": "2.1.0",
+		"@discoin/scambio": "2.1.1",
 		"@google-cloud/debug-agent": "5.1.2",
 		"@google-cloud/profiler": "4.0.2",
-		"@prisma/client": "2.4.0",
+		"@prisma/client": "2.4.1",
 		"@sentry/node": "5.20.1",
 		"bufferutil": "4.0.1",
 		"convert": "0.7.0-canary",
@@ -35,13 +35,13 @@
 		"semantic-release-docker": "2.2.0",
 		"signale": "1.4.0",
 		"snyk": "1.369.3",
-		"sqreen": "1.50.0",
+		"sqreen": "1.50.1",
 		"utf-8-validate": "5.0.2",
 		"zlib-sync": "0.1.7"
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.4.5",
-		"@prisma/cli": "2.4.0",
+		"@prisma/cli": "2.4.1",
 		"@semantic-release/exec": "5.0.0",
 		"@types/cron": "1.7.2",
 		"@types/jest": "26.0.8",

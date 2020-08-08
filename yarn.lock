@@ -342,10 +342,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@discoin/scambio@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.1.0.tgz#4da5b8cc193700dbf77ac77606399cdf0e194280"
-  integrity sha512-v8dGPWIxKVi64wGaXyoN6IZb1HFQjMig3Uf9rqQ9Y+J7dnpyD/PJ4ZDOF4e5onGcioWWgZ4483sealvvef/E7w==
+"@discoin/scambio@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.1.1.tgz#03163103e5db80c62b2147e81b340484721fa58b"
+  integrity sha512-ZTCTJdPH5bckiYkh8+r0vCbMCXMPDjEcn+cz2/vYDt837iFT5eWEGyNIKqRoM2A6tyXE6o7qazhmVqs7ITILsw==
   dependencies:
     ky "^0.23.0"
     ky-universal "^0.8.0"
@@ -780,15 +780,15 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@prisma/cli@2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.4.0.tgz#865a21cd8b072340d4d7b5fda888815b5692956e"
-  integrity sha512-+ybn21k+nAwoyILP5I0+VzRmMLfLmCfnJsJmBktg1FgKIWr9ppcM28Fu8LAohb7kQlKNRhv2eJmC5pdZC6unMw==
+"@prisma/cli@2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.4.1.tgz#95f6cae48ff19c6177bb9f85816b27e1ffe5af53"
+  integrity sha512-vAOBnouBgCYndXmTcGxanfmhVWUCpwr3akBXiQH+ZKzTYf/pwSsWYpeaXNQfVtUEJEQ0kumfLGdq6ZXnfX//aA==
 
-"@prisma/client@2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.4.0.tgz#221ef0074c63bb9079c92a169bb177ba6fb7cea2"
-  integrity sha512-kFWCVJ8Ux8IsUjaIOlEQ7n3H2rf9MqxkLwM2bOt7LL7P50WraK0dJ7if8KU/Ui9/QYwUIe/5wATi1bfJSrVIAg==
+"@prisma/client@2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.4.1.tgz#840d0905e9d05d84313e333a3e0370df3b9815fe"
+  integrity sha512-13aphZb34ws8GuRxVsmgiQmUJRfcnnb5/Jy78/ZkpLyCk5ZpchO/Rr1KNiF/cfLHprdKOjSvUzthcx+tubaA2A==
   dependencies:
     pkg-up "^3.1.0"
 
@@ -2267,12 +2267,14 @@ bin-links@^1.1.2, bin-links@^1.1.7:
     npm-normalize-package-bin "^1.0.0"
     write-file-atomic "^2.3.0"
 
-binary-downloader@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/binary-downloader/-/binary-downloader-0.1.1.tgz#e6b8d848dda343e6417cb32153f1fcea897510d2"
-  integrity sha512-0q0x6so3VzH49QdsSO9nFa7XcE/guL5yMP3ClNfPiXyMSnX7TeFRa3Sm6yTb/Hms4SpUFC4c85u6I+/9fyOxBw==
+binary-downloader@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/binary-downloader/-/binary-downloader-0.2.0.tgz#e69bd5253e10b8cf3e7e05fd31238fdecb306988"
+  integrity sha512-1yHIU4QBYjTivZoWH/02EL/3JmEMYSxYvrsM2g8f+FX08fOMyxhGpHWwb7RXaH8HjIdFKt/6pgGTfc9SIlYTBw==
   dependencies:
     detect-libc "^1.0.3"
+    http-proxy-agent "^4.0.1"
+    https-proxy-agent "^5.0.0"
     semver "^6.3.0"
     tar "^4.4.13"
 
@@ -5421,7 +5423,7 @@ http-proxy-agent@^2.1.0:
     agent-base "4"
     debug "3.1.0"
 
-http-proxy-agent@^4.0.0:
+http-proxy-agent@^4.0.0, http-proxy-agent@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-4.0.1.tgz#8a8c8ef7f5932ccf953c296ca8291b95aa74aa3a"
   integrity sha512-k0zdNgqWTGA6aeIRVpvfVob4fL52dTfaehylg0Y4UvSySvOq/Y+BOyPrgpUrA7HylqvU8vIZGsRuXmspskV0Tg==
@@ -10670,12 +10672,12 @@ sq-ecosystem@^0.11.0:
     shimmer "^1.2.1"
     uuid "^3.2.1"
 
-sq-native@0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/sq-native/-/sq-native-0.13.0.tgz#83d078a04b1bc1707c7264db1e9d7b7a9b306d1e"
-  integrity sha512-r5CALv7Z0tMoezQLLW+LL/OXTTFx63wNjFGnJiuUZYdFzSgwRey8oIAqvbKChqSEza3qvnX+Q84309rRUT7XQw==
+sq-native@0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/sq-native/-/sq-native-0.14.0.tgz#44130e131fc43bdbd01ae228d87a3ef6a9d0c9d9"
+  integrity sha512-3tSQC9x9pvqa59uJgFcEKpmT/khwoAKxM6S/2JVadzVvni4iatbssFSde/INY0HCH3uXliZKv5nL6l92uiwSZQ==
   dependencies:
-    binary-downloader "^0.1.1"
+    binary-downloader "^0.2.0"
 
 sqreen-sdk@^0.7.0:
   version "0.7.0"
@@ -10684,10 +10686,10 @@ sqreen-sdk@^0.7.0:
   dependencies:
     axios "^0.19.0"
 
-sqreen@1.50.0:
-  version "1.50.0"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.50.0.tgz#fbf3f871efd9b1e7c1d6a02ee76e7ca73d447c3d"
-  integrity sha512-xj/ZyfJRTskVLeIPi2DIJv1zBsF0w78Daf4TCLPmpZqi4sbWx0KwPz0vSVe0Kwnx5dseIfFNhcj2dtxrlNMyWg==
+sqreen@1.50.1:
+  version "1.50.1"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.50.1.tgz#37292d0a11cf3989a2a6ee2a31f29f1e2aadb157"
+  integrity sha512-LCCJ6vyk7wpaeiO4BQf5l+gPxFQUMCqTNbvzXTo+QJXzWhb7bBbXcgmvX2363w7JoVOEAqFpzOmID16e+M2Z0A==
   dependencies:
     async-listener "^0.6.0"
     async-lock "^1.2.2"
@@ -10714,7 +10716,7 @@ sqreen@1.50.0:
     winston "^2.4.4"
     zxcvbn "^4.4.2"
   optionalDependencies:
-    sq-native "0.13.0"
+    sq-native "0.14.0"
 
 ssh2-streams@~0.4.10:
   version "0.4.10"
