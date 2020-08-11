@@ -5811,10 +5811,10 @@ inflight@^1.0.4, inflight@~1.0.6:
     once "^1.3.0"
     wrappy "1"
 
-influx@5.6.2:
-  version "5.6.2"
-  resolved "https://registry.yarnpkg.com/influx/-/influx-5.6.2.tgz#897681bc67c3aa91414daddf0c0d61ea96d09a4d"
-  integrity sha512-bU9eIiJ6yyuuh4glSdTG4Ah6JpTa4LOZs79i3H7e9Ch5eyq+IGHYzs3PuB+Anuj6EQjJyVetfz2RiRVs5vmpxA==
+influx@5.6.3:
+  version "5.6.3"
+  resolved "https://registry.yarnpkg.com/influx/-/influx-5.6.3.tgz#53bf79da6a8607b427744cf033aa3c2e7a12cd35"
+  integrity sha512-j2biV776HXb2IbIcp2G24w50IqIWENDnKitm0Vj54vlpw9EfGzY7x7ndCRZSGzzm4fyDLSDQ+/cypZQpuDQxyA==
 
 inherits@2, inherits@2.0.4, inherits@^2.0.1, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.1, inherits@~2.0.3:
   version "2.0.4"
