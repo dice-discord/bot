@@ -64,7 +64,7 @@ mkdir(baseDirectory)
 				category.mapValues(async (commandDocs, commandID) => writeFile(joinPaths(baseDirectory, categoryID, `${commandID}.md`), commandDocs, {})).array()
 			)
 			.array()
-			.flat(Infinity);
+			.flat();
 
 		try {
 			await Promise.all(writeOperations);
