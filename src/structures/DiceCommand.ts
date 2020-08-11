@@ -106,9 +106,9 @@ export const enum AkairoArgumentType {
 
 declare module 'discord-akairo' {
 	interface CommandHandler {
-		// @ts-ignore
+		// @ts-expect-error
 		prefix: (message: Message) => Promise<string>;
-		// @ts-ignore
+		// @ts-expect-error
 		categories: Collection<DiceCommandCategories, Category<string, DiceCommand>>;
 	}
 

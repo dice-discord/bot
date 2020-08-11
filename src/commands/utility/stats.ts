@@ -1,6 +1,7 @@
 import {Message, MessageEmbed} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {getClusterCount} from '../../util/shard';
+import {sum} from '../../util/reducers';
 
 export default class StatsCommand extends DiceCommand {
 	constructor() {
@@ -22,7 +23,8 @@ export default class StatsCommand extends DiceCommand {
 
 			const actual = shardServerCounts.length;
 
-			serverCount = shardServerCounts.reduce((previous, value) => previous + value, 0);
+			// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
+			serverCount = shardServerCounts.reduce(sum, 0);
 
 			if (actual !== clusterCount) {
 				/** The number of clusters that didn't respond. */

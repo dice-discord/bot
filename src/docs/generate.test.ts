@@ -8,7 +8,7 @@ const commands: Category<string, DiceCommand> = new Category('cmd id');
 
 categories.set('category', commands);
 
-// @ts-ignore
+// @ts-expect-error
 commands.set('id', {
 	id: 'id',
 	categoryID: 'category',
@@ -22,7 +22,7 @@ commands.set('id', {
 const commandHandler = {categories};
 
 test('generateDocs', () => {
-	// @ts-ignore
+	// @ts-expect-error
 	const docs = generateDocs(commandHandler);
 
 	const category = docs.get('category');

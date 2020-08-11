@@ -4,6 +4,7 @@ import {Colors} from '../../constants';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import * as pkg from '../../../package.json';
 import {convert} from 'convert';
+import {sum} from '../../util/reducers';
 
 export default class BotInfoCommand extends DiceCommand {
 	constructor() {
@@ -21,7 +22,8 @@ export default class BotInfoCommand extends DiceCommand {
 		if (this.client.shard) {
 			const allHeapUsed = (await this.client.shard.broadcastEval('process.memoryUsage().heapUsed')) as number[];
 
-			heapUsed = allHeapUsed.reduce((a, b) => a + b);
+			// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
+			heapUsed = allHeapUsed.reduce(sum);
 		} else {
 			heapUsed = process.memoryUsage().heapUsed;
 		}

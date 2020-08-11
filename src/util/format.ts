@@ -47,10 +47,17 @@ export type Table = string[][];
  * @returns An array of lengths
  */
 export function maxColumnLength(table: Table): number[] {
-	return table.reduce(
-		(lengths: number[], row) => lengths.map((length, index) => (length < row[index].length ? row[index].length : length)),
-		table[0].map(column => column.length)
+	const lengths = table[0].map(column => column.length);
+
+	table.forEach(row =>
+		lengths.forEach((length, index) => {
+			if (length < row[index].length) {
+				lengths[index] = row[index].length;
+			}
+		})
 	);
+
+	return lengths;
 }
 
 /**

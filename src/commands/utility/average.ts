@@ -1,5 +1,6 @@
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {sum} from '../../util/reducers';
 
 export default class AverageCommand extends DiceCommand {
 	constructor() {
@@ -20,7 +21,8 @@ export default class AverageCommand extends DiceCommand {
 
 	async exec(message: Message, {numbers}: {numbers: number[]}): Promise<Message | undefined> {
 		if (numbers.length > 0) {
-			return message.util?.send((numbers.reduce((a, b) => a + b) / numbers.length).toLocaleString());
+			// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
+			return message.util?.send((numbers.reduce(sum) / numbers.length).toLocaleString());
 		}
 	}
 }

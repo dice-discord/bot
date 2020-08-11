@@ -13,6 +13,7 @@ export enum Admins {
 /** Colors in numberic format, mostly for use in message embeds. */
 export const enum Colors {
 	Primary = 0x4caf50,
+	// eslint-disable-next-line @typescript-eslint/prefer-literal-enum-member
 	Success = Primary,
 	Error = 0xf44336,
 	Warning = 0xff9800

@@ -19,7 +19,7 @@ export async function resolver(message: Message, phrase: string | null): Promise
 
 	try {
 		account = await fetchMinecraftAccount(phrase);
-	} catch (_) {}
+	} catch {}
 
 	return account;
 }

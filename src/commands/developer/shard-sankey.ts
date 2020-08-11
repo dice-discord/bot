@@ -1,5 +1,6 @@
 import {Message} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {sum} from '../../util/reducers';
 
 export default class ShardSankeyCommand extends DiceCommand {
 	constructor() {
@@ -22,12 +23,14 @@ export default class ShardSankeyCommand extends DiceCommand {
 		 */
 		const clusters: Array<{[shardID: number]: number}> = (await shard?.broadcastEval(`this.responsibleGuildCount()`)) ?? [{'0': this.client.guilds.cache.size}];
 
-		const totalServerCount = clusters.flatMap(cluster => Object.values(cluster)).reduce((a, b) => a + b);
+		// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
+		const totalServerCount = clusters.flatMap(cluster => Object.values(cluster)).reduce(sum, 0);
 
 		const lines: string[] = [
 			`Dice [${totalServerCount}] Clusters`,
 			...clusters.map((cluster, clusterID) => {
-				const clusterServerCount = Object.values(cluster).reduce((a, b) => a + b, 0);
+				// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
+				const clusterServerCount = Object.values(cluster).reduce(sum, 0);
 
 				const clusterLines = [`Clusters [${clusterServerCount}] Cluster ${clusterID}`];
 
