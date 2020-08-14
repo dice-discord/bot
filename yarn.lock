@@ -10948,10 +10948,10 @@ sqreen-sdk@^0.7.0:
   dependencies:
     axios "^0.19.0"
 
-sqreen@1.51.0:
-  version "1.51.0"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.51.0.tgz#591be79f8eb3f272beedc5564efe13cd4b08bab5"
-  integrity sha512-MDWRghR4HXc9zBIzoq7aa2decyUvi/GMQ9QcX3iaYNmLO+3r/OiXjEjl73GWbTeEFlewbhNISGaY4DuIzMcDrw==
+sqreen@1.51.1:
+  version "1.51.1"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.51.1.tgz#d79f851444e26fa0437a77dd2f9b02abde192ee2"
+  integrity sha512-BSDU9JmdKbJO19+JAASbA0Hd91Hv3Jz+gFeQld6NdFioeTAOdOSaYB9mKofBjxb8BUM16Zd+w314WOBYNxFaUA==
   dependencies:
     async-listener "^0.6.0"
     async-lock "^1.2.2"
