@@ -16,7 +16,7 @@
 		"bufferutil": "4.0.1",
 		"convert": "0.7.0-canary",
 		"cron": "1.8.2",
-		"date-fns": "2.15.0",
+		"date-fns": "2.16.0",
 		"delay": "4.4.0",
 		"discord-akairo": "8.1.0",
 		"discord-md-tags": "1.0.0",
