@@ -467,10 +467,10 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@eclass/semantic-release-sentry-releases@2.4.6":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.4.6.tgz#2d90c6782a8d715ecb2b646c1c50bf8af8138a89"
-  integrity sha512-xjRx2mA80Z6Xsr5Tiavab9LAhKCkTjim1a1/mELMRfHQkLk+/HNA3Drkkkgi2MPYS+3OsiiuEloHZMBNk44i0A==
+"@eclass/semantic-release-sentry-releases@2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.4.7.tgz#277b26540daa52d266c95b6ef35b069dca17294b"
+  integrity sha512-zN6kSS+NRDTOu00Qfmiw2yLDzef1JQXKpqpMqVr8oH+Y5e9j8yzBpAryHM3NAy7EJqrvM01++V6JIFXhR1bfTA==
   dependencies:
     "@semantic-release/error" "^2.1.0"
     "@sentry/cli" "1.55.2"
