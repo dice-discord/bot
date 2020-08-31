@@ -53,7 +53,7 @@ export default class BlacklistCommand extends DiceCommand {
 		}
 
 		// User does not exist or is not blacklisted
-		if (typeof args.reason === 'string') {
+		if (typeof args.reason === 'string' && args.reason !== 'remove') {
 			await this.client.prisma.user.upsert({
 				where: {id: args.user.id},
 				create: {id: args.user.id, blacklistReason: args.reason},

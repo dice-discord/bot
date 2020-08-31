@@ -89,7 +89,7 @@
 		"test": "jest"
 	},
 	"snyk": true,
-	"version": "4.15.0",
+	"version": "4.15.1",
 	"xo": {
 		"extends": [
 			"plugin:jest/recommended"
