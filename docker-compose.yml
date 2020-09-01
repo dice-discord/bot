@@ -65,7 +65,7 @@ services:
       - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
   # InfluxDB time-series database
   influxdb:
-    image: influxdb:1.8.1-alpine
+    image: influxdb:1.8.2-alpine
     restart: unless-stopped
     env_file: influxdb.env
     expose:
