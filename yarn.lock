@@ -3276,10 +3276,10 @@ convert-source-map@^1.4.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   dependencies:
     safe-buffer "~5.1.1"
 
-convert@0.7.0-canary:
-  version "0.7.0-canary"
-  resolved "https://registry.yarnpkg.com/convert/-/convert-0.7.0-canary.tgz#7e85a6d5e5d92972dcd94b29fc8f812754f4e838"
-  integrity sha512-msIUAZXo8RuINufzUVhcbtytOSt4LsF1geu1nd57titzLQujbDSs1LAXd/CKvd0v3iF2cuOF0gvCELDaHMklRw==
+convert@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/convert/-/convert-1.0.0.tgz#b3b208d186507cf687a7187c2903d79254d697b9"
+  integrity sha512-2mZIb22LcuxIzpB8Aldba/dQQ6jhYsaS45PIvN/IftpyewAKnWXwIxcjkSq8qkbw3ew7X08q2WabYIftjd5XCQ==
 
 cookie@^0.4.1:
   version "0.4.1"
