@@ -467,14 +467,14 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@eclass/semantic-release-sentry-releases@2.4.7":
-  version "2.4.7"
-  resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.4.7.tgz#277b26540daa52d266c95b6ef35b069dca17294b"
-  integrity sha512-zN6kSS+NRDTOu00Qfmiw2yLDzef1JQXKpqpMqVr8oH+Y5e9j8yzBpAryHM3NAy7EJqrvM01++V6JIFXhR1bfTA==
+"@eclass/semantic-release-sentry-releases@2.4.8":
+  version "2.4.8"
+  resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.4.8.tgz#f26a5720f7065e740428510e96b4f3703270c4dd"
+  integrity sha512-D9uk38F3UXa0Y4dT2hALgfKl2KLI4AMqHPByZLQbJby87wgsdSSKaTgn2gG+MW3et7niNRfPVTHy4Ucvbyt2kg==
   dependencies:
     "@semantic-release/error" "^2.1.0"
-    "@sentry/cli" "1.55.2"
-    aggregate-error "^3.0.1"
+    "@sentry/cli" "^1.55.2"
+    aggregate-error "^3.1.0"
 
 "@google-cloud/common@^3.0.0":
   version "3.0.0"
@@ -1035,7 +1035,7 @@
     lodash "^4.17.4"
     read-pkg-up "^7.0.0"
 
-"@sentry/cli@1.55.2":
+"@sentry/cli@^1.55.2":
   version "1.55.2"
   resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.55.2.tgz#d7c32c87be1fb5b7469b3c57229177296ad9a364"
   integrity sha512-XLHlqLUY3E/ggYvTqAy76sbUDzr3yxXD7cSeyT2e3rxORSVwMkP2MqMeRJ8sCmQ0DXMdMHfbFOKMDwMqmRZeqQ==
@@ -1941,10 +1941,18 @@ agentkeepalive@^3.4.1:
   dependencies:
     humanize-ms "^1.2.1"
 
-aggregate-error@^3.0.0, aggregate-error@^3.0.1:
+aggregate-error@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/aggregate-error/-/aggregate-error-3.0.1.tgz#db2fe7246e536f40d9b5442a39e117d7dd6a24e0"
   integrity sha512-quoaXsZ9/BLNae5yiNoUz+Nhkwz83GhWwtYFglcjEQB2NDHCIpApbqXxIFnm4Pq/Nvhrsq5sYJFyohrrxnTGAA==
+  dependencies:
+    clean-stack "^2.0.0"
+    indent-string "^4.0.0"
+
+aggregate-error@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/aggregate-error/-/aggregate-error-3.1.0.tgz#92670ff50f5359bdb7a3e0d40d0ec30c5737687a"
+  integrity sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==
   dependencies:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
