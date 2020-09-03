@@ -467,14 +467,15 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@eclass/semantic-release-sentry-releases@2.4.8":
-  version "2.4.8"
-  resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.4.8.tgz#f26a5720f7065e740428510e96b4f3703270c4dd"
-  integrity sha512-D9uk38F3UXa0Y4dT2hALgfKl2KLI4AMqHPByZLQbJby87wgsdSSKaTgn2gG+MW3et7niNRfPVTHy4Ucvbyt2kg==
+"@eclass/semantic-release-sentry-releases@2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@eclass/semantic-release-sentry-releases/-/semantic-release-sentry-releases-2.6.0.tgz#bce4627113ab8a41c0a280525538a3771a1b1b68"
+  integrity sha512-ok1zG0IibdzYi95cV2Zib9VXS1NIeha0paGrsF+VrCnow6uN779Savm6i/E40FVAbe5xsiTM/95+15s/Nl0RHw==
   dependencies:
     "@semantic-release/error" "^2.1.0"
     "@sentry/cli" "^1.55.2"
     aggregate-error "^3.1.0"
+    git-diff-tree "^1.1.0"
 
 "@google-cloud/common@^3.0.0":
   version "3.0.0"
@@ -2623,6 +2624,19 @@ bser@2.1.1:
   dependencies:
     node-int64 "^0.4.0"
 
+bubble-stream-error@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/bubble-stream-error/-/bubble-stream-error-1.0.0.tgz#7dad97f17128da396169bf37ada4acb195361e30"
+  integrity sha1-fa2X8XEo2jlhab83raSssZU2HjA=
+  dependencies:
+    once "^1.3.3"
+    sliced "^1.0.1"
+
+bubble-stream-error@~0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/bubble-stream-error/-/bubble-stream-error-0.0.1.tgz#55eb86846ecf26605e896aa2f1a31b3c9dcccb62"
+  integrity sha1-VeuGhG7PJmBeiWqi8aMbPJ3My2I=
+
 buf-compare@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/buf-compare/-/buf-compare-1.0.1.tgz#fef28da8b8113a0a0db4430b0b6467b69730b34a"
@@ -3915,6 +3929,11 @@ duplexer3@^0.1.4:
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
+duplexer@~0.1.1:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"
+  integrity sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==
+
 duplexify@^3.4.2, duplexify@^3.5.0, duplexify@^3.6.0:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/duplexify/-/duplexify-3.7.1.tgz#2a4df5317f6ccfd91f86d6fd25d8d8a103b88309"
@@ -4547,6 +4566,19 @@ event-loop-spinner@^2.0.0:
   dependencies:
     tslib "^1.10.0"
 
+event-stream@~3.1.5:
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/event-stream/-/event-stream-3.1.7.tgz#b4c540012d0fe1498420f3d8946008db6393c37a"
+  integrity sha1-tMVAAS0P4UmEIPPYlGAI22OTw3o=
+  dependencies:
+    duplexer "~0.1.1"
+    from "~0"
+    map-stream "~0.1.0"
+    pause-stream "0.0.11"
+    split "0.2"
+    stream-combiner "~0.0.4"
+    through "~2.3.1"
+
 event-target-shim@^5.0.0:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
@@ -4984,6 +5016,11 @@ from2@^2.1.0, from2@^2.3.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
 
+from@~0:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/from/-/from-0.1.7.tgz#83c60afc58b9c56997007ed1a768b3ab303a44fe"
+  integrity sha1-g8YK/Fi5xWmXAH7Rp2izqzA6RP4=
+
 fromentries@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/fromentries/-/fromentries-1.2.0.tgz#e6aa06f240d6267f913cea422075ef88b63e7897"
@@ -5210,6 +5247,16 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+git-diff-tree@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/git-diff-tree/-/git-diff-tree-1.1.0.tgz#05cd0b2fa9ebf1630ba643fe89d8ccbb2635f7bb"
+  integrity sha512-PdNkH2snpXsKIzho6OWMZKEl+KZG6Zm+1ghQIDi0tEq1sz/S1tDjvNuYrX2ZpomalHAB89OUQim8O6vN+jesNQ==
+  dependencies:
+    git-spawned-stream "1.0.1"
+    pump-chain "1.0.0"
+    split-transform-stream "0.1.1"
+    through2 "2.0.0"
+
 git-log-parser@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/git-log-parser/-/git-log-parser-1.2.0.tgz#2e6a4c1b13fc00028207ba795a7ac31667b9fd4a"
@@ -5221,6 +5268,14 @@ git-log-parser@^1.2.0:
     stream-combiner2 "~1.1.1"
     through2 "~2.0.0"
     traverse "~0.6.6"
+
+git-spawned-stream@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/git-spawned-stream/-/git-spawned-stream-1.0.1.tgz#841cda93d106eeb2c71a3c1af44ec484b440248b"
+  integrity sha512-W2Zo3sCiq5Hqv1/FLsNmGomkXdyimmkHncGzqjBHh7nWx+CbH5dkWGb6CiFdknooL7wfeZJ3gz14KrXl/gotCw==
+  dependencies:
+    debug "^4.1.0"
+    spawn-to-readstream "~0.1.3"
 
 glob-parent@^3.1.0:
   version "3.1.0"
@@ -7316,6 +7371,11 @@ lie@~3.3.0:
   dependencies:
     immediate "~3.0.5"
 
+limit-spawn@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/limit-spawn/-/limit-spawn-0.0.3.tgz#cc09c24467a0f0a1ed10a5196dba597cad3f65dc"
+  integrity sha1-zAnCRGeg8KHtEKUZbbpZfK0/Zdw=
+
 line-column-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/line-column-path/-/line-column-path-2.0.0.tgz#439aff48ef80d74c475801a25b560d021acf1288"
@@ -7736,6 +7796,11 @@ map-obj@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.1.0.tgz#b91221b542734b9f14256c0132c897c5d7256fd5"
   integrity sha512-glc9y00wgtwcDmp7GaE/0b0OnxpNJsVf3ael/An6Fe2Q51LLwN1er6sdomLRzz5h0+yMpiYLhWYF5R7HeqVd4g==
+
+map-stream@~0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
+  integrity sha1-5WqpTEyAVaFkBKBnS3jyFffI4ZQ=
 
 map-visit@^1.0.0:
   version "1.0.0"
@@ -8662,6 +8727,11 @@ object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
+object-keys@~0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-0.4.0.tgz#28a6aae7428dd2c3a92f3d95f21335dd204e0336"
+  integrity sha1-KKaq50KN0sOpLz2V8hM13SBOAzY=
+
 object-visit@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/object-visit/-/object-visit-1.0.1.tgz#f79c4493af0c5377b59fe39d395e41042dd045bb"
@@ -8711,7 +8781,7 @@ on-finished@^2.3.0:
   dependencies:
     ee-first "1.1.1"
 
-once@^1.3.0, once@^1.3.1, once@^1.4.0, once@~1.4.0:
+once@^1.3.0, once@^1.3.1, once@^1.3.3, once@^1.4.0, once@~1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
   integrity sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
@@ -9219,6 +9289,13 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+pause-stream@0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/pause-stream/-/pause-stream-0.0.11.tgz#fe5a34b0cbce12b5aa6a2b403ee2e73b602f1445"
+  integrity sha1-/lo0sMvOErWqaitAPuLnO2AvFEU=
+  dependencies:
+    through "~2.3"
+
 pbkdf2@^3.0.3:
   version "3.0.17"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.0.17.tgz#976c206530617b14ebb32114239f7b09336e93a6"
@@ -9412,6 +9489,11 @@ prism-media@^1.2.0:
   resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-1.2.1.tgz#168f323712bcaacb1d70ae613bf9d9dc44cf43d4"
   integrity sha512-R3EbKwJiYlTvGwcG1DpUt+06DsxOGS5W4AMEHT7oVOjG93MjpdhGX1whHyjnqknylLMupKAsKMEXcTNRbPe6Vw==
 
+process-nextick-args@~1.0.6:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
+  integrity sha1-FQ4gt1ZZCtP5EJPyWk8q2L/zC6M=
+
 process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
@@ -9584,6 +9666,23 @@ public-encrypt@^4.0.0:
     parse-asn1 "^5.0.0"
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
+
+pump-chain@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/pump-chain/-/pump-chain-1.0.0.tgz#7d57d8d9ad8181ea808f5413c4f2bc1e786a5e37"
+  integrity sha1-fVfY2a2BgeqAj1QTxPK8HnhqXjc=
+  dependencies:
+    bubble-stream-error "^1.0.0"
+    pump "^1.0.1"
+    sliced "^1.0.1"
+
+pump@^1.0.1:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/pump/-/pump-1.0.3.tgz#5dfe8311c33bbf6fc18261f9f34702c47c08a954"
+  integrity sha512-8k0JupWme55+9tCVE+FS5ULT3K6AbgqrGa58lTT49RpyfwwcGedHqaC5LlQNdEAumn/wFsu6aPwkuPMioy8kqw==
+  dependencies:
+    end-of-stream "^1.1.0"
+    once "^1.3.1"
 
 pump@^2.0.0:
   version "2.0.1"
@@ -9864,6 +9963,28 @@ readable-stream@1.1.x, readable-stream@~1.1.10:
     inherits "^2.0.3"
     string_decoder "^1.1.1"
     util-deprecate "^1.0.1"
+
+readable-stream@~1.0.17:
+  version "1.0.34"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.0.34.tgz#125820e34bc842d2f2aaafafe4c2916ee32c157c"
+  integrity sha1-Elgg40vIQtLyqq+v5MKRbuMsFXw=
+  dependencies:
+    core-util-is "~1.0.0"
+    inherits "~2.0.1"
+    isarray "0.0.1"
+    string_decoder "~0.10.x"
+
+readable-stream@~2.0.0:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
+  integrity sha1-j5A0HmilPMySh4jaz80Rs265t44=
+  dependencies:
+    core-util-is "~1.0.0"
+    inherits "~2.0.1"
+    isarray "~1.0.0"
+    process-nextick-args "~1.0.6"
+    string_decoder "~0.10.x"
+    util-deprecate "~1.0.1"
 
 readdir-scoped-modules@^1.0.0, readdir-scoped-modules@^1.1.0:
   version "1.1.0"
@@ -10442,6 +10563,11 @@ slice-ansi@^2.1.0:
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
 
+sliced@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/sliced/-/sliced-1.0.1.tgz#0b3a662b5d04c3177b1926bea82b03f837a2ef41"
+  integrity sha1-CzpmK10Ewxd7GSa+qCsD+Dei70E=
+
 slide@^1.1.6, slide@~1.1.3, slide@~1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
@@ -10872,6 +10998,14 @@ spawn-error-forwarder@~1.0.0:
   resolved "https://registry.yarnpkg.com/spawn-error-forwarder/-/spawn-error-forwarder-1.0.0.tgz#1afd94738e999b0346d7b9fc373be55e07577029"
   integrity sha1-Gv2Uc46ZmwNG17n8NzvlXgdXcCk=
 
+spawn-to-readstream@~0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/spawn-to-readstream/-/spawn-to-readstream-0.1.3.tgz#96768b72739ac64ffa77c8ce2cbf98c2d21d8dbf"
+  integrity sha1-lnaLcnOaxk/6d8jOLL+YwtIdjb8=
+  dependencies:
+    limit-spawn "0.0.3"
+    through2 "~0.4.1"
+
 spawn-wrap@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/spawn-wrap/-/spawn-wrap-2.0.0.tgz#103685b8b8f9b79771318827aa78650a610d457e"
@@ -10927,6 +11061,15 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
+split-transform-stream@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/split-transform-stream/-/split-transform-stream-0.1.1.tgz#825236a78d52a18ff912a631ad3034c15ded5fe3"
+  integrity sha1-glI2p41SoY/5EqYxrTA0wV3tX+M=
+  dependencies:
+    bubble-stream-error "~0.0.1"
+    event-stream "~3.1.5"
+    through2 "~0.4.2"
+
 split2@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/split2/-/split2-2.2.0.tgz#186b2575bcf83e85b7d18465756238ee4ee42493"
@@ -10940,6 +11083,13 @@ split2@~1.0.0:
   integrity sha1-UuLiIdiMdfmnP5BVbiY/+WdysxQ=
   dependencies:
     through2 "~2.0.0"
+
+split@0.2:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/split/-/split-0.2.10.tgz#67097c601d697ce1368f418f06cd201cf0521a57"
+  integrity sha1-Zwl8YB1pfOE2j0GPBs0gHPBSGlc=
+  dependencies:
+    through "2"
 
 split@^1.0.0, split@^1.0.1:
   version "1.0.1"
@@ -11097,6 +11247,13 @@ stream-combiner2@~1.1.1:
   dependencies:
     duplexer2 "~0.1.0"
     readable-stream "^2.0.2"
+
+stream-combiner@~0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/stream-combiner/-/stream-combiner-0.0.4.tgz#4d5e433c185261dde623ca3f44c586bcf5c4ad14"
+  integrity sha1-TV5DPBhSYd3mI8o/RMWGvPXErRQ=
+  dependencies:
+    duplexer "~0.1.1"
 
 stream-each@^1.1.0:
   version "1.2.3"
@@ -11506,6 +11663,14 @@ throat@^5.0.0:
   resolved "https://registry.yarnpkg.com/throat/-/throat-5.0.0.tgz#c5199235803aad18754a667d659b5e72ce16764b"
   integrity sha512-fcwX4mndzpLQKBS1DVYhGAcYaYt7vsHNIvQV+WXMvnow5cgjPphq5CaayLaGsjRdSCKZFNGt7/GYAuXaNOiYCA==
 
+through2@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.0.tgz#f41a1c31df5e129e4314446f66eca05cd6a30480"
+  integrity sha1-9BocMd9eEp5DFERvZuygXNajBIA=
+  dependencies:
+    readable-stream "~2.0.0"
+    xtend "~4.0.0"
+
 through2@^2.0.0, through2@^2.0.2, through2@^2.0.3, through2@~2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
@@ -11521,7 +11686,15 @@ through2@^3.0.0, through2@^3.0.1:
   dependencies:
     readable-stream "2 || 3"
 
-through@2, "through@>=2.2.7 <3", through@^2.3.6:
+through2@~0.4.1, through2@~0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/through2/-/through2-0.4.2.tgz#dbf5866031151ec8352bb6c4db64a2292a840b9b"
+  integrity sha1-2/WGYDEVHsg1K7bE22SiKSqEC5s=
+  dependencies:
+    readable-stream "~1.0.17"
+    xtend "~2.1.1"
+
+through@2, "through@>=2.2.7 <3", through@^2.3.6, through@~2.3, through@~2.3.1:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
@@ -12436,10 +12609,17 @@ xregexp@2.0.0:
   resolved "https://registry.yarnpkg.com/xregexp/-/xregexp-2.0.0.tgz#52a63e56ca0b84a7f3a5f3d61872f126ad7a5943"
   integrity sha1-UqY+VsoLhKfzpfPWGHLxJq16WUM=
 
-xtend@^4.0.0, xtend@~4.0.1:
+xtend@^4.0.0, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+
+xtend@~2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/xtend/-/xtend-2.1.2.tgz#6efecc2a4dad8e6962c4901b337ce7ba87b5d28b"
+  integrity sha1-bv7MKk2tjmlixJAbM3znuoe10os=
+  dependencies:
+    object-keys "~0.4.0"
 
 y18n@^3.2.0, y18n@^3.2.1:
   version "3.2.1"
