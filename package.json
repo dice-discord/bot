@@ -11,7 +11,7 @@
 		"@discoin/scambio": "2.1.2",
 		"@google-cloud/debug-agent": "5.1.2",
 		"@google-cloud/profiler": "4.0.2",
-		"@prisma/client": "2.6.1",
+		"@prisma/client": "2.6.2",
 		"@sentry/node": "5.22.3",
 		"bufferutil": "4.0.1",
 		"convert": "1.0.0",
@@ -41,7 +41,7 @@
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.6.0",
-		"@prisma/cli": "2.6.1",
+		"@prisma/cli": "2.6.2",
 		"@semantic-release/exec": "5.0.0",
 		"@types/cron": "1.7.2",
 		"@types/jest": "26.0.13",
