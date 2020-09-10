@@ -1,4 +1,3 @@
-import {User} from '@prisma/client';
 import {convert} from 'convert';
 import {formatDistance} from 'date-fns';
 import {bold} from 'discord-md-tags';
