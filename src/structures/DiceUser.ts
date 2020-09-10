@@ -46,32 +46,4 @@ export class DiceUser {
 
 		return user?.balance ?? defaults.startingBalance[this.id === this.client.user?.id ? 'bot' : 'users'];
 	}
-
-	/**
-	 * Increment this user's balance.
-	 * If they do not have an entry in the database their initial balance will be determined using the default balance.
-	 * @param amount The amount to increment the balance by. This number can be negative.
-	 * @returns This user's updated balance
-	 */
-	async incrementBalance(amount: number): Promise<number> {
-		const updatedUser = await (await this.incrementBalanceWithPrisma(amount))();
-
-		return updatedUser.balance;
-	}
-
-	/**
-	 * This is identical {@link DiceUser#incrementBalance | `incrementBalance`} method but returns the Prisma write operation for use in Prisma's transaction system.
-	 * @param amount The amount to increment the balance by. This number can be negative.
-	 * @returns The Prisma write operation to the user
-	 */
-	async incrementBalanceWithPrisma(amount: number) {
-		const currentBalance = await this.getBalance();
-		return () =>
-			this.prisma.user.upsert({
-				where: {id: this.id},
-				create: {id: this.id, balance: currentBalance + amount},
-				update: {balance: currentBalance + amount},
-				select: {balance: true}
-			});
-	}
 }

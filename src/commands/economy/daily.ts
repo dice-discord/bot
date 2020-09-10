@@ -1,11 +1,10 @@
 import {User} from '@prisma/client';
+import {convert} from 'convert';
 import {formatDistance} from 'date-fns';
 import {bold} from 'discord-md-tags';
 import {Message} from 'discord.js';
 import {dailyAmount} from '../../constants';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {DiceUser} from '../../structures/DiceUser';
-import {convert} from 'convert';
 
 const cooldown = convert(22).from('hours').to('milliseconds');
 
@@ -24,21 +23,19 @@ export default class DailyCommand extends DiceCommand {
 	}
 
 	async exec(message: Message): Promise<Message | undefined> {
-		const helperUser = new DiceUser(message.author);
-		const user: Partial<Pick<User, 'dailyUsed'>> & Pick<User, 'balance'> = {
-			dailyUsed: (await this.client.prisma.user.findOne({where: {id: message.author.id}, select: {dailyUsed: true}}))?.dailyUsed,
-			balance: await helperUser.getBalance()
-		};
-
+		const user = await this.client.prisma.user.findOne({where: {id: message.author.id}, select: {dailyUsed: true}});
 		const now = message.editedAt ?? message.createdAt;
 
-		if (!user.dailyUsed || user.dailyUsed.getTime() + cooldown < now.getTime()) {
-			const botUser = new DiceUser(this.client.user!);
+		if (user?.dailyUsed || !user?.dailyUsed || user.dailyUsed.getTime() + cooldown < now.getTime()) {
+			if (this.client.user === null) {
+				throw new TypeError('Expected client.user to be defined');
+			}
+
+			this.logger.debug({now, type: typeof now});
 
 			const [{balance: updatedBalance}] = await this.client.prisma.transaction([
-				(await helperUser.incrementBalanceWithPrisma(dailyAmount))(),
-				(await botUser.incrementBalanceWithPrisma(dailyAmount))(),
-				this.client.prisma.user.update({where: {id: message.author.id}, data: {dailyUsed: now}})
+				this.client.prisma.user.update({where: {id: message.author.id}, data: {balance: {increment: dailyAmount}, dailyUsed: now}, select: {balance: true}}),
+				this.client.prisma.user.update({where: {id: this.client.user.id}, data: {balance: {increment: dailyAmount}}, select: {id: true}})
 			]);
 
 			return message.util?.send(

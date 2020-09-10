@@ -40,10 +40,19 @@ export default class TransferCommand extends DiceCommand {
 			return message.util?.send("You can't send oats to bots");
 		}
 
+		if (message.author.id === args.user.id) {
+			return message.util?.send("You can't send oats to yourself");
+		}
+
 		args.amount = simpleFormat(args.amount);
 
 		const authorUser = new DiceUser(message.author);
 		const authorBal = await authorUser.getBalance();
+
+		const queries = {
+			author: {id: message.author.id},
+			recipient: {id: args.user.id}
+		};
 
 		if (authorBal < args.amount) {
 			return message.util?.send(
@@ -54,11 +63,9 @@ export default class TransferCommand extends DiceCommand {
 			);
 		}
 
-		const recipient = new DiceUser(args.user);
-
 		const [{balance: updatedAuthorBalance}] = await this.client.prisma.transaction([
-			(await authorUser.incrementBalanceWithPrisma(-args.amount))(),
-			(await recipient.incrementBalanceWithPrisma(args.amount))()
+			this.client.prisma.user.update({where: queries.author, data: {balance: {decrement: args.amount}}, select: {balance: true}}),
+			this.client.prisma.user.update({where: queries.recipient, data: {balance: {increment: args.amount}}, select: {balance: true}})
 		]);
 
 		return message.util?.send(

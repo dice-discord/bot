@@ -2,5 +2,10 @@
 	"editor.codeActionsOnSave": {
 		"source.organizeImports": false
 	},
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/.hg/store/**": true
+	},
 	"typescript.tsdk": "node_modules\\typescript\\lib"
 }

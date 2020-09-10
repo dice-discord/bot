@@ -3,6 +3,7 @@ import {Transaction} from '@discoin/scambio/tsc_output/src/structures/transactio
 import {start as startProfiler} from '@google-cloud/profiler';
 import {PrismaClient} from '@prisma/client';
 import {captureException, init as initSentry} from '@sentry/node';
+import {convert} from 'convert';
 import {CronJob} from 'cron';
 import {formatDistanceToNow} from 'date-fns';
 import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
@@ -10,7 +11,7 @@ import {bold} from 'discord-md-tags';
 import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
 import {join} from 'path';
 import * as pkg from '../../package.json';
-import {defaultPrefix, discoin, googleBaseConfig, influxDSN, owners, runningInProduction, sentryDSN, nflApiToken} from '../config';
+import {defaultPrefix, discoin, googleBaseConfig, influxDSN, nflApiToken, owners, runningInProduction, sentryDSN} from '../config';
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
 import {baseLogger} from '../logging/logger';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
@@ -20,12 +21,10 @@ import {simpleFormat} from '../util/format';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
 import {clusterID, findShardIDByGuildID} from '../util/shard';
 import {DiceCluster} from './DiceCluster';
-import {DiceUser} from './DiceUser';
 import {DiscordInfluxUtil} from './DiscordInfluxUtil';
 import {GuildSettingsCache} from './GuildSettingsCache';
-import {TopGGVote, TopGGVoteWebhookHandler} from './TopGgVoteWebhookHandler';
 import {NoFlyList} from './NoFlyList';
-import {convert} from 'convert';
+import {TopGGVote, TopGGVoteWebhookHandler} from './TopGgVoteWebhookHandler';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -290,16 +289,17 @@ export class DiceClient extends AkairoClient {
 	 * @returns The message notifying the user or `undefined` if the user wasn't notified
 	 */
 	async handleDiscoinTransaction(transaction: Transaction): Promise<Message | undefined> {
-		const user = new DiceUser(transaction.user, this);
+		const userQuery = {id: transaction.user};
 
-		const updatedBalance = await user.incrementBalance(simpleFormat(transaction.payout));
+		// Const updatedBalance = await user.incrementBalance(simpleFormat(transaction.payout));
+		const {balance: updatedBalance} = await this.prisma.user.update({where: userQuery, data: {balance: {increment: simpleFormat(transaction.payout)}}});
 
 		try {
 			await transaction.update({handled: true});
 		} catch (error) {
 			discoinLogger.error(`Error while marking transaction ${transaction.id} as handled`, error);
 			// If it wasn't marked as handled don't pay them, keep transactions atomic
-			await user.incrementBalance(simpleFormat(-transaction.payout));
+			await this.prisma.user.update({where: userQuery, data: {balance: {decrement: simpleFormat(transaction.payout)}}});
 
 			return;
 		}
@@ -338,10 +338,8 @@ export class DiceClient extends AkairoClient {
 	 * @returns The user's updated balance
 	 */
 	async handleVote(vote: TopGGVote): Promise<number> {
-		const voter = new DiceUser(vote.user, this);
-
 		const reward = defaults.vote[vote.weekend ? 'weekend' : 'base'];
-		const updatedBalance = await voter.incrementBalance(reward);
+		const {balance: updatedBalance} = await this.prisma.user.update({where: {id: vote.user}, data: {balance: {increment: reward}}, select: {balance: true}});
 
 		try {
 			const user = await this.users.fetch(vote.user);

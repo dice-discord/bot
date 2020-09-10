@@ -62,10 +62,13 @@ export default class DiceGameCommand extends DiceCommand {
 		args.wager = simpleFormat(args.wager);
 		args.multiplier = simpleFormat(args.multiplier);
 
-		const author = new DiceUser(message.author);
-		const dice = new DiceUser(this.client.user!);
-		let authorBalance = await author.getBalance();
-		const diceBalance = await dice.getBalance();
+		let authorBalance = await new DiceUser(message.author).getBalance();
+
+		if (this.client.user === null) {
+			throw new TypeError('Expected client.user to be defined');
+		}
+
+		const diceBalance = await new DiceUser(this.client.user).getBalance();
 
 		if (authorBalance < args.wager) {
 			return message.util?.send(
@@ -77,10 +80,15 @@ export default class DiceGameCommand extends DiceCommand {
 			return message.util?.send("I couldn't pay your winnings if you won");
 		}
 
+		const queries = {
+			author: {id: message.author.id},
+			dice: {id: this.client.user.id}
+		};
+
 		// Take away the players wager
 		[{balance: authorBalance}] = await this.client.prisma.transaction([
-			(await author.incrementBalanceWithPrisma(-args.wager))(),
-			(await dice.incrementBalanceWithPrisma(args.wager))()
+			this.client.prisma.user.update({where: queries.author, data: {balance: {decrement: args.wager}}, select: {balance: true}}),
+			this.client.prisma.user.update({where: queries.dice, data: {balance: {increment: args.wager}}, select: {balance: true}})
 		]);
 
 		const randomNumber = simpleFormat(Math.random());
@@ -94,8 +102,8 @@ export default class DiceGameCommand extends DiceCommand {
 		if (authorWon) {
 			// Pay the author their winnings from Dice if they won
 			[{balance: authorBalance}] = await this.client.prisma.transaction([
-				(await author.incrementBalanceWithPrisma(revenue))(),
-				(await dice.incrementBalanceWithPrisma(-revenue))()
+				this.client.prisma.user.update({where: queries.author, data: {balance: {increment: revenue}}, select: {balance: true}}),
+				this.client.prisma.user.update({where: queries.dice, data: {balance: {decrement: revenue}}, select: {balance: true}})
 			]);
 		}
 

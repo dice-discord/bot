@@ -75,7 +75,11 @@ export default class ConvertCommand extends DiceCommand {
 			);
 		}
 
-		await author.incrementBalance(-amount);
+		const {balance: currentBalance} = await this.client.prisma.user.update({
+			where: {id: message.author.id},
+			data: {balance: {decrement: amount}},
+			select: {balance: true}
+		});
 
 		return message.util?.send(
 			new MessageEmbed({
@@ -93,7 +97,8 @@ export default class ConvertCommand extends DiceCommand {
 						name: 'Transaction ID',
 						value: `[\`${transaction.id}\`](https://dash.discoin.zws.im/#/transactions/${transaction.id}/show)`
 					}
-				]
+				],
+				footer: {text: `You have ${currentBalance.toLocaleString()} oat${currentBalance === 1 ? '' : 's'}`}
 			})
 		);
 	}
