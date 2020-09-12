@@ -12,6 +12,6 @@ declare namespace NodeJS {
 		NFL_API_TOKEN?: string;
 		AIR_NOW_API_TOKEN?: string;
 		/** Always set to `true` on GitHub Actions. */
-		CI?: 'true';
+		// CI?: 'true';
 	}
 }
