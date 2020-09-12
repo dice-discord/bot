@@ -4,6 +4,7 @@ import {bold} from 'discord-md-tags';
 import {Message} from 'discord.js';
 import {dailyAmount} from '../../constants';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {nullish} from '../../util/filters';
 
 const cooldown = convert(22).from('hours').to('milliseconds');
 
@@ -22,10 +23,10 @@ export default class DailyCommand extends DiceCommand {
 	}
 
 	async exec(message: Message): Promise<Message | undefined> {
-		const user = await this.client.prisma.user.findOne({where: {id: message.author.id}, select: {dailyUsed: true}});
+		const user = (await this.client.prisma.user.findOne({where: {id: message.author.id}, select: {dailyUsed: true}})) ?? {dailyUsed: null};
 		const now = message.editedAt ?? message.createdAt;
 
-		if (user?.dailyUsed || !user?.dailyUsed || user.dailyUsed.getTime() + cooldown < now.getTime()) {
+		if (nullish(user?.dailyUsed) || user.dailyUsed.getTime() + cooldown < now.getTime()) {
 			if (this.client.user === null) {
 				throw new TypeError('Expected client.user to be defined');
 			}
