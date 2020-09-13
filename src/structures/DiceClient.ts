@@ -291,15 +291,20 @@ export class DiceClient extends AkairoClient {
 	async handleDiscoinTransaction(transaction: Transaction): Promise<Message | undefined> {
 		const userQuery = {id: transaction.user};
 
-		// Const updatedBalance = await user.incrementBalance(simpleFormat(transaction.payout));
-		const {balance: updatedBalance} = await this.prisma.user.update({where: userQuery, data: {balance: {increment: simpleFormat(transaction.payout)}}});
+		const actualPayout = simpleFormat(transaction.payout);
+		const {balance: updatedBalance} = await this.prisma.user.upsert({
+			where: userQuery,
+			update: {balance: {increment: actualPayout}},
+			create: {...userQuery, balance: defaults.startingBalance.users + actualPayout},
+			select: {balance: true}
+		});
 
 		try {
 			await transaction.update({handled: true});
 		} catch (error) {
 			discoinLogger.error(`Error while marking transaction ${transaction.id} as handled`, error);
 			// If it wasn't marked as handled don't pay them, keep transactions atomic
-			await this.prisma.user.update({where: userQuery, data: {balance: {decrement: simpleFormat(transaction.payout)}}});
+			await this.prisma.user.update({where: userQuery, data: {balance: {decrement: actualPayout}}});
 
 			return;
 		}
@@ -321,7 +326,7 @@ export class DiceClient extends AkairoClient {
 				fields: [
 					{
 						name: 'Amount',
-						value: `${transaction.amount} ${transaction.from.id} ➡ ${transaction.payout} OAT`
+						value: `${transaction.amount.toLocaleString()} ${transaction.from.id} ➡ ${transaction.payout.toLocaleString()} OAT`
 					},
 					{
 						name: 'Transaction ID',

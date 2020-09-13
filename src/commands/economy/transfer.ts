@@ -1,6 +1,7 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, User, Util} from 'discord.js';
+import {defaults} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
 import {typeName as anyUser} from '../../types/anyUser';
@@ -63,9 +64,19 @@ export default class TransferCommand extends DiceCommand {
 			);
 		}
 
-		const [{balance: updatedAuthorBalance}] = await this.client.prisma.transaction([
-			this.client.prisma.user.update({where: queries.author, data: {balance: {decrement: args.amount}}, select: {balance: true}}),
-			this.client.prisma.user.update({where: queries.recipient, data: {balance: {increment: args.amount}}, select: {balance: true}})
+		const [{balance: updatedAuthorBalance}] = await this.client.prisma.$transaction([
+			this.client.prisma.user.upsert({
+				where: queries.author,
+				update: {balance: {decrement: args.amount}},
+				create: {...queries.author, balance: defaults.startingBalance.users - args.amount},
+				select: {balance: true}
+			}),
+			this.client.prisma.user.upsert({
+				where: queries.recipient,
+				update: {balance: {increment: args.amount}},
+				create: {...queries.recipient, balance: defaults.startingBalance[queries.recipient.id === this.client.user!.id ? 'bot' : 'users'] + args.amount},
+				select: {balance: true}
+			})
 		]);
 
 		return message.util?.send(

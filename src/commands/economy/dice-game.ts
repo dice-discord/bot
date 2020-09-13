@@ -1,7 +1,7 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
-import {Colors} from '../../constants';
+import {Colors, defaults} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
 import {simpleFormat} from '../../util/format';
@@ -86,9 +86,19 @@ export default class DiceGameCommand extends DiceCommand {
 		};
 
 		// Take away the players wager
-		[{balance: authorBalance}] = await this.client.prisma.transaction([
-			this.client.prisma.user.update({where: queries.author, data: {balance: {decrement: args.wager}}, select: {balance: true}}),
-			this.client.prisma.user.update({where: queries.dice, data: {balance: {increment: args.wager}}, select: {balance: true}})
+		[{balance: authorBalance}] = await this.client.prisma.$transaction([
+			this.client.prisma.user.upsert({
+				where: queries.author,
+				update: {balance: {decrement: args.wager}},
+				create: {balance: defaults.startingBalance.users - args.wager, ...queries.author},
+				select: {balance: true}
+			}),
+			this.client.prisma.user.upsert({
+				where: queries.dice,
+				update: {balance: {increment: args.wager}},
+				create: {balance: defaults.startingBalance.bot + args.wager, ...queries.dice},
+				select: {balance: true}
+			})
 		]);
 
 		const randomNumber = simpleFormat(Math.random());
@@ -101,7 +111,7 @@ export default class DiceGameCommand extends DiceCommand {
 
 		if (authorWon) {
 			// Pay the author their winnings from Dice if they won
-			[{balance: authorBalance}] = await this.client.prisma.transaction([
+			[{balance: authorBalance}] = await this.client.prisma.$transaction([
 				this.client.prisma.user.update({where: queries.author, data: {balance: {increment: revenue}}, select: {balance: true}}),
 				this.client.prisma.user.update({where: queries.dice, data: {balance: {decrement: revenue}}, select: {balance: true}})
 			]);
