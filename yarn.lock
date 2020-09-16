@@ -884,15 +884,15 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@prisma/cli@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.7.0.tgz#af9fd31f24babc9828cc9ab6d8b8735729b320e7"
-  integrity sha512-OCiTV6Xs9GHUk4iJGQeJizyUyrm7pnKCjoeulN+OXAdbfkLwNlRC+/H/8aOwcXx+Nej/QgXoix9CGcs+OYrdnA==
+"@prisma/cli@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.7.1.tgz#98f2cb434bb931341e6c6292c7bab601e5f842f8"
+  integrity sha512-0uA+gWkNQ35DveVHDPltiTCTr4wcXtEhnPs463IEM+Xn8dTv9x0gtZiYHSuQM3t7uwlOxj1rurBsqSbiljynfQ==
 
-"@prisma/client@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.7.0.tgz#fc7d4a3f7c5c8d865de74476a01cef606c02ba5e"
-  integrity sha512-9QkicjHSJwRa05eYdm4J4T3UXdF9SfRboQ8eCvrExOkvl1bhEEeACv0D4dGdmbxr2O/xAwUAW5T9XdJnzOQmGw==
+"@prisma/client@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.7.1.tgz#0a37ddff7fe80ae3a86dfa620c1141c8607be6c2"
+  integrity sha512-IEWDCuvIaQTira8/jAyf+uY+AuPPUFDIXMSN4zEA/gvoJv2woq7RmkaubS+NQVgDbbyOR6F3UcXLiFTYQDzZkQ==
   dependencies:
     pkg-up "^3.1.0"
 
