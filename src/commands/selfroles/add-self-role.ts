@@ -24,8 +24,10 @@ export default class AddSelfroleCommand extends DiceCommand {
 
 		const guild = await this.client.prisma.guild.findOne({where: {id: message.guild!.id}, select: {selfRoles: true}});
 
+		const selfRoles = new Set(guild?.selfRoles);
+
 		// Check if the role is already a self role
-		if (guild?.selfRoles.includes(args.role.id)) {
+		if (selfRoles.has(args.role.id)) {
 			return message.util?.send('That role is already a selfrole');
 		}
 
@@ -46,9 +48,8 @@ export default class AddSelfroleCommand extends DiceCommand {
 
 		await this.client.prisma.guild.upsert({
 			where: {id: message.guild!.id},
-			// Create: {id: message.guild!.id, selfRoles: {set: [args.role.id]}},
 			create: {id: message.guild!.id, selfRoles: {set: [args.role.id]}},
-			update: {selfRoles: {set: guild ? [...guild.selfRoles, args.role.id] : [args.role.id]}}
+			update: {selfRoles: {set: [...selfRoles, args.role.id] }}
 		});
 
 		return message.util?.send(`Added ${bold`${clean(args.role.name, message)}`} to the selfroles`);

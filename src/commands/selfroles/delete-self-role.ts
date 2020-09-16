@@ -23,8 +23,9 @@ export default class DeleteSelfRoleCommand extends DiceCommand {
 
 	async exec(message: Message, args: {role: Role}): Promise<Message | undefined> {
 		const guild = await this.client.prisma.guild.findOne({where: {id: message.guild!.id}, select: {selfRoles: true}});
+		const selfRoles = new Set(guild?.selfRoles);
 
-		if (!guild || !guild.selfRoles.includes(args.role.id)) {
+		if (!selfRoles.has(args.role.id)) {
 			return message.util?.send("That role isn't a selfrole");
 		}
 
@@ -32,9 +33,9 @@ export default class DeleteSelfRoleCommand extends DiceCommand {
 			return message.reply("You don't have the permissions to delete that role");
 		}
 
-		guild.selfRoles.splice(guild.selfRoles.indexOf(args.role.id));
+		selfRoles.delete(args.role.id);
 
-		await this.client.prisma.guild.update({where: {id: message.guild!.id}, data: {selfRoles: {set: guild.selfRoles}}});
+		await this.client.prisma.guild.update({where: {id: message.guild!.id}, data: {selfRoles: {set: Array.from(selfRoles)}}});
 
 		return message.util?.send(`Removed ${bold`${clean(args.role.name, message)}`} from the selfroles`);
 	}

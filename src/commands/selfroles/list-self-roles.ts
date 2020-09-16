@@ -1,5 +1,6 @@
 import {Message, Util} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import { nullish } from '../../util/filters';
 
 import {cleanDeletedSelfRoles} from '../../util/self-roles';
 
@@ -16,7 +17,7 @@ export default class ListSelfRolesCommand extends DiceCommand {
 	async exec(message: Message): Promise<Message | undefined> {
 		const guild = await this.client.prisma.guild.findOne({where: {id: message.guild!.id}, select: {selfRoles: true}});
 
-		if (guild && guild.selfRoles.length > 0) {
+		if (!nullish(guild) && guild.selfRoles.length > 0) {
 			const validatedSelfroles = await cleanDeletedSelfRoles(this.client.prisma, guild.selfRoles, message.guild!);
 
 			if (validatedSelfroles.length === 0) {

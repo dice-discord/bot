@@ -1,6 +1,7 @@
 import {bold} from 'discord-md-tags';
 import {Message, Permissions, Role} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import {nullish} from '../../util/filters';
 import {clean} from '../../util/format';
 import {cleanDeletedSelfRoles} from '../../util/self-roles';
 
@@ -24,16 +25,17 @@ export default class GetSelfRoleCommand extends DiceCommand {
 		}
 
 		const guild = await this.client.prisma.guild.findOne({where: {id: message.guild!.id}, select: {selfRoles: true}});
+		const selfRoles = new Set(guild?.selfRoles);
 
-		if (guild && guild.selfRoles.length > 0) {
-			const validatedSelfroles = await cleanDeletedSelfRoles(this.client.prisma, guild.selfRoles, message.guild!);
+		if (!nullish(guild) && selfRoles.size > 0) {
+			const validatedSelfroles = await cleanDeletedSelfRoles(this.client.prisma, Array.from(selfRoles), message.guild!);
 
 			if (validatedSelfroles.length === 0) {
 				// The selfroles list from the DB consisted entirely of invalid roles
 				return message.util?.send('No selfroles');
 			}
 
-			if (guild.selfRoles.includes(args.role.id)) {
+			if (selfRoles.has(args.role.id)) {
 				try {
 					await message.member!.roles.add(args.role.id, 'Selfrole');
 				} catch {
