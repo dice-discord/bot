@@ -35,7 +35,7 @@ export default class DeleteSelfRoleCommand extends DiceCommand {
 
 		selfRoles.delete(args.role.id);
 
-		await this.client.prisma.guild.update({where: {id: message.guild!.id}, data: {selfRoles: {set: Array.from(selfRoles)}}});
+		await this.client.prisma.guild.update({where: {id: message.guild!.id}, data: {selfRoles: {set: [...selfRoles]}}});
 
 		return message.util?.send(`Removed ${bold`${clean(args.role.name, message)}`} from the selfroles`);
 	}

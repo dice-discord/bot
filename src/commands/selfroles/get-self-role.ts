@@ -28,7 +28,7 @@ export default class GetSelfRoleCommand extends DiceCommand {
 		const selfRoles = new Set(guild?.selfRoles);
 
 		if (!nullish(guild) && selfRoles.size > 0) {
-			const validatedSelfroles = await cleanDeletedSelfRoles(this.client.prisma, Array.from(selfRoles), message.guild!);
+			const validatedSelfroles = await cleanDeletedSelfRoles(this.client.prisma, [...selfRoles], message.guild!);
 
 			if (validatedSelfroles.length === 0) {
 				// The selfroles list from the DB consisted entirely of invalid roles
