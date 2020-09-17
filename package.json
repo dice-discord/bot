@@ -10,7 +10,7 @@
 	"dependencies": {
 		"@discoin/scambio": "2.1.2",
 		"@google-cloud/debug-agent": "5.1.2",
-		"@google-cloud/profiler": "4.0.2",
+		"@google-cloud/profiler": "4.0.3",
 		"@prisma/client": "2.7.1",
 		"@sentry/node": "5.23.0",
 		"bufferutil": "4.0.1",
