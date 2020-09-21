@@ -3191,10 +3191,10 @@ convert-source-map@^1.4.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   dependencies:
     safe-buffer "~5.1.1"
 
-convert@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/convert/-/convert-1.0.0.tgz#b3b208d186507cf687a7187c2903d79254d697b9"
-  integrity sha512-2mZIb22LcuxIzpB8Aldba/dQQ6jhYsaS45PIvN/IftpyewAKnWXwIxcjkSq8qkbw3ew7X08q2WabYIftjd5XCQ==
+convert@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/convert/-/convert-1.0.1.tgz#ecd79818eefea860ff870895a5047a0a7cfadc3b"
+  integrity sha512-ctrYiOmzQZBzFWgmF+dN/x8NWkoTKkmMN+cmL/6v+SxN5Qc3pI0UMwokae/l3imw5tq4u2fWaNaAvmqOG/o9eQ==
 
 cookie@^0.4.1:
   version "0.4.1"
