@@ -29,7 +29,7 @@
 		"kurasuta": "2.1.0",
 		"micri": "4.2.1",
 		"parse-color": "1.0.0",
-		"pretty-ms": "7.0.0",
+		"pretty-ms": "7.0.1",
 		"raw-body": "2.4.1",
 		"roll": "1.2.0",
 		"semantic-release-docker": "2.2.0",
