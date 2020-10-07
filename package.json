@@ -34,7 +34,7 @@
 		"roll": "1.2.0",
 		"semantic-release-docker": "2.2.0",
 		"signale": "1.4.0",
-		"snyk": "1.410.2",
+		"snyk": "1.410.3",
 		"sqreen": "1.53.0",
 		"utf-8-validate": "5.0.2",
 		"zlib-sync": "0.1.7"
