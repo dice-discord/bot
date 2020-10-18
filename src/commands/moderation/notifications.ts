@@ -47,7 +47,7 @@ export default class NotificationsCommand extends DiceCommand {
 			const notificationChannels: Set<Snowflake> = new Set(actualNotification?.channels);
 
 			let result: 'disabled' | 'enabled';
-			if (notifications.length !== 0 && notificationChannels.has(message.channel.id)) {
+			if (notifications.length > 0 && notificationChannels.has(message.channel.id)) {
 				// This channel has the specified notification set enabled
 
 				notificationChannels.delete(message.channel.id);

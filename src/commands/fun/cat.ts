@@ -26,7 +26,7 @@ export default class CatCommand extends DiceCommand {
 			const response: Response<RandomCatResponse> = await got('https://aws.random.cat/meow', {responseType: 'json'});
 
 			url = response.body.file;
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 
 			// eslint-disable-next-line no-return-await

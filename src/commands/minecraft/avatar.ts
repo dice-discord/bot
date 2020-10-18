@@ -25,7 +25,7 @@ export default class AvatarCommand extends DiceCommand {
 
 		try {
 			image = await downloadImage({imageType: 'avatar', playerUUID: args.player.id, size: args.size ?? undefined, overlay: args.overlay ?? false});
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 
 			// eslint-disable-next-line no-return-await

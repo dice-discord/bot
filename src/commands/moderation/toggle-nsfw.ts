@@ -40,7 +40,7 @@ export default class ToggleNSFWCommand extends DiceCommand {
 
 		try {
 			await args.channel.setNSFW(!args.channel.nsfw);
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 			// eslint-disable-next-line no-return-await
 			return await message.util?.send(`An error occurred while changing ${channelName}'s NSFW setting`);

@@ -25,7 +25,7 @@ export default class HeadCommand extends DiceCommand {
 
 		try {
 			image = await downloadImage({imageType: 'head', playerUUID: args.player.id, overlay: args.overlay ?? false});
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 
 			// eslint-disable-next-line no-return-await

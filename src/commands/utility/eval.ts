@@ -1,11 +1,11 @@
-import * as util from 'util';
-import {Message, Util} from 'discord.js';
-import {DiceCommand, DiceCommandCategories, AkairoArgumentType} from '../../structures/DiceCommand';
-import {secrets} from '../../config';
-import ms = require('pretty-ms');
-import {italic, codeblock} from 'discord-md-tags';
 import {captureException} from '@sentry/node';
+import {codeblock, italic} from 'discord-md-tags';
+import {Message, Util} from 'discord.js';
+import {inspect} from 'util';
+import {secrets} from '../../config';
 import {nsInMs} from '../../constants';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
+import ms = require('pretty-ms');
 
 const NL = '!!NL!!';
 const NL_PATTERN = new RegExp(NL, 'g');
@@ -43,7 +43,6 @@ export default class EvalCommand extends DiceCommand {
 
 	public async exec(message: Message, args: {script: string}): Promise<Message | Array<Promise<Message | undefined>> | undefined> {
 		// #region scoped helpers
-		/* eslint-disable @typescript-eslint/no-unused-vars */
 		// Keep all of these here so they are in scope for the evaluated script
 		// eslint-disable-next-line unicorn/prevent-abbreviations
 		const msg = message;
@@ -69,14 +68,13 @@ export default class EvalCommand extends DiceCommand {
 				}
 			}
 		};
-		/* eslint-enable @typescript-eslint/no-unused-vars */
 		// #endregion
 
 		this._times.start = process.hrtime.bigint();
 		try {
 			// eslint-disable-next-line no-eval
 			this.lastResult = eval(args.script);
-		} catch (error) {
+		} catch (error: unknown) {
 			// eslint-disable-next-line no-return-await
 			return await message.util?.send([`Error while evaluating:`, codeblock('javascript')`${String(error)}`].join('\n'));
 		}
@@ -94,8 +92,7 @@ export default class EvalCommand extends DiceCommand {
 	}
 
 	private _result(result: string, executionTimeNanoseconds: bigint, input?: string): string[] {
-		const inspected = util
-			.inspect(result, {depth: 0})
+		const inspected = inspect(result, {depth: 0})
 			.replace(NL_PATTERN, '\n')
 			.replace(new RegExp(secrets.join('|'), 'gi'), '[redacted]');
 		const lines = inspected.split('\n');

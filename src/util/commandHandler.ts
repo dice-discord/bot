@@ -1,5 +1,5 @@
 import {CommandHandlerOptions} from 'discord-akairo';
-import {join as joinPaths} from 'path';
+import path from 'path';
 
 /**
  * Determines whether or not a file path to a command should be loaded.
@@ -12,7 +12,7 @@ export function loadFilter(filePath: string): boolean {
 }
 
 export const options: CommandHandlerOptions = {
-	directory: joinPaths(__dirname, '..', 'commands'),
+	directory: path.join(__dirname, '..', 'commands'),
 	loadFilter,
 	aliasReplacement: /-/g,
 	handleEdits: true,

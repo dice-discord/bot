@@ -47,7 +47,7 @@ export default class XKCDCommand extends DiceCommand {
 		try {
 			const response = await got<XKCDComic>(uri, {responseType: 'json'});
 			body = response.body;
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 			// eslint-disable-next-line no-return-await
 			return await message.util?.send('An error occurred while retrieving the comic from XKCD');

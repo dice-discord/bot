@@ -24,7 +24,7 @@ export default class capeCommand extends DiceCommand {
 
 		try {
 			image = await downloadImage({imageType: 'cape', playerUUID: args.player.id});
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 
 			// eslint-disable-next-line no-return-await

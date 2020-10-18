@@ -57,7 +57,7 @@ export default class AqiCommand extends DiceCommand {
 			}
 
 			aqi = response.body[0];
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 
 			// eslint-disable-next-line no-return-await

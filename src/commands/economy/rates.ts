@@ -45,7 +45,7 @@ export default class RatesCommand extends DiceCommand {
 					currencies.push(currency);
 				})
 			);
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 
 			// eslint-disable-next-line no-return-await

@@ -1,6 +1,5 @@
-import {Signale} from 'signale';
-import {secrets} from '../config';
 import * as signale from 'signale';
+import {secrets} from '../config';
 
 const options: signale.SignaleOptions<'command'> | undefined = {
 	secrets,
@@ -15,6 +14,6 @@ const options: signale.SignaleOptions<'command'> | undefined = {
 	}
 };
 
-const logger: signale.Signale<signale.DefaultMethods | 'command'> = new Signale(options);
+const logger: signale.Signale<signale.DefaultMethods | 'command'> = new signale.Signale(options);
 
 export const baseLogger = logger;

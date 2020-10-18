@@ -21,7 +21,7 @@ export default class ShardSankeyCommand extends DiceCommand {
 		/**
 		 * @example [{ '0': 999 }]
 		 */
-		const clusters: Array<{[shardID: number]: number}> = (await shard?.broadcastEval(`this.responsibleGuildCount()`)) ?? [{'0': this.client.guilds.cache.size}];
+		const clusters: Array<Record<number, number>> = (await shard?.broadcastEval(`this.responsibleGuildCount()`)) ?? [{'0': this.client.guilds.cache.size}];
 
 		// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
 		const totalServerCount = clusters.flatMap(cluster => Object.values(cluster)).reduce(sum, 0);

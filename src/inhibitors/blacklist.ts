@@ -26,7 +26,7 @@ export default class BlacklistInhibitor extends DiceInhibitor {
 
 			// We don't do a regular check here in case the blacklistReason is a falsy string (ex. '0', since that is a falsy value, but the user is still blacklisted)
 			return typeof user?.blacklistReason === 'string';
-		} catch (error) {
+		} catch (error: unknown) {
 			baseLogger.scope('inhibitor', 'blacklist').error(error);
 			return false;
 		}

@@ -37,7 +37,7 @@ export default class ReloadCommand extends DiceCommand {
 		let reloaded: DiceModule;
 		try {
 			reloaded = args.module.reload();
-		} catch (error) {
+		} catch (error: unknown) {
 			// eslint-disable-next-line no-return-await
 			return await message.util?.send(['An error occurred while reloading', codeblock`${error}`].join('\n'));
 		}

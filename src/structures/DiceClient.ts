@@ -9,7 +9,7 @@ import {formatDistanceToNow} from 'date-fns';
 import {AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
-import {join} from 'path';
+import path from 'path';
 import * as pkg from '../../package.json';
 import {defaultPrefix, discoin, googleBaseConfig, influxDSN, nflApiToken, owners, runningInProduction, sentryDSN} from '../config';
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
@@ -148,7 +148,7 @@ export class DiceClient extends AkairoClient {
 
 						return guild?.prefix ?? defaultPrefix;
 					}
-				} catch (error) {
+				} catch (error: unknown) {
 					(this.logger ?? baseLogger).error(error);
 				}
 
@@ -168,11 +168,11 @@ export class DiceClient extends AkairoClient {
 		});
 
 		this.inhibitorHandler = new InhibitorHandler(this, {
-			directory: join(__dirname, '..', 'inhibitors')
+			directory: path.join(__dirname, '..', 'inhibitors')
 		});
 
 		this.listenerHandler = new ListenerHandler(this, {
-			directory: join(__dirname, '..', 'listeners')
+			directory: path.join(__dirname, '..', 'listeners')
 		});
 
 		this.commandHandler.resolver.addType(anyUserTypeName, anyUserTypeResolver);
@@ -276,7 +276,7 @@ export class DiceClient extends AkairoClient {
 		try {
 			const data = await this.discoin.transactions.getMany(this.discoin.commonQueries.UNHANDLED_TRANSACTIONS);
 			transactions = Array.isArray(data) ? data : data.data;
-		} catch (error) {
+		} catch (error: unknown) {
 			return discoinLogger.error('An error occured while getting all unhandled transactions from the Discoin API', error);
 		}
 
@@ -301,7 +301,7 @@ export class DiceClient extends AkairoClient {
 
 		try {
 			await transaction.update({handled: true});
-		} catch (error) {
+		} catch (error: unknown) {
 			discoinLogger.error(`Error while marking transaction ${transaction.id} as handled`, error);
 			// If it wasn't marked as handled don't pay them, keep transactions atomic
 			await this.prisma.user.update({where: userQuery, data: {balance: {decrement: actualPayout}}});
@@ -355,7 +355,7 @@ export class DiceClient extends AkairoClient {
 					`Your updated balance is ${bold`${updatedBalance.toLocaleString()}`}`
 				].join('\n')
 			);
-		} catch (error) {
+		} catch (error: unknown) {
 			handleVoteLogger.error(`Unable to notify ${vote.user} about their voting rewards`, error);
 		}
 
@@ -364,7 +364,7 @@ export class DiceClient extends AkairoClient {
 
 	async destroy(): Promise<void> {
 		this.topGG.server.close();
-		await this.prisma.disconnect();
+		await this.prisma.$disconnect();
 
 		super.destroy();
 	}
@@ -372,10 +372,10 @@ export class DiceClient extends AkairoClient {
 	/**
 	 * Returns the number of guilds that this cluster is responsible for.
 	 */
-	responsibleGuildCount(): {[shardID: number]: number} {
+	responsibleGuildCount(): Record<number, number> {
 		const guildIDs = this.guilds.cache.keyArray();
 
-		const count: {[shardID: number]: number} = {};
+		const count: Record<number, number> = {};
 
 		guildIDs.forEach(id => {
 			const shard = findShardIDByGuildID(id, BigInt(this.shard?.shardCount ?? 0));

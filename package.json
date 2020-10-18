@@ -51,6 +51,7 @@
 		"@types/signale": "1.4.1",
 		"@types/ws": "7.2.7",
 		"eslint-plugin-jest": "24.1.0",
+		"eslint-plugin-prettier": "3.1.4",
 		"jest": "26.5.3",
 		"nyc": "15.1.0",
 		"prettier": "2.1.2",
@@ -89,7 +90,7 @@
 		"test": "jest"
 	},
 	"snyk": true,
-	"version": "4.15.6",
+	"version": "4.15.7",
 	"xo": {
 		"extends": [
 			"plugin:jest/recommended"

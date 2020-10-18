@@ -67,7 +67,7 @@ export default class ConvertCommand extends DiceCommand {
 
 		try {
 			transaction = await this.client.discoin.transactions.create({amount, to: currency, user: message.author.id, from: 'OAT'});
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 			// eslint-disable-next-line no-return-await
 			return await message.util?.send(

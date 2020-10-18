@@ -27,7 +27,7 @@ export default class DogCommand extends DiceCommand {
 			const response: Response<DogCEOResponse> = await got('https://dog.ceo/api/breeds/image/random', {responseType: 'json'});
 
 			url = response.body.message;
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 
 			// eslint-disable-next-line no-return-await

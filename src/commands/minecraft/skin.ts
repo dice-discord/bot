@@ -24,7 +24,7 @@ export default class SkinCommand extends DiceCommand {
 
 		try {
 			image = await downloadImage({imageType: 'skin', playerUUID: args.player.id});
-		} catch (error) {
+		} catch (error: unknown) {
 			this.logger.error(error);
 
 			// eslint-disable-next-line no-return-await

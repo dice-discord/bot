@@ -1,7 +1,7 @@
 import {AkairoHandler} from 'discord-akairo';
 import {code, codeblock} from 'discord-md-tags';
 import {Message} from 'discord.js';
-import {join} from 'path';
+import path from 'path';
 import {runningInProduction} from '../../config';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {startTimer} from '../../util/timer';
@@ -57,15 +57,15 @@ export default class LoadCommand extends DiceCommand {
 
 		const type = args.type.slice(0, -1);
 
-		const path = `${join(__dirname, '..', '..', args.type, args.module)}.${runningInProduction ? 'j' : 't'}s`;
+		const filePath = `${path.join(__dirname, '..', '..', args.type, args.module)}.${runningInProduction ? 'j' : 't'}s`;
 
 		try {
 			const endTimer = startTimer();
 
-			const loaded = handlers[args.type].load(path);
+			const loaded = handlers[args.type].load(filePath);
 
 			return await message.util?.send(`Loaded ${code`${loaded.id}`} in ${ms(endTimer())}`);
-		} catch (error) {
+		} catch (error: unknown) {
 			// eslint-disable-next-line no-return-await
 			return await message.util?.send([`Failed to load ${type}`, 'Error:', codeblock`${error}`].join('\n'));
 		}

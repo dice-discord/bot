@@ -1,4 +1,4 @@
-import {Command, CommandOptions} from 'discord-akairo';
+import {Command, CommandOptions, Category as AkairoCategory} from 'discord-akairo';
 import {Collection, Message} from 'discord.js';
 import {baseLogger} from '../logging/logger';
 import {DiceClient} from './DiceClient';
@@ -109,7 +109,7 @@ declare module 'discord-akairo' {
 		// @ts-expect-error
 		prefix: (message: Message) => Promise<string>;
 		// @ts-expect-error
-		categories: Collection<DiceCommandCategories, Category<string, DiceCommand>>;
+		categories: Collection<DiceCommandCategories, AkairoCategory<string, DiceCommand>>;
 	}
 
 	interface Command {
