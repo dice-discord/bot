@@ -1,16 +1,13 @@
 {
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": false,
-		"inlineSources": true,
 		"inlineSourceMap": true,
-		"module": "commonjs",
+		"inlineSources": true,
 		"moduleResolution": "node",
 		"outDir": "tsc_output",
-		"resolveJsonModule": true,
-		"strict": true,
-		"target": "es2019"
+		"resolveJsonModule": true
 	},
 	"exclude": ["node_modules", "./src/**/*.test.*"],
+	"extends": "@tsconfig/node12/tsconfig.json",
 	"include": ["src", "types"]
 }

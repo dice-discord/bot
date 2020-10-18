@@ -1,5 +1,6 @@
 import {Argument, ArgumentOptions} from 'discord-akairo';
 import got, {CancelableRequest} from 'got';
+import {URLSearchParams} from 'url';
 import {userAgent} from '../constants';
 import {AkairoArgumentType} from '../structures/DiceCommand';
 import {Scale, Size} from '../types/crafatar';

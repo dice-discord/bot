@@ -1,7 +1,7 @@
 import {Argument} from 'discord-akairo';
 import {Message, MessageEmbed, Permissions, Util} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import * as parseColor from 'parse-color';
+import parseColor from 'parse-color';
 
 export default class ColorCommand extends DiceCommand {
 	constructor() {

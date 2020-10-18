@@ -1,6 +1,7 @@
 import {CronJob} from 'cron';
 import {Snowflake} from 'discord.js';
 import got, {Headers} from 'got';
+import {URLSearchParams} from 'url';
 import {userAgent} from '../constants';
 
 interface APINFLUser {

@@ -2,12 +2,13 @@ import {Snowflake} from 'discord.js';
 import * as dotenv from 'dotenv';
 import {promises as fs} from 'fs';
 import path from 'path';
+import {URL} from 'url';
+import * as pkg from '../package.json';
 import {WebhookConfig} from '../types/discord';
 import {GoogleServiceAccount} from '../types/google';
-import escapeStringRegExp = require('escape-string-regexp');
 import {Admins} from './constants';
 import {baseLogger} from './logging/logger';
-import * as pkg from '../package.json';
+import escapeStringRegExp = require('escape-string-regexp');
 
 dotenv.config({path: path.join(__dirname, '..', 'bot.env')});
 
