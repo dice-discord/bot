@@ -59,7 +59,7 @@
 		"source-map-support": "0.5.19",
 		"ts-jest": "26.4.1",
 		"ts-node": "9.0.0",
-		"type-fest": "0.17.0",
+		"type-fest": "0.18.0",
 		"typescript": "3.9.7",
 		"xo": "0.34.0"
 	},
