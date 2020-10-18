@@ -109,6 +109,8 @@
 					]
 				}
 			],
+			"node/prefer-global/url": "off",
+			"node/prefer-global/url-search-params": "off",
 			"unicorn/filename-case": [
 				"error",
 				{
