@@ -445,12 +445,12 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@discoin/scambio@2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.1.2.tgz#f3f7e8c9614d1de5178598bd668c6beea2cadafb"
-  integrity sha512-wh3Bb0MCQbZXF8/XWmsNi157k0/suRR2FFMzlOiUjmk0cvkMiCU/AdSXz8XjOP+WCgw0ahPCWRgyDBS8qdGcxg==
+"@discoin/scambio@2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@discoin/scambio/-/scambio-2.1.3.tgz#1145424b65eaab0b6eefef2dfc4482b7c1e321e9"
+  integrity sha512-oL6hUvngIOPbEIjx3qk9NKbTzVz6hhH/dAmovsqnR05v/yPtqZIfv7y1XfoysAmMGTp6Fd5sv6ESNNU95MtzDQ==
   dependencies:
-    ky "^0.23.0"
+    ky "^0.24.0"
     ky-universal "^0.8.0"
 
 "@discordjs/collection@^0.1.5":
@@ -7490,10 +7490,10 @@ ky-universal@^0.8.0:
     abort-controller "^3.0.0"
     node-fetch "3.0.0-beta.7"
 
-ky@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.23.0.tgz#54c2f3fa9003d591cb2f368384e6c84795a92e64"
-  integrity sha512-+t2CbQsLmpN3HeYPBxN+VbZqBOd86njF3cvnueC77pJKVHRjiMI0Ac+pfkB8e17Bw1dGHbMk9hrHst9Bw7ndgw==
+ky@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.24.0.tgz#337e534a7f47c12476988eef3cb968daef318349"
+  integrity sha512-/vpuQguwV30jErrqLpoaU/YJAFALrUkqqWLILnSoBOj5/O/LKzro/pPNtxbLgY6m4w5XNM6YZ3v7/or8qLlFuw==
 
 lab@^14.3.4:
   version "14.3.4"
