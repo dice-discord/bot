@@ -36,7 +36,7 @@
 		"signale": "1.4.0",
 		"snyk": "1.421.1",
 		"sqreen": "1.55.0",
-		"utf-8-validate": "5.0.2",
+		"utf-8-validate": "5.0.3",
 		"zlib-sync": "0.1.7"
 	},
 	"devDependencies": {
