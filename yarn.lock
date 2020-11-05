@@ -11596,10 +11596,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sq-ecosystem@^0.13.1:
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/sq-ecosystem/-/sq-ecosystem-0.13.1.tgz#00567400bd81a0e0e64608ca68b1388973c4cd09"
-  integrity sha512-rnYHFsw6blNs522u5XUV+dFOzvIRwjA228WcOakFj9sUJ6KhfaPebeR8pdhdb9R2jg3AuZEwoEiaxVxLdq7rwQ==
+sq-ecosystem@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/sq-ecosystem/-/sq-ecosystem-0.15.0.tgz#a086182be0397cc3a5b6b83419e408e00b968694"
+  integrity sha512-7MdunLCfVCSh3I9AIecCRoDJtrSq5chZUKdnmj8ars592f3FkJsRPDjBStpBYSdiLqqX/jOz0Q/okzygCg8gmg==
   dependencies:
     busboy "^0.3.1"
     code "^4.1.0"
@@ -11625,10 +11625,10 @@ sqreen-sdk@^0.7.0:
   dependencies:
     axios "^0.19.0"
 
-sqreen@1.55.0:
-  version "1.55.0"
-  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.55.0.tgz#e78d19db84d469d70a9600ab9992adf0ba50ca83"
-  integrity sha512-Nn1dklNf8FmkB3tN2Cu4WryrbnNZ2/IFPV3PhgAKwe9vTFhmeXhVUf2v9lWu8sVBzc4B0ceBzjKIfVkC5nZEPg==
+sqreen@1.55.1:
+  version "1.55.1"
+  resolved "https://registry.yarnpkg.com/sqreen/-/sqreen-1.55.1.tgz#5175c1dfcf35b613f1c6ee984c3b96f5ba36a239"
+  integrity sha512-2pTmYpT9tT4Cvl6/wqWgqCo4wq1etwevHRA5fBGeW5rFfUrcY+T6UwXtsr+HL+RwJMw+XXc0cfza1eKLTWSuxA==
   dependencies:
     async-listener "^0.6.0"
     async-lock "^1.2.2"
@@ -11649,7 +11649,7 @@ sqreen@1.55.0:
     recursive-readdir "^2.1.0"
     semver "^5.2.0"
     shimmer "^1.2.0"
-    sq-ecosystem "^0.13.1"
+    sq-ecosystem "^0.15.0"
     sqreen-sdk "^0.7.0"
     uuid "^3.1.0"
     winston "^2.4.4"
