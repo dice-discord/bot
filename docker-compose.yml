@@ -27,7 +27,7 @@ services:
     volumes:
       - ./googleCloudServiceAccount.json:/usr/src/dice/googleCloudServiceAccount.json:ro
   postgres:
-    image: postgres:12.4-alpine
+    image: postgres:12.5-alpine
     restart: unless-stopped
     volumes:
       - dice-postgres-storage:/var/lib/postgresql/data
