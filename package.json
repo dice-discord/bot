@@ -82,7 +82,7 @@
 		"docs": "node tsc_output/src/docs",
 		"lint": "xo",
 		"postinstall": "prisma generate",
-		"prebuild": "rimraf -rf tsc_output/**.js",
+		"prebuild": "rimraf tsc_output/**.js",
 		"predocs": "rimraf tsc_output/command_docs",
 		"prepublish": "npm run snyk-protect",
 		"snyk-protect": "snyk protect",
