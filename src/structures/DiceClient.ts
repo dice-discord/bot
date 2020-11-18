@@ -11,7 +11,7 @@ import {bold} from 'discord-md-tags';
 import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
 import path from 'path';
 import * as pkg from '../../package.json';
-import {defaultPrefix, discoin, googleBaseConfig, influxDSN, nflApiToken, owners, runningInProduction, sentryDSN} from '../config';
+import {defaultPrefix, discoin, googleBaseConfig, influxDSN, nflApiToken, owners, runningInCI, runningInProduction, sentryDSN} from '../config';
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
 import {baseLogger} from '../logging/logger';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
@@ -198,7 +198,9 @@ export class DiceClient extends AkairoClient {
 		this.prisma.$on('info', event => prismaLogger.info(event));
 		this.prisma.$on('warn', event => prismaLogger.warn(event));
 
-		await this.prisma.$connect();
+		if (!runningInCI) {
+			await this.prisma.$connect();
+		}
 
 		this.birthdayNotificationJob.start();
 
