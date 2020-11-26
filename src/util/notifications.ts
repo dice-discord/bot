@@ -19,7 +19,7 @@ export async function channelCanBeNotified(notification: Notifications, guild: G
 	}
 
 	// Get the current settings so we can remove the invalid channel ID
-	const notificationSettings = await (guild.client as DiceClient).prisma.notificationSettings.findOne({
+	const notificationSettings = await (guild.client as DiceClient).prisma.notificationSettings.findUnique({
 		where: {id_guildId: {guildId: guild.id, id: notification}},
 		select: {channels: true}
 	});
@@ -51,7 +51,7 @@ export async function channelCanBeNotified(notification: Notifications, guild: G
  * @param channel The text channel to check
  */
 export async function isNotificationEnabledForChannel(prisma: PrismaClient, notification: Notifications, channel: TextChannel): Promise<boolean> {
-	const config = await prisma.notificationSettings.findOne({where: {id_guildId: {guildId: channel.guild.id, id: notification}}, select: {channels: true}});
+	const config = await prisma.notificationSettings.findUnique({where: {id_guildId: {guildId: channel.guild.id, id: notification}}, select: {channels: true}});
 
 	if (config) {
 		// This assumes that only one item will be in the array, because of the filter we did above

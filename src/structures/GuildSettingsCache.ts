@@ -60,7 +60,7 @@ export class GuildSettingsCache {
 	async cache(guild: GuildResolvable): Promise<CachedGuild | undefined> {
 		const id = GuildSettingsCache.getGuildID(guild);
 
-		const fetchedGuild = await this.prisma.guild.findOne({where: {id}, select: {prefix: true}});
+		const fetchedGuild = await this.prisma.guild.findUnique({where: {id}, select: {prefix: true}});
 
 		if (fetchedGuild) {
 			this._cache.set(id, fetchedGuild);

@@ -23,7 +23,7 @@ export default class DailyCommand extends DiceCommand {
 	}
 
 	async exec(message: Message): Promise<Message | undefined> {
-		const user = (await this.client.prisma.user.findOne({where: {id: message.author.id}, select: {dailyUsed: true}})) ?? {dailyUsed: null};
+		const user = (await this.client.prisma.user.findUnique({where: {id: message.author.id}, select: {dailyUsed: true}})) ?? {dailyUsed: null};
 		const now = message.editedAt ?? message.createdAt;
 
 		if (nullish(user.dailyUsed) || user.dailyUsed.getTime() + cooldown < now.getTime()) {

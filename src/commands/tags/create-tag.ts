@@ -33,7 +33,7 @@ export default class CreateTagCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {id: string; content: string}): Promise<Message | undefined> {
-		const tag = await this.client.prisma.tag.findOne({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}});
+		const tag = await this.client.prisma.tag.findUnique({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}});
 
 		if (tag) {
 			// Tag exists

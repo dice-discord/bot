@@ -26,7 +26,7 @@ export default class GetSelfRoleCommand extends DiceCommand {
 			return message.util?.send("You don't have that role");
 		}
 
-		const guild = await this.client.prisma.guild.findOne({where: {id: message.guild!.id}, select: {selfRoles: true}});
+		const guild = await this.client.prisma.guild.findUnique({where: {id: message.guild!.id}, select: {selfRoles: true}});
 		const selfRoles = new Set(guild?.selfRoles);
 
 		if (!selfRoles.has(args.role.id)) {

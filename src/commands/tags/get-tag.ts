@@ -36,7 +36,7 @@ export default class GetTagCommand extends DiceCommand {
 			return;
 		}
 
-		const tag = await this.client.prisma.tag.findOne({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}, select: {content: true}});
+		const tag = await this.client.prisma.tag.findUnique({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}, select: {content: true}});
 
 		if (tag) {
 			return message.util?.send(clean(tag.content, message));

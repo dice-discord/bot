@@ -38,7 +38,7 @@ export default class MessageDeleteListener extends DiceListener {
 
 	public async exec(message: Message): Promise<void> {
 		if (message.channel.type === 'text') {
-			const guildSettings = await this.client.prisma.guild.findOne({
+			const guildSettings = await this.client.prisma.guild.findUnique({
 				where: {id: message.guild!.id},
 				select: {notifications: {select: {channels: true}, where: {id: Notifications.MessageDelete}}}
 			});
