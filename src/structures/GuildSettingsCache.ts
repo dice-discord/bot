@@ -8,13 +8,9 @@ type CachedGuild = Pick<Guild, 'prefix'>;
  * Primarily used for quickly retrieving custom prefixes.
  */
 export class GuildSettingsCache {
-	private readonly prisma: PrismaClient;
-	private readonly _cache: Map<Snowflake, CachedGuild>;
+	private readonly _cache: Map<Snowflake, CachedGuild> = new Map();
 
-	constructor(prisma: PrismaClient) {
-		this._cache = new Map();
-		this.prisma = prisma;
-	}
+	constructor(private readonly prisma: PrismaClient) {}
 
 	static getGuildID(resolvable: GuildResolvable): Snowflake {
 		if (typeof resolvable === 'string') {
