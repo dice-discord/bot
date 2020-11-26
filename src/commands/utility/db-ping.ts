@@ -16,7 +16,7 @@ export default class DBPingCommand extends DiceCommand {
 	async exec(message: Message): Promise<Message | undefined> {
 		const endTimer = startTimer();
 
-		await this.client.prisma.user.findOne({where: {id: this.client.user!.id}});
+		await this.client.prisma.user.findUnique({where: {id: this.client.user!.id}});
 
 		const elapsed = endTimer();
 

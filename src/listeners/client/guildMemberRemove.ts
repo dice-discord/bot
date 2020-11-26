@@ -42,7 +42,7 @@ export default class GuildMemberRemoveListener extends DiceListener {
 	}
 
 	public async exec(member: GuildMember): Promise<void> {
-		const guildSettings = await this.client.prisma.guild.findOne({
+		const guildSettings = await this.client.prisma.guild.findUnique({
 			where: {id: member.guild.id},
 			select: {notifications: {select: {channels: true}, where: {id: Notifications.GuildMemberJoinLeave}}}
 		});

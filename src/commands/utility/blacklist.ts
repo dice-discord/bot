@@ -37,7 +37,7 @@ export default class BlacklistCommand extends DiceCommand {
 			return message.util?.send(`${args.user.tag} is already blacklisted`);
 		}
 
-		const user = await this.client.prisma.user.findOne({where: {id: args.user.id}, select: {blacklistReason: true}});
+		const user = await this.client.prisma.user.findUnique({where: {id: args.user.id}, select: {blacklistReason: true}});
 
 		if (typeof user?.blacklistReason === 'string') {
 			// User is blacklisted

@@ -42,7 +42,7 @@ export class DiceUser {
 	 * @returns The balance of this user
 	 */
 	async getBalance(): Promise<number> {
-		const user = await this.prisma.user.findOne({where: {id: this.id}, select: {balance: true}});
+		const user = await this.prisma.user.findUnique({where: {id: this.id}, select: {balance: true}});
 
 		return user?.balance ?? defaults.startingBalance[this.id === this.client.user?.id ? 'bot' : 'users'];
 	}

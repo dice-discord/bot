@@ -22,7 +22,7 @@ export default class DeleteTagCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {id: string}): Promise<Message | undefined> {
-		const tag = await this.client.prisma.tag.findOne({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}});
+		const tag = await this.client.prisma.tag.findUnique({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}});
 
 		if (tag) {
 			if (tag.author === message.author.id || message.member!.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {

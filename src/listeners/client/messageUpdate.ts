@@ -48,7 +48,7 @@ export default class MessageUpdateListener extends DiceListener {
 
 	public async exec(oldMessage: Message, newMessage: Message): Promise<void> {
 		if (newMessage.guild && newMessage.editedAt && (oldMessage.content !== newMessage.content || oldMessage.embeds.length !== newMessage.embeds.length)) {
-			const guildSettings = await this.client.prisma.guild.findOne({
+			const guildSettings = await this.client.prisma.guild.findUnique({
 				where: {id: oldMessage.guild!.id},
 				select: {notifications: {select: {channels: true}, where: {id: Notifications.MessageUpdate}}}
 			});

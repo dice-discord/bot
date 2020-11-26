@@ -65,7 +65,7 @@ export default class VoiceStateUpdateListener extends DiceListener {
 	}
 
 	public async exec(oldState: VoiceState, newState: VoiceState): Promise<void> {
-		const guildSettings = await this.client.prisma.guild.findOne({
+		const guildSettings = await this.client.prisma.guild.findUnique({
 			where: {id: newState.guild.id},
 			select: {notifications: {select: {channels: true}, where: {id: Notifications.VoiceChannel}}}
 		});

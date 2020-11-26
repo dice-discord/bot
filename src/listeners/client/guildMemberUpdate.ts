@@ -61,7 +61,7 @@ export default class GuildMemberUpdateListener extends DiceListener {
 	}
 
 	public async exec(oldMember: GuildMember, newMember: GuildMember): Promise<void> {
-		const guildSettings = await this.client.prisma.guild.findOne({
+		const guildSettings = await this.client.prisma.guild.findUnique({
 			where: {id: newMember.guild.id},
 			select: {notifications: {select: {channels: true}, where: {id: Notifications.GuildMemberUpdate}}}
 		});

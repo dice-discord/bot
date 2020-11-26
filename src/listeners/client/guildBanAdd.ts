@@ -51,7 +51,7 @@ export default class GuildBanAddListener extends DiceListener {
 	}
 
 	public async exec(guild: Guild, user: User): Promise<void> {
-		const guildSettings = await this.client.prisma.guild.findOne({
+		const guildSettings = await this.client.prisma.guild.findUnique({
 			where: {id: guild.id},
 			select: {notifications: {select: {channels: true}, where: {id: Notifications.BanUnban}}}
 		});

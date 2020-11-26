@@ -22,7 +22,7 @@ export default class AddSelfroleCommand extends DiceCommand {
 			return message.util?.send(`You can't add ${Util.cleanContent('@everyone', message)} as a selfrole`);
 		}
 
-		const guild = await this.client.prisma.guild.findOne({where: {id: message.guild!.id}, select: {selfRoles: true}});
+		const guild = await this.client.prisma.guild.findUnique({where: {id: message.guild!.id}, select: {selfRoles: true}});
 
 		const selfRoles = new Set(guild?.selfRoles);
 

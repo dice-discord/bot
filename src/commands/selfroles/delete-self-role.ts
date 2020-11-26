@@ -22,7 +22,7 @@ export default class DeleteSelfRoleCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {role: Role}): Promise<Message | undefined> {
-		const guild = await this.client.prisma.guild.findOne({where: {id: message.guild!.id}, select: {selfRoles: true}});
+		const guild = await this.client.prisma.guild.findUnique({where: {id: message.guild!.id}, select: {selfRoles: true}});
 		const selfRoles = new Set(guild?.selfRoles);
 
 		if (!selfRoles.has(args.role.id)) {
