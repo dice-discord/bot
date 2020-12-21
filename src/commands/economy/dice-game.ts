@@ -34,7 +34,7 @@ export default class DiceGameCommand extends DiceCommand {
 			category: DiceCommandCategories.Economy,
 			description: {
 				content: 'Try making a profit by multiplying some wagered oats. Higher multipliers give better rewards, but are riskier.',
-				usage: '',
+				usage: '<wager> <multiplier>',
 				examples: ['250 4']
 			},
 			clientPermissions: [Permissions.FLAGS.EMBED_LINKS],
