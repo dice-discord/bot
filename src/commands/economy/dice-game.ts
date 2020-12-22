@@ -1,10 +1,10 @@
+import {toDigits} from '@pizzafox/util';
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
 import {Colors, defaults} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
-import {simpleFormat} from '../../util/format';
 
 /** The minimum a user must wager. */
 export const minimumWager = 1;
@@ -24,7 +24,7 @@ export const multipliers = {
  * @returns The likelihood that that multiplier would have succeeded, ranging from [0, 1]
  */
 export function winPercentage(multiplier: number): number {
-	return simpleFormat((1 - houseEdgePercentage) / multiplier, 4);
+	return toDigits((1 - houseEdgePercentage) / multiplier, 4);
 }
 
 export default class DiceGameCommand extends DiceCommand {
@@ -59,8 +59,8 @@ export default class DiceGameCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {wager: number; multiplier: number}): Promise<Message | undefined> {
-		args.wager = simpleFormat(args.wager);
-		args.multiplier = simpleFormat(args.multiplier);
+		args.wager = toDigits(args.wager, 2);
+		args.multiplier = toDigits(args.multiplier, 2);
 
 		let authorBalance = await new DiceUser(message.author).getBalance();
 
@@ -101,7 +101,7 @@ export default class DiceGameCommand extends DiceCommand {
 			})
 		]);
 
-		const randomNumber = simpleFormat(Math.random());
+		const randomNumber = toDigits(Math.random(), 2);
 		/** Whether or not the author won this round. */
 		const authorWon = randomNumber < winPercentage(args.multiplier);
 		/** The revenue the author would make if they won the game. */
@@ -123,7 +123,7 @@ export default class DiceGameCommand extends DiceCommand {
 		});
 
 		const summary = [
-			`You had a ${bold`${simpleFormat(winPercentage(args.multiplier) * 100)}%`} chance of winning that wager`,
+			`You had a ${bold`${toDigits(winPercentage(args.multiplier) * 100, 2)}%`} chance of winning that wager`,
 			`Your updated balance is ${bold`${authorBalance.toLocaleString()}`}`
 		];
 

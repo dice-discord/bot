@@ -1,3 +1,4 @@
+import {descending} from '@pizzafox/util';
 import {Argument, ParsedValuePredicate} from 'discord-akairo';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
@@ -23,7 +24,7 @@ const unsortedExtraConversion: Record<ExtraRomanNumeralCharacter, number> = {...
 
 // This sorts by value descending to counteract the spread operator ruining the order of elements from above
 const extraConversion = Object.fromEntries(
-	(Object.entries(unsortedExtraConversion) as Array<[ExtraRomanNumeralCharacter, number]>).sort((a, b) => (a[1] <= b[1] ? 1 : -1))
+	(Object.entries(unsortedExtraConversion) as Array<[ExtraRomanNumeralCharacter, number]>).sort(([, a], [, b]) => descending(a, b))
 );
 
 /** Regular expression for Roman numerals. Case sensitive. */

@@ -1,8 +1,8 @@
+import {capitalize} from '@pizzafox/util';
+import {PrefixSupplier} from 'discord-akairo';
+import {code, codeblock} from 'discord-md-tags';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {capitalizeFirstCharacter} from '../../util/format';
-import {codeblock, code} from 'discord-md-tags';
-import {PrefixSupplier} from 'discord-akairo';
 
 export default class HelpCommand extends DiceCommand {
 	constructor() {
@@ -61,7 +61,7 @@ export default class HelpCommand extends DiceCommand {
 			// 	2. Some commands are not owner-only
 			if (authorIsOwner || category.some(cmd => !cmd.ownerOnly)) {
 				embed.addField(
-					capitalizeFirstCharacter(id),
+					capitalize(id),
 					category
 						// Remove owner-only commands if you are not an owner
 						.filter(cmd => (authorIsOwner ? true : !cmd.ownerOnly))

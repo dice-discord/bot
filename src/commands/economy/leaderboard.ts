@@ -1,9 +1,9 @@
+import {Stopwatch} from '@pizzafox/util';
 import {Argument} from 'discord-akairo';
 import {codeblock} from 'discord-md-tags';
 import {Message, MessageEmbed} from 'discord.js';
 import {maxEmbedFields} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {startTimer} from '../../util/timer';
 import ms = require('pretty-ms');
 
 /**
@@ -35,7 +35,9 @@ export default class LeaderboardCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {amount: number}): Promise<Message | undefined> {
-		const endTimer = startTimer();
+		const stopwatch = new Stopwatch();
+
+		stopwatch.start();
 		const top = await this.client.prisma.user.findMany({orderBy: {balance: 'desc'}, take: args.amount});
 
 		const embed = new MessageEmbed({title: `Top ${top.length.toLocaleString()} leaderboard`});
@@ -57,7 +59,9 @@ export default class LeaderboardCommand extends DiceCommand {
 			embed.setDescription(codeblock('markdown')`${leaderboard}`);
 		}
 
-		embed.setFooter(`Took ${ms(endTimer())}`);
+		const duration = Number(stopwatch.end());
+
+		embed.setFooter(`Took ${ms(duration)}`);
 
 		return message.util?.send(embed);
 	}

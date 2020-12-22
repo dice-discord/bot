@@ -1,7 +1,7 @@
 import {Message, Permissions, MessageEmbed} from 'discord.js';
 import {DiceCommand, DiceCommandCategories, AkairoArgumentType} from '../../structures/DiceCommand';
 import {Argument} from 'discord-akairo';
-import {truncateText} from '../../util/format';
+import {truncate} from '@pizzafox/util';
 import got from 'got';
 
 interface XKCDComic {
@@ -72,12 +72,12 @@ export default class XKCDCommand extends DiceCommand {
 
 		// Alt text
 		if (body.alt) {
-			embed.addField('Alt', truncateText(body.alt, 1024));
+			embed.addField('Alt', truncate(body.alt, 1024));
 		}
 
 		// Transcript
 		if (body.transcript) {
-			embed.addField('Transcript', truncateText(body.transcript, 1024));
+			embed.addField('Transcript', truncate(body.transcript, 1024));
 		}
 
 		// Check if there's a link
@@ -85,7 +85,7 @@ export default class XKCDCommand extends DiceCommand {
 
 		// Creation date
 		if ([body.day, body.month, body.year].every(value => Boolean(value))) {
-			embed.setTimestamp(new Date(Number.parseInt(body.year, 10), Number.parseInt(body.month, 10) - 1, Number.parseInt(body.day, 10)));
+			embed.setTimestamp(new Date(Number(body.year), Number(body.month) - 1, Number(body.day)));
 		}
 
 		return message.util?.send(embed);

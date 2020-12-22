@@ -5,7 +5,7 @@ import {defaults} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
 import {typeName as anyUser} from '../../types/anyUser';
-import {simpleFormat} from '../../util/format';
+import {toDigits} from '@pizzafox/util';
 
 export default class TransferCommand extends DiceCommand {
 	constructor() {
@@ -45,7 +45,7 @@ export default class TransferCommand extends DiceCommand {
 			return message.util?.send("You can't send oats to yourself");
 		}
 
-		args.amount = simpleFormat(args.amount);
+		args.amount = toDigits(args.amount, 2);
 
 		const authorUser = new DiceUser(message.author);
 		const authorBal = await authorUser.getBalance();

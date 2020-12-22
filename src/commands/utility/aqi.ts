@@ -1,11 +1,11 @@
 import ms = require('pretty-ms');
+import {Stopwatch} from '@pizzafox/util';
 import {Argument} from 'discord-akairo';
 import {Message, MessageEmbed} from 'discord.js';
 import got from 'got';
 import {Forecast, ForecastInputZipCode} from '../../../types/airnow';
 import {airNowApiToken} from '../../config';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {startTimer} from '../../util/timer';
 
 const aqiColors = ['#48E400', '#FEFE00', '#F67D00', '#F40000', '#8B3F99', '#780021'];
 
@@ -40,9 +40,10 @@ export default class AqiCommand extends DiceCommand {
 			zipCode: args.zip.toString()
 		};
 
-		const endTimer = startTimer();
+		const stopwatch = new Stopwatch();
 
 		let aqi;
+		stopwatch.start();
 		try {
 			const request = got<Forecast[]>('aq/forecast/zipCode', {
 				prefixUrl: 'https://www.airnowapi.org',
@@ -64,7 +65,7 @@ export default class AqiCommand extends DiceCommand {
 			return await message.util?.send('An error occurred while getting the AQI');
 		}
 
-		const elapsed = endTimer();
+		const elapsed = Number(stopwatch.end());
 
 		const embed = new MessageEmbed()
 			.setTimestamp(new Date(aqi.DateForecast))

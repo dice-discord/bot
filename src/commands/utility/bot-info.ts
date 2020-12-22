@@ -4,7 +4,7 @@ import {Colors} from '../../constants';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import * as pkg from '../../../package.json';
 import {convert} from 'convert';
-import {sum} from '../../util/reducers';
+import {sum} from '@pizzafox/util';
 
 export default class BotInfoCommand extends DiceCommand {
 	constructor() {

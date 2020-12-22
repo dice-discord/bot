@@ -4,7 +4,7 @@ import {Argument} from 'discord-akairo';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
-import {simpleFormat} from '../../util/format';
+import {toDigits} from '@pizzafox/util';
 
 const range = {min: 1, max: 1_000_000};
 /** The length of a Discoin currency code. */
@@ -47,13 +47,13 @@ export default class ConvertCommand extends DiceCommand {
 			return message.util?.send('You may not convert from oats to oats');
 		}
 
-		amount = simpleFormat(amount);
+		amount = toDigits(amount, 2);
 
 		const author = new DiceUser(message.author);
 		const authorBal = await author.getBalance();
 
 		if (amount > authorBal) {
-			return message.util?.send(`You are missing ${simpleFormat(amount - authorBal).toLocaleString()} oats`);
+			return message.util?.send(`You are missing ${toDigits(amount - authorBal, 2).toLocaleString()} oats`);
 		}
 
 		try {

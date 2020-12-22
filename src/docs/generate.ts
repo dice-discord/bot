@@ -1,7 +1,7 @@
 import {CommandHandler, Category} from 'discord-akairo';
 import {Collection} from 'discord.js';
 import {DiceCommand} from '../structures/DiceCommand';
-import {capitalizeFirstCharacter} from '../util/format';
+import {capitalize} from '@pizzafox/util';
 import {code} from 'discord-md-tags';
 
 /**
@@ -37,12 +37,12 @@ export function generateDocsForCategory(category: Category<string, DiceCommand>)
  */
 export function generateDocsForCommand(command: DiceCommand): string {
 	return [
-		`title: ${capitalizeFirstCharacter(command.id)}`,
+		`title: ${capitalize(command.id)}`,
 		`description: ${command.description.content}`,
 		`path: tree/master/src/commands/${command.categoryID}`,
 		`source: ${command.id}.ts`,
 		'',
-		`# ${capitalizeFirstCharacter(command.id)}`,
+		`# ${capitalize(command.id)}`,
 		'',
 		`## Description`,
 		``,

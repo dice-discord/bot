@@ -1,9 +1,9 @@
+import {Stopwatch} from '@pizzafox/util';
 import {AkairoModule, Argument, Command, Inhibitor, Listener} from 'discord-akairo';
 import {codeblock} from 'discord-md-tags';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceListener} from '../../structures/DiceListener';
-import {startTimer} from '../../util/timer';
 import ms = require('pretty-ms');
 
 type DiceModule = AkairoModule | DiceCommand | Inhibitor | DiceListener;
@@ -32,9 +32,11 @@ export default class ReloadCommand extends DiceCommand {
 	}
 
 	public async exec(message: Message, args: {module: DiceModule}): Promise<Message | undefined> {
-		const endTimer = startTimer();
+		const stopwatch = new Stopwatch();
 
 		let reloaded: DiceModule;
+
+		stopwatch.start();
 		try {
 			reloaded = args.module.reload();
 		} catch (error: unknown) {
@@ -42,7 +44,7 @@ export default class ReloadCommand extends DiceCommand {
 			return await message.util?.send(['An error occurred while reloading', codeblock`${error}`].join('\n'));
 		}
 
-		const elapsed = endTimer();
+		const elapsed = Number(stopwatch.end());
 
 		let type = 'module';
 

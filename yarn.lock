@@ -919,6 +919,11 @@
   dependencies:
     "@types/node" ">= 8"
 
+"@pizzafox/util@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@pizzafox/util/-/util-2.0.1.tgz#c7f2adc2765a92111c906f2cc7df671e9aa28790"
+  integrity sha512-UetDuKMZGdWaHXtgwJPiN7pqa/+/3Saui8xecYDsZIDkQZ6MT9PW1alOufOSiEsV3JTeA1L6DlmAb71IpY2omw==
+
 "@prisma/bar@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@prisma/bar/-/bar-0.0.1.tgz#088c4fbbb79c588391437ade9fd3a85527e753b3"

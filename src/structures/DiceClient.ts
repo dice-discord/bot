@@ -1,6 +1,7 @@
 import {Client as DiscoinClient} from '@discoin/scambio';
 import {Transaction} from '@discoin/scambio/tsc_output/src/structures/transactions';
 import {start as startProfiler} from '@google-cloud/profiler';
+import {toDigits} from '@pizzafox/util';
 import {PrismaClient} from '@prisma/client';
 import {captureException, init as initSentry} from '@sentry/node';
 import {convert} from 'convert';
@@ -17,7 +18,6 @@ import {baseLogger} from '../logging/logger';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
 import {resolver as minecraftUserTypeResolver, typeName as minecraftUserTypeName} from '../types/minecraftUser';
 import {options as commandHandlerOptions} from '../util/commandHandler';
-import {simpleFormat} from '../util/format';
 import {channelCanBeNotified, generateUserBirthdayNotification, todayIsUsersBirthday} from '../util/notifications';
 import {clusterID, findShardIDByGuildID} from '../util/shard';
 import {DiceCluster} from './DiceCluster';
@@ -293,7 +293,7 @@ export class DiceClient extends AkairoClient {
 	async handleDiscoinTransaction(transaction: Transaction): Promise<Message | undefined> {
 		const userQuery = {id: transaction.user};
 
-		const actualPayout = simpleFormat(transaction.payout);
+		const actualPayout = toDigits(transaction.payout, 2);
 		const {balance: updatedBalance} = await this.prisma.user.upsert({
 			where: userQuery,
 			update: {balance: {increment: actualPayout}},

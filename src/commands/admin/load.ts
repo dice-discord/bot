@@ -1,10 +1,10 @@
+import {Stopwatch} from '@pizzafox/util';
 import {AkairoHandler} from 'discord-akairo';
 import {code, codeblock} from 'discord-md-tags';
 import {Message} from 'discord.js';
 import path from 'path';
 import {runningInProduction} from '../../config';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {startTimer} from '../../util/timer';
 import ms = require('pretty-ms');
 
 type ModuleType = 'commands' | 'inhibitors' | 'listeners';
@@ -60,11 +60,14 @@ export default class LoadCommand extends DiceCommand {
 		const filePath = `${path.join(__dirname, '..', '..', args.type, args.module)}.${runningInProduction ? 'j' : 't'}s`;
 
 		try {
-			const endTimer = startTimer();
+			const stopwatch = new Stopwatch();
 
+			stopwatch.start();
 			const loaded = handlers[args.type].load(filePath);
 
-			return await message.util?.send(`Loaded ${code`${loaded.id}`} in ${ms(endTimer())}`);
+			const duration = Number(stopwatch.end());
+
+			return await message.util?.send(`Loaded ${code`${loaded.id}`} in ${ms(duration)}`);
 		} catch (error: unknown) {
 			// eslint-disable-next-line no-return-await
 			return await message.util?.send([`Failed to load ${type}`, 'Error:', codeblock`${error}`].join('\n'));

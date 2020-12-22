@@ -1,8 +1,8 @@
+import {Stopwatch} from '@pizzafox/util';
 import {Argument, Command, Inhibitor, Listener} from 'discord-akairo';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceListener} from '../../structures/DiceListener';
-import {startTimer} from '../../util/timer';
 import ms = require('pretty-ms');
 
 export default class UnloadCommand extends DiceCommand {
@@ -38,9 +38,11 @@ export default class UnloadCommand extends DiceCommand {
 	}
 
 	public async exec(message: Message, args: {module: DiceCommand | Inhibitor | DiceListener}): Promise<Message | undefined> {
-		const endTimer = startTimer();
+		const stopwatch = new Stopwatch();
+
+		stopwatch.start();
 		const unloaded = args.module.remove();
-		const elapsed = endTimer();
+		const elapsed = Number(stopwatch.end());
 
 		let type = 'module';
 
