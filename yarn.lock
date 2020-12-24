@@ -3344,10 +3344,10 @@ convert-source-map@^1.4.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   dependencies:
     safe-buffer "~5.1.1"
 
-convert@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/convert/-/convert-1.1.2.tgz#2b9fcfceac1b89574d0875b9de7a168d786b681c"
-  integrity sha512-q5sFsazBHaYdIPQIm6QIEZr0g0gZTXcjpzSjomZBC23WBbOMa6Ye9y3cM5lO0xvlLIYVDMFQJl0XRk6SchjWuQ==
+convert@1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/convert/-/convert-1.1.4.tgz#b32d0de5e29a37beeff08ac98f0c439d73f8fa1c"
+  integrity sha512-EhqG5OeqxffuVE0Zn+MIz4uVBTieQAo9k+nUIu8AKDTlWC6co7evqpv6I+PL0cCpOg9RlLa6N2OKJPoIxS9X2g==
 
 cookie@^0.4.1:
   version "0.4.1"
