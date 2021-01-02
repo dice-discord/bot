@@ -14,7 +14,7 @@
 		"@pizzafox/util": "2.2.0",
 		"@prisma/client": "2.13.1",
 		"@sentry/node": "5.29.2",
-		"bufferutil": "4.0.2",
+		"bufferutil": "4.0.3",
 		"convert": "1.6.1",
 		"cron": "1.8.2",
 		"date-fns": "2.16.1",
