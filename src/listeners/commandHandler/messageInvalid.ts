@@ -19,7 +19,7 @@ export default class MessageInvalidListener extends DiceListener {
 			typeof message.util?.parsed?.prefix === 'string' &&
 			message.util?.parsed?.prefix !== `<@!${message.client.user!.id}>` &&
 			typeof message.util?.parsed?.afterPrefix === 'string'
-			) {
+		) {
 			// They are on a guild and specified a prefix that wasn't an @mention @$$evaluate message.util.parsed.alias
 			// The command had something after the prefix (ex. `$$this-is-afterPrefix`)
 
