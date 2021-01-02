@@ -22,7 +22,7 @@ export default class BotInfoCommand extends DiceCommand {
 		if (this.client.shard) {
 			const allHeapUsed = (await this.client.shard.broadcastEval('process.memoryUsage().heapUsed')) as number[];
 
-			// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
+			// eslint-disable-next-line unicorn/no-array-reduce, unicorn/no-array-callback-reference
 			heapUsed = allHeapUsed.reduce(sum);
 		} else {
 			heapUsed = process.memoryUsage().heapUsed;

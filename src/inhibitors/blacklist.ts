@@ -2,6 +2,7 @@ import {Message} from 'discord.js';
 import {DiceInhibitor} from '../structures/DiceInhibitor';
 import {baseLogger} from '../logging/logger';
 
+// eslint-disable-next-line unicorn/prevent-abbreviations
 export default class BlacklistInhibitor extends DiceInhibitor {
 	constructor() {
 		super('blacklist', {

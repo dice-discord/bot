@@ -1,6 +1,7 @@
 import {Message, Permissions} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {Scale} from '../../types/crafatar';
+// eslint-disable-next-line import/extensions
+import type {Scale} from '../../types/crafatar';
 import {crafatarArgs, downloadImage, genericErrorMessage} from '../../util/crafatar';
 import {MinecraftAccount} from '../../util/player-db';
 

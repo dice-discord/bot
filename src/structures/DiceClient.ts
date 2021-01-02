@@ -195,8 +195,12 @@ export class DiceClient extends AkairoClient {
 		this.inhibitorHandler.loadAll();
 		this.listenerHandler.loadAll();
 
-		this.prisma.$on('info', event => prismaLogger.info(event));
-		this.prisma.$on('warn', event => prismaLogger.warn(event));
+		this.prisma.$on('info', event => {
+			prismaLogger.info(event);
+		});
+		this.prisma.$on('warn', event => {
+			prismaLogger.warn(event);
+		});
 
 		if (!runningInCI) {
 			await this.prisma.$connect();
@@ -256,7 +260,7 @@ export class DiceClient extends AkairoClient {
 					if (await channelCanBeNotified(Notifications.UserAccountBirthday, guild, channelID)) {
 						const channel = guild.channels.cache.get(channelID) as TextChannel;
 
-						return notifications.forEach(async notification => channel.send(notification));
+						notifications.forEach(async notification => channel.send(notification));
 					}
 				});
 			}
@@ -270,7 +274,8 @@ export class DiceClient extends AkairoClient {
 	 */
 	async processDiscoinTransactions(): Promise<void> {
 		if (!this.discoin) {
-			return discoinLogger.warn('Attempted processing transactions when no Discoin client exists');
+			discoinLogger.warn('Attempted processing transactions when no Discoin client exists');
+			return;
 		}
 
 		let transactions: Transaction[];
@@ -279,7 +284,8 @@ export class DiceClient extends AkairoClient {
 			const data = await this.discoin.transactions.getMany(this.discoin.commonQueries.UNHANDLED_TRANSACTIONS);
 			transactions = Array.isArray(data) ? data : data.data;
 		} catch (error: unknown) {
-			return discoinLogger.error('An error occured while getting all unhandled transactions from the Discoin API', error);
+			discoinLogger.error('An error occured while getting all unhandled transactions from the Discoin API', error);
+			return;
 		}
 
 		transactions.forEach(async transaction => this.handleDiscoinTransaction(transaction));

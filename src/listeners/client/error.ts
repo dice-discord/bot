@@ -24,6 +24,6 @@ export default class ErrorListener extends DiceListener {
 			this.scopedWithClusterID = true;
 		}
 
-		return this.logger.error(error);
+		this.logger.error(error);
 	}
 }

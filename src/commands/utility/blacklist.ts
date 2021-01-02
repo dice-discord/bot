@@ -2,6 +2,7 @@ import {Message, User} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {typeName as anyUser} from '../../types/anyUser';
 
+// eslint-disable-next-line unicorn/prevent-abbreviations
 export default class BlacklistCommand extends DiceCommand {
 	constructor() {
 		super('blacklist', {

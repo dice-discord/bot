@@ -23,7 +23,7 @@ export default class StatsCommand extends DiceCommand {
 
 			const actual = shardServerCounts.length;
 
-			// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
+			// eslint-disable-next-line unicorn/no-array-reduce, unicorn/no-array-callback-reference
 			serverCount = shardServerCounts.reduce(sum, 0);
 
 			if (actual !== clusterCount) {

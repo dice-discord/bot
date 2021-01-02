@@ -40,7 +40,7 @@ export class NoFlyList {
 	}
 
 	destroy(): void {
-		return this.refreshJob.stop();
+		this.refreshJob.stop();
 	}
 
 	/**
@@ -68,11 +68,11 @@ export class NoFlyList {
 	 */
 	private async refresh(): Promise<void> {
 		const searchParameters = new URLSearchParams({fields: 'discordId'});
-		const blacklist = await got<Array<Pick<APINFLUser, 'discordId'>>>(`${NoFlyList.apiURL}/blacklist`, {
+		const denyList = await got<Array<Pick<APINFLUser, 'discordId'>>>(`${NoFlyList.apiURL}/blacklist`, {
 			headers: this.headers,
 			searchParams: searchParameters,
 			responseType: 'json'
 		});
-		this.cache = new Set([...blacklist.body.map(user => user.discordId)]);
+		this.cache = new Set([...denyList.body.map(user => user.discordId)]);
 	}
 }

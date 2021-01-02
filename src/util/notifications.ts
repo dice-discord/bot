@@ -35,9 +35,9 @@ export async function channelCanBeNotified(notification: Notifications, guild: G
 				data: {notifications: {update: {where: {id_guildId: {guildId: guild.id, id: notification}}, data: {channels: {set: notificationSettings.channels}}}}},
 				select: {id: true}
 			})
-			.catch(error =>
-				logger.error(`Unable to remove the channel ${channelID} for ${notification} notifications while checking if it could be notified`, error)
-			);
+			.catch(error => {
+				logger.error(`Unable to remove the channel ${channelID} for ${notification} notifications while checking if it could be notified`, error);
+			});
 	}
 
 	return false;
@@ -70,7 +70,9 @@ export async function isNotificationEnabledForChannel(prisma: PrismaClient, noti
 			// This updates the array for the specified notification
 			prisma.notificationSettings
 				.update({where: {id_guildId: {guildId: channel.guild.id, id: notification}}, data: {channels: {set: updatedChannels}}})
-				.catch(error => logger.error(`Unable to remove the channel ${channel.id} while checking if ${notification} notifications were enabled`, error));
+				.catch(error => {
+					logger.error(`Unable to remove the channel ${channel.id} while checking if ${notification} notifications were enabled`, error);
+				});
 
 			return false;
 		}

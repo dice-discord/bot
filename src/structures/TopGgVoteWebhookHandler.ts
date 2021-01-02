@@ -102,6 +102,6 @@ export class TopGGVoteWebhookHandler extends EventEmitter {
 			statusCode = 403;
 		}
 
-		return send(response, statusCode);
+		send(response, statusCode);
 	}
 }
