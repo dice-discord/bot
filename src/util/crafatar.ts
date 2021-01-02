@@ -3,7 +3,8 @@ import got, {CancelableRequest} from 'got';
 import {URLSearchParams} from 'url';
 import {userAgent} from '../constants';
 import {AkairoArgumentType} from '../structures/DiceCommand';
-import {Scale, Size} from '../types/crafatar';
+// eslint-disable-next-line import/extensions
+import type {Scale, Size} from '../types/crafatar';
 import {typeName as minecraftUser} from '../types/minecraftUser';
 
 /** Base URL for API requests. */

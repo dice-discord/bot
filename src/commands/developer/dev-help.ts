@@ -39,7 +39,7 @@ export default class DevHelpCommand extends DiceCommand {
 					},
 					{
 						name: 'Timestamp',
-						value: [`Message: ${code`${message.createdTimestamp}`}`, `Current: \`${new Date().getTime()}\``].join('\n')
+						value: [`Message: ${code`${message.createdTimestamp}`}`, `Current: \`${Date.now()}\``].join('\n')
 					}
 				]
 			})

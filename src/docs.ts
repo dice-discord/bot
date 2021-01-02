@@ -25,8 +25,12 @@ function crash(exitCode: ExitCode) {
 	process.exit(exitCode);
 }
 
-process.on('uncaughtException', () => crash(ExitCode.Error));
-process.on('unhandledRejection', () => crash(ExitCode.Error));
+process.on('uncaughtException', () => {
+	crash(ExitCode.Error);
+});
+process.on('unhandledRejection', () => {
+	crash(ExitCode.Error);
+});
 
 logger.start('Generating docs...');
 
@@ -56,7 +60,8 @@ mkdir(baseDirectory)
 			await Promise.all(createFolders);
 		} catch (error: unknown) {
 			logger.fatal(error);
-			return crash(ExitCode.FSMkdirError);
+			crash(ExitCode.FSMkdirError);
+			return;
 		}
 
 		const writeOperations: Array<Promise<void>> = docs
@@ -70,7 +75,8 @@ mkdir(baseDirectory)
 			await Promise.all(writeOperations);
 		} catch (error: unknown) {
 			logger.fatal(error);
-			return crash(ExitCode.FSWriteError);
+			crash(ExitCode.FSWriteError);
+			return;
 		}
 
 		logger.success(`Generated ${writeOperations.length.toLocaleString()} documentation files`);
@@ -79,5 +85,5 @@ mkdir(baseDirectory)
 	.catch(error => {
 		logger.fatal(error);
 		logger.info('Try deleting the documentation folder');
-		return crash(ExitCode.FSMkdirError);
+		crash(ExitCode.FSMkdirError);
 	});

@@ -24,6 +24,6 @@ export default class WarnListener extends DiceListener {
 			this.scopedWithClusterID = true;
 		}
 
-		return this.logger.warn(info);
+		this.logger.warn(info);
 	}
 }

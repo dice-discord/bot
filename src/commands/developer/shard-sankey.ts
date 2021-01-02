@@ -23,13 +23,13 @@ export default class ShardSankeyCommand extends DiceCommand {
 		 */
 		const clusters: Array<Record<number, number>> = (await shard?.broadcastEval(`this.responsibleGuildCount()`)) ?? [{'0': this.client.guilds.cache.size}];
 
-		// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
-		const totalServerCount = clusters.flatMap(cluster => Object.values(cluster)).reduce(sum, 0);
+		// eslint-disable-next-line unicorn/no-array-reduce, unicorn/no-array-callback-reference
+		const totalServerCount = clusters.flatMap(cluster => Object.values(cluster)).reduce(sum);
 
 		const lines: string[] = [
 			`Dice [${totalServerCount}] Clusters`,
 			...clusters.map((cluster, clusterID) => {
-				// eslint-disable-next-line unicorn/no-reduce, unicorn/no-fn-reference-in-iterator
+				// eslint-disable-next-line unicorn/no-array-reduce, unicorn/no-array-callback-reference
 				const clusterServerCount = Object.values(cluster).reduce(sum, 0);
 
 				const clusterLines = [`Clusters [${clusterServerCount}] Cluster ${clusterID}`];

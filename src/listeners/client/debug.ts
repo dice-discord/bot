@@ -30,6 +30,6 @@ export default class DebugListener extends DiceListener {
 			this.scopedWithClusterID = true;
 		}
 
-		return this.logger.debug(info);
+		this.logger.debug(info);
 	}
 }

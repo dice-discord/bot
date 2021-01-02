@@ -41,7 +41,7 @@ export default class DiceGameCommand extends DiceCommand {
 			args: [
 				{
 					id: 'wager',
-					type: Argument.range(AkairoArgumentType.Integer, minimumWager, Infinity),
+					type: Argument.range(AkairoArgumentType.Integer, minimumWager, Number.POSITIVE_INFINITY),
 					match: 'phrase',
 					prompt: {start: 'How many oats do you want to wager?', retry: `Please provide a value greater than ${minimumWager.toLocaleString()}`}
 				},

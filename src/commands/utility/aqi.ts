@@ -3,7 +3,8 @@ import {Stopwatch} from '@pizzafox/util';
 import {Argument} from 'discord-akairo';
 import {Message, MessageEmbed} from 'discord.js';
 import got from 'got';
-import {Forecast, ForecastInputZipCode} from '../../../types/airnow';
+// eslint-disable-next-line import/extensions
+import type {Forecast, ForecastInputZipCode} from '../../../types/airnow';
 import {airNowApiToken} from '../../config';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 

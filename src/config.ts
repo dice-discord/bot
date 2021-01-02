@@ -4,8 +4,10 @@ import {promises as fs} from 'fs';
 import path from 'path';
 import {URL} from 'url';
 import * as pkg from '../package.json';
-import {WebhookConfig} from '../types/discord';
-import {GoogleServiceAccount} from '../types/google';
+// eslint-disable-next-line import/extensions
+import type {WebhookConfig} from '../types/discord';
+// eslint-disable-next-line import/extensions
+import type {GoogleServiceAccount} from '../types/google';
 import {Admins} from './constants';
 import {baseLogger} from './logging/logger';
 import escapeStringRegExp = require('escape-string-regexp');
@@ -103,5 +105,7 @@ if (googleAppCredentials) {
 	fs.readFile(googleAppCredentials)
 		// eslint-disable-next-line promise/prefer-await-to-then
 		.then(file => secrets.push(escapeStringRegExp((JSON.parse(file.toString()) as GoogleServiceAccount).private_key)))
-		.catch(error => baseLogger.scope('config').error('Failed to load GCP service account JSON', error));
+		.catch(error => {
+			baseLogger.scope('config').error('Failed to load GCP service account JSON', error);
+		});
 }

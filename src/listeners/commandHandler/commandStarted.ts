@@ -16,7 +16,7 @@ export default class ReadyListener extends DiceListener {
 	exec(message: Message, command: DiceCommand, args: any): void {
 		const logger = baseLogger.scope('commands', command.id);
 
-		return logger.command({
+		logger.command({
 			prefix: `${message.author.tag} (${message.author.id})`,
 			// Use inspect with a depth of `0` here to avoid a giant object of args (ex. every property in a Command class from the reload command)
 			message: Object.keys(args).length === 0 ? undefined : inspect(args, {depth: 0})
