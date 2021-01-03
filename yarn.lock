@@ -3015,10 +3015,10 @@ convert-source-map@^1.4.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   dependencies:
     safe-buffer "~5.1.1"
 
-convert@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/convert/-/convert-1.6.1.tgz#70e51221d47f2be73faeea6fc2c01e3f400d752d"
-  integrity sha512-gahXeIsfYB7rdvO4xhrXlxXLdRTPiidezDzLno6qeQwF8tvrohpwA0mSbuqS1o3maiGCmpfXID55roO/EBMyaw==
+convert@1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/convert/-/convert-1.6.2.tgz#a1280823a168d14b7b13261ee4837fe08c09e458"
+  integrity sha512-sPoB9KMlewWV7BRdwAEU2zQw85t5a/TTu7WU2qjcZ7t1NTp9l0HrGpAAxxce++qdoyLdF/ZpsA3y7MMPWBHjig==
 
 cookie@^0.4.1:
   version "0.4.1"
