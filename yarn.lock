@@ -924,10 +924,10 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@pizzafox/util@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@pizzafox/util/-/util-2.2.0.tgz#d5826f2714c78baa0b56ac314cca6bf0021874d7"
-  integrity sha512-/8R8w/CM3kLBgjf539h5moJG+tj00MKI1rKXJN9puR6A3IbVDTUN6RFi85NFA3eWg/Oe3/iTQYUxTnuwnFT96A==
+"@pizzafox/util@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@pizzafox/util/-/util-2.3.0.tgz#17ce5685a3c08b0cfdbe9e5292d78501df3582c4"
+  integrity sha512-l9tp3CQHxpTrbdljOe/k3yvdniU03t2OqJiGQwVoov0IBbku++JHY1WDYlb69gmEtJn6FmVhBbnB3NwCWbuSGQ==
 
 "@prisma/bar@^0.0.1":
   version "0.0.1"
