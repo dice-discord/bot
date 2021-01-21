@@ -917,10 +917,10 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@pizzafox/util@2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@pizzafox/util/-/util-2.4.0.tgz#fd62ef5b34720793004f827acb716dfc00c717bd"
-  integrity sha512-R0H9+arFdq/QIuw0P3g6VG0SHxfPNuhHydaq1WrHKDWsLCpnGxhQaE8HLkA09Z6K2F7vc14iyp6vszqt3CZW9Q==
+"@pizzafox/util@2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@pizzafox/util/-/util-2.4.1.tgz#10f6ab36a4e1189143ce6da61f66caa961698cd1"
+  integrity sha512-QZjBqBVNABkYt1+HmOjxsvC21d9uweisoYsdtyXQIzqqnht3cnSZOyxuM/ZM9FBMkYKB/tHOQlzolOTLW2glZw==
 
 "@prisma/cli@2.15.0":
   version "2.15.0"
