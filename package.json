@@ -13,7 +13,7 @@
 		"@google-cloud/profiler": "4.1.0",
 		"@pizzafox/util": "2.4.1",
 		"@prisma/client": "2.15.0",
-		"@sentry/node": "6.0.0",
+		"@sentry/node": "6.0.1",
 		"bufferutil": "4.0.3",
 		"convert": "1.6.2",
 		"cron": "1.8.2",
