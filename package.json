@@ -21,7 +21,7 @@
 		"delay": "4.4.0",
 		"discord-akairo": "8.1.0",
 		"discord-md-tags": "1.0.0",
-		"discord.js": "12.2.0",
+		"discord.js": "12.5.1",
 		"dotenv": "8.2.0",
 		"erlpack": "discordapp/erlpack",
 		"escape-string-regexp": "4.0.0",
