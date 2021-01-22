@@ -73,6 +73,6 @@ export class NoFlyList {
 			searchParams: searchParameters,
 			responseType: 'json'
 		});
-		this.cache = new Set([...denyList.body.map(user => user.discordId)]);
+		this.cache = new Set(denyList.body.map(user => user.discordId));
 	}
 }
