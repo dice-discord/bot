@@ -1,6 +1,6 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
-import {Collection, Message, Permissions} from 'discord.js';
+import {Collection, Message, Permissions, TextChannel} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
 export default class PruneCommand extends DiceCommand {
@@ -49,7 +49,7 @@ export default class PruneCommand extends DiceCommand {
 
 			let deletedMessages: Collection<string, Message>;
 			try {
-				deletedMessages = await message.channel.bulkDelete(channelMessages);
+				deletedMessages = await (message.channel as TextChannel).bulkDelete(channelMessages);
 			} catch {
 				// eslint-disable-next-line no-return-await
 				return await message.util?.send('Unable to delete those messages');
