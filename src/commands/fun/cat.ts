@@ -20,7 +20,7 @@ export default class CatCommand extends DiceCommand {
 	}
 
 	async exec(message: Message): Promise<Message | undefined> {
-		let url;
+		let url: string;
 
 		try {
 			const response: Response<RandomCatResponse> = await got('https://aws.random.cat/meow', {responseType: 'json'});
