@@ -25,7 +25,7 @@ export default class BanCommand extends DiceCommand {
 					type: anyUser,
 					prompt: {
 						start: 'Who would you like to ban?',
-						retry: `Invalid user provided, please try again`
+						retry: 'Invalid user provided, please try again'
 					}
 				},
 				{
@@ -34,7 +34,7 @@ export default class BanCommand extends DiceCommand {
 					match: 'rest',
 					prompt: {
 						optional: true,
-						retry: `Invalid reason provided, please keep it below 400 characters`
+						retry: 'Invalid reason provided, please keep it below 400 characters'
 					}
 				}
 			]
