@@ -13,7 +13,7 @@ export default class BanCommand extends DiceCommand {
 			category: DiceCommandCategories.Moderation,
 			description: {
 				content: 'Ban any user from your server or prevent them from ever joining.',
-				usage: '<user> [reason}',
+				usage: '<user> [reason]',
 				examples: ['@Dice', 'Dice', '388191157869477888', '@Dice Spamming', 'Dice Spamming', '388191157869477888 Spamming']
 			},
 			userPermissions: [Permissions.FLAGS.BAN_MEMBERS],
