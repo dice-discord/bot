@@ -4,6 +4,7 @@
 		"inlineSourceMap": true,
 		"inlineSources": true,
 		"moduleResolution": "node",
+		"noImplicitAny": true,
 		"outDir": "tsc_output",
 		"resolveJsonModule": true
 	},
