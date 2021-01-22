@@ -4,7 +4,7 @@ import {Message, Permissions, User} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {typeName as anyUser} from '../../types/anyUser';
 import {clean} from '../../util/format';
-import {manageable} from '../../util/permissions';
+import {notManageable} from '../../util/permissions';
 
 export default class BanCommand extends DiceCommand {
 	constructor() {
@@ -63,7 +63,7 @@ export default class BanCommand extends DiceCommand {
 			}
 
 			// Taken from discord.js `GuildMember.manageable https://github.com/discordjs/discord.js/blob/4ec01ddef56272f6bed23dd0eced8ea9851127b7/src/structures/GuildMember.js#L216-L222`
-			if (manageable(message.member!, guildMember)) {
+			if (notManageable(message.member!, guildMember)) {
 				return message.util?.send("You don't have permissions to ban that member");
 			}
 		}

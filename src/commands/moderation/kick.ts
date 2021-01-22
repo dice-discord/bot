@@ -3,7 +3,7 @@ import {bold} from 'discord-md-tags';
 import {GuildMember, Message, Permissions} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
-import {manageable} from '../../util/permissions';
+import {notManageable} from '../../util/permissions';
 
 export default class KickCommand extends DiceCommand {
 	constructor() {
@@ -47,7 +47,7 @@ export default class KickCommand extends DiceCommand {
 			args.reason = `Requested by ${message.author.tag}`;
 		}
 
-		if (!manageable(message.member!, args.member)) {
+		if (!notManageable(message.member!, args.member)) {
 			return message.util?.send("You don't have permissions to kick that member");
 		}
 
