@@ -6738,10 +6738,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-kurasuta@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-2.2.1.tgz#80cff25915a281741001da74a615855176497922"
-  integrity sha512-BYcXI61Ix5IgsFKr+GhVw3t3TMdFmosCPihULHhM6MTxY08YXd+qChuTgB7gZSo6+WwZnJYr3WN+JU6XsdsgmA==
+kurasuta@2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-2.2.2.tgz#7733e7978d30fb430c138456f1f1c018af270826"
+  integrity sha512-3Nrg0LlDBodFIbqPWeToZk+yP6hm+9v9bx1nkX+UoALSLF7aUdHmC3hOHe7ruDWt/E05x/4NvnBfAsOoZRD2tw==
   dependencies:
     discord.js "^12.5.1"
     node-fetch "^2.6.1"
