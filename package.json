@@ -18,7 +18,7 @@
 		"convert": "1.6.2",
 		"cron": "1.8.2",
 		"date-fns": "2.16.1",
-		"delay": "4.4.1",
+		"delay": "5.0.0",
 		"discord-akairo": "8.1.0",
 		"discord-md-tags": "1.0.0",
 		"discord.js": "12.5.1",
