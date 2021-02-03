@@ -27,7 +27,7 @@
 		"escape-string-regexp": "4.0.0",
 		"got": "11.8.1",
 		"influx": "5.7.0",
-		"kurasuta": "2.2.2",
+		"kurasuta": "2.2.3",
 		"micri": "4.3.0",
 		"parse-color": "1.0.0",
 		"pretty-ms": "7.0.1",
