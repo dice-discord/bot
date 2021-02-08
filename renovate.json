@@ -4,7 +4,7 @@
 	"packageRules": [
 		{
 			"groupName": "prisma",
-			"packagePatterns": ["^@prisma/"]
+			"matchPackagePatterns": ["^@prisma/", "^prisma$"]
 		}
 	]
 }
