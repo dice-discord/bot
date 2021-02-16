@@ -8,7 +8,7 @@ datasource postgres {
 }
 
 model User {
-  balance         Decimal   @default(1000)
+  balance         Float     @default(1000)
   blacklistReason String?
   dailyUsed       DateTime?
   id              String    @id
