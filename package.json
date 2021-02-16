@@ -87,7 +87,7 @@
 		"style": "prettier --check .",
 		"test": "jest"
 	},
-	"version": "4.15.13",
+	"version": "4.16.1",
 	"xo": {
 		"extends": [
 			"plugin:jest/recommended"
