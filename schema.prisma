@@ -1,42 +1,42 @@
-datasource postgres {
-  url      = env("POSTGRES_URI")
-  provider = "postgresql"
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
+datasource postgres {
+  provider = "postgresql"
+  url      = env("POSTGRES_URI")
+}
+
 model User {
-  id              String    @id
-  balance         Float     @default(1000)
-  dailyUsed       DateTime?
+  balance         Decimal   @default(1000)
   blacklistReason String?
+  dailyUsed       DateTime?
+  id              String    @id
 }
 
 model Guild {
   id            String                 @id
   prefix        String?
   selfRoles     String[]
-  tags          Tag[]
   notifications NotificationSettings[]
+  tags          Tag[]
 }
 
 model Tag {
-  id      String
-  content String
   author  String
-  guild   Guild  @relation(fields: [guildId], references: [id])
+  content String
   guildId String
+  id      String
+  guild   Guild  @relation(fields: [guildId], references: [id])
 
   @@id([id, guildId])
 }
 
 model NotificationSettings {
-  id       NotificationType
   channels String[]
-  guild    Guild            @relation(fields: [guildId], references: [id])
   guildId  String
+  id       NotificationType
+  guild    Guild            @relation(fields: [guildId], references: [id])
 
   @@id([id, guildId])
 }
