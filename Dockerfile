@@ -11,7 +11,7 @@ COPY package.json yarn.lock .yarnrc.yml schema.prisma .snyk ./
 COPY .yarn ./.yarn
 
 # Install build tools for native dependencies
-RUN apk add --no-cache make gcc g++ python
+RUN apk add --no-cache make=4.2.1-r2 gcc=9.3.0-r0 g++=9.3.0-r0 python3=3.8.2-r1
 RUN yarn install --immutable
 
 ### BUILDER STAGE ###
