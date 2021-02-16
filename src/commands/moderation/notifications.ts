@@ -98,12 +98,13 @@ export default class NotificationsCommand extends DiceCommand {
 			title: `Notifications for #${(message.channel as TextChannel).name}`
 		});
 
-		Object.entries(globalNotifications).forEach(([id, description], index) => {
+		const notificationEntries = Object.entries(globalNotifications);
+		for (const [index, [id, description]] of notificationEntries.entries()) {
 			/** Whether or not this notification is enabled in this channel. */
 			const enabled = notifications.length === 0 ? false : notifications.find(notification => notification.id === id)?.channels.includes(message.channel.id);
 
-			return embed.addField(`#${index + 1} Notifications for ${description}`, enabled ? bold`✅ Enabled` : '❌ Not enabled');
-		});
+			embed.addField(`#${index + 1} Notifications for ${description}`, enabled ? bold`✅ Enabled` : '❌ Not enabled');
+		}
 
 		return message.util?.send(embed);
 	}

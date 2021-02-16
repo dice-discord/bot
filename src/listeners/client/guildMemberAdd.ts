@@ -1,5 +1,5 @@
 import {bold} from 'discord-md-tags';
-import {GuildMember, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
+import {GuildMember, MessageEmbed, TextChannel} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';
@@ -48,14 +48,15 @@ export default class GuildMemberAddListener extends DiceListener {
 
 			const embed = GuildMemberAddListener.generateNotification(member);
 
-			setting.channels.forEach(async (channelID: Snowflake) => {
-				// We do a check here instead of Array.prototype#filter since this is an async function
-				if (await channelCanBeNotified(Notifications.GuildMemberJoinLeave, member.guild, channelID)) {
-					const channel = this.client.channels.cache.get(channelID) as TextChannel;
+			await Promise.all(
+				setting.channels.map(async channelID => {
+					if (await channelCanBeNotified(Notifications.GuildMemberJoinLeave, member.guild, channelID)) {
+						const channel = this.client.channels.cache.get(channelID) as TextChannel;
 
-					return channel.send(embed);
-				}
-			});
+						await channel.send(embed);
+					}
+				})
+			);
 		}
 	}
 }

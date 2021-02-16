@@ -15,7 +15,9 @@ export async function cleanDeletedSelfRoles(prisma: PrismaClient, selfRoles: Sno
 	const deletedRoles = selfRoles.filter(id => !guild.roles.cache.has(id));
 
 	// Delete the old roles from the validated list
-	deletedRoles.forEach(deletedRole => copy.splice(selfRoles.indexOf(deletedRole)));
+	for (const deletedRole of deletedRoles) {
+		copy.splice(selfRoles.indexOf(deletedRole));
+	}
 
 	if (copy.length !== selfRoles.length) {
 		// If something changed during the validation phase

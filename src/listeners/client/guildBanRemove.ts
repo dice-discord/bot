@@ -1,8 +1,8 @@
-import {Guild, MessageEmbed, Snowflake, TextChannel, User} from 'discord.js';
+import delay from 'delay';
+import {Guild, MessageEmbed, TextChannel, User} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';
-import delay from 'delay';
 
 export default class GuildBanRemoveListener extends DiceListener {
 	public constructor() {
@@ -61,14 +61,15 @@ export default class GuildBanRemoveListener extends DiceListener {
 
 			const embed = await GuildBanRemoveListener.generateNotification(guild, user);
 
-			setting.channels.forEach(async (channelID: Snowflake) => {
-				// We do a check here instead of Array.prototype#filter since this is an async function
-				if (await channelCanBeNotified(Notifications.BanUnban, guild, channelID)) {
-					const channel = this.client.channels.cache.get(channelID) as TextChannel;
+			await Promise.all(
+				setting.channels.map(async channelID => {
+					if (await channelCanBeNotified(Notifications.BanUnban, guild, channelID)) {
+						const channel = this.client.channels.cache.get(channelID) as TextChannel;
 
-					return channel.send(embed);
-				}
-			});
+						await channel.send(embed);
+					}
+				})
+			);
 		}
 	}
 }

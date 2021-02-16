@@ -49,14 +49,15 @@ export default class MessageDeleteListener extends DiceListener {
 
 				const embed = MessageDeleteListener.generateNotification(message);
 
-				setting.channels.forEach(async (channelID: Snowflake) => {
-					// We do a check here instead of Array.prototype#filter since this is an async function
-					if (await channelCanBeNotified(Notifications.MessageDelete, message.guild!, channelID)) {
-						const channel = this.client.channels.cache.get(channelID) as TextChannel;
+				await Promise.all(
+					setting.channels.map(async channelID => {
+						if (await channelCanBeNotified(Notifications.MessageDelete, message.guild!, channelID)) {
+							const channel = this.client.channels.cache.get(channelID) as TextChannel;
 
-						return channel.send(embed);
-					}
-				});
+							await channel.send(embed);
+						}
+					})
+				);
 			}
 		}
 	}

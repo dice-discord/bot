@@ -45,7 +45,9 @@ export default class LeaderboardCommand extends DiceCommand {
 		const users = await Promise.all(top.map(async user => this.client.users.fetch(user.id)));
 
 		if (top.length <= maxFieldsBeforeCodeblock) {
-			top.forEach((user, index) => embed.addField(`#${index + 1} ${users[index].tag}`, user.balance.toLocaleString()));
+			for (const [index, user] of top.entries()) {
+				embed.addField(`#${index + 1} ${users[index].tag}`, user.balance.toLocaleString());
+			}
 		} else {
 			const leaderboard: string = top
 				.map((user, index) => {

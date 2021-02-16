@@ -72,16 +72,19 @@ export default class GuildMemberUpdateListener extends DiceListener {
 
 			const embed = GuildMemberUpdateListener.generateNotification(oldMember, newMember);
 
-			setting.channels.forEach(async (channelID: Snowflake) => {
-				// We do a check here instead of Array.prototype#filter since this is an async function
-				if (await channelCanBeNotified(Notifications.GuildMemberUpdate, newMember.guild, channelID)) {
-					const channel = this.client.channels.cache.get(channelID) as TextChannel;
+			if (!embed) {
+				return;
+			}
 
-					if (embed) {
-						return channel.send(embed);
+			await Promise.all(
+				setting.channels.map(async channelID => {
+					if (await channelCanBeNotified(Notifications.GuildMemberUpdate, newMember.guild, channelID)) {
+						const channel = this.client.channels.cache.get(channelID) as TextChannel;
+
+						await channel.send(embed);
 					}
-				}
-			});
+				})
+			);
 		}
 	}
 }

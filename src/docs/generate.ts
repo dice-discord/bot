@@ -13,7 +13,9 @@ export function generateDocs(commandHandler: CommandHandler): Collection<string,
 	// The reason we do this weird business of creating a new `Collection` instead of `Collection#mapValues` is because we are working with Akairo `Category`s, which have an `id` property that leaks into our docs
 	const docs: Collection<string, Collection<string, string>> = new Collection();
 
-	commandHandler.categories.forEach((category, id) => docs.set(id, generateDocsForCategory(category as Category<string, DiceCommand>)));
+	for (const [id, category] of commandHandler.categories) {
+		docs.set(id, generateDocsForCategory(category as Category<string, DiceCommand>));
+	}
 
 	return docs;
 }
@@ -26,7 +28,9 @@ export function generateDocs(commandHandler: CommandHandler): Collection<string,
 export function generateDocsForCategory(category: Category<string, DiceCommand>): Collection<string, string> {
 	const docs = new Collection<string, string>();
 
-	category.forEach((command, id) => docs.set(id, generateDocsForCommand(command)));
+	for (const [id, command] of category) {
+		docs.set(id, generateDocsForCommand(command));
+	}
 
 	return docs;
 }

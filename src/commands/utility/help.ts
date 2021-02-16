@@ -55,7 +55,7 @@ export default class HelpCommand extends DiceCommand {
 
 		const authorIsOwner = this.client.isOwner(message.author);
 
-		this.handler.categories.forEach((category, id) => {
+		for (const [id, category] of this.handler.categories) {
 			// Only show categories if any of the following are true
 			// 	1. The message author is an owner
 			// 	2. Some commands are not owner-only
@@ -69,7 +69,7 @@ export default class HelpCommand extends DiceCommand {
 						.join(', ')
 				);
 			}
-		});
+		}
 
 		return message.util?.send(embed);
 	}

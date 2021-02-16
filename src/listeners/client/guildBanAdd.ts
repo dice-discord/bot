@@ -62,14 +62,15 @@ export default class GuildBanAddListener extends DiceListener {
 
 			const embed = await GuildBanAddListener.generateNotification(guild, user);
 
-			setting.channels.forEach(async (channelID: Snowflake) => {
-				// We do a check here instead of Array.prototype#filter since this is an async function
-				if (await channelCanBeNotified(Notifications.BanUnban, guild, channelID)) {
-					const channel = this.client.channels.cache.get(channelID) as TextChannel;
+			await Promise.all(
+				setting.channels.map(async channelID => {
+					if (await channelCanBeNotified(Notifications.BanUnban, guild, channelID)) {
+						const channel = this.client.channels.cache.get(channelID) as TextChannel;
 
-					return channel.send(embed);
-				}
-			});
+						await channel.send(embed);
+					}
+				})
+			);
 		}
 	}
 }

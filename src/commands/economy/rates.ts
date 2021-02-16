@@ -39,12 +39,12 @@ export default class RatesCommand extends DiceCommand {
 		try {
 			const bots = await Discoin.bots.getMany();
 
-			(Array.isArray(bots) ? bots : bots.data).forEach(bot => {
-				bot.currencies.forEach(currency => {
+			for (const bot of Array.isArray(bots) ? bots : bots.data) {
+				for (const currency of bot.currencies) {
 					currency.name = `${bot.name} ${currency.name}`;
 					currencies.push(currency);
-				});
-			});
+				}
+			}
 		} catch (error: unknown) {
 			this.logger.error(error);
 

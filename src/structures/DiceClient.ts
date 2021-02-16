@@ -237,10 +237,14 @@ export class DiceClient extends AkairoClient {
 
 		const notificationCache = new Map<Snowflake, MessageEmbed>();
 
-		queue.forEach(entry => {
-			const guild = this.guilds.cache.get(entry.id);
+		await Promise.all(
+			queue.map(async entry => {
+				const guild = this.guilds.cache.get(entry.id);
 
-			if (guild) {
+				if (!guild) {
+					return;
+				}
+
 				const notifications = guild.members.cache
 					.filter(member => !member.user.bot && todayIsUsersBirthday(now, member.user))
 					.map(member => {
@@ -256,15 +260,17 @@ export class DiceClient extends AkairoClient {
 						return embed;
 					});
 
-				entry.channels.forEach(async channelID => {
-					if (await channelCanBeNotified(Notifications.UserAccountBirthday, guild, channelID)) {
-						const channel = guild.channels.cache.get(channelID) as TextChannel;
+				await Promise.all(
+					entry.channels.map(async channelID => {
+						if (await channelCanBeNotified(Notifications.UserAccountBirthday, guild, channelID)) {
+							const channel = guild.channels.cache.get(channelID) as TextChannel;
 
-						notifications.forEach(async notification => channel.send(notification));
-					}
-				});
-			}
-		});
+							await Promise.all(notifications.map(async notification => channel.send(notification)));
+						}
+					})
+				);
+			})
+		);
 
 		birthdayLogger.timeEnd('birthday notifications');
 	}
@@ -288,7 +294,7 @@ export class DiceClient extends AkairoClient {
 			return;
 		}
 
-		transactions.forEach(async transaction => this.handleDiscoinTransaction(transaction));
+		await Promise.all(transactions.map(async transaction => this.handleDiscoinTransaction(transaction)));
 	}
 
 	/**
@@ -385,11 +391,11 @@ export class DiceClient extends AkairoClient {
 
 		const count: Record<number, number> = {};
 
-		guildIDs.forEach(id => {
+		for (const id of guildIDs) {
 			const shard = findShardIDByGuildID(id, BigInt(this.shard?.shardCount ?? 0));
 
 			count[shard] = (count[shard] ?? 0) + 1;
-		});
+		}
 
 		return count;
 	}

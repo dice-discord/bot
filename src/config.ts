@@ -93,13 +93,20 @@ export const postgresURI = process.env.POSTGRES_URI ? new URL(process.env.POSTGR
 /** The InfluxDB DSN in a URL object, if it's present in the environment. */
 const influxURL = influxDSN ? new URL(influxDSN) : undefined;
 
-[discoin.token, topGGWebhookPassword, sentryDSN, postgresURI?.password, influxURL?.password, readyWebhook.token, nflApiToken, airNowApiToken].forEach(
-	secret => {
-		if (secret) {
-			secrets.push(escapeStringRegExp(secret));
-		}
+for (const secret of [
+	discoin.token,
+	topGGWebhookPassword,
+	sentryDSN,
+	postgresURI?.password,
+	influxURL?.password,
+	readyWebhook.token,
+	nflApiToken,
+	airNowApiToken
+]) {
+	if (secret) {
+		secrets.push(escapeStringRegExp(secret));
 	}
-);
+}
 
 if (googleAppCredentials) {
 	fs.readFile(googleAppCredentials)

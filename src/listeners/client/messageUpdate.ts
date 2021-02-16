@@ -1,4 +1,4 @@
-import {Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
+import {Message, MessageEmbed, TextChannel} from 'discord.js';
 import {Notifications} from '../../constants';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';
@@ -59,16 +59,19 @@ export default class MessageUpdateListener extends DiceListener {
 
 				const embed = MessageUpdateListener.generateNotification(oldMessage);
 
-				if (embed) {
-					setting.channels.forEach(async (channelID: Snowflake) => {
-						// We do a check here instead of Array.prototype#filter since this is an async function
+				if (!embed) {
+					return;
+				}
+
+				await Promise.all(
+					setting.channels.map(async channelID => {
 						if (await channelCanBeNotified(Notifications.MessageUpdate, oldMessage.guild!, channelID)) {
 							const channel = this.client.channels.cache.get(channelID) as TextChannel;
 
-							return channel.send(embed);
+							await channel.send(embed);
 						}
-					});
-				}
+					})
+				);
 			}
 		}
 	}
