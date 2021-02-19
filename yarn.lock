@@ -4532,7 +4532,7 @@ __metadata:
     ts-jest: 26.5.1
     ts-node: 9.1.1
     type-fest: 0.21.1
-    typescript: 4.1.3
+    typescript: 4.1.5
     utf-8-validate: 5.0.4
     xo: 0.37.1
     zlib-sync: 0.1.7
@@ -14309,7 +14309,17 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
-"typescript@4.1.3, typescript@^4.1.3":
+typescript@4.1.5:
+  version: 4.1.5
+  resolution: "typescript@npm:4.1.5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 29157c84426ac94ce97aac836264f303a26bd9fb30865650229e3406a36ca2e89735ef4b8878075ba1b95fa4d3ff9810057b64888700c28e20b4034a6db4da83
+  languageName: node
+  linkType: hard
+
+typescript@^4.1.3:
   version: 4.1.3
   resolution: "typescript@npm:4.1.3"
   bin:
@@ -14319,7 +14329,17 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.1.3#builtin<compat/typescript>, typescript@patch:typescript@^4.1.3#builtin<compat/typescript>":
+"typescript@patch:typescript@4.1.5#builtin<compat/typescript>":
+  version: 4.1.5
+  resolution: "typescript@patch:typescript@npm%3A4.1.5#builtin<compat/typescript>::version=4.1.5&hash=cc6730"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 58cc7786be0f8485c124944883b1384287532e4867ec37f1fb5cb2811dbc10f7a9decccad89097f924043285f3515bfd8223c61dbb4f88af00b2d8dc2ef73207
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^4.1.3#builtin<compat/typescript>":
   version: 4.1.3
   resolution: "typescript@patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=cc6730"
   bin:
