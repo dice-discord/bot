@@ -24,7 +24,7 @@
 		"discord.js": "12.5.1",
 		"dotenv": "8.2.0",
 		"escape-string-regexp": "4.0.0",
-		"got": "11.8.1",
+		"got": "11.8.2",
 		"influx": "5.7.0",
 		"kurasuta": "2.2.3",
 		"micri": "4.3.0",
