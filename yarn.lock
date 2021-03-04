@@ -1131,10 +1131,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pizzafox/util@npm:2.5.0":
-  version: 2.5.0
-  resolution: "@pizzafox/util@npm:2.5.0"
-  checksum: 8b64f5772ad15a7223ab5896e2e71918e79a21ed7766a1e4553646bd2efccf278c848e385213e08831ee38b5c5b17656fb32d49bf6a56327a4c31c9310422628
+"@pizzafox/util@npm:2.5.1":
+  version: 2.5.1
+  resolution: "@pizzafox/util@npm:2.5.1"
+  checksum: e24732f2c0d422dd6470a9a411c104bf7c1879bfd10a1a24b9d66bccd541ee56b5db0af06a5c19b39588f0d16580065d69c55a5a06c560f2ab1f5359c309de6d
   languageName: node
   linkType: hard
 
@@ -4455,7 +4455,7 @@ __metadata:
     "@eclass/semantic-release-sentry-releases": 2.8.0
     "@google-cloud/debug-agent": 5.1.3
     "@google-cloud/profiler": 4.1.0
-    "@pizzafox/util": 2.5.0
+    "@pizzafox/util": 2.5.1
     "@prisma/client": 2.18.0
     "@semantic-release/exec": 5.0.0
     "@sentry/node": 6.2.1
