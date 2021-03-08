@@ -4477,7 +4477,7 @@ __metadata:
     discord.js: 12.5.1
     dotenv: 8.2.0
     escape-string-regexp: 4.0.0
-    eslint-plugin-jest: 24.1.8
+    eslint-plugin-jest: 24.1.9
     eslint-plugin-prettier: 3.3.1
     got: 11.8.2
     influx: 5.7.0
@@ -5200,14 +5200,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:24.1.8":
-  version: 24.1.8
-  resolution: "eslint-plugin-jest@npm:24.1.8"
+"eslint-plugin-jest@npm:24.1.9":
+  version: 24.1.9
+  resolution: "eslint-plugin-jest@npm:24.1.9"
   dependencies:
     "@typescript-eslint/experimental-utils": ^4.0.1
   peerDependencies:
     eslint: ">=5"
-  checksum: d59d7cf49fb13633c7b66603985874224e2e5d43a0815454c3825fc2d43c9397d28e3db5c60c26fe89c3a5294ea0a15cc0989c1962ccdaae4972030ddecf0530
+  checksum: f7aa6cd0d2b201e09d82929ae2ce26acfbffe98087f9c7d09f4444b03b18635a1a924e7485f7ada61c0fdd811cb8e996bc98ad134df2154f6a4018a6f205efc3
   languageName: node
   linkType: hard
 
