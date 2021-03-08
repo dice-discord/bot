@@ -4496,7 +4496,7 @@ __metadata:
     semantic-release-docker: 2.2.0
     signale: 1.4.0
     source-map-support: 0.5.19
-    sqreen: 1.61.0
+    sqreen: 1.62.0
     ts-jest: 26.5.3
     ts-node: 9.1.1
     type-fest: 0.21.2
@@ -13187,16 +13187,16 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
-"sq-ecosystem@npm:0.20.0":
-  version: 0.20.0
-  resolution: "sq-ecosystem@npm:0.20.0"
+"sq-ecosystem@npm:0.21.0":
+  version: 0.21.0
+  resolution: "sq-ecosystem@npm:0.21.0"
   dependencies:
     busboy: ^0.3.1
     on-finished: ^2.3.0
     semver: ^6.3.0
     shimmer: ^1.2.1
     uuid: ^3.2.1
-  checksum: 157346f06592d0639b86a55808f917a2b8066bd92bc0fefb5112480fdb7b25302045f4506643ffc363fa01fbd1735a4d03a41ab1c4aeffed0382cbb97021692e
+  checksum: 2765fb5591f31688e189103974d5f8e5310c7ec0340177d7bc046fa81b4d1680df1e34c9480be7df5d34c4e7e48a728c11988b9515f4ade0d76729e3ae054aaa
   languageName: node
   linkType: hard
 
@@ -13220,9 +13220,9 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
-"sqreen@npm:1.61.0":
-  version: 1.61.0
-  resolution: "sqreen@npm:1.61.0"
+"sqreen@npm:1.62.0":
+  version: 1.62.0
+  resolution: "sqreen@npm:1.62.0"
   dependencies:
     async-listener: ^0.6.0
     async-lock: ^1.2.2
@@ -13242,7 +13242,7 @@ resolve@^1.18.1:
     recursive-readdir: ^2.1.0
     semver: ^5.2.0
     shimmer: ^1.2.0
-    sq-ecosystem: 0.20.0
+    sq-ecosystem: 0.21.0
     sq-native: 1.0.10
     sqreen-sdk: ^0.8.1
     uuid: ^3.1.0
@@ -13252,7 +13252,7 @@ resolve@^1.18.1:
       optional: true
   bin:
     sqreen-check-network: bin/sqreen-check-network.js
-  checksum: f102d08fda0f8d1af6f0383ce1e8af984e999804752396df0901c5c6e999f28c1d872a0f5d2d64dc0a7db137c56760e457af66a81fc38666f7b42a0486db2bb2
+  checksum: bb67b7ec090ce8aea0b80601b8f9985a67724f9a82668edd2f8ad8e0970c4a95eda5ea00b90dc2a4b5cb1f8e5832202982212075690fdf98546b568f50efcc85
   languageName: node
   linkType: hard
 
