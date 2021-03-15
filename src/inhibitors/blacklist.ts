@@ -2,6 +2,8 @@ import {Message} from 'discord.js';
 import {DiceInhibitor} from '../structures/DiceInhibitor';
 import {baseLogger} from '../logging/logger';
 
+const logger = baseLogger.scope('inhibitor', 'blacklist');
+
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export default class BlacklistInhibitor extends DiceInhibitor {
 	constructor() {
@@ -28,7 +30,7 @@ export default class BlacklistInhibitor extends DiceInhibitor {
 			// We don't do a regular check here in case the blacklistReason is a falsy string (ex. '', since that is a falsy value, but the user is still blacklisted)
 			return typeof user?.blacklistReason === 'string';
 		} catch (error: unknown) {
-			baseLogger.scope('inhibitor', 'blacklist').error(error);
+			logger.error(error);
 			return false;
 		}
 	}
