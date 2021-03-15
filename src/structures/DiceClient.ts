@@ -212,7 +212,7 @@ export class DiceClient extends AkairoClient {
 			this.discoinJob.start();
 		}
 
-		this.topGG.on('vote', async (...args: [TopGGVote]) => this.handleVote(...args));
+		this.topGG.on('vote', async vote => this.handleVote(vote));
 		this.topGG.server.listen(topGGWebhookPort);
 
 		return this;

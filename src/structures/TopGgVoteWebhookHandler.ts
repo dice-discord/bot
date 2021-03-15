@@ -1,9 +1,10 @@
+import {TypedEventEmitter} from '@pizzafox/util';
 import {Client, Snowflake} from 'discord.js';
 import {EventEmitter} from 'events';
 import {IncomingMessage, ServerResponse} from 'http';
-import {json, send, Server, serve} from 'micri';
-import {baseLogger} from '../logging/logger';
+import {json, send, serve, Server} from 'micri';
 import {topGGWebhookPassword} from '../config';
+import {baseLogger} from '../logging/logger';
 
 type EventType = 'upvote' | 'test';
 
@@ -43,7 +44,7 @@ export interface TopGGVote {
 /**
  * Handle top.gg webhook events for when users upvote the bot.
  */
-export class TopGGVoteWebhookHandler extends EventEmitter {
+export class TopGGVoteWebhookHandler extends (EventEmitter as new () => TypedEventEmitter<{vote: (data: TopGGVote) => void}>) {
 	public server: Server;
 	private readonly _config: Config;
 	private readonly logger = baseLogger.scope('top.gg vote webhook handler');
@@ -57,11 +58,6 @@ export class TopGGVoteWebhookHandler extends EventEmitter {
 		}
 
 		this.server = serve(async (request: IncomingMessage, response: ServerResponse) => this.handle(request, response));
-	}
-
-	public on(event: 'vote', listener: (data: TopGGVote) => any): this;
-	public on(event: any, listener: (...args: any[]) => void): this {
-		return super.on(event, listener);
 	}
 
 	/** Handle a request. */
