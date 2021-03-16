@@ -50,6 +50,7 @@ export class TopGGVoteWebhookHandler extends (EventEmitter as new () => TypedEve
 	private readonly logger = baseLogger.scope('top.gg vote webhook handler');
 
 	constructor(config: Config) {
+		// eslint-disable-next-line constructor-super
 		super();
 		this._config = config;
 
