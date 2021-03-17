@@ -43,7 +43,7 @@
 		"@semantic-release/exec": "5.0.0",
 		"@tsconfig/node14": "1.0.0",
 		"@types/cron": "1.7.2",
-		"@types/jest": "26.0.20",
+		"@types/jest": "26.0.21",
 		"@types/node": "12.20.6",
 		"@types/parse-color": "1.0.0",
 		"@types/roll": "1.2.0",
