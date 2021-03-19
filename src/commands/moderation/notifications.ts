@@ -84,7 +84,7 @@ export default class NotificationsCommand extends DiceCommand {
 						channels: {set: [message.channel.id]}
 					},
 					update: {
-						channels: {set: [...notificationChannels].concat(message.channel.id)}
+						channels: {set: [...notificationChannels, message.channel.id]}
 					}
 				});
 
