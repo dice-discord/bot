@@ -15,7 +15,15 @@ export default class SelfRoleCommand extends DiceCommand {
 		});
 	}
 
-	public *args() {
+	public *args(): Generator<
+		ArgumentOptions,
+		Flag & {
+			command: string;
+			ignore: boolean;
+			rest: string;
+		},
+		string
+	> {
 		const arg: ArgumentOptions = {
 			type: [
 				['add-self-role', 'add'],
