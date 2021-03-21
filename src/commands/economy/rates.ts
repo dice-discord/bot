@@ -73,7 +73,7 @@ export default class RatesCommand extends DiceCommand {
 			'OAT'
 		]);
 
-		const maxLengths = maxColumnLength(data.concat(data, [header]));
+		const maxLengths = maxColumnLength([...data, header]);
 
 		const divider = header.map((heading, index) => (heading.length === 0 ? '' : '-'.repeat(maxLengths[index])));
 

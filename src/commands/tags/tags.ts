@@ -14,7 +14,15 @@ export default class TagsCommand extends DiceCommand {
 		});
 	}
 
-	public *args() {
+	public *args(): Generator<
+		ArgumentOptions,
+		Flag & {
+			command: string;
+			ignore: boolean;
+			rest: string;
+		},
+		string
+	> {
 		const arg: ArgumentOptions = {
 			type: [
 				['create-tag', 'create', 'new', 'add'],
