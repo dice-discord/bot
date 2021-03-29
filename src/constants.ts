@@ -6,8 +6,8 @@ import * as pkg from '../package.json';
 export enum Admins {
 	/** `PizzaFox#0075` on Discord. */
 	PizzaFox = '210024244766179329',
-	/** `OverCoder#3696` on Discord. */
-	OverCoder = '151319592453537793'
+	/** `fizza pox#0594` on Discord. */
+	FizzaPox = '405208438101245952'
 }
 
 /** Colors in numberic format, mostly for use in message embeds. */
