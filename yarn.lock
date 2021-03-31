@@ -4652,7 +4652,7 @@ __metadata:
     delay: 5.0.0
     discord-akairo: 8.1.0
     discord-md-tags: 1.0.0
-    discord.js: 12.5.1
+    discord.js: 12.5.2
     dotenv: 8.2.0
     escape-string-regexp: 4.0.0
     eslint-plugin-jest: 24.3.2
@@ -4758,7 +4758,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord.js@npm:12.5.1, discord.js@npm:^12.5.1":
+"discord.js@npm:12.5.2":
+  version: 12.5.2
+  resolution: "discord.js@npm:12.5.2"
+  dependencies:
+    "@discordjs/collection": ^0.1.6
+    "@discordjs/form-data": ^3.0.1
+    abort-controller: ^3.0.0
+    node-fetch: ^2.6.1
+    prism-media: ^1.2.9
+    setimmediate: ^1.0.5
+    tweetnacl: ^1.0.3
+    ws: ^7.4.4
+  checksum: db065d81593a898b26d8d7da2a7e7a6ab7e4225ba79c664580f08e393ddfef53b90e4feb555a4a8984604db3808c16bb241ab9aaf88da491b78d25e5ed47d3c7
+  languageName: node
+  linkType: hard
+
+"discord.js@npm:^12.5.1":
   version: 12.5.1
   resolution: "discord.js@npm:12.5.1"
   dependencies:
@@ -11802,6 +11818,27 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
+"prism-media@npm:^1.2.9":
+  version: 1.2.9
+  resolution: "prism-media@npm:1.2.9"
+  peerDependencies:
+    "@discordjs/opus": ^0.5.0
+    ffmpeg-static: ^4.2.7 || ^3.0.0 || ^2.4.0
+    node-opus: ^0.3.3
+    opusscript: ^0.0.8
+  peerDependenciesMeta:
+    "@discordjs/opus":
+      optional: true
+    ffmpeg-static:
+      optional: true
+    node-opus:
+      optional: true
+    opusscript:
+      optional: true
+  checksum: e266159eadac34f9b57b68113d7bc61deb66516d64a0696eb696349552f19321fd5952a8224997bf26f707aa0dbdeaa13e40417b4031239b323e9b13d852566c
+  languageName: node
+  linkType: hard
+
 "prisma@npm:2.20.1":
   version: 2.20.1
   resolution: "prisma@npm:2.20.1"
@@ -15137,6 +15174,21 @@ resolve@^1.18.1:
     utf-8-validate:
       optional: true
   checksum: 832efdf1440706058ac04708aa56da951b6e5d10d956e6d01f7a2a32cd3f67acaabea8feb4b578b041a55289e421fc4c48769cbcf02f4d42915eb918c3f7e496
+  languageName: node
+  linkType: hard
+
+"ws@npm:^7.4.4":
+  version: 7.4.4
+  resolution: "ws@npm:7.4.4"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: ad08761ed753cdd3f7172e9a9efc7d74e7e196623cace2380e5f74ff0abd16196e03223bd4148a34278dcbc653ee3841994635419281cbf303b3f22c589e2ec4
   languageName: node
   linkType: hard
 
