@@ -5,6 +5,7 @@ import {Message, MessageEmbed} from 'discord.js';
 import {maxEmbedFields} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import ms = require('pretty-ms');
+import {Util} from 'discord.js';
 
 /**
  * The number of fields allowed before the output will be in codeblock form.
@@ -52,7 +53,7 @@ export default class LeaderboardCommand extends DiceCommand {
 			const leaderboard: string = top
 				.map((user, index) => {
 					const balance = user.balance.toLocaleString();
-					const userTag = users[index].tag;
+					const userTag = Util.escapeMarkdown(users[index].tag);
 					const paddedNumber = `${index + 1}. `.padEnd(args.amount.toString().length + '. '.length);
 					return `${paddedNumber}${userTag} - ${balance}`;
 				})
