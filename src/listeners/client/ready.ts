@@ -48,15 +48,17 @@ export default class ReadyListener extends DiceListener {
 			this.logger.error('Failed to report InfluxDB Discord stats', error);
 		});
 
-		const index = await this.client.meiliSearch.getOrCreateIndex<Indexes[IndexNames.Users]>(IndexNames.Users);
-		const users = [...this.client.users.cache.values()];
-		const userChunks = chunk(users, 500);
+		if (!runningInCI) {
+			const index = await this.client.meiliSearch.getOrCreateIndex<Indexes[IndexNames.Users]>(IndexNames.Users);
+			const users = [...this.client.users.cache.values()];
+			const userChunks = chunk(users, 500);
 
-		for (const userChunk of userChunks) {
-			const documents = userChunk.map(user => ({id: user.id, tag: user.tag}));
+			for (const userChunk of userChunks) {
+				const documents = userChunk.map(user => ({id: user.id, tag: user.tag}));
 
-			// eslint-disable-next-line no-await-in-loop
-			await index.addDocuments(documents);
+				// eslint-disable-next-line no-await-in-loop
+				await index.addDocuments(documents);
+			}
 		}
 
 		if (runningInProduction && this.client.shard?.id === 0) {
