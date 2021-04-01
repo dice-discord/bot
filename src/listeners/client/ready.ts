@@ -6,6 +6,8 @@ import {code} from 'discord-md-tags';
 import * as pkg from '../../../package.json';
 import {captureException} from '@sentry/node';
 import {ExitCodes} from '../../constants';
+import {Indexes, IndexNames} from '../../util/meili-search';
+import {chunk} from '@pizzafox/util';
 
 const embed = new MessageEmbed({
 	title: 'Ready',
@@ -31,7 +33,7 @@ export default class ReadyListener extends DiceListener {
 		this.logger = baseLogger.scope('client');
 	}
 
-	exec(): void {
+	async exec(): Promise<void> {
 		this.client.user!.setPresence({activity: {name: 'for @Dice help', type: 'WATCHING'}}).catch(error => {
 			this.logger.error("An error occurred while setting the client's presence", error);
 			return captureException(error);
@@ -45,6 +47,17 @@ export default class ReadyListener extends DiceListener {
 		this.client.influxUtil?.recordDiscordStats().catch(error => {
 			this.logger.error('Failed to report InfluxDB Discord stats', error);
 		});
+
+		const index = await this.client.meiliSearch.getOrCreateIndex<Indexes[IndexNames.Users]>(IndexNames.Users);
+		const users = [...this.client.users.cache.values()];
+		const userChunks = chunk(users, 500);
+
+		for (const userChunk of userChunks) {
+			const documents = userChunk.map(user => ({id: user.id, tag: user.tag}));
+
+			// eslint-disable-next-line no-await-in-loop
+			await index.addDocuments(documents);
+		}
 
 		if (runningInProduction && this.client.shard?.id === 0) {
 			if (readyWebhook.id !== undefined && readyWebhook.token !== undefined) {

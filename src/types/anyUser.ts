@@ -1,11 +1,9 @@
 import {Message, User} from 'discord.js';
 import {DiceClient} from '../structures/DiceClient';
-import {AkairoArgumentType} from '../structures/DiceCommand';
+import {Indexes, IndexNames} from '../util/meili-search';
 
 /** The name of this type in Akairo. */
 export const typeName = 'anyUser';
-
-type UserTypeResolver = (message: Message, phrase: string) => User | undefined;
 
 /**
  * Finds any user on Discord, first by resolving them from a cache and then by fetching them from Discord.
@@ -19,13 +17,10 @@ export async function resolver(message: Message, phrase: string | null): Promise
 	}
 
 	const client = message.client as DiceClient;
-	const userTypeResolver: UserTypeResolver = client.commandHandler.resolver.type(AkairoArgumentType.User);
-
-	const resolved = userTypeResolver(message, phrase);
-
-	if (resolved) {
-		return resolved;
-	}
+	const index = client.meiliSearch.index<Indexes[IndexNames.Users]>(IndexNames.Users);
+	const {
+		hits: [searched]
+	} = await index.search(phrase);
 
 	let fetched: User | null = null;
 
@@ -33,5 +28,15 @@ export async function resolver(message: Message, phrase: string | null): Promise
 		fetched = await client.users.fetch(phrase);
 	} catch {}
 
-	return fetched ?? resolved ?? null;
+	if (fetched) {
+		return fetched;
+	}
+
+	if (searched) {
+		try {
+			fetched = await client.users.fetch(searched.id);
+		} catch {}
+	}
+
+	return fetched ?? null;
 }

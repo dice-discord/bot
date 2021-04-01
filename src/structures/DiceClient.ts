@@ -12,7 +12,7 @@ import {bold} from 'discord-md-tags';
 import {ClientOptions, Intents, Message, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
 import path from 'path';
 import * as pkg from '../../package.json';
-import {defaultPrefix, discoin, googleBaseConfig, influxDSN, nflApiToken, owners, runningInCI, runningInProduction, sentryDSN} from '../config';
+import {defaultPrefix, discoin, googleBaseConfig, influxDSN, meiliSearch, nflApiToken, owners, runningInCI, runningInProduction, sentryDSN} from '../config';
 import {commandArgumentPrompts, defaults, Notifications, presence, topGGWebhookPort} from '../constants';
 import {baseLogger} from '../logging/logger';
 import {resolver as anyUserTypeResolver, typeName as anyUserTypeName} from '../types/anyUser';
@@ -25,6 +25,7 @@ import {DiscordInfluxUtil} from './DiscordInfluxUtil';
 import {GuildSettingsCache} from './GuildSettingsCache';
 import {NoFlyList} from './NoFlyList';
 import {TopGGVote, TopGGVoteWebhookHandler} from './TopGgVoteWebhookHandler';
+import {MeiliSearch} from 'meilisearch';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -36,6 +37,7 @@ declare module 'discord-akairo' {
 		birthdayNotificationJob: CronJob;
 		discoinJob: CronJob;
 		discoin?: DiscoinClient;
+		meiliSearch: MeiliSearch;
 	}
 }
 
@@ -68,6 +70,7 @@ export class DiceClient extends AkairoClient {
 	discoinJob = new CronJob('* * * * *', async () => this.processDiscoinTransactions());
 	logger?: typeof baseLogger;
 	nfl?: NoFlyList;
+	meiliSearch = new MeiliSearch({host: meiliSearch.host, apiKey: meiliSearch.apiKey});
 
 	/**
 	 * Create a new DiceClient.

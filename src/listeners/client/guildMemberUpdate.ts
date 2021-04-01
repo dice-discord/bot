@@ -1,4 +1,4 @@
-import {GuildMember, MessageEmbed, Snowflake, TextChannel, Util} from 'discord.js';
+import {GuildMember, MessageEmbed, TextChannel, Util} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';

@@ -11,6 +11,8 @@ declare namespace NodeJS {
 		GOOGLE_APPLICATION_CREDENTIALS?: string;
 		NFL_API_TOKEN?: string;
 		AIR_NOW_API_TOKEN?: string;
+		MEILISEARCH_HOST?: string;
+		MEILISEARCH_API_KEY?: string;
 		/** Always set to `true` on GitHub Actions. */
 		// CI?: 'true';
 	}

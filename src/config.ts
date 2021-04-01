@@ -79,6 +79,9 @@ export const nflApiToken = process.env.NFL_API_TOKEN;
 /** Token for the AirNow API. */
 export const airNowApiToken = process.env.AIR_NOW_API_TOKEN;
 
+/** MeiliSearch options. */
+export const meiliSearch = {host: process.env.MEILISEARCH_HOST ?? 'http://localhost:7700', apiKey: process.env.MEILISEARCH_API_KEY};
+
 /** An array of sensitive strings (ex. API keys) that shouldn't be shown in logs or in messages. */
 export const secrets: string[] = [];
 
@@ -101,7 +104,8 @@ for (const secret of [
 	influxURL?.password,
 	readyWebhook.token,
 	nflApiToken,
-	airNowApiToken
+	airNowApiToken,
+	meiliSearch.apiKey
 ]) {
 	if (secret) {
 		secrets.push(escapeStringRegExp(secret));
