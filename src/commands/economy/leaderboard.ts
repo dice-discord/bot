@@ -1,11 +1,10 @@
 import {Stopwatch} from '@pizzafox/util';
 import {Argument} from 'discord-akairo';
 import {codeblock} from 'discord-md-tags';
-import {Message, MessageEmbed} from 'discord.js';
+import {Message, MessageEmbed, Util} from 'discord.js';
 import {maxEmbedFields} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import ms = require('pretty-ms');
-import {Util} from 'discord.js';
 
 /**
  * The number of fields allowed before the output will be in codeblock form.
