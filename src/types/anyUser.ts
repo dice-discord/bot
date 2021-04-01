@@ -20,7 +20,7 @@ export async function resolver(message: Message, phrase: string | null): Promise
 	const index = client.meiliSearch.index<Indexes[IndexNames.Users]>(IndexNames.Users);
 	const {
 		hits: [searched]
-	} = await index.search(phrase);
+	} = await index.search(phrase, {limit: 1});
 
 	let fetched: User | null = null;
 
