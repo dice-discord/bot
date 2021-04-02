@@ -4661,7 +4661,7 @@ __metadata:
     delay: 5.0.0
     discord-akairo: 8.1.0
     discord-md-tags: 1.0.0
-    discord.js: 12.5.2
+    discord.js: 12.5.3
     dotenv: 8.2.0
     escape-string-regexp: 4.0.0
     eslint-plugin-jest: 24.3.2
@@ -4768,9 +4768,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord.js@npm:12.5.2":
-  version: 12.5.2
-  resolution: "discord.js@npm:12.5.2"
+"discord.js@npm:12.5.3":
+  version: 12.5.3
+  resolution: "discord.js@npm:12.5.3"
   dependencies:
     "@discordjs/collection": ^0.1.6
     "@discordjs/form-data": ^3.0.1
@@ -4780,7 +4780,7 @@ __metadata:
     setimmediate: ^1.0.5
     tweetnacl: ^1.0.3
     ws: ^7.4.4
-  checksum: db065d81593a898b26d8d7da2a7e7a6ab7e4225ba79c664580f08e393ddfef53b90e4feb555a4a8984604db3808c16bb241ab9aaf88da491b78d25e5ed47d3c7
+  checksum: 365e21b12496c47be80a4e2cd6d81665653908fcd22a5f46a5507ad8771cb20c40fab893ebb192af23e2bdb0db5c1eca8c5228c9f689951d0fd1139c3bcd567f
   languageName: node
   linkType: hard
 
