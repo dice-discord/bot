@@ -9,7 +9,7 @@ export default class GetSelfRoleCommand extends DiceCommand {
 	constructor() {
 		super('get-self-role', {
 			aliases: ['self-role-get', 'self-roles-get', 'get-self-roles'],
-			description: {content: 'Give yourself a selfrole.', usage: '<role>', examples: ['@Updates", "Artists']},
+			description: {content: 'Give yourself a selfrole.', usage: '<role>', examples: ['@Updates', 'Artists']},
 			category: DiceCommandCategories.Selfroles,
 			channel: 'guild',
 			clientPermissions: [Permissions.FLAGS.MANAGE_ROLES],
