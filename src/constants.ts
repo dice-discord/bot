@@ -4,8 +4,8 @@ import * as pkg from '../package.json';
 
 /** Utility structure to organize admin user IDs. */
 export enum Admins {
-	/** `PizzaFox#0075` on Discord. */
-	PizzaFox = '210024244766179329',
+	/** `Jonah#6905` on Discord. */
+	Jonah = '210024244766179329',
 	/** `fizza pox#0594` on Discord. */
 	FizzaPox = '405208438101245952'
 }

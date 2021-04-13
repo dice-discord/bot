@@ -49,7 +49,7 @@ export default class BotInfoCommand extends DiceCommand {
 					},
 					{
 						name: 'Support team',
-						value: 'PizzaFox#0075',
+						value: 'Jonah#6905',
 						inline: true
 					}
 				]
