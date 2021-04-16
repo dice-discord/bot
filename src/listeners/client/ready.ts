@@ -7,7 +7,7 @@ import * as pkg from '../../../package.json';
 import {captureException} from '@sentry/node';
 import {ExitCodes} from '../../constants';
 import {Indexes, IndexNames} from '../../util/meili-search';
-import {chunk} from '@pizzafox/util';
+import {chunk} from '@jonahsnider/util';
 
 const embed = new MessageEmbed({
 	title: 'Ready',

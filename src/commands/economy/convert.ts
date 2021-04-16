@@ -4,7 +4,7 @@ import {Argument} from 'discord-akairo';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
-import {toDigits} from '@pizzafox/util';
+import {toDigits} from '@jonahsnider/util';
 
 const range = {min: 1, max: 1_000_000};
 /** The length of a Discoin currency code. */

@@ -5,7 +5,7 @@ import {defaults} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
 import {typeName as anyUser} from '../../types/anyUser';
-import {toDigits} from '@pizzafox/util';
+import {toDigits} from '@jonahsnider/util';
 
 export default class TransferCommand extends DiceCommand {
 	constructor() {

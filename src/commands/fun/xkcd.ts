@@ -1,7 +1,7 @@
 import {Message, Permissions, MessageEmbed} from 'discord.js';
 import {DiceCommand, DiceCommandCategories, AkairoArgumentType} from '../../structures/DiceCommand';
 import {Argument} from 'discord-akairo';
-import {truncate} from '@pizzafox/util';
+import {truncate} from '@jonahsnider/util';
 import got from 'got';
 
 interface XKCDComic {

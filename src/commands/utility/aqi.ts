@@ -1,5 +1,5 @@
 import ms = require('pretty-ms');
-import {Stopwatch} from '@pizzafox/util';
+import {Stopwatch} from '@jonahsnider/util';
 import {Argument} from 'discord-akairo';
 import {Message, MessageEmbed} from 'discord.js';
 import got from 'got';

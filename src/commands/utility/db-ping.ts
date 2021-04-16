@@ -2,7 +2,7 @@ import ms = require('pretty-ms');
 import {Message} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {bold} from 'discord-md-tags';
-import {Stopwatch} from '@pizzafox/util';
+import {Stopwatch} from '@jonahsnider/util';
 
 export default class DBPingCommand extends DiceCommand {
 	constructor() {

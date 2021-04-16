@@ -1,6 +1,6 @@
 import {Message} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {sum} from '@pizzafox/util';
+import {sum} from '@jonahsnider/util';
 
 export default class ShardSankeyCommand extends DiceCommand {
 	constructor() {

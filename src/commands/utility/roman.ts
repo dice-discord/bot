@@ -1,4 +1,4 @@
-import {descending} from '@pizzafox/util';
+import {descending} from '@jonahsnider/util';
 import {Argument, ParsedValuePredicate} from 'discord-akairo';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';

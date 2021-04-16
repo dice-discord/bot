@@ -1,7 +1,7 @@
 import {Message, MessageEmbed} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {getClusterCount} from '../../util/shard';
-import {sum} from '@pizzafox/util';
+import {sum} from '@jonahsnider/util';
 
 export default class StatsCommand extends DiceCommand {
 	constructor() {

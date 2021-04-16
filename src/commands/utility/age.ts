@@ -1,4 +1,4 @@
-import {capitalize} from '@pizzafox/util';
+import {capitalize} from '@jonahsnider/util';
 import {formatDistance, formatRelative} from 'date-fns';
 import {Message, User} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';

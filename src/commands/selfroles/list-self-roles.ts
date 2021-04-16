@@ -1,6 +1,6 @@
 import {Message, Util} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {nullish} from '@pizzafox/util';
+import {nullish} from '@jonahsnider/util';
 
 import {cleanDeletedSelfRoles} from '../../util/self-roles';
 

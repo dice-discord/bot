@@ -1,4 +1,4 @@
-import {mean} from '@pizzafox/util';
+import {mean} from '@jonahsnider/util';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 

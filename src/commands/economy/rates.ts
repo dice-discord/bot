@@ -1,6 +1,6 @@
 import {Client as Discoin} from '@discoin/scambio';
 import {Currency} from '@discoin/scambio/tsc_output/src/types/discoin';
-import {formatTable, maxColumnLength} from '@pizzafox/util';
+import {formatTable, maxColumnLength} from '@jonahsnider/util';
 import {Message, Permissions} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 

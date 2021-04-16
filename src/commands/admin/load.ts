@@ -1,4 +1,4 @@
-import {Stopwatch} from '@pizzafox/util';
+import {Stopwatch} from '@jonahsnider/util';
 import {AkairoHandler} from 'discord-akairo';
 import {code, codeblock} from 'discord-md-tags';
 import {Message} from 'discord.js';

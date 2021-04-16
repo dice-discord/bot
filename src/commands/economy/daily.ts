@@ -4,7 +4,7 @@ import {bold} from 'discord-md-tags';
 import {Message} from 'discord.js';
 import {dailyAmount, defaults} from '../../constants';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {nullish} from '@pizzafox/util';
+import {nullish} from '@jonahsnider/util';
 
 const cooldown = convert(22).from('hours').to('milliseconds');
 

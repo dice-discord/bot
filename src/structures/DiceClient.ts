@@ -1,7 +1,7 @@
 import {Client as DiscoinClient} from '@discoin/scambio';
 import {Transaction} from '@discoin/scambio/tsc_output/src/structures/transactions';
 import {start as startProfiler} from '@google-cloud/profiler';
-import {toDigits} from '@pizzafox/util';
+import {toDigits} from '@jonahsnider/util';
 import {PrismaClient} from '@prisma/client';
 import {captureException, init as initSentry} from '@sentry/node';
 import {convert} from 'convert';

@@ -1,4 +1,4 @@
-import {TypedEventEmitter} from '@pizzafox/util';
+import {TypedEventEmitter} from '@jonahsnider/util';
 import {Client, Snowflake} from 'discord.js';
 import {EventEmitter} from 'events';
 import {IncomingMessage, ServerResponse} from 'http';

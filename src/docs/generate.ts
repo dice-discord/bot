@@ -1,7 +1,7 @@
 import {CommandHandler, Category} from 'discord-akairo';
 import {Collection} from 'discord.js';
 import {DiceCommand} from '../structures/DiceCommand';
-import {capitalize} from '@pizzafox/util';
+import {capitalize} from '@jonahsnider/util';
 import {code} from 'discord-md-tags';
 
 /**

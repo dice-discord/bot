@@ -1,7 +1,7 @@
 import {bold} from 'discord-md-tags';
 import {Message, Permissions, Role} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {nullish} from '@pizzafox/util';
+import {nullish} from '@jonahsnider/util';
 import {clean} from '../../util/format';
 import {cleanDeletedSelfRoles} from '../../util/self-roles';
 

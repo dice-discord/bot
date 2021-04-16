@@ -1,4 +1,4 @@
-import {Stopwatch} from '@pizzafox/util';
+import {Stopwatch} from '@jonahsnider/util';
 import {Argument, Command, Inhibitor, Listener} from 'discord-akairo';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';

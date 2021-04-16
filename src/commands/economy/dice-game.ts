@@ -1,4 +1,4 @@
-import {toDigits} from '@pizzafox/util';
+import {toDigits} from '@jonahsnider/util';
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, MessageEmbed, Permissions} from 'discord.js';

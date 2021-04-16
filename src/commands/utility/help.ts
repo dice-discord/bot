@@ -1,4 +1,4 @@
-import {capitalize} from '@pizzafox/util';
+import {capitalize} from '@jonahsnider/util';
 import {PrefixSupplier} from 'discord-akairo';
 import {code, codeblock} from 'discord-md-tags';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
