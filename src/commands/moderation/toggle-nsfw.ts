@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {bold} from 'discord-md-tags';
 import {Message, Permissions, TextChannel} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
@@ -34,7 +35,9 @@ export default class ToggleNSFWCommand extends DiceCommand {
 			return message.util?.send(`I don't have permissions to manage ${channelName}`);
 		}
 
-		if (!args.channel.permissionsFor(message.member!)?.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
+		assert(message.member);
+
+		if (!args.channel.permissionsFor(message.member)?.has(Permissions.FLAGS.MANAGE_CHANNELS)) {
 			return message.util?.send(`You don't have permissions to manage ${channelName}`);
 		}
 

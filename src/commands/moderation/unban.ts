@@ -1,6 +1,7 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, Permissions, User} from 'discord.js';
+import assert from 'assert';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {typeName as anyUser} from '../../types/anyUser';
 import {clean} from '../../util/format';
@@ -48,17 +49,15 @@ export default class BanCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {user: User; reason: string | null}): Promise<Message | undefined> {
-		if (args.reason) {
-			args.reason = `${args.reason} - Requested by ${message.author.tag}`;
-		} else {
-			args.reason = `Requested by ${message.author.tag}`;
-		}
+		assert(message.guild);
 
-		const bans = await message.guild!.fetchBans();
+		args.reason = args.reason ? `${args.reason} - Requested by ${message.author.tag}` : `Requested by ${message.author.tag}`;
+
+		const bans = await message.guild.fetchBans();
 
 		if (bans.has(args.user.id)) {
 			try {
-				await message.guild!.members.unban(args.user, args.reason);
+				await message.guild.members.unban(args.user, args.reason);
 			} catch {
 				// eslint-disable-next-line no-return-await
 				return await message.util?.send('Unable to unban that user');

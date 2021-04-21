@@ -1,3 +1,5 @@
+import {toDigits} from '@jonahsnider/util';
+import assert from 'assert';
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, User, Util} from 'discord.js';
@@ -5,7 +7,6 @@ import {defaults} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {DiceUser} from '../../structures/DiceUser';
 import {typeName as anyUser} from '../../types/anyUser';
-import {toDigits} from '@jonahsnider/util';
 
 export default class TransferCommand extends DiceCommand {
 	constructor() {
@@ -37,7 +38,9 @@ export default class TransferCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {user: User; amount: number}): Promise<Message | undefined> {
-		if (args.user?.bot && args.user?.id !== this.client.user!.id) {
+		assert(this.client.user);
+
+		if (args.user?.bot && args.user?.id !== this.client.user.id) {
 			return message.util?.send("You can't send oats to bots");
 		}
 
@@ -74,7 +77,7 @@ export default class TransferCommand extends DiceCommand {
 			this.client.prisma.user.upsert({
 				where: queries.recipient,
 				update: {balance: {increment: args.amount}},
-				create: {...queries.recipient, balance: defaults.startingBalance[queries.recipient.id === this.client.user!.id ? 'bot' : 'users'] + args.amount},
+				create: {...queries.recipient, balance: defaults.startingBalance[queries.recipient.id === this.client.user.id ? 'bot' : 'users'] + args.amount},
 				select: {balance: true}
 			})
 		]);

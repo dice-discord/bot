@@ -1,8 +1,9 @@
 import ms = require('pretty-ms');
+import {Stopwatch} from '@jonahsnider/util';
+import assert from 'assert';
+import {bold} from 'discord-md-tags';
 import {Message} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import {bold} from 'discord-md-tags';
-import {Stopwatch} from '@jonahsnider/util';
 
 export default class DBPingCommand extends DiceCommand {
 	constructor() {
@@ -14,10 +15,10 @@ export default class DBPingCommand extends DiceCommand {
 	}
 
 	async exec(message: Message): Promise<Message | undefined> {
-		const stopwatch = new Stopwatch();
+		assert(this.client.user);
 
-		stopwatch.start();
-		await this.client.prisma.user.findUnique({where: {id: this.client.user!.id}});
+		const stopwatch = Stopwatch.start();
+		await this.client.prisma.user.findUnique({where: {id: this.client.user.id}});
 
 		const duration = Number(stopwatch.end());
 

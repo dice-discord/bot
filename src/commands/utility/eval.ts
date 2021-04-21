@@ -1,4 +1,5 @@
 import {captureException} from '@sentry/node';
+import assert from 'assert';
 import {codeblock, italic} from 'discord-md-tags';
 import {Message, Util} from 'discord.js';
 import {inspect} from 'util';
@@ -44,23 +45,28 @@ export default class EvalCommand extends DiceCommand {
 	public async exec(message: Message, args: {script: string}): Promise<Message | Array<Promise<Message | undefined>> | undefined> {
 		// #region scoped helpers
 		// Keep all of these here so they are in scope for the evaluated script
+		/* eslint-disable @typescript-eslint/no-unused-vars */
 		// eslint-disable-next-line unicorn/prevent-abbreviations
 		const msg = message;
 		const {client, lastResult} = this;
 		const {prisma, prisma: db, prisma: database} = this.client;
 		const doReply = (value: Error | string): void => {
 			if (value instanceof Error) {
+				// eslint-disable-next-line promise/prefer-await-to-then
 				message.util?.send(`Callback error: \`${JSON.stringify(value)}\``).catch(error => {
 					this.logger.error('Error why trying to send message about callback error', error);
 					captureException(error);
 				});
 			} else {
 				if (!this._times.diff) {
-					this._times.diff = this._times.end! - this._times.start!;
+					assert(this._times.end);
+					assert(this._times.start);
+					this._times.diff = this._times.end - this._times.start;
 				}
 
 				const results = this._result(value, this._times.diff);
 				for (const result of results) {
+					// eslint-disable-next-line promise/prefer-await-to-then
 					message.util?.send(result).catch(error => {
 						this.logger.error('Error while sending result message', error);
 						captureException(error);
@@ -68,6 +74,7 @@ export default class EvalCommand extends DiceCommand {
 				}
 			}
 		};
+		/* eslint-enable @typescript-eslint/no-unused-vars */
 		// #endregion
 
 		this._times.start = process.hrtime.bigint();

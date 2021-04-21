@@ -3,6 +3,7 @@ import {bold} from 'discord-md-tags';
 import {Message, Permissions} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
+import assert from 'assert';
 
 export default class EditTagCommand extends DiceCommand {
 	constructor() {
@@ -43,14 +44,17 @@ export default class EditTagCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {id: string; content: string}): Promise<Message | undefined> {
-		const tag = await this.client.prisma.tag.findUnique({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}, select: {author: true}});
+		assert(message.guild);
+		assert(message.member);
+
+		const tag = await this.client.prisma.tag.findUnique({where: {id_guildId: {guildId: message.guild.id, id: args.id}}, select: {author: true}});
 
 		if (tag) {
-			if (tag.author === message.author.id || message.member!.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+			if (tag.author === message.author.id || message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
 				// You created this tag or you have manage messages permissions
 
 				const updatedTag = await this.client.prisma.tag.update({
-					where: {id_guildId: {guildId: message.guild!.id, id: args.id}},
+					where: {id_guildId: {guildId: message.guild.id, id: args.id}},
 					data: {content: args.content},
 					select: {id: true}
 				});

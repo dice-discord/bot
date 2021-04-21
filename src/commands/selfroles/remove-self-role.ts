@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {bold} from 'discord-md-tags';
 import {Message, Permissions, Role} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
@@ -22,11 +23,14 @@ export default class GetSelfRoleCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {role: Role}): Promise<Message | undefined> {
-		if (!message.member!.roles.cache.has(args.role.id)) {
+		assert(message.guild);
+		assert(message.member);
+
+		if (!message.member.roles.cache.has(args.role.id)) {
 			return message.util?.send("You don't have that role");
 		}
 
-		const guild = await this.client.prisma.guild.findUnique({where: {id: message.guild!.id}, select: {selfRoles: true}});
+		const guild = await this.client.prisma.guild.findUnique({where: {id: message.guild.id}, select: {selfRoles: true}});
 		const selfRoles = new Set(guild?.selfRoles);
 
 		if (!selfRoles.has(args.role.id)) {
@@ -34,7 +38,7 @@ export default class GetSelfRoleCommand extends DiceCommand {
 		}
 
 		try {
-			await message.member!.roles.remove(args.role.id, 'Selfrole');
+			await message.member.roles.remove(args.role.id, 'Selfrole');
 
 			return await message.util?.send(`You no longer have the ${bold`${clean(args.role.name, message)}`} role`);
 		} catch {

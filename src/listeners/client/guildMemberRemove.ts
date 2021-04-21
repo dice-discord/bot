@@ -1,6 +1,6 @@
 import {formatDistanceToNow} from 'date-fns';
 import {bold} from 'discord-md-tags';
-import {GuildMember, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
+import {GuildMember, MessageEmbed, TextChannel} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';

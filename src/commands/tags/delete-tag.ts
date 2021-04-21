@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, Permissions} from 'discord.js';
@@ -22,12 +23,15 @@ export default class DeleteTagCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {id: string}): Promise<Message | undefined> {
-		const tag = await this.client.prisma.tag.findUnique({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}});
+		assert(message.guild);
+		assert(message.member);
+
+		const tag = await this.client.prisma.tag.findUnique({where: {id_guildId: {guildId: message.guild.id, id: args.id}}});
 
 		if (tag) {
-			if (tag.author === message.author.id || message.member!.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+			if (tag.author === message.author.id || message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
 				// You created this tag or you have manage messages permissions
-				await this.client.prisma.tag.delete({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}, select: {id: true}});
+				await this.client.prisma.tag.delete({where: {id_guildId: {guildId: message.guild.id, id: args.id}}, select: {id: true}});
 				return message.util?.send(`Deleted ${bold`${clean(args.id, message)}`} from this server's tags`);
 			}
 

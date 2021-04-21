@@ -1,8 +1,9 @@
 import {PrismaClient} from '@prisma/client';
+import assert from 'assert';
 import {Guild, MessageEmbed, Permissions, Snowflake, TextChannel, User} from 'discord.js';
 import {Notifications} from '../constants';
-import {DiceClient} from '../structures/DiceClient';
 import {baseLogger} from '../logging/logger';
+import {DiceClient} from '../structures/DiceClient';
 
 const logger = baseLogger.scope('util', 'notifications');
 
@@ -35,6 +36,7 @@ export async function channelCanBeNotified(notification: Notifications, guild: G
 				data: {notifications: {update: {where: {id_guildId: {guildId: guild.id, id: notification}}, data: {channels: {set: notificationSettings.channels}}}}},
 				select: {id: true}
 			})
+			// eslint-disable-next-line promise/prefer-await-to-then
 			.catch(error => {
 				logger.error(`Unable to remove the channel ${channelID} for ${notification} notifications while checking if it could be notified`, error);
 			});
@@ -51,13 +53,15 @@ export async function channelCanBeNotified(notification: Notifications, guild: G
  * @param channel The text channel to check
  */
 export async function isNotificationEnabledForChannel(prisma: PrismaClient, notification: Notifications, channel: TextChannel): Promise<boolean> {
+	assert(channel.guild.me);
+
 	const config = await prisma.notificationSettings.findUnique({where: {id_guildId: {guildId: channel.guild.id, id: notification}}, select: {channels: true}});
 
 	if (config) {
 		// This assumes that only one item will be in the array, because of the filter we did above
 
 		if (config.channels.includes(channel.id)) {
-			if (channel.permissionsFor(channel.guild.me!)?.has(Permissions.FLAGS.SEND_MESSAGES)) {
+			if (channel.permissionsFor(channel.guild.me)?.has(Permissions.FLAGS.SEND_MESSAGES)) {
 				return true;
 			}
 
@@ -70,6 +74,7 @@ export async function isNotificationEnabledForChannel(prisma: PrismaClient, noti
 			// This updates the array for the specified notification
 			prisma.notificationSettings
 				.update({where: {id_guildId: {guildId: channel.guild.id, id: notification}}, data: {channels: {set: updatedChannels}}})
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.catch(error => {
 					logger.error(`Unable to remove the channel ${channel.id} while checking if ${notification} notifications were enabled`, error);
 				});

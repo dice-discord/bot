@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message} from 'discord.js';
@@ -33,7 +34,9 @@ export default class CreateTagCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {id: string; content: string}): Promise<Message | undefined> {
-		const tag = await this.client.prisma.tag.findUnique({where: {id_guildId: {guildId: message.guild!.id, id: args.id}}});
+		assert(message.guild);
+
+		const tag = await this.client.prisma.tag.findUnique({where: {id_guildId: {guildId: message.guild.id, id: args.id}}});
 
 		if (tag) {
 			// Tag exists
@@ -42,8 +45,8 @@ export default class CreateTagCommand extends DiceCommand {
 
 		// Upsert the guild since the tag and/or the guild don't exist
 		await this.client.prisma.guild.upsert({
-			where: {id: message.guild!.id},
-			create: {id: message.guild!.id, tags: {create: {author: message.author.id, id: args.id, content: args.content}}},
+			where: {id: message.guild.id},
+			create: {id: message.guild.id, tags: {create: {author: message.author.id, id: args.id, content: args.content}}},
 			update: {tags: {create: {author: message.author.id, id: args.id, content: args.content}}}
 		});
 

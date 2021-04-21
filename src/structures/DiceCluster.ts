@@ -18,11 +18,13 @@ export class DiceCluster extends BaseCluster {
 	}
 
 	async launch(): Promise<void> {
+		// eslint-disable-next-line promise/prefer-await-to-then
 		this.client.init().catch(error => {
 			this.logger.fatal('Failed to initialize client', error);
 			throw error;
 		});
 
+		// eslint-disable-next-line promise/prefer-await-to-then
 		this.client.login(discordToken).catch(error => {
 			this.logger.fatal('Failed to login client', error);
 			throw error;

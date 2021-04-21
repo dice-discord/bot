@@ -123,6 +123,7 @@ export class DiceClient extends AkairoClient {
 			startProfiler(googleConfig)
 				// eslint-disable-next-line promise/prefer-await-to-then
 				.then(() => this.logger?.success('Started Google Cloud Profiler'))
+				// eslint-disable-next-line promise/prefer-await-to-then
 				.catch(error => {
 					this.logger?.error('Failed to start Google Cloud Profiler', error);
 					captureException(error);

@@ -22,6 +22,7 @@ export default class SayCommand extends DiceCommand {
 
 	async exec(message: Message, {content}: {content: string}): Promise<Message | undefined> {
 		if (message.deletable) {
+			// eslint-disable-next-line promise/prefer-await-to-then
 			message.delete().catch(error => {
 				this.logger.error(`An error occurred while deleting the message ${message.id} that triggered this command`, error);
 				return captureException(error);
