@@ -6,9 +6,6 @@ import {clusterID} from '../util/shard';
 
 /* eslint-disable camelcase */
 
-/** Measurements recorded on InfluxDB. */
-type SchemaMeasurements = 'discord';
-
 /** A type representing the options used to record a measurement of the `discord` schema. */
 type DiscordSchema = {
 	guild_count: Integer;
@@ -39,7 +36,7 @@ export class DiscordInfluxUtil {
 		this.client = client;
 
 		this.influx.addSchema({
-			measurement: 'discord'!,
+			measurement: 'discord',
 			// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 			fields: {
 				guild_count: FieldType.INTEGER,
@@ -62,7 +59,7 @@ export class DiscordInfluxUtil {
 
 		const tags: Record<DiscordSchemaTags, string> = {cluster_id: clusterID.toString()};
 
-		return this.influx.writeMeasurement('discord'!, [{tags, fields}]);
+		return this.influx.writeMeasurement('discord', [{tags, fields}]);
 	}
 }
 

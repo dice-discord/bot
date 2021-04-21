@@ -1,4 +1,5 @@
-import {Message, MessageEmbed, Snowflake, TextChannel} from 'discord.js';
+import assert from 'assert';
+import {Message, MessageEmbed, TextChannel} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';
@@ -38,8 +39,10 @@ export default class MessageDeleteListener extends DiceListener {
 
 	public async exec(message: Message): Promise<void> {
 		if (message.channel.type === 'text') {
+			assert(message.guild);
+
 			const guildSettings = await this.client.prisma.guild.findUnique({
-				where: {id: message.guild!.id},
+				where: {id: message.guild.id},
 				select: {notifications: {select: {channels: true}, where: {id: Notifications.MessageDelete}}}
 			});
 
@@ -51,7 +54,9 @@ export default class MessageDeleteListener extends DiceListener {
 
 				await Promise.all(
 					setting.channels.map(async channelID => {
-						if (await channelCanBeNotified(Notifications.MessageDelete, message.guild!, channelID)) {
+						assert(message.guild);
+
+						if (await channelCanBeNotified(Notifications.MessageDelete, message.guild, channelID)) {
 							const channel = this.client.channels.cache.get(channelID) as TextChannel;
 
 							await channel.send(embed);

@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {bold} from 'discord-md-tags';
 import {Message, User} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
@@ -26,7 +27,9 @@ export default class BalanceCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {user?: User}): Promise<Message | undefined> {
-		if (args.user?.bot && args.user?.id !== this.client.user!.id) {
+		assert(this.client.user);
+
+		if (args.user?.bot && args.user?.id !== this.client.user.id) {
 			return message.util?.send("You can't check the balance of bots");
 		}
 

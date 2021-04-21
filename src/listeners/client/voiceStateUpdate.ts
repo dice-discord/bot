@@ -1,4 +1,4 @@
-import {MessageEmbed, Snowflake, TextChannel, Util, VoiceState} from 'discord.js';
+import {MessageEmbed, TextChannel, Util, VoiceState} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';

@@ -2,6 +2,7 @@ import {bold} from 'discord-md-tags';
 import {Message, Permissions, Role, Util} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 import {clean} from '../../util/format';
+import assert from 'assert';
 
 export default class AddSelfroleCommand extends DiceCommand {
 	constructor() {
@@ -18,11 +19,15 @@ export default class AddSelfroleCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {role: Role}): Promise<Message | undefined> {
-		if (message.guild!.id === args.role.id) {
+		assert(message.guild);
+		assert(message.guild.me);
+		assert(message.member);
+
+		if (message.guild.id === args.role.id) {
 			return message.util?.send(`You can't add ${Util.cleanContent('@everyone', message)} as a selfrole`);
 		}
 
-		const guild = await this.client.prisma.guild.findUnique({where: {id: message.guild!.id}, select: {selfRoles: true}});
+		const guild = await this.client.prisma.guild.findUnique({where: {id: message.guild.id}, select: {selfRoles: true}});
 
 		const selfRoles = new Set(guild?.selfRoles);
 
@@ -32,12 +37,12 @@ export default class AddSelfroleCommand extends DiceCommand {
 		}
 
 		// Check if the author is able to add the role
-		if (args.role.comparePositionTo(message.member!.roles.highest) >= 0 && !message.member!.hasPermission(Permissions.FLAGS.ADMINISTRATOR)) {
+		if (args.role.comparePositionTo(message.member.roles.highest) >= 0 && !message.member.hasPermission(Permissions.FLAGS.ADMINISTRATOR)) {
 			return message.reply("You don't have the permissions to add that role");
 		}
 
 		// Check if bot is able to add that role
-		if (args.role.comparePositionTo(message.guild!.me!.roles.highest) >= 0) {
+		if (args.role.comparePositionTo(message.guild.me.roles.highest) >= 0) {
 			return message.reply("I don't have the permissions to add that role");
 		}
 
@@ -47,8 +52,8 @@ export default class AddSelfroleCommand extends DiceCommand {
 		}
 
 		await this.client.prisma.guild.upsert({
-			where: {id: message.guild!.id},
-			create: {id: message.guild!.id, selfRoles: {set: [args.role.id]}},
+			where: {id: message.guild.id},
+			create: {id: message.guild.id, selfRoles: {set: [args.role.id]}},
 			update: {selfRoles: {set: [...selfRoles, args.role.id]}}
 		});
 

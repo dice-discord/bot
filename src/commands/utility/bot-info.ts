@@ -1,10 +1,11 @@
+import {sum} from '@jonahsnider/util';
+import {convert} from 'convert';
 import {formatDistanceToNow, subMilliseconds} from 'date-fns';
 import {Message, MessageEmbed, Permissions} from 'discord.js';
+import assert from 'assert';
+import * as pkg from '../../../package.json';
 import {Colors} from '../../constants';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
-import * as pkg from '../../../package.json';
-import {convert} from 'convert';
-import {sum} from '@jonahsnider/util';
 
 export default class BotInfoCommand extends DiceCommand {
 	constructor() {
@@ -17,6 +18,8 @@ export default class BotInfoCommand extends DiceCommand {
 	}
 
 	async exec(message: Message): Promise<Message | undefined> {
+		assert(this.client.uptime);
+
 		let heapUsed = 0;
 
 		if (this.client.shard) {
@@ -36,7 +39,7 @@ export default class BotInfoCommand extends DiceCommand {
 				description: 'Dice is a multipurpose, general-use, utility bot',
 				thumbnail: {url: this.client.user?.displayAvatarURL({format: 'webp', size: 512})},
 				fields: [
-					{name: 'Uptime', value: formatDistanceToNow(subMilliseconds(new Date(), this.client.uptime!)), inline: true},
+					{name: 'Uptime', value: formatDistanceToNow(subMilliseconds(new Date(), this.client.uptime)), inline: true},
 					{
 						name: 'Version',
 						value: `v${pkg.version}`,

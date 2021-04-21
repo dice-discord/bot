@@ -4,7 +4,7 @@ import {baseLogger} from '../../logging/logger';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {DiceCommand} from '../../structures/DiceCommand';
 
-export default class ReadyListener extends DiceListener {
+export default class CommandStartedListener extends DiceListener {
 	constructor() {
 		super('commandStarted', {
 			emitter: 'commandHandler',
@@ -13,7 +13,7 @@ export default class ReadyListener extends DiceListener {
 		});
 	}
 
-	exec(message: Message, command: DiceCommand, args: any): void {
+	exec(message: Message, command: DiceCommand, args: Record<string, unknown>): void {
 		const logger = baseLogger.scope('commands', command.id);
 
 		logger.command({

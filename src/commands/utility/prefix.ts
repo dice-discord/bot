@@ -1,8 +1,9 @@
-import {Message, Permissions, Util} from 'discord.js';
-import {Argument} from 'discord-akairo';
-import {defaultPrefix} from '../../config';
-import {DiceCommand, DiceCommandCategories, AkairoArgumentType} from '../../structures/DiceCommand';
 import {captureException} from '@sentry/node';
+import assert from 'assert';
+import {Argument} from 'discord-akairo';
+import {Message, Permissions, Util} from 'discord.js';
+import {defaultPrefix} from '../../config';
+import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
 export default class PrefixCommand extends DiceCommand {
 	constructor() {
@@ -45,7 +46,8 @@ export default class PrefixCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, {prefix, reset}: {prefix?: string; reset: boolean}): Promise<Message | undefined> {
-		const {id} = message.guild!;
+		assert(message.guild);
+		const {id} = message.guild;
 
 		// If you are modifying the prefix and you don't have `MANAGE_GUILD` and you aren't an owner
 		if ((prefix ?? reset) && !message.member?.permissions.has(Permissions.FLAGS.MANAGE_GUILD) && !this.client.isOwner(message.author.id)) {
@@ -55,6 +57,7 @@ export default class PrefixCommand extends DiceCommand {
 		if (prefix) {
 			await this.client.prisma.guild.upsert({where: {id}, create: {id, prefix}, update: {prefix}});
 
+			// eslint-disable-next-line promise/prefer-await-to-then
 			this.client.guildSettingsCache.refresh(id).catch(this.handleRefreshError);
 
 			return message.util?.send(`Command prefix changed to \`${Util.escapeMarkdown(prefix, {inlineCodeContent: true})}\``);
@@ -65,6 +68,7 @@ export default class PrefixCommand extends DiceCommand {
 
 			if (guild?.prefix) {
 				await this.client.prisma.guild.update({where: {id}, data: {prefix: null}});
+				// eslint-disable-next-line promise/prefer-await-to-then
 				this.client.guildSettingsCache.refresh(id).catch(this.handleRefreshError);
 
 				return message.util?.send(`The command prefix was reset to the default (\`${Util.escapeMarkdown(defaultPrefix, {inlineCodeContent: true})}\`)`);

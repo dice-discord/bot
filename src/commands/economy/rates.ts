@@ -1,6 +1,7 @@
 import {Client as Discoin} from '@discoin/scambio';
 import {Currency} from '@discoin/scambio/tsc_output/src/types/discoin';
 import {formatTable, maxColumnLength} from '@jonahsnider/util';
+import assert from 'assert';
 import {Message, Permissions} from 'discord.js';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
@@ -56,6 +57,8 @@ export default class RatesCommand extends DiceCommand {
 
 		const oatsCurrency = currencies.find(currency => currency.id === 'OAT');
 
+		assert(oatsCurrency);
+
 		currencies.sort(narcissisticSort);
 
 		const header = ['#', 'Name', '', 'ID', '', 'Discoin value', '', '', 'OAT value', ''];
@@ -69,7 +72,7 @@ export default class RatesCommand extends DiceCommand {
 			`${currency.value.toLocaleString()}`,
 			'D$',
 			'=',
-			`${(currency.value / oatsCurrency!.value).toLocaleString()}`,
+			`${(currency.value / oatsCurrency.value).toLocaleString()}`,
 			'OAT'
 		]);
 

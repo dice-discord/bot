@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {Category} from 'discord-akairo';
 import {DiceCommand} from '../structures/DiceCommand';
 import {generateDocs} from './generate';
@@ -29,10 +30,14 @@ test('generateDocs', () => {
 
 	expect(category).toBeDefined();
 
-	const command = category!.get('id');
+	assert(category);
+
+	const command = category.get('id');
 	expect(command).toBeDefined();
 
-	expect(command!).toEqual(
+	assert(command);
+
+	expect(command).toEqual(
 		[
 			`title: Id`,
 			`description: description.content`,

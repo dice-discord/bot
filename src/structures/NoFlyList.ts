@@ -34,6 +34,7 @@ export class NoFlyList {
 		this.refreshJob = new CronJob('*/15 * * * *', async () => this.refresh());
 
 		this.refreshJob.start();
+		// eslint-disable-next-line promise/prefer-await-to-then
 		this.refresh().catch(error => {
 			throw error;
 		});

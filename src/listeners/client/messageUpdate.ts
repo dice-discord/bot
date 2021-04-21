@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {Message, MessageEmbed, TextChannel} from 'discord.js';
 import {Notifications} from '../../constants';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
@@ -13,11 +14,13 @@ export default class MessageUpdateListener extends DiceListener {
 	}
 
 	public static generateNotification(message: Message): MessageEmbed | null {
+		assert(message.editedAt);
+
 		if (message.guild) {
 			const embed = new MessageEmbed({
 				title: `Message edited (${message.id})`,
 				color: 0xff9800,
-				timestamp: message.editedAt!,
+				timestamp: message.editedAt,
 				footer: {
 					text: `Message history is hidden to protect ${message.author.tag}'s privacy`
 				},
@@ -48,8 +51,10 @@ export default class MessageUpdateListener extends DiceListener {
 
 	public async exec(oldMessage: Message, newMessage: Message): Promise<void> {
 		if (newMessage.guild && newMessage.editedAt && (oldMessage.content !== newMessage.content || oldMessage.embeds.length !== newMessage.embeds.length)) {
+			assert(oldMessage.guild);
+
 			const guildSettings = await this.client.prisma.guild.findUnique({
-				where: {id: oldMessage.guild!.id},
+				where: {id: oldMessage.guild.id},
 				select: {notifications: {select: {channels: true}, where: {id: Notifications.MessageUpdate}}}
 			});
 
@@ -65,7 +70,9 @@ export default class MessageUpdateListener extends DiceListener {
 
 				await Promise.all(
 					setting.channels.map(async channelID => {
-						if (await channelCanBeNotified(Notifications.MessageUpdate, oldMessage.guild!, channelID)) {
+						assert(oldMessage.guild);
+
+						if (await channelCanBeNotified(Notifications.MessageUpdate, oldMessage.guild, channelID)) {
 							const channel = this.client.channels.cache.get(channelID) as TextChannel;
 
 							await channel.send(embed);

@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Collection, Message, Permissions, TextChannel} from 'discord.js';
@@ -38,7 +39,9 @@ export default class PruneCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {amount: number}): Promise<Message | undefined> {
-		if (message.member!.permissionsIn(message.channel).has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+		assert(message.member);
+
+		if (message.member.permissionsIn(message.channel).has(Permissions.FLAGS.MANAGE_MESSAGES)) {
 			const reason = `Requested by ${message.author.tag}`;
 
 			if (message.deletable) {

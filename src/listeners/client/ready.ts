@@ -1,13 +1,14 @@
+import {chunk} from '@jonahsnider/util';
+import {captureException} from '@sentry/node';
+import assert from 'assert';
+import {code} from 'discord-md-tags';
+import {MessageEmbed, WebhookClient} from 'discord.js';
+import * as pkg from '../../../package.json';
+import {readyWebhook, runningInCI, runningInProduction} from '../../config';
+import {ExitCodes} from '../../constants';
 import {baseLogger} from '../../logging/logger';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
-import {runningInProduction, readyWebhook, runningInCI} from '../../config';
-import {MessageEmbed, WebhookClient} from 'discord.js';
-import {code} from 'discord-md-tags';
-import * as pkg from '../../../package.json';
-import {captureException} from '@sentry/node';
-import {ExitCodes} from '../../constants';
 import {Indexes, IndexNames} from '../../util/meili-search';
-import {chunk} from '@jonahsnider/util';
 
 const embed = new MessageEmbed({
 	title: 'Ready',
@@ -34,16 +35,14 @@ export default class ReadyListener extends DiceListener {
 	}
 
 	async exec(): Promise<void> {
-		this.client.user!.setPresence({activity: {name: 'for @Dice help', type: 'WATCHING'}}).catch(error => {
-			this.logger.error("An error occurred while setting the client's presence", error);
-			return captureException(error);
-		});
+		assert(this.client.user);
 
 		if (!this.scopedWithClusterID && this.client.shard?.id !== undefined) {
 			this.logger = baseLogger.scope('client', `cluster ${this.client.shard.id}`);
 			this.scopedWithClusterID = true;
 		}
 
+		// eslint-disable-next-line promise/prefer-await-to-then
 		this.client.influxUtil?.recordDiscordStats().catch(error => {
 			this.logger.error('Failed to report InfluxDB Discord stats', error);
 		});
@@ -67,6 +66,7 @@ export default class ReadyListener extends DiceListener {
 
 				embed.setTimestamp(this.client.readyAt ?? new Date());
 
+				// eslint-disable-next-line promise/prefer-await-to-then
 				webhookClient.send(embed).catch(error => {
 					this.logger.error('An error occurred while sending the ready webhook', error);
 					return captureException(error);

@@ -1,5 +1,5 @@
 import delay from 'delay';
-import {Guild, MessageEmbed, Snowflake, TextChannel, User} from 'discord.js';
+import {Guild, MessageEmbed, TextChannel, User} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';

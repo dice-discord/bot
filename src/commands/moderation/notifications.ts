@@ -1,5 +1,6 @@
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
+import assert from 'assert';
 import {Message, MessageEmbed, Permissions, TextChannel, Snowflake} from 'discord.js';
 import {notifications as globalNotifications, Notifications} from '../../constants';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
@@ -35,7 +36,9 @@ export default class NotificationsCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {notification: number | null}): Promise<Message | undefined> {
-		const notifications = await this.client.prisma.notificationSettings.findMany({where: {guildId: message.guild!.id}, select: {channels: true, id: true}});
+		assert(message.guild);
+
+		const notifications = await this.client.prisma.notificationSettings.findMany({where: {guildId: message.guild.id}, select: {channels: true, id: true}});
 
 		if (args.notification) {
 			/** The ID of the notification referenced in the args. */
@@ -54,15 +57,15 @@ export default class NotificationsCommand extends DiceCommand {
 
 				// This upsert section is really similar to the one in the branch below, make sure to copy changes between them
 				await this.client.prisma.notificationSettings.update({
-					where: {id_guildId: {guildId: message.guild!.id, id: notificationIDFromArgs}},
+					where: {id_guildId: {guildId: message.guild.id, id: notificationIDFromArgs}},
 					data: {channels: {set: [...notificationChannels]}}
 				});
 
 				await this.client.prisma.notificationSettings.upsert({
-					where: {id_guildId: {id: notificationIDFromArgs, guildId: message.guild!.id}},
+					where: {id_guildId: {id: notificationIDFromArgs, guildId: message.guild.id}},
 					create: {
 						id: notificationIDFromArgs,
-						guild: {create: {id: message.guild!.id}},
+						guild: {create: {id: message.guild.id}},
 						channels: {set: [...notificationChannels]}
 					},
 					update: {
@@ -76,10 +79,10 @@ export default class NotificationsCommand extends DiceCommand {
 
 				// This update section is really similar to the one in the branch above, make sure to copy changes between them
 				await this.client.prisma.notificationSettings.upsert({
-					where: {id_guildId: {id: notificationIDFromArgs, guildId: message.guild!.id}},
+					where: {id_guildId: {id: notificationIDFromArgs, guildId: message.guild.id}},
 					create: {
 						id: notificationIDFromArgs,
-						guild: {create: {id: message.guild!.id}},
+						guild: {create: {id: message.guild.id}},
 						// Add this channel to the selected notification's list, different than the above block,
 						channels: {set: [message.channel.id]}
 					},

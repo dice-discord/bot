@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {GuildMember, Message, Permissions} from 'discord.js';
@@ -41,13 +42,11 @@ export default class KickCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {member: GuildMember; reason: string | null}): Promise<Message | undefined> {
-		if (args.reason) {
-			args.reason = `${args.reason} - Requested by ${message.author.tag}`;
-		} else {
-			args.reason = `Requested by ${message.author.tag}`;
-		}
+		assert(message.member);
 
-		if (!notManageable(message.member!, args.member)) {
+		args.reason = args.reason ? `${args.reason} - Requested by ${message.author.tag}` : `Requested by ${message.author.tag}`;
+
+		if (!notManageable(message.member, args.member)) {
 			return message.util?.send("You don't have permissions to kick that member");
 		}
 

@@ -1,3 +1,4 @@
+import assert from 'assert';
 import {Argument} from 'discord-akairo';
 import {bold} from 'discord-md-tags';
 import {Message, Permissions, User} from 'discord.js';
@@ -42,19 +43,18 @@ export default class BanCommand extends DiceCommand {
 	}
 
 	async exec(message: Message, args: {user: User; reason: string | null}): Promise<Message | undefined> {
-		if (args.reason) {
-			args.reason = `${args.reason} - Requested by ${message.author.tag}`;
-		} else {
-			args.reason = `Requested by ${message.author.tag}`;
-		}
+		assert(message.guild);
+		assert(message.member);
 
-		const bans = await message.guild!.fetchBans();
+		args.reason = args.reason ? `${args.reason} - Requested by ${message.author.tag}` : `Requested by ${message.author.tag}`;
+
+		const bans = await message.guild.fetchBans();
 
 		if (bans.has(args.user.id)) {
 			return message.util?.send('That user is already banned');
 		}
 
-		const guildMember = message.guild!.members.resolve(args.user);
+		const guildMember = message.guild.members.resolve(args.user);
 
 		if (guildMember) {
 			if (!guildMember.bannable) {
@@ -63,13 +63,13 @@ export default class BanCommand extends DiceCommand {
 			}
 
 			// Taken from discord.js `GuildMember.manageable https://github.com/discordjs/discord.js/blob/4ec01ddef56272f6bed23dd0eced8ea9851127b7/src/structures/GuildMember.js#L216-L222`
-			if (notManageable(message.member!, guildMember)) {
+			if (notManageable(message.member, guildMember)) {
 				return message.util?.send("You don't have permissions to ban that member");
 			}
 		}
 
 		try {
-			await message.guild!.members.ban(args.user, {reason: args.reason});
+			await message.guild.members.ban(args.user, {reason: args.reason});
 		} catch {
 			// eslint-disable-next-line no-return-await
 			return await message.util?.send('Unable to ban that user');

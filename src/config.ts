@@ -116,6 +116,7 @@ if (googleAppCredentials) {
 	fs.readFile(googleAppCredentials)
 		// eslint-disable-next-line promise/prefer-await-to-then
 		.then(file => secrets.push(escapeStringRegExp((JSON.parse(file.toString()) as GoogleServiceAccount).private_key)))
+		// eslint-disable-next-line promise/prefer-await-to-then
 		.catch(error => {
 			baseLogger.scope('config').error('Failed to load GCP service account JSON', error);
 		});
