@@ -27,7 +27,7 @@
 		"got": "11.8.2",
 		"influx": "5.8.0",
 		"kurasuta": "2.2.3",
-		"meilisearch": "0.18.1",
+		"meilisearch": "0.18.2",
 		"micri": "4.3.0",
 		"parse-color": "1.0.0",
 		"pretty-ms": "7.0.1",
