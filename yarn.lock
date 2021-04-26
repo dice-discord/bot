@@ -3717,7 +3717,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:^3.0.5":
+"cross-fetch@npm:^3.1.4":
   version: 3.1.4
   resolution: "cross-fetch@npm:3.1.4"
   dependencies:
@@ -4171,7 +4171,7 @@ __metadata:
     influx: 5.8.0
     jest: 26.6.3
     kurasuta: 2.2.3
-    meilisearch: 0.18.1
+    meilisearch: 0.18.2
     micri: 4.3.0
     nyc: 15.1.0
     parse-color: 1.0.0
@@ -8541,12 +8541,12 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"meilisearch@npm:0.18.1":
-  version: 0.18.1
-  resolution: "meilisearch@npm:0.18.1"
+"meilisearch@npm:0.18.2":
+  version: 0.18.2
+  resolution: "meilisearch@npm:0.18.2"
   dependencies:
-    cross-fetch: ^3.0.5
-  checksum: 029e672fd23941662e08301096e95c9171c8d11522c0151e2d74f0208d5a695d3d2fe93ac5aa0ae93bd6c8e100286a319c857c1e30042c7a03c761f72150878d
+    cross-fetch: ^3.1.4
+  checksum: 1c45c0a26dbc8b50f50dab72dbd39280f6d17290a236fe36b5a39b3af1d0815946701b6cd33ad10be3e9f50105a00fef4b2dd164e8a84b3ad629adc2c8e977ca
   languageName: node
   linkType: hard
 
