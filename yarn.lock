@@ -4185,7 +4185,7 @@ __metadata:
     semantic-release-docker: 2.2.0
     signale: 1.4.0
     source-map-support: 0.5.19
-    sqreen: 1.62.0
+    sqreen: 1.63.0
     ts-jest: 26.5.5
     ts-node: 9.1.1
     type-fest: 1.0.2
@@ -11806,9 +11806,9 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"sqreen@npm:1.62.0":
-  version: 1.62.0
-  resolution: "sqreen@npm:1.62.0"
+"sqreen@npm:1.63.0":
+  version: 1.63.0
+  resolution: "sqreen@npm:1.63.0"
   dependencies:
     async-listener: ^0.6.0
     async-lock: ^1.2.2
@@ -11838,7 +11838,7 @@ fsevents@^2.1.2:
       optional: true
   bin:
     sqreen-check-network: bin/sqreen-check-network.js
-  checksum: bb67b7ec090ce8aea0b80601b8f9985a67724f9a82668edd2f8ad8e0970c4a95eda5ea00b90dc2a4b5cb1f8e5832202982212075690fdf98546b568f50efcc85
+  checksum: 29a84e0d1f47277c968c091079417511cdea2f40c18c970349fd2143ff110dbc047135f5a2d41853fcf5c41175fc4344223f81ac6a427fc666bd148aa9b854ec
   languageName: node
   linkType: hard
 
