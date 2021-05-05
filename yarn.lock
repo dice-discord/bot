@@ -3833,10 +3833,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:2.21.1":
-  version: 2.21.1
-  resolution: "date-fns@npm:2.21.1"
-  checksum: 00a2ddea1047c4ce6eaadda76a0ee0782d1cfe65061641bbff94f7a70d2d6ab12dac89e027b39d49710bdb2cf264bc1a4e096b0324c7de79699296a4c19f4a40
+"date-fns@npm:2.21.2":
+  version: 2.21.2
+  resolution: "date-fns@npm:2.21.2"
+  checksum: 044e5af3aa7e2d4988747c435700a6ebf6b744b75a9d514cb599d5f8f058d69cc43060e008be33ec8a4ebccb8416b8cdfceb6f13800625e2bc2e57da043b2398
   languageName: node
   linkType: hard
 
@@ -4158,7 +4158,7 @@ __metadata:
     bufferutil: 4.0.3
     convert: 1.8.3
     cron: 1.8.2
-    date-fns: 2.21.1
+    date-fns: 2.21.2
     delay: 5.0.0
     discord-akairo: 8.1.0
     discord-md-tags: 1.0.0
