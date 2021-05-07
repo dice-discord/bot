@@ -4182,7 +4182,7 @@ __metadata:
     discord-akairo: 8.1.0
     discord-md-tags: 1.0.0
     discord.js: 12.5.3
-    dotenv: 8.2.0
+    dotenv: 9.0.0
     escape-string-regexp: 4.0.0
     eslint-plugin-jest: 24.3.6
     eslint-plugin-prettier: 3.4.0
@@ -4348,10 +4348,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:8.2.0":
-  version: 8.2.0
-  resolution: "dotenv@npm:8.2.0"
-  checksum: 16cb89cbd7b98b053899b8aba8c5044c8fb61a2db8a81fe70360b75035fce5fed53bd7a34d772be717d0880c0321122a4c09423f518025e1b52d96791521b1a7
+"dotenv@npm:9.0.0":
+  version: 9.0.0
+  resolution: "dotenv@npm:9.0.0"
+  checksum: 8111fb99a12a8da9fedc90d855d734bbf026f3257d67b611b2517d393b027ca5774c1f9dd5aa0887f339f4e7c711f99bdd8bc82fa076e572f3eb6000b2c09343
   languageName: node
   linkType: hard
 
