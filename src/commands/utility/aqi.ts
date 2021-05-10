@@ -48,7 +48,7 @@ export default class AqiCommand extends DiceCommand {
 		try {
 			const request = got<Forecast[]>('aq/forecast/zipCode', {
 				prefixUrl: 'https://www.airnowapi.org',
-				searchParams: (data as unknown) as Record<string, string>,
+				searchParams: data as unknown as Record<string, string>,
 				responseType: 'json'
 			});
 
