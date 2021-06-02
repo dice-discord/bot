@@ -11,7 +11,7 @@
 		"@discoin/scambio": "2.2.0",
 		"@google-cloud/debug-agent": "5.2.0",
 		"@google-cloud/profiler": "4.1.2",
-		"@jonahsnider/util": "2.13.0",
+		"@jonahsnider/util": "2.14.0",
 		"@prisma/client": "2.24.0",
 		"@sentry/node": "6.5.0",
 		"bufferutil": "4.0.3",
