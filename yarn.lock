@@ -4409,7 +4409,7 @@ __metadata:
     eslint-plugin-jest: 24.3.6
     eslint-plugin-prettier: 3.4.0
     got: 11.8.2
-    influx: 5.9.0
+    influx: 5.9.2
     jest: 27.0.3
     kurasuta: 2.2.3
     meilisearch: 0.18.2
@@ -6733,10 +6733,10 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"influx@npm:5.9.0":
-  version: 5.9.0
-  resolution: "influx@npm:5.9.0"
-  checksum: 4d8ba7633b4766ba4da39d501273d9a11929bd528ba635538558ba5b77876da218907f65070aaf8f1ef34f944a2920a8724647b70f66b26b0e20152047e41c94
+"influx@npm:5.9.2":
+  version: 5.9.2
+  resolution: "influx@npm:5.9.2"
+  checksum: fa44897b5f5245b3daa67c204622f3b2213c655498b7a3977d6b810ec40bf2eb943922d2cdf6148e8dd3f75d6963e66cb59398bb9aaa2342baf234e1fc10d184
   languageName: node
   linkType: hard
 
