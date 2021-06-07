@@ -11,6 +11,7 @@ COPY package.json yarn.lock .yarnrc.yml schema.prisma .snyk ./
 COPY .yarn ./.yarn
 
 # Install build tools for native dependencies
+# hadolint ignore=DL3018
 RUN apk add --no-cache make gcc g++ python3
 RUN yarn install --immutable
 
