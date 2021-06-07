@@ -2,8 +2,8 @@ import {chunk} from '@jonahsnider/util';
 import {captureException} from '@sentry/node';
 import assert from 'assert';
 import {code} from 'discord-md-tags';
-import {Snowflake} from 'discord.js';
-import {MessageEmbed, WebhookClient} from 'discord.js';
+import {Snowflake, MessageEmbed, WebhookClient} from 'discord.js';
+
 import * as pkg from '../../../package.json';
 import {readyWebhook, runningInCI, runningInProduction} from '../../config';
 import {ExitCodes} from '../../constants';
@@ -55,6 +55,7 @@ export default class ReadyListener extends DiceListener {
 
 			for (const bot of bots) {
 				try {
+					// eslint-disable-next-line no-await-in-loop
 					await guild.members.ban(bot, {reason: 'Automated action: malicious bot'});
 				} catch {
 					failures++;
