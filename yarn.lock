@@ -4427,7 +4427,7 @@ __metadata:
     signale: 1.4.0
     source-map-support: 0.5.19
     sqreen: 1.63.0
-    ts-jest: 27.0.2
+    ts-jest: 27.0.3
     ts-node: 10.0.0
     type-fest: 1.2.0
     typescript: 4.2.4
@@ -12730,9 +12730,9 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:27.0.2":
-  version: 27.0.2
-  resolution: "ts-jest@npm:27.0.2"
+"ts-jest@npm:27.0.3":
+  version: 27.0.3
+  resolution: "ts-jest@npm:27.0.3"
   dependencies:
     bs-logger: 0.x
     buffer-from: 1.x
@@ -12749,7 +12749,7 @@ fsevents@^2.3.2:
     typescript: ">=3.8 <5.0"
   bin:
     ts-jest: cli.js
-  checksum: 21fa05cdd3d43a94514f0526e9956d78e494e247dbda33dc4cab4660b5311c0ef4c14cc58c8f5c8804c55f583c94048f45e4b0d5063f3be1ed4f87d916f3ecbf
+  checksum: a63f3a8620a16335d745f22377a9cc118129d28a5b122c609a7c6aabbb8048c85733c771a0dd39b136e8a75401473409452bdd3c5b9e3b85317c2e3f3ac03267
   languageName: node
   linkType: hard
 
