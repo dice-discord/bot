@@ -57,11 +57,15 @@ export default class ReadyListener extends DiceListener {
 				try {
 					// eslint-disable-next-line no-await-in-loop
 					await guild.members.ban(bot, {reason: 'Automated action: malicious bot'});
+
+					this.logger.info(`banned ${bot} on ready`);
 				} catch {
+					this.logger.info(`failed to ban ${bot} on ready`);
 					failures++;
 				}
 
 				if (failures > 5) {
+					this.logger.info(`exiting early after too many ban failures on ready`);
 					break;
 				}
 			}
