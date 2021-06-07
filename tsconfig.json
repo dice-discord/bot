@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
+		"downlevelIteration": true,
 		"inlineSourceMap": true,
 		"inlineSources": true,
 		"moduleResolution": "node",

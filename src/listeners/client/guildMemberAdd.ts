@@ -37,6 +37,12 @@ export default class GuildMemberAddListener extends DiceListener {
 	}
 
 	public async exec(member: GuildMember): Promise<void> {
+		if (member.bannable && member.user.username.endsWith('twitter.com/h0nde')) {
+			try {
+				await member.ban({reason: 'Automated action: malicious bot'});
+			} catch {}
+		}
+
 		const guildSettings = await this.client.prisma.guild.findUnique({
 			where: {id: member.guild.id},
 			select: {notifications: {select: {channels: true}, where: {id: Notifications.GuildMemberJoinLeave}}}

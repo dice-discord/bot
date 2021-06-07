@@ -2,6 +2,7 @@ import {chunk} from '@jonahsnider/util';
 import {captureException} from '@sentry/node';
 import assert from 'assert';
 import {code} from 'discord-md-tags';
+import {Snowflake} from 'discord.js';
 import {MessageEmbed, WebhookClient} from 'discord.js';
 import * as pkg from '../../../package.json';
 import {readyWebhook, runningInCI, runningInProduction} from '../../config';
@@ -46,6 +47,24 @@ export default class ReadyListener extends DiceListener {
 		this.client.influxUtil?.recordDiscordStats().catch(error => {
 			this.logger.error('Failed to report InfluxDB Discord stats', error);
 		});
+
+		const bots: Set<Snowflake> = new Set(this.client.users.cache.filter(user => user.username.endsWith('twitter.com/h0nde')).map(user => user.id));
+
+		for (const guild of this.client.guilds.cache.values()) {
+			let failures = 0;
+
+			for (const bot of bots) {
+				try {
+					await guild.members.ban(bot, {reason: 'Automated action: malicious bot'});
+				} catch {
+					failures++;
+				}
+
+				if (failures > 5) {
+					break;
+				}
+			}
+		}
 
 		if (!runningInCI) {
 			const index = await this.client.meiliSearch.getOrCreateIndex<Indexes[IndexNames.Users]>(IndexNames.Users);
