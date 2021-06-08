@@ -2,8 +2,7 @@ import {chunk} from '@jonahsnider/util';
 import {captureException} from '@sentry/node';
 import assert from 'assert';
 import {code} from 'discord-md-tags';
-import {Snowflake, MessageEmbed, WebhookClient} from 'discord.js';
-
+import {MessageEmbed, WebhookClient} from 'discord.js';
 import * as pkg from '../../../package.json';
 import {readyWebhook, runningInCI, runningInProduction} from '../../config';
 import {ExitCodes} from '../../constants';
