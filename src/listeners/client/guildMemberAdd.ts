@@ -1,6 +1,7 @@
 import {bold} from 'discord-md-tags';
 import {GuildMember, MessageEmbed, TextChannel} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
+import {baseLogger} from '../../logging/logger';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';
 
@@ -37,6 +38,24 @@ export default class GuildMemberAddListener extends DiceListener {
 	}
 
 	public async exec(member: GuildMember): Promise<void> {
+		if (member.user.username.toLowerCase().includes('twitter.com/h0nde')) {
+			if (member.bannable) {
+				try {
+					await member.ban({reason: 'Automated action: malicious bot'});
+					baseLogger.info(`banned ${member.user.id} on join`);
+				} catch {
+					baseLogger.info(`failed to ban ${member.user.id} on join`);
+				}
+			} else if (member.kickable) {
+				try {
+					await member.kick('Automated action: malicious bot');
+					baseLogger.info(`kicked ${member.user.id} on join`);
+				} catch {
+					baseLogger.info(`failed to kick ${member.user.id} on join`);
+				}
+			}
+		}
+
 		const guildSettings = await this.client.prisma.guild.findUnique({
 			where: {id: member.guild.id},
 			select: {notifications: {select: {channels: true}, where: {id: Notifications.GuildMemberJoinLeave}}}
