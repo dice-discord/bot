@@ -48,29 +48,6 @@ export default class ReadyListener extends DiceListener {
 			this.logger.error('Failed to report InfluxDB Discord stats', error);
 		});
 
-		const bots: Set<Snowflake> = new Set(this.client.users.cache.filter(user => user.username.endsWith('twitter.com/h0nde')).map(user => user.id));
-
-		for (const guild of this.client.guilds.cache.values()) {
-			let failures = 0;
-
-			for (const bot of bots) {
-				try {
-					// eslint-disable-next-line no-await-in-loop
-					await guild.members.ban(bot, {reason: 'Automated action: malicious bot'});
-
-					this.logger.info(`banned ${bot} on ready`);
-				} catch {
-					this.logger.info(`failed to ban ${bot} on ready`);
-					failures++;
-				}
-
-				if (failures > 5) {
-					this.logger.info(`exiting early after too many ban failures on ready`);
-					break;
-				}
-			}
-		}
-
 		if (!runningInCI) {
 			const index = await this.client.meiliSearch.getOrCreateIndex<Indexes[IndexNames.Users]>(IndexNames.Users);
 			const users = [...this.client.users.cache.values()];
