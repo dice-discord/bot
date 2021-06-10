@@ -1667,7 +1667,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node14@npm:1.0.0, @tsconfig/node14@npm:^1.0.0":
+"@tsconfig/node14@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@tsconfig/node14@npm:1.0.1"
+  checksum: d0068287dba46dc98e7d49c229b0fee034fbac2bb4bc2efe12cc67227a1c68ec0728ca1e535dff7f033f7455de6c67e9b8f9d90f4fc3bb07c0d9ac08186fe65c
+  languageName: node
+  linkType: hard
+
+"@tsconfig/node14@npm:^1.0.0":
   version: 1.0.0
   resolution: "@tsconfig/node14@npm:1.0.0"
   checksum: 3eda14250ed8a03910ce822056f0d2fc2bcf41d9f1f3c6b202a6b32277dc638f475425fe7a1c03fbdba4e7f3b89668ecbac92d101c9e9fb56018c098393759ec
@@ -4388,7 +4395,7 @@ __metadata:
     "@prisma/client": 2.24.1
     "@semantic-release/exec": 5.0.0
     "@sentry/node": 6.5.1
-    "@tsconfig/node14": 1.0.0
+    "@tsconfig/node14": 1.0.1
     "@types/cron": 1.7.2
     "@types/jest": 26.0.23
     "@types/node": 14.17.3
