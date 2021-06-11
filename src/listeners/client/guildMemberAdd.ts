@@ -1,3 +1,5 @@
+import convert, {ms} from 'convert';
+import {sub} from 'date-fns';
 import {bold} from 'discord-md-tags';
 import {GuildMember, MessageEmbed, TextChannel} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
@@ -38,7 +40,10 @@ export default class GuildMemberAddListener extends DiceListener {
 	}
 
 	public async exec(member: GuildMember): Promise<void> {
-		if (member.user.username.toLowerCase().includes('twitter.com/h0nde')) {
+		const username = member.user.username.toLowerCase();
+		const ageMs = member.user.createdTimestamp - Date.now();
+
+		if ((username.includes('twitter.com/h0nde') || username.includes('h0nda')) && ageMs < convert(1).from('minutes').to('milliseconds')) {
 			if (member.bannable) {
 				try {
 					await member.ban({reason: 'Automated action: malicious bot'});
