@@ -40,9 +40,9 @@ export default class GuildMemberAddListener extends DiceListener {
 
 	public async exec(member: GuildMember): Promise<void> {
 		const username = member.user.username.toLowerCase();
-		const ageMs = member.user.createdTimestamp - Date.now();
+		const ageMs = (member.joinedTimestamp ?? Date.now()) - member.user.createdTimestamp;
 
-		if ((username.includes('twitter.com/h0nde') || username.includes('h0nda')) && ageMs < convert(1).from('minutes').to('milliseconds')) {
+		if ((username.includes('twitter.com/h0nde') || username.includes('h0nda')) && ageMs < convert(3).from('minutes').to('milliseconds')) {
 			if (member.bannable) {
 				try {
 					await member.ban({reason: 'Automated action: malicious bot'});
