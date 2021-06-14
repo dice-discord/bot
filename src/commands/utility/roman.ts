@@ -1,4 +1,4 @@
-import {descending} from '@jonahsnider/util';
+import {Sort, sortObject} from '@jonahsnider/util';
 import {Argument, ParsedValuePredicate} from 'discord-akairo';
 import {Message} from 'discord.js';
 import {AkairoArgumentType, DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
@@ -23,9 +23,7 @@ const conversion: Record<RomanNumeralCharacter, number> = {
 const unsortedExtraConversion: Record<ExtraRomanNumeralCharacter, number> = {...conversion, CM: 900, CD: 400, XC: 90, XL: 40, IX: 9, IV: 4};
 
 // This sorts by value descending to counteract the spread operator ruining the order of elements from above
-const extraConversion = Object.fromEntries(
-	(Object.entries(unsortedExtraConversion) as Array<[ExtraRomanNumeralCharacter, number]>).sort(([, a], [, b]) => descending(a, b))
-);
+const extraConversion = Object.fromEntries(sortObject(unsortedExtraConversion, Sort.descending));
 
 /** Regular expression for Roman numerals. Case sensitive. */
 export const romanRegExp = /^[MDCLXVI]+$/;
