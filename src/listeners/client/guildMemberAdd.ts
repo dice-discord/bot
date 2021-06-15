@@ -39,33 +39,6 @@ export default class GuildMemberAddListener extends DiceListener {
 	}
 
 	public async exec(member: GuildMember): Promise<void> {
-		const noAvatar = member.user.avatar === null;
-		const badUsername = /h.nd./i.test(member.user.username);
-		const ageMs = (member.joinedTimestamp ?? Date.now()) - member.user.createdTimestamp;
-
-		if ((badUsername && ageMs < convert(3).from('minutes').to('milliseconds')) || (noAvatar && ageMs < convert(1).from('minutes').to('milliseconds'))) {
-			if (member.bannable) {
-				try {
-					await member.ban({reason: 'Automated action: malicious bot'});
-					baseLogger.info(`banned ${member.user.id} on join`);
-				} catch {
-					baseLogger.info(`failed to ban ${member.user.id} on join`);
-				}
-			} else if (member.kickable) {
-				try {
-					await member.kick('Automated action: malicious bot');
-					baseLogger.info(`kicked ${member.user.id} on join`);
-				} catch {
-					baseLogger.info(`failed to kick ${member.user.id} on join`);
-				}
-			}
-		} else if (badUsername || noAvatar) {
-			baseLogger.debug({
-				user: {tag: member.user.tag, id: member.user.id, ageMs},
-				flags: {badUsername, noAvatar}
-			});
-		}
-
 		const guildSettings = await this.client.prisma.guild.findUnique({
 			where: {id: member.guild.id},
 			select: {notifications: {select: {channels: true}, where: {id: Notifications.GuildMemberJoinLeave}}}
