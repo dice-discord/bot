@@ -1,8 +1,6 @@
-import convert from 'convert';
 import {bold} from 'discord-md-tags';
 import {GuildMember, MessageEmbed, TextChannel} from 'discord.js';
 import {Colors, Notifications} from '../../constants';
-import {baseLogger} from '../../logging/logger';
 import {DiceListener, DiceListenerCategories} from '../../structures/DiceListener';
 import {channelCanBeNotified} from '../../util/notifications';
 
