@@ -1870,10 +1870,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.17.3":
-  version: 14.17.3
-  resolution: "@types/node@npm:14.17.3"
-  checksum: 0d3e3c3dbb8250166d7c8c7c6221bde20a366d2c34b27c0072c3962a32c8a74c4ae4a168bfe53d6193e7b0bba8d8bc87608a6fd2af7918cd444a9aa699b4ce18
+"@types/node@npm:14.17.4":
+  version: 14.17.4
+  resolution: "@types/node@npm:14.17.4"
+  checksum: 947ada8b39710c8fedf60f342b4ac1a08de8ebfbd4f09471b4e0006c2b0c7b832513e4dc2cdd455af5236910e2e725899bd9ce0aaecd097b2867d3e2ab62d8c6
   languageName: node
   linkType: hard
 
@@ -4398,7 +4398,7 @@ __metadata:
     "@tsconfig/node14": 1.0.1
     "@types/cron": 1.7.2
     "@types/jest": 26.0.23
-    "@types/node": 14.17.3
+    "@types/node": 14.17.4
     "@types/parse-color": 1.0.0
     "@types/roll": 1.2.0
     "@types/signale": 1.4.1
