@@ -1965,12 +1965,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ws@npm:7.4.5":
-  version: 7.4.5
-  resolution: "@types/ws@npm:7.4.5"
+"@types/ws@npm:7.4.6":
+  version: 7.4.6
+  resolution: "@types/ws@npm:7.4.6"
   dependencies:
     "@types/node": "*"
-  checksum: b467f596cc9992dde38ea9bb824135f20d0eae92515304e3de25e4b98a3b41e71897801900563c1e72f36fa7a6277c873896b842bd6d1b9d4b9457834533903b
+  checksum: bf81b170ab2caeb5f602e1094058d31b2e19fbb725d25007fbca01c1043c10c3fdd0ee67dd29cadab3bdfed52cf930d9d0ec06bb51b811e67176959476cbd043
   languageName: node
   linkType: hard
 
@@ -4402,7 +4402,7 @@ __metadata:
     "@types/parse-color": 1.0.0
     "@types/roll": 1.2.0
     "@types/signale": 1.4.1
-    "@types/ws": 7.4.5
+    "@types/ws": 7.4.6
     bufferutil: 4.0.3
     convert: 1.9.1
     cron: 1.8.2
