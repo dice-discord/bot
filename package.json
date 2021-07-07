@@ -43,7 +43,7 @@
 		"@eclass/semantic-release-sentry-releases": "2.9.0",
 		"@semantic-release/exec": "5.0.0",
 		"@tsconfig/node14": "1.0.1",
-		"@types/cron": "1.7.2",
+		"@types/cron": "1.7.3",
 		"@types/jest": "26.0.23",
 		"@types/node": "14.17.4",
 		"@types/parse-color": "1.0.0",
