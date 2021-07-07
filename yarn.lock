@@ -1949,12 +1949,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/signale@npm:1.4.1":
-  version: 1.4.1
-  resolution: "@types/signale@npm:1.4.1"
+"@types/signale@npm:1.4.2":
+  version: 1.4.2
+  resolution: "@types/signale@npm:1.4.2"
   dependencies:
     "@types/node": "*"
-  checksum: 37710251e5be81703dab7c954fe9a9321100d9a9118402244c19bf603b739c33141f96edd2af178ce2457b44b127e602662e5633904d722eae75acb6c3801b1f
+  checksum: 323bd515fb992d2e75fa15ee15277e257ec1d917901b067a92c8b64b7024aa4d059d7a1231fcf269e73e3febcf749a001e1b77608890e1aa45fced868c961835
   languageName: node
   linkType: hard
 
@@ -4401,7 +4401,7 @@ __metadata:
     "@types/node": 14.17.4
     "@types/parse-color": 1.0.0
     "@types/roll": 1.2.0
-    "@types/signale": 1.4.1
+    "@types/signale": 1.4.2
     "@types/ws": 7.4.6
     bufferutil: 4.0.3
     convert: 1.9.1
