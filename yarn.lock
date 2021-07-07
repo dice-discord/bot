@@ -1748,13 +1748,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cron@npm:1.7.2":
-  version: 1.7.2
-  resolution: "@types/cron@npm:1.7.2"
+"@types/cron@npm:1.7.3":
+  version: 1.7.3
+  resolution: "@types/cron@npm:1.7.3"
   dependencies:
     "@types/node": "*"
     moment: ">=2.14.0"
-  checksum: 24628218d0645cfa82167451de1d38103bdc2e6ddb447a447ba2021b4c9da0d88cb51b39695ba51ddf31499ba4fd295694d702b5418871a255ef503c6eddc4be
+  checksum: 62abdc26f0c68cc5cfc741fa78dabab4e755fda8b107bce29d67c7159caa4192cd371b9e66ae2fc0b899559d3d4ce907b44e7203e5b60b895eba716b56aaaa0d
   languageName: node
   linkType: hard
 
@@ -4396,7 +4396,7 @@ __metadata:
     "@semantic-release/exec": 5.0.0
     "@sentry/node": 6.8.0
     "@tsconfig/node14": 1.0.1
-    "@types/cron": 1.7.2
+    "@types/cron": 1.7.3
     "@types/jest": 26.0.23
     "@types/node": 14.17.4
     "@types/parse-color": 1.0.0
