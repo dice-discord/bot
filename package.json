@@ -48,7 +48,7 @@
 		"@types/node": "14.17.4",
 		"@types/parse-color": "1.0.0",
 		"@types/roll": "1.2.0",
-		"@types/signale": "1.4.1",
+		"@types/signale": "1.4.2",
 		"@types/ws": "7.4.6",
 		"eslint-plugin-jest": "24.3.6",
 		"eslint-plugin-prettier": "3.4.0",
