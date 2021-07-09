@@ -4433,7 +4433,7 @@ __metadata:
     semantic-release-docker: 2.2.0
     signale: 1.4.0
     source-map-support: 0.5.19
-    sqreen: 1.63.0
+    sqreen: 1.64.0
     ts-jest: 27.0.3
     ts-node: 10.0.0
     type-fest: 1.2.1
@@ -11964,16 +11964,16 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"sq-ecosystem@npm:0.21.0":
-  version: 0.21.0
-  resolution: "sq-ecosystem@npm:0.21.0"
+"sq-ecosystem@npm:0.21.1":
+  version: 0.21.1
+  resolution: "sq-ecosystem@npm:0.21.1"
   dependencies:
     busboy: ^0.3.1
     on-finished: ^2.3.0
     semver: ^6.3.0
     shimmer: ^1.2.1
     uuid: ^3.2.1
-  checksum: 2765fb5591f31688e189103974d5f8e5310c7ec0340177d7bc046fa81b4d1680df1e34c9480be7df5d34c4e7e48a728c11988b9515f4ade0d76729e3ae054aaa
+  checksum: a984b3754de7b902cc8ac5dc131c563a5931f9d7cef08ef91343316828c35e02995b5c28ae670a595bc2f8c2a86d2de9002d9ad44c54ed9af4e45a54de56c043
   languageName: node
   linkType: hard
 
@@ -11997,9 +11997,9 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"sqreen@npm:1.63.0":
-  version: 1.63.0
-  resolution: "sqreen@npm:1.63.0"
+"sqreen@npm:1.64.0":
+  version: 1.64.0
+  resolution: "sqreen@npm:1.64.0"
   dependencies:
     async-listener: ^0.6.0
     async-lock: ^1.2.2
@@ -12019,7 +12019,7 @@ fsevents@^2.3.2:
     recursive-readdir: ^2.1.0
     semver: ^5.2.0
     shimmer: ^1.2.0
-    sq-ecosystem: 0.21.0
+    sq-ecosystem: 0.21.1
     sq-native: 1.0.10
     sqreen-sdk: ^0.8.1
     uuid: ^3.1.0
@@ -12029,7 +12029,7 @@ fsevents@^2.3.2:
       optional: true
   bin:
     sqreen-check-network: bin/sqreen-check-network.js
-  checksum: 29a84e0d1f47277c968c091079417511cdea2f40c18c970349fd2143ff110dbc047135f5a2d41853fcf5c41175fc4344223f81ac6a427fc666bd148aa9b854ec
+  checksum: e3cd2c4f83ecabbdc9565247bfd5f70c5f3eeb9534d84ec934186fd302879b0d6d39af668522c14e1ead87836c256a467aad539ada0cc899559bb9b45347345b
   languageName: node
   linkType: hard
 
