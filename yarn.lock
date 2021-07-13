@@ -638,9 +638,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@google-cloud/debug-agent@npm:5.2.6":
-  version: 5.2.6
-  resolution: "@google-cloud/debug-agent@npm:5.2.6"
+"@google-cloud/debug-agent@npm:5.2.7":
+  version: 5.2.7
+  resolution: "@google-cloud/debug-agent@npm:5.2.7"
   dependencies:
     "@google-cloud/common": ^3.0.0
     acorn: ^8.0.0
@@ -653,7 +653,7 @@ __metadata:
     semver: ^7.0.0
     source-map: ^0.7.3
     split: ^1.0.0
-  checksum: 9730067e2568672a95659d102984a39f22f3ddedd6110f138f1426341e0c232be0f19a727a6de5a84b849f2c2a396b023c5b88a6108ef64b8a151b72f5d518c1
+  checksum: 25d4f3c7dc5c3c5376af8e0511cb5668ad882ac741e9c13865abadf410faf840a1fb001970369b07ae946016b08c7ff3b04499b02f2c75d5d040340ccc63b206
   languageName: node
   linkType: hard
 
@@ -4389,7 +4389,7 @@ __metadata:
   dependencies:
     "@discoin/scambio": 2.2.0
     "@eclass/semantic-release-sentry-releases": 2.9.0
-    "@google-cloud/debug-agent": 5.2.6
+    "@google-cloud/debug-agent": 5.2.7
     "@google-cloud/profiler": 4.1.2
     "@jonahsnider/util": 4.1.0
     "@prisma/client": 2.26.0
