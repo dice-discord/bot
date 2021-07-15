@@ -1,5 +1,5 @@
 ### INSTALLER STAGE ###
-FROM node:16.4.2-alpine AS installer
+FROM node:16.5.0-alpine AS installer
 
 # Create app directory
 WORKDIR /usr/src/installer
@@ -16,7 +16,7 @@ RUN apk add --no-cache make gcc g++ python3
 RUN yarn install --immutable
 
 ### BUILDER STAGE ###
-FROM node:16.4.2-alpine AS builder
+FROM node:16.5.0-alpine AS builder
 
 # Create app directory
 WORKDIR /usr/src/builder
@@ -44,7 +44,7 @@ COPY src ./src
 RUN yarn run build
 
 ### BOT STAGE ###
-FROM node:16.4.2-alpine AS bot
+FROM node:16.5.0-alpine AS bot
 
 LABEL maintainer 'Jonah Snider <jonah@jonah.pw> (jonah.pw)'
 
