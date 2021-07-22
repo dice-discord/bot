@@ -4406,7 +4406,7 @@ __metadata:
     discord.js: 12.5.3
     dotenv: 10.0.0
     escape-string-regexp: 4.0.0
-    eslint-plugin-jest: 24.3.6
+    eslint-plugin-jest: 24.3.7
     eslint-plugin-prettier: 3.4.0
     got: 11.8.2
     influx: 5.9.2
@@ -4427,7 +4427,7 @@ __metadata:
     signale: 1.4.0
     source-map-support: 0.5.19
     sqreen: 1.64.1
-    ts-jest: 27.0.3
+    ts-jest: 27.0.4
     ts-node: 10.1.0
     type-fest: 1.2.2
     typescript: 4.2.4
@@ -5072,9 +5072,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:24.3.6":
-  version: 24.3.6
-  resolution: "eslint-plugin-jest@npm:24.3.6"
+"eslint-plugin-jest@npm:24.3.7":
+  version: 24.3.7
+  resolution: "eslint-plugin-jest@npm:24.3.7"
   dependencies:
     "@typescript-eslint/experimental-utils": ^4.0.1
   peerDependencies:
@@ -5083,7 +5083,7 @@ __metadata:
   peerDependenciesMeta:
     "@typescript-eslint/eslint-plugin":
       optional: true
-  checksum: 13f4522cd838a6a356a080f76424579a58aa2f9b4f4b3fdd3713278718496c62ba3d8f53c0fb6ad6fd96ca6cfd6ee728f7dd51893b91eccfb4396b832f757afb
+  checksum: 744273aaabf2c427e287b9591e91ddc2141ab65bf6816ae8b7823ebf066a2d368b5c6db444da511a7b39e9389d5ee0891b5baf548f60313e5fbc3ac828cda2f2
   languageName: node
   linkType: hard
 
@@ -12706,9 +12706,9 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:27.0.3":
-  version: 27.0.3
-  resolution: "ts-jest@npm:27.0.3"
+"ts-jest@npm:27.0.4":
+  version: 27.0.4
+  resolution: "ts-jest@npm:27.0.4"
   dependencies:
     bs-logger: 0.x
     buffer-from: 1.x
@@ -12721,11 +12721,21 @@ fsevents@^2.3.2:
     semver: 7.x
     yargs-parser: 20.x
   peerDependencies:
+    "@babel/core": ">=7.0.0-beta.0 <8"
+    "@types/jest": ^26.0.0
+    babel-jest: ">=27.0.0 <28"
     jest: ^27.0.0
     typescript: ">=3.8 <5.0"
+  peerDependenciesMeta:
+    "@babel/core":
+      optional: true
+    "@types/jest":
+      optional: true
+    babel-jest:
+      optional: true
   bin:
     ts-jest: cli.js
-  checksum: a63f3a8620a16335d745f22377a9cc118129d28a5b122c609a7c6aabbb8048c85733c771a0dd39b136e8a75401473409452bdd3c5b9e3b85317c2e3f3ac03267
+  checksum: 2891c2052f881e9350367ec0f978193d4268485496aa2613e45d6208f5809e7a04932105be38f3d1c016ff43d7699b7c7728728df6864ce22bc054aa0954af2f
   languageName: node
   linkType: hard
 
