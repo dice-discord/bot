@@ -40,7 +40,7 @@
 		"zlib-sync": "0.1.7"
 	},
 	"devDependencies": {
-		"@eclass/semantic-release-sentry-releases": "2.9.0",
+		"@eclass/semantic-release-sentry-releases": "2.9.1",
 		"@semantic-release/exec": "5.0.0",
 		"@tsconfig/node14": "1.0.1",
 		"@types/cron": "1.7.3",

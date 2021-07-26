@@ -590,17 +590,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eclass/semantic-release-sentry-releases@npm:2.9.0":
-  version: 2.9.0
-  resolution: "@eclass/semantic-release-sentry-releases@npm:2.9.0"
+"@eclass/semantic-release-sentry-releases@npm:2.9.1":
+  version: 2.9.1
+  resolution: "@eclass/semantic-release-sentry-releases@npm:2.9.1"
   dependencies:
     "@semantic-release/error": ^2.1.0
     aggregate-error: ^3.1.0
-    form-data: ^3.0.0
+    form-data: ^4.0.0
     git-diff-tree: ^1.1.0
   peerDependencies:
     semantic-release: ">=11.0.0 <18.0.0"
-  checksum: 831b7ba14d439eb0182a54d30c4a6a4885b3abea181b615e86d6a5a6c4218315a533c6041303995f7ff13f8f6c7274090d3d4fe02ed853403f15b425a675f7bd
+  checksum: 36187bbd5237db41f6694e3a01d52bd33a580dda7b3d38971c9ab0d01a996d61fb2a661b91683bc5c2dbc50c1d793b6128d2fa6edab83a404407f44e59ae4ca1
   languageName: node
   linkType: hard
 
@@ -4381,7 +4381,7 @@ __metadata:
   resolution: "dice@workspace:."
   dependencies:
     "@discoin/scambio": 2.2.0
-    "@eclass/semantic-release-sentry-releases": 2.9.0
+    "@eclass/semantic-release-sentry-releases": 2.9.1
     "@google-cloud/debug-agent": 5.2.7
     "@google-cloud/profiler": 4.1.3
     "@jonahsnider/util": 4.1.0
@@ -5804,6 +5804,17 @@ __metadata:
     combined-stream: ^1.0.8
     mime-types: ^2.1.12
   checksum: 6574ff4d2d845c47ba288151a6e0573767eefdee9da358be199e0f0b66aa5c454e7d62ed5e0daef6f84167ba1e9596e064f36f206488e460ef449ef7b653cdfc
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "form-data@npm:4.0.0"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    mime-types: ^2.1.12
+  checksum: ecbe8f41bcf5c415f38e39058b34598a9261bb74a3d54b633d0b5dd8b7cf9a30b0626cd06ae8e79874a2ca88c222041142a7893e5afdd35fdfc3272264d03d44
   languageName: node
   linkType: hard
 
