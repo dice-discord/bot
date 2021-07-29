@@ -590,9 +590,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eclass/semantic-release-sentry-releases@npm:2.9.1":
-  version: 2.9.1
-  resolution: "@eclass/semantic-release-sentry-releases@npm:2.9.1"
+"@eclass/semantic-release-sentry-releases@npm:2.10.0":
+  version: 2.10.0
+  resolution: "@eclass/semantic-release-sentry-releases@npm:2.10.0"
   dependencies:
     "@semantic-release/error": ^2.1.0
     aggregate-error: ^3.1.0
@@ -600,7 +600,7 @@ __metadata:
     git-diff-tree: ^1.1.0
   peerDependencies:
     semantic-release: ">=11.0.0 <18.0.0"
-  checksum: 36187bbd5237db41f6694e3a01d52bd33a580dda7b3d38971c9ab0d01a996d61fb2a661b91683bc5c2dbc50c1d793b6128d2fa6edab83a404407f44e59ae4ca1
+  checksum: c58276658de222e8ac15bf1917b7577c8f4d990b9faacd9d1be97e0aec452b40e566bbce2dadc90c039c2e1ded954a228e2d2155a767cf8717ec34c265fcbce9
   languageName: node
   linkType: hard
 
@@ -4381,7 +4381,7 @@ __metadata:
   resolution: "dice@workspace:."
   dependencies:
     "@discoin/scambio": 2.2.0
-    "@eclass/semantic-release-sentry-releases": 2.9.1
+    "@eclass/semantic-release-sentry-releases": 2.10.0
     "@google-cloud/debug-agent": 5.2.7
     "@google-cloud/profiler": 4.1.3
     "@jonahsnider/util": 4.1.0
