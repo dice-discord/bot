@@ -1,3 +1,4 @@
+import {pull} from '@jonahsnider/util';
 import {PrismaClient} from '@prisma/client';
 import assert from 'assert';
 import {Guild, MessageEmbed, Permissions, Snowflake, TextChannel, User} from 'discord.js';
@@ -27,7 +28,7 @@ export async function channelCanBeNotified(notification: Notifications, guild: G
 
 	if (notificationSettings) {
 		// Remove the channel we no longer have send permissions in
-		notificationSettings.channels.splice(notificationSettings.channels.indexOf(channelID));
+		pull(notificationSettings.channels, channelID);
 
 		// This update the array for the specified notification
 		(guild.client as DiceClient).prisma.guild
@@ -69,7 +70,7 @@ export async function isNotificationEnabledForChannel(prisma: PrismaClient, noti
 			const updatedChannels = [...config.channels];
 
 			// Remove the channel we no longer have send permissions in
-			updatedChannels.splice(updatedChannels.indexOf(channel.id));
+			pull(updatedChannels, channel.id);
 
 			// This updates the array for the specified notification
 			prisma.notificationSettings

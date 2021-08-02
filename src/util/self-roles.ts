@@ -1,5 +1,6 @@
 import {Snowflake, Guild} from 'discord.js';
 import {PrismaClient} from '@prisma/client';
+import {pull} from '@jonahsnider/util';
 
 /**
  * Removes self roles that are for roles that have been deleted on a Discord guild.
@@ -16,7 +17,7 @@ export async function cleanDeletedSelfRoles(prisma: PrismaClient, selfRoles: Sno
 
 	// Delete the old roles from the validated list
 	for (const deletedRole of deletedRoles) {
-		copy.splice(selfRoles.indexOf(deletedRole));
+		pull(copy, deletedRole);
 	}
 
 	if (copy.length !== selfRoles.length) {
