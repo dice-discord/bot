@@ -1307,9 +1307,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:2.29.0":
-  version: 2.29.0
-  resolution: "@prisma/client@npm:2.29.0"
+"@prisma/client@npm:2.29.1":
+  version: 2.29.1
+  resolution: "@prisma/client@npm:2.29.1"
   dependencies:
     "@prisma/engines-version": 2.29.0-34.1be4cd60b89afa04b192acb1ef47758a39810f3a
   peerDependencies:
@@ -1317,7 +1317,7 @@ __metadata:
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 2073a88402784d1636cbbfe20237bef2ff9fae50bf317c57b00a73a08e6748eb1c86a9904d14904cf94ec1f33dcb789559ee225e8abc41c335ceb27d1fd5c5ee
+  checksum: c5af4e28cfc39801e7037369493636570a8ce21bd5e1c565e6402c2337257ce4642e8d4c4626f30a1ce45c0b12055f91b19b40e245d9a55dd9ecd05123816d94
   languageName: node
   linkType: hard
 
@@ -4395,7 +4395,7 @@ __metadata:
     "@google-cloud/debug-agent": 5.2.8
     "@google-cloud/profiler": 4.1.3
     "@jonahsnider/util": 7.0.1
-    "@prisma/client": 2.29.0
+    "@prisma/client": 2.29.1
     "@semantic-release/exec": 5.0.0
     "@sentry/node": 6.11.0
     "@tsconfig/node14": 1.0.1
@@ -4428,7 +4428,7 @@ __metadata:
     parse-color: 1.0.0
     prettier: 2.3.2
     pretty-ms: 7.0.1
-    prisma: 2.29.0
+    prisma: 2.29.1
     raw-body: 2.4.1
     rimraf: 3.0.2
     roll: 1.3.1
@@ -10624,15 +10624,15 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"prisma@npm:2.29.0":
-  version: 2.29.0
-  resolution: "prisma@npm:2.29.0"
+"prisma@npm:2.29.1":
+  version: 2.29.1
+  resolution: "prisma@npm:2.29.1"
   dependencies:
     "@prisma/engines": 2.29.0-34.1be4cd60b89afa04b192acb1ef47758a39810f3a
   bin:
     prisma: build/index.js
     prisma2: build/index.js
-  checksum: cbf418e7f92c185c465297903d295571f0cdb999b31c4f269dac4ecfcbf105a15176977ea1b28fcc770b4bb260587e1ba69707c0c90029ccc7980df716f9f76d
+  checksum: ab22b27c210fb53998d4d680be1f8c1191ca894de66e0145d3c29383e75714d2b4b973376a76c095d117b42ecf44525f965fa82a1b61c12deeef3f9cdf76fb15
   languageName: node
   linkType: hard
 
