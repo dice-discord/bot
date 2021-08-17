@@ -65,7 +65,7 @@ export default class ColorCommand extends DiceCommand {
 				fields: [
 					{
 						name: 'CSS Keyword',
-						value: parsedColor.keyword || 'None'
+						value: parsedColor.keyword ?? 'None'
 					},
 					{
 						name: 'Hexadecimal',
