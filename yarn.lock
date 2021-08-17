@@ -1894,10 +1894,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/parse-color@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@types/parse-color@npm:1.0.0"
-  checksum: ce25d47a163ddff5c13e57ded3f7fd3b872ae7447280b117ce79287bcb834cb1939c43703d535d2409f9d3fdea7316c3b89bf5477a717404b51778f38ba04099
+"@types/parse-color@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@types/parse-color@npm:1.0.1"
+  checksum: 63a73a2e19f5b33e08e06ebcfd8fb2753bd4d13352d66d82b68e7a99e2f0757446ea1e581347329b90cb6d087c6b06d92511d70166d652acbfb49a5d3775954a
   languageName: node
   linkType: hard
 
@@ -4402,7 +4402,7 @@ __metadata:
     "@types/cron": 1.7.3
     "@types/jest": 27.0.1
     "@types/node": 14.17.9
-    "@types/parse-color": 1.0.0
+    "@types/parse-color": 1.0.1
     "@types/roll": 1.2.0
     "@types/signale": 1.4.2
     "@types/ws": 7.4.7
