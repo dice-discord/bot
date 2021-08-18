@@ -76,7 +76,7 @@ services:
       - backend
   # Reverse proxy and load balancer
   traefik:
-    image: traefik:v2.4.14
+    image: traefik:v2.5.0
     restart: unless-stopped
     ports:
       - '80:80'
