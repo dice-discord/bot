@@ -942,10 +942,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jonahsnider/util@npm:7.0.1":
-  version: 7.0.1
-  resolution: "@jonahsnider/util@npm:7.0.1"
-  checksum: 6d75a7a6c553aa722be93d1182e8b361f59dceef5f808d225a0e8251064c68a6501292baf29af4781b66d1a326246a632eb4743f84e99e3b91397490c18cea7e
+"@jonahsnider/util@npm:7.2.0":
+  version: 7.2.0
+  resolution: "@jonahsnider/util@npm:7.2.0"
+  checksum: bc4a42317323a00c11b724684a3b64672180037c4a772fc203ae4448e8c3f3987d756a8e16820c5ffb2852e380ba33d0b2254ba035ce15e062afc6d1de69459b
   languageName: node
   linkType: hard
 
@@ -4394,7 +4394,7 @@ __metadata:
     "@eclass/semantic-release-sentry-releases": 2.10.0
     "@google-cloud/debug-agent": 5.2.8
     "@google-cloud/profiler": 4.1.3
-    "@jonahsnider/util": 7.0.1
+    "@jonahsnider/util": 7.2.0
     "@prisma/client": 2.29.1
     "@semantic-release/exec": 5.0.0
     "@sentry/node": 6.11.0
