@@ -4422,7 +4422,7 @@ __metadata:
     influx: 5.9.2
     jest: 27.0.6
     kurasuta: 2.2.3
-    meilisearch: 0.19.0
+    meilisearch: 0.20.0
     micri: 4.3.0
     nyc: 15.1.0
     parse-color: 1.0.0
@@ -8868,12 +8868,12 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"meilisearch@npm:0.19.0":
-  version: 0.19.0
-  resolution: "meilisearch@npm:0.19.0"
+"meilisearch@npm:0.20.0":
+  version: 0.20.0
+  resolution: "meilisearch@npm:0.20.0"
   dependencies:
     cross-fetch: ^3.1.4
-  checksum: e64697a383d3c7a8a46df81e2e43f372ebf3160f8e550c2a15d8996151b1129827d5519034f7c995118477883e0b7ce448ddb1ff9eaaff56002911fe3f0c745f
+  checksum: 2d2e2158289bf45a1700fa637e7d3460a76b0f0fcc6e57d59983342dbab8d75111403ebc756b0f69cdf8f22369b18c9299c94c0d28eb1223d72cc9bfd8c24265
   languageName: node
   linkType: hard
 
