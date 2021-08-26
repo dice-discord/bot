@@ -4432,7 +4432,7 @@ __metadata:
     raw-body: 2.4.1
     rimraf: 3.0.2
     roll: 1.3.1
-    semantic-release: 17.4.6
+    semantic-release: 17.4.7
     semantic-release-docker: 2.2.0
     signale: 1.4.0
     source-map-support: 0.5.19
@@ -11464,9 +11464,9 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"semantic-release@npm:17.4.6":
-  version: 17.4.6
-  resolution: "semantic-release@npm:17.4.6"
+"semantic-release@npm:17.4.7":
+  version: 17.4.7
+  resolution: "semantic-release@npm:17.4.7"
   dependencies:
     "@semantic-release/commit-analyzer": ^8.0.0
     "@semantic-release/error": ^2.2.0
@@ -11498,7 +11498,7 @@ fsevents@^2.3.2:
     yargs: ^16.2.0
   bin:
     semantic-release: bin/semantic-release.js
-  checksum: 4ceb1d270598cd03a046703dceb6edb502f598fb4a84d030fcf08a823768307ed937c900cbbc1055f00d8e371af1292bf4011140f6be2ee7d552dcf24bb1b72a
+  checksum: 347fa8e03f3621ff925fa59e18ac5ab2b393120fc33361528b0dc6d622753a9aaf38e59fd15a7ef15f25f0eb3b30615159132ad10494aa1c5c37f174e4eaba40
   languageName: node
   linkType: hard
 
