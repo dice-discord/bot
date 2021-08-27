@@ -85,10 +85,10 @@ export class DiceClient extends AkairoClient {
 				disableMentions: 'everyone',
 				// Cache n<20 messages per channel
 				messageCacheMaxSize: 20,
-				// Cache messages for 15 minutes (60s * 15)
-				messageCacheLifetime: convert(15).from('minutes').to('seconds'),
+				// Cache messages for 15 minutes
+				messageCacheLifetime: convert(15, 'minutes').to('seconds'),
 				// Remove messages that are past lifetime every 1 minute
-				messageSweepInterval: convert(1).from('minute').to('seconds'),
+				messageSweepInterval: convert(1, 'minute').to('seconds'),
 				ws: {
 					intents: [
 						Intents.FLAGS.GUILDS,
