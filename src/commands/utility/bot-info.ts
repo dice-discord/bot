@@ -47,7 +47,7 @@ export default class BotInfoCommand extends DiceCommand {
 					},
 					{
 						name: 'RAM usage',
-						value: `${convert(heapUsed).from('bytes').to('megabytes').toFixed(2)} megabytes`,
+						value: `${convert(heapUsed, 'bytes').to('megabytes').toFixed(2)} megabytes`,
 						inline: true
 					},
 					{

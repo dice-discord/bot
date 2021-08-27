@@ -5,7 +5,7 @@ import {Message} from 'discord.js';
 import {dailyAmount, defaults} from '../../constants';
 import {DiceCommand, DiceCommandCategories} from '../../structures/DiceCommand';
 
-const cooldown = convert(22).from('hours').to('milliseconds');
+const cooldown = convert(22, 'hours').to('milliseconds');
 
 export default class DailyCommand extends DiceCommand {
 	constructor() {
