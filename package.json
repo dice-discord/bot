@@ -57,7 +57,7 @@
 		"prettier": "2.3.2",
 		"prisma": "3.0.2",
 		"rimraf": "3.0.2",
-		"semantic-release": "17.4.7",
+		"semantic-release": "18.0.0",
 		"source-map-support": "0.5.20",
 		"ts-jest": "27.0.5",
 		"ts-node": "10.2.1",
