@@ -41,7 +41,7 @@
 	},
 	"devDependencies": {
 		"@eclass/semantic-release-sentry-releases": "2.10.1",
-		"@semantic-release/exec": "5.0.0",
+		"@semantic-release/exec": "6.0.1",
 		"@tsconfig/node14": "1.0.1",
 		"@types/cron": "1.7.3",
 		"@types/jest": "27.0.2",
