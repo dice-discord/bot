@@ -1,11 +1,63 @@
 {
-	"author": {
-		"email": "jonah@jonah.pw",
-		"name": "Jonah Snider",
-		"url": "https://jonah.pw"
-	},
+	"name": "dice",
+	"version": "4.21.0",
+	"private": true,
 	"bugs": {
 		"url": "https://github.com/dice-discord/bot/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dice-discord/bot.git"
+	},
+	"license": "Apache-2.0",
+	"author": {
+		"name": "Jonah Snider",
+		"email": "jonah@jonahsnider.com",
+		"url": "https://jonahsnider.com"
+	},
+	"main": "./tsc_output/src/index.js",
+	"scripts": {
+		"prebuild": "rimraf tsc_output/**.js",
+		"build": "tsc",
+		"deploy": "semantic-release",
+		"predocs": "rimraf tsc_output/command_docs",
+		"docs": "node tsc_output/src/docs",
+		"postinstall": "prisma generate",
+		"lint": "xo",
+		"start": "node tsc_output/src/index.js",
+		"style": "prettier --check .",
+		"test": "jest"
+	},
+	"xo": {
+		"extends": [
+			"plugin:jest/recommended"
+		],
+		"plugins": [
+			"jest"
+		],
+		"prettier": true,
+		"rules": {
+			"camelcase": [
+				"error",
+				{
+					"allow": [
+						"id_guildId"
+					]
+				}
+			],
+			"node/prefer-global/url": "off",
+			"node/prefer-global/url-search-params": "off",
+			"unicorn/filename-case": [
+				"error",
+				{
+					"cases": {
+						"camelCase": true,
+						"kebabCase": true,
+						"pascalCase": true
+					}
+				}
+			]
+		}
 	},
 	"dependencies": {
 		"@discoin/scambio": "2.2.0",
@@ -67,58 +119,6 @@
 	},
 	"engines": {
 		"node": "14 || 15"
-	},
-	"license": "Apache-2.0",
-	"main": "./tsc_output/src/index.js",
-	"name": "dice",
-	"private": true,
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/dice-discord/bot.git"
-	},
-	"scripts": {
-		"build": "tsc",
-		"deploy": "semantic-release",
-		"docs": "node tsc_output/src/docs",
-		"lint": "xo",
-		"postinstall": "prisma generate",
-		"prebuild": "rimraf tsc_output/**.js",
-		"predocs": "rimraf tsc_output/command_docs",
-		"start": "node tsc_output/src/index.js",
-		"style": "prettier --check .",
-		"test": "jest"
-	},
-	"version": "4.21.0",
-	"xo": {
-		"extends": [
-			"plugin:jest/recommended"
-		],
-		"plugins": [
-			"jest"
-		],
-		"prettier": true,
-		"rules": {
-			"camelcase": [
-				"error",
-				{
-					"allow": [
-						"id_guildId"
-					]
-				}
-			],
-			"node/prefer-global/url": "off",
-			"node/prefer-global/url-search-params": "off",
-			"unicorn/filename-case": [
-				"error",
-				{
-					"cases": {
-						"camelCase": true,
-						"kebabCase": true,
-						"pascalCase": true
-					}
-				}
-			]
-		}
 	},
 	"packageManager": "yarn@3.0.2"
 }
