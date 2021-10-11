@@ -1,10 +1,4 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["@jonahsnider"],
-	"packageRules": [
-		{
-			"groupName": "prisma",
-			"matchPackagePatterns": ["^@prisma/", "^prisma$"]
-		}
-	]
+	"extends": ["@jonahsnider"]
 }
