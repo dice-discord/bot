@@ -1,4 +1,3 @@
-import {chunk} from '@jonahsnider/util';
 import {captureException} from '@sentry/node';
 import assert from 'assert';
 import {code} from 'discord-md-tags';
@@ -50,14 +49,9 @@ export default class ReadyListener extends DiceListener {
 		if (!runningInCI) {
 			const index = await this.client.meiliSearch.getOrCreateIndex<Indexes[IndexNames.Users]>(IndexNames.Users);
 			const users = [...this.client.users.cache.values()];
-			const userChunks = chunk(users, 500);
 
-			for (const userChunk of userChunks) {
-				const documents = userChunk.map(user => ({id: user.id, tag: user.tag}));
-
-				// eslint-disable-next-line no-await-in-loop
-				await index.addDocuments(documents);
-			}
+			const documents = users.map(user => ({id: user.id, tag: user.tag}));
+			await index.addDocumentsInBatches(documents, 500);
 		}
 
 		if (runningInProduction && this.client.shard?.id === 0) {
