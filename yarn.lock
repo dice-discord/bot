@@ -3191,13 +3191,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bufferutil@npm:4.0.4":
-  version: 4.0.4
-  resolution: "bufferutil@npm:4.0.4"
+"bufferutil@npm:4.0.5":
+  version: 4.0.5
+  resolution: "bufferutil@npm:4.0.5"
   dependencies:
     node-gyp: latest
-    node-gyp-build: ^4.2.0
-  checksum: 9ccea8c9c81c5d3a02de47dfac19f4ee2d42ffa319c86d6e2d6e510dc2fad1e6a8feb1a271e1ebfd81c53c4e7da560ea8a3f59a143679264e7791b6ebcc90bec
+    node-gyp-build: ^4.3.0
+  checksum: 37d5bef7cb38d29f9377b8891ff8a57f53ae6057313d77a8aa2a7417df37a72f16987100796cb2f1e1862f3eb80057705f3c052615ec076a0dcc7aa6c83b68c9
   languageName: node
   linkType: hard
 
@@ -4440,7 +4440,7 @@ __metadata:
     "@types/roll": 1.2.0
     "@types/signale": 1.4.2
     "@types/ws": 8.2.0
-    bufferutil: 4.0.4
+    bufferutil: 4.0.5
     convert: 4.2.0
     cron: 1.8.2
     date-fns: 2.25.0
@@ -9483,6 +9483,17 @@ fsevents@^2.3.2:
     node-gyp-build-optional: optional.js
     node-gyp-build-test: build-test.js
   checksum: 450d7b2016290d269343f8a33d13f4d7ccd0a38057af0d71a4d714fe06e6051da50b677a411ea9e240706253c4b53eb41e1b050df72d75d796b2e4d91b2757ae
+  languageName: node
+  linkType: hard
+
+"node-gyp-build@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "node-gyp-build@npm:4.3.0"
+  bin:
+    node-gyp-build: bin.js
+    node-gyp-build-optional: optional.js
+    node-gyp-build-test: build-test.js
+  checksum: 1ecab16d9f275174d516e223f60f65ebe07540347d5c04a6a7d6921060b7f2e3af4f19463d9d1dcedc452e275c2ae71354a99405e55ebd5b655bb2f38025c728
   languageName: node
   linkType: hard
 
