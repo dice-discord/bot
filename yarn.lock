@@ -4473,7 +4473,7 @@ __metadata:
     sqreen: 1.64.2
     ts-jest: 27.0.7
     ts-node: 10.4.0
-    type-fest: 2.5.1
+    type-fest: 2.5.2
     typescript: 4.2.4
     utf-8-validate: 5.0.7
     xo: 0.39.1
@@ -12983,10 +12983,10 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"type-fest@npm:2.5.1":
-  version: 2.5.1
-  resolution: "type-fest@npm:2.5.1"
-  checksum: e9e741b220fe202ebbad88b8fbf563810848d17f0b131ee0bead8c7a7b07370428ed2f585ca966c861f91c8ea193f7f994194abaf1db7f78824f5e38451eacb5
+"type-fest@npm:2.5.2":
+  version: 2.5.2
+  resolution: "type-fest@npm:2.5.2"
+  checksum: 77b3abd843667570eae295a835a94863a6c64b917b96e20215c6a98c27baacb7c0ac577ef80c28e50dea0a8089e2190cd3f2bd0198e68c0bbfb266346133f0fa
   languageName: node
   linkType: hard
 
