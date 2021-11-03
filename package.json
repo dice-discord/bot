@@ -120,5 +120,5 @@
 	"engines": {
 		"node": "14 || 15 || 16"
 	},
-	"packageManager": "yarn@3.0.2"
+	"packageManager": "yarn@3.1.0"
 }
