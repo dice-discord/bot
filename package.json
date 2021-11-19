@@ -76,7 +76,7 @@
 		"discord.js": "12.5.3",
 		"dotenv": "10.0.0",
 		"escape-string-regexp": "4.0.0",
-		"got": "11.8.2",
+		"got": "11.8.3",
 		"influx": "5.9.2",
 		"kurasuta": "2.2.3",
 		"meilisearch": "0.22.3",
