@@ -69,7 +69,7 @@
 		"bufferutil": "4.0.5",
 		"convert": "4.3.0",
 		"cron": "1.8.2",
-		"date-fns": "2.25.0",
+		"date-fns": "2.27.0",
 		"delay": "5.0.0",
 		"discord-akairo": "8.1.0",
 		"discord-md-tags": "1.0.0",
