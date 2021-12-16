@@ -97,7 +97,7 @@
 		"@tsconfig/node14": "1.0.1",
 		"@types/cron": "1.7.3",
 		"@types/jest": "27.0.3",
-		"@types/node": "16.11.13",
+		"@types/node": "16.11.14",
 		"@types/parse-color": "1.0.1",
 		"@types/roll": "1.2.0",
 		"@types/signale": "1.4.2",
