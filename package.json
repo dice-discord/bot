@@ -88,7 +88,7 @@
 		"semantic-release-docker": "2.2.0",
 		"signale": "1.4.0",
 		"sqreen": "1.64.2",
-		"utf-8-validate": "5.0.7",
+		"utf-8-validate": "5.0.8",
 		"zlib-sync": "0.1.7"
 	},
 	"devDependencies": {
