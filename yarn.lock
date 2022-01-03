@@ -3274,13 +3274,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bufferutil@npm:4.0.5":
-  version: 4.0.5
-  resolution: "bufferutil@npm:4.0.5"
+"bufferutil@npm:4.0.6":
+  version: 4.0.6
+  resolution: "bufferutil@npm:4.0.6"
   dependencies:
     node-gyp: latest
     node-gyp-build: ^4.3.0
-  checksum: 37d5bef7cb38d29f9377b8891ff8a57f53ae6057313d77a8aa2a7417df37a72f16987100796cb2f1e1862f3eb80057705f3c052615ec076a0dcc7aa6c83b68c9
+  checksum: dd107560947445280af7820c3d0534127b911577d85d537e1d7e0aa30fd634853cef8a994d6e8aed3d81388ab1a20257de776164afe6a6af8e78f5f17968ebd6
   languageName: node
   linkType: hard
 
@@ -4546,7 +4546,7 @@ __metadata:
     "@types/roll": 1.2.0
     "@types/signale": 1.4.3
     "@types/ws": 8.2.2
-    bufferutil: 4.0.5
+    bufferutil: 4.0.6
     convert: 4.3.2
     cron: 1.8.2
     date-fns: 2.28.0
