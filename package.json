@@ -100,7 +100,7 @@
 		"@types/node": "16.11.19",
 		"@types/parse-color": "1.0.1",
 		"@types/roll": "1.2.0",
-		"@types/signale": "1.4.3",
+		"@types/signale": "1.4.4",
 		"@types/ws": "8.2.2",
 		"eslint-plugin-jest": "25.3.4",
 		"eslint-plugin-prettier": "3.4.1",
