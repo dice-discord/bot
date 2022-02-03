@@ -65,7 +65,7 @@
 		"@google-cloud/profiler": "4.1.7",
 		"@jonahsnider/util": "8.10.0",
 		"@prisma/client": "3.9.0",
-		"@sentry/node": "6.17.3",
+		"@sentry/node": "6.17.4",
 		"bufferutil": "4.0.6",
 		"convert": "4.4.0",
 		"cron": "1.8.2",
