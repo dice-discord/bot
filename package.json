@@ -77,7 +77,7 @@
 		"dotenv": "16.0.0",
 		"escape-string-regexp": "4.0.0",
 		"got": "11.8.3",
-		"influx": "5.9.2",
+		"influx": "5.9.3",
 		"kurasuta": "2.2.3",
 		"meilisearch": "0.23.0",
 		"micri": "4.4.0",
