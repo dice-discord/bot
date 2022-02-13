@@ -835,17 +835,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eclass/semantic-release-sentry-releases@npm:2.11.0":
-  version: 2.11.0
-  resolution: "@eclass/semantic-release-sentry-releases@npm:2.11.0"
+"@eclass/semantic-release-sentry-releases@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@eclass/semantic-release-sentry-releases@npm:3.0.0"
   dependencies:
-    "@semantic-release/error": ^2.1.0
+    "@semantic-release/error": ^3.0.0
     aggregate-error: ^3.1.0
     form-data: ^4.0.0
     git-diff-tree: ^1.1.0
   peerDependencies:
-    semantic-release: ">=11.0.0 <18.0.0"
-  checksum: 1f87cbb409865f386a9b12b70c80981e91c6029f9ce5072ab6910683b60a4246726761e8a1e3ee48ccee4fc437a7166d0c1022a935a144bda4ce8ed74dce17c7
+    semantic-release: ">=18.0.0"
+  checksum: c1e40eb9dfdc84a8801f2ece8726471434c756071f82a371b54837d6cd415ac69fd980527b2907eaeb7a93f802facfb4e4930a1bbe01db6bcc5f1731b95f19ed
   languageName: node
   linkType: hard
 
@@ -4794,7 +4794,7 @@ __metadata:
   resolution: "dice@workspace:."
   dependencies:
     "@discoin/scambio": 2.2.0
-    "@eclass/semantic-release-sentry-releases": 2.11.0
+    "@eclass/semantic-release-sentry-releases": 3.0.0
     "@google-cloud/debug-agent": 5.2.8
     "@google-cloud/profiler": 4.1.7
     "@jonahsnider/util": 8.10.0
