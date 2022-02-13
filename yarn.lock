@@ -4826,7 +4826,7 @@ __metadata:
     jest: 27.5.1
     kurasuta: 2.2.3
     meilisearch: 0.23.0
-    micri: 4.4.0
+    micri: 4.5.0
     nyc: 15.1.0
     parse-color: 1.0.0
     prettier: 2.3.2
@@ -9568,12 +9568,12 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"micri@npm:4.4.0":
-  version: 4.4.0
-  resolution: "micri@npm:4.4.0"
+"micri@npm:4.5.0":
+  version: 4.5.0
+  resolution: "micri@npm:4.5.0"
   dependencies:
     handler-agent: 0.2.0
-  checksum: 904dcc3b1853ce857ffbd7a59a7de62408bec735569f627fc1c9117f71ca9b24f4511ed7ae961d3924699dabef7a761df67e4f3259d9f2c5353305024d1f981e
+  checksum: f9ea1df5069e6578b6423f31872cb1a03c45d731635480fd93cd0c7edef8d19699793734a99c2d15bde7b1f7707ceb9ece6defb0f4bf5646775c761238afccfe
   languageName: node
   linkType: hard
 

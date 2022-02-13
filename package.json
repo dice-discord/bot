@@ -80,7 +80,7 @@
 		"influx": "5.9.3",
 		"kurasuta": "2.2.3",
 		"meilisearch": "0.23.0",
-		"micri": "4.4.0",
+		"micri": "4.5.0",
 		"parse-color": "1.0.0",
 		"pretty-ms": "7.0.1",
 		"raw-body": "2.4.2",
