@@ -98,7 +98,7 @@ services:
       - frontend
       - backend
   telegraf:
-    image: telegraf:1.21.3-alpine
+    image: telegraf:1.21.4-alpine
     restart: unless-stopped
     env_file: telegraf.env
     environment:
