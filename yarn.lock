@@ -4255,10 +4255,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert@npm:4.4.1":
-  version: 4.4.1
-  resolution: "convert@npm:4.4.1"
-  checksum: b9135595ed8ce939c32ed79411ab39fc3f0aba4b93e5c789197e543ce66a33754b32b1226b1ee6d54652ccc4e030d484b48c0da2b138b404839ceb07bde8412d
+"convert@npm:4.4.2":
+  version: 4.4.2
+  resolution: "convert@npm:4.4.2"
+  checksum: a9de0671511a27ada43dd9ae62efce034d4930667340a7fc686c25fcc596a813c5f63a13fcc3d39f0735719d5c9d73182ce5521ecef947d62947eb11133d9e1b
   languageName: node
   linkType: hard
 
@@ -4817,7 +4817,7 @@ __metadata:
     "@types/signale": 1.4.4
     "@types/ws": 8.5.2
     bufferutil: 4.0.6
-    convert: 4.4.1
+    convert: 4.4.2
     cron: 1.8.2
     date-fns: 2.28.0
     delay: 5.0.0
