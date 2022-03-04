@@ -28,7 +28,7 @@ jobs:
       - name: Compile TypeScript
         run: yarn run build
       - name: Upload compiled TypeScript
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: tsc_output
           path: tsc_output
