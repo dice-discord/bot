@@ -78,7 +78,7 @@
 		"escape-string-regexp": "4.0.0",
 		"got": "11.8.3",
 		"influx": "5.9.3",
-		"kurasuta": "2.2.3",
+		"kurasuta": "3.0.2",
 		"meilisearch": "0.23.0",
 		"micri": "4.5.0",
 		"parse-color": "1.0.0",
